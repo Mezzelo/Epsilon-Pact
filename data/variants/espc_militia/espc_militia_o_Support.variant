@@ -1,0 +1,39 @@
+{
+  "variantId": "espc_militia_o_Support",
+  "hullId": "espc_militia_o",
+  "displayName": "Support",
+  "goalVariant": true,
+  "fluxCapacitors": 16,
+  "fluxVents": 15,
+  "quality": 1,
+  "permaMods": [],
+  "hullMods": [
+        "targetingunit",
+        "insulatedengine"
+  ],
+    "weaponGroups": [
+        {
+            "autofire": true,
+            "mode": "LINKED",
+            "weapons": {"WS 001": "hveldriver"}
+        },
+        {
+            "autofire": false,
+            "mode": "ALTERNATING",
+            "weapons": {"WS 002": "breachpod"}
+        },
+        {
+            "autofire": true,
+            "mode": "LINKED",
+            "weapons": {
+                "WS0001": "vulcan",
+                "WS0002": "vulcan",
+                "WS0003": "vulcan",
+                "WS0004": "pdburst",
+                "WS0005": "pdburst"
+            }
+        }
+    ],
+  "modules": [],
+  "wings": []
+}

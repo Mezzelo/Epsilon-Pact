@@ -1,0 +1,54 @@
+{
+  "variantId": "espc_observer_tt_Assault",
+  "hullId": "espc_observer_tt",
+  "displayName": "Assault",
+  "goalVariant": true,
+  "fluxCapacitors": 15,
+  "fluxVents": 22,
+  "quality": 1,
+  "permaMods": [],
+  "hullMods": [
+    "targetingunit",
+    "stabilizedshieldemitter",
+	"missleracks"
+  ],
+  "weaponGroups": [
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0001": "plasma"
+      }
+    },
+    {
+      "autofire": false,
+      "mode": "ALTERNATING",
+      "weapons": {
+        "WS0003": "sabotpod",
+        "WS0004": "sabotpod"
+      }
+    },
+    {
+      "autofire": false,
+      "mode": "ALTERNATING",
+      "weapons": {
+        "WS0007": "reaper",
+        "WS0008": "reaper",
+        "WS0009": "reaper",
+        "WS0010": "reaper",
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0011": "pdlaser",
+        "WS0012": "pdlaser",
+        "WS0005": "pdlaser",
+        "WS0006": "pdlaser",
+	  }
+    }
+  ],
+  "modules": [],
+  "wings": []
+}

@@ -1,0 +1,50 @@
+{
+  "variantId": "espc_observer_Assault",
+  "hullId": "espc_observer",
+  "displayName": "Assault",
+  "goalVariant": true,
+  "fluxCapacitors": 19,
+  "fluxVents": 30,
+  "quality": 1,
+  "permaMods": [],
+  "hullMods": [
+    "targetingunit",
+    "stabilizedshieldemitter"
+  ],
+  "weaponGroups": [
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0001": "plasma"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "ALTERNATING",
+      "weapons": {
+        "WS0003": "espc_riftspear",
+        "WS0004": "espc_riftspear"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0005": "pdlaser",
+        "WS0006": "pdlaser",
+        "WS0007": "ioncannon",
+        "WS0008": "ioncannon",
+        "WS0011": "pdlaser",
+        "WS0012": "pdlaser"
+      }
+    },
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {}
+    }
+  ],
+  "modules": [],
+  "wings": []
+}

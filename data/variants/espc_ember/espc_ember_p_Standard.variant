@@ -1,0 +1,26 @@
+{
+  "variantId": "espc_ember_p_Standard",
+  "hullId": "espc_ember_p",
+  "displayName": "Assault",
+  "goalVariant": true,
+  "fluxCapacitors": 20,
+  "fluxVents": 10,
+  "quality": 1,
+  "permaMods": [],
+  "hullMods": [
+	"militarized_subsystems"
+  ],
+  "weaponGroups": [
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 001": "autopulse"
+      }
+    }
+  ],
+  "modules": [],
+  "wings": [
+	"talon_wing",
+  ]
+}

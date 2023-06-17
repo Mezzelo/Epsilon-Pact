@@ -1,0 +1,24 @@
+{
+  "variantId": "tarsus_espc_conv_G",
+  "hullId": "tarsus_d",
+  "displayName": "Converted",
+  "goalVariant": false,
+  "fluxCapacitors": 6,
+  "fluxVents": 0,
+  "quality": 0.5,
+  "hullMods": ["converted_hangar"],
+  "permaMods": [],
+  "sMods": [],
+  "weaponGroups": [{
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+          "WS 001": "lightmg",
+          "WS 002": "lightmg",
+          "WS 003": "lightmg",
+          "WS 004": "lightmg"
+      }
+  }],
+  "modules": [],
+    "wings": ["claw_wing"]
+}

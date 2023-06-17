@@ -1,0 +1,51 @@
+{
+  "variantId": "apex_espc_Assault",
+  "hullId": "apex",
+  "displayName": "Assault",
+  "goalVariant": false,
+    "fluxCapacitors": 19,
+    "fluxVents": 30,
+  "quality": 0,
+  "permaMods": [],
+    "hullMods": ["targetingunit"],
+    "weaponGroups": [
+        {
+            "autofire": false,
+            "mode": "LINKED",
+            "weapons": {
+                "WS 005": "espc_fission",
+                "WS 006": "espc_fission"
+            }
+        },
+        {
+            "autofire": true,
+            "mode": "ALTERNATING",
+            "weapons": {
+                "WS 004": "espc_riftspear",
+                "WS 007": "espc_riftspear"
+            }
+        },
+        {
+            "autofire": true,
+            "mode": "ALTERNATING",
+            "weapons": {
+                "WS 000": "irpulse",
+                "WS 003": "irpulse"
+            }
+        },
+        {
+            "autofire": true,
+            "mode": "LINKED",
+            "weapons": {
+                "WS 008": "pdlaser",
+                "WS 009": "pdlaser",
+                "WS 010": "pdlaser",
+                "WS 011": "ioncannon",
+                "WS 012": "ioncannon",
+                "WS 013": "pdlaser"
+            }
+        }
+    ],
+  "modules": [],
+  "wings": []
+}

@@ -1,0 +1,33 @@
+{
+    "displayName": "Jerry-Rigged",
+    "fluxCapacitors": 8,
+    "fluxVents": 8,
+    "hullId": "espc_wolf_d",
+    "hullMods": [
+    "fluxcoil",
+	"fluxdistributor"
+	],
+    "permaMods": [],
+    "quality": 0.5,
+    "variantId": "wolf_espc_Gauss_Original",
+    "weaponGroups": [
+        {
+            "autofire": false,
+            "mode": "LINKED",
+            "weapons": {"WS 004": "heavyblaster"}
+        },
+        {
+            "autofire": false,
+            "mode": "ALTERNATING",
+            "weapons": {
+                "WS 005": "annihilator",
+                "WS 006": "annihilator"
+            }
+        },
+        {
+            "autofire": true,
+            "mode": "LINKED",
+            "weapons": {"WS 001": "ioncannon"}
+        }
+    ]
+}

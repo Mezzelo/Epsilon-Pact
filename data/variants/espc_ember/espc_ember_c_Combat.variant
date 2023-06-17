@@ -1,0 +1,26 @@
+{
+  "variantId": "espc_ember_c_Combat",
+  "hullId": "espc_ember_c",
+  "displayName": "Combat",
+  "goalVariant": true,
+    "fluxCapacitors": 12,
+    "fluxVents": 12,
+  "quality": 1,
+  "permaMods": [],
+  "hullMods": [
+        "militarized_subsystems",
+        "frontemitter",
+  ],
+  "weaponGroups": [
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 001": heavyblaster
+      }
+    }
+  ],
+  "modules": [],
+  "wings": [
+  ]
+}

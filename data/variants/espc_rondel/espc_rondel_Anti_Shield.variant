@@ -1,0 +1,34 @@
+{
+  "variantId": "espc_rondel_Anti_Shield",
+  "hullId": "espc_rondel",
+  "displayName": "Anti Shield",
+  "goalVariant": true,
+  "fluxCapacitors": 10,
+  "fluxVents": 2,
+  "quality": 1,
+  "permaMods": [],
+  "hullMods": [
+    "fluxcoil",
+    "fluxbreakers",
+    "targetingunit",
+  ],
+  "weaponGroups": [
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 001": "espc_remdriver",
+        
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+		"WS 002": "vulcan"
+	  }
+    }
+  ],
+  "modules": [],
+  "wings": []
+}

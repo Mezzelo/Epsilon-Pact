@@ -1,0 +1,48 @@
+{
+  "variantId": "brilliant_espc_Assault",
+  "hullId": "brilliant",
+  "displayName": "Assault",
+  "goalVariant": false,
+  "fluxCapacitors": 6,
+  "fluxVents": 30,
+  "quality": 0,
+  "permaMods": [],
+  "hullMods": [
+    "targetingunit",
+    "stabilizedshieldemitter"
+  ],
+  "weaponGroups": [
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 000": "plasma",
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "ALTERNATING",
+      "weapons": {
+        "WS 005": "heavyac",
+        "WS 006": "heavyac"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "ALTERNATING",
+      "weapons": {
+        "WS 001": "espc_riftspear",
+        "WS 004": "espc_riftspear"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 003": "pdburst"
+	  }
+    }
+  ],
+  "modules": [],
+  "wings": []
+}

@@ -1,0 +1,43 @@
+{
+  "variantId": "espc_militia_o_Standard",
+  "hullId": "espc_militia_o",
+  "displayName": "Standard",
+  "goalVariant": true,
+  "fluxCapacitors": 15,
+  "fluxVents": 15,
+  "quality": 1,
+  "permaMods": [],
+  "hullMods": [
+        "targetingunit",
+        "extendedshieldemitter",
+        "missleracks",
+        "expanded_cargo_holds"
+  ],
+    "weaponGroups": [
+        {
+            "autofire": false,
+            "mode": "LINKED",
+            "weapons": {"WS 002": "sabotpod"}
+        },
+        {
+            "autofire": false,	
+            "mode": "ALTERNATING",
+            "weapons": {
+                "WS0001": "harpoon",
+                "WS0002": "harpoon"
+            }
+        },
+        {
+            "autofire": true,
+            "mode": "LINKED",
+            "weapons": {
+                "WS 001": "flak",
+                "WS0003": "vulcan",
+                "WS0004": "pdburst",
+                "WS0005": "pdburst"
+            }
+        }
+    ],
+  "modules": [],
+  "wings": []
+}

@@ -1,0 +1,53 @@
+{
+  "variantId": "espc_observer_tt_Beam",
+  "hullId": "espc_observer_tt",
+  "displayName": "Beam",
+  "goalVariant": true,
+    "fluxCapacitors": 6,
+    "fluxVents": 15,
+  "quality": 1,
+  "permaMods": [],
+  "hullMods": [
+        "targetingunit",
+        "stabilizedshieldemitter",
+        "advancedoptics",
+		"missleracks"
+  ],
+    "weaponGroups": [
+        {
+            "autofire": true,
+            "mode": "LINKED",
+            "weapons": {"WS0001": "tachyonlance"}
+        },
+        {
+            "autofire": true,
+            "mode": "LINKED",
+            "weapons": {
+                "WS0003": "gravitonbeam",
+                "WS0004": "gravitonbeam",
+                "WS0009": "taclaser",
+                "WS0010": "taclaser"
+            }
+        },
+        {
+            "autofire": false,
+            "mode": "ALTERNATING",
+            "weapons": {
+                "WS0007": "sabot",
+                "WS0008": "sabot"
+            }
+        },
+        {
+            "autofire": true,
+            "mode": "LINKED",
+            "weapons": {
+                "WS0005": "pdlaser",
+                "WS0006": "pdlaser",
+                "WS0011": "pdlaser",
+                "WS0012": "pdlaser"
+            }
+        }
+    ],
+  "modules": [],
+  "wings": []
+}

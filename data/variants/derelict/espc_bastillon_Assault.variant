@@ -1,0 +1,48 @@
+{
+  "variantId": "espc_bastillon_Assault",
+  "hullId": "espc_bastillon",
+  "displayName": "Assault",
+  "goalVariant": true,
+  "fluxCapacitors": 17,
+  "fluxVents": 13,
+  "quality": 1,
+  "permaMods": [],
+  "hullMods": [
+    "targetingunit"
+  ],
+  "weaponGroups": [
+    {
+      "autofire": false,
+      "mode": "ALTERNATING",
+      "weapons": {
+        "WS0001": "shredder",
+        "WS0002": "espc_minimirdual"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 005": "irpulse",
+        "WS 006": "irpulse",
+        "WS 007": "irpulse",
+        "WS 008": "irpulse"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "ALTERNATING",
+      "weapons": {
+        "WS 001": "ioncannon",
+        "WS 002": "ioncannon"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {}
+    }
+  ],
+  "modules": [],
+  "wings": []
+}

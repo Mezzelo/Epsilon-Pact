@@ -1,0 +1,54 @@
+{
+  "variantId": "radiant_espc_Assault",
+  "hullId": "radiant",
+  "displayName": "Assault",
+  "goalVariant": false,
+    "fluxCapacitors": 50,
+    "fluxVents": 49,
+  "quality": 1,
+  "permaMods": [],
+  "hullMods": [
+        "targetingunit",
+        "stabilizedshieldemitter",
+        "hardenedshieldemitter"
+  ],
+    "weaponGroups": [
+        {
+            "autofire": true,
+            "mode": "LINKED",
+            "weapons": {
+                "WS 005": "espc_fission",
+                "WS 006": "espc_fission",
+                "WS 007": "espc_fission",
+                "WS 008": "espc_fission"
+            }
+        },
+        {
+            "autofire": true,
+            "mode": "LINKED",
+            "weapons": {"WS 003": "espc_riftpike"}
+        },
+        {
+            "autofire": true,
+            "mode": "ALTERNATING",
+            "weapons": {
+                "WS 002": "locust",
+                "WS 004": "locust"
+            }
+        },
+        {
+            "autofire": true,
+            "mode": "LINKED",
+            "weapons": {
+                "WS 000": "ionpulser",
+                "WS 001": "ionpulser",
+                "WS 010": "pdlaser",
+                "WS 012": "ioncannon",
+                "WS 015": "ioncannon",
+                "WS 017": "pdlaser"
+            }
+        }
+    ],
+  "modules": [],
+  "wings": []
+}

@@ -1,0 +1,46 @@
+{
+  "variantId": "radiant_espc_Hunter",
+  "hullId": "radiant",
+  "displayName": "Hunter",
+  "goalVariant": false,
+    "fluxCapacitors": 41,
+    "fluxVents": 50,
+  "quality": 1,
+  "permaMods": [],
+  "hullMods": [
+        "targetingunit",
+        "fluxbreakers",
+        "stabilizedshieldemitter"
+    ],
+    "weaponGroups": [
+        {
+            "autofire": false,
+            "mode": "LINKED",
+            "weapons": {
+                "WS 000": "espc_riftpike",
+                "WS 001": "espc_riftpike"
+            }
+        },
+        {
+            "autofire": false,
+            "mode": "ALTERNATING",
+            "weapons": {
+                "WS 002": "espc_riftpike",
+                "WS 003": "espc_riftpike",
+                "WS 004": "espc_riftpike"
+            }
+        },
+        {
+            "autofire": true,
+            "mode": "LINKED",
+            "weapons": {
+                "WS 010": "pdburst",
+                "WS 012": "pdburst",
+                "WS 015": "pdburst",
+                "WS 017": "pdburst"
+            }
+        }
+    ],
+  "modules": [],
+  "wings": []
+}

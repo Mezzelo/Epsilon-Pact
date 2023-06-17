@@ -1,0 +1,32 @@
+{
+  "variantId": "espc_picket_Anti_Armor",
+  "hullId": "espc_picket",
+  "displayName": "Anti-Armor",
+  "goalVariant": true,
+  "fluxCapacitors": 10,
+  "fluxVents": 2,
+  "quality": 1,
+  "permaMods": [],
+  "hullMods": [
+    "fluxbreakers",
+    "fluxcoil"
+  ],
+  "weaponGroups": [
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 002": "espc_minimir"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 003": "vulcan"
+      }
+    }
+  ],
+  "modules": [],
+  "wings": []
+}

@@ -1,0 +1,44 @@
+{
+  "variantId": "espc_ashes_afflictor_Strike",
+  "hullId": "afflictor",
+  "displayName": "Strike",
+  "goalVariant": false,
+  "fluxCapacitors": 10,
+  "fluxVents": 10,
+  "quality": 1,
+  "permaMods": [],
+  "hullMods": [
+    "adaptive_coils",
+    "fluxcoil",
+  ],
+  "sMods": [
+    "hardened_subsystems",
+    "heavyarmor",],
+  "weaponGroups": [
+    {
+      "autofire": false,
+      "mode": "ALTERNATING",
+      "weapons": {
+        "WS 002": "amblaster",
+        "WS 003": "amblaster"
+      }
+    },
+    {
+      "autofire": false,
+      "mode": "ALTERNATING",
+      "weapons": {
+        "WS 001": "hammer",
+        "WS 004": "hammer"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 006": "pdburst"
+      }
+    }
+  ],
+  "modules": [],
+  "wings": []
+}

@@ -1,0 +1,59 @@
+{
+  "variantId": "espc_pilgrim_h_Strike",
+  "hullId": "espc_pilgrim_h",
+  "displayName": "Strike",
+  "goalVariant": true,
+    "fluxCapacitors": 4,
+    "fluxVents": 0,
+  "quality": 1,
+  "permaMods": [],
+  "hullMods": [
+        "targetingunit",
+        "missleracks"
+  ],
+  "weaponGroups": [
+        {
+            "autofire": true,
+            "mode": "LINKED",
+            "weapons": {
+                "WS 001": "railgun",
+                "WS 002": "railgun"
+            }
+        },
+        {
+            "autofire": true,
+            "mode": "LINKED",
+            "weapons": {
+                "WS 007": "lightag",
+                "WS 009": "lightag"
+            }
+        },
+        {
+            "autofire": false,
+            "mode": "ALTERNATING",
+            "weapons": {
+                "WS 004": "sabotpod",
+                "WS 005": "sabotpod"
+            }
+        },
+        {
+            "autofire": false,
+            "mode": "LINKED",
+            "weapons": {"WS 003": "reaper"}
+        },
+        {
+            "autofire": true,
+            "mode": "LINKED",
+            "weapons": {
+                "WS 006": "vulcan",
+                "WS 008": "vulcan"
+            }
+        }
+  ],
+  "modules": [],
+    "wings": [
+        "hoplon_wing",
+        "hoplon_wing",
+        "broadsword_wing"
+    ]
+}

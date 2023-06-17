@@ -1,0 +1,60 @@
+{
+  "variantId": "radiant_espc_Attack",
+  "hullId": "radiant",
+  "displayName": "Attack",
+  "goalVariant": false,
+    "fluxCapacitors": 50,
+    "fluxVents": 44,
+  "quality": 1,
+  "permaMods": [],
+  "hullMods": [
+        "targetingunit",
+        "stabilizedshieldemitter",
+        "hardenedshieldemitter"
+  ],
+    "weaponGroups": [
+        {
+            "autofire": true,
+            "mode": "LINKED",
+            "weapons": {"WS 000": "plasma"}
+        },
+        {
+            "autofire": true,
+            "mode": "LINKED",
+            "weapons": {"WS 001": "tachyonlance"}
+        },
+        {
+            "autofire": true,
+            "mode": "LINKED",
+            "weapons": {"WS 003": "espc_riftpike"}
+        },
+        {
+            "autofire": true,
+            "mode": "ALTERNATING",
+            "weapons": {
+                "WS 002": "locust",
+                "WS 004": "locust"
+            }
+        },
+        {
+            "autofire": false,
+            "mode": "ALTERNATING",
+            "weapons": {
+                "WS 005": "espc_finnegan",
+                "WS 008": "espc_finnegan"
+            }
+        },
+        {
+            "autofire": true,
+            "mode": "LINKED",
+            "weapons": {
+                "WS 010": "pdlaser",
+                "WS 012": "ioncannon",
+                "WS 015": "ioncannon",
+                "WS 017": "pdlaser"
+            }
+        }
+    ],
+  "modules": [],
+  "wings": []
+}

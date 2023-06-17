@@ -1,0 +1,49 @@
+{
+  "variantId": "espc_militia_Support",
+  "hullId": "espc_militia",
+  "displayName": "Support",
+  "goalVariant": true,
+  "fluxCapacitors": 21,
+  "fluxVents": 20,
+  "quality": 1,
+  "permaMods": [],
+  "hullMods": [
+    "insulatedengine",
+    "targetingunit"
+  ],
+  "weaponGroups": [
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 002": "espc_remmortar"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 001": "espc_remdriver"
+      }
+    },
+    {
+      "autofire": false,
+      "mode": "ALTERNATING",
+      "weapons": {
+        "WS0001": "swarmer",
+        "WS0002": "swarmer"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0003": "vulcan",
+        "WS0004": "pdburst",
+        "WS0005": "pdburst"
+      }
+    }
+  ],
+  "modules": [],
+  "wings": []
+}

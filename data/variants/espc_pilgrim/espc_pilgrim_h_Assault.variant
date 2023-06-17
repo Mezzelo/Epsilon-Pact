@@ -1,0 +1,54 @@
+{
+  "variantId": "espc_pilgrim_h_Assault",
+  "hullId": "espc_pilgrim_h",
+  "displayName": "Assault",
+  "goalVariant": true,
+    "fluxCapacitors": 4,
+    "fluxVents": 0,
+  "quality": 1,
+  "permaMods": [],
+  "hullMods": [
+        "targetingunit",
+        "missleracks"
+  ],
+  "weaponGroups": [
+        {
+            "autofire": true,
+            "mode": "LINKED",
+            "weapons": {
+                "WS 007": "railgun",
+                "WS 009": "railgun"
+            }
+        },
+        {
+            "autofire": false,
+            "mode": "ALTERNATING",
+            "weapons": {
+                "WS 004": "typhoon",
+                "WS 005": "typhoon"
+            }
+        },
+        {
+            "autofire": false,
+            "mode": "ALTERNATING",
+            "weapons": {
+                "WS 001": "sabot",
+                "WS 002": "sabot",
+				"WS 003": "sabot"}
+        },
+        {
+            "autofire": true,
+            "mode": "LINKED",
+            "weapons": {
+                "WS 006": "vulcan",
+                "WS 008": "vulcan"
+            }
+        }
+  ],
+  "modules": [],
+    "wings": [
+        "warthog_wing",
+        "warthog_wing",
+        "broadsword_wing"
+    ]
+}

@@ -1,0 +1,27 @@
+{
+  "variantId": "espc_ember_c_Standard",
+  "hullId": "espc_ember_c",
+  "displayName": "Standard",
+  "goalVariant": true,
+  "fluxCapacitors": 10,
+  "fluxVents": 0,
+  "quality": 1,
+  "permaMods": [],
+  "hullMods": [
+        "militarized_subsystems",
+        "auxiliary_fuel_tanks",
+        "missleracks"
+  ],
+  "weaponGroups": [
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 001": "sabotpod"
+      }
+    }
+  ],
+  "modules": [],
+  "wings": [
+  ]
+}

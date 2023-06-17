@@ -1,0 +1,39 @@
+{
+  "variantId": "glimmer_espc_Escort",
+  "hullId": "glimmer",
+  "displayName": "Escort",
+  "goalVariant": false,
+  "fluxCapacitors": 10,
+  "fluxVents": 10,
+  "quality": 0,
+  "permaMods": [],
+  "hullMods": [
+  ],
+  "weaponGroups": [
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 001": "espc_riftspear"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 002": "ioncannon",
+        "WS 003": "ioncannon"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "ALTERNATING",
+      "weapons": {
+        "WS 004": "swarmer",
+        "WS 005": "swarmer"
+      }
+    }
+  ],
+  "modules": [],
+  "wings": []
+}

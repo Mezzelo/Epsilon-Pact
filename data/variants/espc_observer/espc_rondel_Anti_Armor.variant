@@ -1,0 +1,33 @@
+{
+  "variantId": "espc_rondel_Anti_Armor",
+  "hullId": "espc_rondel",
+  "displayName": "Anti Armor",
+  "goalVariant": true,
+  "fluxCapacitors": 10,
+  "fluxVents": 7,
+  "quality": 1,
+  "permaMods": [],
+  "hullMods": [
+    "fluxcoil",
+    "pointdefenseai"
+  ],
+  "weaponGroups": [
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 001": "heavymortar"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 002": "lightac",
+        "WS0001": "lightac"
+      }
+    }
+  ],
+  "modules": [],
+  "wings": []
+}
