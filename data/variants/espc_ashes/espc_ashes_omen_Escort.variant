@@ -1,0 +1,42 @@
+{
+  "variantId": "espc_ashes_omen_Escort",
+  "hullId": "omen",
+  "displayName": "Escort",
+  "goalVariant": false,
+  "fluxCapacitors": 10,
+  "fluxVents": 8,
+  "quality": 1,
+  "permaMods": [],
+  "hullMods": [
+    "fluxcoil"
+    
+  ],
+  "sMods": [
+    "hardened_subsystems",
+    "hardenedshieldemitter"],
+  "weaponGroups": [
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 001": "amblaster"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 003": "swarmer"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 002": "pdburst"
+      }
+    }
+  ],
+  "modules": [],
+  "wings": []
+}

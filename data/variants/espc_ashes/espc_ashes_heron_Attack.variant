@@ -1,0 +1,38 @@
+{
+  "variantId": "espc_ashes_heron_Attack",
+  "hullId": "heron",
+  "displayName": "Attack",
+  "goalVariant": true,
+  "fluxCapacitors": 6,
+  "fluxVents": 7,
+  "quality": 1,
+  "permaMods": [],
+  "hullMods": [
+    "insulatedengine"
+  ],
+  "weaponGroups": [
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 005": "hveldriver"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 002": "pdburst",
+        "WS 003": "pdburst",
+        "WS 004": "taclaser",
+        "WS 009": "pdlaser"
+      }
+    }
+  ],
+  "modules": [],
+  "wings": [
+    "broadsword_wing",
+    "longbow_wing",
+    "trident_wing"
+  ]
+}

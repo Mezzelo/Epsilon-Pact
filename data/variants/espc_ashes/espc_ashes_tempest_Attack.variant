@@ -1,0 +1,42 @@
+{
+  "variantId": "espc_ashes_tempest_Attack",
+  "hullId": "tempest",
+  "displayName": "Attack",
+  "goalVariant": false,
+  "fluxCapacitors": 10,
+  "fluxVents": 10,
+  "quality": 1,
+  "permaMods": [],
+  "hullMods": [
+    "fluxdistributor",
+    
+  ],
+  "sMods": [
+    "hardened_subsystems",
+    "extendedshieldemitter"],
+  "weaponGroups": [
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 001": "heavyblaster"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 002": "ionpulser"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 003": "swarmer"
+      }
+    }
+  ],
+  "modules": [],
+  "wings": []
+}

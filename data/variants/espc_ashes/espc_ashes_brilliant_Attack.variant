@@ -1,0 +1,60 @@
+{
+  "variantId": "espc_ashes_brilliant_Attack",
+  "hullId": "brilliant",
+  "displayName": "Attack",
+  "goalVariant": false,
+  "fluxCapacitors": 30,
+  "fluxVents": 23,
+  "quality": 0,
+  "permaMods": [],
+  "hullMods": [
+    
+  ],
+  "sMods": [
+    "targetingunit",
+    "hardenedshieldemitter"],
+  "weaponGroups": [
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 000": "riftcascade"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 005": "hveldriver",
+        "WS 006": "hveldriver"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 001": "heavyburst",
+        "WS 002": "pdburst",
+        "WS 004": "resonatormrm"
+      }
+    },
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {}
+    },
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {}
+    },
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {}
+    }
+  ],
+  "modules": [],
+  "wings": [
+  ]
+}

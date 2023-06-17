@@ -1,0 +1,69 @@
+{
+  "variantId": "espc_ashes_radiant_Assault",
+  "hullId": "radiant",
+  "displayName": "Assault",
+  "goalVariant": false,
+  "fluxCapacitors": 42,
+  "fluxVents": 42,
+  "quality": 1,
+  "permaMods": [],
+  "hullMods": [
+    
+  ],
+  "sMods": [
+    "targetingunit",
+    "missleracks"],
+  "weaponGroups": [
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 001": "vpdriver",
+        "WS 002": "rifttorpedo",
+        "WS 004": "cyclone"
+      }
+    },
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 003": "riftcascade"
+      }
+    },
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {}
+    },
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {}
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 000": "realitydisruptor"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 005": "resonatormrm",
+        "WS 006": "riftbeam",
+        "WS 007": "riftbeam",
+        "WS 008": "resonatormrm",
+        "WS 009": "pdlaser",
+        "WS 011": "pdlaser",
+        "WS 013": "pdburst",
+        "WS 014": "pdburst",
+        "WS 016": "pdlaser",
+        "WS 018": "pdlaser"
+      }
+    }
+  ],
+  "modules": [],
+  "wings": []
+}
