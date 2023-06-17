@@ -1,0 +1,22 @@
+{
+	"id":"epsilonpact", # internal id
+	"name":"Epsilon Pact", # displayed to the player
+	"author":"Mezzelo",
+    "version": "0.3.9-RC1",
+	"description":"some personal stuff.",
+    "gameVersion": "0.96a-RC9",
+    "dependencies": [
+        {
+            "id": "lw_lazylib",
+            "name": "LazyLib",
+            #"version": "2.6"
+        },
+        {
+            "id": "MagicLib",
+            "name": "MagicLib",
+            #"version": "2.6"
+        },
+    ],
+    "jars":["jars/Epsilon_Pact.jar"],	
+    "modPlugin":"data.scripts.espc_ModPlugin",
+}

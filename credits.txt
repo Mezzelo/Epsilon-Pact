@@ -1,0 +1,19 @@
+All of the art, code, design, writing, and sound in this mod is made by Mezzelo or is derived from the vanilla game or its open-licensed community libraries, with the following exceptions:
+
+- Faction music is taken from cuts of Patricia Taxxon's album Aeroplane - specifically, from the songs Scruff and Aeroplane. Consider checking out her discography, my amateur edits do her work no justice.
+https://patriciataxxon.bandcamp.com/album/aeroplane
+
+
+This was made with the use of the following community tools and libraries:
+
+- MagicLib, by Tartiflette and maintained by Wispborne, with various community contributionsL
+https://fractalsoftworks.com/forum/index.php?topic=25868.0
+
+- LazyLib, by Lazywizard
+https://fractalsoftworks.com/forum/index.php?topic=5444.0
+
+- Ship & Weapon Editor, by Trylobot and maintained & updated by Deathfly
+https://fractalsoftworks.com/forum/index.php?topic=11491.0
+
+- SafariJohn's Rules Tool, by SafariJohn
+https://fractalsoftworks.com/forum/index.php?topic=13976.0

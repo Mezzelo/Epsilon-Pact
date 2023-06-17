@@ -1,0 +1,12 @@
+{
+    "masterVersionFile":"https://raw.githubusercontent.com/mezzelo/EpsilonPact/main/Epsilon%20Pact/epsilon_pact.version",
+    "modName":"Epsilon Pact",
+    "modThreadId":1,
+    "modVersion":
+    {
+        "major":0,
+        "minor":3,
+        "patch":"9"
+    },
+	"directDownloadURL":"",
+}
