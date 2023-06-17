@@ -1,6 +1,4 @@
 # Epsilon Pact
 this is a mod for Starsector, by Fractal Softworks - https://fractalsoftworks.com/
 
-be aware this source directory probably doesn't work as a mod installation i think there's some files missing - i needa get git on this computer the file upload limit is SO wack
-
-i think it should be fine if you just nab the src folder and throw that onto the actual release - check right.  you should know where to find it if you're on this page.
+i *think* i got all the files?  don't have git on this system did uploads through browser might've missed something - if you wanna be sure, just grab the release.  the only stuff not in there is in the src folder lol
