@@ -1,0 +1,13 @@
+{
+	"id":"espc_MissileBoost",
+	"type":"STAT_MOD",
+	"aiType":"WEAPON_BOOST",
+	
+	"statsScript":"data.scripts.shipsystems.espc_MissileBoostStats",
+	
+	"weaponGlowColor":[255,120,0,155],
+	"weaponTypes":[MISSILE],
+	
+	"useSound":"system_ammo_feeder",
+	"outOfUsesSound":"gun_out_of_ammo",
+}

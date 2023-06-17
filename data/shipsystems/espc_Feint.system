@@ -1,0 +1,13 @@
+{
+	"id":"espc_Feint",
+	"type":"STAT_MOD",
+	"aiType":"CUSTOM",
+	
+	"aiScript":"data.scripts.shipsystems.ai.espc_FeintAI",
+	"statsScript":"data.scripts.shipsystems.espc_FeintStats",
+	
+	# "useSound":"espc_shieldwall",
+	"outOfUsesSound":"gun_out_of_ammo",
+	
+	"loopSound":"ui_interdict_loop",
+}

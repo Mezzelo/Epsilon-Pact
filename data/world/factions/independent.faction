@@ -1,0 +1,20 @@
+{
+	"portraits":{
+		"standard_female":[
+		],
+		"standard_male":[
+		]
+	},
+    "hullFrequency":{
+        "hulls":{
+			"espc_militia_o":0.6,
+			"espc_ember_c":0.6,
+        },
+    },
+    "knownShips":{
+        "hulls":[
+            "espc_militia_o",
+			"espc_ember_c",
+        ],
+    },
+}

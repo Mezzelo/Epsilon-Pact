@@ -1,0 +1,22 @@
+{
+	"id":"espc_ResonatorShield",
+	"type":"SHIELD_MOD",
+	"aiType":"CUSTOM",
+
+	"aiScript":"data.scripts.shipsystems.ai.espc_ResonatorShieldAI",
+	"statsScript":"data.scripts.shipsystems.espc_ResonatorShieldStats",
+	
+	"shieldRingColor":[255,255,255,255],
+	"shieldInnerColor":[75,225,255,75],
+	"shieldThicknessMult":1.5,
+	"shieldFluctuationMult":1.7,
+	
+	"soundFilterType":"LOWPASS",
+	"soundFilterGain":0.8,
+	"soundFilterGainHF":0.0,
+	
+	"useSound":"espc_shieldwall",
+	"outOfUsesSound":"gun_out_of_ammo",
+	
+	"loopSound":"system_fortress_shield_loop",
+}

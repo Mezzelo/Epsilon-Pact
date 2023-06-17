@@ -1,0 +1,19 @@
+{
+	"id":"espc_remmortar_shot",
+	"specClass":"projectile",
+	"spawnType":"BALLISTIC",
+	"collisionClass":"PROJECTILE_FF",
+	"collisionClassByFighter":"PROJECTILE_FIGHTER",
+	"onHitEffect":"data.scripts.weapons.proj.espc_RemiseMortarProjEffect",
+	"length":20.0,
+	"hitGlowRadius":120,
+	"glowRadius":25,
+	"glowColor":[255,70,30,105],
+	"width":9.0,
+	"fadeTime":0.5,
+	"fringeColor":[255,100,45,235],
+	"coreColor":[255,155,105,170],	
+	"textureScrollSpeed":64.0,
+	"pixelsPerTexel":5.0,
+	"bulletSprite":"graphics/missiles/shell_round_lrg.png"
+}

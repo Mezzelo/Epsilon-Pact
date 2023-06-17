@@ -1,0 +1,518 @@
+{
+    id:"epsilpac",
+
+    "color":[10,119,158,211],
+    "baseUIColor":[101,202,216,200],
+    "darkUIColor":[6,82,112,175],
+    "gridUIColor":[225,225,225,75],
+
+    #"secondaryUIColor":[10,119,158,255],
+    #"secondarySegments":3,
+
+    "displayName":"Epsilon Pact",
+    "displayNameWithArticle":"the Epsilon Pact",	
+    "displayNameLong":"Epsilon Pact",
+    "displayNameLongWithArticle":"the Epsilon Pact",
+    "personNamePrefixAOrAn":"an",
+    "displayNameIsOrAre":"is",
+
+    "logo":"graphics/factions/epsilpac_gradonly_flag.png",
+    "crest":"graphics/factions/epsilpac_gradonly_crest.png",
+	
+    "shipNamePrefix":"EPS",
+	
+    "shipNameSources":{
+        "EPSILNAME":16,
+        "GENERAL":1,
+        "SPACE":1,
+        "KNIGHTS":1,
+        "BEASTS":1,
+    },	
+    "names":{
+		"world":1,
+		"future":1,
+		"myth":1,
+    },
+
+    "variantOverrides":{
+        "wolf_espc_Assault":2,
+        "wolf_espc_Strike":4,
+        "wolf_espc_Support":4,
+        "lasher_espc_Strike":8,
+		
+		"hammerhead_espc_Elite":3,
+		"hammerhead_espc_Support":2,
+		"sunder_espc_Assault":2,
+		"sunder_espc_Support":2,
+		"sunder_espc_Strike":2,
+		
+        "glimmer_espc_Escort":6,
+		"glimmer_Assault":4,
+		"lumen_espc_Escort":10,
+		"fulgent_Assault":2,
+		"fulgent_espc_Assault":4,
+		"fulgent_espc_Strike":4,
+		"brilliant_espc_Assault":4,
+		"brilliant_Standard":2,
+		"brilliant_espc_Support":4,
+		"apex_espc_Assault":5,
+		"apex_espc_Strike":5,
+		"radiant_espc_Assault":3,
+		"radiant_espc_Attack":2,
+		"radiant_espc_Hunter":1,
+		"radiant_espc_Strike":4,
+		"nova_espc_Assault":5,
+		"nova_espc_Strike":5,
+    },
+
+    # multiplier for how often hulls show up in the faction's fleets
+    "hullFrequency":{
+        "tags":{"base_bp":0.2, "lowtech_bp":0.3, "midline_bp":0.3, "hightech_bp":0.3, "independent":0.3, "epsilpac":1, "remnant":1,
+        },
+        "hulls":{
+			"buffalo2":0,
+			"monitor":0, # we hate sturdy ships in this household
+			"vanguard":0,
+			"centurion":0,
+			"mora":0,
+			
+			"omen":0.3,
+			"wolf":0.3,
+			"hammerhead":0.4,
+			
+			# "espc_flagbearer":0.7,
+			
+			"espc_picket":0.7,
+			"espc_sentry":0.7,
+			"espc_bastillon":0.7,
+			"espc_berserker":0.7,
+			"espc_rampart":0.7,
+			
+			"glimmer":0.4,
+			"lumen":0.2,
+			"fulgent":0.6,
+			"scintilla":0.2,
+			"brilliant":0.6,
+			"apex":0.4,
+			"nova":0.4,
+			"radiant":0.6,
+        },
+    },
+	
+	# ["base_bp", "lowtech_bp", "midline_bp", "hightech_bp", "independent", "epsilpac", "remnant"],
+
+    # ships the faction gets access to when importing S&W out-of-faction
+    "shipsWhenImporting":{
+        "tags":[],
+        "hulls":[
+			"lasher",
+			"wolf",
+			"omen",
+			
+			"hammerhead",
+			"sunder",
+			
+			"apogee",
+
+			"dram",
+			"mule",
+			"tarsus",
+		
+			
+			"glimmer",
+			"lumen",
+			"fulgent",
+			"scintilla",
+			"brilliant",
+			"radiant",
+        ],
+    },
+
+	"knownShips":{
+		# "base_bp", "lowtech_bp", "hightech_bp", "independent", "epsilpac", "remnant"
+		"tags":["espc_bp", "espc_derelict_bp"],
+		"hulls":[
+			"lasher",
+			"omen",
+			"wolf",
+			
+			"hammerhead",
+			"sunder",
+			
+			# "apogee",
+			# "venture",
+			
+			# "dram",
+			# "mule",
+			# "tarsus",
+			
+			
+			"espc_flagbearer",
+			"espc_rondel",
+			"espc_jackalope",
+			"espc_songbird",
+			"espc_opossum",
+			# "espc_narthex",
+			"espc_militia",
+			"espc_ember",
+			"espc_chorale",
+			"espc_observer",
+			"espc_pilgrim",
+			# "espc_atavist",
+			# "espc_gallant",
+			
+			"espc_picket",
+			"espc_sentry",
+			"espc_bastillon",
+			"espc_berserker",
+			"espc_rampart",
+			
+			"glimmer",
+			"lumen",
+			"fulgent",
+			"scintilla",
+			"brilliant",
+			"apex",
+			"nova",
+			"radiant",
+		],
+	},
+
+    # listing ships here will make the faction mostly use them even if other hulls become available
+    "priorityShips":{
+        "tags":[],
+        "hulls":[
+        ],
+    },
+
+    "knownFighters":{
+		"tags":["remnant"],
+        "fighters":[
+			"wasp_wing",
+			"spark_wing",
+			"lux_wing",
+			"flash_wing",
+			"broadsword_wing",
+			"dagger_wing",
+			"xyphos_wing",
+        ],
+    },
+
+	"priorityFighters":{
+		"tags":[],
+		"fighters":[
+		],
+	},
+
+	"knownWeapons":{
+		# "base_bp", "lowtech_bp", "midline_bp", "hightech_bp", "missile_bp", "independent", "remnant"
+		"tags":["espc_bp"],
+		"weapons":[
+			"vulcan",
+			# "lightmg",
+			"pdlaser",
+			# "lrpdlaser",
+			"pdburst",
+			"flak",
+			"dualflak",
+			"heavyburst",
+			
+			"lightag",
+			"lightac",
+			"lightdualac",
+			"lightneedler",
+			"railgun",
+			
+			"heavyac",
+			# "heavymauler",
+			"hveldriver",
+			"shredder",
+			# "heavyneedler",
+			
+			"mjolnir",
+			"mark9",
+			"hellbore",
+			"devastator",
+			
+			"amblaster",
+			"irpulse",
+			"taclaser",
+			"ioncannon",
+			
+			"pulselaser",
+			"heavyblaster",
+			"ionpulser",
+			"ionbeam",
+			# "gravitonbeam",
+			
+			# "autopulse",
+			"plasma",
+			"tachyonlance",
+			# "guardian",
+			
+			"breach",
+			"swarmer",
+			"hammer",
+			"annihilator",
+			# "sabot",
+			# "sabot_single",
+			
+			"sabotpod",
+			# "breachpod",
+			# "phasecl",
+			# "typhoon",
+			# "pilum",
+			
+			# "cyclone",
+			# "hammerrack",
+			"locust",
+
+			"espc_finnegan",
+			"espc_minimir",
+			"espc_minimirdual",
+			"espc_remdriver",
+			"espc_remmortar",
+			"espc_aa",
+			"espc_mkl",
+			"espc_gatling",
+			"espc_fission",
+			"espc_riftspear",	
+			# "espc_hcl",
+			"espc_riftpike",
+		],
+	},
+	"priorityWeapons":{
+		"tags":[],
+		"weapons":[
+		],
+	},
+
+    "knownHullMods":{
+        "tags":[],
+		"hullMods":[
+			"advancedshieldemitter",
+			"advancedoptics",
+			"augmentedengines",
+			"ecm",
+			"extendedshieldemitter",
+			"frontemitter",
+			"frontshield",
+			"hardenedshieldemitter",
+			"insulatedengine",
+			"pointdefenseai",
+			"targetingunit",
+			"nav_relay",
+			"fluxbreakers",
+			"stabilizedshieldemitter",
+			"hiressensors",
+			"ballistic_rangefinder",
+		],
+    },
+
+	"weaponSellFrequency":{
+		"vulcan":3,
+		"pdlaser":3,
+		"pdburst":3,
+		"flak":3,
+		"dualflak":3,
+		"heavyburst":3,
+		
+		"lightag":3,
+		"lightac":3,
+		"lightdualac":3,
+		"lightneedler":3,
+		"railgun":3,
+		
+		"heavyac":3,
+		"hveldriver":3,
+		"shredder":3,
+		# "heavyneedler":3,
+		
+		"mjolnir":3,
+		"mark9":3,
+		"hellbore":3,
+		"devastator":3,
+		
+		"amblaster":3,
+		"irpulse":3,
+		"taclaser":3,
+		"ioncannon":3,
+		
+		"pulselaser":3,
+		"heavyblaster":3,
+		"ionpulser":3,
+		"ionbeam":3,
+		"plasma":3,
+		"tachyonlance":3,
+		
+		"breach":3,
+		"swarmer":3,
+		"hammer":3,
+		"annihilator":3,
+		
+		"sabotpod":3,
+		# "breachpod":3,
+		# "phasecl":3,
+		"locust":3,
+	
+		"espc_finnegan":10,
+		"espc_minimir":10,
+		"espc_minimirdual":10,
+		"espc_remdriver":10,
+		"espc_remmortar":10,
+		"espc_aa":10,
+		"espc_mkl":10,
+		"espc_gatling":10,
+		"espc_fission":10,
+		"espc_riftspear":10,	
+		# "espc_hcl":10,
+		"espc_riftpike":10,
+	},
+	
+	"factionDoctrine":{
+		"warships":6,
+		"carriers":1,
+		"phaseShips":0,
+		
+		"officerQuality":3,
+		"shipQuality":2,
+		"numShips":2,
+		
+		"shipSize":3,
+		
+		"aggression":2,
+		
+		"combatFreighterProbability":1,      				# instead of some portion of the freighters in a fleet
+		"combatFreighterCombatUseFraction":0.4,  				# as part of the normal combat lineup
+		"combatFreighterCombatUseFractionWhenPriority":0.7, # as part of normal combat lineup, when marked as priority ship
+		"autofitRandomizeProbability":0.1,
+
+		"commanderSkillsShuffleProbability":1,
+		"commanderSkills":[
+			# "crew_training",
+			"officer_training",
+			"coordinated_maneuvers",
+			"electronic_warfare",
+			"flux_regulation",
+			"wolfpack_tactics",
+		],
+	},
+	"illegalCommodities":[
+		"drugs",
+		"hand_weapons",
+		# "organs",
+		"luxury_goods",
+	],
+
+    "music":{
+		"theme":"music_epsilpac_encounter_neutral",
+		"market_friendly":"music_epsilpac_market_friendly",
+		"market_neutral":"music_epsilpac_market_neutral",
+		"market_hostile":"music_epsilpac_market_hostile",
+		"encounter_neutral":"music_epsilpac_encounter_neutral",
+		"encounter_hostile":"music_epsilpac_encounter_hostile",
+		"encounter_friendly":"music_epsilpac_encounter_friendly",
+    },
+
+    "portraits":{
+        "standard_male":[
+            "graphics/portraits/espc_alman.png",
+            "graphics/portraits/espc_dominic.png",
+            "graphics/portraits/espc_gao.png",
+            "graphics/portraits/espc_henrik.png",
+            "graphics/portraits/espc_midas.png",
+            "graphics/portraits/espc_narun.png",
+            "graphics/portraits/espc_neil.png",
+            "graphics/portraits/espc_ofouhou.png",
+            "graphics/portraits/espc_raul.png",
+        ],
+        "standard_female":[	
+            "graphics/portraits/espc_aka.png",
+            "graphics/portraits/espc_angela.png",
+            "graphics/portraits/espc_beth.png",
+            "graphics/portraits/espc_brie.png",
+            "graphics/portraits/espc_helena.png",
+			"graphics/portraits/espc_phoebe.png",
+            "graphics/portraits/espc_rosa.png",
+            "graphics/portraits/espc_seo.png",
+            "graphics/portraits/espc_tomi.png",
+        ],
+    },
+
+    "ranks":{
+            "ranks":{
+				"factionLeader":{"name":"Captain"},
+				"espc_scientist":{"name":"Scientist"},
+				"espc_speaker":{"name":"Tribal Leader"},
+            },
+            "posts":{
+				"factionLeader":{"name":"Captain"},
+				"espc_scientist":{"name":"Head of Research"},
+				"espc_speaker":{"name":"Pact Speaker"},
+				
+				"patrolCommander":{"name":"Patrol Commander"},
+				"fleetCommander":{"name":"Fleet Commander"},
+	
+				"baseCommander":{"name":"Base Head"},
+				"stationCommander":{"name":"Station Head"},
+				"outpostCommander":{"name":"Outpost Head"},
+            },
+    },
+	
+	"voices":{
+		"LOW":{
+			"soldier":3,
+			"spacer":10,
+			"business":3,
+		},
+		"MEDIUM":{
+			"soldier":3,
+			"business":3,
+			"official":5,
+			"spacer":10,
+		},
+		"HIGH":{
+			"spacer":10,
+			"soldier":1,
+			"business":5,
+			"official":7,
+		},
+	},
+	
+    "custom":{
+		"willTradeWhenHostile":false,
+		"ignoreTradeWithEnemiesForReputation":true,
+		"offerMissionsWhenHostile":false,
+		"allowsTransponderOffTrade":false,
+        "offersCommissions":true,
+        "engagesInHostilities":true,
+        "buysAICores":true,
+        "AICoreValueMult":0,
+        "AICoreRepMult":3,
+        "buysSurveyData":false,
+        "hostilityImpactOnGrowth":true,
+		"caresAboutAtrocities":true,
+        "punitiveExpeditionData":{
+            "vsCompetitors":false,
+            "vsFreePort":false,
+            "canBombard":false,
+            "territorial":false,
+        },
+    },
+
+    "fleetTypeNames":{
+		"trade":"Mercantile Convoy",
+		"tradeLiner":"Liner Convoy",
+		"tradeSmuggler":"Smuggler",
+		"smallTrader":"Merchant",
+		
+		"patrolSmall":"Light Recon",
+		"patrolMedium":"Patrol",
+		"patrolLarge":"Heavy Patrol",
+		
+		"inspectionFleet":"Inspection Fleet",
+		"taskForce":"Task Force",
+		
+		"foodReliefFleet":"Relief Convoy",
+    },
+},

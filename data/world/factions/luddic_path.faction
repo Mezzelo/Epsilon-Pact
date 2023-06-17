@@ -1,0 +1,25 @@
+{
+	"portraits":{
+		"standard_female":[
+		],
+		"standard_male":[
+		]
+	},
+    "hullFrequency":{
+        "hulls":{
+			"espc_jackalope_lp":0.7,
+        },
+    },
+    "knownShips":{
+        "hulls":[
+			"espc_jackalope_lp",
+        ],
+    },
+	
+	"knownWeapons":{
+		"tags":[],
+		"weapons":[
+			"espc_amflamersolo",
+		],
+	},
+}

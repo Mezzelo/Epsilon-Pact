@@ -1,0 +1,22 @@
+{
+    "hullFrequency":{
+        "hulls":{
+#            "espc_billhook_p":0.3,
+			"espc_ember_p":0.8,
+        },
+    },
+    "knownShips":{
+        "hulls":[
+#            "espc_billhook_p",
+			"espc_ember_p",
+        ],
+    },
+	
+	"knownWeapons":{
+		"tags":[],
+		"weapons":[
+			"espc_amflamersolo",
+			"espc_as",
+		],
+	},
+},

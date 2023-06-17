@@ -1,0 +1,11 @@
+{
+	"id":"espc_Momentum",
+	"type":"STAT_MOD",
+	"aiType":"ENTROPY_AMPLIFIER",
+	
+	"statsScript":"data.scripts.shipsystems.espc_MomentumStats",
+	
+	"useSound":"system_entropy",
+	"deactivateSound":"system_entropy_off",
+	"outOfUsesSound":"gun_out_of_ammo",
+}

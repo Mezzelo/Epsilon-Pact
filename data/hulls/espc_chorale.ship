@@ -1,0 +1,147 @@
+{
+  "hullName": "Chorale",
+  "hullId": "espc_chorale",
+  "hullSize": "CRUISER",
+  "spriteName": "graphics/ships/espc_chorale_base.png",
+  "style": "ESPC_MIDLINE",
+  "height": 226,
+  "width": 154,
+  "center": [72, 114.5],
+  "collisionRadius": 139,
+  "shieldCenter": [0, -0],
+  "shieldRadius": 138,
+  "viewOffset": 0,
+  "builtInMods": [
+    "espc_choralemod"
+  ],
+  "weaponSlots": [
+    {
+      "id": "WS 010",
+      "size": "SMALL",
+      "type": "HYBRID",
+      "mount": "TURRET",
+      "arc": 274,
+      "angle": 159,
+      "locations": [-75.5, 44]
+    },
+    {
+      "id": "WS 003",
+      "size": "MEDIUM",
+      "type": "HYBRID",
+      "mount": "TURRET",
+      "arc": 10,
+      "angle": 22.5,
+      "locations": [23.5, 46]
+    },
+    {
+      "id": "WS 001",
+      "size": "LARGE",
+      "type": "HYBRID",
+      "mount": "TURRET",
+      "arc": 20,
+      "angle": 22.5,
+      "locations": [-20.5, 26.5]
+    },
+    {
+      "id": "WS 007",
+      "size": "MEDIUM",
+      "type": "HYBRID",
+      "mount": "TURRET",
+      "arc": 10,
+      "angle": 22.5,
+      "locations": [66.5, 33.5]
+    },
+    {
+      "id": "WS 008",
+      "size": "MEDIUM",
+      "type": "SYNERGY",
+      "mount": "TURRET",
+      "arc": 126,
+      "angle": -27.5,
+      "locations": [-33.5, -44]
+    },
+    {
+      "id": "WS 002",
+      "size": "LARGE",
+      "type": "HYBRID",
+      "mount": "TURRET",
+      "arc": 20,
+      "angle": 22.5,
+      "locations": [31.5, 9.5]
+    },
+    {
+      "id": "WS 004",
+      "size": "MEDIUM",
+      "type": "HYBRID",
+      "mount": "TURRET",
+      "arc": 10,
+      "angle": 22.5,
+      "locations": [76.5, -16.5]
+    }
+  ],
+  "engineSlots": [
+    {
+      "location": [-76, -66.5],
+      "length": 29.5,
+      "width": 11,
+      "angle": -156.5,
+      "contrailSize": 11,
+      "style": "MIDLINE"
+    },
+    {
+      "location": [-84.5, -55],
+      "length": 34.112038,
+      "width": 18.586964,
+      "angle": -157.5,
+      "contrailSize": 18.586964,
+      "style": "MIDLINE"
+    },
+    {
+      "location": [-98.5, -38],
+      "length": 47.317165,
+      "width": 21.502159,
+      "angle": -158.5,
+      "contrailSize": 21.502159,
+      "style": "MIDLINE"
+    },
+    {
+      "location": [-99.5, 37.5],
+      "length": 29.633732,
+      "width": 11.720385,
+      "angle": 180,
+      "contrailSize": 11.720385,
+      "style": "MIDLINE"
+    },
+    {
+      "location": [-104.5, 22],
+      "length": 34.30801,
+      "width": 18.48896,
+      "angle": 180,
+      "contrailSize": 18.48896,
+      "style": "MIDLINE"
+    },
+    {
+      "location": [-112, 5.5],
+      "length": 50.821903,
+      "width": 26.805523,
+      "angle": 180,
+      "contrailSize": 26.805523,
+      "style": "MIDLINE"
+    }
+  ],
+  "bounds": [
+    109.5, 31.5,
+    82, -23,
+    -38, -78.5,
+    -66.5, -75.5,
+    -101, -30.5,
+    -84.5, -17,
+    -87, -7,
+    -111.5, -5,
+    -113, 15,
+    -95.5, 53.5,
+    -53.5, 67,
+    6, 66.5,
+    99.5, 43
+  ]
+}

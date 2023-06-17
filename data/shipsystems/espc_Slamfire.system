@@ -1,0 +1,14 @@
+{
+	"id":"espc_Slamfire",
+	"type":"STAT_MOD",
+	"aiType":"CUSTOM",
+	
+	"aiScript":"data.scripts.shipsystems.ai.espc_SlamfireAI",
+	"statsScript":"data.scripts.shipsystems.espc_SlamfireStats",
+	
+	"weaponGlowColor":[255,80,0,155],
+	"weaponTypes":[BALLISTIC],
+	
+	"useSound":"system_fast_missile_racks",
+	"outOfUsesSound":"gun_out_of_ammo",
+}

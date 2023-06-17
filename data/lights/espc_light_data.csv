@@ -1,0 +1,13 @@
+id,type,size,intensity,fadeout,color,offset,hit size,hit intensity,hit fadeout,hit color,flash size,flash intensity,flash fadeout,flash color,flash offset,chance,fighter dim
+espc_mkl_shot,projectile,150,0.45,0.3,"[230,255,210]",,125,0.5,0.75,"[230,255,210]",150,0.25,0.15,"[165,225,185]",,1,TRUE
+# railgun_shot,projectile,100,0.25,0.3,"[200,190,255]",,100,0.2,0.6,"[200,190,255]",,,,,,1,TRUE
+espc_minimir_shot,projectile,80,0.3,0.175,"[90,70,255]",,125,0.2,0.6,"[90,70,255]",60,0.2,0.25,"[255,185,215]",,1,TRUE
+espc_minimirdual_shot,projectile,80,0.3,0.175,"[90,70,255]",,125,0.2,0.6,"[90,70,255]",60,0.2,0.25,"[255,185,215]",,1,TRUE
+espc_aa_shot,projectile,,,,,,,,,,50,0.15,0.2,"[255,255,255]",,0.75,TRUE
+espc_gatling_shot,projectile,75,0.2,0.2,"[255,180,60]",,100,0.2,0.6,"[255,180,60]",80,0.35,0.35,"[255,155,105]",,1,TRUE
+espc_fission_shot,projectile,140,0.4,0.3,"[150,100,255]",,200,0.7,1,"[150,100,255]",80,0.55,0.4,"[150,100,255]",,1,TRUE
+espc_amflamer_shot,projectile,200,0.55,0.65,"[255,25,10]",,150,0.6,0.8,"[255,125,50]",60,0.2,0.1,"[255,25,10]",,1,TRUE
+espc_riftpike_shot,projectile,250,0.8,0.8,"[150,100,255]",,400,0.8,1.5,"[150,100,255]",250,0.7,1,"[150,100,255]",,1,TRUE
+espc_riftspear_shot,projectile,140,0.4,0.3,"[150,100,255]",,200,0.6,1,"[150,100,255]",100,0.55,0.6,"[150,100,255]",,1,TRUE
+espc_remmortar_shot,projectile,150,0.45,0.175,"[255,70,30]",,200,0.55,1,"[255,70,30]",200,0.3,0.35,"[255,105,65]",,1,TRUE
+espc_remdriver_shot,projectile,140,0.3,0.3,"[200,235,255]",,140,0.3,0.75,"[200,235,255]",125,0.35,0.15,"[200,235,255]",,1,TRUE

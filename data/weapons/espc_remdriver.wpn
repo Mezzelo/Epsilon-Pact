@@ -1,0 +1,28 @@
+{
+	"id":"espc_remdriver",  # this id must match what's in the spreadsheet
+	"specClass":"projectile",
+	"everyFrameEffect":"data.scripts.weapons.espc_RemiseDriverEffect",
+	"type":"BALLISTIC",
+	"size":"MEDIUM",
+	"turretSprite":"graphics/weapons/espc_remrifle_turret_base.png",
+	"turretGunSprite":"graphics/weapons/espc_remrifle_turret_recoil.png",
+	"hardpointSprite":"graphics/weapons/espc_remrifle_hardpoint_base.png",
+	"hardpointGunSprite":"graphics/weapons/espc_remrifle_hardpoint_recoil.png",	
+	"renderHints":["RENDER_BARREL_BELOW", SUSPEND_RECOIL],
+	"visualRecoil":1.0,
+	"turretOffsets":[25, 0],
+	"turretAngleOffsets":[0],
+	"hardpointOffsets":[25, 0],
+	"hardpointAngleOffsets":[0],	
+	"barrelMode":"LINKED", # or LINKED.  whether barrels fire at the same time or alternate.
+	"animationType":"NONE",  # NONE, GLOW, MUZZLE_FLASH, SMOKE
+	"muzzleFlashSpec":{"length":120.0,   # only used if animationType = MUZZLE_FLASH
+	"spread":2.0,
+		"particleSizeMin":12.0,
+		"particleSizeRange":16.0,
+		"particleDuration":0.15,
+		"particleCount":33,
+		"particleColor":[255,220,100,200]},	
+	"projectileSpecId":"espc_remdriver_shot",  # projectile that will be fired
+	# "fireSoundTwo":"hypervel_driver_fire",	
+}

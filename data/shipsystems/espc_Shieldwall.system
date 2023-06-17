@@ -1,0 +1,17 @@
+{
+	"id":"espc_Shieldwall",
+	"type":"STAT_MOD",
+	"aiType":"WEAPON_BOOST",
+	
+	"shieldRingColor":[255,255,255,255],
+	"shieldInnerColor":[100,100,255,75],
+	"shieldThicknessMult":1.5,
+	"shieldFluctuationMult":0,
+	
+	"statsScript":"data.scripts.shipsystems.espc_ShieldwallStats",
+	
+	"useSound":"espc_shieldwall",
+	"outOfUsesSound":"gun_out_of_ammo",
+	
+	"loopSound":"system_fortress_shield_loop",
+}

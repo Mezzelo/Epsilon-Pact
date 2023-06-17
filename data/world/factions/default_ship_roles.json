@@ -1,0 +1,234 @@
+{
+	# should be a copy of "combatSmall", minus variants that are annoying to fight in low numbers
+	# for example, no Hyperions or fast beam-based kiting loadouts, or ships with damper field
+	"combatSmallForSmallFleet":{
+		"espc_flagbearer_Standard":5,
+		"espc_jackalope_Standard":4,
+		"espc_jackalope_Strike":6,
+		"espc_rondel_Standard":4,
+		"espc_rondel_Assault":4,
+		"espc_rondel_Anti_Shield":2,
+		# "espc_rondel_Balanced":1,
+		"espc_songbird_Standard":4,
+		"espc_songbird_Strike":2,
+		"espc_opossum_Assault":5,
+		"espc_opossum_Strike":5,
+		"wolf_espc_Assault":0,
+		"wolf_espc_Strike":0,
+		"wolf_espc_Support":0,
+		"lasher_espc_Strike":0,
+		
+		"espc_picket_Assault":5,
+		"espc_picket_Anti_Armor":5,
+		"espc_sentry_Support":6,
+		"espc_sentry_Escort":4,
+		
+		"espc_sentry_Attack_Derelict":0,
+		"espc_sentry_Support_Derelict":0,
+		
+		"glimmer_espc_Escort":0,
+		"lumen_espc_Escort":0,
+		
+		
+		"espc_jackalope_lp_Strike":5,
+		
+		"espc_rondel_h_Attack":10,
+	},
+	"combatSmall":{
+		"espc_flagbearer_Standard":5,
+		"espc_flagbearer_Support":5,
+		"espc_rondel_Standard":4,
+		"espc_rondel_Assault":3,
+		# "espc_rondel_Anti_Armor":2,
+		"espc_rondel_Anti_Shield":3,
+		# "espc_rondel_Balanced":1,
+		"espc_jackalope_Standard":2,
+		"espc_jackalope_Escort":1,
+		"espc_jackalope_Strike":4,
+		"espc_jackalope_Anti_Armor":2,
+		"espc_songbird_Standard":6,
+		"espc_songbird_Strike":4,
+		"espc_opossum_Assault":2,
+		"espc_opossum_Strike":2,
+		"espc_opossum_Escort":2,
+		"espc_opossum_Support":2,
+		"wolf_espc_Assault":0,
+		"wolf_espc_Strike":0,
+		"wolf_espc_Support":0,
+		"lasher_espc_Strike":0,
+		
+		"espc_picket_Assault":2,
+		"espc_picket_Anti_Armor":4,
+		"espc_picket_Strike":4,
+		
+		"espc_sentry_Attack_Derelict":0,
+		"espc_sentry_Support_Derelict":0,
+		
+		"glimmer_espc_Escort":0,
+		"lumen_espc_Escort":0,
+		
+		"espc_jackalope_lp_Strike":10,
+		
+		"espc_rondel_h_Attack":10,
+		
+		"espc_songbird_tt_Strike":10,
+		"espc_songbird_tt_Assault":10,
+	},
+	"combatMedium":{
+		"espc_militia_Standard":1,
+		"espc_militia_Support":1,
+		"espc_ember_Standard":2,
+		"espc_ember_p_Standard":3,
+		"espc_ember_p_Strike":3,
+		
+		"hammerhead_espc_Elite":0,
+		"hammerhead_espc_Support":0,
+		"sunder_espc_Assault":0,
+		"sunder_espc_Support":0,
+		"sunder_espc_Strike":0,
+		
+		"espc_berserker_Assault":5,
+		"espc_berserker_Support":5,
+		"espc_bastillon_Assault":5,
+		"espc_bastillon_Support":5,
+		
+		"espc_bastillon_Assault_Derelict":0,
+		"espc_bastillon_Attack_Derelict":0,
+		
+		"fulgent_espc_Assault":0,
+		"fulgent_espc_Strike":0,
+		
+		
+	},
+	"combatLarge":{
+		"espc_chorale_Assault":3,
+		"espc_chorale_Elite_Support":2,
+		"espc_chorale_Strike":2,
+		"espc_chorale_Support":2,
+		"espc_chorale_Suppressive":1,
+		"espc_observer_Assault":4,
+		"espc_observer_Strike":4,
+		"espc_observer_Suppressive":2,
+		"espc_pilgrim_Assault":2,
+		"espc_pilgrim_Strike":2,
+		"espc_pilgrim_Support":5,
+		
+		"espc_rampart_Strike":4,
+		"espc_rampart_Support":4,
+		"espc_rampart_Assault_Derelict":0,
+		
+		"brilliant_espc_Assault":0,
+		"brilliant_espc_Support":0,
+		"apex_espc_Assault":0,
+		"apex_espc_Strike":0,
+		
+		"espc_observer_tt_Assault":8,
+		"espc_observer_tt_Beam":2,
+		
+	},
+	"combatCapital":{
+		# "espc_atavist_Standard":10,
+		# "espc_gallant_Elite":4,
+		
+		"radiant_espc_Assault":0,
+		"radiant_espc_Attack":0,
+		"radiant_espc_Strike":0,
+		"nova_espc_Assault":0,
+		"nova_espc_Strike":0,
+	},
+	
+	
+	# hybrid ships with good combat and cargo capacity
+	"combatFreighterMedium":{
+		"espc_militia_Standard":4,
+		"espc_militia_Support":3,
+		"espc_militia_o_Standard":1,
+		"espc_militia_o_Assault":1,
+		"espc_militia_o_Support":1,
+		"espc_ember_Standard":3,
+	},
+	
+	"civilianRandom":{
+		"espc_ember_Standard":3,
+		"espc_militia_Standard":4,
+		"espc_militia_Support":3,
+		"espc_militia_o_Standard":1,
+		"espc_militia_o_Assault":1,
+		"espc_militia_o_Support":1,
+		"espc_ember_c_Standard":1,
+		"espc_ember_c_Fast":1,
+		"espc_ember_c_Escort":1,
+		"espc_ember_c_Combat":1,
+	},
+
+	# carriers
+	#"carrierSmall":{
+	#	"shepherd_Frontier":2,
+	#	"fallback":{"carrierMedium":0.5},
+	#	"fallback2":{"carrierLarge":0.25},
+	#},
+	
+	"carrierMedium":{
+		"espc_ember_p_Standard":1,
+		"espc_ember_p_Strike":1,
+		"espc_pilgrim_Assault":4,
+		"espc_pilgrim_Strike":3,
+		"espc_pilgrim_Support":3,
+		"espc_pilgrim_h_Assault":4,
+		"espc_pilgrim_h_Strike":3,
+		"espc_pilgrim_h_Support":3,
+	},
+	
+	"freighterMedium":{
+		"espc_militia_Standard":5,
+		"espc_militia_Support":5,
+		"espc_militia_o_Standard":1,
+		"espc_militia_o_Assault":1,
+		"espc_militia_o_Support":1,
+	},
+	"tankerSmall":{
+		"espc_ember_p_Standard":1,
+		"espc_ember_p_Strike":1,
+	},
+	"tankerMedium":{
+		"espc_ember_Standard":10,
+		"espc_ember_c_Standard":2,
+		"espc_ember_c_Fast":2,
+		"espc_ember_c_Escort":2,
+		"espc_ember_c_Combat":2,
+		"espc_ember_p_Standard":2,
+		"espc_ember_p_Strike":2,
+	},
+	"personnelMedium":{
+		"espc_militia_Standard":5,
+		"espc_militia_Support":5,
+		"espc_militia_o_Standard":1,
+		"espc_militia_o_Assault":1,
+		"espc_militia_o_Support":1,
+	},
+	"linerMedium":{
+		"espc_militia_Standard":5,
+		"espc_militia_Support":5,
+		"espc_militia_o_Standard":1,
+		"espc_militia_o_Assault":1,
+		"espc_militia_o_Support":1,
+	},
+
+	# Old/unused below this line
+	"fastAttack":{
+		"espc_rondel_Standard":10,
+		"espc_jackalope_Standard":10,
+	},
+
+	"escortSmall":{
+		"espc_rondel_Standard":7,
+		"espc_jackalope_Escort":7,
+		"espc_songbird_Standard":3,
+		"espc_rondel_h_Attack":5,
+	},
+ 	"escortMedium":{
+		"espc_militia_Standard":4,
+		"espc_militia_Support":3,
+ 	},
+	
+}

@@ -1,0 +1,13 @@
+{
+	"id":"espc_Battlecry",
+	"type":"STAT_MOD",
+	"aiType":"WEAPON_BOOST",
+	
+	"statsScript":"data.scripts.shipsystems.espc_BattlecryStats",
+	
+	"weaponGlowColor":[218,83,239,100],
+	"weaponTypes":[BALLISTIC,ENERGY],
+	
+	"useSound":"system_ammo_feeder",
+	"outOfUsesSound":"gun_out_of_ammo",
+}

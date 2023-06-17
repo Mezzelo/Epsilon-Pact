@@ -1,0 +1,31 @@
+{
+    "variantOverrides":{
+		"espc_picket_Assault":5,
+		"espc_picket_Strike":5,
+		"espc_sentry_Support":6,
+		"espc_sentry_Escort":4,
+		
+		"espc_bastillon_Assault_Derelict":5,
+		"espc_bastillon_Attack_Derelict":5,
+		"espc_rampart_Assault_Derelict":10,
+    },
+	
+    "hullFrequency":{
+        "hulls":{
+			"espc_picket":0.2,
+			"espc_sentry":0.2,
+			"espc_bastillon":0.2,
+			"espc_berserker":0.2,
+			"espc_rampart":0.2,
+        },
+    },
+    "knownShips":{
+        "hulls":[
+			"espc_picket",
+			"espc_sentry",
+			"espc_bastillon",
+			"espc_berserker",
+			"espc_rampart",
+        ],
+    },
+},

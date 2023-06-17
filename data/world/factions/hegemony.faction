@@ -1,0 +1,20 @@
+{
+	"portraits":{
+		"standard_female":[
+		],
+		"standard_male":[
+		]
+	},
+    "hullFrequency":{
+        "hulls":{
+            "espc_rondel_h":0.7,
+			"espc_pilgrim_h":0.7,
+        },
+    },
+    "knownShips":{
+        "hulls":[
+            "espc_rondel_h",
+			"espc_pilgrim_h",
+        ],
+    },
+}

@@ -1,0 +1,32 @@
+{
+	"id":"espc_amflamer",  # this id must match what's in the spreadsheet
+	"specClass":"projectile",
+	"type":"ENERGY",
+	"size":"LARGE",
+	"everyFrameEffect":"data.scripts.weapons.espc_AMFlamerEffect",
+	"turretSprite":"graphics/weapons/espc_amflamer_turret_base.png",
+	"turretGlowSprite":"graphics/weapons/espc_amflamer_turret_glow.png",
+	"hardpointSprite":"graphics/weapons/espc_amflamer_hardpoint_base.png",
+	"hardpointGlowSprite":"graphics/weapons/espc_amflamer_hardpoint_glow.png",
+	"glowColor":[255,125,50,255],
+	"turretOffsets":[34, 0],
+	"turretAngleOffsets":[0],
+	"hardpointOffsets":[34, 0],
+	"hardpointAngleOffsets":[0],
+	"barrelMode":"ALTERNATING", # or LINKED.  whether barrels fire at the same time or alternate.
+	"unaffectedByProjectileSpeedBonuses":true,
+	#"animationType":"GLOW",
+	"animationType":"GLOW_AND_FLASH",
+	# "animationType":"GLOW",
+	"muzzleFlashSpec":{"length":55.0,   # only used if animationType = MUZZLE_FLASH or GLOW_AND_FLASH
+					   "spread":9.0,
+					   "particleSizeMin":15.0,
+					   "particleSizeRange":25.0,
+					   "particleDuration":0.6,
+					   "particleCount":7,
+					   "particleColor":[85,25,255,50]},
+	"autocharge":true,  # whether the weapon will continue charging and fire if the LMB is tapped instead of held
+	"projectileSpecId":"espc_amflamer_shot",  # projectile that will be fired
+	"noImpactSounds":true,
+	# "fireSoundTwo":"cryoflamer_fire",
+}

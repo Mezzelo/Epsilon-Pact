@@ -1,0 +1,22 @@
+{
+	"portraits":{
+		"standard_female":[
+		],
+		"standard_male":[
+		],
+	},
+    "hullFrequency":{
+        "hulls":{
+			"espc_songbird_tt":0.8,
+			"espc_observer_tt":0.8,
+			"espc_ember_c":0.4,
+        },
+    },
+    "knownShips":{
+        "hulls":[
+			"espc_songbird_tt",
+			"espc_observer_tt",
+			"espc_ember_c",
+        ],
+    },
+}
