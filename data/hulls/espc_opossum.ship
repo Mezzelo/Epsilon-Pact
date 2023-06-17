@@ -1,0 +1,126 @@
+{
+  "hullName": "Opossum",
+  "hullId": "espc_opossum",
+  "hullSize": "FRIGATE",
+  "spriteName": "graphics/ships/espc_opossum_base.png",
+  "style": "ESPC_HIGH_TECH",
+  "height": 82,
+  "width": 84,
+  "center": [42.5, 40.5],
+  "collisionRadius": 56.5,
+  "shieldCenter": [0, -0],
+  "shieldRadius": 55.5,
+  "viewOffset": 0,
+  "weaponSlots": [
+    {
+      "id": "WS 001",
+      "size": "SMALL",
+      "type": "ENERGY",
+      "mount": "HARDPOINT",
+      "arc": 20,
+      "angle": 0,
+      "locations": [21.5, 14.5]
+    },
+    {
+      "id": "WS 002",
+      "size": "SMALL",
+      "type": "SYNERGY",
+      "mount": "TURRET",
+      "arc": 263,
+      "angle": 114,
+      "locations": [6.5, 23.5]
+    },
+    {
+      "id": "WS 003",
+      "size": "MEDIUM",
+      "type": "ENERGY",
+      "mount": "TURRET",
+      "arc": 360,
+      "angle": 0,
+      "locations": [-5.5, -0.5]
+    }
+  ],
+  "engineSlots": [
+    {
+      "location": [-32, 11.5],
+      "length": 25,
+      "width": 15,
+      "angle": 180,
+      "contrailSize": 15,
+      "style": "HIGH_TECH"
+    },
+    {
+      "location": [-32, -11.5],
+      "length": 25,
+      "width": 15,
+      "angle": -180,
+      "contrailSize": 15,
+      "style": "HIGH_TECH"
+    },
+    {
+      "location": [-23, -20.5],
+      "length": 14.5,
+      "width": 9,
+      "angle": -180,
+      "contrailSize": 9,
+      "style": "HIGH_TECH"
+    },
+    {
+      "location": [-23, 20.5],
+      "length": 14.5,
+      "width": 9,
+      "angle": 180,
+      "contrailSize": 9,
+      "style": "HIGH_TECH"
+    },
+    {
+      "location": [-20, -25.5],
+      "length": 14.5,
+      "width": 9,
+      "angle": -180,
+      "contrailSize": 9,
+      "style": "HIGH_TECH"
+    },
+    {
+      "location": [-20, 25.5],
+      "length": 14.5,
+      "width": 9,
+      "angle": 180,
+      "contrailSize": 9,
+      "style": "HIGH_TECH"
+    },
+    {
+      "location": [-15, -29],
+      "length": 14.5,
+      "width": 9,
+      "angle": -180,
+      "contrailSize": 9,
+      "style": "HIGH_TECH"
+    },
+    {
+      "location": [-15, 29],
+      "length": 14.5,
+      "width": 9,
+      "angle": 180,
+      "contrailSize": 9,
+      "style": "HIGH_TECH"
+    }
+  ],
+  "bounds": [
+    11, 6,
+    21.5, 6,
+    28.5, 21.5,
+    2.5, 38,
+    -15.5, 33,
+    -31.5, 18,
+    -28.5, 2,
+    -32, -14.5,
+    -17, -30,
+    -0.5, -35.5,
+    13, -32,
+    31.5, -15,
+    33, -5.5,
+    22.5, -2.5,
+    9, -7.5
+  ]
+}

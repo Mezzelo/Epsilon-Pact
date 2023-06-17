@@ -1,0 +1,93 @@
+{
+  "hullName": "Jackalope",
+  "hullId": "espc_jackalope",
+  "hullSize": "FRIGATE",
+  "spriteName": "graphics/ships/espc_jackalope_base.png",
+  "style": "ESPC_LOW_TECH",
+  "height": 128,
+  "width": 80,
+  "center": [40, 60],
+  "collisionRadius": 79.5,
+  "shieldCenter": [0, -0],
+  "shieldRadius": 79,
+  "viewOffset": 0,
+  "builtInMods": [
+    "espc_recoilmod",
+    "hbi"
+  ],
+  "weaponSlots": [
+    {
+      "id": "WS 001",
+      "size": "LARGE",
+      "type": "BALLISTIC",
+      "mount": "HARDPOINT",
+      "arc": 15,
+      "angle": 0,
+      "locations": [14, -0]
+    },
+    {
+      "id": "WS0001",
+      "size": "SMALL",
+      "type": "COMPOSITE",
+      "mount": "TURRET",
+      "arc": 245,
+      "angle": -113.5,
+      "locations": [-6, -29]
+    },
+    {
+      "id": "WS0002",
+      "size": "SMALL",
+      "type": "COMPOSITE",
+      "mount": "TURRET",
+      "arc": 245,
+      "angle": 113.5,
+      "locations": [-6, 29]
+    }
+  ],
+  "engineSlots": [
+    {
+      "location": [-53, -15],
+      "length": 49.5,
+      "width": 24,
+      "angle": 180,
+      "contrailSize": 24,
+      "style": "LOW_TECH"
+    },
+    {
+      "location": [-53, 15],
+      "length": 49.5,
+      "width": 24,
+      "angle": -180,
+      "contrailSize": 24,
+      "style": "LOW_TECH"
+    }
+  ],
+  "bounds": [
+    -41.5, -3.5,
+    -54, -6,
+    -54.5, -24,
+    -47, -24.5,
+    -43, -32.5,
+    -15.5, -32,
+    -5, -37,
+    4.5, -29,
+    14.5, -29,
+    17.5, -33.5,
+    50, -31,
+    53.5, -17.5,
+    42, -10.5,
+    42, 10.5,
+    53.5, 17.5,
+    50, 31,
+    17.5, 33.5,
+    14.5, 29,
+    4.5, 29,
+    -5, 37,
+    -15.5, 32,
+    -43, 32.5,
+    -47, 24.5,
+    -54.5, 24,
+    -54, 6,
+    -41.5, 3.5
+  ]
+}

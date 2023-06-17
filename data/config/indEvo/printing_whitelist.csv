@@ -1,0 +1,38 @@
+id
+# NOTES
+# Ship IDs entered here will be allowed for duplication.
+"# This feature is very hard to get working in campaign as a player, and lorewise, allows for duplication of even the most complex hulls."
+"# Please do not go overboard with forbidding stuff here. Hulls that have been duplicated, can no longer be duplicated themselves, and are prone to malfunctions."
+espc_flagbearer
+espc_rondel
+espc_rondel_h
+espc_jackalope
+espc_jackalope_lp
+espc_songbird
+espc_songbird_tt
+espc_opossum
+espc_ember
+espc_ember_c
+espc_ember_p
+espc_militia
+espc_militia_o
+espc_observer
+espc_observer_tt
+espc_chorale
+espc_pilgrim
+espc_pilgrim_h
+# espc_billhook
+# espc_narthex
+# espc_usury
+# espc_somnambulist
+# espc_atavist
+# espc_serenade
+# espc_amanuensis
+
+espc_picket
+# espc_defender
+espc_sentry
+# espc_warden
+espc_bastillion
+espc_berserker
+espc_rampart

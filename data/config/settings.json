@@ -1,0 +1,67 @@
+{
+   	# "plugins":{
+		#"ESPC_TestPlugin":"data.scripts.plugins.ESPC_TestPlugin",
+	# },
+    "designTypeColors":{
+        "Epsilon Pact":[10, 119, 158, 255],
+        "Pact-Derelict":[10, 153, 131, 255],
+    },
+    "graphics":{	
+		"blueprint_packages":{
+			"espc_bp_package":"graphics/icons/cargo/espc_bp_package.png",
+		},
+		"characters":{
+            "espc_anlo":"graphics/portraits/espc_anlo.png",
+            "espc_gauss":"graphics/portraits/espc_gauss.png",
+            "espc_isabelle":"graphics/portraits/espc_isabelle.png",
+            "espc_nola":"graphics/portraits/espc_nola.png",
+            "espc_nola_young":"graphics/portraits/espc_nola_young.png",
+            "espc_anyiwo":"graphics/portraits/espc_anyiwo.png",
+        },
+		"fx":{
+            "espc_trail_hard":"graphics/fx/espc_trail_hard.png",
+            "espc_trail_hard_inverted":"graphics/fx/espc_trail_hard_inverted.png",
+            "espc_trail_staggered":"graphics/fx/espc_trail_staggered.png",
+            "espc_trail_wispy":"graphics/fx/espc_trail_wispy.png",
+			
+			
+            "espc_riftcharge1":"graphics/fx/shields64.png",
+            "espc_riftcharge2":"graphics/fx/circle64.png",
+            "espc_riftcharge3":"graphics/fx/wormhole_corona.png",
+            "espc_spark":"graphics/fx/projbody.png",
+		},
+		#"planets":{
+		#	"espc_giver_texture":"graphics/planets/espc_giver_texture.jpg",
+		#	"espc_lunron_texture":"graphics/planets/espc_lunron_texture.jpg",
+		#	"espc_bruniel_texture":"graphics/planets/espc_bruniel_texture.jpg",
+		#	"espc_falris_texture":"graphics/planets/espc_falris_texture.jpg",
+		#	"espc_tocquiera_glow":"graphics/planets/espc_tocquiera_texture.jpg",
+		#	"espc_lunron_glow":"graphics/planets/espc_lunron_glow.png",
+		#	"espc_bruniel_glow":"graphics/planets/espc_bruniel_glow.png",
+		#	"espc_falris_glow":"graphics/planets/espc_falris_glow.png",
+		#	"espc_tocquiera_glow":"graphics/planets/espc_tocquiera_glow.png",
+		#	"espc_lunron_clouds":"graphics/planets/espc_lunron_clouds.png",
+		#	"espc_bruniel_clouds":"graphics/planets/espc_bruniel_clouds.png",
+		#	"espc_tocquiera_clouds":"graphics/planets/espc_tocquiera_clouds.png",
+		#},
+		"illustrations":{
+			"espc_lunron_illustration":"graphics/illustrations/espc_lunron_illustration.jpg",
+			# "espc_lunron_station_illustration":"graphics/illustrations/espc_lunron_station_illustration.jpg",
+			"espc_bruniel_illustration":"graphics/illustrations/espc_bruniel_illustration.jpg",
+			"espc_bruniel_station_illustration":"graphics/illustrations/espc_bruniel_station_illustration.jpg",
+			"espc_falris_illustration":"graphics/illustrations/espc_falris_illustration.jpg",
+			"espc_tocquiera_illustration":"graphics/illustrations/espc_tocquiera_illustration.jpg",
+			# "espc_tocquiera_station_illustration":"graphics/illustrations/espc_tocquiera_station_illustration.jpg",
+		},
+		"stations":{
+			"espc_station_bruniel":"graphics/stations/espc_station_bruniel.png",
+		},
+        # "blueprint_packages":{
+        #     "epsilpac_ship_package":"graphics/icons/cargo/epsilpac_package.png",
+        #     "epsilpac_weapon_package":"graphics/icons/cargo/epsilpac_weapon_package.png",
+        # },	
+    },
+    "ruleCommandPackages": [
+        "data.scripts.campaign.rulecmd"
+    ]
+}

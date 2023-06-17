@@ -1,0 +1,210 @@
+{
+    "playableFaction":true,
+    "corvusCompatible":true,
+    # "noSyncRelations":false,
+	"freeStart":false,
+	"startingFaction":true,
+    "noRandomizeRelations":true,
+	
+	# "difficultyString":"normal",
+    "ngcTooltip":"The sector at large is inhospitable to you and your ideals - and of those normally inhospitable, some unusually welcoming.",
+    
+    "directoryUseShortName":true,
+    
+    "rebelFleetSuffix":"Secessionists",
+	
+    "marketSpawnWeight":0.35,
+    "spawnMarketShare":0.35,
+    
+    "morality":"neutral",
+
+	"startRelationships":{
+		"default":-0.2,
+		"player":-0.1,		
+		"independent":0.0,					
+		"pirates":-0.5,						# diplomatic profile is actually quite close to pirates. we're still out ruining lives, just not for our own gain :)
+		"persean":-0.15,					# actually align with Heg more in many ways, if it weren't for the whole A.I. thing.
+		"tritachyon":-0.2,					
+		"hegemony":-0.25,					# currently flying under the radar, things are bound to sour soon.
+
+		"lions_guard":-0.4,				
+		"sindrian_diktat":-0.4,				# blatant totalitarian state that doesn't care for its people.  also small enough to pick on lol lmao
+
+		"luddic_church":-0.2,				# for obvious reasons.
+		"knights_of_ludd":-0.2,				
+		"luddic_path":-0.9,					# it's me, the anti-ludd!
+		
+		"remnant":1.0,						# my only friends are computers.
+		"derelict":0.8,						# ditto
+		"omega":-0.5,						# intrigue! wiggles fingers
+		
+		# lotta guesswork going on here, there's so many goddamn mods this is what i get for popping in so late
+		# feel free to yell at me if any of this doesn't seem right.
+		"al_ars":0.0,
+		"apex_design":0.1,
+		"blackrock_driveyards":-0.1,		
+		"blade_breakers":-0.5,		
+		"brighton":-0.15,	
+		"cabal":-0.6,
+		"COPS":-0.25,
+		"dassault_mikoyan":0.0,
+		"diableavionics":-0.4,
+		"draco":-0.25,
+		"fang":-0.25,
+		"fpe":-0.4,
+		"gmda":-0.25,
+		"gmda_patrol":-0.25,
+		"ii_imperial_guard":-0.4,
+		"IndEvo_derelict":0.8,
+		"interstellarimperium":-0.4,
+		"ironsentinel":-0.25,
+		"ironshell":-0.25,
+		"hiigaran_descendants":-0.1,
+		"hmi":-0.15,
+		"kadur_remnant":-0.15,		
+		"kingdom_of_terra":-0.25,
+		"magellan_protectorate":-0.1,
+		"magellan_leveller":0.1,
+		"mayasura":0.0,		
+		"ORA":0.0,
+		"pearson_exotronics":0.0,
+		"roider":0.0,					
+		"scalartech":0.0,	
+		"SCY":0.0,
+		"sevencorp":0.05,
+		"star_federation":0.05,		
+		"tahlan_legioinfernalis":-0.6,
+		"templars":-0.6,
+		"tiandong":0.0,						
+		"the_cartel":-0.5,	
+		"uaf":-0.25,
+		"unitedpamed":0.0,
+		"xhanempire":-0.6,
+		
+		"neutrinocorp":-0.1,
+		"sylphon":0.05,
+	
+	},
+    
+	# while i would love to fill these out, it would take too much playtesting to fine-tune and avoid likely diplomatic snowballing.
+	# hopefully the alignments speak for themselves.  besides, emergent narratives and all.  weirder alliances have and will be formed...
+    "diplomacyPositiveChance":{
+	},
+    "diplomacyNegativeChance":{
+	},
+	
+	#... but not with *these* guys, for one reason or another.
+    "maxRelationships":{
+		"lions_guard":-0.25,
+		"sindrian_diktat":-0.25,
+		
+		"diableavionics":-0.25,
+		"draco":-0.25,
+		"fang":-0.25,
+		"fpe":-0.25,
+		"interstellarimperium":-0.25,
+		"ironsentinel":-0.25,
+		"ironshell":-0.25,
+		"tahlan_legioinfernalis":-0.25,
+		"templars":-0.25,
+		"uaf":-0.25,
+		"xhanempire":-0.25,
+	},
+	
+    "minRelationships":{
+		"remnant": 0.0,
+	},
+	
+	
+    "alignments":{	
+        "technocratic":0.5,
+		# "diplomatic":0.0, 
+        "ideological":0.5,
+		"corporate":-0.5,
+		# "militarist":0.0,
+		"hierarchial":-1.0,
+    },
+
+    "isPirateNeutral":false,
+
+	"colonyExpeditionChance":0.0,
+	"canInvade":true,
+	"invasionOnlyRetake":true,			# no expansion!
+	
+	"invasionPointMult":1.0,			
+	"invasionStrengthBonusAttack":1.0,
+	"invasionStrengthBonusDefend":1.0,	
+	
+    "groundBattleSettings":{
+        "moraleDamageTakenMult":0.9,
+    },
+	
+    "specialForcesNamerClass":"exerelin.campaign.intel.specialforces.namer.CommanderNamer",
+	# "specialForcesMaxFleets":2,
+	
+	
+	"diplomacyTraits":["pacifist", "irredentist", "lowprofile", "devious"],
+    
+    "vengeanceLevelNames":["Strike", "Retaliation", "Vengeance"],
+    "vengeanceFleetNames":["Strike Fleet", "Retaliation Fleet", "Vengeance Fleet",],
+    "vengeanceFleetNamesSingle":["a Strike Fleet", "a Retaliation Fleet", "a Vengeance Fleet",],
+    
+    "vengeanceFleetSizeMult":1.0,
+	
+	"invasionSupportFleetName":"Invasion Fleet",
+    "responseFleetName":"Response Fleet",
+    "defenceFleetName":"Defense Fleet",	
+    
+    "startShipsSolo":[
+		["espc_jackalope_Anti_Armor"],
+		["espc_rondel_Standard"],
+		["espc_songbird_Standard"],
+	],
+    "startShipsCombatSmall":[
+		["espc_songbird_Standard","wolf_Assault"],
+		["espc_jackalope_Anti_Armor","espc_rondel_Standard","lasher_Nola_G"],
+	],
+    "startShipsCombatLarge":[
+		["espc_observer_Strike","espc_ember_Standard"],
+		["espc_chorale_Common","espc_militia_Standard"],
+	],
+    "startShipsTradeSmall":[
+		["espc_songbird_Standard","mule_Standard","espc_ember_Standard"],
+	],
+    "startShipsTradeLarge":[
+		["espc_militia_Standard","espc_ember_Standard","mule_Standard"],
+	],
+    "startShipsExplorerLarge":[
+		["apogee_Balanced","espc_ember_Standard","espc_jackalope_Anti_Armor","espc_rondel_Standard"],
+	],
+    "startShipsCarrierSmall":[
+		["espc_pilgrim_Standard","espc_jackalope_Anti_Armor"],
+	],
+    "startShipsCarrierLarge":[
+		["espc_pilgrim_Standard","espc_militia_Standard","lasher_Nola_G","espc_songbird_Standard"],
+	],
+    "startShipsSuper":[
+		["espc_flagbearer_Support"],
+	],
+   
+    "defenceStations":[
+        {"ids":["orbitalstation", "battlestation", "starfortress"], "weight":0.3},
+        {"ids":["orbitalstation_high", "battlestation_high", "starfortress_high"]},
+    ],
+	
+	# a lil buddy :) - this might be fun, if i ever care to get the skills in.
+	"startSpecialItems":[
+		[["espc_bp_package", ""]],
+		#[["GammaCore",""]]
+	],
+	
+    "industrySeeds":[
+		{"id":"orbitalworks", "mult":0.5, "roundUp":true},
+        {"id":"fuelprod", "mult":0.2, "roundUp":true},
+    ],
+    
+    "bonusSeeds":[
+        {"id":"population_upsize", "mult":0.7},
+        {"id":"nanoforge_pristine", "count":1},
+    ],
+}

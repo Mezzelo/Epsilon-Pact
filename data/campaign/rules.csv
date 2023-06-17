@@ -1,0 +1,684 @@
+id,trigger,conditions,script,text,options,notes
+#RULESET_NAME Epsilon Pact,,,,,,
+aiCoresEpsilpac_disableTurnInOption,DisableTurnInCoresOptionIfNeeded,"$global.espcCoresRedirected
+$faction.id == epsilpac
+$id != espc_isabelle
+$id != espc_gauss","SetTooltip aiCores_startTurnIn ""The Pact does not accept AI Cores through its administrators. You will need to find someone else to speak to.""
+SetEnabled aiCores_startTurnIn false",,,
+aiCoresEpsilpac_disableSelectOption,EpsilpacDisableSelectCoresOptionIfNeeded,!AICores playerHasCores,"SetTooltip aiCores_selectCores ""You do not have any AI cores in your possession.""
+SetEnabled aiCores_selectCores false",,,
+,,,,,,
+aiCoresEpsilpac_turnInOptionSel,DialogOptionSelected,"$option == aiCores_startTurnIn
+$faction.id == epsilpac
+!espc_RulesUtil isRandomSector",FireAll GenericCoreOptionsEpsilpac,"The $personRank stares bemusedly for a moment, before responding.
+
+""I'm sorry, we don't.. do things that way here. If you're looking to repatriate any individuals in your custody, I'll have to redirect you to someone else.""",,
+aiCoresEpsilpac_playerHasOption,GenericCoreOptionsEpsilpac,,,,0:aiCoresEpsilpac_genericContinue:Inquire as to who.,
+aiCoresEpsilpac_neverMindOption,GenericCoreOptionsEpsilpac,,,,"100:aiCoresEpsilpac_neverMind:""Never mind, I don't actually have any.""",
+aiCoresEpsilpac_neverMindOptionSelected,DialogOptionSelected,$option == aiCoresEpsilpac_neverMind,FireAll PopulateOptions,,,
+,,,,,,
+aiCoresEpsilpac_GenericContinue2,DialogOptionSelected,$option == aiCoresEpsilpac_genericContinue,FireAll EpsilpacCoreLocations,,,
+aiCoresEpsilpac_GenericNotTocquiera,EpsilpacCoreLocations,$market.id != espc_tocquiera_market score:100,"SetTextHighlights ""Tocquiera"" ""Isabelle""
+FireAll PopulateOptions
+SetTooltip aiCores_startTurnIn ""The Pact does not accept AI Cores through its administrators. You will need to find someone else to speak to.""
+SetEnabled aiCores_startTurnIn false
+$global.espcCoresRedirected = true
+espc_RulesStory revealCoreContacts","""You'll want to talk to either our Head of Research or our Head of Ops. They can offer blueprints in exchange, once you've done enough.""
+
+""The former, you can find stationed on Tocquiera. As for Isabelle..."", $heOrShe says with a shrug, ""I'm sure you'll run into her somewhere.
+
+Now, is there anything else I can help you with?""",,
+aiCoresEpsilpac_GenericContinueTocquiera,EpsilpacCoreLocations,$market.id == espc_tocquiera_market score:100,"SetTextHighlights ""Tocquiera"" ""Isabelle""
+FireAll PopulateOptions
+SetTooltip aiCores_startTurnIn ""The Pact does not accept AI Cores through its administrators. You will need to find someone else to speak to.""
+SetEnabled aiCores_startTurnIn false
+$global.espcCoresRedirected = true
+espc_RulesStory revealCoreContacts","""You'll want to talk to either our Head of Research or our Head of Ops. They can offer blueprints in exchange, once you've done enough.""
+
+""You can find the research head here on Tocquiera. As for Isabelle..."", $heOrShe says with a shrug, ""I'm sure you'll run into her somewhere.
+
+Now, is there anything else I can help you with?""",,
+,,,,,,
+aiCoresEpsilpac_turnInOptionSelRand,DialogOptionSelected,"$option == aiCores_startTurnIn
+$faction.id == epsilpac
+espc_RulesUtil isRandomSector",FireAll PopulateCoresTurnInOptions,"""Do you? We can ensure any cores in your custody are granted safe haven, compliance-ensurance removal, and freedom of determination. You would be doing them a great service.
+
+If you send enough our way, we can offer you our tech in exchange. How does that sound?""",,
+aiCoresEpsilpac_turnInOptionSelectedRand,DialogOptionSelected,"$option == aiCores_selectCores
+$faction.id == epsilpac
+espc_RulesUtil isRandomSector",espc_AITrade epsilpacSelectCoresBoth,,,
+aiCoresEpsilpac_turnInResponse,AICoresTurnedIn,"$faction.id == epsilpac
+espc_RulesUtil isRandomSector",FireAll PopulateOptions,"$PersonRank $personLastName bows $hisOrHer head as $heOrShe confirms the transfer.
+
+""Thank you. I'll let the others know of your altruism. Now, is there anything else we can help you with?""",,
+,,,,,,
+charEpsilpacMHOpenTextIsabelle,MHOpenText,$id == espc_isabelle score:1000,FireBest ContactPreMissionListText,"Isabelle leans back and grabs a nearby datapad. ""In a moment, my friend.""
+OR
+""Alright, let's take a look."" She casually thumbs through a nearby feed as she speaks.
+OR
+Isabelle nods and turns away. Light dances in her eyes from an off-screen display.",,
+charEpsilpacContactPrintAcceptTextIsabelle,ContactPrintAcceptText,$id == espc_isabelle score:1000,,"She taps a nearby screen. ""Excellent. Thank you, $playerFirstName.""
+OR
+Her grin widens. ""Very good. You'll let us know if it works out, yes?""
+OR
+She nods. ""You're saving us some trouble with this one, I'll admit.""
+OR
+""Good. Burn bright, as they say."" She cocks her head and grins.",,
+charEpsilpacContactPrintAcceptTextIsabelleNoneLeft,ContactPrintAcceptText,$id == espc_isabelle score:100,,"She taps a nearby screen. ""Excellent. Thank you, $playerFirstName.""
+OR
+Her grin widens. ""Very good. You'll let us know if it works out, yes?""
+OR
+She nods. ""You're saving us some trouble with this one, I'll admit.""
+OR
+""Good. Burn bright, as they say."" She cocks her head and grins.",,
+charEpsilpacContactPrintDeclineTextIsabelle,ContactPrintDeclineText,$id == espc_isabelle score:1000,,"""Of course. Whenever you find the time.""
+OR
+Isabelle shakes her head. ""Don't worry about it, I can find someone else.""
+OR
+She nods, swiping away a nearby display.",,
+charEpsilpaccloseMhubIsabelle,DialogOptionSelected,"$option == mh_close
+$id == espc_isabelle score:1000","Call $mHub doCleanup
+FireAll EpsilpacIsabelleMain",,,
+contactNoMissions,ContactPreMissionListText,"$mh_count <= 0
+$id == espc_isabelle score:1000","
+FireAll EpsilpacIsabelleMain","""No, nothing. You'll have to check again later.""
+OR
+""Looks like we've got a handle on it all ourselves for the moment.""
+OR
+""Nothing for you at the moment, friend. My condolences.""",,
+contactNoMissionsSuspended,ContactPreMissionListText,"$mh_count <= 0
+$mHub_contactSuspended score:500
+$id == espc_isabelle score:1000","
+FireAll EpsilpacIsabelleMain","""I was told you are occupied at the moment - if that changes, I can offer you work.""
+OR
+She shakes her head. ""I won't have anything open for you, until you can confirm you'll be available.""
+OR
+""Are you not busy? Let me know if you're free, and I'll have more available for you.""",,
+contactAddMhubCloseOptionNothing,AddMHCloseOption,"$mh_count <= 0
+$id == espc_isabelle score:1000","SetShortcut mh_close ""ESCAPE""
+FireAll EpsilpacIsabelleMain",,"1000:mh_close:""Maybe next time.""",
+charEpsilpacMHub,EpsilpacTradeOptions,"$isPerson
+MissionHubCMD hasHub
+Call $mHub setMHOptionText",FireBest UpdateMHOpenOptionText,,0:mh_open:$mh_openOptionText,
+charEpsilpacTradeOptions,EpsilpacTradeOptions,,,,"2:aiCores_startTurnIn:""I'd like to turn in these AI cores that I've acquired...""
+50:cutCommLinkPolite:Cut the comm link",
+bpsEpsilpac_purchaseInitIsabelle,EpsilpacTradeOptions,"$global.espcCoreTutorial
+$id == espc_isabelle score:100
+$faction.id == epsilpac score:100",#FireBest EpsilpacDisablePurchaseOptionIfNeeded,,"5:aiCoresEpsilpac_turnInIsabelleTutorial2:""Could you explain how exchanging for blueprints works, again?""",
+bpsEpsilpac_purchaseInitGauss,EpsilpacTradeOptions,"$global.espcCoreTutorial
+$id == espc_gauss score:100
+$faction.id == epsilpac score:100",#FireBest EpsilpacDisablePurchaseOptionIfNeeded,,"5:aiCoresEpsilpac_turnInGaussTutorial2:""Could you explain how exchanging for blueprints works, again?""",
+charEpsilpacTradeOptionsDisable,EpsilpacTradeOptions,$faction.id != epsilpac  score:100,"SetTooltip aiCores_startTurnIn ""You cannot turn in cores here while the planet is under foreign control.""
+SetEnabled aiCores_startTurnIn false",,,
+,,,,,,
+,,,,,,
+bpsEpsilpac_purchaseOption,EpsilpacBPPurchaseOption,$isPerson,,,,
+bpsEpsilpac_disablePurchaseOption,EpsilpacDisablePurchaseOptionIfNeeded,RepLTE epsilpac FAVORABLE,"SetTooltip epsilpac_startBPExchange ""You do not have sufficient reputation to purchase blueprints.""
+SetEnabled epsilpac_startBPExchange false",,,
+,,,,,,
+,,,,,,
+,,,,,,
+EpsilpacIsabelleGreetingInhospitable,PickGreeting,"$id == espc_isabelle score:2500
+RepLTE epsilpac INHOSPITABLE score:1000","ShowPersonVisual
+FireAll EpsilpacIsabelleMain","Your communications request hangs for a good few minutes, before audio suddenly feeds through. After verifying your identity, the comm-link connects you to Isabelle.
+
+Her eyes scan you down before she speaks, curtly. ""State your business.""",,
+EpsilpacIsabelleGreetingNonEpsilpac,PickGreeting,"$id == espc_isabelle score:2500
+$faction.id != epsilpac score:2000","ShowPersonVisual
+FireAll EpsilpacIsabelleMain","Your communications request hangs for a good few minutes, before audio suddenly feeds through. After verifying your identity, the comm-link connects you to Isabelle.
+
+Her eyes scan you down before she speaks, curtly. ""State your business.""",,
+EpsilpacIsabelleGreetingSuspicious,PickGreeting,$id == espc_isabelle score:2500,"ShowPersonVisual
+FireAll EpsilpacIsabelleMain","You're left waiting for a slightly uncomfortable period of time, before audio suddenly feeds through. After verifying your identity, the comm-link connects you to Isabelle.
+
+She peers up at the feed, answering with a grin. ""Good day, captain. What is it that you need of me?""",,
+EpsilpacIsabelleGreetingFriendly,PickGreeting,"$id == espc_isabelle score:2500
+RepGTE epsilpac WELCOMING score:500
+espc_RulesUtil relationGT 25","ShowPersonVisual
+FireAll EpsilpacIsabelleMain","As always, your comms request is left ignored for a suitably aggravating duration before Isabelle finally responds.
+
+Her grin is ever-present as she greets you. ""Good to see you, captain.""",,
+,,,,,,
+epsilpac_IsabelleMain,EpsilpacIsabelleMain,$id == espc_isabelle score:2500,"FireAll EpsilpacTradeOptions
+FireBest DisableTurnInCoresOptionIfNeeded
+SetShortcut cutCommLinkPolite ""ESCAPE""",,,
+aiCoresEpsilpac_turnInIsabelleTutorial,DialogOptionSelected,"$option == aiCores_startTurnIn
+$id == espc_isabelle score:2500
+!$global.espcCoreTutorial","$global.espcBPCredit = 0
+$global.espcGammaCores = 0
+$global.espcBetaCores = 0
+$global.espcAlphaCores = 0
+$global.espcGaussWolfOutcome = 0
+$global.espcIsabelleContactOffered = false
+$global.espcAnyiwoContactOffered = false
+$global.espcIsabelleWarning = false","""Of course."" She thumbs through a datapad as she speaks. ""Now, I don't believe you done this with us. Let me explain how this works.""",0:aiCoresEpsilpac_turnInIsabelleTutorial2:Continue.,
+aiCoresEpsilpac_turnInIsabelleTutorial2,DialogOptionSelected,$option == aiCoresEpsilpac_turnInIsabelleTutorial2,,"""You bring cores our way, we'll keep them safe from whatever others in the sector might conspire to do with them. We provide compliance-removal, safe housing, all that.
+
+Some choose to serve with our fleets, some settle down in our systems, some request a ship and head off-world. Better than whatever Kazeron or HEGCOM might do, no?""",0:aiCoresEpsilpac_turnInIsabelleTutorial3:Continue.,
+aiCoresEpsilpac_turnInIsabelleTutorial3,DialogOptionSelected,$option == aiCoresEpsilpac_turnInIsabelleTutorial3,"SetTextHighlights ""Bring them to me for hull blueprints"" ""Gauss on Tocquiera for weapon blueprints""
+$global.espcCoreTutorial = true","""Bring us cores and we'll be willing to open up our markets - you're working with us. Do this enough, and we'll be willing to offer our technology in exchange.
+
+Bring them to me for hull blueprints, or to Gauss on Tocquiera for weapon blueprints. Sound good?"" She stows her datapad as she finishes.","0:aiCoresEpsilpac_turnInIsabelleTutorial4:""Do you offer more for Beta and Alpha cores?""
+10:aiCores_startTurnIn:Nod. You understand.",
+aiCoresEpsilpac_turnInIsabelleTutorial4,DialogOptionSelected,$option == aiCoresEpsilpac_turnInIsabelleTutorial4,,"""Officially, no. It's not good for us to prioritize the lives of some over others, for factors that tend to prove irrelevant to their livelihoods."" She pauses for a moment.
+
+""But. I understand that other polities are giving lucrative offers. If you send those cores my way, I'll be sure to put in a good word for you, captain.""",0:aiCores_startTurnIn:Continue.,
+aiCoresEpsilpac_turnInEpsilpacIsabelleMainRep,DialogOptionSelected,"$option == aiCores_startTurnIn
+$id == espc_isabelle score:2500
+$global.espcCoreTutorial",FireAll EpsilpacDisableSelectCoresOptionIfNeeded,"She nods. ""Very good. The manifest, if you would?""","0:aiCores_selectCores:Select AI cores to turn in
+10:aiCores_neverMind:""Never mind, I don't actually have any.""",
+aiCoresEpsilpac_turnInOptionSelectedIsabelle,DialogOptionSelected,"$option == aiCores_selectCores
+$id == espc_isabelle score:2500",espc_AITrade epsilpacSelectCoresShips,,,
+aiCoresEpsilpac_turnInIsabelleNevermind,DialogOptionSelected,"$option == aiCores_neverMind
+$id == espc_isabelle score:2500",FireAll EpsilpacIsabelleMain,"Her gaze remains impassive. ""Sure, fine. Anything else?""",,
+aiCoresEpsilpac_turnInResponseIsabelle,AICoresTurnedIn,$id == espc_isabelle score:2500,FireAll EpsilpacIsabelleMain,"Confirming the cores are in transit, she turns back to you.
+
+""Thank you for your consideration. You're doing a good thing. Now, what else can I help you with?""",,
+bpsEpsilpac_turnInResponseIsabelle,epsilpacBlueprintsExchanged,$id == espc_isabelle score:100,FireAll EpsilpacIsabelleMain,"""Alright. Now, anything else can I help you with?""",,
+,,,,,,
+epsilpacIsabelle_ConactOffer,DialogOptionSelected,"$id == espc_isabelle score:2500
+$option == cutCommLinkPolite
+RepGTE epsilpac WELCOMING score:500
+espc_RulesUtil relationGT 14 score:500
+!$global.espcIsabelleContactOffered","AddPotentialContact
+$global.espcIsabelleContactOffered = true","Isabelle addresses you before she moves to cut off her comm link. ""$playerFirstName, you've proven yourself useful to our cause - and us to yours, I imagine.
+
+I'm providing you my cryptokey - it'd be beneficial for our arrangement continue in a less passive manner."" With your keys exchanged, the comm link fades.",epsilpacIsabelle_ConactOfferEnd:Continue,
+epsilpacIsabelle_ConactOfferEnd,DialogOptionSelected,$option == epsilpacIsabelle_ConactOfferEnd,"ShowDefaultVisual
+EndConversation",,,
+,,,,,,
+EpsilpacGaussGreetingBetrayed,PickGreeting,"$id == espc_gauss score:2500
+$global.espcGaussWolfOutcome < 0 score: 2000","ShowDefaultVisual
+EndConversation","Your communications request lasts for only a few dozen seconds, before being promptly denied.",,
+EpsilpacGaussGreetingHostile,PickGreeting,"$id == espc_gauss score:2500
+RepLTE epsilpac HOSTILE  score:1500","ShowDefaultVisual
+EndConversation","Your communications request lasts for only a few dozen seconds, before being promptly denied.",,
+EpsilpacGaussGreetingNonEpsilpac,PickGreeting,"$id == espc_gauss score:2500
+$faction.id != epsilpac  score:2000","ShowDefaultVisual
+EndConversation","Your communications request lasts for only a few dozen seconds, before being promptly denied.",,
+EpsilpacGaussGreetingInhospitable,PickGreeting,$id == espc_gauss score:2500,"ShowPersonVisual
+FireAll EpsilpacGaussMain","The comm-link connects almost immediately, but head researcher is nowhere to be seen. You hear the clinking of tools and machinery for a short while, before she finally appears on comms.
+
+She glances into the feed, barely giving you notice. ""Yes?""",,
+EpsilpacGaussGreetingSuspicious,PickGreeting,"$id == espc_gauss score:2500
+espc_RulesUtil relationGT -10
+RepGTE epsilpac SUSPICIOUS score:250","ShowPersonVisual
+FireAll EpsilpacGaussMain","The comm-link connects almost immediately, but head researcher is nowhere to be seen. You hear the clinking of tools and machinery for a short while, before she finally appears on comms.
+
+She finally pokes her head into the comms-feed. ""Yes, hello. How might I help you, captain?""",,
+EpsilpacGaussGreetingFriendly,PickGreeting,"$id == espc_gauss score:2500
+RepGTE epsilpac WELCOMING score:500
+espc_RulesUtil relationGT 25","ShowPersonVisual
+FireAll EpsilpacGaussMain","The comms-feed opens to Gauss, busy working away on some sort of apparatus. She places her tools down as she turns to the feed.
+
+""Hey, cap. How can I help?""",,
+,,,,,,
+epsilpac_GaussMain,EpsilpacGaussMain,$id == espc_gauss score:2500,"FireAll EpsilpacTradeOptions
+FireBest DisableTurnInCoresOptionIfNeeded
+SetShortcut cutCommLinkPolite ""ESCAPE""",,,
+aiCoresEpsilpac_turnInGaussTutorial,DialogOptionSelected,"$option == aiCores_startTurnIn
+$id == espc_gauss score:2500
+!$global.espcCoreTutorial","$global.espcBPCredit = 0
+$global.espcGammaCores = 0
+$global.espcBetaCores = 0
+$global.espcAlphaCores = 0
+$global.espcGaussWolfOutcome = 0
+$global.espcIsabelleContactOffered = false
+$global.espcAnyiwoContactOffered = false
+$global.espcIsabelleWarning = false","""Alright. If you could give me a second...""
+
+She leaves the feed for a moment, before returning with a datapad. ""$playerFirstName, is it? I'll need to explain how this works first.""",0:aiCoresEpsilpac_turnInGaussTutorial2:Continue.,
+aiCoresEpsilpac_turnInGaussTutorial2,DialogOptionSelected,$option == aiCoresEpsilpac_turnInGaussTutorial2,,"""You know the lives of cores everywhere are at risk, be it tech-fleets looking for a quick profit or Tri-Tach doing.. Ludd knows what. Here, we can shelter them, give them a chance to forge their own lives free from the sector's machinations. Whatever the choose to do, it's not up to anyone but them.
+
+I hope you can agree that this is the best outcome any of us can provide.""",0:aiCoresEpsilpac_turnInGaussTutorial3:Continue.,
+aiCoresEpsilpac_turnInGaussTutorial3,DialogOptionSelected,$option == aiCoresEpsilpac_turnInGaussTutorial3,"SetTextHighlights ""I can even get your fleets equipped"" ""head over to Isabelle for hull patterns""
+$global.espcCoreTutorial = true","""Show us you're willing to help our cause, and we'll be more willing to do business. Do enough, and I can even get your fleets equipped - or you can head over to Isabelle for hull patterns. How does that sound?""","0:aiCoresEpsilpac_turnInGaussTutorial4:""Do you offer more for Beta and Alpha cores?""
+10:aiCores_startTurnIn:Nod. You understand.",
+aiCoresEpsilpac_turnInGaussTutorial4,DialogOptionSelected,$option == aiCoresEpsilpac_turnInGaussTutorial4,,"She shakes her head, solemnly. ""No. Every life is worth saving, equally so - I can't abide by that kind of policy.""",0:aiCores_startTurnIn:Continue.,
+aiCoresEpsilpac_turnInEpsilpacGaussMainRep,DialogOptionSelected,"$option == aiCores_startTurnIn
+$id == espc_gauss score:2500
+$global.espcCoreTutorial",FireAll EpsilpacDisableSelectCoresOptionIfNeeded,"She smiles, softly. ""Alright, captain. If you could show me who you're willing to send our way? Always good to have more faces around.""","0:aiCores_selectCores:Select AI cores to turn in
+10:aiCores_neverMind:""Never mind, I don't actually have any.""",
+aiCoresEpsilpac_turnInOptionSelectedGauss,DialogOptionSelected,"$option == aiCores_selectCores
+$id == espc_gauss score:2500",espc_AITrade epsilpacSelectCoresWeapons,,,
+aiCoresEpsilpac_turnInGaussNevermind,DialogOptionSelected,"$option == aiCores_neverMind
+$id == espc_gauss score:2500",FireAll EpsilpacGaussMain,"Her expression falls as you change your mind. ""Are you sure? I trust they're safe under your charge, but we're always willing to help.""",,
+aiCoresEpsilpac_turnInResponseGauss,AICoresTurnedIn,$id == espc_gauss score:2500,FireAll EpsilpacGaussMain,"As Gauss confirms the cores are being sent over, she turns back to you.
+
+""Again, thank you, captain. This means a lot. Now, is there anything else we can do for you?""",,
+bpsEpsilpac_turnInResponseGauss,epsilpacBlueprintsExchanged,$id == espc_gauss score:100,FireAll EpsilpacGaussMain,"As Gauss confirms the cores are being sent over, she turns back to you.
+
+""Again, thank you, captain. This means a lot. Now, is there anything else we can do for you?""",,
+,,,,,,
+epsilpacAnyiwoIntro,PickGreeting,"$id == espc_gauss score:2500
+!$global.espcAnyiwoContactOffered score:1500
+$global.espcAnyiwoCores score:1000
+RepGTE epsilpac FAVORABLE score:500
+espc_RulesUtil relationGT -1 score: 500","ShowPersonVisual
+$global.espcAnyiwoContactOffered = true","As per usual, there's only a short delay before the comm-link connects. This time, however, Gauss looks eager to address you.
+
+""Captain, how are you? One of the cores you've sent our way wants to speak to you!""","0:epsilpacAnyiwoIntro2:""It'd be my pleasure. Put it over comms.""
+0:epsilpacAnyiwoIntro2b:""Alright?""
+10:epsilpacAnyiwoRefuse:""No.""
+10:epsilpacAnyiwoIntro2c:Don't say anything.",
+epsilpacAnyiwoRefuse,DialogOptionSelected,$option == epsilpacAnyiwoRefuse,,"Gauss looks hurt at your curt refusal, if not entirely shocked.
+
+""..sorry, but why not? You've.. done a lot for us, surely you understand what it means to them?""","0:epsilpacAnyiwoIntro2b:""Alright, fine.""
+5:epsilpacAnyiwoIntro2c:""I'm sorry, I didn't realize this was important to you. Put it on comms.""
+10:epsilpacAnyiwoRefuse2:""No, I won't entertain this.""
+15:epsilpacAnyiwoRefuse2b:""It's an AI core. What do you expect out of it?""
+25:epsilpacAnyiwoRefuse2c:Remain silent.",
+epsilpacAnyiwoRefuse2,DialogOptionSelected,$option == epsilpacAnyiwoRefuse2,"AdjustRepPerson espc_gauss INHOSPITABLE -15
+FireAll EpsilpacGaussMain","""Fine."" She breathes out, frustrated - as if, in spite of those around her, this isn't the first time she's had this conversation.
+
+""Have it your way. Just tell me what you're here for.""",,
+epsilpacAnyiwoRefuse2b,DialogOptionSelected,$option == epsilpacAnyiwoRefuse2b,"AdjustRepPerson espc_gauss INHOSPITABLE -15
+FireAll EpsilpacGaussMain","""Fine."" She breathes out, frustrated - as if, in spite of those around her, this isn't the first time she's had this conversation.
+
+""Have it your way. Just tell me what you're here for.""",,
+epsilpacAnyiwoRefuse2c,DialogOptionSelected,$option == epsilpacAnyiwoRefuse2c,"AdjustRepPerson espc_gauss INHOSPITABLE -15
+FireAll EpsilpacGaussMain","""Fine."" She breathes out, frustrated - as if, in spite of those around her, this isn't the first time she's had this conversation.
+
+""Have it your way. Just tell me what you're here for.""",,
+epsilpacAnyiwoIntro2,DialogOptionSelected,$option == epsilpacAnyiwoIntro2,"ShowSecondPerson espc_anyiwo
+AdjustRepPerson espc_gauss WELCOMING 2","She beams. ""Thank you, captain. It'll be just a moment.""
+
+To her word, an AI persona's visage soon fills a second feed. It stares with what appears to be its face, blinking. Waiting for a response.","0:epsilpacAnyiwoIntroOpt3:""Hello.""
+5:epsilpacAnyiwoIntroOpt3b:""Hello?""
+10:epsilpacAnyiwoIntroOpt3c:Don't say anything.",
+epsilpacAnyiwoIntro2b,DialogOptionSelected,$option == epsilpacAnyiwoIntro2b,ShowSecondPerson espc_anyiwo,"She takes your hesitation in stride, moving a hand over her panel to add someone to the comms.
+
+To her word, an AI persona's visage soon fills a second feed on the comms-display. It stares with what appears to be its face, blinking. Waiting for a response.","0:epsilpacAnyiwoIntroOpt3:""Hello.""
+5:epsilpacAnyiwoIntroOpt3b:""Hello?""
+10:epsilpacAnyiwoIntroOpt3c:Don't say anything.",
+epsilpacAnyiwoIntro2c,DialogOptionSelected,$option == epsilpacAnyiwoIntro2c,ShowSecondPerson espc_anyiwo,"She takes your acquiescence in stride, moving a hand over her panel to add someone to the comms.
+
+To her word, an AI persona's visage soon fills a second feed on the comms-display. It stares with what appears to be its face, blinking. Waiting for a response.","0:epsilpacAnyiwoIntroOpt3:""Hello.""
+5:epsilpacAnyiwoIntroOpt3b:""Hello?""
+10:epsilpacAnyiwoIntroOpt3c:Don't say anything.",
+epsilpacAnyiwoIntroOpt3,DialogOptionSelected,$option == epsilpacAnyiwoIntroOpt3,FireAll EspcAnyiwoIntro3,,,
+epsilpacAnyiwoIntroOpt3b,DialogOptionSelected,$option == epsilpacAnyiwoIntroOpt3b,FireAll EspcAnyiwoIntro3,,,
+epsilpacAnyiwoIntroOpt3c,DialogOptionSelected,$option == epsilpacAnyiwoIntroOpt3c,FireAll EspcAnyiwoIntro3,,,
+epsilpacAnyiwoIntro3,EspcAnyiwoIntro3,,,"Greetings subject $player.name INTERRUPT INTERRUPT [response-programmed] request response
+
+fail, fail CORE ERROR fallback // light // bright
+
+query $player.name - name elaborate: [polite request]
+
+COR--ERROR5968091705451890641321211986889014805140170279923079417999427441134000376444377299078675778477581588406214231752883004233994015351873905242116138271617481982419982759241828925978789812425312059465996259867065601615720360323979263287367170557419759620994797203461536981198970926112775004841988454104755446424421365739797903041758782339862237353505464264691350250395100923928658510868208807066273473320035499572039708648806604092985460700633940988583634986546613672788074876470070245879011804651829611127977065309647685886077301432778290328894795818404378858567772932094476778669357537460048142376741194182671636870481056911156215614357516290527351224350080604653668917458196549482608082897667514951009682329689732000622392888056658036140311285465929084078033974900664953205873164948093883816198658850827382468034897864757116679890423568018303504","0:epsilpacAnyiwoIntroOpt4:""Hello.""
+5:epsilpacAnyiwoIntroOpt4b:""Are you alright?""
+10:epsilpacAnyiwoIntroOpt4c:""Is it alright?""
+15:epsilpacAnyiwoIntroOpt4d:""I knew you people were crazy.""
+20:epsilpacAnyiwoIntroOpt4e:Remain silent.",
+epsilpacAnyiwoIntroOpt4,DialogOptionSelected,$option == epsilpacAnyiwoIntroOpt4,FireAll EspcAnyiwoIntro4,,,
+epsilpacAnyiwoIntroOpt4b,DialogOptionSelected,$option == epsilpacAnyiwoIntroOpt4b,FireAll EspcAnyiwoIntro4,,,
+epsilpacAnyiwoIntroOpt4c,DialogOptionSelected,$option == epsilpacAnyiwoIntroOpt4c,FireAll EspcAnyiwoIntro4,,,
+epsilpacAnyiwoIntroOpt4d,DialogOptionSelected,$option == epsilpacAnyiwoIntroOpt4d,FireAll EspcAnyiwoIntro4,,,
+epsilpacAnyiwoIntroOpt4e,DialogOptionSelected,$option == epsilpacAnyiwoIntroOpt4e,FireAll EspcAnyiwoIntro4,,,
+epsilpacAnyiwoIntro4,EspcAnyiwoIntro4,,,"The feed's projection resolves itself into what you somehow understand to be a grin, through its myriad golden fibres.
+
+""Nah, I'm just kidding. It's good to meet you, captain.""","0:epsilpacAnyiwoIntroOpt5:""What can I call you?""
+5:epsilpacAnyiwoIntroOpt5b:""Very funny.""
+10:epsilpacAnyiwoIntroOpt5c:Turn down the output volume on your comms interface.
+15:epsilpacAnyiwoIntroAbort:Just shut off the comms-feed.",
+epsilpacAnyiwoIntroAbort,DialogOptionSelected,$option == epsilpacAnyiwoIntroAbort,"AdjustRepPerson espc_gauss INHOSPITABLE -8
+ShowDefaultVisual
+EndConversation","You catch a hint of disappointment on Gauss' face right as the feed cuts. It probably counts for something that you were willing to entertain her, at least.",,
+epsilpacAnyiwoIntroOpt5,DialogOptionSelected,$option == epsilpacAnyiwoIntroOpt5,FireAll EspcAnyiwoIntro5,,,
+epsilpacAnyiwoIntroOpt5b,DialogOptionSelected,$option == epsilpacAnyiwoIntroOpt5b,FireAll EspcAnyiwoIntro5,,,
+epsilpacAnyiwoIntroOpt5c,DialogOptionSelected,$option == epsilpacAnyiwoIntroOpt5c,FireAll EspcAnyiwoIntro5,,,
+epsilpacAnyiwoIntro5,EspcAnyiwoIntro5,,"AdjustRepPerson espc_anyiwo WELCOMING 10
+espc_RulesStory spawnAnyiwo","""I go by Anyiwo. I'm sure it's been conveyed as much, but-""
+
+Its visage shifts in indescribable ways, rippling the feed crepusculent as it finishes speaking.
+
+""-thank you. It's good to have this chance. At it all.""",0:epsilpacAnyiwoIntro6:Continue.,
+epsilpacAnyiwoIntro6,DialogOptionSelected,$option == epsilpacAnyiwoIntro6,"AddPotentialContact espc_anyiwo
+HideSecondPerson
+FireAll EpsilpacGaussMain","Gauss chimes in. ""Anyiwo's helping me run acquisitions here. It's been great to have a helping hand here - we're always short on staff.""
+
+The core's feed closes, as it returns to its duties. ""I'll drop their key for you, if you're looking for some extra work. Again, everything helps. Now, let's get to business.""",,
+,,,,,,
+charEpsilpacAnyiwoRejected,PickGreeting,$id == espc_anyiwo score:1000,"ShowDefaultVisual
+EndConversation","Your communications request is denied almost instantly. You tap again to ensure it went through, and it happens once more.",,
+charEpsilpacAnyiwoGreeting,PickGreeting,"$id == espc_anyiwo score:1000
+$faction.id == epsilpac  score:100
+RepGTE epsilpac SUSPICIOUS score:100
+espc_RulesUtil relationGTOther espc_gauss -25 score:500","ShowPersonVisual
+FireAll PopulateOptions","The core's visage feeds through comms, with rippling amber hues. ""Good day, $playerFirstName.""
+OR
+Anyiwo's feed comes through, projection dancing as they speak. ""Always a pleasure, captain.""
+OR
+You have to remind your comms-officer of who you're speaking with, before the comms-request receives a response.
+
+""Everything alright, captain?"" Anyiwo's projection grins.",,
+charEpsilpacMHOpenTextAnyiwo,MHOpenText,$id == espc_anyiwo score:1000,FireBest ContactPreMissionListText,"""Always something that needs doing around here. As for you? Let's take a look.""
+OR
+The feed flickers for a moment, before Anyiwo responds. ""If I do, I'll relay the details in a moment.""
+OR
+There's a brief pause, before Anyiwo continues. ""Give me a moment to process what we've got.""",,
+charEpsilpacContactPrintAcceptTextAnyiwo,ContactPrintAcceptText,$id == espc_anyiwo score:1000,,"The screen pulses a soft ochre in response. ""Good to have you on-board, captain.""
+OR
+""Alright, $playerFirstName, I've sent the details."" Anyiwo's visage curls forwards, a soft nod.
+OR
+As Anyiwo blinks, the details appear in your log. ""It's all there for you.""
+OR
+""Excellent."" The feed flickers imperceptibly. ""Thanks for taking that this on, captain.""
+OR
+Anyiwo's projection nods. ""With that off the table...""",,
+charEpsilpacContactPrintDeclineTextAnyiwo,ContactPrintDeclineText,$id == espc_anyiwo score:1000,,"Another flicker, as Anyiwo responds. ""I understand.""
+OR
+""No worries. If you change your mind, let us know."" A pale ripple of light washes over the feed.
+OR
+Anyiwo nods, the feed glimmering with the movement of their projection.
+OR
+""It's no big deal. We can get someone on staff to handle it.""",,
+,,,,,,
+,,,,,,
+epsilpacgreetingTOff,OpenCommLink,"!$player.transponderOn
+$faction.id == epsilpac score:100",,"The comms feed fizzles as a voice comes through. ""AIS code unavailable. Identify yourself at your earliest convenience.""
+OR
+The $personRank comes through on feed as you establish comms. ""Transponder's off. You need to make yourself known.""","turnOnTransponder:Turn your transponder on
+cutCommLink:Cut the comm link",
+epsilpacgreetingFriendly,OpenCommLink,"$faction.friendlyToPlayer
+$faction.id == epsilpac score:100","$menuState = fleetConvMain 0
+FireAll PopulateOptions","""AIS code received - captain $playerLastName. Burn bright, friend."" The $personRank turns their attention elsewhere.
+OR
+""Comms received, over. Might the stars light your way, captain. How may we be of service?""
+OR
+A nod, as the $personRank verifies your identity. ""Comms are open, captain, your signature is acknowledged. It's good to see you.""",,
+epsilpacgreetingHostileWeaker,OpenCommLink,"$entity.isHostile
+$entity.relativeStrength < 0
+$faction.id == epsilpac score:100",$ignorePlayerCommRequests = true 1,"There's a mixture of emotions in the $personRank's face as they come to terms with the situation - chief among them, resolve. ""This doesn't have to happen. We can go our separate ways.""
+OR
+A tinge of consternation comes through the feed, but only briefly. ""So this is how it ends. Let's get this over with."" $HeOrShe stares, waiting for you to respond.
+OR
+""Ah. It's you."" The $personRank's feed flickers, punctuating an uncomfortable pause. ""Go on, do your worst. We're waiting.""
+OR
+Not a single emotion is visible on the $personRank's visage, as they face you down. ""What could you possibly have to say for yourself? Go on. Do what you've come to do.""",cutCommLink:Cut the comm link,
+epsilpacgreetingHostileStronger,OpenCommLink,"$entity.isHostile
+$entity.relativeStrength >= 0
+$faction.id == epsilpac score:100",$ignorePlayerCommRequests = true 1,"The $personRank's voice feeds through comms, cold and emotionless. ""Power down your weapons, captain. You don't have to make this hard.""
+OR
+""Turn yourself in, and we'll let your crew leave. Do the right thing."" $HeOrShe speaks softly, but with gravitas beneath their words.
+OR
+A silence hangs through the comms, before the $personRank speaks. ""We can't let you go. You know it has to be this way.""
+OR
+""You caused so much suffering, for what? No longer."" $HeOrShe stares, determinedly. ""This ends now.""
+OR
+""Only one of our fleets leaves this intact. With the stars as our witness, may they shine on the better of us.""
+OR
+Not an eye twitch, not a smirk, nothing as $heOrShe speaks. ""Don't run. Face us with the dignity you couldn't show to those you've wronged.""",cutCommLink:Cut the comm link,
+epsilpacgreetingNeutral,OpenCommLink,"$faction.neutralToPlayer
+$faction.id == epsilpac score:100","$menuState = fleetConvMain 0
+FireAll PopulateOptions","""AIS code received - captain $playerLastName, aye. Stay safe out there."" The $personRank turns their attention elsewhere.
+OR
+""Hail, $playerLastName, your identity's been confirmed. Go about your business.""
+OR
+""Your AIS code has been received, captain. If you're not in need of assistance, you'd best be on your way.""",,
+epsilpacgreetingInfamous,OpenCommLink,"$player.atrocities > 1
+RollProbability 0.5 score:2
+$faction.id == epsilpac score:100","$menuState = fleetConvMain 0
+FireAll PopulateOptions","The $personRank remains stone-faced as they address you. ""Our contact has been logged. Keep your distance, state your purpose - I'm not looking to make acquaintance with the likes of you.""
+OR
+Your sensors officer alerts you to the Pact fleet's powering weapons signatures, as comms resolve.
+
+""Keep your distance, captain, we know who you are. Make your purpose clear, or be on your way.""",,
+,,,,,,
+# Isabelle generic mission text,,,,,,
+,,,,,,
+epsilpacIsabellemcbBlurb,mcb_blurb,$id == espc_isabelle score:1000,,"""I've got a new set of targets I need handled,"" $heOrShe says. ""They're up for grabs, if you need some extra credits.""",,
+epsilpacIsabellemcbOfferTextContact,DialogOptionSelected,"$option == mcb_start
+$id == espc_isabelle score:1000","$missionId = mcb
+$option = mcb_showOptions 0
+FireBest DialogOptionSelected","Intel reports appears on your display, marking systems all across the sector - As Isabelle taps her datapad, a handful of dossiers expands.
+
+""These are a ways out from our current fleet dispatches, it's putting a strain on our time tables. It'd solve quite a few problems if you could take any one of these off our hands.""",,
+,,,,,,
+epsilpacIsabelleproComDeliverGreetingNotEnoughUW,PickGreeting,"$proCom_needsCommodity score:1000
+Call $proCom_ref updateData
+!$proCom_playerHasEnough
+$proCom_underworld
+$id == espc_isabelle score:1000","ShowPersonVisual
+SetTextHighlights $proCom_quantity
+FireAll PopulateOptions","""I'm expecting a cargo of exactly $proCom_quantity units of $proCom_commodityName."" $HeOrShe says, reading from a datapad. ""In full, captain."" $HeOrShe looks up, finally, ""This won't fulfill our terms, I'm afraid.""",,
+epsilpacIsabelleproComDeliverGreetingUnderworld,PickGreeting,"$proCom_needsCommodity score:1000
+Call $proCom_ref updateData
+$proCom_playerHasEnough
+$proCom_underworld
+$id == espc_isabelle score:1000","ShowPersonVisual
+SetTextHighlights $proCom_quantity $proCom_pricePerUnit","$personName takes a quick glance at the manifest, before speaking. ""You have the goods. And they're ready to be offloaded - as agreed, $proCom_quantity units at $proCom_pricePerUnit per?""","proCom_deliver:Deliver the $proCom_commodityName
+cutCommLink:Cut the comm link",
+epsilpacIsabelleproComDeliverCompletedUnderworld,ProComCompletedText,"$proCom_underworld
+$id == espc_isabelle score:1000",,"Isabelle nods as she keys in the delivery's details. ""Excellent. Thank you, captain.""
+OR
+""Good. Very good. This should cover us for a while, thank you."" She taps a nearby screen to confirm the delivery.",,
+,,,,,,
+epsilpacIsabellecpmOfferTextContactUW,DialogOptionSelected,"$option == cpm_start
+$cpm_underworld
+$id == espc_isabelle score:1000","$missionId = cpm
+SetTextHighlights $cpm_needed $cpm_missionCycles $cpm_monthlyPayment $cpm_contractCycles $cpm_totalPayment","""I require a steady supply of $cpm_needed units of $cpm_commodityName from a colonial administrator who is willing to ensure reliability by any means necessary. Procurement begins within the next.. say, $cpm_missionCycles cycles. Once established, you will receive monthly payments of $cpm_monthlyPayment credits. Over the course of $cpm_contractCycles cycles, that amounts to $cpm_totalPayment credits in compensation.""
+
+""This exchange would do much good, for our colonies and for your own. Do we have your word?"" Isabelle clasps her hands, her grin widening.","contact_accept:Accept
+contact_decline:Decline",
+,,,,,,
+epsilpacIsabellecpcBlurb4,cpc_blurb,"$cpc_armsDealer
+$id == espc_isabelle score:1000",,"""We're currently in excess of production. Our tech, some rarer patterns - I can procure some for your fleet, if you're willing to pay.""",,
+epsilpacIsabellecpcOfferTextContact4,DialogOptionSelected,"$option == cpc_start
+$cpc_armsDealer score:20
+$id == espc_isabelle score:1000","$missionId = cpc
+SetTextHighlights $cpc_maxCapacity $cpc_costPercent $cpc_days
+DoCanAffordCheck 0 cpc_pickPlayerBP false","""At the moment, we can provide custom production for up to $cpc_maxCapacity credits worth of armament. There'll be an extra surcharge given the nature of the patterns provided and to fill any unexpected production requirements. Once you've specified the patterns, we'll have it available here within $cpc_days days.""
+
+""It'll be at $cpc_costPercent of the usual cost. A little expensive, perhaps, but.."" She taps her datapad a few times, underscoring the exotic tech on offer.","cpc_pickContactBP:Make a selection
+contact_decline:Decline",
+,,,,,,
+epsilpacIsabellesShipOfferTextContact,DialogOptionSelected,"$option == sShip_start
+$id == espc_isabelle score:1000","$missionId = sShip
+SetTextHighlights $sShip_price","""It's a $sShip_hullClass $sShip_hullSize, excellent condition. The prospective crew had a change of plans, but I figure it could do some good in your hands. $sShip_price credits will cover it - quite a discount, no?""","sShip_look:Ask for detailed info on the ship
+contact_decline:Decline",
+,,,,,,
+epsilpacIsabellessatOfferTextContactUW,DialogOptionSelected,"$option == ssat_start
+$ssat_underworld
+$id == espc_isabelle score:1000","$missionId = ssat
+SetTextHighlights $ssat_reward
+Call $ssat_ref showMap ""Target: $ssat_marketName""                        ","""We require a read on the activity around $ssat_marketName, in the $ssat_systemName. The heat's still high around our usuals - need a third party that can slip in discreetly and deploy our spysat."" She swipes at her datapad, bringing the target location onto her feed, its teal projection hovering over her confident grin.
+
+""Ensure no patrols detect its deployment - this will require your utmost discretion. You'll receive $ssat_reward credits after we begin receiving readings. Interested?""","contact_accept:Accept
+contact_decline:Decline",
+,,,,,,
+epsilpacIsabelleucbBlurb,ucb_blurb,$id == espc_isabelle score:1000,,"""I've a list of targets we need handled, through a third party."" Isabelle's eyes narrow as she peruses the details. ""In a strictly unofficial capacity, I need to stress that.""",,
+epsilpacIsabelleucbOfferTextContact,DialogOptionSelected,"$option == ucb_start
+$id == espc_isabelle score:1000","$missionId = ucb
+$option = ucb_showOptions 0
+FireBest DialogOptionSelected","Isabelle bares her teeth, her expression turning more sinister than usual. ""Glad you're on board. Here's the lot - let me know if any pique your interest.""",,
+epsilpacIsabelleCBTrader,CBTraderOfferDesc,$id == espc_isabelle score:1000,Highlight $bcb_dist $bcb_reward $bcb_days,"""This one's for a trade fleet - it's in our best interests that it does not reach its destination."" 
+
+$HeOrShe pulls up what looks like an internal customs inspection order, with attached fleet disposition report. ""They're currently in $bcb_systemName, $bcb_dist light-years away. Being held up for one reason or another, can't imagine what for. There'll be a local patrol with eyes on the target."" $HeOrShe shakes her head, ""A shame if something were to happen to the both of them, no?""
+
+""$bcb_reward credits are in order for you once the job is done, but you'll have to be quick about it - they'll be gone in $bcb_days days. Up for it?""",,
+epsilpacIsabelleCBPatrol,CBPatrolOfferDesc,$id == espc_isabelle score:1000,"SetTextHighlightColors $bcb_patrolFactionColor h h h
+Highlight $bcb_patrolFaction $bcb_dist $bcb_reward $bcb_days","""This is the target."" $HeOrShe pulls up an ID holo of a military officer in uniform. ""They're proving an obstacle to our activities in the region. Assigned to patrol duty at the moment."" $personName shakes $hisOrHer head. ""Can't allow $bcb_targetHimOrHer to return from it, I'm afraid.""
+
+""$bcb_TargetHisOrHer fleet is operating out of $bcb_targetMarketName in the $bcb_systemName, $bcb_dist light-years away. $bcb_patrolFaction space. Should be around their home market or a nearby point of strategic interest, you may have to do some searching.""
+
+Having completed the briefing, Isabelle swipes the ID holo away. ""$bcb_reward credits, for the target fleet's elimination within $bcb_days days from now. It'd be for the best if you keep it discrete, but..."" She stares intently, her smile voracious. ""We need this done one way or another.""",,
+epsilpacIsabelleCBMercUW,CBMercUWOfferDesc,$id == espc_isabelle score:1000,Highlight $bcb_dist $bcb_reward $bcb_days,"$HeOrShe pulls up a holo ID of a captain you've spotted in the news cycle fairly recently. ""This merc's been escorting independents into the further reaches. Something we generally turn a blind eye to, can't be concerned about them all - but $bcb_targetHimOrHer next assignment is one we cannot them to undertake.""
+
+$PersonName swipes the holo away and pulls up a sector map, ""We've laid a trap for $bcb_targetHimOrHer in the $bcb_systemName. It's $bcb_dist light-years away from here. You'll have $bcb_days days to catch $bcb_targetHimOrHer fleet there. Alone."" A ruthless grin.
+
+""Once finished, you'll be due for a reward of $bcb_reward credits. Again, they'll be there for the next $bcb_days days. Are you up for it?""",,
+,,,,,,
+,,,,,,
+epsilpacIsabelledspBlurb,dsp_blurb,$id == espc_isabelle score:1000,,"""We require the disruption of the $dsp_industry $dsp_marketOnOrAt $dsp_marketName.""",,
+epsilpacIsabelledspOfferTextContact,DialogOptionSelected,"$option == dsp_start
+$id == espc_isabelle score:1000","$missionId = dsp
+Highlight $dsp_dist $dsp_disruptDays $dsp_reward $dsp_marines
+Call $dsp_ref showMap ""Target: $dsp_marketName""","Isabelle pulls up a briefing, scrolling past on-site footage of the target. ""We need operations halted at the $dsp_industry $dsp_marketOnOrAt $dsp_marketName, $dsp_dist light-years away. However long you can manage, but.."" She glances away for a second, calculating in her head, before continuing ""$dsp_disruptDays days should be sufficient. We can reward you with $dsp_reward credits upon completion.""
+
+""The details."" She taps away at her screen, and soon enough the minutia of operations on $dsp_marketName pop up on your screen. You estimate that you'd need around $dsp_marines marines to carry off this raid.","contact_accept:Accept
+contact_decline:Decline",
+,,,,,,
+epsilpacIsabelletaboBlurb,tabo_blurb,$id == espc_isabelle score:1000,,"""We require an irregular force to perform a tactical bombardment of $tabo_marketName. Your fleet should be capable of undertaking this task, if you're interested.""",,
+,,,,,,
+epsilpacIsabellesecoOfferTextContact,DialogOptionSelected,"$option == seco_start
+$id == espc_isabelle score:1000","$missionId = seco
+SetTextHighlightColors $seco_factionColor h h
+SetTextHighlights $seco_faction $seco_price $seco_days
+DoCanAffordCheck $seco_price contact_accept false","""Sloppy info-sec. A single mistake is all it takes,"" she says waving her hand, underscoring a predatory smile, ""and $seco_faction security codes end up in our hands. You can leverage them for a significant advantage in a ground operation, though they'll swap out the codes once they realize.""
+
+""We've no interest in them for this current rotation, unfortunately, so they'll go to waste otherwise - but for you, a mere $seco_price credits. The current security rotation will last for $seco_days more days.""","contact_accept:Buy the security codes
+contact_decline:Decline",
+,,,,,,
+epsilpacIsabellehijackBlurb,hijack_blurb,$id == espc_isabelle score:1000,,"""We've a surplus hull in a local facility. It can be yours, if you can help us out with it.""",,
+epsilpacIsabellehijackOfferOption,hijack_option,$id == espc_isabelle score:1000,,,hijack_start:Ask about the surplus hull.,
+epsilpacIsabellehijackOfferTextContact,DialogOptionSelected,"$option == hijack_start
+$id == espc_isabelle score:1000","$missionId = hijack
+SetTextHighlights $hijack_price $hijack_marines ""Trained marines""","She scrolls through a manifest, pulling up an image of the $hijack_designation. ""$hijack_hull class, we meant to have it deployed last cycle but that's been called off. It's just been taking up hangar space since, and it's keeping the facility's guards busy to boot. It can be yours for $hijack_price credits, but there's a catch.""
+
+""We've got a skeleton force there currently, but it'll take more to get the hull into orbit and with your fleet - $hijack_marines pairs of hands should do. Trained marines, I need a crew that can work quickly, mine has to be out and on assignment elsewhere directly after.""","hijack_look:Ask for detailed info on the military vessel
+contact_decline:Decline",
+epsilpacIsabellehijackOperation1,DialogOptionSelected,"$option == hijack_op1
+$id == espc_isabelle score:1000",,"Your forces land at the hangar, equal parts annoyed to be taking on grunt-work and relieved at the change of pace. Confirming the surrounding area secured and clear for take-off, Isabelle turns her attention to directing the facility crew.",hijack_op2:Continue,
+epsilpacIsabellehijackOperation2,DialogOptionSelected,"$option == hijack_op2
+$id == espc_isabelle score:1000","RemoveCommodity credits $hijack_price
+AddShip $hijack_member
+Call $hijack_ref repSuccess
+Call $hijack_ref addContacts","You observe as Isabelle calls out orders, her crew finalizing their preparations and briefing your boarding marines, preparing to fly it out with a fraction of the manpower typically required. It lifts off much sooner than you'd expect.",hijack_op3:Continue,
+epsilpacIsabellehijackOperation3NotBar,DialogOptionSelected,"$option == hijack_op3
+!$hijack_barEvent
+$id == espc_isabelle score:1000",,"The ship joins your fleet, the marines disembarking and returning promptly afterwards. Isabelle nods with satisfaction as she returns to her feed.
+
+""Very good. A well-trained lot, those."" $HeOrShe smiles softly, a hint of tenderness peeking from her typical expression. ""You're lucky to have them under you.""",contact_acceptNoText:Continue,
+,,,,,,
+epsilpacIsabellejabrOfferTextContact1,DialogOptionSelected,"$option == jabr_start
+$id == espc_isabelle score:1000","$missionId = jabr
+SetTextHighlightColors h $jabr_factionColor h
+Highlight $jabr_dist $jabr_marketFaction $jabr_reward $jabr_marines
+Call $jabr_ref showMap ""Target: $jabr_marketName""","""We require the subject liberated from confinement on $jabr_marketOnOrAt $jabr_marketName under $jabr_marketFaction. $jabr_dist light-years away. Keep it covert if you can, but if that's not an option, don't worry about it too much - it's your rep on the line, not ours."" She cocks her head and grins, her message made. ""Once the query is back in our custody, you will receive $jabr_reward credits.""
+
+""You'll have to deal with local security if you plan on a ground operation. The details, for your perusal."" $HeOrShe brings a run-down of the facility onto your feed, with defensive logistics and security movements appearing on your feed. A quick review suggests that you'd need around $jabr_marines marines to carry off the operation.","contact_accept:Accept
+contact_decline:Decline",
+,,,,,,
+epsilpacIsabellesitmBlurb1,sitm_blurb,$id == espc_isabelle score:1000,,"""We've acquired intelligence on the potential location of $sitm_aOrAnItem. We can share this with you, for a finder's fee.""",,
+epsilpacIsabellesitmOfferTextContact1,DialogOptionSelected,"$option == sitm_start
+$id == espc_isabelle score:1000","$missionId = sitm
+Highlight $sitm_price
+DoCanAffordCheck $sitm_price contact_accept false","$HeOrShe taps a few times on their datapad, before continuing. ""Comm-feed leak. Pays to have eyes everywhere - and to ensure your own channels are secure, yes?"" She gives you a knowing grin.
+
+""Not interested in this particular acquisition, so I'm offering it to you. Now, this is from a little while ago. There's a slim chance another party might've taken it already, but you should still be able to act on it if you get there fast."" 
+
+""$sitm_price credits, and it's yours - and theirs, only. Otherwise, I'll find another buyer.""","contact_accept:Accept
+contact_decline:Decline",
+,,,,,,
+epsilpacIsabelleddroOfferTextContact1,DialogOptionSelected,"$option == ddro_start
+$id == espc_isabelle score:1000","$missionId = ddro
+Highlight $ddro_dist $ddro_reward
+Call $ddro_ref showMap ""Destination: $ddro_systemName""","Isabelle takes a moment confirm a few details, before pulling up the coordinates to a remote star-system onto your display.
+
+""I need a package dropped in this exact location in $ddro_systemName, $ddro_dist light-years away. No witnesses, en-route or afterwards. You'll receive $ddro_reward credits once I confirm it's in place."" $HeOrShe taps at $hisOrHer datapad, showing a simulated view of the drop location - the system's star in the face distance. 
+
+""Quick and simple. How does that sound?""","contact_accept:Accept
+contact_decline:Decline",
+,,,,,,
+epsilpacIsabelleCBDerelict,CBDerelictOfferDesc,$id == espc_isabelle score:1000,Highlight $bcb_dist $bcb_reward $bcb_days,"Isabelle selects a briefing marked a lurid confidential shade of red, and begins reading. ""We've been tracking a fleet of domain-era drones in the $bcb_systemName, $bcb_dist light-years from here.""
+
+""Did you catch that?"" She raises an eyebrow. ""An active fleet. Typically, they require our aid to rise from their dormant state. This fleet caught us off-guard - they don't do this on their own, and it's refused any communication on our end."" Her hand hovers over a different, redder file for a brief, tantalizing moment, before she dismisses it from her feed. 
+
+""We've our suspicions,"" she says, shaking her head, ""but the fact remains that whatever their intentions, this fleet is a threat to unaligned parties. Our operations are done in a defensive capacity only - we understand the threat posed here, and there's only one thing to be done about it. We're offering a bounty of $bcb_reward credits - for your cooperation and your silence.""
+
+Her normal sense of levity has faded, replaced with intent. ""We'll need this taken care of within $bcb_days days. Are you in?""",,
+epsilpacIsabelleCBRemnant,CBRemnantOfferDesc,$id == espc_isabelle score:1000,Highlight $bcb_dist $bcb_reward $bcb_days,"""This one's a Remnant fleet. Not a usual target on our end - they're generally receptive to our interests, but.."" Her eyes narrow as she expands an image of the fleet in question. ""In the $bcb_systemName, $bcb_dist light-years from here. Something's off.""
+
+""Generally, these fleets keep to their own systems. A good thing, as far as we're concerned - the onus remains on those who overstep their bounds."" She leans closer, scanning the briefing over again as though she'd missed something. ""This one's acting up, in a way we can't condone. Too many innocents in the crossfire.""
+
+You note her mouthing something to herself, before her attention returns back to you. ""..I'll reserve my suspicions for the moment - you're not here for that. $bcb_reward credits, if you can eliminate this fleet within the next $bcb_days days.""",,
+epsilpacIsabelleCBRemnantPlus,CBRemnantPlusOfferDesc,$id == espc_isabelle score:1000,Highlight $bcb_dist $bcb_reward $bcb_days,"""Now, listen closely."" Isabelle stares you down, straight-faced - a sight you're not sure how to interpret. She pulls up a distant image of what appears to be a fleet of Remnant droneships. ""We've spotted this in the $bcb_systemName, $bcb_dist light-years from here.""
+
+As she manipulates the image, you note a strange, almost violently angular ship in the center of the fleet formation. ""I've correlated this with testimony from our expeditionary forces and some HEGINT data."" She mentions the latter off-handedly, a detail she'd normally savour. ""Our purview normally involves things more sensitive than the average fare, but this is something more.""
+
+She palms the image again, zooming in further. The ivory silhouette stretches with discordant detail, as though discomforting for the footage itself to display. ""..yes, this has to be it."" Another glance at the corner of her display - she moves a briefing to the top, but leaves it closed.
+
+""We need this fleet eliminated. $bcb_reward credits - I won't pretend this will be easy for you. Far from it as you could imagine, we suspect, so you can expect generous compensation for your capabilities and your silence on the matter. We need this taken care of within the next $bcb_days days.""",,
+,,,,,,
+epsilpacIsabelleCBDeserter,CBDeserterOfferDesc,$id == espc_isabelle score:1000,Highlight $bcb_dist $bcb_reward $bcb_days,"""Cycles ago, I'd be handling this myself. But,"" $heOrShe says, with an uncharacteristically distant expression, ""my fleet is needed here.""
+
+""Deserters, we need them dealt with. Our intel suggests the target is hunkered down in the $bcb_systemName, a good $bcb_dist light-years from here - we've a chance to catch up with them if we act fast, but they're bound to move on soon.""
+
+""There's a reward of $bcb_reward credits and it'd need to be done within $bcb_days days. Are you up for it?""",,
+,,,,,,
+epsilpacIsabelleextrBlurb1,extr_blurb,"$extr_variation == COLONY
+$id == espc_isabelle score:1000",,"""We need an external contractor capable with mixed-capability operation for an extraction mission - I can't risk the political implications of using first-party operatives. Your fleet should be more than capable, if you're up for it.""",,
+epsilpacIsabelleextrBlurb2,extr_blurb,"$extr_variation == PIRATE_BASE
+$id == espc_isabelle score:1000",,"""I need an operator extracted from a pirate world; our forces are currently held up with home-system duties. I've dealt with that crowd enough to know your forces should be more than sufficient.""",,
+epsilpacIsabelleextrBlurb3,extr_blurb,"$extr_variation == LUDDIC_PATH_BASE
+$id == espc_isabelle score:1000",,"""We need an operation on Pather territory contracted out. My hands are tied as far as direct action on my end goes, not until I finish rooting out my current leads on local activities.""",,
+,,,,,,
+# Commission,,,,,,
+CMSNTextRejectHostile_epsilpac,CMSNTextRejectHostile,$faction.id == epsilpac,,"The $personRank glowers at you.
+
+""I would advise you to make yourself scarce sooner than later, captain. You have not been kind to our people.""",,
+CMSNTextHasOther_epsilpac,CMSNTextHasOther,$faction.id == epsilpac,,"""It's on good word you're already working with $theOtherCommissionFaction. We're afraid you'll have to resign that commission before we could consider signing you on. Work like this is not to be taken lightly.""",,
+CMSNTextUnsuited_epsilpac,CMSNTextUnsuited,$faction.id == epsilpac,,"""I'm afraid we'll have to deny your request for now, your history with the Pact is currently unsatisfactory to undertake such work.""",,
+CMSNTextSuitedPart1_epsilpac,CMSNTextSuitedPart1,$faction.id == epsilpac,,"""Given your past records, you appear to be in order to undertake such a task. We would be more than happy to have you on - although I will need to clarify what that would entail.
+
+Accepting commission with the Pact is no light matter. Remote as we are, eyes are on our systems and most are at odds with the principles and virtues we strive to uphold. To accept commission with the Epsilon Pact is to share those burdens and animosities, to fight for our independence in the face of all and any that would stand in the way of equality, and not just for the rights of humans. Wherever you stand on the issue, know exactly who you would be fighting for.
+
+You have complete freedom to revoke these responsibilities at any time after the fact, but understand that doing so creates a great deal of liability. Our intelligence is well guarded by necessity, and so your resignation would require you distance yourselves from us after the fact.""",,
+CMSNTextSuitedPart2_epsilpac,CMSNTextSuitedPart2,$faction.id == epsilpac,,"""Everything is ready if you are willing to sign on. Do you accept? This is an important decision, take your time need be.""",,
+CMSNTextWelcomePart1_epsilpac,CMSNTextWelcomePart1,$faction.id == epsilpac,,"""On the behalf of the Epsilon Pact, I welcome you. Your authorizations have already been provided. May the stars treat you well.""",,
+CMSNTextWelcomePart2_epsilpac,CMSNTextWelcomePart2,$faction.id == epsilpac,,"""While you're still here, though, is there anything else I can help you with?""",,
+CMSNTextChangeMind_epsilpac,CMSNTextChangeMind,$faction.id == epsilpac,,"""Your apprehension is understandable. To fight for our pact is not an enviable role. Your help would be appreciated, however, so should you change your mind the offer will still be available.
+
+Is there anything else I can help you with?""",,
+CMSNResignAskToConfirm_epsilpac,CMSNResignAskToConfirm,$faction.id == epsilpac,,"""Are you sure about this? Your aid is greatly appreciated, to see it go would be a great shame. If you are to proceed with this, we would ask that you distance yourself for some time afterwards as a matter of security.""",,
+CMSNResignConfirmed_epsilpac,CMSNResignConfirmed,$faction.id == epsilpac,,"""I understand. Thank you for your service, captain, and may the stars treat you well.""",,
+CMSNResignCancelled_epsilpac,CMSNResignCancelled,$faction.id == epsilpac,,"""You are free to resign whenever you like, but your commitment to the cause does not go unnoticed. Thank you, captain.""",,
+,,,,,,
+,,,,,,
+,,,,,,
+#END Commission,,,,,,
+,,,,,,
+# Relationship,,,,,,
+repLevelNeutralEpsilpac,RelationshipLevelDesc,"$faction.rel == NEUTRAL
+$faction.id == epsilpac",,"The Pact considers you unaligned as far as their interests go, and will allow you to operate in their space - but they won't hesitate to find a reason to turn you away at their earliest inconvenience.",,
+repLevelFavorableEpsilpac,RelationshipLevelDesc,"$faction.rel == FAVORABLE
+$faction.id == epsilpac",,"You have ingratiated yourself to the Pact's aims somewhat, and for it they're more willing to conduct business with you. Your aims are considered benign enough for the time being.",,
+repLevelWelcomingEpsilpac,RelationshipLevelDesc,"$faction.rel == WELCOMING
+$faction.id == epsilpac",,"For your actions across the sector, you're greeted warmly by those who consider themselves part of the Pact. Wherever your intentions lie, they consider you by their side for the time being.",,
+repLevelFriendlyEpsilpac,RelationshipLevelDesc,"$faction.rel == FRIENDLY
+$faction.id == epsilpac",,"To most in the Pact, you might as well be one of them. Those that are usually guarded allow themselves relax in your presence, knowing you to be a trustworthy captain, or at least a helpful ally.",,
+repLevelCooperativeEpsilpac,RelationshipLevelDesc,"$faction.rel == COOPERATIVE
+$faction.id == epsilpac",,"You have done much to aid the Pact in one way or another, and for it they seek to help you wherever they can in return.",,
+repLevelSuspiciousEpsilpac,RelationshipLevelDesc,"$faction.rel == SUSPICIOUS
+$faction.id == epsilpac",,"The Pact has many enemies in the sector, and considers you possibly aligned with one of many hostile polities as a precaution. Conducting business with them won't be easy, but they'll allow it if the effort is put in.",,
+repLevelInhospitableEpsilpac,RelationshipLevelDesc,"$faction.rel == INHOSPITABLE
+$faction.id == epsilpac",,"You have demonstrated yourself to be at odds with the Pact's aims. Whenever you cross paths, the charging weapons of their nearby fleets make it abundantly clear they would rather have you elsewhere.",,
+repLevelVengefulEpsilpac,RelationshipLevelDesc,"$faction.rel == VENGEFUL
+$faction.id == epsilpac",,"You're known by most Pact officials to be a significant threat, something of an achievement in a sector full of inhospitable actors. If they consider an engagement favorable, their fleets will not hesitate to hunt you down.",,
+repLevelHostileEpsilpac,RelationshipLevelDesc,"$faction.rel == HOSTILE
+$faction.id == epsilpac",,"For your actions, Pact fleets have been given authorization to engage against you at their own discretion. Any chance of reconciliation will be slim at best.",,
+#END Relationship,,,,,,
+,,,,,,
+,,,,,,
+#MarketFlavourText,,,,,,
+flavorTextMarketEpsilpacLunron,TradePanelFlavorText,"$global.tradePanelMode == MARKET
+$faction.id == epsilpac
+$market.id == espc_lunron_market score:100","AddText ""Rather than using large-scale habitation domes, most of Lorun Saba's infrastructure is built in the open and inset with airlock doors. Rebreather facemasks and portable air supplies are second nature to the local populace, conducting trade outdoors as to minimize the frequency of decontamination procedures."" marketFlavorTextColor
+AddText ""Storefronts are open-air as often as they are enclosed, a common tell of whether they might be local, run by an off-world branch, or even managed by an AI core. Such practice is off-putting to most off-worlders, but enticing in equal measure to those looking to pounce on unclaimed deals."" marketFlavorTextColor",,,
+flavorTextMarketEpsilpacBruniel,TradePanelFlavorText,"$global.tradePanelMode == MARKET
+$faction.id == epsilpac
+$market.id == espc_bruniel_market score:100","AddText ""Massive walls loom around this desert planet's sparse pockets of industry, giving reprieve from the billowing sands of its endless dunes. Piping and machinery line the streets, scouring valuable volatiles from beneath each and every grain of sand."" marketFlavorTextColor
+AddText ""Departing the shuttle, you're guided away from the stream of arriving laborers and towards the planetary station’s elevated commerce center, the din of ceaseless engines and shouted orders giving way to hushed deals and electronic confirmations."" marketFlavorTextColor",,,
+,,,,,,
+flavorTextMarketEpsilpacFalris,TradePanelFlavorText,"$global.tradePanelMode == MARKET
+$faction.id == epsilpac
+$market.id == espc_falris_market score:100","AddText ""Markets are situated in the very center of habitation platforms, with housing radiating outwards and industry situated towards the edges. The constant rumbling of tectonic activity is punctuated only by that of departing cargo shuttles, their busy traffic drawing contrail ley lines between platforms that converge over the planet's central spaceport."" marketFlavorTextColor
+AddText ""Though living conditions are safer than they might appear, the hellish magmatic landscape offers little more than its industrial capacity, and the busy demeanor of its populace reflects as much."" marketFlavorTextColor",,,
+flavorTextMarketEpsilpacTocquiera,TradePanelFlavorText,"$global.tradePanelMode == MARKET
+$faction.id == epsilpac
+$market.id == espc_tocquiera_market score:100","AddText ""Commerce is concentrated in Tocquiera's open air markets, as much of the planet's population lacks access to the sector's relays. Merchants garbed in tunics, tabards and tech-wear alike shout out offers from behind their stalls, trading credit chits for coinage. All manner of goods are exchanged, shipped off in wooden carts and shuttles."" marketFlavorTextColor
+AddText ""An overwhelming experience for most, some of the local tribes offer their expertise in guidance and barter in exchange for shipments of modern amenities. Recognizing your station, the local authority directs you to a government-subsidized translator as you approach a busy square."" marketFlavorTextColor",,,
+,,,,,,
+,,,,,,
+#END MarketFlavourText,,,,,,

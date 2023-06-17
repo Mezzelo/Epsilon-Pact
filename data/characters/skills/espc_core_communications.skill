@@ -1,0 +1,24 @@
+{
+	"id":"espc_core_communications",
+	"governingAptitude":"technology",
+	# "governingAptitude":"espc_skillapt_pact",
+	"compressHullmods":false,
+	"scope":CUSTOM,
+	"scopeStr":"all automated ships",
+	"effectGroups":[
+		{
+			"requiredSkillLevel":0,
+			"effects":[
+				{"type":"DESCRIPTION", "script":"data.campaign.skills.espc_Core_Communications$Level0"},
+			]
+		},
+		{
+			"requiredSkillLevel":1,
+			"effectBasedOnLevel":false,
+			"effects":[
+				{"type":"CHARACTER_STATS", "script":"data.campaign.skills.espc_Core_Communications$Level2"},
+				{"type":"ALL_SHIPS_IN_FLEET", "script":"data.campaign.skills.espc_Core_Communications$Level1"},
+			]
+		},
+	],
+}

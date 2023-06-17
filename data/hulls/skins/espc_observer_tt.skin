@@ -1,0 +1,32 @@
+{
+	"baseHullId":"espc_observer",
+	"skinHullId":"espc_observer_tt",
+	"hullName":"Observer (TT)",
+	"descriptionId":"espc_observer",
+	"descriptionPrefix":"Tri-Tachyon engineers have fitted this Observer with a more offensively-oriented set of mounts. Reconfiguring the original, highly esoteric power routing has resulted in the loss of its unique shield emitter, as well as elevated maintenance costs.",
+	"tags":["rare_bp", "merc"],
+    "systemId":"fortressshield",
+	"tech":"Tri-Tachyon",
+    "spriteName": "graphics/ships/espc_observer_tt.png",
+	"fleetPoints":16,
+	"suppliesToRecover":28,
+	"suppliesPerMonth":28,
+    "weaponSlotChanges":{
+	   "WS0003":{"type":SYNERGY},
+	   "WS0004":{"type":SYNERGY},
+	   "WS0007":{"type":SYNERGY},
+	   "WS0008":{"type":SYNERGY},
+	   "WS0009":{"type":SYNERGY},
+	   "WS0010":{"type":SYNERGY},
+	   "WS0011":{"type":ENERGY},
+	   "WS0012":{"type":ENERGY},
+    },
+    "ordnancePoints":155,
+	"removeWeaponSlots":[], 		# ids
+	"removeEngineSlots":[], 		# indices, as engine slots have no id in the .ship file
+	"removeBuiltInMods":[], 		# hullmod ids
+	"removeBuiltInWeapons":[], 		# weapon slot ids
+	"builtInMods":[],
+	"builtInWeapons":{
+    },
+}

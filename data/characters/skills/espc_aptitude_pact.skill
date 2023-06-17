@@ -1,0 +1,12 @@
+{
+	"id":"espc_aptitude_pact",
+	"governingAptitude":"espc_skillapt_pact",
+	"effectGroups":[
+		{
+			"requiredSkillLevel":0,
+			"effects":[
+				{"type":"DESCRIPTION", "script":"data.campaign.skills.espc_PactAptitudeDesc$Level0"},
+			]
+		},
+	],
+}

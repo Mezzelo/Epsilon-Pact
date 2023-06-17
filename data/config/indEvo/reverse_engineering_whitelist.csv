@@ -1,0 +1,30 @@
+id
+# NOTES
+# Ship IDs entered here will be allowed by the Engineering hub (Reverse Engineering ship hulls)
+# Ships that would break the game (Balance/Technical/Lore) if the player could produce them via blueprint should not be on this list.
+"# Remember that we are all in this to have fun. Reverse Engineering is neither easy nor cheap, and forbidding too much takes away from player experience."
+espc_flagbearer
+espc_rondel
+espc_rondel_h
+espc_jackalope
+espc_jackalope_lp
+espc_songbird
+espc_songbird_tt
+espc_opossum
+espc_ember
+espc_ember_c
+espc_ember_p
+espc_militia
+espc_militia_o
+espc_observer
+espc_observer_tt
+espc_chorale
+espc_pilgrim
+espc_pilgrim_h
+# espc_billhook
+# espc_narthex
+# espc_usury
+# espc_somnambulist
+# espc_atavist
+# espc_serenade
+# espc_amanuensis

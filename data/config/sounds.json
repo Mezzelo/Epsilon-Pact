@@ -1,0 +1,96 @@
+{
+
+	 "espc_minimir_fire":[
+		{"file":"sounds/sfx_wpn_guns/mjolnir_fire_01.ogg","pitch":1.5,"volume":0.65},
+		{"file":"sounds/sfx_wpn_guns/mjolnir_fire_01.ogg","pitch":1.49,"volume":0.65},
+		{"file":"sounds/sfx_wpn_guns/mjolnir_fire_01.ogg","pitch":1.48,"volume":0.65},
+		{"file":"sounds/sfx_wpn_guns/mjolnir_fire_01.ogg","pitch":1.46,"volume":0.65},
+		{"file":"sounds/sfx_wpn_guns/mjolnir_fire_01.ogg","pitch":1.44,"volume":0.65},
+		{"file":"sounds/sfx_wpn_guns/mjolnir_fire_01.ogg","pitch":1.42,"volume":0.65},
+	],
+	
+
+	 "espc_amflamer_loop":[
+		{"file":"sounds/weapon/espc_amflamer_loop.ogg","pitch":1.0,"volume":0.7},
+	],
+	 "espc_amflamer_burst":[
+		{"file":"sounds/weapon/espc_amflamer_burst.ogg","pitch":1.0,"volume":0.8},
+	],
+	
+	 "espc_mkl_fire":[
+		{"file":"sounds/weapon/espc_mkl_fire_loud.ogg","pitch":0.95,"volume":0.75},
+	],
+	 "espc_buzzer_fire":[
+		{"file":"sounds/weapon/espc_buzzer_fire.ogg","pitch":1.0,"volume":0.85},
+	],
+	 "espc_aa_fire":[
+		{"file":"sounds/weapon/espc_aa_fire.ogg","pitch":1.0,"volume":1.1},
+	],
+	 "espc_as_fire":[
+		{"file":"sounds/weapon/espc_as_fire.ogg","pitch":1.0,"volume":1.05},
+	],
+	 "espc_remdriver_fire":[
+		{"file":"sounds/weapon/espc_buzzer_fire.ogg","pitch":1.0,"volume":0.7},
+	],
+	 "espc_remmortar_fire":[
+		{"file":"sounds/weapon/espc_gatling_fire_loud.ogg","pitch":0.9,"volume":1.1},
+	],
+	 "espc_gatling_fire":[
+		{"file":"sounds/weapon/espc_gatling_fire_loud.ogg","pitch":1.0,"volume":0.7},
+	],
+	"espc_finnegan_fire":[
+		{"file":"sounds/weapon/espc_finnegan_fire.ogg","pitch":1.0,"volume":0.7},		
+	],
+	"espc_finnegan_impact":[
+		{"file":"sounds/weapon/espc_finnegan_impact.ogg","pitch":1.0,"volume":0.9},		
+	],
+	"espc_finnegan_explode":[
+		{"file":"sounds/weapon/espc_finnegan_explode.ogg","pitch":1.0,"volume":0.7},		
+	],
+	 "espc_riftchargeloop":[
+		{"file":"sounds/weapon/espc_riftchargeloop.ogg","pitch":1.0,"volume":1.0},
+	],
+	 "espc_riftchargesecondary":[
+		{"file":"sounds/sfx_abilities/ability_world-go_dark_off_03.ogg","pitch":1.0,"volume":1.0},
+	],
+	 "espc_riftspearfire":[
+		{"file":"sounds/sfx_impacts/energy_hit_03.ogg","pitch":0.8,"volume":0.7},
+	],
+	 "espc_spark":[
+		{"file":"sounds/sfx_systems/termination_sequence_activate.ogg","pitch":1.0,"volume":1.0},
+	],
+	 "espc_overpressure_fire":[
+		{"file":"sounds/system/espc_overpressure_fire.ogg","pitch":1.0,"volume":1.0},
+	],
+	 "espc_temporal_loop":[
+		{"file":"sounds/system/espc_temporal_loop.ogg","pitch":1.0,"volume":1.0},
+	],
+	 "espc_temporal_freeze":[
+		{"file":"sounds/system/espc_temporal_freeze.ogg","pitch":1.0,"volume":1.0},
+	],
+	 "espc_shieldwall":[
+		{"file":"sounds/sfx_shields/shields_up_small.ogg","pitch":0.9,"volume":1.2},
+	],
+    "music":{
+        "music_epsilpac_encounter_neutral":[
+            {"file":"faction_epsilpac_encounter_01_neutral.ogg","source":"sounds/music","volume":0.25,"randomStart":true}
+        ],
+        "music_epsilpac_encounter_hostile":[
+            {"file":"faction_epsilpac_encounter_02_hostile.ogg","source":"sounds/music","volume":0.15,"randomStart":true}
+        ],
+        "music_epsilpac_encounter_friendly":[
+            {"file":"faction_epsilpac_encounter_01_neutral.ogg","source":"sounds/music","volume":0.25,"randomStart":true}
+        ],
+		"music_epsilpac_market_neutral":[
+            {"file":"faction_epsilpac_market_01_neutral.ogg","source":"sounds/music","volume":0.25,"randomStart":true}
+        ],
+        "music_epsilpac_market_hostile":[
+            {"file":"faction_epsilpac_market_02_hostile.ogg","source":"sounds/music","volume":0.25,"randomStart":true}
+        ],
+        "music_epsilpac_market_friendly":[
+            {"file":"faction_epsilpac_market_01_neutral.ogg","source":"sounds/music","volume":0.25,"randomStart":true}
+        ],
+    },
+	
+}
+

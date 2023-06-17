@@ -1,0 +1,31 @@
+{
+	"baseHullId":"espc_militia",
+	"skinHullId":"espc_militia_o",
+	"hullName":"Militia (S)",
+	"hullDesignation":"Hybrid Liner",
+	"descriptionId":"espc_militia",  # optional
+	"descriptionPrefix":"Although this hull is of the original manufacturing variant designed for civilian use, its lack of military fittings counts for shockingly little against its combat capabilities - a lesson many an inopportune pirate crew has learned the hard way.",
+	"tags":["rare_bp", "merc"],
+	"tech":"Midline",
+    "systemId":"flarelauncher",
+    "weaponSlotChanges":{
+	   "WS 001":{"angle": 0},
+	   "WS0004":{"angle": -120},
+	   "WS0005":{"angle": 120},
+	   "WS 002":{"angle": 0, "arc": 15, "type": COMPOSITE, "mount": HARDPOINT},
+	   "WS0003":{"angle": 180},
+    },
+	"fleetPoints":9,
+	"suppliesToRecover":10,
+	"suppliesPerMonth":10,
+    "spriteName": "graphics/ships/espc_militia_original.png",
+	"addHints":[CIVILIAN],
+	"ordnancePoints":110,
+	"baseValueMult":1,
+	"removeEngineSlots":[], 		# indices, as engine slots have no id in the .ship file
+	"removeBuiltInMods":["militarized_subsystems"], 		# hullmod ids
+	"removeBuiltInWeapons":[], 		# weapon slot ids
+	"builtInMods":["civgrade"],
+	"builtInWeapons":{
+    },
+}

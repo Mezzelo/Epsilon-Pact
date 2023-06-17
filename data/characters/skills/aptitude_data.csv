@@ -1,0 +1,2 @@
+id,name,color,description,order,effect_skill_id,sound1,sound2,sound3,sound4,sound5,sound_story,elite_overlay,elite_overlay_medium,elite_overlay_small
+# espc_skillapt_pact,Something Else,"20,170,190,255","Unorthodox, often questionable expertise exercised by members of the Epsilon Pact.",200,espc_aptitude_pact,combat1,combat2,combat3,combat4,combat5,ui_char_spent_story_point_combat,graphics/icons/skills/espc_elite_pact.png,graphics/icons/skills/espc_elite_pact48.png,graphics/icons/skills/espc_elite_pact32.png

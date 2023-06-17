@@ -1,0 +1,97 @@
+{
+  "hullName": "Sentry (EP)",
+  "hullId": "espc_sentry",
+  "hullSize": "FRIGATE",
+  "spriteName": "graphics/ships/derelict/espc_sentry.png",
+  "style": "ESPC_LOW_TECH",
+  "height": 50,
+  "width": 52,
+  "center": [28, 23],
+  "collisionRadius": 37.5,
+  "shieldCenter": [1, 0],
+  "shieldRadius": 36,
+  "viewOffset": 0,
+  "builtInMods": [
+    "automated",
+    "rugged"
+  ],
+  "builtInWings": [
+    "espc_borer_wing"
+  ],
+  "weaponSlots": [
+    {
+      "id": "WS 001",
+      "size": "SMALL",
+      "type": "COMPOSITE",
+      "mount": "TURRET",
+      "arc": 10,
+      "angle": 0,
+      "locations": [16, 19]
+    },
+    {
+      "id": "WS 002",
+      "size": "SMALL",
+      "type": "MISSILE",
+      "mount": "HARDPOINT",
+      "arc": 10,
+      "angle": 0,
+      "locations": [21, 1]
+    },
+    {
+      "id": "WS 003",
+      "size": "SMALL",
+      "type": "COMPOSITE",
+      "mount": "TURRET",
+      "arc": 10,
+      "angle": 0,
+      "locations": [21, -14]
+    },
+    {
+      "id": "LB 1",
+      "size": "LARGE",
+      "type": "LAUNCH_BAY",
+      "mount": "HIDDEN",
+      "arc": 360,
+      "angle": 0,
+      "locations": [
+        -7.5, -12,
+        -8, -18,
+        2.5, -11.5,
+        2, -19
+      ]
+    }
+  ],
+  "engineSlots": [
+    {
+      "location": [-21, 15],
+      "length": 28,
+      "width": 8,
+      "angle": 180,
+      "contrailSize": 36,
+      "style": "LOW_TECH"
+    },
+    {
+      "location": [-21, 1],
+      "length": 32,
+      "width": 12,
+      "angle": 180,
+      "contrailSize": 48,
+      "style": "LOW_TECH"
+    },
+    {
+      "location": [-21, -13],
+      "length": 28,
+      "width": 8,
+      "angle": 180,
+      "contrailSize": 36,
+      "style": "LOW_TECH"
+    }
+  ],
+  "bounds": [
+    7, 27,
+    21, 6,
+    21, -19,
+    -16, -21,
+    -18, 20
+  ]
+}

@@ -1,0 +1,27 @@
+{
+        "defaultChannels":[
+                "epsilpac_public",
+                "epsilpac_internal",
+        ],
+        
+        "epsilpac_public":{
+		"name":"Pact Public Bulletin",
+		"logo":"graphics/icons/intel/espc_external.png",
+		"icon":"graphics/icons/intel/espc_external.png",
+		"image":"graphics/factions/epsilpac_gradonly_flag.png",
+		"sound":"ui_channel_news",
+		"faction":"epsilpac",
+		"type":"Local News",
+		"shortType":"News",
+	},
+	"epsilpac_internal":{
+		"name":"Pact Intelligence",
+		"logo":"graphics/da/icons/intel/da_internal.png",
+		"icon":"graphics/da/icons/intel/da_internal.png",
+		"image":"graphics/factions/epsilpac_gradonly_flag.png",
+		"sound":"ui_channel_comm_secure",
+		"faction":"epsilpac",
+		"type":"Internal Intelligence",
+		"shortType":"Intel",
+	},
+}

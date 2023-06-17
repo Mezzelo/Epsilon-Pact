@@ -1,0 +1,27 @@
+{
+	"baseHullId":"espc_ember",
+	"skinHullId":"espc_ember_c",
+	"hullName":"Ember (S)",
+	"descriptionId":"espc_ember",  # optional
+	"hullDesignation":"Demilitarized Tanker",
+	"descriptionPrefix":"An unusual foreign-demilitarized variant of the Ember, this version has been streamlined for easier maintenance with common tanker fittings. Though outwardly low-tech and typically only fielded for its high thrust-to-capacity ratio, its relative agility and intact military-grade power core grant surprising staying power in combat situations.",
+	"tags":["rare_bp", "merc"],
+	"tech":"High Tech",
+    "systemId":"plasmajets",
+    "spriteName": "graphics/ships/espc_ember_civilian.png",
+    "weaponSlotChanges":{
+	   "WS 001":{"type": SYNERGY, "size": "MEDIUM"},
+	},
+	"addHints":[CIVILIAN],
+	# "ordnancePoints":30,
+	"suppliesToRecover":5,
+	"suppliesPerMonth":5,
+	"fleetPoints":6,
+	"baseValueMult":0.625,
+	# "removeEngineSlots":[], 		# indices, as engine slots have no id in the .ship file
+	# "removeBuiltInMods":[], 		# hullmod ids
+    "builtInMods": ["civgrade"],
+	"removeBuiltInWeapons":["WS 001"], 		# weapon slot ids
+	# "builtInWeapons":{
+    # },
+}

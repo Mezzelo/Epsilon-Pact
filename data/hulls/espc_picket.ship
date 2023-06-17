@@ -1,0 +1,89 @@
+{
+  "hullName": "Picket (EP)",
+  "hullId": "espc_picket",
+  "hullSize": "FRIGATE",
+  "spriteName": "graphics/ships/derelict/espc_picket.png",
+  "style": "ESPC_LOW_TECH",
+  "height": 52,
+  "width": 60,
+  "center": [30, 24],
+  "collisionRadius": 37,
+  "shieldCenter": [1, 0],
+  "shieldRadius": 36,
+  "viewOffset": 0,
+  "builtInMods": [
+    "automated",
+    "rugged"
+  ],
+  "weaponSlots": [
+    {
+      "id": "WS 001",
+      "size": "SMALL",
+      "type": "BALLISTIC",
+      "mount": "TURRET",
+      "arc": 240,
+      "angle": -0,
+      "locations": [16, 14]
+    },
+    {
+      "id": "WS 002",
+      "size": "SMALL",
+      "type": "BALLISTIC",
+      "mount": "HARDPOINT",
+      "arc": 10,
+      "angle": 0,
+      "locations": [21, 0]
+    },
+    {
+      "id": "WS 003",
+      "size": "SMALL",
+      "type": "BALLISTIC",
+      "mount": "TURRET",
+      "arc": 240,
+      "angle": 0,
+      "locations": [16, -15]
+    }
+  ],
+  "engineSlots": [
+    {
+      "location": [-22, 15],
+      "length": 36,
+      "width": 12,
+      "angle": 180,
+      "contrailSize": 48,
+      "style": "LOW_TECH"
+    },
+    {
+      "location": [-22, -15],
+      "length": 36,
+      "width": 12,
+      "angle": 180,
+      "contrailSize": 48,
+      "style": "LOW_TECH"
+    },
+    {
+      "location": [-21, 9],
+      "length": 24,
+      "width": 6,
+      "angle": 180,
+      "contrailSize": 36,
+      "style": "LOW_TECH"
+    },
+    {
+      "location": [-21, -8],
+      "length": 24,
+      "width": 6,
+      "angle": 180,
+      "contrailSize": 36,
+      "style": "LOW_TECH"
+    }
+  ],
+  "bounds": [
+    21, 20,
+    21, -19,
+    2, -25,
+    -16, -19,
+    -16, 19,
+    1, 28
+  ]
+}

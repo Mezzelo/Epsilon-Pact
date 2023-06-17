@@ -1,0 +1,107 @@
+{
+	"espc_giver":{ # like Jupiter or Saturn
+		"name":"Gas Giant",
+		"tilt":7, # left-right (>0 tilts to the left)
+		"pitch":-15, # towards-away from the viewer (>0 pitches towards)
+		"rotation":-3, # degrees/second
+		"planetColor":[255,255,255,255],
+		"atmosphereThickness":0.18, # as fraction of radius.  Set to 0 for no atmosphere
+		"atmosphereThicknessMin":62, #  minimum thickness in pixels - used when radius * atmosphereThickness is really low
+		"atmosphereColor":[140,100,45,140],
+		"texture":"graphics/planets/espc_giver_texture.jpg",
+		"icon":"graphics/warroom/icon_planet.png",
+		"iconColor":[220,180,100,255],
+		"isStar":false,
+		"isGasGiant":true,
+		"lightPosition":[5,-2,3], # in planet radii.  Not used for stars.  z > 0 is above the playing field.
+		"cloudTexture":"graphics/planets/espc_giver_clouds.png", # omit for no cloud layer
+		"cloudColor":[220,174,96,200],
+		"cloudRotation":-7, # degrees/second, optional
+	},
+	"espc_falris":{
+		"name":"Volcanic",
+		"tilt":60, # left-right (>0 tilts to the left)
+		"pitch":15, # towards-away from the viewer (>0 pitches towards)
+		"rotation":-6, # degrees/second
+		"planetColor":[255,255,255,255],
+		"atmosphereThickness":0.1, # as fraction of radius.  Set to 0 for no atmosphere
+		"atmosphereThicknessMin":30, #  minimum thickness in pixels
+		"atmosphereColor":[215,50,15,60],
+		"texture":"graphics/planets/espc_falris_texture.jpg",
+		"icon":"graphics/warroom/icon_planet.png",
+		"iconColor":[215,115,55,255],
+		"isStar":false,
+		"lightPosition":[0,0,50], # in planet radii.  Not used for stars.  z > 0 is above the playing field.
+		"glowTexture":"graphics/planets/espc_falris_glow.png", # omit for no glow layer
+		"glowColor":[255,255,255,255],
+		"useReverseLightForGlow":false,
+		"doNotShowInCombat":true, # meant for brighter planets that make it hard to see what's going on
+	},
+	"espc_tocquiera":{
+		"name":"Terran",
+		"tilt":20, # left-right (>0 tilts to the left)
+		"pitch":3, # towards-away from the viewer (>0 pitches towards)
+		"rotation":-3, # degrees/second
+		"planetColor":[255,255,255,255],
+		"atmosphereThickness":0.25, # as fraction of radius.  Set to 0 for no atmosphere
+		"atmosphereThicknessMin":40, #  minimum thickness in pixels
+		"atmosphereColor":[60,160,215,160],
+		"texture":"graphics/planets/espc_tocquiera_texture.jpg",
+		"glowTexture":"graphics/planets/espc_tocquiera_glow.png", # omit for no glow layer
+		"useReverseLightForGlow":true,
+		"icon":"graphics/warroom/icon_planet.png",
+		"iconColor":[155,185,255,255],
+		"isStar":false,
+		"lightPosition":[4,-1,8], # in planet radii.  Not used for stars.  z > 0 is above the playing field.
+		"cloudTexture":"graphics/planets/espc_tocquiera_clouds.png", # omit for no cloud layer
+		"cloudColor":[235,240,250,225],
+		"cloudRotation":-5, # degrees/second, optional
+	},
+	"espc_bruniel":{
+		"name":"Barren-Desert",
+		"tilt":20, # left-right (>0 tilts to the left)
+		"pitch":3, # towards-away from the viewer (>0 pitches towards)
+		"rotation":-5, # degrees/second
+		"planetColor":[255,255,255,255],
+		"atmosphereThickness":0.1, # as fraction of radius.  Set to 0 for no atmosphere
+		"atmosphereThicknessMin":20, #  minimum thickness in pixels
+		"atmosphereColor":[165,140,115,140],
+		"texture":"graphics/planets/espc_bruniel_texture.jpg",
+		"glowTexture":"graphics/planets/espc_bruniel_glow.png", # omit for no glow layer
+		"glowColor":[255,255,255,255],
+		"useReverseLightForGlow":true,
+		"icon":"graphics/warroom/icon_planet.png",
+		"iconColor":[165,120,100,255],
+		"isStar":false,
+		"lightPosition":[1,2,8], # in planet radii.  Not used for stars.  z > 0 is above the playing field.
+		"cloudTexture":"graphics/planets/espc_bruniel_clouds.png", # omit for no cloud layer
+		"cloudColor":[220,160,100,220],
+		"cloudRotation":12, # degrees/second, optional
+	},
+	"espc_lunron":{
+		"name":"Terran Eccentric",
+		"tilt":30, # left-right (>0 tilts to the left)
+		"pitch":-2, # towards-away from the viewer (>0 pitches towards)
+		"rotation":5, # degrees/second
+		"planetColor":[255,215,100,255],
+		"atmosphereThickness":0.15, # as fraction of radius.  Set to 0 for no atmosphere
+		"atmosphereThicknessMin":40, #  minimum thickness in pixels
+		"atmosphereColor":[155, 225, 120, 150],
+		"texture":"graphics/planets/espc_lunron_texture.jpg",
+		"glowTexture":"graphics/planets/espc_lunron_glow.png", # omit for no glow layer
+		"glowColor":[255,255,255,255],
+		"useReverseLightForGlow":true,
+		"icon":"graphics/warroom/icon_planet.png",
+		"iconColor":[255,235,100,255],
+		"isStar":false,
+		"lightPosition":[1,2,8], # in planet radii.  Not used for stars.  z > 0 is above the playing field.
+		"cloudTexture":"graphics/planets/espc_lunron_clouds.png", # omit for no cloud layer
+		"cloudColor":[210, 240, 150, 200],
+		"cloudRotation":15, # degrees/second, optional
+	},
+}
+
+
+
+
+

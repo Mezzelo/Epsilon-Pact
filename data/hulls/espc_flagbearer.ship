@@ -1,0 +1,125 @@
+{
+  "hullName": "Flagbearer",
+  "hullId": "espc_flagbearer",
+  "hullSize": "FRIGATE",
+  "spriteName": "graphics/ships/espc_flagbearer.png",
+  "style": "ESPC_LOW_TECH",
+  "coversColor": "255,188,175,255",
+  "height": 88,
+  "width": 72,
+  "center": [39, 43],
+  "collisionRadius": 62,
+  "shieldCenter": [0, -0],
+  "shieldRadius": 61.5,
+  "viewOffset": 0,
+  "builtInMods": [
+    "high_maintenance",
+    "fluxshunt"
+  ],
+  "builtInWeapons": {
+    "WS0001": "espc_glow_flagbearer"
+  },
+  "weaponSlots": [
+    {
+      "id": "WS001",
+      "size": "MEDIUM",
+      "type": "COMPOSITE",
+      "mount": "HARDPOINT",
+      "arc": 20,
+      "angle": 0,
+      "locations": [-8, -9],
+      "renderOrderMod": 210
+    },
+    {
+      "id": "WS003",
+      "size": "SMALL",
+      "type": "BALLISTIC",
+      "mount": "TURRET",
+      "arc": 234,
+      "angle": 0,
+      "locations": [29, 11],
+      "renderOrderMod": 110
+    },
+    {
+      "id": "WS002",
+      "size": "SMALL",
+      "type": "BALLISTIC",
+      "mount": "TURRET",
+      "arc": 10,
+      "angle": 0,
+      "locations": [33, -11],
+      "renderOrderMod": 10
+    },
+    {
+      "id": "WS004",
+      "size": "SMALL",
+      "type": "BALLISTIC",
+      "mount": "TURRET",
+      "arc": 240,
+      "angle": 143.5,
+      "locations": [-8, 28]
+    },
+    {
+      "id": "WS0001",
+      "size": "SMALL",
+      "type": "DECORATIVE",
+      "mount": "HARDPOINT",
+      "arc": 0,
+      "angle": 0,
+      "locations": [-21, 3]
+    }
+  ],
+  "engineSlots": [
+    {
+      "location": [-40.5, 4.5],
+      "length": 35,
+      "width": 13,
+      "angle": 180,
+      "contrailSize": 13,
+      "style": "LOW_TECH"
+    },
+    {
+      "location": [-39, -17],
+      "length": 23.5,
+      "width": 10,
+      "angle": 180,
+      "contrailSize": 10,
+      "style": "LOW_TECH"
+    },
+    {
+      "location": [-40.5, -5.5],
+      "length": 35,
+      "width": 13,
+      "angle": 180,
+      "contrailSize": 13,
+      "style": "LOW_TECH"
+    },
+    {
+      "location": [-39, 17],
+      "length": 23.5,
+      "width": 10,
+      "angle": 180,
+      "contrailSize": 10,
+      "style": "LOW_TECH"
+    }
+  ],
+  "bounds": [
+    35.5, 22,
+    42.5, 14.5,
+    38.5, -18,
+    28, -21,
+    14.5, -22,
+    6.5, -29,
+    -26, -29.5,
+    -28, -21,
+    -40.5, -20,
+    -40.5, 9,
+    -38, 21.5,
+    -27, 21.5,
+    -27, 29,
+    -18.5, 29.5,
+    -14, 36.5,
+    16.5, 30,
+    21.5, 24.5
+  ]
+}

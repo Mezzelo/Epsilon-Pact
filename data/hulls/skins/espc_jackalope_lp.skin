@@ -1,0 +1,27 @@
+{
+	"baseHullId":"espc_jackalope",
+	"skinHullId":"espc_jackalope_lp",
+	"hullName":"Jackalope (LP)",
+	"descriptionId":"espc_jackalope",
+	"descriptionPrefix":"Luddic Pathers have turned Mammon's blasphemed technology against its creators, resulting in a hull arguably more mercurial than the original. Armed with an oversized rack of Hammer torpedoes, this rendition of the Jackalope is feared and ridiculed in equal measure.",
+	"tags":["LP_bp"],
+    "systemId":"espc_MissileBoost",
+	"tech":"Luddic Path",
+	"spriteName": "graphics/ships/espc_jackalope_lp.png",
+	"fleetPoints":5,
+	"suppliesToRecover":5,
+	"suppliesPerMonth":5,
+	"baseValueMult":0.35,
+    "weaponSlotChanges":{
+	   "WS 001":{"type":BUILT_IN},
+    },
+    "ordnancePoints":35,
+	"removeWeaponSlots":[], 		# ids
+	"removeEngineSlots":[], 		# indices, as engine slots have no id in the .ship file
+	"removeBuiltInMods":["hbi"], 		# hullmod ids
+	"removeBuiltInWeapons":[], 		# weapon slot ids
+	"builtInMods":["safetyoverrides", "damaged_mounts"],
+	"builtInWeapons":{
+		"WS 001": "hammerrack"
+    },
+}

@@ -1,0 +1,30 @@
+{
+	"baseHullId":"espc_ember",
+	"skinHullId":"espc_ember_p",
+	"hullName":"Ember Mk.II",
+	"descriptionId":"espc_ember",  # optional
+	"hullDesignation":"Modified Combat Carrier",
+	"descriptionPrefix":"A rather bold crew of pirates has effectively re-militarized this Ember, restoring its large mount and carving out the front fuel nacelle into a makeshift fighter bay. Though hard-pressed to properly utilize either, the resulting hull is still quite a threat - to itself and to its targets, in equal measure.",
+	"tags":["pirate_bp"],
+	"tech":"Pirate",
+    "systemId":"highenergyfocus",
+    "spriteName": "graphics/ships/espc_ember_pirate.png",
+    "weaponSlotChanges":{
+	   "WS 001":{"type": ENERGY},
+	   # "WS 002":{"type": LAUNCH_BAY},
+	},
+	"addHints":[CARRIER, COMBAT, NO_AUTO_ESCORT],
+	# "removeHints":[TANKER],
+	"fighterBays":1,
+	"ordnancePoints":60,
+	# "suppliesToRecover":10,
+	# "suppliesPerMonth":10,
+	"fleetPoints":10,
+	"baseValueMult":0.625,
+	# "removeEngineSlots":[], 		# indices, as engine slots have no id in the .ship file
+	# "removeBuiltInMods":[], 		# hullmod ids
+	"removeBuiltInWeapons":["WS 001"], 		# weapon slot ids
+	"builtInMods":["espc_emberpmod", "civgrade"],
+	# "builtInWeapons":{
+    # },
+}

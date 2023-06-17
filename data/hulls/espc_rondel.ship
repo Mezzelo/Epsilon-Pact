@@ -1,0 +1,85 @@
+{
+  "hullName": "Rondel",
+  "hullId": "espc_rondel",
+  "hullSize": "FRIGATE",
+  "spriteName": "graphics/ships/espc_rondel_base.png",
+  "style": "ESPC_LOW_TECH",
+  "height": 108,
+  "width": 72,
+  "center": [36, 47],
+  "collisionRadius": 86.5,
+  "shieldCenter": [3, -0],
+  "shieldRadius": 82,
+  "viewOffset": 0,
+  "weaponSlots": [
+    {
+      "id": "WS 001",
+      "size": "MEDIUM",
+      "type": "COMPOSITE",
+      "mount": "HARDPOINT",
+      "arc": 5,
+      "angle": 0,
+      "locations": [38, -0]
+    },
+    {
+      "id": "WS 002",
+      "size": "SMALL",
+      "type": "BALLISTIC",
+      "mount": "TURRET",
+      "arc": 290,
+      "angle": 145,
+      "locations": [6, 19]
+    },
+    {
+      "id": "WS0001",
+      "size": "SMALL",
+      "type": "BALLISTIC",
+      "mount": "TURRET",
+      "arc": 290,
+      "angle": -145,
+      "locations": [6, -19]
+    }
+  ],
+  "engineSlots": [
+    {
+      "location": [-32, -22],
+      "length": 50.5,
+      "width": 16,
+      "angle": 180,
+      "contrailSize": 16,
+      "style": "LOW_TECH"
+    },
+    {
+      "location": [-32, 22],
+      "length": 50.5,
+      "width": 16,
+      "angle": -180,
+      "contrailSize": 16,
+      "style": "LOW_TECH"
+    },
+    {
+      "location": [-42.5, -0],
+      "length": 64,
+      "width": 32,
+      "angle": 180,
+      "contrailSize": 32,
+      "style": "LOW_TECH"
+    }
+  ],
+  "bounds": [
+    -44, 11.5,
+    -35.5, 10.5,
+    -33, 28,
+    -20, 31,
+    13.5, 30.5,
+    22, 15,
+    55, 15,
+    55, -15,
+    22, -15,
+    13.5, -30.5,
+    -20, -31,
+    -33, -28,
+    -35.5, -10.5,
+    -44, -11.5
+  ]
+}

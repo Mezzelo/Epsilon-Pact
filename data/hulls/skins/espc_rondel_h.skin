@@ -1,0 +1,30 @@
+{
+	"baseHullId":"espc_rondel",
+	"skinHullId":"espc_rondel_h",
+	"hullName":"Rondel (H)",
+	"descriptionId":"espc_rondel",
+	"descriptionPrefix":"Deemed too risky to field, the Hegemony has seen fit to re-engineer the Rondel's inner workings in favor of safer doctrinal practice. The resulting design performs more consistently, but is otherwise considerably under-gunned compared to the original.",
+	"tags":["heg_aux_bp"],
+	"tech":"Hegemony",
+    "systemId":"ammofeed",
+	"fleetPoints":4,
+	"suppliesToRecover":4,
+	"suppliesPerMonth":4,
+    "weaponSlotChanges":{
+	   "WS 001":{"type":BALLISTIC},
+	   "WS 002":{"type":COMPOSITE},
+	   "WS0001":{"type":COMPOSITE},
+    },
+	# "fleetPoints":4,
+	"ordnancePoints":50,
+	"baseValueMult":0.3,
+	"spriteName":"graphics/ships/espc_rondel_hegemony.png",
+	"removeWeaponSlots":[], 		# ids
+	"removeEngineSlots":[], 		# indices, as engine slots have no id in the .ship file
+	"removeBuiltInMods":[], 		# hullmod ids
+	"removeBuiltInWeapons":[], 		# weapon slot ids
+	# "builtInMods":["heg_militarized"],
+	# "builtInMods":["armoredweapons"],
+	"builtInWeapons":{
+    },
+}

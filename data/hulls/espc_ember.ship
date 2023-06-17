@@ -1,0 +1,150 @@
+{
+  "hullName": "Ember",
+  "hullId": "espc_ember",
+  "hullSize": "DESTROYER",
+  "spriteName": "graphics/ships/espc_ember_base.png",
+  "style": "HIGH_TECH",
+  "coversColor": "255,255,255,255",
+  "height": 160,
+  "width": 140,
+  "center": [79, 82],
+  "collisionRadius": 121,
+  "shieldCenter": [-6.5, 5],
+  "shieldRadius": 112,
+  "viewOffset": 0,
+  "builtInWeapons": {
+    "WS 001": "espc_amflamer"
+  },
+  "weaponSlots": [
+    {
+      "id": "WS 001",
+      "size": "LARGE",
+      "type": "BUILT_IN",
+      "mount": "TURRET",
+      "arc": 241,
+      "angle": 61,
+      "locations": [15.5, 47.5]
+    },
+    {
+      "id": "LB 1",
+      "size": "LARGE",
+      "type": "LAUNCH_BAY",
+      "mount": "HIDDEN",
+      "arc": 360,
+      "angle": 0,
+      "locations": [
+        19, 6,
+        38.5, -17.5,
+        17.5, -17,
+        39.5, 7,
+        62.5, 8.5,
+        60.5, -20
+      ]
+    }
+  ],
+  "engineSlots": [
+    {
+      "location": [-73.5, 1],
+      "length": 31.737886,
+      "width": 17.344341,
+      "angle": 178.5,
+      "contrailSize": 17.344341,
+      "style": "HIGH_TECH"
+    },
+    {
+      "location": [-73.5, -10],
+      "length": 31.737886,
+      "width": 17.344341,
+      "angle": 178.5,
+      "contrailSize": 17.344341,
+      "style": "HIGH_TECH"
+    },
+    {
+      "location": [-58, -44],
+      "length": 47.66943,
+      "width": 26.504763,
+      "angle": 180,
+      "contrailSize": 26.504763,
+      "style": "HIGH_TECH"
+    },
+    {
+      "location": [-75.5, 13],
+      "length": 18.388952,
+      "width": 8.965806,
+      "angle": 178.5,
+      "contrailSize": 8.965806,
+      "style": "HIGH_TECH"
+    },
+    {
+      "location": [-74.5, 9],
+      "length": 18.388952,
+      "width": 8.965806,
+      "angle": 178.5,
+      "contrailSize": 8.965806,
+      "style": "HIGH_TECH"
+    },
+    {
+      "location": [-77.5, -26],
+      "length": 11.40444,
+      "width": 7.599671,
+      "angle": 178.5,
+      "contrailSize": 7.599671,
+      "style": "HIGH_TECH"
+    },
+    {
+      "location": [-75.5, -23],
+      "length": 18.388952,
+      "width": 8.965806,
+      "angle": 178.5,
+      "contrailSize": 8.965806,
+      "style": "HIGH_TECH"
+    },
+    {
+      "location": [-74.5, -18.5],
+      "length": 18.388952,
+      "width": 8.965806,
+      "angle": 178.5,
+      "contrailSize": 8.965806,
+      "style": "HIGH_TECH"
+    },
+    {
+      "location": [-77.5, 18],
+      "length": 11.40444,
+      "width": 7.599671,
+      "angle": 178.5,
+      "contrailSize": 7.599671,
+      "style": "HIGH_TECH"
+    },
+    {
+      "location": [-74, 29.5],
+      "length": 18.388952,
+      "width": 8.965806,
+      "angle": 178.5,
+      "contrailSize": 8.965806,
+      "style": "HIGH_TECH"
+    },
+    {
+      "location": [-73.5, 36],
+      "length": 18.388952,
+      "width": 8.965806,
+      "angle": 178.5,
+      "contrailSize": 8.965806,
+      "style": "HIGH_TECH"
+    }
+  ],
+  "bounds": [
+    75.5, -23,
+    74.5, 39,
+    54, 61,
+    13, 76,
+    -29.5, 73.5,
+    -64, 55.5,
+    -76.5, 28,
+    -77, -29.5,
+    -61, -30,
+    -62, -54,
+    -2, -56,
+    23.5, -45.5,
+    48, -49.5
+  ]
+}

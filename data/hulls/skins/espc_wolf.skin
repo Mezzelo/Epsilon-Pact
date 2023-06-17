@@ -1,0 +1,22 @@
+{
+	"baseHullId":"wolf",
+	"skinHullId":"espc_wolf",
+	"hullName":"Wolf (EP)",
+	"descriptionId":"wolf",
+	"descriptionPrefix":"Once a slapdash vessel for its stowaway cargo, some misplaced sense of nostalgia has seen this improvised hull refurbished and grossly over-engineered into a cutting-edge support frigate. While performance is impressive, its bespoke modifications are too logistically demanding and mechanically complex to become a regular occurrence.",
+	"addHints":["HIDE_IN_CODEX"],
+	"tech":"Epsilon Pact",
+	"ordnancePoints":65,
+	"baseValueMult":30,
+    "systemId":"espc_Battlecry",
+	"spriteName":"graphics/ships/wolf/wolf_base.png",
+	"suppliesToRecover":12,
+	"suppliesPerMonth":12,
+	"removeWeaponSlots":[], 		# ids
+	"removeEngineSlots":[], 		# indices, as engine slots have no id in the .ship file
+	"removeBuiltInMods":[], 		# hullmod ids
+	"removeBuiltInWeapons":[], 		# weapon slot ids
+	"builtInMods":["high_maintenance"],
+	"builtInWeapons":{
+    },
+}

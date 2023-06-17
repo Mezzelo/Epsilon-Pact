@@ -1,0 +1,24 @@
+name,id,tier,rarity,tech/manufacturer,tags,uiTags,base value,unlocked,hidden,hiddenEverywhere,cost_frigate,cost_dest,cost_cruiser,cost_capital,script,desc,short,sprite
+Recoiling Frame,espc_recoilmod,,,,,,,,TRUE,,0,0,0,0,data.scripts.hullmods.espc_RecoilModBehaviour,"This ship's frame is unusually lightweight, absorbing disproportionately high amounts of weapons fire with backwards movement. High tolerances allow over-clocking undersized weapons if adequate armament is unavailable.
+
+Propels the ship opposite to the direction of %s and %s weapons fire, based on their damage output. If a %s weapon is mounted, increases ballistic rate of fire and ammo regeneration for all weapons by %s.
+
+If %s is installed, reduces backwards propulsion from weapons fire by %s.","Propels the ship backwards when firing medium and large weapons, based on the damage output and direction of fire. Increases ballistic rate of fire and ammo regeneration by 50% if a medium weapon is mounted instead of a large. Backwards propulsion is reduced by 20% if using heavy armor.",graphics/hullmods/espc_recoilmodicon.png
+Linked Mounting Assemblies,espc_serenademod,,,,,,,,TRUE,,0,0,0,0,data.scripts.hullmods.espc_SerenadeModBehaviour,"The Serenade's mountings are streamlined for loading opposite pairs, allowing it to support considerably more heavy weaponry than its low-tech power core might suggest.
+
+Reduces the ordnance point cost of large weapons by %s and medium weapons by %s. Every symmetrical pair of weapons increases flux dissipation, by %s for large weapons and %s for medium weapons.","Reduces OP for large and medium weapons by 10/5, and increases flux dissipation by 100/50 for every symmetrical pair of large/medium weapons mounted.",graphics/hullmods/espc_serenademodicon.png
+Hardpoint-Array Stabilizers,espc_choralemod,,,,,,,,TRUE,,0,0,0,0,data.scripts.hullmods.espc_ChoraleModBehaviour,"The Chorale's hardpoints are specialized for handling the sustained force of numerous heavy weapons against a relatively lightweight frame. This benefits shorter-ranged weapons, but doctrinal requirements limit the effectiveness of longer-ranged armaments.
+
+Increases the range of non-PD medium and large weapons below %s base range by %s, up to %s. Reduces top speed by %s su/second for every medium or large weapon with %s or more base range.","Increases the range of non-PD medium and large weapons below 700 base range by 100, up to 700. Reduces top speed by 2 for every medium or large weapon with 1000 or more base range.",graphics/hullmods/espc_choralemodicon.png
+Adjusted Hardpoint Array,espc_choralelgmod,,,,,,,,TRUE,,0,0,0,0,data.scripts.hullmods.espc_ChoraleLGModBehaviour,"Fixing the orientation of the Chorale's hardpoints has, on top of requiring a redesign of its signature system,  effectively reduced performance.
+
+Reduces the ship's top speed by %s su/second and flux dissipation by %s.",Reduces the ship's top speed by 15 and flux dissipation by 100.,graphics/hullmods/espc_choralelgmodicon.png
+Converted Fuel Nacelle,espc_emberpmod,,,,,,,,TRUE,,0,0,0,0,data.scripts.hullmods.espc_EmberPModBehaviour,"This ship's front fuel nacelle has been carved out to make room for a surprisingly functional fighter bay, at the expense of %s of its base fuel capacity.","Adds a single fighter bay, but halves the ship's base fuel capacity.",graphics/hullmods/espc_emberpmodicon.png
+Integrated Point Defense AI,espc_bastillonmod,,,,,,,,TRUE,,0,0,0,0,data.scripts.hullmods.espc_BastillonModBehaviour,"Gives all point-defense weapons the ability to identify - and ignore - decoy flares. In addition, all point-defense weapons get the best possible target leading, regardless of combat readiness, and all damage to missiles is increased by %s. 
+
+On the Bastillon (EP), this hullmod is considered %s. All small non-missile weapons are classified as ""point-defense"", automatically target missiles, and are affected by point-defense stat modifiers.",Small non-missile weapons act as point-defense; PD not affected by decoy flares.,graphics/hullmods/integrated_point_defense_ai.png
+,,,,,,,,,,,,,,,,,,
+# commissioned crews,,,,,,,,,,,,,,,,,,
+Pact Will,CHM_epsilpac,,,Epsilon Pact,,,,,TRUE,,0,0,0,0,data.scripts.hullmods.CHM_epsilpac,"The prospect of life under constant threat gives Pact crew a certain proclivity not just to live on the edge, but to thrive in the face of the void itself.
+
+Ships gain bonus ballistic and energy damage when over %s flux or under %s hull, scaling up to %s bonus damage for both independently at %s flux and %s hull.","Increases ballistic and energy damage dealt when over 70% flux or under 30% hull by 20/15/10/5% each, maxing out at 90% flux and 10% hull.",graphics/hullmods/CHM_epsilpacmodicon.png
