@@ -376,12 +376,12 @@ OR
 ,,,,,,
 ,,,,,,
 epsilpacgreetingTOff,OpenCommLink,"!$player.transponderOn
-$faction.id == epsilpac score:100",,"The comms feed fizzles as a voice comes through. ""AIS code unavailable. Identify yourself at your earliest convenience.""
+$faction.id == epsilpac",,"The comms feed fizzles as a voice comes through. ""AIS code unavailable. Identify yourself at your earliest convenience.""
 OR
 The $personRank comes through on feed as you establish comms. ""Transponder's off. You need to make yourself known.""","turnOnTransponder:Turn your transponder on
 cutCommLink:Cut the comm link",
 epsilpacgreetingFriendly,OpenCommLink,"$faction.friendlyToPlayer
-$faction.id == epsilpac score:100","$menuState = fleetConvMain 0
+$faction.id == epsilpac","$menuState = fleetConvMain 0
 FireAll PopulateOptions","""AIS code received - captain $playerLastName. Burn bright, friend."" The $personRank turns their attention elsewhere.
 OR
 ""Comms received, over. Might the stars light your way, captain. How may we be of service?""
@@ -389,7 +389,7 @@ OR
 A nod, as the $personRank verifies your identity. ""Comms are open, captain, your signature is acknowledged. It's good to see you.""",,
 epsilpacgreetingHostileWeaker,OpenCommLink,"$entity.isHostile
 $entity.relativeStrength < 0
-$faction.id == epsilpac score:100",$ignorePlayerCommRequests = true 1,"There's a mixture of emotions in the $personRank's face as they come to terms with the situation - chief among them, resolve. ""This doesn't have to happen. We can go our separate ways.""
+$faction.id == epsilpac",$ignorePlayerCommRequests = true 1,"There's a mixture of emotions in the $personRank's face as they come to terms with the situation - chief among them, resolve. ""This doesn't have to happen. We can go our separate ways.""
 OR
 A tinge of consternation comes through the feed, but only briefly. ""So this is how it ends. Let's get this over with."" $HeOrShe stares, waiting for you to respond.
 OR
@@ -398,7 +398,7 @@ OR
 Not a single emotion is visible on the $personRank's visage, as they face you down. ""What could you possibly have to say for yourself? Go on. Do what you've come to do.""",cutCommLink:Cut the comm link,
 epsilpacgreetingHostileStronger,OpenCommLink,"$entity.isHostile
 $entity.relativeStrength >= 0
-$faction.id == epsilpac score:100",$ignorePlayerCommRequests = true 1,"The $personRank's voice feeds through comms, cold and emotionless. ""Power down your weapons, captain. You don't have to make this hard.""
+$faction.id == epsilpac",$ignorePlayerCommRequests = true 1,"The $personRank's voice feeds through comms, cold and emotionless. ""Power down your weapons, captain. You don't have to make this hard.""
 OR
 ""Turn yourself in, and we'll let your crew leave. Do the right thing."" $HeOrShe speaks softly, but with gravitas beneath their words.
 OR
@@ -410,7 +410,7 @@ OR
 OR
 Not an eye twitch, not a smirk, nothing as $heOrShe speaks. ""Don't run. Face us with the dignity you couldn't show to those you've wronged.""",cutCommLink:Cut the comm link,
 epsilpacgreetingNeutral,OpenCommLink,"$faction.neutralToPlayer
-$faction.id == epsilpac score:100","$menuState = fleetConvMain 0
+$faction.id == epsilpac","$menuState = fleetConvMain 0
 FireAll PopulateOptions","""AIS code received - captain $playerLastName, aye. Stay safe out there."" The $personRank turns their attention elsewhere.
 OR
 ""Hail, $playerLastName, your identity's been confirmed. Go about your business.""
@@ -418,7 +418,7 @@ OR
 ""Your AIS code has been received, captain. If you're not in need of assistance, you'd best be on your way.""",,
 epsilpacgreetingInfamous,OpenCommLink,"$player.atrocities > 1
 RollProbability 0.5 score:2
-$faction.id == epsilpac score:100","$menuState = fleetConvMain 0
+$faction.id == epsilpac","$menuState = fleetConvMain 0
 FireAll PopulateOptions","The $personRank remains stone-faced as they address you. ""Our contact has been logged. Keep your distance, state your purpose - I'm not looking to make acquaintance with the likes of you.""
 OR
 Your sensors officer alerts you to the Pact fleet's powering weapons signatures, as comms resolve.
