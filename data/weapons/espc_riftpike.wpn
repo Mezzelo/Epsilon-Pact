@@ -25,5 +25,5 @@
 	# "interruptibleBurst":false,
 	"autocharge":true,  # whether the weapon will continue charging and fire if the LMB is tapped instead of held
 	"projectileSpecId":"espc_riftpike_shot",  # projectile that will be fired
-	"fireSoundTwo":"rifttorpedo_fire",
+	"fireSoundTwo":"espc_riftpike_fire",
 }

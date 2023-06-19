@@ -45,7 +45,7 @@ public class espc_EconomyListener extends BaseCampaignEventListener {
 	@Override
 	public void reportEconomyMonthEnd() {
 		
-		if (Global.getSector().getClock().getMonth() % 3 == 0)
+		if (Global.getSector().getClock().getMonth() % 4 == 0)
 			espc_NexusConstruction.monthlyConstruction();
 		
 		if (nexRandom)

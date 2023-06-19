@@ -25,5 +25,5 @@
 	#"autocharge":true,  # whether the weapon will continue charging and fire if the LMB is tapped instead of held
 	#"requiresFullCharge":true,  # for pulse weapons - whether the weapon will fire at a lower strength partial charge
 	"projectileSpecId":"espc_fission_shot",  # projectile that will be fired
-	"fireSoundTwo":"espc_riftspearfire",
+	"fireSoundTwo":"espc_fission_fire",
 }

@@ -33,7 +33,7 @@
 		{"file":"sounds/weapon/espc_buzzer_fire.ogg","pitch":1.0,"volume":0.7},
 	],
 	 "espc_remmortar_fire":[
-		{"file":"sounds/weapon/espc_gatling_fire_loud.ogg","pitch":0.9,"volume":1.1},
+		{"file":"sounds/weapon/espc_remmortar_fire_loud.ogg","pitch":1.0,"volume":1.1},
 	],
 	 "espc_gatling_fire":[
 		{"file":"sounds/weapon/espc_gatling_fire_loud.ogg","pitch":1.0,"volume":0.7},
@@ -47,14 +47,20 @@
 	"espc_finnegan_explode":[
 		{"file":"sounds/weapon/espc_finnegan_explode.ogg","pitch":1.0,"volume":0.7},		
 	],
+	"espc_fission_fire":[
+		{"file":"sounds/weapon/espc_fission_fire_loud.ogg","pitch":0.85,"volume":0.65},		
+	],
 	 "espc_riftchargeloop":[
 		{"file":"sounds/weapon/espc_riftchargeloop.ogg","pitch":1.0,"volume":1.0},
 	],
 	 "espc_riftchargesecondary":[
 		{"file":"sounds/sfx_abilities/ability_world-go_dark_off_03.ogg","pitch":1.0,"volume":1.0},
 	],
-	 "espc_riftspearfire":[
-		{"file":"sounds/sfx_impacts/energy_hit_03.ogg","pitch":0.8,"volume":0.7},
+	 "espc_riftpike_fire":[
+		{"file":"sounds/weapon/espc_riftpike_fire.ogg","pitch":1.0,"volume":1.3},
+	],
+	 "espc_riftspear_fire":[
+		{"file":"sounds/weapon/espc_riftspear_fire.ogg","pitch":1.0,"volume":1.0},
 	],
 	 "espc_spark":[
 		{"file":"sounds/sfx_systems/termination_sequence_activate.ogg","pitch":1.0,"volume":1.0},
