@@ -37,12 +37,12 @@ import com.fs.starfarer.api.util.Misc.Token;
  */
 public class espc_AITrade extends BaseCommandPlugin {
 	
-	private final float MIN_REP_EXCHANGE = 25f;
+	private final float MIN_REP_EXCHANGE = 15f;
 	
-	private final float ALPHA_REP_VAL = 8f;
-	private final float BETA_REP_VAL = 5f;
-	private final float GAMMA_REP_VAL = 4f;
-	private final float CONSTANT_REP_VAL = 6f;
+	private final float ALPHA_REP_VAL = 7f;
+	private final float BETA_REP_VAL = 4f;
+	private final float GAMMA_REP_VAL = 2f;
+	private final float CONSTANT_REP_VAL = 4f;
 	
 	private boolean isConstant = false;
 	// 0 = turn in, 1 = ships, 2 = weapons
@@ -225,7 +225,7 @@ public class espc_AITrade extends BaseCommandPlugin {
 												  null, text, true), 
 												  faction.getId());
 					
-					impact.delta *= 0.4f;
+					impact.delta *= 0.25f;
 					if (impact.delta >= 0.01f) {
 						Global.getSector().adjustPlayerReputation(
 								new RepActionEnvelope(RepActions.CUSTOM, impact,
