@@ -39,13 +39,13 @@
 		{"file":"sounds/weapon/espc_gatling_fire_loud.ogg","pitch":1.0,"volume":0.7},
 	],
 	"espc_finnegan_fire":[
-		{"file":"sounds/weapon/espc_finnegan_fire.ogg","pitch":1.0,"volume":0.7},		
+		{"file":"sounds/weapon/espc_finnegan_fire.ogg","pitch":1.0,"volume":0.8},		
 	],
 	"espc_finnegan_impact":[
 		{"file":"sounds/weapon/espc_finnegan_impact.ogg","pitch":1.0,"volume":0.9},		
 	],
 	"espc_finnegan_explode":[
-		{"file":"sounds/weapon/espc_finnegan_explode.ogg","pitch":1.0,"volume":0.7},		
+		{"file":"sounds/weapon/espc_finnegan_explode.ogg","pitch":1.0,"volume":0.9},		
 	],
 	"espc_fission_fire":[
 		{"file":"sounds/weapon/espc_fission_fire_loud.ogg","pitch":0.85,"volume":0.65},		
