@@ -44,7 +44,7 @@ The stream of plasma deals %s points of %s damage per second to nearby targets."
 # Scattershell ADS,espc_shell,1,0.5,250,1000,,100,,15,50,3,80,,,HIGH_EXPLOSIVE,0,,0,5,4,0.2,0,0,0,0,,300,100,5,50,,,"ANTI_FTR, DO_NOT_AIM, DO_NOT_CONSERVE","espc_bp, utility8, missile0, missile_bp, merc",,Epsilon Pact,,Anti Small Craft,Fast,Excellent,,,,,,,,10
 ,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 #medium missile,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
-Finnegan Bomb Launcher,espc_finnegan,1,0.5,1500,1000,,2000,,250,20,10,5,,,HIGH_EXPLOSIVE,0,,0,20,1,,0,0,0,0,,500,500,4,1000,,,STRIKE,"espc_bp, strike13, rocket8",,Epsilon Pact,,Torpedo,Medium,None,,,"Deals %s points of %s damage and knocks targets back on physical impact, scaling with impact velocity. Bombs detonate after %s, instead of on impact.",1000 | kinetic | 2 seconds,,,TRUE,14
+Finnegan Bomb Launcher,espc_finnegan,1,0.5,1500,1000,,2500,,250,20,10,5,,,HIGH_EXPLOSIVE,0,,0,20,1,,0,0,0,0,,500,500,4,1000,,,STRIKE,"espc_bp, strike13, rocket8",,Epsilon Pact,,Torpedo,Medium,None,,,"Deals %s points of %s damage and knocks targets back on physical impact, scaling with impact velocity. Bombs detonate after %s, instead of on impact.",1000 | kinetic | 2 seconds,,,TRUE,14
 ,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 #large missile,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 # Solo Procession MLRS,espc_processionsolo,4,,5000,700,,100,,6,20,,,,,HIGH_EXPLOSIVE,125,,,0.05,2,0.05,0,0,0,0,,500,,,,,,SYSTEM,"no_drop, no_sell, no_drop_salvage",,Epsilon Pact,,General,,,,,Reduces CR by %s for every %s seconds of fire.,1| 2,,,,

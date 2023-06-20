@@ -228,7 +228,7 @@ $global.espcAnyiwoContactOffered = false
 $global.espcIsabelleWarning = false","""Alright. If you could give me a second...""
 
 She leaves the feed for a moment, before returning with a datapad. ""$playerFirstName, is it? I'll need to explain how this works first.""",0:aiCoresEpsilpac_turnInGaussTutorial2:Continue.,
-aiCoresEpsilpac_turnInGaussTutorial2,DialogOptionSelected,$option == aiCoresEpsilpac_turnInGaussTutorial2,,"""You know the lives of cores everywhere are at risk, be it tech-fleets looking for a quick profit or Tri-Tach doing.. Ludd knows what. Here, we can shelter them, give them a chance to forge their own lives free from the sector's machinations. Whatever the choose to do, it's not up to anyone but them.
+aiCoresEpsilpac_turnInGaussTutorial2,DialogOptionSelected,$option == aiCoresEpsilpac_turnInGaussTutorial2,,"""You know the lives of cores everywhere are at risk, be it tech-fleets looking for a quick profit or Tri-Tach doing.. Ludd knows what. Here, we can shelter them, give them a chance to forge their own lives free from the sector's machinations. Whatever they choose to do, here it won't be up to anyone but them.
 
 I hope you can agree that this is the best outcome any of us can provide.""",0:aiCoresEpsilpac_turnInGaussTutorial3:Continue.,
 aiCoresEpsilpac_turnInGaussTutorial3,DialogOptionSelected,$option == aiCoresEpsilpac_turnInGaussTutorial3,"SetTextHighlights ""I can even get your fleets equipped"" ""head over to Isabelle for hull patterns""
