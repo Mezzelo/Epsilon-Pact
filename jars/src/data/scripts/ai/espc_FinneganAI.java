@@ -140,7 +140,7 @@ public class espc_FinneganAI implements MissileAIPlugin, GuidedMissileAI {
 				
 				Global.getSoundPlayer().playSound(
 					"espc_finnegan_impact",
-					1.0f, 1.0f * speed / BASE_VEL * 0.25f, missile.getLocation(), Misc.ZERO);
+					0.9f, 0.7f + speed / BASE_VEL * 0.25f, missile.getLocation(), Misc.ZERO);
 			}
 		} else if (debounce > 0f)
 			debounce -= amount;

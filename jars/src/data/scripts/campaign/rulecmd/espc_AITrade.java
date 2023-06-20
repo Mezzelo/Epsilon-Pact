@@ -39,9 +39,9 @@ public class espc_AITrade extends BaseCommandPlugin {
 	
 	private final float MIN_REP_EXCHANGE = 15f;
 	
-	private final float ALPHA_REP_VAL = 7f;
-	private final float BETA_REP_VAL = 4f;
-	private final float GAMMA_REP_VAL = 2f;
+	private final float ALPHA_REP_VAL = 8f;
+	private final float BETA_REP_VAL = 5f;
+	private final float GAMMA_REP_VAL = 3f;
 	private final float CONSTANT_REP_VAL = 4f;
 	
 	private boolean isConstant = false;
