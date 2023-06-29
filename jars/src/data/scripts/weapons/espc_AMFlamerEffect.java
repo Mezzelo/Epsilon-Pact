@@ -66,6 +66,8 @@ public class espc_AMFlamerEffect implements OnFireEffectPlugin, OnHitEffectPlugi
 		projs = new LinkedList<DamagingProjectileAPI>();
 		
 		isSolo = weapon.getSpec().getWeaponId().equals("espc_amflamersolo");
+		if (!isSolo)
+			isSolo = ship.getSystem() == null;
 		if (ship.getVariant().hasHullMod("auxiliary_fuel_tanks")) {
 			finalDecay *= HULLMOD_DECAY_MULT;
 			MALFUNCTION_CHANCE_BASE *= 0.5f;
@@ -232,7 +234,7 @@ public class espc_AMFlamerEffect implements OnFireEffectPlugin, OnHitEffectPlugi
     	
     	lastFiredTime = Math.max(0f, lastFiredTime - amount);
     	if (lastFiredTime > 0f) {
-    		if (ship.getSystem().isActive() && !isSolo) {
+    		if (!isSolo && ship.getSystem() != null && ship.getSystem().isActive()) {
     			Global.getSoundPlayer().playLoop(
     				"espc_amflamer_loop",
     				weapon,
