@@ -18,7 +18,7 @@
 	"fleetPoints":15,
 	"suppliesToRecover":20,
 	"suppliesPerMonth":20,
-	"baseValueMult":0.85,
+	"baseValueMult":0.75,
 	"spriteName":"graphics/ships/espc_pilgrim_hegemony.png",
 	"fighterBays":3,
 	"removeWeaponSlots":[], 		# ids

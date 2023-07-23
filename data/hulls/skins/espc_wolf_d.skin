@@ -4,7 +4,7 @@
 	"hullName":"Wolf (G-D)",
 	"descriptionId":"wolf",
 	# "descriptionPrefix":"This ship has been heavily modified - and poorly maintained - by its pirate crew. Mere moments ago, it has been once again heavily modified - and poorly maintained - by its once-pirate crew.",
-	"descriptionPrefix":"Already a rickety heap of scrap, the prototype device hastily bolted onto this frigate's side does your confidence no favours. Latent energy simmers beneath the gaps in its platings, sending mauve splinters coursing through reality itself. The whole thing could fall apart at any moment - and yet, standing at the helm, the world itself feels within your grasp.",
+	"descriptionPrefix":"Already a rickety heap of scrap, the prototype device hastily bolted onto this frigate's side does your confidence no favours. Latent energy simmers beneath the gaps in its platings, sending mauve splinters coursing through reality itself. The whole thing could fall apart at any moment - and yet, standing at the helm, the entire world feels within your grasp.",
 	"addHints":["HIDE_IN_CODEX"],
 	"tech":"Unknown",
 	"ordnancePoints":50,

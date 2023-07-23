@@ -60,6 +60,8 @@
 		"espc_picket_Assault":2,
 		"espc_picket_Anti_Armor":4,
 		"espc_picket_Strike":4,
+		"espc_sentry_Support":6,
+		"espc_sentry_Escort":4,
 		
 		"espc_sentry_Attack_Derelict":0,
 		"espc_sentry_Support_Derelict":0,

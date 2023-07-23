@@ -11,6 +11,7 @@
 	"fleetPoints":16,
 	"suppliesToRecover":28,
 	"suppliesPerMonth":28,
+	"baseValueMult":0.75,
     "weaponSlotChanges":{
 	   "WS0003":{"type":SYNERGY},
 	   "WS0004":{"type":SYNERGY},

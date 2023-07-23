@@ -37,8 +37,20 @@
       "autofire": true,
       "mode": "LINKED",
       "weapons": {
-        "WS 005": "shredder",
-        "WS 007": "shredder",
+        "WS 005": "shredder"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 007": "shredder"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
         "WS0002": "vulcan",
         "WS0003": "vulcan"
       }

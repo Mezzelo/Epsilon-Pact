@@ -8,9 +8,9 @@
     "systemId":"espc_MissileBoost",
 	"tech":"Luddic Path",
 	"spriteName": "graphics/ships/espc_jackalope_lp.png",
-	"fleetPoints":5,
-	"suppliesToRecover":5,
-	"suppliesPerMonth":5,
+	"fleetPoints":7,
+	"suppliesToRecover":7,
+	"suppliesPerMonth":7,
 	"baseValueMult":0.35,
     "weaponSlotChanges":{
 	   "WS 001":{"type":BUILT_IN},
