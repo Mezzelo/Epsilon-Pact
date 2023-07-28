@@ -188,14 +188,11 @@ epsilpacIsabelle_ConactOfferEnd,DialogOptionSelected,$option == epsilpacIsabelle
 EndConversation",,,
 ,,,,,,
 EpsilpacGaussGreetingBetrayed,PickGreeting,"$id == espc_gauss score:2500
-$global.espcGaussWolfOutcome < 0 score: 2000","ShowDefaultVisual
-EndConversation","Your communications request lasts for only a few dozen seconds, before being promptly denied.",,
+$global.espcGaussWolfOutcome < 0 score: 2000","SetShortcut cutCommLink ""ESCAPE""","Your communications request lasts for only a few dozen seconds, before being promptly denied.",0:cutCommLink:Cut the comm link,
 EpsilpacGaussGreetingHostile,PickGreeting,"$id == espc_gauss score:2500
-RepLTE epsilpac HOSTILE  score:1500","ShowDefaultVisual
-EndConversation","Your communications request lasts for only a few dozen seconds, before being promptly denied.",,
+RepLTE epsilpac HOSTILE  score:1500","SetShortcut cutCommLink ""ESCAPE""","Your communications request lasts for only a few dozen seconds, before being promptly denied.",0:cutCommLink:Cut the comm link,
 EpsilpacGaussGreetingNonEpsilpac,PickGreeting,"$id == espc_gauss score:2500
-$faction.id != epsilpac  score:2000","ShowDefaultVisual
-EndConversation","Your communications request lasts for only a few dozen seconds, before being promptly denied.",,
+$faction.id != epsilpac  score:2000","SetShortcut cutCommLink ""ESCAPE""","Your communications request lasts for only a few dozen seconds, before being promptly denied.",0:cutCommLink:Cut the comm link,
 EpsilpacGaussGreetingInhospitable,PickGreeting,$id == espc_gauss score:2500,"ShowPersonVisual
 FireAll EpsilpacGaussMain","The comm-link connects almost immediately, but head researcher is nowhere to be seen. You hear the clinking of tools and machinery for a short while, before she finally appears on comms.
 
@@ -339,8 +336,7 @@ FireAll EpsilpacGaussMain","Gauss chimes in. ""Anyiwo's helping me run acquisiti
 
 The core's feed closes, as it returns to its duties. ""I'll drop their key for you, if you're looking for some extra work. Again, everything helps. Now, let's get to business.""",,
 ,,,,,,
-charEpsilpacAnyiwoRejected,PickGreeting,$id == espc_anyiwo score:1000,"ShowDefaultVisual
-EndConversation","Your communications request is denied almost instantly. You tap again to ensure it went through, and it happens once more.",,
+charEpsilpacAnyiwoRejected,PickGreeting,$id == espc_anyiwo score:1000,"SetShortcut cutCommLink ""ESCAPE""","Your communications request is denied almost instantaneously. You tap again to ensure it went through, only for it to bounce off once more.",0:cutCommLink:Cut the comm link,
 charEpsilpacAnyiwoGreeting,PickGreeting,"$id == espc_anyiwo score:1000
 $faction.id == epsilpac  score:100
 RepGTE epsilpac SUSPICIOUS score:100
