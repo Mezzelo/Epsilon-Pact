@@ -1,0 +1,61 @@
+Version 0.3.93-RC3
+- fixed a crash when activating the Slamfire ship system without any weapons equipped.
+thanks to NaitNait, again, for the report.
+- added changelog to mod files for use with mod managers/other utils
+- fixed mod thread ID to properly link to its forum page
+
+- revisions to mission text for New Moon.
+
+Version 0.3.93-RC2
+- fixed a dialogue null pointer error when exiting from certain contacts at bad relations and using stellar networks - uses a more vanilla esque prompt to cut comms, rather than just booting you out now.
+thanks to NaitNait for the report.
+
+Version 0.3.93-RC1
+- auto slugshot OP from 10 > 11.  that combination of hit strength and burst damage was a little too spicy for early game.
+- auto slugshot and solo AM flamer rarity from 1 > 0.4, just forgot to set those oops
+- jackalope (LP)'s DP from 5 > 7.  it was DEFINITELY too spicy for its cost.
+- adjusted the price of the Observer (TT) and Pilgrim (H) down a bit.
+
+- fixed the remise mortar & driver's design type to epsilon pact, rather than common
+- revised some descriptions
+
+- increased spawn rate of Pact-Derelict ships in derelict fleets from 20% to 30%.
+- dp values revised: berserker (EP) from 11 > 10, bastillon (EP) from 10 > 8.  the relative doctrinal inflexibility and terrible flux stats of these ships proves a major weakness in a fleet setting.
+- revised the berserker (EP) assault variant
+
+- fixed a bug preventing the sentry (EP) from appearing in derelict fleets, and larger pact fleets.
+
+Version 0.3.92-RC3
+- minor portrait revisions
+- fixed a bug causing crashes when using the Solo AM flamer on ships without systems.  thanks to everything bagle for the report
+
+Version 0.3.92-RC2
+- finnegan base damage buffed from 2000 > 2500. impact damage remains unchanged
+- fixed a bug with the calculation of the finnegan's impact volume.  it is now louder, and funnier.
+- fixed a typo
+- derelict tags added to derelict (EP) hulls, should spawn in derelict fleets now
+
+Version 0.3.92-RC1
+- Sprite revisions to both AM Flamers and the Heavy Gatling
+- Sprite revisions to a couple of portraits (espc_raul, espc_rosa)
+- Proper hullmod icons for the Recoiling Frame and Hardpoint-Array Stabilizers built-in hullmods
+- added normal maps for weapons
+- fixed mis-aligned Type XII-a turret sprite
+- added missing graphicslib light effects for the Auto-Scattershot and Auto-Slugshot
+
+- Replaced placeholder sounds for the Rift Pike, Rift Spear, Fissile Confluence Emitter and Remise Mortar with slightly less placeholder sounds
+
+- Rep gain/blueprint exchange rate for core trades readjusted: 3/5/8 with Isabelle, 4 with Gauss or administrators in Nex random worlds.
+- Task force construction fleet interval increased from once every 3 months -> 4 months
+
+- version checker properly implemented, oops.
+- removed duplicate mission files
+- removed duplicate ship albedos in normals folder
+
+Version 0.3.91
+- Fixed a dialogue error when caught smuggling that prevented usual dialogue options.
+- Lowered reputation gain from repatriating Beta and Gamma cores. Subject to change, may make purchasing blueprints too tedious.
+thanks to deageon for sniffing out those issues (and for other feedback)
+
+Version 0.3.9
+initial release.  not public, just release.  nobody else knew this existed except for a friend who doesn't care about this game.  i bear these burdens alone.

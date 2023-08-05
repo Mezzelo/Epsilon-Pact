@@ -97,15 +97,12 @@ public class espc_SlamfireStats extends BaseShipSystemScript {
 		// check for when the weapon fires.
 		if (burstState <= 1) {
 			if (burstState == 0) {
-				/*
-				for (WeaponAPI weapon : ship.getAllWeapons()) {
-					if (weapon.getType() == WeaponType.BALLISTIC && weapon.usesAmmo()) {
-						weapon.setAmmo(weapon.getMaxAmmo());
-						weapon.setRefireDelay(0f);
-						weapon.setRemainingCooldownTo(0f);
-					}
-				}*/
-				burstState = 1;
+				if (ship.getSelectedGroupAPI() != null)
+					burstState = 1;
+				else {
+					burstState = 3;
+					return;
+				}
 			}
 			for (WeaponAPI weapon : ship.getSelectedGroupAPI().getWeaponsCopy()) {
 				if (weapon.getType() != WeaponType.BALLISTIC || weapon.isBeam() || weapon.getFluxCostToFire() <= 0f)

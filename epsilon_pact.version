@@ -1,12 +1,13 @@
 {
     "masterVersionFile":"https://raw.githubusercontent.com/mezzelo/Epsilon-Pact/main/epsilon_pact.version",
     "modName":"Epsilon Pact",
-    "modThreadId":1,
+    "modThreadId":27327,
     "modVersion":
     {
         "major":0,
         "minor":3,
-        "patch":"96"
+        "patch":"97"
     },
-	"directDownloadURL":"https://github.com/Mezzelo/Epsilon-Pact/releases/download/0.3.93-RC2/Epsilon-Pact.zip",
+	"directDownloadURL":"https://github.com/Mezzelo/Epsilon-Pact/releases/download/0.3.93-RC3/Epsilon-Pact.zip",
+	"changelogURL":"https://raw.githubusercontent.com/mezzelo/Epsilon-Pact/main/changelog.txt"
 }
