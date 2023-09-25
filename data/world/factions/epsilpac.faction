@@ -36,15 +36,14 @@
 
     "variantOverrides":{
         "wolf_espc_Assault":2,
-        "wolf_espc_Strike":4,
-        "wolf_espc_Support":4,
+        "wolf_espc_Strike":2,
+        "wolf_espc_Support":2,
         "lasher_espc_Strike":8,
 		
 		"hammerhead_espc_Elite":3,
 		"hammerhead_espc_Support":2,
 		"sunder_espc_Assault":2,
 		"sunder_espc_Support":2,
-		"sunder_espc_Strike":2,
 		
         "glimmer_espc_Escort":6,
 		"glimmer_Assault":4,

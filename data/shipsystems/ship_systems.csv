@@ -13,5 +13,7 @@ Gravitic Traction,espc_Hook,,,,,,0.05,,3,0.4,2,4,2,,,,,,,,,,,,,restricted,graphi
 AM Compressor,espc_AMCompressor,,,,,,0.15,,3,0.05,0.5,3.5,2,,,,,,,,,,,,,,graphics/icons/hullsys/emp_emitter.png
 Overpressure Loaders,espc_Overpressure,,,,,,,,,,1,5,1,10,,,,,,,,,,,,,graphics/icons/hullsys/emp_emitter.png
 Feint Overload,espc_Feint,,,,,,,,2,0.05,0.25,1,0.5,1,FALSE,,FALSE,FALSE,FALSE,,,,,TRUE,,,graphics/icons/hullsys/fortress_shield.png
+# Split Feed,espc_Split,,,,,,,,,,0.5,5,0.5,10,,,,,,,,,,,,,graphics/icons/hullsys/ammo_feeder.png
+# Hybrid Alternator,espc_Alternator,,,,,,,,,,,,,1,TRUE,,FALSE,FALSE,FALSE,,,,,,,,graphics/icons/hullsys/ammo_feeder.png
 ,,,,,,,,,,,,,,,,,,,,,,,,,,,
 Hammer Down,espc_MissileBoost,,,,,,,,,,1,5,1,10,,,,,,,,,,,,,graphics/icons/hullsys/ammo_feeder.png
