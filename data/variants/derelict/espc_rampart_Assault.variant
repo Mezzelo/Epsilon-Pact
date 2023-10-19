@@ -1,10 +1,10 @@
 {
-  "variantId": "espc_rampart_Support",
+  "variantId": "espc_rampart_Assault",
   "hullId": "espc_rampart",
-  "displayName": "Support",
-  "goalVariant": true,
+  "displayName": "Assault",
+  "goalVariant": false,
   "fluxCapacitors": 0,
-  "fluxVents": 25,
+  "fluxVents": 23,
   "quality": 1,
   "permaMods": [],
   "hullMods": [
@@ -17,7 +17,7 @@
       "autofire": false,
       "mode": "LINKED",
       "weapons": {
-        "WS 000": "mark9"
+        "WS 000": "espc_gatling",
       }
     },
     {
@@ -25,21 +25,22 @@
       "mode": "LINKED",
       "weapons": {
         "WS 001": "espc_gatling",
-        "WS 002": "devastator"
       }
     },
     {
       "autofire": true,
       "mode": "LINKED",
       "weapons": {
-        "WS 003": "dualflak",
-        "WS 004": "dualflak"
+        "WS 002": "espc_gatling",
       }
     },
     {
       "autofire": false,
       "mode": "LINKED",
-      "weapons": {}
+      "weapons": {
+        "WS 003": "flak",
+        "WS 004": "flak",
+		}
     }
   ],
   "modules": [],

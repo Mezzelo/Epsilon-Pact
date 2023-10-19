@@ -84,7 +84,7 @@ public class MissionDefinition implements MissionDefinitionPlugin {
 			api.addToFleet(FleetSide.PLAYER, "espc_opossum_Strike", FleetMemberType.SHIP, "EPS Then Comes Light", false);
 
 			api.addToFleet(FleetSide.PLAYER, "espc_picket_Anti_Armor", FleetMemberType.SHIP, "EPS Then Comes Light", false);
-			// api.addToFleet(FleetSide.PLAYER, "espc_warden_Support", FleetMemberType.SHIP, "EPS Then Comes Light", false);
+			api.addToFleet(FleetSide.PLAYER, "espc_warden_Strike", FleetMemberType.SHIP, "EPS Then Comes Light", false);
 			api.addToFleet(FleetSide.PLAYER, "espc_sentry_Support", FleetMemberType.SHIP, "EPS Then Comes Light", false);
 			api.addToFleet(FleetSide.PLAYER, "espc_bastillon_Support", FleetMemberType.SHIP, "EPS Then Comes Light", false);
 			api.addToFleet(FleetSide.PLAYER, "espc_berserker_Assault", FleetMemberType.SHIP, "EPS Then Comes Light", false);

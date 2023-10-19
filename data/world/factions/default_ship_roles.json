@@ -3,11 +3,11 @@
 	# for example, no Hyperions or fast beam-based kiting loadouts, or ships with damper field
 	"combatSmallForSmallFleet":{
 		"espc_flagbearer_Standard":5,
-		"espc_jackalope_Standard":6,
-		"espc_jackalope_Strike":4,
-		"espc_rondel_Standard":4,
-		"espc_rondel_Assault":2,
-		"espc_rondel_Anti_Shield":4,
+		"espc_jackalope_Standard":7,
+		"espc_jackalope_Strike":3,
+		# "espc_rondel_Standard":4,
+		"espc_rondel_Assault":3,
+		"espc_rondel_Anti_Shield":7,
 		# "espc_rondel_Balanced":1,
 		"espc_songbird_Standard":4,
 		"espc_songbird_Strike":2,
@@ -37,15 +37,15 @@
 	"combatSmall":{
 		"espc_flagbearer_Standard":5,
 		"espc_flagbearer_Support":5,
-		"espc_rondel_Standard":2,
-		"espc_rondel_Assault":3,
+		# "espc_rondel_Standard":2,
+		"espc_rondel_Assault":5,
 		# "espc_rondel_Anti_Armor":2,
 		"espc_rondel_Anti_Shield":5,
 		# "espc_rondel_Balanced":1,
-		"espc_jackalope_Standard":4,
+		"espc_jackalope_Standard":5,
 		"espc_jackalope_Escort":0,
 		"espc_jackalope_Strike":3,
-		"espc_jackalope_Anti_Armor":3,
+		"espc_jackalope_Anti_Armor":2,
 		"espc_songbird_Standard":6,
 		"espc_songbird_Strike":4,
 		"espc_opossum_Assault":3,
@@ -116,9 +116,11 @@
 		
 		"espc_rampart_Strike":4,
 		"espc_rampart_Support":4,
+		"espc_rampart_Assault":2,
 		"espc_rampart_Assault_Derelict":0,
 		
 		"brilliant_espc_Assault":0,
+		"brilliant_espc_Standard":0,
 		"brilliant_espc_Support":0,
 		"apex_espc_Assault":0,
 		"apex_espc_Strike":0,
@@ -217,12 +219,12 @@
 
 	# Old/unused below this line
 	"fastAttack":{
-		"espc_rondel_Standard":10,
+		"espc_rondel_Anti_Shield":10,
 		"espc_jackalope_Standard":10,
 	},
 
 	"escortSmall":{
-		"espc_rondel_Standard":7,
+		"espc_rondel_Anti_Shield":7,
 		"espc_jackalope_Escort":7,
 		"espc_songbird_Standard":3,
 		"espc_rondel_h_Attack":5,

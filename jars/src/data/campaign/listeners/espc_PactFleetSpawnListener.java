@@ -91,6 +91,7 @@ public class espc_PactFleetSpawnListener extends BaseCampaignEventListener {
 		"espc_berserker_Support",
 		"espc_rampart_Strike",
 		"espc_rampart_Support",
+		"espc_rampart_Assault",
 	};
 	
 	@Override

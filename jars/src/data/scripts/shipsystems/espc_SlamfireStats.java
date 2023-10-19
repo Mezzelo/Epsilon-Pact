@@ -93,7 +93,14 @@ public class espc_SlamfireStats extends BaseShipSystemScript {
 		ShipAPI ship = (ShipAPI) stats.getEntity();
 		
 		// stats.getBallisticWeaponFluxCostMod().modifyMult(id, 1f - FLUX_REDUCTION * effectLevel);
-		
+		/*
+		for (WeaponAPI weapon : ship.getAllWeapons()) {
+			if (weapon.getType() == WeaponType.BALLISTIC && weapon.usesAmmo()) {
+				weapon.setAmmo(weapon.getMaxAmmo());
+				weapon.setRefireDelay(0f);
+				weapon.setRemainingCooldownTo(0f);
+			}
+		}*/
 		// check for when the weapon fires.
 		if (burstState <= 1) {
 			if (burstState == 0) {

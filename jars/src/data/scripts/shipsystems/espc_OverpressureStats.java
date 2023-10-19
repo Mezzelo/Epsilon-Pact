@@ -25,7 +25,7 @@ public class espc_OverpressureStats extends BaseShipSystemScript {
 	public static final float ROF_BONUS = -0.33f;
 	public static final float DAMAGE_BONUS = 2.0f;
 	public static final float VELOCITY_BONUS = 0.33f;
-	// public static final float RANGE_BONUS = 0.05f;
+	public static final float RANGE_BONUS = 0.15f;
 	private boolean debounce = false;
 	
 	public void apply(MutableShipStatsAPI stats, String id, State state, float effectLevel) {
@@ -40,10 +40,12 @@ public class espc_OverpressureStats extends BaseShipSystemScript {
 		stats.getBallisticRoFMult().modifyMult(id, 1f + ROF_BONUS * effectLevel);
 		stats.getBallisticWeaponDamageMult().modifyMult(id, 1f + DAMAGE_BONUS * effectLevel);
 		stats.getBallisticProjectileSpeedMult().modifyMult(id, 1f + VELOCITY_BONUS * effectLevel);
+		stats.getBallisticWeaponRangeBonus().modifyPercent(id, RANGE_BONUS * 100f);
 		
 		// as beams are contiguous, we can emulate the systems' effects on them with the ROF mult
 		stats.getBeamWeaponDamageMult().modifyMult(id, 1f + ROF_BONUS * effectLevel);
 		stats.getBeamWeaponFluxCostMult().modifyMult(id, 1f + ROF_BONUS * effectLevel);
+		stats.getBeamWeaponRangeBonus().modifyPercent(id, RANGE_BONUS * 100f);
 		
 	}
 	public void unapply(MutableShipStatsAPI stats, String id) {
@@ -52,23 +54,24 @@ public class espc_OverpressureStats extends BaseShipSystemScript {
 		stats.getBallisticProjectileSpeedMult().unmodify(id);
 		stats.getBeamWeaponDamageMult().unmodify(id);
 		stats.getBeamWeaponFluxCostMult().unmodify(id);
-		// stats.getBallisticWeaponRangeBonus().unmodify(id);
+		stats.getBallisticWeaponRangeBonus().unmodify(id);
+		stats.getBeamWeaponRangeBonus().unmodify(id);
 		debounce = false;
 	}
 	
 	public StatusData getStatusData(int index, State state, float effectLevel) {
-		if (index == 2) {
+		if (index == 3) {
 			return new StatusData("ballistic damage +" + ((int) (effectLevel * DAMAGE_BONUS * 100)) + "%", false);
 		}
-		if (index == 1) {
+		if (index == 2) {
 			return new StatusData("ballistic projectile speed +" + ((int) (effectLevel * VELOCITY_BONUS * 100)) + "%", false);
 		}
-		if (index == 0) {
+		if (index == 1) {
 			return new StatusData("ballistic rate of fire -" + ((int) (effectLevel * ROF_BONUS * -100)) + "%", false);
 		}
-		// if (index == 3) {
-		// 	return new StatusData("ballistic range +" + ((int) (effectLevel * RANGE_BONUS * 100)) + "%", false);
-		// }
+		if (index == 0) {
+			return new StatusData("ballistic range +" + ((int) (effectLevel * RANGE_BONUS * 100)) + "%", false);
+		}
 		return null;
 	}
 }

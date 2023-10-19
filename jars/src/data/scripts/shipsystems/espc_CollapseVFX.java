@@ -178,8 +178,8 @@ public class espc_CollapseVFX extends BaseEveryFrameCombatPlugin {
 				);
 			} else
 				GL11.glColor4ub(
-						(byte) 125, (byte) 190, (byte) 255, (byte) 200
-					);
+					(byte) 125, (byte) 190, (byte) 255, (byte) 200
+				);
 			
 			Iterator<StaticProjSprite> freezeProjIterator = freezeProjs.iterator();
 			while (freezeProjIterator.hasNext()) {

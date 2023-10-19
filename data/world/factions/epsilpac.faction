@@ -52,7 +52,7 @@
 		"fulgent_espc_Assault":4,
 		"fulgent_espc_Strike":4,
 		"brilliant_espc_Assault":4,
-		"brilliant_Standard":2,
+		"brilliant_espc_Standard":2,
 		"brilliant_espc_Support":4,
 		"apex_espc_Assault":5,
 		"apex_espc_Strike":5,
@@ -78,6 +78,7 @@
 			"omen":0.3,
 			"wolf":0.3,
 			"hammerhead":0.4,
+			"sunder":0.3,
 			
 			# "espc_flagbearer":0.7,
 			
@@ -220,11 +221,11 @@
 			"lightac",
 			"lightdualac",
 			"lightneedler",
-			"railgun",
+			# "railgun",
 			
 			"heavyac",
 			# "heavymauler",
-			"hveldriver",
+			# "hveldriver",
 			"shredder",
 			# "heavyneedler",
 			
@@ -320,10 +321,10 @@
 		"lightac":3,
 		"lightdualac":3,
 		"lightneedler":3,
-		"railgun":3,
+		# "railgun":3,
 		
 		"heavyac":3,
-		"hveldriver":3,
+		# "hveldriver":3,
 		"shredder":3,
 		# "heavyneedler":3,
 		
@@ -379,7 +380,7 @@
 		
 		"shipSize":3,
 		
-		"aggression":2,
+		"aggression":3,
 		
 		"combatFreighterProbability":1,      				# instead of some portion of the freighters in a fleet
 		"combatFreighterCombatUseFraction":0.4,  				# as part of the normal combat lineup
@@ -416,6 +417,7 @@
     "portraits":{
         "standard_male":[
             "graphics/portraits/espc_alman.png",
+            # "graphics/portraits/espc_clint.png",
             "graphics/portraits/espc_dominic.png",
             "graphics/portraits/espc_gao.png",
             "graphics/portraits/espc_henrik.png",
@@ -436,6 +438,9 @@
             "graphics/portraits/espc_rosa.png",
             "graphics/portraits/espc_seo.png",
             "graphics/portraits/espc_tomi.png",
+            "graphics/portraits/espc_yina.png",
+			# "graphics/portraits/espc_carla.png",
+			"graphics/portraits/espc_ny.png",
         ],
     },
 

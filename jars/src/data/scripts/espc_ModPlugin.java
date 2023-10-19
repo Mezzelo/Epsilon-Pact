@@ -122,6 +122,7 @@ public class espc_ModPlugin extends BaseModPlugin {
 			return null;
 	}
 	
+	/*
     @Override
     public PluginPick<ShipAIPlugin> pickShipAI(FleetMemberAPI member, ShipAPI ship) {
 
@@ -133,8 +134,8 @@ public class espc_ModPlugin extends BaseModPlugin {
     	// ig this also affects the sindrian one.  phil can go fuck himself lmao i'm too lazy/spiteful to make an exception.
         if (ship.getHullSpec().getBaseHullId().equals("espc_chorale")) {
             ShipAIConfig config = new ShipAIConfig();
-            config.alwaysStrafeOffensively = true;
-            config.backingOffWhileNotVentingAllowed = true;
+            // config.alwaysStrafeOffensively = true;
+            // config.backingOffWhileNotVentingAllowed = true;
             config.turnToFaceWithUndamagedArmor = false;
             return new PluginPick<ShipAIPlugin>(Global.getSettings().createDefaultShipAI(ship, config), PickPriority.MOD_SET);
         } else if (ship.getHullSpec().getBaseHullId().equals("espc_serenade")) {
@@ -146,5 +147,6 @@ public class espc_ModPlugin extends BaseModPlugin {
         }
         	return null;
     }
+    */
 
 }

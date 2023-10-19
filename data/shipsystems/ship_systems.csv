@@ -2,7 +2,7 @@ name,id,flux/second,f/s (base rate),f/s (base cap),flux/use,f/u (base rate),f/u 
 ,,,,,,,,,,,,,,,,,,,,,,,,,,,
 Battlecry,espc_Battlecry,,,,,,,,,,1,10,1,15,,,,,,,,,,,,,graphics/icons/hullsys/emp_emitter.png
 Slamfire,espc_Slamfire,0,,,,,,,,,0,,0.25,15,TRUE,,,,,,,,,,,,graphics/icons/hullsys/ammo_feeder.png
-Remote Salvo,espc_Salvo,,,,,,0.1,,,,0.5,8.5,1,12,,,,,,,,,,,,,graphics/icons/hullsys/targeting_feed.png
+Remote Salvo,espc_Salvo,,,,,,,,,,0.5,8.5,1,12,TRUE,,,,,,,,,,,,graphics/icons/hullsys/targeting_feed.png
 # Remote Salvo,espc_Salvo_Drone,,,,,,0.2,,,,0.5,8.5,1,12,,,,,,,,,,,,,graphics/icons/hullsys/targeting_feed.png
 Resonator Shield,espc_ResonatorShield,,,,,,,,,,1.5,,1,0.5,TRUE,,FALSE,FALSE,FALSE,,,,,,,,graphics/icons/hullsys/fortress_shield.png
 Hybrid Harmonizer,espc_Harmonizer,,,,,,,,,,0.5,10,0.5,15,,,,,,,,,,,,,graphics/icons/hullsys/emp_emitter.png
@@ -14,6 +14,6 @@ AM Compressor,espc_AMCompressor,,,,,,0.15,,3,0.05,0.5,3.5,2,,,,,,,,,,,,,,graphic
 Overpressure Loaders,espc_Overpressure,,,,,,,,,,1,5,1,10,,,,,,,,,,,,,graphics/icons/hullsys/emp_emitter.png
 Feint Overload,espc_Feint,,,,,,,,2,0.05,0.25,1,0.5,1,FALSE,,FALSE,FALSE,FALSE,,,,,TRUE,,,graphics/icons/hullsys/fortress_shield.png
 # Split Feed,espc_Split,,,,,,,,,,0.5,5,0.5,10,,,,,,,,,,,,,graphics/icons/hullsys/ammo_feeder.png
-# Hybrid Alternator,espc_Alternator,,,,,,,,,,,,,1,TRUE,,FALSE,FALSE,FALSE,,,,,,,,graphics/icons/hullsys/ammo_feeder.png
+Hybrid Alternator,espc_Alternator,,,,,,,,,,,,0.5,0,FALSE,,FALSE,FALSE,FALSE,,,,,,,,graphics/icons/hullsys/ammo_feeder.png
 ,,,,,,,,,,,,,,,,,,,,,,,,,,,
 Hammer Down,espc_MissileBoost,,,,,,,,,,1,5,1,10,,,,,,,,,,,,,graphics/icons/hullsys/ammo_feeder.png

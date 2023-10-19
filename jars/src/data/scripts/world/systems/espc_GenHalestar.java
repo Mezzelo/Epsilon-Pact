@@ -159,9 +159,9 @@ public class espc_GenHalestar implements SectorGeneratorPlugin
         		{Industries.BATTLESTATION_HIGH},
         		{Industries.GROUNDDEFENSES},
         		{Industries.PATROLHQ},
+        		{Industries.ORBITALWORKS, Items.PRISTINE_NANOFORGE},
         		{Industries.FARMING},
         		{Industries.MINING},
-        		{Industries.LIGHTINDUSTRY},
         		{"commerce", Items.DEALMAKER_HOLOSUITE},
         	},
         	new String[] {
@@ -190,7 +190,7 @@ public class espc_GenHalestar implements SectorGeneratorPlugin
         			// ,Items.FULLERENE_SPOOL
         		},
         		{Industries.MINING, Items.MANTLE_BORE},
-        		{Industries.ORBITALWORKS, Items.PRISTINE_NANOFORGE},
+        		{Industries.LIGHTINDUSTRY},
         		{Industries.REFINING
         			// , Items.CATALYTIC_CORE
         		},

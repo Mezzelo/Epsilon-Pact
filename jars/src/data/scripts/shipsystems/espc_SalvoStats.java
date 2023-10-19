@@ -63,6 +63,7 @@ public class espc_SalvoStats extends BaseShipSystemScript {
 	// private static final float MISSILE_OP_MAX = 1f;
 	private static final int BURST_MAX = 15;
 	private static final int OP_PER_WING = 3;
+	private static final int OP_PER_WING_SMALL = 4;
 	private static final float MIN_RANGE = 150f;
 	private static final float UNGUIDED_RADIUS_THRESHOLD = 0.7f;
 	// public static final float BURST_INTERVAL_DEFAULT = 0.5f;
@@ -161,6 +162,9 @@ public class espc_SalvoStats extends BaseShipSystemScript {
 				Global.getSoundPlayer().playSound("hammer_fire", 1.0f, 1.0f, fighter.getLocation(), fighter.getVelocity());
 			else 
 				Global.getSoundPlayer().playSound("reaper_fire", 1.0f, 1.0f, fighter.getLocation(), fighter.getVelocity());
+			
+			// due to multi-shot missiles, we'll want to apply and reapply this for every missile launched, unfortunately
+			// ship.getMutableStats().getMissileWeaponRangeBonus().modifyPercent(id, 35f);
 			CombatEntityAPI missile = combatEngine.spawnProjectile(
 				fighter,
 				spawnMissile,
@@ -169,6 +173,12 @@ public class espc_SalvoStats extends BaseShipSystemScript {
 				fighter.getFacing() + (Misc.random.nextFloat() * 2f - 1f) * spawnMissile.getSpec().getMaxSpread(), 
 				fighter.getVelocity()
 			);
+			// honestly i'd be the sort of fucker to require this check.
+			if (missile instanceof MissileAPI) {
+				((MissileAPI) missile).setMaxFlightTime(((MissileAPI) missile).getMaxFlightTime() * 1.25f);
+				((MissileAPI) missile).setMaxRange(((MissileAPI) missile).getMaxRange() * 1.25f);
+			}
+			// ship.getMutableStats().getMissileWeaponRangeBonus().unmodify("espc_salvo");
 			if (plugin != null)
 				plugin.onFire((DamagingProjectileAPI) missile, spawnMissile, combatEngine);
 			return true;
@@ -179,11 +189,13 @@ public class espc_SalvoStats extends BaseShipSystemScript {
 					
 	public void apply(MutableShipStatsAPI stats, String id, State state, float effectLevel) {
 		
-		if (useState == 2)
-			return;
-		
 		if (stats.getEntity() == null)
 			return;
+		
+		if (useState == 2) {
+			ship.useSystem();
+			return;
+		}
 		
 		if (useState == 0) {
 			if (ship == null)
@@ -213,7 +225,7 @@ public class espc_SalvoStats extends BaseShipSystemScript {
 			shipFighters = new ArrayList<ShipAPI>();
 			
 			for (FighterWingAPI thisWing : ship.getAllWings()) {
-				remainingOP += OP_PER_WING;
+				remainingOP += ship.getHullSize() == HullSize.CRUISER ? OP_PER_WING : OP_PER_WING_SMALL;
 				for (ShipAPI thisWingFighter : thisWing.getWingMembers()) {
 					if (thisWingFighter.isAlive() && !thisWingFighter.isHulk()){
 						shipFighters.add(thisWingFighter);
@@ -272,7 +284,7 @@ public class espc_SalvoStats extends BaseShipSystemScript {
 					));
 				} else { // used to be optimized to run on lowest burst interval & throw out
 					// probably needlessly aggressive.  want to add an entry here anyway to get the visual flash
-					// shouldn't be that heavy on mem.
+					// not really a perf concern
 					mFighters.add(new mFighter((ShipAPI) shipFighters.get(0)));
 				}
 				shipFighters.remove(0);
@@ -333,6 +345,8 @@ public class espc_SalvoStats extends BaseShipSystemScript {
 							fighter.fighter.getLocation(), fighter.fighter.getVelocity());
 					} else {
 						fighters.remove();
+						if (mFighters.size() <= 0)
+							useState = 2;
 					}
 				}
 				

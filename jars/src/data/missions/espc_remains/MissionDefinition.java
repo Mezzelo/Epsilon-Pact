@@ -27,7 +27,8 @@ public class MissionDefinition implements MissionDefinitionPlugin {
 		
 		// These show up as items in the bulleted list under 
 		// "Tactical Objectives" on the mission detail screen
-		api.addBriefingItem("Your fleet's strike capability is strong - but so is theirs.");
+		// api.addBriefingItem("Your fleet's strike capability is strong - but so is theirs.");
+		api.addBriefingItem("Use the power differential of your capital to pick apart their fleet.");
 		api.addBriefingItem("You must be aggressive with your flagship to prevail. Be wary of its weak defenses.");
 		// api.addBriefingItem("The opposing capital is swift and powerful, but fragile. Do not allow it to engage on its own terms.");
 		api.addBriefingItem("The TTS Horizon must survive, as it contains invaluable research and intel.");

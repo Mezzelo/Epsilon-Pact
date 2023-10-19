@@ -6,7 +6,7 @@ import com.fs.starfarer.api.combat.ShipAPI.HullSize;
 
 public class espc_ChoraleLGModBehaviour extends BaseHullMod {
 	
-    private static final float SPEED_PENALTY = 15f;
+    private static final float SPEED_PENALTY = 20f;
     private static final float DISSIPATION_PENALTY = 100f;
 	
 	@Override

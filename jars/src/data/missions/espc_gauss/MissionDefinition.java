@@ -84,7 +84,7 @@ public class MissionDefinition implements MissionDefinitionPlugin {
 		// jackalope
 		api.addToFleet(FleetSide.PLAYER, "espc_jackalope_Standard", FleetMemberType.SHIP, "EPS Cottontail", false);
 		
-		member = api.addToFleet(FleetSide.PLAYER, "lasher_espc_Strike_Dated", FleetMemberType.SHIP, "EPS Je Serai Retour", false);
+		member = api.addToFleet(FleetSide.PLAYER, "lasher_espc_Strike_Dated", FleetMemberType.SHIP, "EPS Retour Près De Toi", false);
 		pilot = EspcOfficerFactory.MakePilot("Nola", "Ganymede", FullName.Gender.FEMALE, "steady", 
 			"graphics/portraits/espc_nola.png", "epsilpac", 12);
 		

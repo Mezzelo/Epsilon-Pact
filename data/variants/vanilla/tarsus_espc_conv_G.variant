@@ -3,7 +3,7 @@
   "hullId": "tarsus_d",
   "displayName": "Converted",
   "goalVariant": false,
-  "fluxCapacitors": 6,
+  "fluxCapacitors": 10,
   "fluxVents": 0,
   "quality": 0.5,
   "hullMods": ["converted_hangar"],

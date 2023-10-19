@@ -12,7 +12,7 @@ public class espc_GatlingEffect implements OnFireEffectPlugin, EveryFrameWeaponE
 
 	public static final float minCooldown = 0.075f;
 	public static final float rateDecayPerSecond = 0.25f;
-	public static final float rateIncreasePerShot = 0.05f;
+	public static final float rateIncreasePerShot = 0.1f;
 	
 	private float cCooldown = -1f;
 	private float cooldownLast = 0f;

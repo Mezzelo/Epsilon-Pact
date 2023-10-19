@@ -1,0 +1,15 @@
+{
+	"id":"espc_Alternator",
+	"type":"STAT_MOD",
+	"aiType":"CUSTOM",
+
+	"aiScript":"data.scripts.shipsystems.ai.espc_AlternatorAI",
+	
+	"statsScript":"data.scripts.shipsystems.espc_AlternatorStats",
+	"runScriptWhileIdle":true, # unapply() never gets called
+	
+	"useSound":"gun_out_of_ammo",
+	# "outOfUsesSound":"gun_out_of_ammo",
+	
+	# "loopSound":"system_fortress_shield_loop",
+}

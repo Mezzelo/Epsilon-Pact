@@ -45,7 +45,7 @@ public class espc_EconomyListener extends BaseCampaignEventListener {
 	@Override
 	public void reportEconomyMonthEnd() {
 		
-		if (Global.getSector().getClock().getMonth() % 4 == 0)
+		if (Global.getSector().getClock().getMonth() % 6 == 0)
 			espc_NexusConstruction.monthlyConstruction();
 		
 		if (nexRandom)
@@ -69,19 +69,26 @@ public class espc_EconomyListener extends BaseCampaignEventListener {
 			}
 		}
 		
-		if (marketPicker.isEmpty() &&
-			!isabelle.getMarket().getCommDirectory().getEntryForPerson(isabelle).isHidden()
-		) {
-			isabelle.getMarket().getCommDirectory().getEntryForPerson(isabelle).setHidden(true);
+		if (marketPicker.isEmpty()) {
+			if (!isabelle.getMarket().getCommDirectory().getEntryForPerson(isabelle).isHidden())
+				isabelle.getMarket().getCommDirectory().getEntryForPerson(isabelle).setHidden(true);
 			return;
-		} else if (isabelle.getMarket().getCommDirectory().getEntryForPerson(isabelle) != null &&
+		}
+
+		MarketAPI pick = marketPicker.pick();
+		if (pick == null)
+			return;
+		if (pick.getPeopleCopy() == null)
+			return;
+			
+		if (isabelle.getMarket().getCommDirectory().getEntryForPerson(isabelle) != null &&
 			isabelle.getMarket().getCommDirectory().getEntryForPerson(isabelle).isHidden() &&
 			Global.getSector().getMemoryWithoutUpdate().getBoolean("$espcCoresRedirected")) {
 			isabelle.getMarket().getCommDirectory().getEntryForPerson(isabelle).setHidden(false);
 		}
 		
 		MarketAPI oldMarket = isabelle.getMarket();
-		Misc.moveToMarket(isabelle, marketPicker.pick(), true);
+		Misc.moveToMarket(isabelle, pick, true);
 		if (oldMarket.getCommDirectory().getEntryForPerson(isabelle) != null)
 			isabelle.getMarket().getCommDirectory().getEntryForPerson(isabelle).setHidden(
 				oldMarket.getCommDirectory().getEntryForPerson(isabelle).isHidden()

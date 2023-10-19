@@ -12,11 +12,12 @@ import java.util.List;
 
 public class espc_ChoraleModBehaviour extends BaseHullMod {
 	
-    private static final float RANGE_BONUS_MAX = 700f;
+    private static final float RANGE_BONUS_MAX = 800f;
     private static final float SPEED_PENALTY_RANGE_MIN = 1000f;
 	
-	private static final float RANGE_BONUS = 100f;
-	private static final float SPEED_PENALTY = 2f;
+	private static final float RANGE_BONUS = 200f;
+	private static final float RANGE_BONUS_LARGE = 100f;
+	private static final float SPEED_PENALTY = 3f;
 	private static final float RECOIL_MULT = 0.5f;
 	
 	@Override
@@ -36,7 +37,7 @@ public class espc_ChoraleModBehaviour extends BaseHullMod {
 		
 		int speedPenaltyWeps = 0;
         for (int i = 0; i < shipWeps.size(); i++){
-			if (((WeaponAPI) shipWeps.get(i)).getSize() == WeaponSize.SMALL)
+			if (((WeaponAPI) shipWeps.get(i)).getSize() != WeaponSize.SMALL)
 				continue;
 			if (((WeaponAPI) shipWeps.get(i)).getSpec().getMaxRange() >= SPEED_PENALTY_RANGE_MIN)
 				speedPenaltyWeps++;
@@ -48,15 +49,17 @@ public class espc_ChoraleModBehaviour extends BaseHullMod {
     @Override
     public String getDescriptionParam(int index, HullSize hullSize) {
         if (index == 0)
-            return ("700");
+            return ("" + (int) RANGE_BONUS_MAX);
         else if (index == 1)
-            return ("100");
+            return ("" + (int) RANGE_BONUS);
         else if (index == 2)
-            return ("700");
+            return ("" + (int) RANGE_BONUS_LARGE);
         else if (index == 3)
-            return ("2");
+            return ("" + (int) RANGE_BONUS_MAX);
         else if (index == 4)
-            return ("1000");
+            return ("" + (int) SPEED_PENALTY);
+        else if (index == 5)
+            return ("" + (int) SPEED_PENALTY_RANGE_MIN);
 
         return null;
     }
@@ -70,7 +73,8 @@ public class espc_ChoraleModBehaviour extends BaseHullMod {
 				weapon.getSpec().getMaxRange() <= 0f)
 				return 0f;
             return Math.max(
-				Math.min(RANGE_BONUS, RANGE_BONUS_MAX - weapon.getSpec().getMaxRange()),
+				Math.min(weapon.getSize() == WeaponSize.MEDIUM ? RANGE_BONUS : RANGE_BONUS_LARGE, 
+					RANGE_BONUS_MAX - weapon.getSpec().getMaxRange()),
 				0f);
         }
 		
