@@ -7,7 +7,7 @@
 	"tags":["rare_bp", "merc"],
 	"tech":"Tri-Tachyon",
     "systemId":"entropyamplifier",
-	# "fleetPoints":9,
+	"fleetPoints":11,
 	# "suppliesToRecover":11,
 	# "suppliesPerMonth":11,
 	"baseValueMult":0.8,

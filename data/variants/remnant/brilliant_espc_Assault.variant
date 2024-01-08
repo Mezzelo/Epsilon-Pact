@@ -3,7 +3,7 @@
   "hullId": "brilliant",
   "displayName": "Assault",
   "goalVariant": false,
-  "fluxCapacitors": 6,
+  "fluxCapacitors": 8,
   "fluxVents": 30,
   "quality": 0,
   "permaMods": [],
@@ -32,8 +32,14 @@
       "mode": "ALTERNATING",
       "weapons": {
         "WS 001": "espc_riftspear",
-        "WS 004": "espc_riftspear"
       }
+    },
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 004": "espc_finnegan"
+	  }
     },
     {
       "autofire": true,

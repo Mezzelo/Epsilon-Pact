@@ -3,13 +3,12 @@
   "hullId": "brilliant",
   "displayName": "Support",
   "goalVariant": false,
-  "fluxCapacitors": 19,
-  "fluxVents": 30,
+  "fluxCapacitors": 20,
+  "fluxVents": 26,
   "quality": 0,
   "permaMods": [],
   "hullMods": [
     "targetingunit",
-    "magazines"
   ],
   "weaponGroups": [
     {
@@ -26,6 +25,13 @@
         "WS 005": "espc_aa",
         "WS 006": "espc_aa"
       }
+    },
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 004": "espc_finnegan"
+	  }
     },
     {
       "autofire": true,

@@ -39,7 +39,7 @@
     {
       "id": "WS 003",
       "size": "SMALL",
-      "type": "HYBRID",
+      "type": "UNIVERSAL",
       "mount": "TURRET",
       "arc": 206,
       "angle": 98,
@@ -48,7 +48,7 @@
     {
       "id": "WS 004",
       "size": "SMALL",
-      "type": "HYBRID",
+      "type": "UNIVERSAL",
       "mount": "TURRET",
       "arc": 206,
       "angle": -98,
@@ -138,7 +138,7 @@
     {
       "id": "WS 014",
       "size": "SMALL",
-      "type": "HYBRID",
+      "type": "UNIVERSAL",
       "mount": "TURRET",
       "arc": 150,
       "angle": 165,
@@ -147,11 +147,11 @@
     {
       "id": "WS 015",
       "size": "SMALL",
-      "type": "HYBRID",
+      "type": "UNIVERSAL",
       "mount": "TURRET",
       "arc": 150,
       "angle": 195,
-      "locations": [-49, -23]
+      "locations": [-48, -23]
     },
     {
       "id": "WS0001",
