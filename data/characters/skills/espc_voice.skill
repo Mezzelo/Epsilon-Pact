@@ -1,11 +1,10 @@
 {
 	"id":"espc_voice",
-	# "governingAptitude":"espc_skillapt_pact",
-	"governingAptitude":"industry",
+	"governingAptitude":"espc_skillapt_pact",
 	"compressHullmods":false,
 	# "scope":"GOVERNED_OUTPOST",
 	"scope":CUSTOM,
-	"scopeStr":"all governed colonies with the enclave embassies industry",
+	"scopeStr":"all governed colonies with the trival enclaves industry",
 	"effectGroups":[
 		{
 			"requiredSkillLevel":1,

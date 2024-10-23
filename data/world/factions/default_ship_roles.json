@@ -112,7 +112,8 @@
 		"espc_observer_Suppressive":2,
 		"espc_pilgrim_Assault":2,
 		"espc_pilgrim_Strike":2,
-		"espc_pilgrim_Support":5,
+		"espc_pilgrim_Support":3,
+		"espc_pilgrim_Escort":2,
 		
 		"espc_rampart_Strike":4,
 		"espc_rampart_Support":4,
@@ -174,9 +175,10 @@
 	"carrierMedium":{
 		"espc_ember_p_Standard":1,
 		"espc_ember_p_Strike":1,
-		"espc_pilgrim_Assault":4,
+		"espc_pilgrim_Assault":3,
 		"espc_pilgrim_Strike":3,
-		"espc_pilgrim_Support":3,
+		"espc_pilgrim_Support":2,
+		"espc_pilgrim_Escort":2,
 		"espc_pilgrim_h_Assault":4,
 		"espc_pilgrim_h_Strike":3,
 		"espc_pilgrim_h_Support":3,

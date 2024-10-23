@@ -1,0 +1,52 @@
+{
+  "variantId": "espc_pilgrim_Escort",
+  "hullId": "espc_pilgrim",
+  "displayName": "Escort",
+  "goalVariant": false,
+  "fluxCapacitors": 22,
+  "fluxVents": 20,
+  "quality": 1,
+  "permaMods": [],
+  "hullMods": [
+    "expanded_deck_crew",
+    "targetingunit"
+  ],
+  "weaponGroups": [
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 004": "espc_remdriver"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 005": "espc_remmortar"
+      }
+    },
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 003": "swarmer"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 006": "vulcan",
+        "WS 007": "vulcan",
+        "WS 008": "vulcan",
+        "WS 009": "vulcan"
+      }
+    }
+  ],
+  "modules": [],
+  "wings": [
+    "lux_wing",
+    "lux_wing"
+  ]
+}
