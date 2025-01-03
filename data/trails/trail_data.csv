@@ -8,6 +8,7 @@ espc_riftpike_shot_fringe,espc_riftpike_shot,espc_trail_hard_inverted,30,0.02,0.
 espc_riftpike_shot_bloom,espc_riftpike_shot,base_trail_smooth,30,0.02,0.2,0.01,130,65,"[191,0,255]","[255,179,81]",0.6,128,0,TRUE,-20,0,0,2,FALSE,FALSE,TRUE,50,0,0,0,0,0,FALSE,FALSE
 espc_riftpike_shot_linger,espc_riftpike_shot,espc_trail_wispy,30,0.02,0.8,0.2,20,10,"[255,79,252]","[123,0,255]",1,512,0,TRUE,-20,0,0,2,FALSE,FALSE,TRUE,50,0,0,0,0,0,FALSE,FALSE
 ,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+espc_flak_shot_trail,espc_flak_shot,base_trail_smooth,30,0,0.15,0.15,10,10,"[200,255,255,255]","[200,255,255,255]",0.4,128,0,TRUE,40,0,1,2,TRUE,FALSE,TRUE,0,0,0,0,0,0,FALSE,FALSE
 espc_remisemortar_trail,espc_remmortar_shot,espc_trail_hard,10,0.1,0.1,0.2,11,20,"[255,120,50]","[255,70,30]",0.6,128,-128,TRUE,30,40,1,1,FALSE,FALSE,FALSE,2,4,5,0,0,0,FALSE,TRUE
 espc_overpressuretraillarge,espc_overpressuretraillarge,base_trail_fuzzy,30,0.1,0.25,0.3,12,32,"[155,145,135]","[135,135,135]",0.6,128,-128,TRUE,0,4,1,2,FALSE,FALSE,FALSE,0,0,0,0,0,0,FALSE,TRUE
 ,,,,,,,,,,,,,,,,,,,,,,,,,,,,,

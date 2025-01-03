@@ -2,7 +2,7 @@ name,id,designation,tech/manufacturer,system id,fleet pts,hitpoints,armor rating
 Flagbearer,espc_flagbearer,Advanced Frigate,Epsilon Pact,espc_Battlecry,12,2000,250,6500,1750,250,55,,140,150,130,100,110,225,FRONT,,200,0.5,1.2,,,10,15,25,25,1,25,10,100000,10,10,360,0.25,15,15,,,,,,,,espc_bp,0.6,0.8,2,2,,204
 Rondel,espc_rondel,Frigate,Epsilon Pact,espc_Slamfire,5,2250,350,2000,1250,120,40,,160,200,70,100,130,200,FRONT,,150,0.4,1,,,15,25,50,25,1,25,11,30000,10,15,300,0.25,5,5,25,75,,,,,,"espc_bp, no_autofit",1,0.4,2,2,,201
 Jackalope,espc_jackalope,Heavy Frigate,Epsilon Pact,espc_Overpressure,5,2500,300,3000,1875,160,50,,110,100,50,80,80,200,OMNI,,200,0.4,1,,,15,25,25,20,1,20,10,30000,10,15,360,0.25,6,6,,,,,,,,espc_bp,1,0.5,2,2,,200
-Songbird,espc_songbird,Frigate,Epsilon Pact,espc_Collapse,9,2000,200,4000,1875,275,55,,150,180,100,100,120,250,FRONT,,300,0.4,0.6,,,15,30,50,20,1,20,10,70000,10,15,300,0.25,10,10,,,,,,,,espc_bp,0.8,0.5,2,2,,200
+Songbird,espc_songbird,Frigate,Epsilon Pact,espc_Collapse,9,2000,200,4000,1875,275,55,,150,180,100,100,120,250,FRONT,,300,0.4,0.6,,,15,30,50,20,1,20,10,70000,10,15,300,0.25,10,10,,,,,,,,espc_bp,0.6,0.5,2,2,,200
 Opossum,espc_opossum,Frigate,Epsilon Pact,espc_Feint,5,2000,500,2500,2500,150,40,,145,180,120,120,240,100,FRONT,,360,0.4,0.6,,,10,25,25,20,1,20,10,25000,10,12,300,0.25,4,4,,,,,,,,espc_bp,1,0.5,2,2,,205
 ,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 Militia,espc_militia,Combat Freighter,Epsilon Pact,espc_Shieldwall,9,6000,650,5000,1700,350,100,,75,35,15,20,15,650,OMNI,,120,0.5,0.8,,,25,250,300,100,2,50,8,30000,4,15,420,0.25,11,11,,,,,100,200,"FREIGHTER, LINER",espc_bp,1,0.5,2,3,,313
@@ -14,7 +14,7 @@ Ember,espc_ember,Combat Tanker,Epsilon Pact,espc_AMCompressor,9,4000,400,5000,17
 # Somnambulist,espc_somnam,Fast Cruiser,Epsilon Pact,microburn,14,7000,750,10000,12000,600,140,,80,75,45,30,60,650,OMNI,,180,0.4,0.7,,,80,140,100,90,3,30,9,125000,4,15,420,0.25,20,20,,,,,,,,restricted,,0.6,2,3,,414
 # Immolate,espc_immolate,Combat Carrier,Pirate,highenergyfocus,15,8000,800,8000,1750,600,100,,65,25,15,10,10,1600,OMNI,,180,0.4,0.8,,,125,200,150,1000,5,200,8,80000,3,12,480,0.25,20,20,,,,,,,"CIVILIAN, TANKER, CARRIER, COMBAT, NO_AUTO_ESCORT","pirate_bp, restricted",1,0.8,2,3,,309
 Observer,espc_observer,Cruiser,Epsilon Pact,espc_ResonatorShield,15,8000,800,10000,14000,700,155,,65,40,30,25,30,1200,OMNI,,360,0.4,0.6,,,150,250,150,120,3,40,8,160000,3,12,480,0.25,25,25,,,,,,,,espc_bp,1,0.6,2,3,,403
-Chorale,espc_chorale,Heavy Cruiser,Epsilon Pact,espc_Harmonizer,17,8000,1250,10000,12000,800,170,,75,40,25,25,25,1500,OMNI,,140,0.4,0.8,,,150,200,150,120,4,30,8,200000,3,12,480,0.25,30,30,,,,,,,,"espc_bp, no_autofit",1,0.65,2,3,,401
+Chorale,espc_chorale,Heavy Cruiser,Epsilon Pact,espc_Harmonizer,17,8000,1250,10000,12000,800,170,,75,40,30,25,30,1500,OMNI,,140,0.4,0.8,,,150,200,150,120,4,30,8,200000,3,12,480,0.25,30,30,,,,,,,,"espc_bp, no_autofit",1,0.65,2,3,,401
 Pilgrim,espc_pilgrim,Combat Carrier,Epsilon Pact,espc_Salvo,15,10000,1000,8500,4000,450,130,2,60,20,10,15,20,2000,OMNI,,180,0.4,1,,,200,250,100,100,4,25,8,150000,4,12,480,0.25,25,25,,,,,,,"CARRIER, COMBAT, NO_AUTO_ESCORT",espc_bp,1,0.4,2,3,,410
 ,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 # Amanuensis,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,

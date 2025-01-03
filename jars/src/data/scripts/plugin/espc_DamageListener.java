@@ -5,6 +5,8 @@ import com.fs.starfarer.api.combat.*;
 import com.fs.starfarer.api.combat.CombatEngineAPI;
 import com.fs.starfarer.api.combat.listeners.DamageDealtModifier;
 import com.fs.starfarer.api.combat.DamagingProjectileAPI;
+import com.fs.starfarer.api.combat.ShipAPI.HullSize;
+
 import org.lwjgl.util.vector.Vector2f;
 import com.fs.starfarer.api.util.Misc;
 
@@ -18,6 +20,7 @@ public class espc_DamageListener implements DamageDealtModifier {
 	private static final float MINIMIR_ARMOR_PERCENT_MED = 1.0f;
 	
     public static final float FIS_PROJ_DAMAGE_FRACTION = 3f;
+    public static final float FLAK_BONUS_DAMAGE = 250f;
 
     @Override
     public String modifyDamageDealt(Object proj, CombatEntityAPI targ, DamageAPI damage, Vector2f point, boolean shieldHit) {
@@ -151,9 +154,17 @@ public class espc_DamageListener implements DamageDealtModifier {
 				);
 			}
 			return null;
-		} else if (((dProj.getProjectileSpecId().equals("espc_riftpike_shot") ||
+		} else if (dProj.getProjectileSpecId().equals("espc_flak_shot")) {
+			if (targ instanceof MissileAPI || targ instanceof ShipAPI && ((ShipAPI) targ).getHullSize() == HullSize.FIGHTER) {
+				Global.getCombatEngine().applyDamage(
+					targ, point, FLAK_BONUS_DAMAGE, DamageType.FRAGMENTATION, 0f, false, false, dProj.getSource() != null ?
+						dProj.getSource() : Global.getCombatEngine());
+			}
+			return null;
+		} 
+		else if (((dProj.getProjectileSpecId().equals("espc_riftpike_shot") ||
 			dProj.getProjectileSpecId().equals("espc_riftspear_shot"))) && shieldHit) {
-			// if something ends up reducing rift pike damage to a 10th of its original value im making it deal hard flux
+			// if something ends up reducing rift pike damage to a 10th of its base damage it deals hard flux now
 			// fuck you
 			damage.setSoftFlux(true);
 			return null;

@@ -1,0 +1,21 @@
+{
+	"id":"espc_flak_shot",
+	"specClass":"projectile",
+	"spawnType":"BALLISTIC",
+	"collisionClass":"PROJECTILE_FF",
+	"collisionClassByFighter":"PROJECTILE_FIGHTER",	
+	
+	"length":20.0,
+	"width":9,
+	"coreWidthMult":0.5,
+	"fadeTime":0.15,
+	"fringeColor":[200,235,180,100],
+	"coreColor":[255,255,200,150],
+	"glowColor":[200,235,180,50],
+	"glowRadius":3,
+	"hitGlowRadius":60,	
+	"textureScrollSpeed":64.0,
+	"pixelsPerTexel":5.0,
+	"passThroughMissiles":true,
+	"bulletSprite":"graphics/missiles/shell_large_green.png"
+}

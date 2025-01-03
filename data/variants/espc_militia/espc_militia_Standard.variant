@@ -3,7 +3,7 @@
   "hullId": "espc_militia",
   "displayName": "Standard",
   "goalVariant": true,
-  "fluxCapacitors": 18,
+  "fluxCapacitors": 20,
   "fluxVents": 18,
   "quality": 1,
   "permaMods": [],

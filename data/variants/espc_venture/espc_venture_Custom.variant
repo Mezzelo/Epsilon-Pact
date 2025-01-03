@@ -3,7 +3,7 @@
   "hullId": "espc_venture",
   "displayName": "Custom",
   "goalVariant": true,
-  "fluxCapacitors": 13,
+  "fluxCapacitors": 15,
   "fluxVents": 20,
   "quality": 1,
   "permaMods": [],

@@ -135,7 +135,7 @@ public class espc_PactFleetSpawnListener extends BaseCampaignEventListener {
 		
 		// getofficerscopy doesn't appear to work urghh
         for (FleetMemberAPI fleetMember : fleet.getFleetData().getMembersListCopy()) {
-			// Global.getLogger(espc_PactFleetSpawnListener.class).info(fleetMember.getVariant().getHullVariantId());
+			// 	
         	if (fleet.getFaction().getId().equals("epsilpac")) {
             	for (int i = 0; i < variantList.length; i++) {
             		if (variantList[i].equals(fleetMember.getVariant().getHullVariantId()) ) {

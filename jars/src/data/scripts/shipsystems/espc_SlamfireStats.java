@@ -18,6 +18,7 @@ import com.fs.starfarer.api.combat.OnFireEffectPlugin;
 import com.fs.starfarer.api.combat.ShipAPI;
 import com.fs.starfarer.api.combat.WeaponAPI;
 import com.fs.starfarer.api.combat.WeaponAPI.WeaponType;
+import com.fs.starfarer.api.combat.WeaponGroupAPI;
 import com.fs.starfarer.api.impl.combat.BaseShipSystemScript;
 import com.fs.starfarer.api.loading.ProjectileSpecAPI;
 import com.fs.starfarer.api.util.Misc;
@@ -36,6 +37,7 @@ public class espc_SlamfireStats extends BaseShipSystemScript {
 	
 	// state machine
 	private int burstState = 0;
+	private int weaponsCheck = 0;
 
 	private class SlamWeapon {
 		public WeaponAPI weapon;
@@ -92,6 +94,16 @@ public class espc_SlamfireStats extends BaseShipSystemScript {
 		
 		ShipAPI ship = (ShipAPI) stats.getEntity();
 		
+		if (weaponsCheck < 1) {
+			if (weaponsCheck == -1)
+				return;
+			else if (ship.getWeaponGroupsCopy().size() == 0) {
+				weaponsCheck = -1;
+				return;
+			} else
+				weaponsCheck = 1;
+		}
+		
 		// stats.getBallisticWeaponFluxCostMod().modifyMult(id, 1f - FLUX_REDUCTION * effectLevel);
 		/*
 		for (WeaponAPI weapon : ship.getAllWeapons()) {
@@ -103,22 +115,21 @@ public class espc_SlamfireStats extends BaseShipSystemScript {
 		}*/
 		// check for when the weapon fires.
 		if (burstState <= 1) {
-			if (burstState == 0) {
-				if (ship.getSelectedGroupAPI() != null)
-					burstState = 1;
-				else {
-					burstState = 3;
+			WeaponGroupAPI wpnGroup = ship.getSelectedGroupAPI();
+			if (wpnGroup == null) {
+				List<WeaponGroupAPI> groups = ship.getWeaponGroupsCopy();
+				if (groups.size() == 0) {
+					weaponsCheck = -1;
 					return;
-				}
+				} else
+					wpnGroup = groups.get(0);
 			}
-			for (WeaponAPI weapon : ship.getSelectedGroupAPI().getWeaponsCopy()) {
+			for (WeaponAPI weapon : wpnGroup.getWeaponsCopy()) {
 				if (weapon.getType() != WeaponType.BALLISTIC || weapon.isBeam() || weapon.getFluxCostToFire() <= 0f)
 					continue;
 				if (weapon.isFiring() && weapon.getCooldownRemaining() <= 0f) {
-					if (burstState == 1) {
-						burstState = 2;
-						break;
-					}
+					burstState = 2;
+					break;
 				}
 			}
 		}
@@ -133,7 +144,10 @@ public class espc_SlamfireStats extends BaseShipSystemScript {
 			ArrayList<SlamWeapon> firingWeapons = new ArrayList<SlamWeapon>();
 			LinkedList<WeaponAPI> weapons = new LinkedList<WeaponAPI>();
 			float groupFluxCost = 0f;
-			for (WeaponAPI weapon : ship.getSelectedGroupAPI().getWeaponsCopy()) {
+			WeaponGroupAPI wpnGroup = ship.getSelectedGroupAPI();
+			if (wpnGroup == null)
+				wpnGroup = ship.getWeaponGroupsCopy().get(0);
+			for (WeaponAPI weapon : wpnGroup.getWeaponsCopy()) {
 				if (weapon.getType() == WeaponType.BALLISTIC &&
 					!weapon.isBeam() && weapon.getFluxCostToFire() > 0f) {
 					SlamWeapon addWep = new SlamWeapon(weapon, ship);

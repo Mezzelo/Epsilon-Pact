@@ -1,5 +1,6 @@
 package data.scripts.weapons.proj;
 
+import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.combat.*;
 import com.fs.starfarer.api.combat.listeners.ApplyDamageResultAPI;
 import com.fs.starfarer.api.util.Misc;
@@ -33,6 +34,10 @@ public class espc_RemiseMortarProjEffect implements OnHitEffectPlugin {
 		ShipAPI ship = proj.getSource();
 		
 		if (ship == null || ship.getFluxTracker().isOverloadedOrVenting() || ship.isHulk() || !ship.isAlive())
+			return;
+		
+		if (proj.getDamageAmount() * proj.getDamageAmount()
+			/ proj.getBaseDamageAmount() / proj.getBaseDamageAmount() < Misc.random.nextFloat())
 			return;
 		
 		List<WeaponAPI> weapons = ship.getAllWeapons();

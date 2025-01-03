@@ -1,14 +1,11 @@
 package data.scripts.weapons;
 
-import java.util.ArrayList;
 
 import com.fs.starfarer.api.combat.CombatEngineAPI;
 import com.fs.starfarer.api.combat.EveryFrameWeaponEffectPlugin;
 import com.fs.starfarer.api.combat.ShipAPI;
 import com.fs.starfarer.api.combat.WeaponAPI;
 import com.fs.starfarer.api.combat.WeaponEffectPluginWithInit;
-import com.fs.starfarer.api.combat.ShipAPI.HullSize;
-import com.fs.starfarer.api.graphics.SpriteAPI;
 
 public class espc_DecoGlow implements EveryFrameWeaponEffectPlugin, WeaponEffectPluginWithInit {
 

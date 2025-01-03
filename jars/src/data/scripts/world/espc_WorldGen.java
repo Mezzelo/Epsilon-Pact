@@ -25,14 +25,14 @@ import com.fs.starfarer.api.impl.campaign.shared.SharedData;
 // import data.scripts.world.systems.Diableavionics_outerTerminus;
 // import data.scripts.world.systems.Diableavionics_stagging;
 
-import data.scripts.espc_ModPlugin;
+// import data.scripts.espc_ModPlugin;
 import data.scripts.world.systems.espc_GenHalestar;
 import data.scripts.world.systems.espc_GenKhemsala;
-import exerelin.campaign.SectorManager;
+// import exerelin.campaign.SectorManager;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
+// import java.util.HashMap;
+// import java.util.Map;
+// import java.util.Set;
 
 
 public class espc_WorldGen implements SectorGeneratorPlugin {

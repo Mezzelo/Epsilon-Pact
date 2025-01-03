@@ -61,7 +61,7 @@ public class espc_SalvoStats extends BaseShipSystemScript {
 	// if OP*ammo/missile is greater than this value, it is split between fighters.
 	// i.e. a reaper (2 OP/missile) is split between two fighters, 5 OP/2 missiles would see a similar split.
 	// private static final float MISSILE_OP_MAX = 1f;
-	private static final int BURST_MAX = 15;
+	private static final int BURST_MAX = 25;
 	private static final int OP_PER_WING = 3;
 	private static final int OP_PER_WING_SMALL = 4;
 	private static final float MIN_RANGE = 150f;
@@ -206,12 +206,22 @@ public class espc_SalvoStats extends BaseShipSystemScript {
 			for (WeaponAPI weapon : ship.getAllWeapons()) {
 				if (weapon.getType() == WeaponType.MISSILE) {
 					shipMissiles.add(weapon);
+					// TODO: figure this math out
 					if (weapon.usesAmmo() && weapon.getAmmoPerSecond() <= 0f)
+						/*
 						fightersPerMissile.add(Math.max((int)Math.floor(((float)weapon.getSpec().getOrdnancePointCost(null)
-							/(float)weapon.getMaxAmmo() /(float)weapon.getSpec().getBurstSize())), 1));
+							/(float)weapon.getMaxAmmo() /(float)weapon.getSpec().getBurstSize())), 1));*/
+						fightersPerMissile.add(Math.max((int)Math.floor(((float)weapon.getSpec().getOrdnancePointCost(null)
+							/(float)weapon.getMaxAmmo() * (float) weapon.getSpec().getBurstSize())), 1));
 					else
 						// TODO: base shot count on shots/minute?
-						fightersPerMissile.add(2);
+						// fightersPerMissile.add(2);
+						// salamander: 2.4 shots/min, 5 OP
+						// salamander mrm: 4.8 shots/min, 10 OP
+						// pilum: 6 shots/min, 7 OP
+						// pilum lrm: 20 shots/min, 14 OP
+					fightersPerMissile.add((int) weapon.getSpec().getAmmoPerSecond());
+					// TODO DO NOT FORGET THIS LMAO
 				}
 			}
 			if (shipMissiles.size() < 1) {

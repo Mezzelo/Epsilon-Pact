@@ -15,6 +15,7 @@ import com.fs.starfarer.api.combat.ShipAIConfig;
 import com.fs.starfarer.api.combat.ShipAIPlugin;
 import com.fs.starfarer.api.combat.ShipAPI;
 import com.fs.starfarer.api.fleet.FleetMemberAPI;
+import com.fs.starfarer.api.impl.campaign.ids.Personalities;
 import com.fs.starfarer.api.impl.campaign.shared.SharedData;
 
 // import com.fs.starfarer.api.impl.campaign.shared.SharedData;
@@ -122,31 +123,40 @@ public class espc_ModPlugin extends BaseModPlugin {
 			return null;
 	}
 	
-	/*
+	
     @Override
     public PluginPick<ShipAIPlugin> pickShipAI(FleetMemberAPI member, ShipAPI ship) {
-
-    	// ai fixes for goofily-built hardpoint broadside ships
-    	// offense is defense for these ships - them attempting to maneuver tends to lose them fights the player wouldn't.
-    	// for the serenade in particular, attempting to 180 on a battleship without a movement system is a death sentence.
-		// doesn't really stop it from testing but worth a shot.
     	
-    	// ig this also affects the sindrian one.  phil can go fuck himself lmao i'm too lazy/spiteful to make an exception.
         if (ship.getHullSpec().getBaseHullId().equals("espc_chorale")) {
             ShipAIConfig config = new ShipAIConfig();
+            // i am unbelievably tired of fiddling with this game's wonky ass black box ai.
+            config.personalityOverride = Personalities.AGGRESSIVE;
             // config.alwaysStrafeOffensively = true;
             // config.backingOffWhileNotVentingAllowed = true;
             config.turnToFaceWithUndamagedArmor = false;
             return new PluginPick<ShipAIPlugin>(Global.getSettings().createDefaultShipAI(ship, config), PickPriority.MOD_SET);
-        } else if (ship.getHullSpec().getBaseHullId().equals("espc_serenade")) {
+        }
+        else if (ship.getHullSpec().getBaseHullId().equals("espc_observer")) {
             ShipAIConfig config = new ShipAIConfig();
-            // config.alwaysStrafeOffensively = false;
-            config.backingOffWhileNotVentingAllowed = false;
-            config.turnToFaceWithUndamagedArmor = false;
+            // i am unbelievably tired of fiddling with this game's wonky ass black box ai.
+            config.personalityOverride = Personalities.AGGRESSIVE;
+            // config.alwaysStrafeOffensively = true;
+            // config.backingOffWhileNotVentingAllowed = true;
             return new PluginPick<ShipAIPlugin>(Global.getSettings().createDefaultShipAI(ship, config), PickPriority.MOD_SET);
         }
-        	return null;
+        else if (ship.getHullSpec().getBaseHullId().equals("espc_flagbearer")) {
+            ShipAIConfig config = new ShipAIConfig();
+            config.personalityOverride = Personalities.AGGRESSIVE;
+            return new PluginPick<ShipAIPlugin>(Global.getSettings().createDefaultShipAI(ship, config), PickPriority.MOD_SET);
+        }/* else if (ship.getHullSpec().getBaseHullId().equals("espc_serenade")) {
+            ShipAIConfig config = new ShipAIConfig();
+            // config.alwaysStrafeOffensively = false;
+            // config.backingOffWhileNotVentingAllowed = false;
+            // config.turnToFaceWithUndamagedArmor = false;
+            return new PluginPick<ShipAIPlugin>(Global.getSettings().createDefaultShipAI(ship, config), PickPriority.MOD_SET);
+        }*/
+       return null;
     }
-    */
+    
 
 }

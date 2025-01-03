@@ -3,8 +3,8 @@
   "hullId": "espc_pilgrim",
   "displayName": "Support",
   "goalVariant": true,
-  "fluxCapacitors": 18,
-  "fluxVents": 19,
+  "fluxCapacitors": 19,
+  "fluxVents": 20,
   "quality": 1,
   "permaMods": [],
   "hullMods": [

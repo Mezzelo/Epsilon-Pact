@@ -3,11 +3,12 @@
   "hullId": "espc_flagbearer",
   "displayName": "Support",
   "goalVariant": true,
-  "fluxCapacitors": 10,
+  "fluxCapacitors": 8,
   "fluxVents": 10,
   "quality": 1,
   "permaMods": [],
   "hullMods": [
+    "fluxcoil",
     "fluxdistributor"
   ],
   "weaponGroups": [

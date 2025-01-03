@@ -58,7 +58,7 @@ public class MissionDefinition implements MissionDefinitionPlugin {
 		
 		if (Keyboard.isKeyDown(Keyboard.KEY_LCONTROL) && Keyboard.isKeyDown(Keyboard.KEY_Q)) {
 			// api.addToFleet(FleetSide.PLAYER, "espc_gallant_Standard", FleetMemberType.SHIP, false);
-			// api.addToFleet(FleetSide.PLAYER, "espc_atavist_Standard", FleetMemberType.SHIP, false);
+			api.addToFleet(FleetSide.PLAYER, "espc_atavist_Standard", FleetMemberType.SHIP, false);
 			api.addToFleet(FleetSide.PLAYER, "espc_chorale_Support", FleetMemberType.SHIP, false);
 			// api.addToFleet(FleetSide.PLAYER, "espc_chorale_lg_Elite", FleetMemberType.SHIP, "TTS Invisible Hand", false);
 			api.addToFleet(FleetSide.PLAYER, "espc_pilgrim_Support", FleetMemberType.SHIP, "EPS Tocquiera", false);
@@ -85,6 +85,7 @@ public class MissionDefinition implements MissionDefinitionPlugin {
 
 			api.addToFleet(FleetSide.PLAYER, "espc_picket_Anti_Armor", FleetMemberType.SHIP, "EPS Then Comes Light", false);
 			api.addToFleet(FleetSide.PLAYER, "espc_warden_Strike", FleetMemberType.SHIP, "EPS Then Comes Light", false);
+			api.addToFleet(FleetSide.PLAYER, "espc_defender_Standard", FleetMemberType.SHIP, "EPS Then Comes Light", false);
 			api.addToFleet(FleetSide.PLAYER, "espc_sentry_Support", FleetMemberType.SHIP, "EPS Then Comes Light", false);
 			api.addToFleet(FleetSide.PLAYER, "espc_bastillon_Support", FleetMemberType.SHIP, "EPS Then Comes Light", false);
 			api.addToFleet(FleetSide.PLAYER, "espc_berserker_Assault", FleetMemberType.SHIP, "EPS Then Comes Light", false);

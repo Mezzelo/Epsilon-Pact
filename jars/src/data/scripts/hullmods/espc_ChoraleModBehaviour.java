@@ -37,7 +37,7 @@ public class espc_ChoraleModBehaviour extends BaseHullMod {
 		
 		int speedPenaltyWeps = 0;
         for (int i = 0; i < shipWeps.size(); i++){
-			if (((WeaponAPI) shipWeps.get(i)).getSize() != WeaponSize.SMALL)
+			if (((WeaponAPI) shipWeps.get(i)).getSize() == WeaponSize.SMALL)
 				continue;
 			if (((WeaponAPI) shipWeps.get(i)).getSpec().getMaxRange() >= SPEED_PENALTY_RANGE_MIN)
 				speedPenaltyWeps++;

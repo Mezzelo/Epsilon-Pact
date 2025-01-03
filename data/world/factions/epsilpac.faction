@@ -418,6 +418,7 @@
         "standard_male":[
             "graphics/portraits/espc_alman.png",
             "graphics/portraits/espc_angela.png",
+            "graphics/portraits/espc_beth.png",
             "graphics/portraits/espc_carl.png",
 			"graphics/portraits/espc_carla.png",
             "graphics/portraits/espc_clint.png",
@@ -446,7 +447,6 @@
 			"graphics/portraits/espc_carla.png",
             "graphics/portraits/espc_clint.png",
 			"graphics/portraits/espc_cveta.png",
-            "graphics/portraits/espc_dominic.png",
             "graphics/portraits/espc_gao.png",
             "graphics/portraits/espc_helena.png",
             "graphics/portraits/espc_henrik.png",

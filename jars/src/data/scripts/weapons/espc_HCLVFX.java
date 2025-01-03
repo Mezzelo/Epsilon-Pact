@@ -13,7 +13,7 @@ import com.fs.starfarer.api.graphics.SpriteAPI;
 import com.fs.starfarer.api.combat.DamagingProjectileAPI;
 import com.fs.starfarer.api.input.InputEventAPI;
 
-import java.awt.Color;
+// import java.awt.Color;
 import java.util.List;
 import java.util.Random;
 import com.fs.starfarer.api.util.Misc;
@@ -38,8 +38,8 @@ public class espc_HCLVFX extends BaseEveryFrameCombatPlugin {
 	
 	private static final float particleDurBase = 1f;
 	private static final float particleSpawnInterval = 0.005f;
-	private static final Color colorInner = new Color(255, 235, 220);
-	private static final Color colorOuter = new Color(85, 45, 255);
+	// private static final Color colorInner = new Color(255, 235, 220);
+	// private static final Color colorOuter = new Color(85, 45, 255);
 	
 	private float angSin;
 	private float angCos;

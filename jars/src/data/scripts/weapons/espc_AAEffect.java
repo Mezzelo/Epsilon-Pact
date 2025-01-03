@@ -10,6 +10,7 @@ import com.fs.starfarer.api.combat.ShipAPI;
 import com.fs.starfarer.api.util.Misc;
 import org.lwjgl.util.vector.Vector2f;
 import org.lazywizard.lazylib.FastTrig;
+import org.lazywizard.lazylib.MathUtils;
 
 public class espc_AAEffect implements OnFireEffectPlugin, EveryFrameWeaponEffectPlugin {
 
@@ -26,6 +27,8 @@ public class espc_AAEffect implements OnFireEffectPlugin, EveryFrameWeaponEffect
 	
     @Override
     public void onFire(DamagingProjectileAPI proj, WeaponAPI weapon, CombatEngineAPI engine) {
+    	if (MathUtils.getDistanceSquared(proj, weapon.getFirePoint(0)) > 1f)
+    		return;
         if (currentShot == 0) {
 			// spreadLocation = proj.getLocation();
 			spreadFacing = proj.getFacing();

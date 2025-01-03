@@ -2,6 +2,7 @@ package data.scripts.shipsystems;
 
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.combat.CombatEngineAPI;
+import com.fs.starfarer.api.combat.DamageType;
 import com.fs.starfarer.api.combat.MutableShipStatsAPI;
 import com.fs.starfarer.api.combat.ShipAPI;
 import com.fs.starfarer.api.combat.WeaponAPI;
@@ -34,13 +35,15 @@ public class espc_AlternatorStats extends BaseShipSystemScript {
 			ship = (ShipAPI) stats.getEntity();
 			for (WeaponAPI weapon : ship.getAllWeapons()) {
 				if (weapon.getType() == WeaponType.BALLISTIC)
-					ballisticDPS += weapon.getDerivedStats().getSustainedDps();
+					ballisticDPS += weapon.getDerivedStats().getSustainedDps() 
+						* (weapon.getDamageType().equals(DamageType.FRAGMENTATION) ? 0.5f : 1f);
 				else if (weapon.getType() == WeaponType.ENERGY)
-					energyDPS += weapon.getDerivedStats().getSustainedDps();
+					energyDPS += weapon.getDerivedStats().getSustainedDps()
+						* (weapon.getDamageType().equals(DamageType.FRAGMENTATION) ? 0.5f : 1f);
 				
 			}
-			Global.getLogger(espc_AlternatorStats.class).info("balDPS: " + ballisticDPS);
-			Global.getLogger(espc_AlternatorStats.class).info("enDPS: " + energyDPS);
+			// Global.getLogger(espc_AlternatorStats.class).info("balDPS: " + ballisticDPS);
+			// Global.getLogger(espc_AlternatorStats.class).info("enDPS: " + energyDPS);
 		}
 		
 		if (state == State.OUT && lastIdle) {

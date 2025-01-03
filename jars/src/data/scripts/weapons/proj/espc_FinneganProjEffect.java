@@ -2,10 +2,8 @@ package data.scripts.weapons.proj;
 
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.combat.*;
-import com.fs.starfarer.api.combat.ShipAPI.HullSize;
 import com.fs.starfarer.api.combat.listeners.ApplyDamageResultAPI;
 
-import java.awt.Color;
 import com.fs.starfarer.api.util.Misc;
 
 import org.lwjgl.util.vector.Vector2f;

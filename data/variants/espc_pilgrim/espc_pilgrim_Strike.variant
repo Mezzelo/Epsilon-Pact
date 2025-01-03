@@ -3,7 +3,7 @@
   "hullId": "espc_pilgrim",
   "displayName": "Strike",
   "goalVariant": false,
-  "fluxCapacitors": 13,
+  "fluxCapacitors": 15,
   "fluxVents": 18,
   "quality": 1,
   "permaMods": [],

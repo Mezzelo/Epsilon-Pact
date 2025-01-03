@@ -38,6 +38,9 @@
 	 "espc_gatling_fire":[
 		{"file":"sounds/weapon/espc_gatling_fire_loud.ogg","pitch":1.0,"volume":0.7},
 	],
+	"espc_flak_fire":[
+		{"file":"sounds/weapon/espc_buzzer_fire.ogg","pitch":0.75,"volume":1.1},
+	],
 	"espc_finnegan_fire":[
 		{"file":"sounds/weapon/espc_finnegan_fire.ogg","pitch":1.0,"volume":0.8},		
 	],

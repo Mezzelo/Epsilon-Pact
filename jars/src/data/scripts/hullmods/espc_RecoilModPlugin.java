@@ -23,7 +23,7 @@ public class espc_RecoilModPlugin extends BaseEveryFrameCombatPlugin {
 	private WeaponAPI recoilWep;
 	private float cooldownLast = 0f;
 	
-	private static final float KNOCKBACK_PER_DAMAGE_OVER_WEIGHT = 45f;
+	private static final float KNOCKBACK_PER_DAMAGE_OVER_WEIGHT = 30f;
 	private static final float BEAM_KNOCKBACK_MULT = 0.65f;
 	private static final float HEAVY_ARMOR_MODIFIER = -0.2f;
 	private float knockbackMod;
