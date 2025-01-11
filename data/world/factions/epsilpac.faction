@@ -274,6 +274,7 @@
 			"espc_remmortar",
 			"espc_aa",
 			"espc_mkl",
+			"espc_flak",
 			"espc_gatling",
 			"espc_fission",
 			"espc_riftspear",	
@@ -362,6 +363,7 @@
 		"espc_remmortar":10,
 		"espc_aa":10,
 		"espc_mkl":10,
+		"espc_flak":10,
 		"espc_gatling":10,
 		"espc_fission":10,
 		"espc_riftspear":10,	
@@ -384,7 +386,7 @@
 		
 		"combatFreighterProbability":1,      				# instead of some portion of the freighters in a fleet
 		"combatFreighterCombatUseFraction":0.4,  				# as part of the normal combat lineup
-		"combatFreighterCombatUseFractionWhenPriority":0.7, # as part of normal combat lineup, when marked as priority ship
+		"combatFreighterCombatUseFractionWhenPriority":0.6, # as part of normal combat lineup, when marked as priority ship
 		"autofitRandomizeProbability":0.1,
 
 		"commanderSkillsShuffleProbability":1,
@@ -419,13 +421,13 @@
             "graphics/portraits/espc_alman.png",
             "graphics/portraits/espc_angela.png",
             "graphics/portraits/espc_beth.png",
-            "graphics/portraits/espc_carl.png",
 			"graphics/portraits/espc_carla.png",
             "graphics/portraits/espc_clint.png",
             "graphics/portraits/espc_dominic.png",
             "graphics/portraits/espc_gao.png",
             "graphics/portraits/espc_helena.png",
             "graphics/portraits/espc_henrik.png",
+            "graphics/portraits/espc_ilya.png",
             "graphics/portraits/espc_kanden.png",
             "graphics/portraits/espc_lionel.png",
             "graphics/portraits/espc_midas.png",
@@ -434,6 +436,7 @@
             "graphics/portraits/espc_ofouhou.png",
             "graphics/portraits/espc_onarun.png",
             "graphics/portraits/espc_raul.png",
+            "graphics/portraits/espc_ruth.png",
             "graphics/portraits/espc_seo.png",
             "graphics/portraits/espc_tomi.png",
             "graphics/portraits/espc_yina.png",
@@ -448,14 +451,20 @@
             "graphics/portraits/espc_clint.png",
 			"graphics/portraits/espc_cveta.png",
             "graphics/portraits/espc_gao.png",
+            "graphics/portraits/espc_lindsay.png",
             "graphics/portraits/espc_helena.png",
             "graphics/portraits/espc_henrik.png",
 			"graphics/portraits/espc_ny.png",
 			"graphics/portraits/espc_phoebe.png",
+            "graphics/portraits/espc_raul.png",
             "graphics/portraits/espc_rosa.png",
+            "graphics/portraits/espc_rudy.png",
+            "graphics/portraits/espc_ruth.png",
             "graphics/portraits/espc_seo.png",
+            "graphics/portraits/espc_schwick.png",
             "graphics/portraits/espc_tomi.png",
             "graphics/portraits/espc_yina.png",
+            "graphics/portraits/espc_zhen.png",
         ],
     },
 

@@ -45,8 +45,9 @@ public class espc_EconomyListener extends BaseCampaignEventListener {
 	@Override
 	public void reportEconomyMonthEnd() {
 		
+		/*
 		if (Global.getSector().getClock().getMonth() % 6 == 0)
-			espc_NexusConstruction.monthlyConstruction();
+			espc_NexusConstruction.monthlyConstruction(); */
 		
 		if (nexRandom)
 			return;
@@ -64,6 +65,16 @@ public class espc_EconomyListener extends BaseCampaignEventListener {
 		
 		WeightedRandomPicker<MarketAPI> marketPicker = new WeightedRandomPicker<MarketAPI>();
 		for (MarketAPI market : Global.getSector().getEconomy().getMarketsCopy()) {
+			if (market.getId().equals("espc_tocquiera_market")) {
+				if (!market.getFactionId().equals("epsilpac")) {
+					if (market.getAdmin().getId().equals("espc_anlo"))
+						market.setAdmin(null);
+				}
+			} else {
+				if (!market.getAdmin().getId().equals("espc_anlo") && 
+					Global.getSector().getImportantPeople().getPerson("espc_anlo") != null)
+					market.setAdmin(Global.getSector().getImportantPeople().getPerson("espc_anlo"));
+			}
 			if (market.getFactionId().equals("epsilpac") && market != isabelle.getMarket()) {
 				marketPicker.add(market);
 			}

@@ -157,7 +157,7 @@ public class espc_GenHalestar implements SectorGeneratorPlugin
         			//Items.FULLERENE_SPOOL
         		},
         		{Industries.BATTLESTATION_HIGH},
-        		{Industries.GROUNDDEFENSES},
+        		{Industries.HEAVYBATTERIES},
         		{Industries.PATROLHQ},
         		{Industries.ORBITALWORKS, Items.PRISTINE_NANOFORGE},
         		{Industries.FARMING},
@@ -204,7 +204,7 @@ public class espc_GenHalestar implements SectorGeneratorPlugin
         );
 
         SectorEntityToken brunielStation = system.addCustomEntity(
-        		"espc_bruniel_station", "Bruniel Station", "espc_station_bruniel", "epsilpac");
+        	"espc_bruniel_station", "Bruniel Station", "espc_station_bruniel", "epsilpac");
         brunielStation.setFaction("epsilpac");
         brunielStation.setMarket(brunielMarket);
         brunielStation.setCircularOrbitPointingDown(bruniel, 70f, 160f, 40f);
@@ -225,7 +225,7 @@ public class espc_GenHalestar implements SectorGeneratorPlugin
             		{Industries.POPULATION},
             		{Industries.MEGAPORT},
             		{Industries.WAYSTATION},
-            		{Industries.GROUNDDEFENSES},
+            		{Industries.HEAVYBATTERIES},
             		{Industries.HIGHCOMMAND, Items.CRYOARITHMETIC_ENGINE},
             		{Industries.BATTLESTATION_HIGH},
             		{Industries.FUELPROD, Items.SYNCHROTRON},

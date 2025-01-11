@@ -15,8 +15,8 @@ import com.fs.starfarer.api.ui.TooltipMakerAPI;
 
 public class espc_SecondWind {
 	
-	public static float SYSTEM_COOLDOWN = 40f;
-	public static float OVERLOAD_COOLDOWN = 120f;
+	public static float SYSTEM_COOLDOWN = 30f;
+	public static float OVERLOAD_COOLDOWN = 90f;
 	public static float DISSIPATION_BONUS_OVERLOAD = 2f;
 	public static float OVERLOAD_DURATION = 0.5f;
 	

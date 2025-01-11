@@ -46,13 +46,10 @@ public class MissionDefinition implements MissionDefinitionPlugin {
 			Skills.SYSTEMS_EXPERTISE, Skills.GUNNERY_IMPLANTS, 
 			Skills.TACTICAL_DRILLS, Skills.COORDINATED_MANEUVERS, 
 			Skills.WOLFPACK_TACTICS, Skills.ORDNANCE_EXPERTISE,
-			Skills.FLUX_REGULATION, 
-			"espc_dancing_steps",
-			"espc_running_hot", "espc_underdog"}, new int[]{
+			Skills.FLUX_REGULATION}, new int[]{
 			2, 2, 2, 
-			2, 1, 2, 
-			1, 1, 1, 2, 1,
-			2, 1, 2});
+			2, 2, 2, 
+			1, 1, 1, 2, 1});
         member.setCaptain(pilot);
 		api.getDefaultCommander(FleetSide.PLAYER).setStats(pilot.getStats());
 		

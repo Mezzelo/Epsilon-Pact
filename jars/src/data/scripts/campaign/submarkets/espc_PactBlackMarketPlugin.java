@@ -80,7 +80,8 @@ public class espc_PactBlackMarketPlugin extends BlackMarketPlugin {
 				if (itemGenRandom.nextFloat() > p) continue;
 				if (member.getHullSpec().hasTag(Tags.NO_SELL)) continue;
 				if (!isMilitaryMarket() && member.getHullSpec().hasTag(Tags.MILITARY_MARKET_ONLY)) continue;
-				if (member.getHullSpec().getHints().contains(ShipTypeHints.UNBOARDABLE)) continue;
+				if (market.getFactionId().equals("epsilpac") &&
+					member.getHullSpec().getHints().contains(ShipTypeHints.UNBOARDABLE)) continue;
 				String emptyVariantId = member.getHullId() + "_Hull";
 				addShip(emptyVariantId, true, params.qualityOverride);
 			}

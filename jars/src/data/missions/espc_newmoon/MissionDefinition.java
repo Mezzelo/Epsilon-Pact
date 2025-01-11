@@ -51,13 +51,10 @@ public class MissionDefinition implements MissionDefinitionPlugin {
 			Skills.SYSTEMS_EXPERTISE, Skills.GUNNERY_IMPLANTS, 
 			Skills.TACTICAL_DRILLS, Skills.COORDINATED_MANEUVERS, 
 			Skills.WOLFPACK_TACTICS, Skills.CREW_TRAINING,
-			Skills.ORDNANCE_EXPERTISE, Skills.FLUX_REGULATION, 
-			"espc_dancing_steps",
-			"espc_running_hot", "espc_underdog"}, new int[]{
+			Skills.ORDNANCE_EXPERTISE, Skills.FLUX_REGULATION}, new int[]{
 			2, 2, 2, 
-			2, 1, 2, 
-			1, 1, 1, 1, 2, 1,
-			2, 1, 2});
+			2, 2, 2, 
+			1, 1, 1, 1, 2, 1});
         member.setCaptain(pilot);
 		api.getDefaultCommander(FleetSide.PLAYER).setStats(pilot.getStats());
 		
@@ -67,11 +64,11 @@ public class MissionDefinition implements MissionDefinitionPlugin {
 		pilot = EspcOfficerFactory.MakePilot("Isabelle", "de' Medici", FullName.Gender.FEMALE, "aggressive", 
 			"graphics/portraits/espc_isabelle.png", "epsilpac", 5);
 		EspcOfficerFactory.PopulateSkills(pilot, new String[]{
-				Skills.HELMSMANSHIP, "espc_dancing_steps", Skills.TARGET_ANALYSIS, 
-				"espc_second_wind", "espc_running_hot", 
-				Skills.ORDNANCE_EXPERTISE}, new int[]{
-				2, 2, 2,
-				2, 2, 2});
+			Skills.HELMSMANSHIP, Skills.TARGET_ANALYSIS, 
+			"espc_unburdened", Skills.ENERGY_WEAPON_MASTERY, 
+			Skills.ORDNANCE_EXPERTISE}, new int[]{
+			2, 2,
+			1, 2, 2});
         member.setCaptain(pilot);
 
 		api.addToFleet(FleetSide.PLAYER, "espc_observer_Strike", FleetMemberType.SHIP, "EPS Name of God", false);

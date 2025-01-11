@@ -72,10 +72,10 @@ public class espc_GenKhemsala implements SectorGeneratorPlugin
         		{Industries.SPACEPORT},
         		{Industries.WAYSTATION},
         		{Industries.BATTLESTATION_HIGH},
-        		{Industries.HEAVYBATTERIES},
         		{Industries.MILITARYBASE},
         		{Industries.TECHMINING},
-        		{"commerce", Items.DEALMAKER_HOLOSUITE},
+        		{"commerce"},
+        		{"espc_enclaves"},
         	},
         	new String[] {
         		"espc_open_market",

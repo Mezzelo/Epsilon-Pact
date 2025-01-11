@@ -3,12 +3,13 @@
   "hullId": "espc_jackalope",
   "displayName": "Escort",
   "goalVariant": true,
-  "fluxCapacitors": 9,
-  "fluxVents": 9,
+  "fluxCapacitors": 10,
+  "fluxVents": 10,
   "quality": 1,
   "permaMods": [],
   "hullMods": [
-    "extendedshieldemitter"
+    "extendedshieldemitter",
+    "heavyarmor"
   ],
   "weaponGroups": [
     {

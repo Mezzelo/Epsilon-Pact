@@ -12,6 +12,7 @@ import com.fs.starfarer.api.campaign.CargoStackAPI;
 import com.fs.starfarer.api.campaign.FactionAPI;
 import com.fs.starfarer.api.campaign.InteractionDialogAPI;
 import com.fs.starfarer.api.campaign.OptionPanelAPI;
+import com.fs.starfarer.api.campaign.RepLevel;
 import com.fs.starfarer.api.campaign.SectorEntityToken;
 import com.fs.starfarer.api.campaign.SpecialItemData;
 import com.fs.starfarer.api.campaign.TextPanelAPI;
@@ -220,17 +221,19 @@ public class espc_AITrade extends BaseCommandPlugin {
 				if (repChange >= 1f) {
 					CustomRepImpact impact = new CustomRepImpact();
 					impact.delta = repChange * 0.01f;
+					impact.limit = RepLevel.WELCOMING;
 					Global.getSector().adjustPlayerReputation(
-							new RepActionEnvelope(RepActions.CUSTOM, impact,
-												  null, text, true), 
-												  faction.getId());
+						new RepActionEnvelope(RepActions.CUSTOM, impact,
+							null, text, true), 
+							faction.getId());
 					
 					impact.delta *= 0.25f;
+					impact.limit = isConstant ? RepLevel.WELCOMING : RepLevel.FAVORABLE;
 					if (impact.delta >= 0.01f) {
 						Global.getSector().adjustPlayerReputation(
-								new RepActionEnvelope(RepActions.CUSTOM, impact,
-													  null, text, true), 
-													  person);
+							new RepActionEnvelope(RepActions.CUSTOM, impact,
+								null, text, true), 
+									person);
 					}
 					
 

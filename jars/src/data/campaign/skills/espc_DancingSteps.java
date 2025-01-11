@@ -42,6 +42,8 @@ public class espc_DancingSteps {
 	public static float ARMOR_DAMAGE_PENALTY = 20f;
 	public static float FIGHTER_DAMAGE_REDUCTION = 15f;
 	
+	public static int BEAM_UPDATE_RATE = 6;
+	
 	public static class DancingStepsEffectMod implements AdvanceableListener {
 		protected ShipAPI ship;
 		protected String id;
@@ -75,35 +77,47 @@ public class espc_DancingSteps {
 						damage += check.getDamageAmount() * (check.getDamageType() == DamageType.FRAGMENTATION ? 0.5f : 1f);
 				}
 			}
+			float beamDamage = 0f;
 			List<BeamAPI> beams = combatEngine.getBeams();
 			for (BeamAPI beam : beams) {
 				if (beam.getSource().getOwner() != ship.getOwner() && 
 					MathUtils.getDistanceSquared(beam.getTo(), ship.getLocation()) < 
 					Math.pow(ship.getShieldRadiusEvenIfNoShield() + HOSTILE_RANGE, 2f))
-					damage += beam.getDamage().getDamage();
+					beamDamage += beam.getDamage().getDamage();
 			}
-			float damageFinal = damage;
-			damage = beamDamageLast > damage ? beamDamageLast : damage;
+			if (beamDamage > 0f) {
+				beamTicks = BEAM_UPDATE_RATE;
+				beamDamageLast = beamDamage;
+			}
+			else if (beamTicks > 0){
+				beamTicks--;
+				if (beamTicks == 0)
+					beamDamageLast = 0f;
+				else
+					beamDamage = beamDamageLast;
+				
+			}
+			damage += beamDamage;
+			if (ship.getShield() != null && ship.getShield().isOff())
+				ship.getMutableStats().getMaxSpeed().modifyFlat(id + "noShield", SPEED_BONUS_NO_SHIELD);
+			else
+				ship.getMutableStats().getMaxSpeed().unmodify(id + "noShield");
 			if (damage > 0f) {
 				float mult = Math.min(damage / Math.min(HULL_STATIC_MAX, ship.getHitpoints() * HULL_PORTION_MAX/100f), 1f);
 				MutableShipStatsAPI stats = ship.getMutableStats();
 				stats.getMaxSpeed().modifyPercent(id, SPEED_BONUS * mult);
-				if (ship.getShield() != null && ship.getShield().isOff())
-					stats.getMaxSpeed().modifyFlat(id + "noShield", SPEED_BONUS_NO_SHIELD * mult);
 				stats.getAcceleration().modifyPercent(id, MANEUVERABILITY_BONUS * mult);
 				stats.getDeceleration().modifyPercent(id, MANEUVERABILITY_BONUS * mult);
 				stats.getTurnAcceleration().modifyPercent(id, MANEUVERABILITY_BONUS * mult * 2f);
 				stats.getMaxTurnRate().modifyPercent(id, MANEUVERABILITY_BONUS * mult);
 			} else {
-				ship.getMutableStats().getMaxSpeed().unmodify(id);
-				ship.getMutableStats().getMaxSpeed().unmodify(id + "noShield");
-				ship.getMutableStats().getAcceleration().unmodify(id);
-				ship.getMutableStats().getDeceleration().unmodify(id);
-				ship.getMutableStats().getTurnAcceleration().unmodify(id);
-				ship.getMutableStats().getMaxTurnRate().unmodify(id);
+				MutableShipStatsAPI stats = ship.getMutableStats();
+				stats.getMaxSpeed().unmodify(id);
+				stats.getAcceleration().unmodify(id);
+				stats.getDeceleration().unmodify(id);
+				stats.getTurnAcceleration().unmodify(id);
+				stats.getMaxTurnRate().unmodify(id);
 			}
-			beamDamageLast = damageFinal;
-
 		}
 
 	}
@@ -168,12 +182,12 @@ public class espc_DancingSteps {
 			info.addPara("Up to +%s top speed and +%s maneuverability, based on nearby incoming fire",
 				0f, hc, hc, (int)SPEED_BONUS + "%", (int)MANEUVERABILITY_BONUS + "%"
 			);
-			info.addPara("Up to %s su/second to top speed when shields are down, on ships with shields",
-				0f, hc, hc, "+" + (int)SPEED_BONUS_NO_SHIELD
-			);
 			info.addPara(indent + "Max effect when there is half of current hull's worth of enemy fire within %s",
 				0f, tc, hc, (int)HOSTILE_RANGE + " su"
 			);
+			info.addPara("%s su/second to top speed when shields are down, on ships with shields",
+					0f, hc, hc, "+" + (int)SPEED_BONUS_NO_SHIELD
+				);
 			/*
 			info.addPara("+%s armor damage taken",
 				0f, Misc.getNegativeHighlightColor(), Misc.getNegativeHighlightColor(), (int)ARMOR_DAMAGE_PENALTY + "%"

@@ -17,12 +17,14 @@ import com.fs.starfarer.api.combat.ShipAPI;
 import com.fs.starfarer.api.fleet.FleetMemberAPI;
 import com.fs.starfarer.api.impl.campaign.ids.Personalities;
 import com.fs.starfarer.api.impl.campaign.shared.SharedData;
+import com.fs.starfarer.api.util.Misc;
 
 // import com.fs.starfarer.api.impl.campaign.shared.SharedData;
 import org.dark.shaders.light.LightData;
 import org.dark.shaders.util.ShaderLib;
 import org.dark.shaders.util.TextureData;
 
+import data.campaign.listeners.espc_ColonyInteractionListener;
 import data.campaign.listeners.espc_EconomyListener;
 import data.campaign.listeners.espc_PactFleetSpawnListener;
 // import data.campaign.ids.espc_People;
@@ -108,6 +110,8 @@ public class espc_ModPlugin extends BaseModPlugin {
 				(hasNex && !SectorManager.getManager().isCorvusMode())
 			)
 		);
+		if (!Global.getSector().getListenerManager().hasListenerOfClass(espc_ColonyInteractionListener.class))
+			Global.getSector().getListenerManager().addListener(new espc_ColonyInteractionListener());
 	}
 	
 	@Override
@@ -126,29 +130,50 @@ public class espc_ModPlugin extends BaseModPlugin {
 	
     @Override
     public PluginPick<ShipAIPlugin> pickShipAI(FleetMemberAPI member, ShipAPI ship) {
-    	
+
         if (ship.getHullSpec().getBaseHullId().equals("espc_chorale")) {
             ShipAIConfig config = new ShipAIConfig();
-            // i am unbelievably tired of fiddling with this game's wonky ass black box ai.
-            config.personalityOverride = Personalities.AGGRESSIVE;
-            // config.alwaysStrafeOffensively = true;
-            // config.backingOffWhileNotVentingAllowed = true;
+            // i am so tired of fiddling with this game's wonky ass black box ai.
+            if (ship.getCaptain() == null)
+            	config.personalityOverride = Personalities.AGGRESSIVE;
             config.turnToFaceWithUndamagedArmor = false;
+            config.alwaysStrafeOffensively = true;
             return new PluginPick<ShipAIPlugin>(Global.getSettings().createDefaultShipAI(ship, config), PickPriority.MOD_SET);
-        }
-        else if (ship.getHullSpec().getBaseHullId().equals("espc_observer")) {
-            ShipAIConfig config = new ShipAIConfig();
-            // i am unbelievably tired of fiddling with this game's wonky ass black box ai.
-            config.personalityOverride = Personalities.AGGRESSIVE;
-            // config.alwaysStrafeOffensively = true;
-            // config.backingOffWhileNotVentingAllowed = true;
-            return new PluginPick<ShipAIPlugin>(Global.getSettings().createDefaultShipAI(ship, config), PickPriority.MOD_SET);
-        }
-        else if (ship.getHullSpec().getBaseHullId().equals("espc_flagbearer")) {
+        } else if (ship.getHullSpec().getBaseHullId().equals("espc_observer") ||
+        	ship.getHullSpec().getBaseHullId().equals("espc_flagbearer") ||
+        	ship.getHullSpec().getBaseHullId().equals("espc_jackalope")) {
+            if (ship.getCaptain() != null)
+            	return null;
             ShipAIConfig config = new ShipAIConfig();
             config.personalityOverride = Personalities.AGGRESSIVE;
             return new PluginPick<ShipAIPlugin>(Global.getSettings().createDefaultShipAI(ship, config), PickPriority.MOD_SET);
-        }/* else if (ship.getHullSpec().getBaseHullId().equals("espc_serenade")) {
+        } else if (member != null && Misc.isAutomated(ship) && member.getFleetData() != null && member.getFleetData().getFleet() != null &&
+        	member.getFleetData().getFleet().getFaction() != null &&
+        	member.getFleetData().getFleet().getFaction().getId().equals("epsilpac") &&
+        	!ship.hasLaunchBays() &&
+        	!ship.getHullSpec().getBaseHullId().equals("espc_rampart") &&
+        	!ship.getHullSpec().getBaseHullId().equals("radiant")) {
+            ShipAIConfig config = new ShipAIConfig();
+            config.personalityOverride = Personalities.AGGRESSIVE;
+            return new PluginPick<ShipAIPlugin>(Global.getSettings().createDefaultShipAI(ship, config), PickPriority.MOD_SPECIFIC);
+            
+        }
+        /*  -- overrides for use in balance testing, to replicate desired campaign behaviour --
+        else if (Misc.isAutomated(ship)
+	    	&& !ship.getHullSpec().getBaseHullId().equals("espc_rampart")
+	    	&& !ship.getHullSpec().getBaseHullId().equals("radiant")) {
+	        ShipAIConfig config = new ShipAIConfig();
+	        config.personalityOverride = Personalities.AGGRESSIVE;
+	        return new PluginPick<ShipAIPlugin>(Global.getSettings().createDefaultShipAI(ship, config), PickPriority.MOD_SPECIFIC);
+	    } else if (ship.getName() != null && ship.getName().contains("EPS") && !ship.hasLaunchBays()) {
+	    	Global.getLogger(espc_ModPlugin.class).info("name get!!: " + ship.getName());
+	        ShipAIConfig config = new ShipAIConfig();
+	        config.personalityOverride = Personalities.AGGRESSIVE;
+	        return new PluginPick<ShipAIPlugin>(Global.getSettings().createDefaultShipAI(ship, config), PickPriority.MOD_SET);
+	    }
+	    */
+        
+        /* else if (ship.getHullSpec().getBaseHullId().equals("espc_serenade")) {
             ShipAIConfig config = new ShipAIConfig();
             // config.alwaysStrafeOffensively = false;
             // config.backingOffWhileNotVentingAllowed = false;

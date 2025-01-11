@@ -10,6 +10,7 @@ import com.fs.starfarer.api.combat.BaseEveryFrameCombatPlugin;
 import com.fs.starfarer.api.combat.ShipAPI;
 import com.fs.starfarer.api.combat.WeaponAPI;
 import com.fs.starfarer.api.combat.WeaponAPI.WeaponSize;
+import com.fs.starfarer.api.combat.WeaponAPI.WeaponType;
 import com.fs.starfarer.api.input.InputEventAPI;
 				
 public class espc_RecoilModPlugin extends BaseEveryFrameCombatPlugin {
@@ -23,7 +24,8 @@ public class espc_RecoilModPlugin extends BaseEveryFrameCombatPlugin {
 	private WeaponAPI recoilWep;
 	private float cooldownLast = 0f;
 	
-	private static final float KNOCKBACK_PER_DAMAGE_OVER_WEIGHT = 30f;
+	private static final float KNOCKBACK_PER_DAMAGE_OVER_WEIGHT = 20f;
+	private static final float MISSILE_KNOCKBACK_MULT = 2f;
 	private static final float BEAM_KNOCKBACK_MULT = 0.65f;
 	private static final float HEAVY_ARMOR_MODIFIER = -0.2f;
 	private float knockbackMod;
@@ -45,8 +47,7 @@ public class espc_RecoilModPlugin extends BaseEveryFrameCombatPlugin {
 		}
 		// cooldownLast = new float[recoilWeps.size()];
 		if (didInit) {
-			isBeam = recoilWep.isBeam();
-			if (isBeam)
+			if (recoilWep.isBeam())
 				knockbackMod = recoilWep.getDamage().getDamage() 
 					// * Math.max(recoilWep.getSpec().getBurstSize(), 0f) 
 					/ ship.getMass() * KNOCKBACK_PER_DAMAGE_OVER_WEIGHT * BEAM_KNOCKBACK_MULT;
@@ -54,7 +55,8 @@ public class espc_RecoilModPlugin extends BaseEveryFrameCombatPlugin {
 				knockbackMod = recoilWep.getDerivedStats().getDamagePerShot() 
 					// * Math.max(recoilWep.getSpec().getBurstSize(), 0f) 
 					/ ship.getMass() * KNOCKBACK_PER_DAMAGE_OVER_WEIGHT;
-
+			if (recoilWep.getType() == WeaponType.MISSILE)
+				knockbackMod *= MISSILE_KNOCKBACK_MULT;
 			if (ship.getVariant().hasHullMod("heavyarmor")) {
 				knockbackMod *= (1f + HEAVY_ARMOR_MODIFIER);
 			}

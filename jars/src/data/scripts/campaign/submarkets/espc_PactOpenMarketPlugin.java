@@ -73,12 +73,13 @@ public class espc_PactOpenMarketPlugin extends OpenMarketPlugin {
 		if (fleet != null) {
 
 			fleet.getFleetData().setOnlySyncMemberLists(false);
-			for (FleetMemberAPI member : fleet.getFleetData().getMembersListCopy()) {
-				if (espc_MarketOverrideList.isOverride(member.getHullId()) && Misc.random.nextFloat() > 0.2f) {
-					fleet.getFleetData().removeFleetMember(member);
-					fleet.getFleetData().addFleetMember(espc_MarketOverrideList.getHull() + "_Hull");
+			if (market.getFactionId().equals("epsilpac"))
+				for (FleetMemberAPI member : fleet.getFleetData().getMembersListCopy()) {
+					if (espc_MarketOverrideList.isOverride(member.getHullId()) && Misc.random.nextFloat() > 0.2f) {
+						fleet.getFleetData().removeFleetMember(member);
+						fleet.getFleetData().addFleetMember(espc_MarketOverrideList.getHull() + "_Hull");
+					}
 				}
-			}
 			
 			fleet.getFleetData().sort();
 	        fleet.forceSync();
@@ -91,7 +92,8 @@ public class espc_PactOpenMarketPlugin extends OpenMarketPlugin {
 				if (itemGenRandom.nextFloat() > p) continue;
 				if (member.getHullSpec().hasTag(Tags.NO_SELL)) continue;
 				if (!isMilitaryMarket() && member.getHullSpec().hasTag(Tags.MILITARY_MARKET_ONLY)) continue;
-				if (member.getHullSpec().getHints().contains(ShipTypeHints.UNBOARDABLE)) continue;
+				if (market.getFactionId().equals("epsilpac")
+					&& member.getHullSpec().getHints().contains(ShipTypeHints.UNBOARDABLE)) continue;
 				String emptyVariantId = member.getHullId() + "_Hull";
 				addShip(emptyVariantId, true, params.qualityOverride);
 			}

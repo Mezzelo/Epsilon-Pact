@@ -11,7 +11,8 @@
 			"effectBasedOnLevel":false,
 			"effects":[
 				{"type":"CHARACTER_STATS", "script":"data.campaign.skills.espc_Voice$Level1"},
-				# {"type":"CHARACTER_STATS", "script":"data.campaign.skills.espc_Voice$Level2"},
+				{"type":"GOVERNED_OUTPOST", "script":"data.campaign.skills.espc_Voice$Level2"},
+				{"type":"GOVERNED_OUTPOST", "script":"data.campaign.skills.espc_Voice$Level3"},
 			]
 		},
 	],

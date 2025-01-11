@@ -13,7 +13,7 @@ public class espc_RunningHot {
 	
 	public static float FIRE_RATE_BONUS = 30f;
 	public static float FLUX_USAGE_BONUS = 20f;
-	public static float DISSIPATION_BONUS_FLUX = 30f;
+	public static float DISSIPATION_BONUS_FLUX = 50f;
 	public static float DISSIPATION_BONUS_OVERLOAD = 100f;
 	
 //	public static float FLAGSHIP_SPEED_BONUS = 25f;

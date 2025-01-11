@@ -1,5 +1,6 @@
 package data.campaign.skills;
 
+import java.awt.Color;
 import java.util.Iterator;
 
 import com.fs.starfarer.api.GameState;
@@ -20,7 +21,7 @@ import com.fs.starfarer.api.ui.TooltipMakerAPI;
 
 public class espc_Unburdened {
 
-	public static float HULL_PERCENT_PER_SECOND = 0.5f;
+	public static float HULL_PERCENT_PER_SECOND = 1.0f;
 	public static float HEAL_RATIO = 2f;
 	public static float HEAL_RANGE = 700f;
 	public static float MAX_SPEND = 50f;
@@ -71,6 +72,20 @@ public class espc_Unburdened {
 				hullRemaining -= heal;
 				ship.setHitpoints(ship.getHitpoints() - heal);
 				target.setHitpoints(target.getHitpoints() + heal);
+				if (ship.getHullLevel() > MIN_THRESHOLD/100f &&
+					target.getHullLevel() < MIN_TARGET_THRESHOLD/100f) {
+					ship.setJitterShields(false);
+					ship.setJitterUnder(this, new Color(0, 255, 100, 
+						(int) Math.max(0, 150f - (combatEngine.getTotalElapsedTime(false) % 1f) * 300f)), 
+						1f, 
+						2, 
+						(combatEngine.getTotalElapsedTime(false) % 1f) * 50f,
+						(combatEngine.getTotalElapsedTime(false) % 1f) * 50f);
+					// ship.setJitterShields(true);
+					target.setJitterShields(false);
+					target.setJitterUnder(this, new Color(0, 255, 100, 100), 1f, 2, 20f);
+					// target.setJitterShields(true);
+				}
 			}
 
 		}

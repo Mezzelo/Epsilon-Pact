@@ -455,7 +455,7 @@ $cpm_underworld
 $id == espc_isabelle score:1000","$missionId = cpm
 SetTextHighlights $cpm_needed $cpm_missionCycles $cpm_monthlyPayment $cpm_contractCycles $cpm_totalPayment","""I require a steady supply of $cpm_needed units of $cpm_commodityName from a colonial administrator who is willing to ensure reliability by any means necessary. Procurement begins within the next.. say, $cpm_missionCycles cycles. Once established, you will receive monthly payments of $cpm_monthlyPayment credits. Over the course of $cpm_contractCycles cycles, that amounts to $cpm_totalPayment credits in compensation.""
 
-""This exchange would do much good, for our colonies and for your own. Do we have your word?"" Isabelle clasps her hands, her grin widening.","contact_accept:Accept
+""This exchange would do much good, for our colonies and for your own. Interested?"" Isabelle clasps her hands, her grin widening.","contact_accept:Accept
 contact_decline:Decline",
 ,,,,,,
 epsilpacIsabellecpcBlurb4,cpc_blurb,"$cpc_armsDealer
@@ -490,7 +490,7 @@ $option = ucb_showOptions 0
 FireBest DialogOptionSelected","Isabelle bares her teeth, her expression turning more sinister than usual. ""Glad you're on board. Here's the lot - let me know if any pique your interest.""",,
 epsilpacIsabelleCBTrader,CBTraderOfferDesc,$id == espc_isabelle score:1000,Highlight $bcb_dist $bcb_reward $bcb_days,"""This one's for a trade fleet - it's in our best interests that it does not reach its destination."" 
 
-$HeOrShe pulls up what looks like an internal customs inspection order, with attached fleet disposition report. ""They're currently in $bcb_systemName, $bcb_dist light-years away. Being held up for one reason or another, can't imagine what for. There'll be a local patrol with eyes on the target."" $HeOrShe shakes her head, ""A shame if something were to happen to the both of them, no?""
+$HeOrShe pulls up what looks like an internal customs inspection order, with attached fleet disposition report. ""They're currently in $bcb_systemName, $bcb_dist light-years away. Being held up for one reason or another, couldn't possibly imagine what for. There'll be a local patrol with eyes on the target."" $HeOrShe shakes her head, ""A shame if something were to happen to the both of them, no?""
 
 ""$bcb_reward credits are in order for you once the job is done, but you'll have to be quick about it - they'll be gone in $bcb_days days. Up for it?""",,
 epsilpacIsabelleCBPatrol,CBPatrolOfferDesc,$id == espc_isabelle score:1000,"SetTextHighlightColors $bcb_patrolFactionColor h h h
@@ -499,9 +499,9 @@ Highlight $bcb_patrolFaction $bcb_dist $bcb_reward $bcb_days","""This is the tar
 ""$bcb_TargetHisOrHer fleet is operating out of $bcb_targetMarketName in the $bcb_systemName, $bcb_dist light-years away. $bcb_patrolFaction space. Should be around their home market or a nearby point of strategic interest, you may have to do some searching.""
 
 Having completed the briefing, Isabelle swipes the ID holo away. ""$bcb_reward credits, for the target fleet's elimination within $bcb_days days from now. It'd be for the best if you keep it discrete, but..."" She stares intently, her smile voracious. ""We need this done one way or another.""",,
-epsilpacIsabelleCBMercUW,CBMercUWOfferDesc,$id == espc_isabelle score:1000,Highlight $bcb_dist $bcb_reward $bcb_days,"$HeOrShe pulls up a holo ID of a captain you've spotted in the news cycle fairly recently. ""This merc's been escorting independents into the further reaches. Something we generally turn a blind eye to, can't be concerned about them all - but $bcb_targetHimOrHer next assignment is one we cannot them to undertake.""
+epsilpacIsabelleCBMercUW,CBMercUWOfferDesc,$id == espc_isabelle score:1000,Highlight $bcb_dist $bcb_reward $bcb_days,"$HeOrShe pulls up a holo ID of a captain you've spotted in the news cycle fairly recently. ""This merc's been escorting independents into the further reaches. Something we generally turn a blind eye to, can't concern ourselves with every one of them - but $bcb_targetHimOrHer next assignment is one we cannot allow them to undertake.""
 
-$PersonName swipes the holo away and pulls up a sector map, ""We've laid a trap for $bcb_targetHimOrHer in the $bcb_systemName. It's $bcb_dist light-years away from here. You'll have $bcb_days days to catch $bcb_targetHimOrHer fleet there. Alone."" A ruthless grin.
+$PersonName swipes the holo away and pulls up a sector map, ""We've laid a trap for $bcb_targetHimOrHer in the $bcb_systemName, $bcb_dist light-years from us. You'll have $bcb_days days to catch $bcb_targetHimOrHer fleet there. Alone."" A ruthless grin.
 
 ""Once finished, you'll be due for a reward of $bcb_reward credits. Again, they'll be there for the next $bcb_days days. Are you up for it?""",,
 ,,,,,,
@@ -523,7 +523,7 @@ SetTextHighlightColors $seco_factionColor h h
 SetTextHighlights $seco_faction $seco_price $seco_days
 DoCanAffordCheck $seco_price contact_accept false","""Sloppy info-sec. A single mistake is all it takes,"" she says waving her hand, underscoring a predatory smile, ""and $seco_faction security codes end up in our hands. You can leverage them for a significant advantage in a ground operation, though they'll swap out the codes once they realize.""
 
-""We've no interest in them for this current rotation, unfortunately, so they'll go to waste otherwise - but for you, a mere $seco_price credits. The current security rotation will last for $seco_days more days.""","contact_accept:Buy the security codes
+""We've no interest in them for this current rotation, unfortunately, so they'll go to waste otherwise - but for you, a mere $seco_price credits. These'll remain viable for $seco_days more days.""","contact_accept:Buy the security codes
 contact_decline:Decline",
 ,,,,,,
 epsilpacIsabellehijackBlurb,hijack_blurb,$id == espc_isabelle score:1000,,"""We've a surplus hull in a local facility. It can be yours, if you can help us out with it.""",,
@@ -581,21 +581,21 @@ epsilpacIsabelleCBDerelict,CBDerelictOfferDesc,$id == espc_isabelle score:1000,H
 
 ""Did you catch that?"" She raises an eyebrow. ""An active fleet. Typically, they require our aid to rise from their dormant state. This fleet caught us off-guard - they don't do this on their own, and it's refused any communication on our end."" Her hand hovers over a different, redder file for a brief, tantalizing moment, before she dismisses it from her feed. 
 
-""We've our suspicions,"" she says, shaking her head, ""but the fact remains that whatever their intentions, this fleet is a threat to unaligned parties. Our operations are done in a defensive capacity only - we understand the threat posed here, and there's only one thing to be done about it. We're offering a bounty of $bcb_reward credits - for your cooperation and your silence.""
+""We've our suspicions,"" she says, shaking her head, ""but the fact remains that whatever their intentions, this fleet poses a severe diplomatic risk. Our operations are done in a defensive capacity only - we understand the threat posed here, and there's only one thing to be done about it. We're offering a bounty of $bcb_reward credits - for your cooperation and your silence.""
 
 Her normal sense of levity has faded, replaced with intent. ""We'll need this taken care of within $bcb_days days. Are you in?""",,
 epsilpacIsabelleCBRemnant,CBRemnantOfferDesc,$id == espc_isabelle score:1000,Highlight $bcb_dist $bcb_reward $bcb_days,"""This one's a Remnant fleet. Not a usual target on our end - they're generally receptive to our interests, but.."" Her eyes narrow as she expands an image of the fleet in question. ""In the $bcb_systemName, $bcb_dist light-years from here. Something's off.""
 
-""Generally, these fleets keep to their own systems. A good thing, as far as we're concerned - the onus remains on those who overstep their bounds."" She leans closer, scanning the briefing over again as though she'd missed something. ""This one's acting up, in a way we can't condone. Too many innocents in the crossfire.""
+""Generally, these fleets keep to their own systems. A good thing, as far as we're concerned - the onus remains on those who overstep their bounds."" She leans closer, scanning the briefing over again as though she'd missed something. ""This one's acting up, in a way we can't condone. Drawing too much attention to itself.""
 
-You note her mouthing something to herself, before her attention returns back to you. ""..I'll reserve my suspicions for the moment - you're not here for that. $bcb_reward credits, if you can eliminate this fleet within the next $bcb_days days.""",,
+You note her mouthing something to herself, before she turns back to you. ""..I'll reserve my suspicions for the moment - you're not here for that. $bcb_reward credits, if you can eliminate this fleet within the next $bcb_days days.""",,
 epsilpacIsabelleCBRemnantPlus,CBRemnantPlusOfferDesc,$id == espc_isabelle score:1000,Highlight $bcb_dist $bcb_reward $bcb_days,"""Now, listen closely."" Isabelle stares you down, straight-faced - a sight you're not sure how to interpret. She pulls up a distant image of what appears to be a fleet of Remnant droneships. ""We've spotted this in the $bcb_systemName, $bcb_dist light-years from here.""
 
-As she manipulates the image, you note a strange, almost violently angular ship in the center of the fleet formation. ""I've correlated this with testimony from our expeditionary forces and some HEGINT data."" She mentions the latter off-handedly, a detail she'd normally savour. ""Our purview normally involves things more sensitive than the average fare, but this is something more.""
+As she manipulates the image, you note a strange, almost violently angular ship in the center of the fleet formation. ""I've correlated this with testimony from our expeditionary forces and some HEGINT data."" She mentions the latter off-handedly, a detail she'd normally savour. ""Our purview normally involves things more sensitive than the average fare, but this is.. something more than that.""
 
-She palms the image again, zooming in further. The ivory silhouette stretches with discordant detail, as though discomforting for the footage itself to display. ""..yes, this has to be it."" Another glance at the corner of her display - she moves a briefing to the top, but leaves it closed.
+She palms the image again, zooming in further. The ivory silhouette stretches with discordant detail, as though the footage itself is struggling to display it. ""..yes, this has to be it."" Another glance at the corner of her screen - she moves a briefing to the top, but leaves it closed.
 
-""We need this fleet eliminated. $bcb_reward credits - I won't pretend this will be easy for you. Far from it as you could imagine, we suspect, so you can expect generous compensation for your capabilities and your silence on the matter. We need this taken care of within the next $bcb_days days.""",,
+""We need this fleet eliminated. $bcb_reward credits - I won't pretend this will be easy for you. Far from it, we suspect, so you can expect generous compensation for your capabilities and your silence on the matter. We need this taken care of within the next $bcb_days days.""",,
 ,,,,,,
 epsilpacIsabelleCBDeserter,CBDeserterOfferDesc,$id == espc_isabelle score:1000,Highlight $bcb_dist $bcb_reward $bcb_days,"""Cycles ago, I'd be handling this myself. But,"" $heOrShe says, with an uncharacteristically distant expression, ""my fleet is needed here.""
 

@@ -178,8 +178,6 @@ public class espc_PactFleetSpawnListener extends BaseCampaignEventListener {
 					else
 						coreType = 1;
 					
-					// i spent so goddamn long chasing this around, only to realize vanilla only uses the b portraits ffs
-					
 					// if (Misc.random.nextFloat() > 0.5f)
 						person.setPortraitSprite("graphics/portraits/portrait_ai" + coreType + "b.png");
 					// else

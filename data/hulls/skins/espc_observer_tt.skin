@@ -8,9 +8,9 @@
     "systemId":"fortressshield",
 	"tech":"Tri-Tachyon",
     "spriteName": "graphics/ships/espc_observer_tt.png",
-	"fleetPoints":16,
-	"suppliesToRecover":28,
-	"suppliesPerMonth":28,
+	"fleetPoints":17,
+	"suppliesToRecover":30,
+	"suppliesPerMonth":30,
 	"baseValueMult":0.75,
     "weaponSlotChanges":{
 	   "WS0003":{"type":SYNERGY},

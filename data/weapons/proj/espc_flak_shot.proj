@@ -13,7 +13,7 @@
 	"coreColor":[255,255,200,150],
 	"glowColor":[200,235,180,50],
 	"glowRadius":3,
-	"hitGlowRadius":60,	
+	"hitGlowRadius":25,	
 	"textureScrollSpeed":64.0,
 	"pixelsPerTexel":5.0,
 	"passThroughMissiles":true,

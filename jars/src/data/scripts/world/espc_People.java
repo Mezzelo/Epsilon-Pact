@@ -151,7 +151,6 @@ public class espc_People {
 			ip.addPerson(person);
 
 			person = Global.getFactory().createPerson();
-			person = Global.getFactory().createPerson();
 			person.setId("espc_anlo");
 			person.setFaction("epsilpac");
 			person.setGender(Gender.FEMALE);
@@ -160,6 +159,7 @@ public class espc_People {
 			person.setImportance(PersonImportance.HIGH);
 			person.getName().setFirst("Anlo");
 			person.getName().setLast("Uisarr");
+			person.getStats().setSkillLevel("espc_voice", 1);
 			// person.setVoice(Voices.FAITHFUL);
 			person.setPortraitSprite(Global.getSettings().getSpriteName("characters", "espc_anlo"));
 			// person.getStats().setSkillLevel("espc_voice", 1);

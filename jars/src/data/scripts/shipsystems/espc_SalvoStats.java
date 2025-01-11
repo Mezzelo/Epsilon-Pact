@@ -61,7 +61,7 @@ public class espc_SalvoStats extends BaseShipSystemScript {
 	// if OP*ammo/missile is greater than this value, it is split between fighters.
 	// i.e. a reaper (2 OP/missile) is split between two fighters, 5 OP/2 missiles would see a similar split.
 	// private static final float MISSILE_OP_MAX = 1f;
-	private static final int BURST_MAX = 25;
+	// private static final int BURST_MAX = 25;
 	private static final int OP_PER_WING = 3;
 	private static final int OP_PER_WING_SMALL = 4;
 	private static final float MIN_RANGE = 150f;
@@ -78,7 +78,7 @@ public class espc_SalvoStats extends BaseShipSystemScript {
 	private ShipAPI ship;
 	
 	
-	private boolean fireMissileFighter(WeaponAPI spawnMissile, ShipAPI fighter, float baseDamage, 
+	private boolean fireMissileFighter(WeaponAPI spawnMissile, ShipAPI fighter, int barrel, float baseDamage, 
 		OnFireEffectPlugin plugin, CombatEngineAPI combatEngine, boolean override) {
 		if (!fighter.getFluxTracker().isOverloaded() && (override ||
 			// support fighters never take a target.  in this case we always fire regardless of range, or
@@ -170,7 +170,8 @@ public class espc_SalvoStats extends BaseShipSystemScript {
 				spawnMissile,
 				spawnMissile.getId(), 
 				fighter.getLocation(), 
-				fighter.getFacing() + (Misc.random.nextFloat() * 2f - 1f) * spawnMissile.getSpec().getMaxSpread(), 
+				fighter.getFacing() + (Misc.random.nextFloat() * 2f - 1f) * spawnMissile.getSpec().getMaxSpread() +
+				spawnMissile.getSpec().getHardpointAngleOffsets().get(barrel), 
 				fighter.getVelocity()
 			);
 			// honestly i'd be the sort of fucker to require this check.
@@ -211,8 +212,8 @@ public class espc_SalvoStats extends BaseShipSystemScript {
 						/*
 						fightersPerMissile.add(Math.max((int)Math.floor(((float)weapon.getSpec().getOrdnancePointCost(null)
 							/(float)weapon.getMaxAmmo() /(float)weapon.getSpec().getBurstSize())), 1));*/
-						fightersPerMissile.add(Math.max((int)Math.floor(((float)weapon.getSpec().getOrdnancePointCost(null)
-							/(float)weapon.getMaxAmmo() * (float) weapon.getSpec().getBurstSize())), 1));
+						fightersPerMissile.add(Math.max(Math.min((int)Math.floor(((float)weapon.getSpec().getOrdnancePointCost(null)
+							/(float)weapon.getMaxAmmo())), weapon.getSpec().getBurstSize() * 2), 1));
 					else
 						// TODO: base shot count on shots/minute?
 						// fightersPerMissile.add(2);
@@ -267,6 +268,7 @@ public class espc_SalvoStats extends BaseShipSystemScript {
 				boolean fired = fireMissileFighter(
 					(WeaponAPI) shipMissiles.get(missileIndex),
 					(ShipAPI) shipFighters.get(0),
+					0,
 					((MissileSpecAPI) ((WeaponAPI) shipMissiles.get(missileIndex)).getSpec().getProjectileSpec())
 						.getDamage().getBaseDamage(),
 					thisPlugin, combatEngine,
@@ -277,19 +279,19 @@ public class espc_SalvoStats extends BaseShipSystemScript {
 						(ShipAPI) shipFighters.get(0),
 						(WeaponAPI) shipMissiles.get(missileIndex),
 						((WeaponAPI) shipMissiles.get(missileIndex)).getSpec().getBurstSize() > 1 ?
-							Math.min(
-								Math.max(
-									((WeaponAPI) shipMissiles.get(missileIndex)).getSpec().getBurstSize(),
+							// Math.min(
+								Math.min(
+									((WeaponAPI) shipMissiles.get(missileIndex)).getSpec().getBurstSize() * 2,
 									(int) (
 										((WeaponAPI) shipMissiles.get(missileIndex)).getMaxAmmo() /
 										((WeaponAPI) shipMissiles.get(missileIndex)).getSpec().getOrdnancePointCost(null)
 									)
-								), BURST_MAX
+							// 	), BURST_MAX
 							) - (fired ? 1 : 0)
 							: 1,
 						fired,
 						((WeaponAPI) shipMissiles.get(missileIndex)).getDerivedStats().getBurstFireDuration() /
-						((WeaponAPI) shipMissiles.get(missileIndex)).getSpec().getBurstSize(),
+						((WeaponAPI) shipMissiles.get(missileIndex)).getSpec().getBurstSize() / 2f,
 						thisPlugin
 					));
 				} else { // used to be optimized to run on lowest burst interval & throw out
@@ -323,14 +325,14 @@ public class espc_SalvoStats extends BaseShipSystemScript {
 				}
 				else {
 					if (!fighter.burstStarted) {
-						fighter.burstStarted = fireMissileFighter(fighter.missileWep, fighter.fighter, 
+						fighter.burstStarted = fireMissileFighter(fighter.missileWep, fighter.fighter, 0,
 						fighter.baseDamage, fighter.projEffectPlugin, combatEngine, false);
 						if (fighter.burstStarted)
 							fighter.remaining -= 1;
 					} else {
 						fighter.burstTime -= combatEngine.getElapsedInLastFrame();
 						if (fighter.burstTime <= 0f && fighter.remaining > 0) {
-							boolean fired = fireMissileFighter(fighter.missileWep, fighter.fighter, 
+							boolean fired = fireMissileFighter(fighter.missileWep, fighter.fighter, 0,
 									fighter.baseDamage, fighter.projEffectPlugin, combatEngine, true);
 							if (fired)
 								fighter.remaining -= 1;

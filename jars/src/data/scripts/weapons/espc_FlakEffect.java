@@ -80,9 +80,10 @@ public class espc_FlakEffect implements OnFireEffectPlugin, EveryFrameWeaponEffe
 					continue;
 				boolean valid = false;
 				if (entity instanceof MissileAPI) {
+					/*
 					MissileAPI missile = (MissileAPI) entity;
 					if (missile.getDamageAmount()
-						> minDamageForTarget)
+						> minDamageForTarget)*/
 						valid = true;
 				}
 				else if (entity instanceof ShipAPI && ((ShipAPI) entity).isFighter())

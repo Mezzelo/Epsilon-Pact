@@ -1,3 +1,133 @@
+Version 0.5.0-RC1
+New hulls: Amanuensis-class battleship & Warden (EP) class frigate
+New weapon: Scatter Rifle, large ballistic
+Portraiture: 19/22 portraits revised, 14 new portraits
+
+AI changes:
+- Faction personality doctrine changed from STEADY to AGGRESSIVE
+- Pact automated ships now use AGGRESIVE AI, instead of FEARLESS, except for a few hulls.
+- Flagbearer, Jackalope, Observer & Chorale now default to AGGRESIVE AI if no officer is assigned.
+
+Hull balance changes:
+Flagbearer (all variants)
+- FP 15 > 14
+
+Rondel (all variants)
+- Deceleration 70 > 125
+
+Jackalope (all variants)
+- Self-recoil effect from firing large and medium weapons reduced by 65%
+	- LP Jackalope recoil only reduced by 25% lol
+- Acceleration 100 > 150, deceleration 50 > 85
+
+Songbird (all variants)
+- FP 10 > 9
+- Capacity 3000 > 4000
+- Dissipation 140 > 160
+
+Opossum
+- FP 4 > 5
+	
+Militia (all variants)
+- FP 10 > 9
+- Dissipation 350 > 300
+
+Ember (all variants)
+- Capacity 4000 > 6000
+
+Observer (all variants)
+- Speed 60 > 65
+Observer (TT)
+- FP 16 > 17
+- DP 28 > 30
+
+Pilgrim (all variants)
+- OP 125 > 130
+	- Pilgrim (H)'s OP remains at 125
+- Hull 8500 > 9000
+- Dissipation 450 > 500
+
+Chorale
+- FP 18 > 17
+- Speed 65 > 75
+- Maneuverability increased significantly.
+- Shield arc 140 > 210
+- Range bonus from hullmod to weapon range beneath 700 > 800 increased by 100/100 > 200/100 for medium/large weapons, to a max of 700 > 800
+
+Picket (EP)
+- FP 4 > 3
+
+Snety (EP)
+- FP 5 > 4
+- Increased missile OP worth fired from system from 3 > 4.
+
+Bastillon (EP)
+- FP 8 > 7
+- Significant aneuverability buffs
+
+Berserker (EP)
+- Significant aneuverability buffs
+
+Rampart
+- DP 22 > 24
+
+
+System changes:
+Overpressure Loaders
+- Increases ballistic range by 15% on activation
+
+Remote Salvo
+- Removed flux cost for activation
+- System duration automatically ends early when all missiles have been launched
+- Missile range for missiles launched via this system increased by 25%
+- Bursts per fighter limited to 2.  This significantly nerfs swarmers.
+- Bursts now fire twice as quickly
+- Barrel offsets now properly work.  This only affects the annihilator in vanilla, which previously had perfect accuracy.
+
+Hybrid Harmonizer
+- System duration 10 seconds > 7.5 seconds
+
+Weapon changes:
+Minimir Cannon
+- Flux/shot 115 > 95
+- Merc tag removed
+
+Dual Minimir Cannon
+- Flux/shot 125 > 105
+- Merc tag removed
+
+Auto Scattershot
+- OP 15 > 13
+- Finnegan Launcher
+- HE damage 2500 > 2000.  T'was too funny, unfortunately.
+
+Heavy Gatling
+- OP 26 > 24
+- Flux/shot 56 > 60
+
+
+World-gen changes (non-random sector):
+All pact colonies have the AI Sub-Population planetary condition, which permutates into Rogue AI Population if conquered via Nexerelin.  Consider saturation bombardment.
+Lunron Saba
+- Heavy Batteries added, replacing Ground Defenses
+- Heavy Industry moved here, from Bruniel
+Bruniel
+- Light Industry moved here, from Lunron Saba
+Falris
+- Heavy Batteries added, replacing Ground Defenses
+Tocquiera
+- Heavy Batteries removed, instead spawns with a unique structure that reflects lore
+- Dealmaker Holosuite removed
+- Administrator given a unique skill
+	- If using Nexerelin, unique administrator leaves colony if Tocquiera is conquered, and returns only if Pact regains control
+- Nexus contruction feature removed: Pact Derelicts spawning in derelict fleets feels impactful enough to me.
+
+- All ship variants revised to account for balance changes to hulls & weapons, several altered for balance some rather situational variants added/removed.
+- Phased out some weapons from Pact markets & variants; most notably railguns and hypervelocity drivers.
+- Fissile Confluence Emitter added to the Pact blueprint package.
+- Text revisions all over: typo fixes, proofreading & the like.
+
+
 Version 0.3.93-RC3
 - fixed a crash when activating the Slamfire ship system without any weapons equipped.
 thanks to NaitNait, again, for the report.

@@ -1,0 +1,3 @@
+id,name,cost mult,build time,income,upkeep,downgrade,upgrade,tags,data,image,plugin,desc,order,disruptDanger
+,,,,,,,,,,,,,,
+espc_enclaves,Tribal Enclaves,,,,0,,,unraidable,,graphics/icons/industry/espc_enclaves.png,data.campaign.econ.espc_Enclaves,"This planet is populated with self-sufficient enclaves that participate in regular trade and in-fighting, for whom the planetary government acts as an arbitrator and commercial medium. The largest factions thrive off of the export of terran crops and artisan goods, although most participate in less-than-savoury exchanges. An administrator unfamiliar with the local customs would have an immensely difficult time appeasing and controlling them, as long as they are allowed to exist.",50000,
