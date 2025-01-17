@@ -44,6 +44,9 @@
 		#	"espc_bruniel_clouds":"graphics/planets/espc_bruniel_clouds.png",
 		#	"espc_tocquiera_clouds":"graphics/planets/espc_tocquiera_clouds.png",
 		#},
+		"icons":{
+			"espc_modicon":"graphics/icons/espc_modicon.png",
+		},
 		"illustrations":{
 			"espc_lunron_illustration":"graphics/illustrations/espc_lunron_illustration.jpg",
 			# "espc_lunron_station_illustration":"graphics/illustrations/espc_lunron_station_illustration.jpg",

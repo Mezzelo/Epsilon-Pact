@@ -1,0 +1,249 @@
+{
+  "hullName": "Amanuensis",
+  "hullId": "espc_amanuensis",
+  "hullSize": "CAPITAL_SHIP",
+  "spriteName": "graphics/ships/espc_amanuensis.png",
+  "style": "ESPC_MIDLINE",
+  "height": 352,
+  "width": 290,
+  "center": [145, 168],
+  "collisionRadius": 184.5,
+  "shieldCenter": [3.5, -0],
+  "shieldRadius": 217.5,
+  "viewOffset": 0,
+  "weaponSlots": [
+    {
+      "id": "WS0001",
+      "size": "LARGE",
+      "type": "HYBRID",
+      "mount": "TURRET",
+      "arc": 228,
+      "angle": 49.5,
+      "locations": [87, 47]
+    },
+    {
+      "id": "WS0002",
+      "size": "LARGE",
+      "type": "HYBRID",
+      "mount": "TURRET",
+      "arc": 228,
+      "angle": -49.5,
+      "locations": [87, -47]
+    },
+    {
+      "id": "WS0003",
+      "size": "LARGE",
+      "type": "HYBRID",
+      "mount": "HARDPOINT",
+      "arc": 10,
+      "angle": 0,
+      "locations": [40, -98]
+    },
+    {
+      "id": "WS0004",
+      "size": "LARGE",
+      "type": "HYBRID",
+      "mount": "HARDPOINT",
+      "arc": 10,
+      "angle": 0,
+      "locations": [40, 98]
+    },
+    {
+      "id": "WS0007",
+      "size": "MEDIUM",
+      "type": "HYBRID",
+      "mount": "TURRET",
+      "arc": 239,
+      "angle": -40.5,
+      "locations": [140, -31]
+    },
+    {
+      "id": "WS0008",
+      "size": "MEDIUM",
+      "type": "HYBRID",
+      "mount": "TURRET",
+      "arc": 239,
+      "angle": 40.5,
+      "locations": [140, 31]
+    },
+    {
+      "id": "WS0009",
+      "size": "MEDIUM",
+      "type": "UNIVERSAL",
+      "mount": "TURRET",
+      "arc": 267,
+      "angle": -180,
+      "locations": [-100, -0]
+    },
+    {
+      "id": "WS0012",
+      "size": "SMALL",
+      "type": "HYBRID",
+      "mount": "TURRET",
+      "arc": 284,
+      "angle": 70.5,
+      "locations": [129.5, 58.5]
+    },
+    {
+      "id": "WS0013",
+      "size": "SMALL",
+      "type": "HYBRID",
+      "mount": "TURRET",
+      "arc": 284,
+      "angle": -70.5,
+      "locations": [129.5, -58.5]
+    },
+    {
+      "id": "WS0014",
+      "size": "SMALL",
+      "type": "UNIVERSAL",
+      "mount": "TURRET",
+      "arc": 225,
+      "angle": 108,
+      "locations": [-25, 120.5]
+    },
+    {
+      "id": "WS0015",
+      "size": "SMALL",
+      "type": "UNIVERSAL",
+      "mount": "TURRET",
+      "arc": 225,
+      "angle": -108,
+      "locations": [-25, -120.5]
+    },
+    {
+      "id": "WS0016",
+      "size": "SMALL",
+      "type": "UNIVERSAL",
+      "mount": "TURRET",
+      "arc": 225,
+      "angle": 120,
+      "locations": [-130, 65]
+    },
+    {
+      "id": "WS0017",
+      "size": "SMALL",
+      "type": "UNIVERSAL",
+      "mount": "TURRET",
+      "arc": 225,
+      "angle": -120,
+      "locations": [-130, -65]
+    },
+    {
+      "id": "WS0005",
+      "size": "MEDIUM",
+      "type": "HYBRID",
+      "mount": "TURRET",
+      "arc": 10,
+      "angle": 1,
+      "locations": [30, -52]
+    },
+    {
+      "id": "WS0006",
+      "size": "MEDIUM",
+      "type": "HYBRID",
+      "mount": "TURRET",
+      "arc": 10,
+      "angle": -1,
+      "locations": [30, 52]
+    }
+  ],
+  "engineSlots": [
+    {
+      "location": [-156, 28.5],
+      "length": 31,
+      "width": 16,
+      "angle": 180,
+      "contrailSize": 16,
+      "style": "MIDLINE"
+    },
+    {
+      "location": [-156, -28.5],
+      "length": 31,
+      "width": 16,
+      "angle": -180,
+      "contrailSize": 16,
+      "style": "MIDLINE"
+    },
+    {
+      "location": [-161.5, 43.5],
+      "length": 35.5,
+      "width": 18,
+      "angle": 180,
+      "contrailSize": 18,
+      "style": "MIDLINE"
+    },
+    {
+      "location": [-161.5, -43.5],
+      "length": 35.5,
+      "width": 18,
+      "angle": -180,
+      "contrailSize": 18,
+      "style": "MIDLINE"
+    },
+    {
+      "location": [-158.5, 83.5],
+      "length": 31,
+      "width": 16,
+      "angle": 180,
+      "contrailSize": 16,
+      "style": "MIDLINE"
+    },
+    {
+      "location": [-158.5, -83.5],
+      "length": 31,
+      "width": 16,
+      "angle": -180,
+      "contrailSize": 16,
+      "style": "MIDLINE"
+    },
+    {
+      "location": [-162, 62],
+      "length": 55,
+      "width": 30,
+      "angle": 180,
+      "contrailSize": 30,
+      "style": "MIDLINE"
+    },
+    {
+      "location": [-162, -62],
+      "length": 55,
+      "width": 30,
+      "angle": -180,
+      "contrailSize": 30,
+      "style": "MIDLINE"
+    }
+  ],
+  "bounds": [
+    -122, -12,
+    -156.5, -22,
+    -164.5, -70.5,
+    -154.5, -99.5,
+    -122, -103,
+    -61.5, -86.5,
+    -83.5, -116.5,
+    -26.5, -143.5,
+    35, -130,
+    55.5, -116.5,
+    55, -81.5,
+    118, -77,
+    162.5, -51.5,
+    180.5, -13.5,
+    107, -4,
+    107, 4,
+    180.5, 13.5,
+    162.5, 51.5,
+    118, 77,
+    55, 81.5,
+    55.5, 116.5,
+    35, 130,
+    -26.5, 143.5,
+    -83.5, 116.5,
+    -61.5, 86.5,
+    -122, 103,
+    -154.5, 99.5,
+    -164.5, 70.5,
+    -156.5, 22,
+    -122, 12
+  ]
+}

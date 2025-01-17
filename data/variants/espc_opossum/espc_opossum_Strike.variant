@@ -3,12 +3,11 @@
   "hullId": "espc_opossum",
   "displayName": "Strike",
   "goalVariant": true,
-  "fluxCapacitors": 2,
+  "fluxCapacitors": 10,
   "fluxVents": 4,
   "quality": 1,
   "permaMods": [],
   "hullMods": [
-    "heavyarmor"
   ],
   "weaponGroups": [
     {

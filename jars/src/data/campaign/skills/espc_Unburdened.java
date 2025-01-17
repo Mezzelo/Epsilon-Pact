@@ -33,6 +33,7 @@ public class espc_Unburdened {
 		protected ShipAPI ship;
 		protected String id;
 		protected float hullRemaining = 0f;
+		protected float healDuration = 0f;
 		public UnburdenedEffectMod(ShipAPI ship, String id) {
 			this.ship = ship;
 			this.id = id;
@@ -57,6 +58,8 @@ public class espc_Unburdened {
 			while (entityIterator.hasNext()) {
 				CombatEntityAPI entity = (CombatEntityAPI) entityIterator.next();
 				if (entity instanceof ShipAPI) {
+					if (entity == ship)
+						continue;
 					ShipAPI check = (ShipAPI) entity;
 					if (check.getOwner() == ship.getOwner() && ship.getOwner() < 100 && !check.isFighter() && check.getFleetMember() != null &&
 						!check.isPhased() && !check.getFluxTracker().isOverloaded() &&
@@ -69,23 +72,29 @@ public class espc_Unburdened {
 			if (target != null) {
 				float heal = Math.min(hullRemaining, 
 					Math.min(target.getMaxHitpoints() - target.getHitpoints(), ship.getMaxHitpoints() * amount * HULL_PERCENT_PER_SECOND / 100f));
+				// min (remaining, target hull deficit, heal rate)
+				// 
 				hullRemaining -= heal;
 				ship.setHitpoints(ship.getHitpoints() - heal);
 				target.setHitpoints(target.getHitpoints() + heal);
 				if (ship.getHullLevel() > MIN_THRESHOLD/100f &&
 					target.getHullLevel() < MIN_TARGET_THRESHOLD/100f) {
-					ship.setJitterShields(false);
-					ship.setJitterUnder(this, new Color(0, 255, 100, 
-						(int) Math.max(0, 150f - (combatEngine.getTotalElapsedTime(false) % 1f) * 300f)), 
-						1f, 
-						2, 
-						(combatEngine.getTotalElapsedTime(false) % 1f) * 50f,
-						(combatEngine.getTotalElapsedTime(false) % 1f) * 50f);
 					// ship.setJitterShields(true);
 					target.setJitterShields(false);
-					target.setJitterUnder(this, new Color(0, 255, 100, 100), 1f, 2, 20f);
+					target.setJitterUnder(this, new Color(0, 1f, 0.4f, 0.4f), 1f, 2, 20f);
 					// target.setJitterShields(true);
 				}
+				healDuration = Math.min(1f, healDuration + amount);
+			} else if (healDuration > 0f)
+				healDuration = Math.max(0f, healDuration - amount);
+			if (healDuration > 0f) {
+				ship.setJitterShields(false);
+				ship.setJitterUnder(this, new Color(0, 1f, 0.4f, 
+				Math.max(0, (1f - (combatEngine.getTotalElapsedTime(false) % 1f) * 1.4f) * healDuration)), 
+				1f, 
+				2,
+				(combatEngine.getTotalElapsedTime(false) % 1f) * 50f,
+				(combatEngine.getTotalElapsedTime(false) % 1f) * 50f);
 			}
 
 		}

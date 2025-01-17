@@ -150,6 +150,7 @@ public class espc_GenHalestar implements SectorGeneratorPlugin
         		Conditions.ORGANICS_ABUNDANT,
         		Conditions.ORE_MODERATE,
         		Conditions.RARE_ORE_SPARSE,
+        		"espc_ai_population"
         	},
         	new String[][] {
         		{Industries.POPULATION},
@@ -183,6 +184,7 @@ public class espc_GenHalestar implements SectorGeneratorPlugin
         		Conditions.EXTREME_WEATHER,
         		Conditions.VOLATILES_DIFFUSE,
         		Conditions.ORE_MODERATE,
+        		"espc_ai_population"
         	},
         	new String[][] {
         		{Industries.POPULATION},

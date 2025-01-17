@@ -158,6 +158,7 @@
 			"espc_chorale",
 			"espc_observer",
 			"espc_pilgrim",
+			"espc_amanuensis",
 			# "espc_atavist",
 			# "espc_gallant",
 			
@@ -245,10 +246,10 @@
 			"ionbeam",
 			# "gravitonbeam",
 			
-			# "autopulse",
+			"autopulse",
 			"plasma",
 			"tachyonlance",
-			# "guardian",
+			"guardian",
 			
 			"breach",
 			"swarmer",
@@ -451,7 +452,7 @@
             "graphics/portraits/espc_clint.png",
 			"graphics/portraits/espc_cveta.png",
             "graphics/portraits/espc_gao.png",
-            "graphics/portraits/espc_lindsay.png",
+            "graphics/portraits/espc_lyra.png",
             "graphics/portraits/espc_helena.png",
             "graphics/portraits/espc_henrik.png",
 			"graphics/portraits/espc_ny.png",

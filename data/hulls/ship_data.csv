@@ -17,7 +17,7 @@ Observer,espc_observer,Cruiser,Epsilon Pact,espc_ResonatorShield,15,8000,800,100
 Chorale,espc_chorale,Heavy Cruiser,Epsilon Pact,espc_Harmonizer,17,8000,1250,10000,12000,800,170,,75,40,30,25,30,1500,OMNI,,210,0.4,0.8,,,150,200,150,120,4,30,8,200000,3,12,480,0.25,30,30,,,,,,,,"espc_bp, no_autofit",1,0.65,2,3,,401
 Pilgrim,espc_pilgrim,Combat Carrier,Epsilon Pact,espc_Salvo,15,10000,1000,8500,4000,450,130,2,60,20,10,15,20,2000,OMNI,,180,0.4,1,,,200,250,100,100,4,25,8,150000,4,12,480,0.25,25,25,,,,,,,"CARRIER, COMBAT, NO_AUTO_ESCORT",espc_bp,1,0.4,2,3,,410
 ,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
-# Amanuensis,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+Amanuensis,espc_amanuensis,Battleship,Epsilon Pact,espc_Alternator,30,18000,1250,20000,1750,1200,350,,50,30,25,7,10,3500,OMNI,,240,0.5,1,,,350,400,400,300,10,30,8,350000,3,12,540,0.25,50,50,,,,,,,,espc_bp,1,0.5,2,4,,503
 # Atavist,espc_atavist,Battlecruiser,Epsilon Pact,espc_Split,25,9000,750,10000,1750,750,240,,75,80,30,25,35,2000,FRONT,,200,0.6,1,,,250,300,100,320,8,40,8,250000,5,10,480,0.25,40,40,,,,,,,,restricted,1,0.7,2,2,,204
 # Serenade,espc_serenade,Battleship,Epsilon Pact,espc_Alternator,28,20000,1000,20000,30000,650,310,,75,20,8,10,2,4000,OMNI,,120,0.4,1.4,,,600,1000,300,360,12,30,8,300000,3,10,600,0.25,60,60,,,,,,,HIDE_IN_CODEX,restricted,1,0.7,2,4,,503
 ,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,

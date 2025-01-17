@@ -65,18 +65,27 @@ public class espc_EconomyListener extends BaseCampaignEventListener {
 		
 		WeightedRandomPicker<MarketAPI> marketPicker = new WeightedRandomPicker<MarketAPI>();
 		for (MarketAPI market : Global.getSector().getEconomy().getMarketsCopy()) {
-			if (market.getId().equals("espc_tocquiera_market")) {
-				if (!market.getFactionId().equals("epsilpac")) {
-					if (market.getAdmin().getId().equals("espc_anlo"))
-						market.setAdmin(null);
+			if (market.getId().contains("espc")) {
+				if (market.hasCondition("espc_ai_population") && !market.getFactionId().equals("epsilpac")) {
+					market.removeCondition("espc_ai_population");
+					market.addCondition("espc_rogue_ai_population");
+				} else if (market.hasCondition("espc_rogue_ai_population") && market.getFactionId().equals("epsilpac")) {
+					market.removeCondition("espc_rogue_ai_population");
+					market.addCondition("espc_ai_population");
 				}
-			} else {
-				if (!market.getAdmin().getId().equals("espc_anlo") && 
-					Global.getSector().getImportantPeople().getPerson("espc_anlo") != null)
-					market.setAdmin(Global.getSector().getImportantPeople().getPerson("espc_anlo"));
-			}
-			if (market.getFactionId().equals("epsilpac") && market != isabelle.getMarket()) {
-				marketPicker.add(market);
+				if (market.getId().equals("espc_tocquiera_market")) {
+					if (!market.getFactionId().equals("epsilpac")) {
+						if (market.getAdmin().getId().equals("espc_anlo"))
+							market.setAdmin(null);
+					}
+				} else {
+					if (!market.getAdmin().getId().equals("espc_anlo") && 
+						Global.getSector().getImportantPeople().getPerson("espc_anlo") != null)
+						market.setAdmin(Global.getSector().getImportantPeople().getPerson("espc_anlo"));
+				}
+				if (market.getFactionId().equals("epsilpac") && market != isabelle.getMarket()) {
+					marketPicker.add(market);
+				}
 			}
 		}
 		

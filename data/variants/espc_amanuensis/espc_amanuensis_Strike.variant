@@ -1,0 +1,75 @@
+{
+  "variantId": "espc_amanuensis_Strike",
+  "hullId": "espc_amanuensis",
+  "displayName": "Strike",
+  "goalVariant": true,
+  "fluxCapacitors": 49,
+  "fluxVents": 50,
+  "quality": 1,
+  "permaMods": [],
+  "hullMods": [
+    "targetingunit",
+    "stabilizedshieldemitter",
+    "hardenedshieldemitter",
+    "magazines",
+    "fluxdistributor"
+  ],
+  "weaponGroups": [
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0001": "autopulse",
+        "WS0002": "autopulse"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0003": "hellbore",
+        "WS0004": "hellbore"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "ALTERNATING",
+      "weapons": {
+        "WS0005": "espc_aa",
+        "WS0006": "espc_aa"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0007": "flak",
+        "WS0008": "flak",
+        "WS0009": "dualflak",
+        "WS0012": "pdburst",
+        "WS0013": "pdburst",
+        "WS0014": "vulcan",
+        "WS0015": "vulcan",
+        "WS0016": "irpulse",
+        "WS0017": "irpulse"
+      }
+    },
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {}
+    },
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {}
+    },
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {}
+    }
+  ],
+  "modules": [],
+  "wings": []
+}

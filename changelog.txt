@@ -16,8 +16,8 @@ Rondel (all variants)
 - Deceleration 70 > 125
 
 Jackalope (all variants)
-- Self-recoil effect from firing large and medium weapons reduced by 65%
-	- LP Jackalope recoil only reduced by 25% lol
+- Self-recoil effect from firing large and medium weapons reduced by 20%
+	- LP Jackalope recoil unchanged lol
 - Acceleration 100 > 150, deceleration 50 > 85
 
 Songbird (all variants)
@@ -80,9 +80,10 @@ Remote Salvo
 - Removed flux cost for activation
 - System duration automatically ends early when all missiles have been launched
 - Missile range for missiles launched via this system increased by 25%
-- Bursts per fighter limited to 2.  This significantly nerfs swarmers.
+- Missiles tagged as ANTI_FTR now prioritize targeting the nearest fighter when launched
+- Bursts per fighter limited to 2.  This significantly nerfs swarmers and other high ammo/low OP missiles.
 - Bursts now fire twice as quickly
-- Barrel offsets now properly work.  This only affects the annihilator in vanilla, which previously had perfect accuracy.
+- Barrel angle offsets now apply.  This only affects the annihilator in vanilla, which previously had perfect accuracy.
 
 Hybrid Harmonizer
 - System duration 10 seconds > 7.5 seconds
@@ -121,6 +122,7 @@ Tocquiera
 - Administrator given a unique skill
 	- If using Nexerelin, unique administrator leaves colony if Tocquiera is conquered, and returns only if Pact regains control
 - Nexus contruction feature removed: Pact Derelicts spawning in derelict fleets feels impactful enough to me.
+- Reputation gain from turning in AI cores capped, both with faction & the contacts you turn cores over to.
 
 - All ship variants revised to account for balance changes to hulls & weapons, several altered for balance some rather situational variants added/removed.
 - Phased out some weapons from Pact markets & variants; most notably railguns and hypervelocity drivers.

@@ -5,9 +5,9 @@
     "modVersion":
     {
         "major":0,
-        "minor":3,
-        "patch":"97"
+        "minor":4,
+        "patch":"0"
     },
-	"directDownloadURL":"https://github.com/Mezzelo/Epsilon-Pact/releases/download/0.3.93-RC3/Epsilon-Pact.zip",
+	"directDownloadURL":"https://github.com/Mezzelo/Epsilon-Pact/releases/latest/download/Epsilon-Pact.zip",
 	"changelogURL":"https://raw.githubusercontent.com/mezzelo/Epsilon-Pact/main/changelog.txt"
 }
