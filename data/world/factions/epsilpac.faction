@@ -84,16 +84,17 @@
 			
 			"espc_picket":0.7,
 			"espc_sentry":0.7,
+			"espc_warden":0.7,
 			"espc_bastillon":0.7,
 			"espc_berserker":0.7,
 			"espc_rampart":0.7,
 			
 			"glimmer":0.4,
-			"lumen":0.2,
+			"lumen":0.4,
 			"fulgent":0.6,
-			"scintilla":0.2,
+			"scintilla":0.4,
 			"brilliant":0.6,
-			"apex":0.4,
+			"apex":0.6,
 			"nova":0.4,
 			"radiant":0.6,
         },
@@ -164,6 +165,7 @@
 			
 			"espc_picket",
 			"espc_sentry",
+			"espc_warden",
 			"espc_bastillon",
 			"espc_berserker",
 			"espc_rampart",

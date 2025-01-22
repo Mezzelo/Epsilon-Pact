@@ -10,8 +10,7 @@
   "hullMods": [
         "targetingunit",
         "extendedshieldemitter",
-        "missleracks",
-        "expanded_cargo_holds"
+        "missleracks"
   ],
     "weaponGroups": [
         {

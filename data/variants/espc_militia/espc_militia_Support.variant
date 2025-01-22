@@ -3,12 +3,11 @@
   "hullId": "espc_militia",
   "displayName": "Support",
   "goalVariant": true,
-  "fluxCapacitors": 21,
-  "fluxVents": 20,
+  "fluxCapacitors": 20,
+  "fluxVents": 17,
   "quality": 1,
   "permaMods": [],
   "hullMods": [
-    "insulatedengine",
     "targetingunit"
   ],
   "weaponGroups": [

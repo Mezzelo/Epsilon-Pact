@@ -16,11 +16,11 @@
 	   "WS0003":{"angle": 180},
     },
 	"fleetPoints":9,
-	"suppliesToRecover":10,
-	"suppliesPerMonth":10,
+	"suppliesToRecover":9,
+	"suppliesPerMonth":9,
     "spriteName": "graphics/ships/espc_militia_original.png",
 	"addHints":[CIVILIAN],
-	"ordnancePoints":110,
+	"ordnancePoints":100,
 	"baseValueMult":1,
 	"removeEngineSlots":[], 		# indices, as engine slots have no id in the .ship file
 	"removeBuiltInMods":["militarized_subsystems"], 		# hullmod ids

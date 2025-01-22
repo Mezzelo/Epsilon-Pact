@@ -13,6 +13,7 @@ Flagbearer (all variants)
 - FP 15 > 14
 
 Rondel (all variants)
+- DP 5 > 6
 - Deceleration 70 > 125
 
 Jackalope (all variants)
@@ -22,18 +23,23 @@ Jackalope (all variants)
 
 Songbird (all variants)
 - FP 10 > 9
-- Capacity 3000 > 4000
+- Flux Capacity 3000 > 4000
 - Dissipation 140 > 160
 
 Opossum
 - FP 4 > 5
 	
-Militia (all variants)
+Militia
+- DP 11 > 10
+- Militia (S) DP 10 > 9
+- OP 100 > 90
+- Militia (S) OP 110 > 100
 - FP 10 > 9
+- Cargo Capacity 300 > 400
 - Dissipation 350 > 300
 
 Ember (all variants)
-- Capacity 4000 > 6000
+- Flux Capacity 4000 > 6000
 
 Observer (all variants)
 - Speed 60 > 65
@@ -105,6 +111,9 @@ Auto Scattershot
 Heavy Gatling
 - OP 26 > 24
 - Flux/shot 56 > 60
+
+Half-Rift Pike
+- Range 1100 > 1000
 
 
 World-gen changes (non-random sector):
