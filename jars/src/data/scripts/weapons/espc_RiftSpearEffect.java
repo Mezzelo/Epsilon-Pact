@@ -131,7 +131,7 @@ public class espc_RiftSpearEffect implements OnFireEffectPlugin, EveryFrameWeapo
 					"espc_riftchargeloop",
 					weapon,
 					1.3f - weapon.getChargeLevel() / 0.7f * 0.3f,
-					weapon.getChargeLevel() * 0.45f / 0.7f,
+					weapon.getChargeLevel() * 0.3f / 0.7f,
 					weapon.getLocation(),
 					weapon.getShip().getVelocity()
 				);
@@ -140,7 +140,7 @@ public class espc_RiftSpearEffect implements OnFireEffectPlugin, EveryFrameWeapo
 					"espc_riftchargeloop",
 					weapon,
 					1.0f,
-					0.45f - (weapon.getChargeLevel() - 0.7f) / 0.15f * 0.45f,
+					0.3f - (weapon.getChargeLevel() - 0.7f) / 0.15f * 0.45f,
 					weapon.getLocation(),
 					weapon.getShip().getVelocity()
 				);

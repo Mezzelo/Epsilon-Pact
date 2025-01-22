@@ -36,7 +36,7 @@ public class espc_RulesUtil extends BaseCommandPlugin {
                 return Global.getSector().getImportantPeople().getPerson(params.get(1).getString(memoryMap)).getRelToPlayer().getRepInt() <
             	params.get(2).getInt(memoryMap);
         else if (command.equals("isRandomSector"))
-            return (espc_ModPlugin.hasNex && !SectorManager.getManager().isCorvusMode());
+            return (espc_ModPlugin.hasNex() && !SectorManager.getManager().isCorvusMode());
 		
 		return false;
 	}

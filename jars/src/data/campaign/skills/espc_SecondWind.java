@@ -70,7 +70,8 @@ public class espc_SecondWind {
 		public void advance(float amount) {
 			if (Global.getCurrentState() != GameState.COMBAT)
 				return;
-			if (ship.getFluxTracker().isOverloaded() && cooldown <= 0f) {
+			if (ship.getFluxTracker().isOverloaded() && cooldown <= 0f &&
+				ship.getFluxTracker().getOverloadTimeRemaining() > 1.5f) {
 				wasOverloaded = true;
 				cooldown = OVERLOAD_COOLDOWN;
 	 			ship.getFluxTracker().setOverloadDuration(ship.getFluxTracker().getOverloadTimeRemaining() / 2f);

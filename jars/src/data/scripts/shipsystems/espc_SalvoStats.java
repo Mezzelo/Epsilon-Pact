@@ -7,7 +7,9 @@ import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.combat.*;
 import com.fs.starfarer.api.combat.ShipAPI;
 import com.fs.starfarer.api.combat.WeaponAPI;
+import com.fs.starfarer.api.combat.MissileAPI;
 import com.fs.starfarer.api.combat.ShipAPI.HullSize;
+import com.fs.starfarer.api.combat.WeaponAPI.AIHints;
 import com.fs.starfarer.api.combat.WeaponAPI.WeaponType;
 // import com.fs.starfarer.api.util.IntervalUtil;
 import com.fs.starfarer.api.util.Misc;
@@ -29,15 +31,17 @@ public class espc_SalvoStats extends BaseShipSystemScript {
 		public WeaponAPI missileWep;
 		public ShipAPI fighter;
 		public int remaining = 0;
+		public int cumulative = 0;
 		public float timePerShot = 0.1f;
 		public float burstTime = 0.1f;
 		public boolean burstStarted = false;
 		public float baseDamage = 100f;
 		public OnFireEffectPlugin projEffectPlugin = null;
-		public mFighter(ShipAPI fighter, WeaponAPI missileWep, int remaining, boolean override, float timePerShot, OnFireEffectPlugin plugin) {
+		public mFighter(ShipAPI fighter, WeaponAPI missileWep, int remaining, int cumulative, boolean override, float timePerShot, OnFireEffectPlugin plugin) {
 			this.fighter = fighter;
 			this.missileWep = missileWep;
 			this.remaining = remaining;
+			this.cumulative = cumulative;
 			if (this.remaining == 1)
 				this.timePerShot = 0.1f;
 			else
@@ -100,7 +104,8 @@ public class espc_SalvoStats extends BaseShipSystemScript {
 							MIN_RANGE
 						))
 					))
-				)
+				) || spawnMissile.hasAIHint(AIHints.ANTI_FTR)
+			// if using anti-fighter missiles, we can just look for nearby fighters.  in fact, we should prioritize that
 			))
 		) {
 			// just gonna assume friendly fire missiles are dumbfire.
@@ -111,7 +116,8 @@ public class espc_SalvoStats extends BaseShipSystemScript {
 				ShipAPI target = fighter.getShipTarget();
 				if (target == null)
 					target = ship.getShipTarget();
-				if (target == null || target.getOwner() == ship.getOwner())
+				// don't fire dumbfires at other fighters, that is a horrendous idea.
+				if (target == null || target.getOwner() == ship.getOwner() || target.isFighter())
 					return false;
 				Vector2f ray = new Vector2f(
 					(float) FastTrig.cos(Math.toRadians(fighter.getFacing())), 
@@ -127,7 +133,7 @@ public class espc_SalvoStats extends BaseShipSystemScript {
 				))
 					return false;
 				// collision grid check for ships
-				Iterator<Object> shipGridIterator = combatEngine.getShipGrid().getCheckIterator(
+				Iterator<Object> shipGridIterator = combatEngine.getAiGridShips().getCheckIterator(
 					Vector2f.add(fighter.getLocation(), (Vector2f) ray.normalise().scale(MathUtils.getDistance(
 						fighter.getLocation(), target.getLocation()) * 0.5f
 					), new Vector2f()),
@@ -171,11 +177,35 @@ public class espc_SalvoStats extends BaseShipSystemScript {
 				spawnMissile.getId(), 
 				fighter.getLocation(), 
 				fighter.getFacing() + (Misc.random.nextFloat() * 2f - 1f) * spawnMissile.getSpec().getMaxSpread() +
-				spawnMissile.getSpec().getHardpointAngleOffsets().get(barrel), 
+				spawnMissile.getSpec().getHardpointAngleOffsets().get(
+					barrel % spawnMissile.getSpec().getHardpointAngleOffsets().size()), 
 				fighter.getVelocity()
 			);
 			// honestly i'd be the sort of fucker to require this check.
 			if (missile instanceof MissileAPI) {
+				// this is a lot of effort to makes swarmers work tbh.  saving grace is that this doesn't need to fire ALL the time
+				if (spawnMissile.hasAIHint(AIHints.ANTI_FTR) &&
+					((MissileAPI) missile).getMissileAI() instanceof GuidedMissileAI) {
+					Iterator<Object> entityIterator = combatEngine.getAiGridShips().getCheckIterator(
+						fighter.getLocation(), 
+						spawnMissile.getRange() * 2f,
+						spawnMissile.getRange() * 2f
+					);
+					ShipAPI target = null;
+					float dist = spawnMissile.getRange() * spawnMissile.getRange() * 1.6f;
+					while (entityIterator.hasNext()) {
+						ShipAPI currShip = (ShipAPI) entityIterator.next();
+						if (currShip.getOwner() != ship.getOwner() &&
+							currShip.isFighter() && 
+							MathUtils.getDistanceSquared(fighter.getLocation(), currShip.getLocation()) <= dist) {
+							target = currShip;
+							dist = MathUtils.getDistanceSquared(fighter.getLocation(), currShip.getLocation());
+						}
+					}
+					if (target != null) {
+						((GuidedMissileAI)((MissileAPI) missile).getMissileAI()).setTarget(target);
+					}
+				}
 				((MissileAPI) missile).setMaxFlightTime(((MissileAPI) missile).getMaxFlightTime() * 1.25f);
 				((MissileAPI) missile).setMaxRange(((MissileAPI) missile).getMaxRange() * 1.25f);
 			}
@@ -206,8 +236,10 @@ public class espc_SalvoStats extends BaseShipSystemScript {
 			List<Integer> fightersPerMissile = new ArrayList<Integer>();
 			for (WeaponAPI weapon : ship.getAllWeapons()) {
 				if (weapon.getType() == WeaponType.MISSILE) {
+					// If your missile is worth more than 2 OP per shot, I'm not firing it.  Fuck you.
+					if (weapon.getSpec().getOrdnancePointCost(null) / weapon.getSpec().getMaxAmmo() > 2)
+						continue;
 					shipMissiles.add(weapon);
-					// TODO: figure this math out
 					if (weapon.usesAmmo() && weapon.getAmmoPerSecond() <= 0f)
 						/*
 						fightersPerMissile.add(Math.max((int)Math.floor(((float)weapon.getSpec().getOrdnancePointCost(null)
@@ -289,6 +321,7 @@ public class espc_SalvoStats extends BaseShipSystemScript {
 							// 	), BURST_MAX
 							) - (fired ? 1 : 0)
 							: 1,
+						fired ? 1 : 0,
 						fired,
 						((WeaponAPI) shipMissiles.get(missileIndex)).getDerivedStats().getBurstFireDuration() /
 						((WeaponAPI) shipMissiles.get(missileIndex)).getSpec().getBurstSize() / 2f,
@@ -325,17 +358,27 @@ public class espc_SalvoStats extends BaseShipSystemScript {
 				}
 				else {
 					if (!fighter.burstStarted) {
-						fighter.burstStarted = fireMissileFighter(fighter.missileWep, fighter.fighter, 0,
-						fighter.baseDamage, fighter.projEffectPlugin, combatEngine, false);
-						if (fighter.burstStarted)
+						fighter.burstStarted = fireMissileFighter(
+							fighter.missileWep, 
+							fighter.fighter, 
+							fighter.cumulative,
+							fighter.baseDamage, fighter.projEffectPlugin, combatEngine, false);
+						if (fighter.burstStarted) {
 							fighter.remaining -= 1;
+							fighter.cumulative+= 1;
+						}
 					} else {
 						fighter.burstTime -= combatEngine.getElapsedInLastFrame();
 						if (fighter.burstTime <= 0f && fighter.remaining > 0) {
-							boolean fired = fireMissileFighter(fighter.missileWep, fighter.fighter, 0,
-									fighter.baseDamage, fighter.projEffectPlugin, combatEngine, true);
-							if (fired)
+							boolean fired = fireMissileFighter(
+								fighter.missileWep, 
+								fighter.fighter, 
+								fighter.cumulative,
+								fighter.baseDamage, fighter.projEffectPlugin, combatEngine, true);
+							if (fired) {
 								fighter.remaining -= 1;
+								fighter.cumulative+= 1;
+							}
 							else
 								fighter.burstTime = 0.01f;
 							if (fighter.remaining > 0)

@@ -27,7 +27,7 @@ import org.lazywizard.lazylib.MathUtils;
 
 public class espc_FlakEffect implements OnFireEffectPlugin, EveryFrameWeaponEffectPlugin {
 
-	public static final int shotsPerBurst = 6;
+	public static final int shotsPerBurst = 5;
 	public static final float burstSpread = 24f;
 	public static final float minDamageForTarget = 250f;
 	
@@ -66,7 +66,7 @@ public class espc_FlakEffect implements OnFireEffectPlugin, EveryFrameWeaponEffe
 			pdThreats = new ArrayList<PDThr>();
 			CombatEngineAPI combatEngine = Global.getCombatEngine();
             
-			Iterator<Object> entityIterator = combatEngine.getAllObjectGrid().getCheckIterator(
+			Iterator<Object> entityIterator = combatEngine.getAiGridShips().getCheckIterator(
 				Vector2f.add(weapon.getLocation(), 
 					new Vector2f((float) FastTrig.cos(Math.toRadians(weapon.getCurrAngle())) * weapon.getRange()/2f, 
 					(float) FastTrig.sin(Math.toRadians(weapon.getCurrAngle())) * weapon.getRange()/2f), 
@@ -78,20 +78,10 @@ public class espc_FlakEffect implements OnFireEffectPlugin, EveryFrameWeaponEffe
 				CombatEntityAPI entity = (CombatEntityAPI) entityIterator.next();
 				if (entity.getOwner() == thisShip.getOwner())
 					continue;
-				boolean valid = false;
-				if (entity instanceof MissileAPI) {
-					/*
-					MissileAPI missile = (MissileAPI) entity;
-					if (missile.getDamageAmount()
-						> minDamageForTarget)*/
-						valid = true;
-				}
-				else if (entity instanceof ShipAPI && ((ShipAPI) entity).isFighter())
-					valid = true;
-				if (valid && Math.abs(MathUtils.getShortestRotation(
-						(float) Math.toDegrees(FastTrig.atan2(entity.getLocation().y - proj.getLocation().y, 
-						entity.getLocation().x - proj.getLocation().x)),
-						weapon.getCurrAngle())) < burstSpread/2f) {
+				if (((ShipAPI) entity).isFighter() && Math.abs(MathUtils.getShortestRotation(
+					(float) Math.toDegrees(FastTrig.atan2(entity.getLocation().y - proj.getLocation().y, 
+					entity.getLocation().x - proj.getLocation().x)),
+					weapon.getCurrAngle())) < burstSpread/2f) {
 					float thisDist = MathUtils.getDistanceSquared(proj, entity);
 					if (pdThreats.size() < shotsPerBurst && thisDist < weapon.getRange() * weapon.getRange()) {
 						pdThreats.add(new PDThr(
@@ -119,7 +109,51 @@ public class espc_FlakEffect implements OnFireEffectPlugin, EveryFrameWeaponEffe
 					}
 				}
 			}
-
+			entityIterator = combatEngine.getAiGridMissiles().getCheckIterator(
+					Vector2f.add(weapon.getLocation(), 
+						new Vector2f((float) FastTrig.cos(Math.toRadians(weapon.getCurrAngle())) * weapon.getRange()/2f, 
+						(float) FastTrig.sin(Math.toRadians(weapon.getCurrAngle())) * weapon.getRange()/2f), 
+						new Vector2f()),
+					weapon.getRange(),
+					weapon.getRange()
+				);
+				while (entityIterator.hasNext()) {
+					CombatEntityAPI entity = (CombatEntityAPI) entityIterator.next();
+					if (entity.getOwner() == thisShip.getOwner())
+						continue;
+					if (Math.abs(MathUtils.getShortestRotation(
+						(float) Math.toDegrees(FastTrig.atan2(entity.getLocation().y - proj.getLocation().y, 
+						entity.getLocation().x - proj.getLocation().x)),
+						weapon.getCurrAngle())) < burstSpread/2f) {
+						float thisDist = MathUtils.getDistanceSquared(proj, entity);
+						if (pdThreats.size() < shotsPerBurst && thisDist < weapon.getRange() * weapon.getRange()) {
+							pdThreats.add(new PDThr(
+								entity, 
+								proj,
+								shipVel,
+								thisDist
+							));
+							if (thisDist > longestDist)
+								longestDist = thisDist;
+						} else if (thisDist < longestDist) {
+							for (int i = 0; i < pdThreats.size(); i++) {
+								if (pdThreats.get(i).distSquared > thisDist) {
+									pdThreats.remove(pdThreats.size() - 1);
+									pdThreats.add(i, new PDThr(
+										entity,
+										proj,
+										shipVel,
+										thisDist
+									));
+									longestDist = pdThreats.get(pdThreats.size() - 1).distSquared;
+									break;
+								}
+							}
+						}
+					}
+				}
+			
+			
 			float speedMod = Misc.random.nextFloat();
 			if (pdThreats.size() > 0) {
 				speedMod = 1f;
@@ -158,7 +192,7 @@ public class espc_FlakEffect implements OnFireEffectPlugin, EveryFrameWeaponEffe
 				new Vector2f(), proj.getVelocity()
 			);
 		}
-        proj.setCollisionRadius(proj.getCollisionRadius() * 5f);
+        proj.setCollisionRadius(proj.getCollisionRadius() * 10f);
 		currentShot++;
 		if (currentShot >= shotsPerBurst) {
 			currentShot = 0;

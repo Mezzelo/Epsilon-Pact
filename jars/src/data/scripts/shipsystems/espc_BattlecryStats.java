@@ -78,7 +78,7 @@ public class espc_BattlecryStats extends BaseShipSystemScript {
 				ShipAPI currShip = (ShipAPI) shipGridIterator.next();
 				boolean setForArc = false;
 				boolean setForOverload = false;
-				if (currShip.isShuttlePod() || currShip == ship || currShip.isHulk() || !currShip.isAlive()
+				if (currShip.isShuttlePod() || currShip == ship || currShip.isHulk() || !currShip.isAlive() || currShip.getMaxFlux() <= 0f
 					|| !MathUtils.isWithinRange(
 						currShip, ship.getLocation(), FLUX_RANGE_BASE - FLUX_RANGE_MAX_PENALTY * ship.getFluxLevel()
 					)
@@ -96,7 +96,7 @@ public class espc_BattlecryStats extends BaseShipSystemScript {
 						setForOverload = currShip.getCurrFlux() + (fluxChange + hardFluxChange) * FLUX_PROJECT_MULT >
 							currShip.getMaxFlux();
 						currShip.getFluxTracker().increaseFlux(hardFluxChange * FLUX_PROJECT_MULT, true);
-						if (setForOverload && currShip.getFluxLevel() < 1f) {
+						if (setForOverload && !Float.isNaN(currShip.getFluxLevel()) && currShip.getFluxLevel() < 1f) {
 							// assuming we've fluxed them out with our own soft flux, just push them over the edge with a static
 							// proportion to give a set overload duration.
 							currShip.getFluxTracker().increaseFlux(currShip.getMaxFlux() - currShip.getCurrFlux(), false);

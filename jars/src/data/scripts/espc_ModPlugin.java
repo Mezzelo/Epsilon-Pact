@@ -38,7 +38,8 @@ import exerelin.campaign.SectorManager;
 
 public class espc_ModPlugin extends BaseModPlugin {
 
-    public static boolean hasNex = false;
+    private static boolean hasNex = false;
+    private static boolean hasGlib = false;
     public static boolean espc_generateDerelicts = false;
     public static boolean espc_modifyExplorarium = true;
 
@@ -54,6 +55,7 @@ public class espc_ModPlugin extends BaseModPlugin {
                 throw new RuntimeException("Epsilon Pact requires MagicLib to run - http://fractalsoftworks.com/forum/index.php?topic=13718.0");
             
             if (Global.getSettings().getModManager().isModEnabled("shaderLib")) {
+            	hasGlib = true;
                 ShaderLib.init();
                 LightData.readLightDataCSV("data/lights/espc_light_data.csv");
                 TextureData.readTextureDataCSV("data/lights/espc_texture_data.csv");
@@ -70,6 +72,14 @@ public class espc_ModPlugin extends BaseModPlugin {
             } */
         }
 
+    }
+    
+    public static boolean hasNex() {
+    	return hasNex;
+    }
+    
+    public static boolean hasGlib() {
+    	return hasGlib;
     }
     
 
@@ -147,18 +157,7 @@ public class espc_ModPlugin extends BaseModPlugin {
             ShipAIConfig config = new ShipAIConfig();
             config.personalityOverride = Personalities.AGGRESSIVE;
             return new PluginPick<ShipAIPlugin>(Global.getSettings().createDefaultShipAI(ship, config), PickPriority.MOD_SET);
-        } else if (member != null && Misc.isAutomated(ship) && member.getFleetData() != null && member.getFleetData().getFleet() != null &&
-        	member.getFleetData().getFleet().getFaction() != null &&
-        	member.getFleetData().getFleet().getFaction().getId().equals("epsilpac") &&
-        	!ship.hasLaunchBays() &&
-        	!ship.getHullSpec().getBaseHullId().equals("espc_rampart") &&
-        	!ship.getHullSpec().getBaseHullId().equals("radiant")) {
-            ShipAIConfig config = new ShipAIConfig();
-            config.personalityOverride = Personalities.AGGRESSIVE;
-            return new PluginPick<ShipAIPlugin>(Global.getSettings().createDefaultShipAI(ship, config), PickPriority.MOD_SPECIFIC);
-            
-        }
-        /*  -- overrides for use in balance testing, to replicate desired campaign behaviour --
+        } 
         else if (Misc.isAutomated(ship)
 	    	&& !ship.getHullSpec().getBaseHullId().equals("espc_rampart")
 	    	&& !ship.getHullSpec().getBaseHullId().equals("radiant")) {
@@ -171,6 +170,19 @@ public class espc_ModPlugin extends BaseModPlugin {
 	        config.personalityOverride = Personalities.AGGRESSIVE;
 	        return new PluginPick<ShipAIPlugin>(Global.getSettings().createDefaultShipAI(ship, config), PickPriority.MOD_SET);
 	    }
+        else if (member != null && Misc.isAutomated(ship) && member.getFleetData() != null && member.getFleetData().getFleet() != null &&
+        	member.getFleetData().getFleet().getFaction() != null &&
+        	member.getFleetData().getFleet().getFaction().getId().equals("epsilpac") &&
+        	!ship.hasLaunchBays() &&
+        	!ship.getHullSpec().getBaseHullId().equals("espc_rampart") &&
+        	!ship.getHullSpec().getBaseHullId().equals("radiant")) {
+            ShipAIConfig config = new ShipAIConfig();
+            config.personalityOverride = Personalities.AGGRESSIVE;
+            return new PluginPick<ShipAIPlugin>(Global.getSettings().createDefaultShipAI(ship, config), PickPriority.MOD_SPECIFIC);
+            
+        }
+        /*  -- overrides for use in balance testing, to replicate desired campaign behaviour --
+
 	    */
         
         /* else if (ship.getHullSpec().getBaseHullId().equals("espc_serenade")) {

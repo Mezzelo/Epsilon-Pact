@@ -58,7 +58,7 @@ public class MissionDefinition implements MissionDefinitionPlugin {
 		
 		if (Keyboard.isKeyDown(Keyboard.KEY_LCONTROL) && Keyboard.isKeyDown(Keyboard.KEY_Q)) {
 			// api.addToFleet(FleetSide.PLAYER, "espc_gallant_Standard", FleetMemberType.SHIP, false);
-			api.addToFleet(FleetSide.PLAYER, "espc_atavist_Standard", FleetMemberType.SHIP, false);
+			api.addToFleet(FleetSide.PLAYER, "espc_amanuensis_Assault", FleetMemberType.SHIP, false);
 			api.addToFleet(FleetSide.PLAYER, "espc_chorale_Support", FleetMemberType.SHIP, false);
 			// api.addToFleet(FleetSide.PLAYER, "espc_chorale_lg_Elite", FleetMemberType.SHIP, "TTS Invisible Hand", false);
 			api.addToFleet(FleetSide.PLAYER, "espc_pilgrim_Support", FleetMemberType.SHIP, "EPS Tocquiera", false);

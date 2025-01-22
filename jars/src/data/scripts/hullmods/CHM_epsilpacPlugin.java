@@ -38,7 +38,7 @@ public class CHM_epsilpacPlugin extends BaseEveryFrameCombatPlugin {
     		return;
     	}
     	
-    	float bonus = thisBonus * Math.max(Math.min((ship.getFluxLevel() - MIN_FLUX_THRESHOLD) / MAX_FLUX_DIFF, 1f), 0f)
+    	float bonus = thisBonus * Math.max(Math.min((Float.isNaN(ship.getFluxLevel()) ? 0f : ship.getFluxLevel() - MIN_FLUX_THRESHOLD) / MAX_FLUX_DIFF, 1f), 0f)
     	+ thisBonus * Math.max(Math.min((MAX_HULL_THRESHOLD - ship.getHullLevel()) / MIN_HULL_DIFF, 1f), 0f);
 		ship.getMutableStats().getBallisticWeaponDamageMult().modifyPercent("CHM_epsilpacmod", 
 			bonus);

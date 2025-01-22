@@ -1,16 +1,20 @@
 package data.scripts.shipsystems;
 
+import java.awt.Color;
+
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.combat.CombatEngineAPI;
 import com.fs.starfarer.api.combat.DamageType;
 import com.fs.starfarer.api.combat.MutableShipStatsAPI;
 import com.fs.starfarer.api.combat.ShipAPI;
 import com.fs.starfarer.api.combat.WeaponAPI;
+import com.fs.starfarer.api.combat.WeaponAPI.AIHints;
 import com.fs.starfarer.api.combat.WeaponAPI.WeaponSize;
 import com.fs.starfarer.api.combat.WeaponAPI.WeaponType;
 import com.fs.starfarer.api.impl.combat.BaseShipSystemScript;
 // import com.fs.starfarer.api.plugins.ShipSystemStatsScript.State;
 // import com.fs.starfarer.api.plugins.ShipSystemStatsScript.StatusData;
+import org.dark.shaders.distortion.*;
 
 public class espc_AlternatorStats extends BaseShipSystemScript {
 
@@ -18,8 +22,10 @@ public class espc_AlternatorStats extends BaseShipSystemScript {
 	private boolean initialized = false;
 	private float ballisticDPS = 0f;
 	private float energyDPS = 0f;
-	private boolean isEnergy = true;
+	public boolean isEnergy = true;
 	private boolean lastIdle = true;
+	
+	private static final float BONUS_MAX = 2f;
 	
 	public void apply(MutableShipStatsAPI stats, String id, State state, float effectLevel) {
 		if (stats.getEntity() == null)
@@ -36,10 +42,12 @@ public class espc_AlternatorStats extends BaseShipSystemScript {
 			for (WeaponAPI weapon : ship.getAllWeapons()) {
 				if (weapon.getType() == WeaponType.BALLISTIC)
 					ballisticDPS += weapon.getDerivedStats().getSustainedDps() 
-						* (weapon.getDamageType().equals(DamageType.FRAGMENTATION) ? 0.5f : 1f);
+						* (weapon.getDamageType().equals(DamageType.FRAGMENTATION) ? 0.5f : 1f) *
+						(weapon.hasAIHint(AIHints.PD) && !weapon.hasAIHint(AIHints.PD_ALSO) ? 0.5f : 1f);
 				else if (weapon.getType() == WeaponType.ENERGY)
 					energyDPS += weapon.getDerivedStats().getSustainedDps()
-						* (weapon.getDamageType().equals(DamageType.FRAGMENTATION) ? 0.5f : 1f);
+						* (weapon.getDamageType().equals(DamageType.FRAGMENTATION) ? 0.5f : 1f) *
+						(weapon.hasAIHint(AIHints.PD) && !weapon.hasAIHint(AIHints.PD_ALSO) ? 0.5f : 1f);
 				
 			}
 			// Global.getLogger(espc_AlternatorStats.class).info("balDPS: " + ballisticDPS);
@@ -53,25 +61,28 @@ public class espc_AlternatorStats extends BaseShipSystemScript {
 			lastIdle = true;
 		
 		if (isEnergy) {
-			stats.getEnergyRoFMult().modifyFlat(id, (energyDPS > 0f ? ballisticDPS/energyDPS * (1f - effectLevel) : 0f));
+			stats.getEnergyRoFMult().modifyFlat(id, (energyDPS > 0f ? Math.min(ballisticDPS/energyDPS, BONUS_MAX) * (1f - effectLevel) : 0f));
 			// if (state == State.OUT && ballisticDPS > 0f)
 			// 	stats.getBallisticRoFMult().modifyFlat(id, (ballisticDPS > 0f ? energyDPS/ballisticDPS * (effectLevel) : 0f));
 			// else
-				stats.getBallisticRoFMult().unmodify(id);
+			stats.getBallisticRoFMult().unmodify(id);
 		}
 		else {
-			stats.getBallisticRoFMult().modifyFlat(id, (ballisticDPS > 0f ? energyDPS/ballisticDPS * (1f - effectLevel) : 0f));
+			stats.getBallisticRoFMult().modifyFlat(id, (ballisticDPS > 0f ? Math.min(energyDPS/ballisticDPS, BONUS_MAX) * (1f - effectLevel) : 0f));
 			// if (state == State.OUT && energyDPS > 0f)
 			// 	stats.getEnergyRoFMult().modifyFlat(id, (energyDPS > 0f ? ballisticDPS/energyDPS * (effectLevel) : 0f));
 			// else
-				stats.getEnergyRoFMult().unmodify(id);
+			stats.getEnergyRoFMult().unmodify(id);
 		}
 		
 		for (WeaponAPI weapon : ship.getAllWeapons()) {
 			if (weapon.getType() == WeaponType.BALLISTIC && isEnergy ||
 				weapon.getType() == WeaponType.ENERGY && !isEnergy
-			)
-			weapon.setForceNoFireOneFrame(true);
+			) {
+				weapon.stopFiring();
+				weapon.setRemainingCooldownTo(weapon.getCooldownRemaining());
+				weapon.setForceNoFireOneFrame(true);
+			}
 		}
 
 	}
@@ -93,14 +104,14 @@ public class espc_AlternatorStats extends BaseShipSystemScript {
 			if (isEnergy) {
 				if (energyDPS > 0f)
 					return new StatusData("energy rate of fire +" + 
-						(int) (ballisticDPS/energyDPS * (1f - effectLevel) * 100f)
+						(int) (Math.min(ballisticDPS/energyDPS, BONUS_MAX) * (1f - effectLevel) * 100f)
 						 + "%",false);
 				else
 					return new StatusData("no energy weapons", true);
 			} else {
 				if (ballisticDPS > 0f)
 					return new StatusData("ballistic rate of fire +" + 
-							(int) (energyDPS/ballisticDPS * (1f - effectLevel) * 100f)
+							(int) (Math.min(energyDPS/ballisticDPS, BONUS_MAX) * (1f - effectLevel) * 100f)
 							 + "%",false);
 				else
 					return new StatusData("no ballistic weapons", true);

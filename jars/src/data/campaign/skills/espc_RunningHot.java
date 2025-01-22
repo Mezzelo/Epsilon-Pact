@@ -36,6 +36,8 @@ public class espc_RunningHot {
  			MutableShipStatsAPI stats = ship.getMutableStats();
 			
 			float fluxLevel = ship.getFluxLevel();
+			if (Float.isNaN(fluxLevel))
+				fluxLevel = 0f;
 			stats.getBallisticRoFMult().modifyPercent(id, fluxLevel * FIRE_RATE_BONUS);
 			stats.getEnergyRoFMult().modifyPercent(id, fluxLevel * FIRE_RATE_BONUS);
 			stats.getFluxDissipation().modifyPercent(id, fluxLevel * DISSIPATION_BONUS_FLUX +

@@ -113,7 +113,7 @@ public class espc_RiftPikeEffect implements OnFireEffectPlugin, EveryFrameWeapon
 					Global.getSettings().getSprite("systemMap", "radar_entity"),
 					weapon.getFirePoint(0),
 					new Vector2f(0f + (MezzUtils.halfSineOut(Math.min(weapon.getChargeLevel() * 1.3f, 1f)) * 35f * (1f + chargeJostleX * 2f)) * 1.3f, 
-						0f + (MezzUtils.halfSineOut(Math.min(weapon.getChargeLevel() * 1.3f, 1f)) * 25f * (1f + chargeJostleX * 2f)) * 1.3f),
+						0f + (MezzUtils.halfSineOut(Math.min(weapon.getChargeLevel() * 1.3f, 1f)) * 35f * (1f + chargeJostleX * 2f)) * 1.3f),
 					weapon.getCurrAngle(),
 					new Color(255, 222, 166, 200),
 					true
@@ -142,7 +142,7 @@ public class espc_RiftPikeEffect implements OnFireEffectPlugin, EveryFrameWeapon
 					Global.getSettings().getSprite("systemMap", "radar_entity"),
 					weapon.getFirePoint(0),
 					new Vector2f(25f * 1.3f - MezzUtils.halfSineIn(Math.min((weapon.getChargeLevel() - 0.85f) / 0.1f, 1f)) * 35f * 1.3f, 
-						25f * 1.3f - MezzUtils.halfSineIn(Math.min((weapon.getChargeLevel() - 0.85f) / 0.1f, 1f)) * 15f * 1.3f),
+						25f * 1.3f - MezzUtils.halfSineIn(Math.min((weapon.getChargeLevel() - 0.85f) / 0.1f, 1f)) * 35f * 1.3f),
 					weapon.getCurrAngle(),
 					new Color(255, 222, 166, 200),
 					true
@@ -151,7 +151,7 @@ public class espc_RiftPikeEffect implements OnFireEffectPlugin, EveryFrameWeapon
 					Global.getSettings().getSprite("systemMap", "radar_entity"),
 					weapon.getFirePoint(0),
 					new Vector2f(25f * 4.5f - MezzUtils.halfSineIn(Math.min((weapon.getChargeLevel() - 0.85f) / 0.1f, 1f)) * 25f * 4.5f, 
-						25f * 4.5f - MezzUtils.halfSineIn(Math.min((weapon.getChargeLevel() - 0.85f) / 0.1f, 1f)) * 15f * 4.5f),
+						25f * 4.5f - MezzUtils.halfSineIn(Math.min((weapon.getChargeLevel() - 0.85f) / 0.1f, 1f)) * 25f * 4.5f),
 					weapon.getCurrAngle(),
 					new Color(93, 0, 255, 70),
 					true
