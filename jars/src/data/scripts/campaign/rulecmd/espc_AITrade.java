@@ -38,7 +38,7 @@ import com.fs.starfarer.api.util.Misc.Token;
  */
 public class espc_AITrade extends BaseCommandPlugin {
 	
-	private final float MIN_REP_EXCHANGE = 15f;
+	private final float MIN_REP_EXCHANGE = 12f;
 	
 	private final float ALPHA_REP_VAL = 8f;
 	private final float BETA_REP_VAL = 5f;
@@ -53,34 +53,37 @@ public class espc_AITrade extends BaseCommandPlugin {
 	private final Map<String, Integer> hullMap;
 	{
     	hullMap = new HashMap<String, Integer>();
-    	hullMap.put("espc_flagbearer", 15);
-    	hullMap.put("espc_songbird", 8);
-    	hullMap.put("espc_jackalope", 6);
-    	hullMap.put("espc_rondel", 5);
-    	hullMap.put("espc_opossum", 5);
+    	hullMap.put("espc_flagbearer", 8);
+    	hullMap.put("espc_songbird", 5);
+    	hullMap.put("espc_jackalope", 3);
+    	hullMap.put("espc_rondel", 3);
+    	hullMap.put("espc_opossum", 3);
     	
-    	hullMap.put("espc_militia", 5);
-    	hullMap.put("espc_ember", 8);
+    	hullMap.put("espc_militia", 3);
+    	hullMap.put("espc_ember", 3);
     	
-    	hullMap.put("espc_pilgrim", 15);
-    	hullMap.put("espc_observer", 15);
-    	hullMap.put("espc_chorale", 15);
+    	hullMap.put("espc_pilgrim", 8);
+    	hullMap.put("espc_observer", 8);
+    	hullMap.put("espc_chorale", 8);
+    	
+    	hullMap.put("espc_amanuensis", 12);
 	}
 	
 	private final Map<String, Integer> weaponMap;
 	{
     	weaponMap = new HashMap<String, Integer>();
-    	weaponMap.put("espc_minimir", 5);
-    	weaponMap.put("espc_minimirdual", 8);
-    	weaponMap.put("espc_remdriver", 8);
-    	weaponMap.put("espc_remmortar", 8);
-    	weaponMap.put("espc_finnegan", 8);
-    	weaponMap.put("espc_mkl", 15);
-    	weaponMap.put("espc_gatling", 12);
+    	weaponMap.put("espc_minimir", 3);
+    	weaponMap.put("espc_minimirdual", 4);
+    	weaponMap.put("espc_remdriver", 4);
+    	weaponMap.put("espc_remmortar", 4);
+    	weaponMap.put("espc_finnegan", 4);
+    	weaponMap.put("espc_mkl", 6);
+    	weaponMap.put("espc_gatling", 6);
+    	weaponMap.put("espc_flak", 6);
     	
-    	weaponMap.put("espc_fission", 10);
+    	weaponMap.put("espc_fission", 8);
     	weaponMap.put("espc_riftspear", 8);
-    	weaponMap.put("espc_riftpike", 15);
+    	weaponMap.put("espc_riftpike", 12);
 	}
 	
 	protected CampaignFleetAPI playerFleet;

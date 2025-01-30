@@ -1,4 +1,10 @@
 {
+	# for folks looking in here for a run-down on relations
+	# tl;dr: anti-hierarchical, egalitarian, anti-capitalist. secretly accelerationist! hence the automated shenanigans
+	# while most who adhere their philosophy advocate a kinder approach, the head of state is more willing to let it all burn for the sake of a better world
+	# not necessarily technocratic, but their progressive approach aligns them somewhat with those factions
+	# more ideological/spiritual than one might expect - many agreeances with luddic philosophy, even, if not for AI personhood
+	
     "playableFaction":true,
     "corvusCompatible":true,
     # "noSyncRelations":false,
@@ -22,28 +28,28 @@
 		"default":-0.2,
 		"player":-0.1,		
 		"independent":0.0,					
-		"pirates":-0.5,						# diplomatic profile is actually quite close to pirates. we're still out ruining lives, just not for our own gain :)
+		"pirates":-0.5,						# diplomatic profile is actually quite close to pirates. still out ruining lives, just not for personal gain :)
 		"persean":-0.15,					# actually align with Heg more in many ways, if it weren't for the whole A.I. thing.
 		"tritachyon":-0.2,					
-		"hegemony":-0.25,					# currently flying under the radar, things are bound to sour soon.
+		"hegemony":-0.2,					# funny situation here.  what the pact does with ai is infinitely more benign than tritach, but appearances must be maintained - for the time being, anyway!
 
 		"lions_guard":-0.4,				
 		"sindrian_diktat":-0.4,				# blatant totalitarian state that doesn't care for its people.  also small enough to pick on lol lmao
 
 		"luddic_church":-0.2,				# for obvious reasons.
 		"knights_of_ludd":-0.2,				
-		"luddic_path":-0.9,					# it's me, the anti-ludd!
+		"luddic_path":-0.8,					# it's me, the anti-ludd!
 		
 		"remnant":1.0,						# my only friends are computers.
 		"derelict":0.8,						# ditto
-		"omega":-0.5,						# intrigue! wiggles fingers
+		"omega":-0.6,						# intrigue! wiggles fingers
 		
 		# lotta guesswork going on here, there's so many goddamn mods this is what i get for popping in so late
 		# feel free to yell at me if any of this doesn't seem right.
 		"al_ars":0.0,
 		"apex_design":0.1,
 		"blackrock_driveyards":-0.1,		
-		"blade_breakers":-0.5,		
+		"blade_breakers":-0.6,		
 		"brighton":-0.15,	
 		"cabal":-0.6,
 		"COPS":-0.25,
@@ -77,8 +83,9 @@
 		"templars":-0.6,
 		"tiandong":0.0,						
 		"the_cartel":-0.5,	
-		"uaf":-0.25,
+		"uaf":-0.2,
 		"unitedpamed":0.0,
+		"vic":-0.15,
 		"xhanempire":-0.6,
 		
 		"neutrinocorp":-0.1,
@@ -115,12 +122,11 @@
 		"remnant": 0.0,
 	},
 	
-	
     "alignments":{	
         "technocratic":0.5,
 		# "diplomatic":0.0, 
         "ideological":0.5,
-		"corporate":-0.5,
+		"corporate":-1.0,
 		# "militarist":0.0,
 		"hierarchial":-1.0,
     },
@@ -132,7 +138,7 @@
 	"invasionOnlyRetake":true,			# no expansion!
 	
 	"invasionPointMult":1.0,			
-	"invasionStrengthBonusAttack":1.0,
+	"invasionStrengthBonusAttack":1.0,	
 	"invasionStrengthBonusDefend":1.0,	
 	
     "groundBattleSettings":{

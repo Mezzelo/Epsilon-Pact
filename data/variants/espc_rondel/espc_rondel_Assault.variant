@@ -4,7 +4,7 @@
   "displayName": "Assault",
   "goalVariant": true,
   "fluxCapacitors": 10,
-  "fluxVents": 6,
+  "fluxVents": 5,
   "quality": 1,
   "permaMods": [],
   "hullMods": [
@@ -23,7 +23,7 @@
       "autofire": true,
       "mode": "LINKED",
       "weapons": {
-        "WS 002": "lightmg"
+        "WS 002": "vulcan"
       }
     }
   ],

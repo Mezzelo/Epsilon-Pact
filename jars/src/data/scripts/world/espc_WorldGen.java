@@ -56,7 +56,7 @@ public class espc_WorldGen implements SectorGeneratorPlugin {
         faction.setRelationship(Factions.PIRATES, -0.5f);
         faction.setRelationship(Factions.PERSEAN, -0.15f);
         faction.setRelationship(Factions.TRITACHYON, -0.2f);
-        faction.setRelationship(Factions.HEGEMONY, -0.25f);
+        faction.setRelationship(Factions.HEGEMONY, -0.2f);
         
         faction.setRelationship(Factions.DIKTAT, -0.4f);
         faction.setRelationship(Factions.LIONS_GUARD, -0.4f);
@@ -70,6 +70,7 @@ public class espc_WorldGen implements SectorGeneratorPlugin {
         faction.setRelationship(Factions.OMEGA, -0.5f);
         
         // feel free to lmk if you think any of these are off this is more or less best judgment over cursory knowledge
+        // see the nex json for some quick pointers on faction philosophy
         faction.setRelationship("al_ars", 0.0f);
         faction.setRelationship("apex_design", 0.1f);
         faction.setRelationship("blackrock_driveyards", -0.1f);
@@ -110,6 +111,7 @@ public class espc_WorldGen implements SectorGeneratorPlugin {
         faction.setRelationship("SCY", 0f);
         faction.setRelationship("sylphon", 0.05f);
         faction.setRelationship("uaf", -0.2f);
+        faction.setRelationship("vic", -0.15f);
         faction.setRelationship("unitedpamed", 0.0f);
         faction.setRelationship("xhanempire", -0.6f);
     }

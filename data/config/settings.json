@@ -17,6 +17,11 @@
             "espc_nola":"graphics/portraits/espc_nola.png",
             "espc_nola_young":"graphics/portraits/espc_nola_young.png",
             "espc_anyiwo":"graphics/portraits/espc_anyiwo.png",
+            "espc_alma":"graphics/portraits/espc_alma.png",
+            "espc_carl":"graphics/portraits/espc_carl.png",
+            "espc_ken":"graphics/portraits/espc_ken.png",
+            "espc_lindsay":"graphics/portraits/espc_lindsay.png",
+            "espc_sien":"graphics/portraits/espc_sien.png",
         },
 		"fx":{
             "espc_trail_hard":"graphics/fx/espc_trail_hard.png",

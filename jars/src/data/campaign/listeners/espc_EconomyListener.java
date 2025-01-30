@@ -18,6 +18,8 @@ import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.*;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.characters.PersonAPI;
+import com.fs.starfarer.api.impl.campaign.ids.Factions;
+import com.fs.starfarer.api.impl.campaign.ids.Submarkets;
 import com.fs.starfarer.api.util.Misc;
 import com.fs.starfarer.api.util.WeightedRandomPicker;
 
@@ -53,7 +55,7 @@ public class espc_EconomyListener extends BaseCampaignEventListener {
 			return;
 		
 		if (!Global.getSector().getMemoryWithoutUpdate().getBoolean("$espcAnyiwoCores") &&
-			Global.getSector().getMemoryWithoutUpdate().getInt("$espcBetaCores") > 2)
+			Global.getSector().getMemoryWithoutUpdate().getInt("$espcBetaCores") > 1)
 			Global.getSector().getMemoryWithoutUpdate().set("$espcAnyiwoCores", true);
 		
 		PersonAPI isabelle = Global.getSector().getImportantPeople().getPerson("espc_isabelle");
@@ -77,16 +79,24 @@ public class espc_EconomyListener extends BaseCampaignEventListener {
 					if (!market.getFactionId().equals("epsilpac")) {
 						if (market.getAdmin().getId().equals("espc_anlo"))
 							market.setAdmin(null);
-					}
-				} else {
-					if (!market.getAdmin().getId().equals("espc_anlo") && 
+					} else if (!market.getAdmin().getId().equals("espc_anlo") && 
 						Global.getSector().getImportantPeople().getPerson("espc_anlo") != null)
 						market.setAdmin(Global.getSector().getImportantPeople().getPerson("espc_anlo"));
-				}
+				} 
 				if (market.getFactionId().equals("epsilpac") && market != isabelle.getMarket()) {
 					marketPicker.add(market);
 				}
-			}
+			} 
+			/* else if (market.getFactionId().equals("epsilpac")) {
+				if (market.hasSubmarket(Submarkets.SUBMARKET_OPEN)) {
+					market.addSubmarket("espc_open_market");
+					market.removeSubmarket(Submarkets.SUBMARKET_OPEN);
+				}if (market.hasSubmarket(Submarkets.SUBMARKET_BLACK)) {
+					market.addSubmarket("espc_black_market");
+					market.getSubmarket("espc_black_market").setFaction(Global.getSector().getFaction(Factions.PIRATES));
+					market.removeSubmarket(Submarkets.SUBMARKET_BLACK);
+				}
+			} */
 		}
 		
 		if (marketPicker.isEmpty()) {

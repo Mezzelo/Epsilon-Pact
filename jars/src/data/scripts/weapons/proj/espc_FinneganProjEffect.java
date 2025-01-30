@@ -42,13 +42,12 @@ public class espc_FinneganProjEffect implements OnHitEffectPlugin {
 			0f,
 			false,
 			false,
-			engine
+			proj.getWeapon() != null ? proj.getWeapon() : engine
 		);
         CombatUtils.applyForce(target, proj.getVelocity(), speed / BASE_VEL * KNOCKBACK_FORCE);
         
 		Global.getSoundPlayer().playSound(
 			"espc_finnegan_impact",
-			//"riftcascade_rift",
 			1.0f, 0.5f * speed / BASE_VEL * 0.2f, point, Misc.ZERO);
     }
 	

@@ -9,7 +9,7 @@ import com.fs.starfarer.api.util.Misc;
 
 public class espc_Rogue_AI_Population extends BaseHazardCondition implements MarketImmigrationModifier {
 	
-	public static int STABILITY_PENALTY = 3;
+	public static int STABILITY_PENALTY = 4;
 	
 	public void apply(String id) {
 		super.apply(id);

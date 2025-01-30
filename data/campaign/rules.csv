@@ -85,7 +85,7 @@ FireAll EpsilpacIsabelleMain","""No, nothing. You'll have to check again later."
 OR
 ""Looks like we've got a handle on it all ourselves for the moment.""
 OR
-""Nothing for you at the moment, friend. My condolences.""",,
+""Nothing for you at the moment, my friend. My condolences.""",,
 contactNoMissionsSuspended,ContactPreMissionListText,"$mh_count <= 0
 $mHub_contactSuspended score:500
 $id == espc_isabelle score:1000","
@@ -93,7 +93,7 @@ FireAll EpsilpacIsabelleMain","""I was told you are occupied at the moment - if 
 OR
 She shakes her head. ""I won't have anything open for you, until you can confirm you'll be available.""
 OR
-""Are you not busy? Let me know if you're free, and I'll have more available for you.""",,
+""Are you not busy? Let me know when you're free, I'll have more available for you then.""",,
 contactAddMhubCloseOptionNothing,AddMHCloseOption,"$mh_count <= 0
 $id == espc_isabelle score:1000","SetShortcut mh_close ""ESCAPE""
 FireAll EpsilpacIsabelleMain",,"1000:mh_close:""Maybe next time.""",
@@ -122,19 +122,19 @@ EpsilpacIsabelleGreetingInhospitable,PickGreeting,"$id == espc_isabelle score:25
 RepLTE epsilpac INHOSPITABLE score:1000","ShowPersonVisual
 FireAll EpsilpacIsabelleMain","Your communications request hangs for a good few minutes, before audio suddenly feeds through. After verifying your identity, the comm-link connects you to Isabelle.
 
-Her eyes scan you down before she speaks, curtly. ""State your business.""",,
+She gazes you over before she speaks. ""State your business.""",,
 EpsilpacIsabelleGreetingNonEpsilpac,PickGreeting,"$id == espc_isabelle score:2500
 $faction.id != epsilpac score:2000","ShowPersonVisual
 FireAll EpsilpacIsabelleMain","Your communications request hangs for a good few minutes, before audio suddenly feeds through. After verifying your identity, the comm-link connects you to Isabelle.
 
-Her eyes scan you down before she speaks, curtly. ""State your business.""",,
+She gazes you over before she speaks. ""State your business.""",,
 EpsilpacIsabelleGreetingSuspicious,PickGreeting,$id == espc_isabelle score:2500,"ShowPersonVisual
-FireAll EpsilpacIsabelleMain","You're left waiting for a slightly uncomfortable period of time, before audio suddenly feeds through. After verifying your identity, the comm-link connects you to Isabelle.
+FireAll EpsilpacIsabelleMain","Your communications request hangs for a minute before Isabelle appears, turning to face you.
 
-She peers up at the feed, answering with a grin. ""Good day, captain. What is it that you need of me?""",,
+""Hello, captain. What business might you have with us?""",,
 EpsilpacIsabelleGreetingFriendly,PickGreeting,"$id == espc_isabelle score:2500
-RepGTE epsilpac WELCOMING score:500
-espc_RulesUtil relationGT 25","ShowPersonVisual
+RepGTE epsilpac FAVORABLE score:500
+espc_RulesUtil relationGT 15","ShowPersonVisual
 FireAll EpsilpacIsabelleMain","As always, your comms request is left ignored for a suitably aggravating duration before Isabelle finally responds.
 
 Her grin is ever-present as she greets you. ""Good to see you, captain.""",,
@@ -156,9 +156,9 @@ aiCoresEpsilpac_turnInIsabelleTutorial2,DialogOptionSelected,$option == aiCoresE
 
 Some choose to serve with our fleets, some settle down in our systems, some request a ship and head off-world. Better than whatever Kazeron or HEGCOM might do, no?""",0:aiCoresEpsilpac_turnInIsabelleTutorial3:Continue.,
 aiCoresEpsilpac_turnInIsabelleTutorial3,DialogOptionSelected,$option == aiCoresEpsilpac_turnInIsabelleTutorial3,"SetTextHighlights ""Bring them to me for hull blueprints"" ""Gauss on Tocquiera for weapon blueprints""
-$global.espcCoreTutorial = true","""Bring us cores and we'll be willing to open up our markets - you're working with us. Do this enough, and we'll be willing to offer our technology in exchange.
+$global.espcCoreTutorial = true","""Bring us cores and we'll be willing to open up our markets - you're working with us. Do this enough, and we'll offer some of our technology in exchange.
 
-Bring them to me for hull blueprints, or to Gauss on Tocquiera for weapon blueprints. Sound good?"" She stows her datapad as she finishes.","0:aiCoresEpsilpac_turnInIsabelleTutorial4:""Do you offer more for Beta and Alpha cores?""
+Deliver them my way for hull blueprints, or to Gauss on Tocquiera for weapon blueprints. Sound good?"" She stows her datapad as she finishes.","0:aiCoresEpsilpac_turnInIsabelleTutorial4:""Do you offer more for Beta and Alpha cores?""
 10:aiCores_startTurnIn:Nod. You understand.",
 aiCoresEpsilpac_turnInIsabelleTutorial4,DialogOptionSelected,$option == aiCoresEpsilpac_turnInIsabelleTutorial4,,"""Officially, no. It's not good for us to prioritize the lives of some over others, for factors that tend to prove irrelevant to their livelihoods."" She pauses for a moment.
 
@@ -179,11 +179,11 @@ bpsEpsilpac_turnInResponseIsabelle,epsilpacBlueprintsExchanged,$id == espc_isabe
 epsilpacIsabelle_ConactOffer,DialogOptionSelected,"$id == espc_isabelle score:2500
 $option == cutCommLinkPolite
 RepGTE epsilpac WELCOMING score:500
-espc_RulesUtil relationGT 14 score:500
+espc_RulesUtil relationGT 5 score:500
 !$global.espcIsabelleContactOffered","AddPotentialContact
-$global.espcIsabelleContactOffered = true","Isabelle addresses you before she moves to cut off her comm link. ""$playerFirstName, you've proven yourself useful to our cause - and us to yours, I imagine.
+$global.espcIsabelleContactOffered = true","Isabelle addresses you before she moves to cut off her comm link. ""$playerFirstName, you've proven yourself useful to our cause - and us to yours, I trust.
 
-I'm providing you my cryptokey - it'd be beneficial for our arrangement continue in a less passive manner."" With your keys exchanged, the comm link fades.",epsilpacIsabelle_ConactOfferEnd:Continue,
+I'm providing you my cryptokey. It'd be beneficial for our arrangement continue in a more pro-active manner."" With her key sent, the comm link fades.",epsilpacIsabelle_ConactOfferEnd:Continue,
 epsilpacIsabelle_ConactOfferEnd,DialogOptionSelected,$option == epsilpacIsabelle_ConactOfferEnd,"ShowDefaultVisual
 EndConversation",,,
 ,,,,,,
@@ -205,7 +205,7 @@ FireAll EpsilpacGaussMain","The comm-link connects almost immediately, but head 
 She finally pokes her head into the comms-feed. ""Yes, hello. How might I help you, captain?""",,
 EpsilpacGaussGreetingFriendly,PickGreeting,"$id == espc_gauss score:2500
 RepGTE epsilpac WELCOMING score:500
-espc_RulesUtil relationGT 25","ShowPersonVisual
+espc_RulesUtil relationGT 20","ShowPersonVisual
 FireAll EpsilpacGaussMain","The comms-feed opens to Gauss, busy working away on some sort of apparatus. She places her tools down as she turns to the feed.
 
 ""Hey, cap. How can I help?""",,
@@ -329,12 +329,12 @@ espc_RulesStory spawnAnyiwo","""I go by Anyiwo. I'm sure it's been conveyed as m
 
 Its visage shifts in indescribable ways, rippling the feed crepusculent as it finishes speaking.
 
-""-thank you. It's good to have this chance. At it all.""",0:epsilpacAnyiwoIntro6:Continue.,
+""-thank you. It's good to have this chance.""",0:epsilpacAnyiwoIntro6:Continue.,
 epsilpacAnyiwoIntro6,DialogOptionSelected,$option == epsilpacAnyiwoIntro6,"AddPotentialContact espc_anyiwo
 HideSecondPerson
 FireAll EpsilpacGaussMain","Gauss chimes in. ""Anyiwo's helping me run acquisitions here. It's been great to have a helping hand here - we're always short on staff.""
 
-The core's feed closes, as it returns to its duties. ""I'll drop their key for you, if you're looking for some extra work. Again, everything helps. Now, let's get to business.""",,
+The core's feed closes, as it returns to its duties. ""I'll drop their cryptokey for you, if you're looking for some extra work. Again, everything helps! But for now, let's get to business.""",,
 ,,,,,,
 charEpsilpacAnyiwoRejected,PickGreeting,$id == espc_anyiwo score:1000,"SetShortcut cutCommLink ""ESCAPE""","Your communications request is denied almost instantaneously. You tap again to ensure it went through, only for it to bounce off once more.",0:cutCommLink:Cut the comm link,
 charEpsilpacAnyiwoGreeting,PickGreeting,"$id == espc_anyiwo score:1000
@@ -637,7 +637,7 @@ CMSNResignCancelled_epsilpac,CMSNResignCancelled,$faction.id == epsilpac,,"""You
 ,,,,,,
 # Relationship,,,,,,
 repLevelNeutralEpsilpac,RelationshipLevelDesc,"$faction.rel == NEUTRAL
-$faction.id == epsilpac",,"The Pact considers you unaligned as far as their interests go, and will allow you to operate in their space - but they won't hesitate to find a reason to turn you away at their earliest inconvenience.",,
+$faction.id == epsilpac",,"The Pact considers you unaligned as far as their interests go and allow you to operate in their space, but they won't hesitate to find a reason to turn you away at their earliest inconvenience.",,
 repLevelFavorableEpsilpac,RelationshipLevelDesc,"$faction.rel == FAVORABLE
 $faction.id == epsilpac",,"You have ingratiated yourself to the Pact's aims somewhat, and for it they're more willing to conduct business with you. Your aims are considered benign enough for the time being.",,
 repLevelWelcomingEpsilpac,RelationshipLevelDesc,"$faction.rel == WELCOMING
@@ -647,7 +647,7 @@ $faction.id == epsilpac",,"To most in the Pact, you might as well be one of them
 repLevelCooperativeEpsilpac,RelationshipLevelDesc,"$faction.rel == COOPERATIVE
 $faction.id == epsilpac",,"You have done much to aid the Pact in one way or another, and for it they seek to help you wherever they can in return.",,
 repLevelSuspiciousEpsilpac,RelationshipLevelDesc,"$faction.rel == SUSPICIOUS
-$faction.id == epsilpac",,"The Pact has many enemies in the sector, and considers you possibly aligned with one of many hostile polities as a precaution. Conducting business with them won't be easy, but they'll allow it if the effort is put in.",,
+$faction.id == epsilpac",,"The Pact has many enemies in the sector, and considers you possibly aligned with one of many hostile polities as a precaution. You may conduct business in their space, but only just.",,
 repLevelInhospitableEpsilpac,RelationshipLevelDesc,"$faction.rel == INHOSPITABLE
 $faction.id == epsilpac",,"You have demonstrated yourself to be at odds with the Pact's aims. Whenever you cross paths, the charging weapons of their nearby fleets make it abundantly clear they would rather have you elsewhere.",,
 repLevelVengefulEpsilpac,RelationshipLevelDesc,"$faction.rel == VENGEFUL
@@ -678,3 +678,21 @@ AddText ""An overwhelming experience for most, some of the local tribes offer th
 ,,,,,,
 ,,,,,,
 #END MarketFlavourText,,,,,,
+,,,,,,
+,,,,,,
+epsilHistorianBackstoryBlurb1,HistorianBackstoryBlurb,!WasHistorianBlurbShown epsilhistoryBlurb1,SetHistorianBlurbShownAfterDelay epsilhistoryBlurb1,"""Tocquiera? Or, what it's known to us by now. Its original name under the Domain has, regrettably, become obscured beneath a wealth of fractured mythos and tradition. An interesting story, perhaps one better suited for an anthropologist - although"", $heOrShe muses, nodding $hisOrHer head, ""the circumstances leading to such a question would lie well uner my purview, yes."" $HeOrShe clasps $hisOrHer hands together. ""Why no gate, for a colony so valuable and so distant?""
+
+The historian instinctively begins to raise $hisOrHer arm, as if to call upon an eager answer, before waving in rhetorical motion.
+
+""It's self-evident, isn't it? Especially now, given the autarky-capable nature of its present governance - a planet so self-sufficient is more able to make demands, grounds ripe for dissent. And so with hyperspace transport as a sole lifeline, the Domain may keep those elements well in check. The contract here is plainly implied.""
+
+""Of course, this ended up being no empty threat. In its dying throes, the Domain doles out a punitive measure to the distant colony and all like it."" $HeOrShe grimaces, underscoring the irony. ""A cruel calculus of control, laid so bare. Is it any wonder that, to this day, its ancestors refuse a foreign banner?""",,
+epsilHistorianBackstoryBlurb2,HistorianBackstoryBlurb,!WasHistorianBlurbShown epsilhistoryBlurb2,SetHistorianBlurbShownAfterDelay epsilhistoryBlurb2,"""Nola Ganymede. A fascinating figure, one shrouded in mystery even to those in power, their eyes and ears everywhere and yet blind and deaf to a person so important. As you can imagine, a favorite kind of figure for those of my profession."" $HeOrShe chuckles, as though to commiserate with $hisOrHer own. ""What could a humble itinerant archaeologist know of someone like that?""
+
+""Though so representative of the present, perhaps of a future she might wish to see to fruition, history's patterns are inevitable. Try as some may wish, there's no escaping those."" The historian shakes $hisOrHer head. ""None of us can, truly.""
+
+Resting $hisOrHer arm on the countertop, $heOrShe mimes revealing face-down cards; a tarot of historical precedents. ""The warrior-king - queen, in this case - noble and oft-reluctant, whose virtue upon the field is accepted as virtue upon the throne, whose inevitable crisis of succession rarely honors their wishes.""
+
+""The triumvirate; a locus of power and expertise, upon which all machinations live, and inevitably die. And the federation, the city-state; bastions of commerce and culture, defiant in the face of dominion... a governance long lost to the grand scale of the Domain.""
+
+""A bold vision for the future they hold, indeed."" $HeOrShe stares down, a finger tapping on the countertop - perhaps, in her mind, upon one of those cards.",,

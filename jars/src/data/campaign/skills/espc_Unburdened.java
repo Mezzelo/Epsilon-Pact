@@ -62,7 +62,7 @@ public class espc_Unburdened {
 						continue;
 					ShipAPI check = (ShipAPI) entity;
 					if (check.getOwner() == ship.getOwner() && ship.getOwner() < 100 && !check.isFighter() && check.getFleetMember() != null &&
-						!check.isPhased() && !check.getFluxTracker().isOverloaded() &&
+						!check.isPhased() && !check.getFluxTracker().isOverloaded() && !check.isRetreating() &&
 						check.getHitpoints() < lowestHull && check.getHullLevel() < MIN_TARGET_THRESHOLD/100f) {
 						target = check;
 						lowestHull = check.getHitpoints();

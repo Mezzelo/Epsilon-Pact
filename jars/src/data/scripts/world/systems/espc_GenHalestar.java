@@ -23,7 +23,7 @@ public class espc_GenHalestar implements SectorGeneratorPlugin
         StarSystemAPI system = sector.createStarSystem("espc_halestar");
         system.setBaseName("Halestar");
 
-        system.getLocation().set(-22800, 10205);
+        system.getLocation().set(-23300, 7205);
         // system.setBackgroundTextureFilename("graphics/backgrounds/background2.jpg");
         // system.setBackgroundTextureFilename("graphics/backgrounds/background5.jpg");
         PlanetAPI systemStar = system.initStar("espc_halestar_star", StarTypes.WHITE_DWARF, 200f, 300f);

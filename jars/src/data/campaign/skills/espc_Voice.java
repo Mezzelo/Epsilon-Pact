@@ -17,7 +17,7 @@ import com.fs.starfarer.api.impl.campaign.ids.Stats;
 public class espc_Voice {
 	
 	public static int SUPPLY_BONUS = 1;
-	public static int STABILITY_BONUS = 6;
+	public static int STABILITY_BONUS = 5;
 	
 	public static class Level1 implements CharacterStatsSkillEffect {
 		public void apply(MutableCharacterStatsAPI stats, String id, float level) {

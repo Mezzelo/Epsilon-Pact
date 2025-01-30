@@ -20,7 +20,7 @@ public class espc_DamageListener implements DamageDealtModifier {
 	private static final float MINIMIR_ARMOR_PERCENT_MED = 1.0f;
 	
     public static final float FIS_PROJ_DAMAGE_FRACTION = 3f;
-    public static final float FLAK_BONUS_DAMAGE = 250f;
+    public static final float FLAK_BONUS_DAMAGE = 120f;
 
     @Override
     public String modifyDamageDealt(Object proj, CombatEntityAPI targ, DamageAPI damage, Vector2f point, boolean shieldHit) {

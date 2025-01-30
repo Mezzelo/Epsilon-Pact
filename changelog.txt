@@ -17,14 +17,20 @@ Rondel (all variants)
 - Deceleration 70 > 125
 
 Jackalope (all variants)
+- FP 5 > 6
 - Self-recoil effect from firing large and medium weapons reduced by 20%
 	- LP Jackalope recoil unchanged lol
 - Acceleration 100 > 150, deceleration 50 > 85
+- Flux Capacity 2500 > 3000
+- Dissipation 140 > 160
 
 Songbird (all variants)
 - FP 10 > 9
 - Flux Capacity 3000 > 4000
-- Dissipation 140 > 160
+- Dissipation 250 > 275
+
+Songbird (TT)
+- Delicate Machinery built-in hullmod added
 
 Opossum
 - FP 4 > 5
@@ -110,6 +116,7 @@ Auto Scattershot
 
 Heavy Gatling
 - OP 26 > 24
+- Damage/shot 80 > 90
 - Flux/shot 56 > 60
 
 Half-Rift Pike
@@ -117,7 +124,8 @@ Half-Rift Pike
 
 
 World-gen changes (non-random sector):
-All pact colonies have the AI Sub-Population planetary condition, which permutates into Rogue AI Population if conquered via Nexerelin.  Consider saturation bombardment.
+- Star systems (Khemsala & Tocquiera) shifted south and slightly west to resolve conflicts with Kemet/The Crown Constellation
+- Lunron Saba and Bruniel given the the AI Sub-Population planetary condition, which permutates into Rogue AI Population if conquered via Nexerelin.  Consider saturation bombardment.
 Lunron Saba
 - Heavy Batteries added, replacing Ground Defenses
 - Heavy Industry moved here, from Bruniel
@@ -130,14 +138,22 @@ Tocquiera
 - Dealmaker Holosuite removed
 - Administrator given a unique skill
 	- If using Nexerelin, unique administrator leaves colony if Tocquiera is conquered, and returns only if Pact regains control
-- Nexus contruction feature removed: Pact Derelicts spawning in derelict fleets feels impactful enough to me.
+
+- Nexus contruction feature removed: Pact Derelicts spawning in derelict fleets feels impactful enough.
 - Reputation gain from turning in AI cores capped, both with faction & the contacts you turn cores over to.
+- Reputation cost for purchasing blueprints roughly halved across the board.
+- Personal reputation requirement required to gain Isabelle as a contact reduced from 14 > 5.
 
 - All ship variants revised to account for balance changes to hulls & weapons, several altered for balance some rather situational variants added/removed.
-- Phased out some weapons from Pact markets & variants; most notably railguns and hypervelocity drivers.
 - Fissile Confluence Emitter added to the Pact blueprint package.
+- Phased out some weapons from Pact markets & variants; most notably railguns, breach missiles and hypervelocity drivers.
+- Sunder rarity in Pact 1.0 > 0.6, in line with other vanilla hulls; was previously left unset, oops.
+- Hammerhead rarity in Pact 0.3 > 0.6
+- Added single hammer/atropos/sabot to Pact markets.
 - Text revisions all over: typo fixes, proofreading & the like.
-
+- Fixed a handful of crash bugs, including some null checks for important characters.
+- Fixed duplicate markets that appear when markets are conquered.
+- Nexerelin: Corporate leaning shifted from -0.5 to -1.0
 
 Version 0.3.93-RC3
 - fixed a crash when activating the Slamfire ship system without any weapons equipped.

@@ -5,12 +5,14 @@ import java.util.Random;
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.CampaignFleetAPI;
 import com.fs.starfarer.api.campaign.FactionDoctrineAPI;
+import com.fs.starfarer.api.campaign.econ.SubmarketAPI;
 import com.fs.starfarer.api.campaign.FactionAPI.ShipPickMode;
 import com.fs.starfarer.api.combat.ShipHullSpecAPI.ShipTypeHints;
 import com.fs.starfarer.api.fleet.FleetMemberAPI;
 import com.fs.starfarer.api.impl.campaign.fleets.FleetFactoryV3;
 import com.fs.starfarer.api.impl.campaign.fleets.FleetParamsV3;
 import com.fs.starfarer.api.impl.campaign.ids.FleetTypes;
+import com.fs.starfarer.api.impl.campaign.ids.Submarkets;
 import com.fs.starfarer.api.impl.campaign.ids.Tags;
 import com.fs.starfarer.api.impl.campaign.submarkets.OpenMarketPlugin;
 import com.fs.starfarer.api.util.Misc;
@@ -99,5 +101,19 @@ public class espc_PactOpenMarketPlugin extends OpenMarketPlugin {
 			}
 		}
 	}
+	
+    @Override
+    public boolean isHidden()
+    {
+        if (!market.getFactionId().equals("epsilpac")) {
+            if (!market.hasSubmarket("open_market"))
+            	market.addSubmarket("open_market");
+            return true;
+        }
+        
+        if (market.hasSubmarket(Submarkets.SUBMARKET_OPEN))
+        	market.removeSubmarket(Submarkets.SUBMARKET_OPEN);
+        return false;
+    }
 	
 }

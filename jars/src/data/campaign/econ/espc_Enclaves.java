@@ -29,7 +29,7 @@ import com.fs.starfarer.api.util.Pair;
 public class espc_Enclaves extends BaseIndustry implements MarketImmigrationModifier {
 
 	public static float DEFENSE_BONUS_MILITARY = 7f;
-	public static int STABILITY_MOD = -5;
+	public static int STABILITY_MOD = -6;
 	
 	public void apply() {
 		super.apply(true);

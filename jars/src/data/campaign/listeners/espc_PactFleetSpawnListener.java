@@ -65,15 +65,21 @@ public class espc_PactFleetSpawnListener extends BaseCampaignEventListener {
 		Skills.POINT_DEFENSE,
 	};
 	
+	// we need sensitively built variants on this list
+	// - i.e. weapon choices that affect systems, one-off used weapons for remnants/derelicts
+	// only necessary for ships w/out no-autofit tag
 	private String[] variantList = {
 		"espc_observer_Strike",
 		"espc_observer_Suppressive",
 		"fulgent_espc_Assault",
+		"fulgent_Assault",
 		"apex_espc_Assault",
 		"radiant_espc_Assault",
 		"radiant_espc_Attack",
 		// "radiant_espc_Hunter", as funny as this one is, more interesting to let the game autofit this one.
 		"radiant_espc_Strike",
+		"nova_espc_Assault",
+		"nova_espc_Strike",
 		"espc_observer_Assault",
 		"sunder_espc_Strike",
 		"sunder_espc_Support",
@@ -93,6 +99,14 @@ public class espc_PactFleetSpawnListener extends BaseCampaignEventListener {
 		"espc_rampart_Support",
 		"espc_rampart_Assault",
 	};
+	
+	private String[] portraitList = {
+			"alma",
+			"carl",
+			"ken",
+			"lindsay",
+			"sien",
+		};
 	
 	@Override
 	public void reportFleetSpawned(CampaignFleetAPI fleet) {
@@ -177,9 +191,9 @@ public class espc_PactFleetSpawnListener extends BaseCampaignEventListener {
 						coreType = 3;
 					else
 						coreType = 1;
-					
+
+					person.setPortraitSprite("graphics/portraits/portrait_ai" + coreType + "b.png");
 					// if (Misc.random.nextFloat() > 0.5f)
-						person.setPortraitSprite("graphics/portraits/portrait_ai" + coreType + "b.png");
 					// else
 					// 	person.setPortraitSprite("graphics/portraits/portrait_ai" + coreType + ".png");
 					
@@ -188,6 +202,10 @@ public class espc_PactFleetSpawnListener extends BaseCampaignEventListener {
 						if (Misc.random.nextFloat() > 0.7f)
 							name.setFirst(name.getLast());
 						name.setLast("");
+						if (Misc.random.nextFloat() > 0.5) {
+							person.setPortraitSprite(Global.getSettings().getSpriteName(
+								"characters", "espc_" + portraitList[Misc.random.nextInt(portraitList.length)]));
+						}
 					} else {
 						name.setLast("Core");
 						if (coreType == 1)
@@ -215,11 +233,11 @@ public class espc_PactFleetSpawnListener extends BaseCampaignEventListener {
 	
 	private void adjustSkills(PersonAPI person, FleetMemberAPI fleetMember) {
 		int sparePoints = 0;
-		int rand = Misc.random.nextInt(blacklistedSkills.length - 1);
+		int rand = Misc.random.nextInt(blacklistedSkills.length);
 		for (int i = 0; i < blacklistedSkills.length; i++) {
 			if (person.getStats().getSkillLevel(blacklistedSkills[(rand + i) % blacklistedSkills.length]) > 0) {
 				boolean newAssigned = false;
-				int rand2 = Misc.random.nextInt(whitelistedSkills.length - 1);
+				int rand2 = Misc.random.nextInt(whitelistedSkills.length);
 				
 				if (person.getStats().getSkillLevel(blacklistedSkills[(rand + i) % blacklistedSkills.length]) > 1)
 					sparePoints++;
@@ -241,7 +259,7 @@ public class espc_PactFleetSpawnListener extends BaseCampaignEventListener {
 					}
 				}
 				if (!newAssigned) {
-					rand2 = Misc.random.nextInt(whitelistedSkills.length - 1);
+					rand2 = Misc.random.nextInt(whitelistedSkills.length);
 					for (int g = 0; g < whitelistedSkillsLow.length; g++) {
 						if (person.getStats().getSkillLevel(whitelistedSkillsLow[(rand2 + g) % whitelistedSkillsLow.length]) <= 0) {
 							person.getStats().setSkillLevel(

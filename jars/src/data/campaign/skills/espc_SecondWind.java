@@ -15,7 +15,7 @@ import com.fs.starfarer.api.ui.TooltipMakerAPI;
 
 public class espc_SecondWind {
 	
-	public static float SYSTEM_COOLDOWN = 30f;
+	public static float SYSTEM_COOLDOWN = 20f;
 	public static float OVERLOAD_COOLDOWN = 90f;
 	public static float DISSIPATION_BONUS_OVERLOAD = 2f;
 	public static float OVERLOAD_DURATION = 0.5f;
@@ -35,8 +35,7 @@ public class espc_SecondWind {
 				return;
 			if (ship.getSystem().isActive() && !systemOn && cooldown <= 0f &&
 				(ship.getSystem().getMaxAmmo() > 10000 ||
-				ship.getSystem().getMaxAmmo() > 0 && ship.getSystem().getAmmo() - 1 <
-				ship.getSystem().getMaxAmmo() / 2)) {
+				ship.getSystem().getMaxAmmo() > 0 && ship.getSystem().getAmmo() <= 0)) {
 				systemOn = true;
 			} else if (systemOn && !ship.getSystem().isActive() && !ship.getSystem().isChargedown() &&
 					cooldown <= 0f) {
@@ -110,9 +109,8 @@ public class espc_SecondWind {
 			info.addPara("Once per " + (int)Math.round(SYSTEM_COOLDOWN) + " seconds, instantly refreshes ship system cooldown" + " after it elapses.",
 				0f, hc, hc
 			);
-			info.addPara(indent + "If the ship's system has charges, activates after charges are depleted to %s\n" +
-				"   and restores half the system's maximum charges",
-				0f, tc, hc, "half or less"
+			info.addPara(indent + "If the ship's system has charges, activates when depleted, restoring half the system's maximum charges",
+				0f, tc, hc
 			);
 		}
 		

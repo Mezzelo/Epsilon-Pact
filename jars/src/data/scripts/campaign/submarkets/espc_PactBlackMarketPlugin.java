@@ -10,7 +10,9 @@ import com.fs.starfarer.api.combat.ShipHullSpecAPI.ShipTypeHints;
 import com.fs.starfarer.api.fleet.FleetMemberAPI;
 import com.fs.starfarer.api.impl.campaign.fleets.FleetFactoryV3;
 import com.fs.starfarer.api.impl.campaign.fleets.FleetParamsV3;
+import com.fs.starfarer.api.impl.campaign.ids.Factions;
 import com.fs.starfarer.api.impl.campaign.ids.FleetTypes;
+import com.fs.starfarer.api.impl.campaign.ids.Submarkets;
 import com.fs.starfarer.api.impl.campaign.ids.Tags;
 import com.fs.starfarer.api.impl.campaign.submarkets.BlackMarketPlugin;
 import com.fs.starfarer.api.util.Misc;
@@ -87,4 +89,21 @@ public class espc_PactBlackMarketPlugin extends BlackMarketPlugin {
 			}
 		}
 	}
+	
+    @Override
+    public boolean isHidden()
+    {
+        if (!market.getFactionId().equals("epsilpac")) {
+            if (!market.hasSubmarket(Submarkets.SUBMARKET_BLACK))
+            	market.addSubmarket(Submarkets.SUBMARKET_BLACK);
+            return true;
+        }
+        
+        if (market.hasSubmarket(Submarkets.SUBMARKET_BLACK)) {
+        	market.removeSubmarket(Submarkets.SUBMARKET_BLACK);
+        	if (!this.getSubmarket().getFaction().getId().equals(Factions.PIRATES))
+        		this.getSubmarket().setFaction(Global.getSector().getFaction(Factions.PIRATES));
+        }
+        return false;
+    }
 }

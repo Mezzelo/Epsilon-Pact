@@ -21,7 +21,7 @@ public class espc_GenKhemsala implements SectorGeneratorPlugin
         StarSystemAPI system = sector.createStarSystem("espc_khemsala");
         system.setBaseName("Khemsala");
 
-        system.getLocation().set(-25500, 9500);
+        system.getLocation().set(-26000, 6500);
         // system.setBackgroundTextureFilename("graphics/backgrounds/background2.jpg");
         // system.setBackgroundTextureFilename("graphics/backgrounds/background5.jpg");
         // make star

@@ -77,8 +77,8 @@
 			
 			"omen":0.3,
 			"wolf":0.3,
-			"hammerhead":0.4,
-			"sunder":0.3,
+			"hammerhead":0.6,
+			"sunder":0.6,
 			
 			# "espc_flagbearer":0.7,
 			
@@ -125,7 +125,9 @@
 			"fulgent",
 			"scintilla",
 			"brilliant",
+			"apex",
 			"radiant",
+			"nova",
         ],
     },
 
@@ -213,6 +215,7 @@
 		"weapons":[
 			"vulcan",
 			# "lightmg",
+			# "lightdualmg",
 			"pdlaser",
 			# "lrpdlaser",
 			"pdburst",
@@ -253,14 +256,16 @@
 			"tachyonlance",
 			"guardian",
 			
-			"breach",
+			# "breach",
 			"swarmer",
 			"hammer",
 			"annihilator",
 			# "sabot",
-			# "sabot_single",
+			"sabot_single",
+			"atropos_single",
+			"hammer_single",
 			
-			"sabotpod",
+			# "sabotpod",
 			# "breachpod",
 			# "phasecl",
 			# "typhoon",
@@ -315,6 +320,8 @@
 
 	"weaponSellFrequency":{
 		"vulcan":3,
+		# "lightmg":3,
+		# "lightdualmg":3,
 		"pdlaser":3,
 		"pdburst":3,
 		"flak":3,
@@ -349,15 +356,18 @@
 		"plasma":3,
 		"tachyonlance":3,
 		
-		"breach":3,
+		# "breach":3,
 		"swarmer":3,
 		"hammer":3,
+		"hammer_single":2,
+		"sabot_single":2,
+		"atropos_single":2,
 		"annihilator":3,
 		
-		"sabotpod":3,
+		# "sabotpod":2,
 		# "breachpod":3,
 		# "phasecl":3,
-		"locust":3,
+		"locust":2,
 	
 		"espc_finnegan":10,
 		"espc_minimir":10,
@@ -368,10 +378,10 @@
 		"espc_mkl":10,
 		"espc_flak":10,
 		"espc_gatling":10,
-		"espc_fission":10,
-		"espc_riftspear":10,	
+		"espc_fission":3,
+		"espc_riftspear":3,	
 		# "espc_hcl":10,
-		"espc_riftpike":10,
+		"espc_riftpike":3,
 	},
 	
 	"factionDoctrine":{
@@ -405,7 +415,6 @@
 	"illegalCommodities":[
 		"drugs",
 		"hand_weapons",
-		# "organs",
 		"luxury_goods",
 	],
 
@@ -430,7 +439,6 @@
             "graphics/portraits/espc_gao.png",
             "graphics/portraits/espc_helena.png",
             "graphics/portraits/espc_henrik.png",
-            "graphics/portraits/espc_ilya.png",
             "graphics/portraits/espc_kanden.png",
             "graphics/portraits/espc_lionel.png",
             "graphics/portraits/espc_midas.png",
@@ -457,6 +465,7 @@
             "graphics/portraits/espc_lyra.png",
             "graphics/portraits/espc_helena.png",
             "graphics/portraits/espc_henrik.png",
+            "graphics/portraits/espc_nadia.png",
 			"graphics/portraits/espc_ny.png",
 			"graphics/portraits/espc_phoebe.png",
             "graphics/portraits/espc_raul.png",

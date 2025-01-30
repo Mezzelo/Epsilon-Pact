@@ -103,8 +103,9 @@
 		
 	},
 	"combatLarge":{
-		"espc_chorale_Assault":3,
+		"espc_chorale_Assault":2,
 		"espc_chorale_Elite_Support":3,
+		"espc_chorale_Elite":1,
 		"espc_chorale_Strike":1,
 		"espc_chorale_Support":2,
 		"espc_chorale_Suppressive":1,

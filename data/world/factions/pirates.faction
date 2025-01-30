@@ -19,4 +19,9 @@
 			"espc_as",
 		],
 	},
+
+	"weaponSellFrequency":{
+		"espc_amflamersolo":3,
+		"espc_as":3,
+	},
 },
