@@ -10,6 +10,7 @@
 			"effectBasedOnLevel":false,
 			"effects":[
 				{"type":"SHIP", "script":"data.campaign.skills.espc_DancingSteps$Level1"},
+				{"type":"SHIP", "script":"data.campaign.skills.espc_DancingSteps$Level2"},
 			]
 		},
 		{
@@ -17,7 +18,6 @@
 			"requiredSkillLevel":2,
 			"effectBasedOnLevel":false,
 			"effects":[
-				{"type":"SHIP", "script":"data.campaign.skills.espc_DancingSteps$Level2"},
 				{"type":"SHIP", "script":"data.campaign.skills.espc_DancingSteps$Level3"},
 			]
 		},

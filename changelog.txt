@@ -138,22 +138,26 @@ Tocquiera
 - Dealmaker Holosuite removed
 - Administrator given a unique skill
 	- If using Nexerelin, unique administrator leaves colony if Tocquiera is conquered, and returns only if Pact regains control
+- Officers in Pact fleets have access to a unique set of skills alongside the vanilla ones, and utilize a selection algorithm based on hull type.
+	- Pact bounty fleets now use their regular skill selection as opposed to before, where it was genericized.
+	- Officers in missions reworked to incorporate new skills
+- Officers (including mercenary officers) that spawn on Pact markets always use these skills.
 
-- Nexus contruction feature removed: Pact Derelicts spawning in derelict fleets feels impactful enough.
+- Nexus contruction feature disabled.
 - Reputation gain from turning in AI cores capped, both with faction & the contacts you turn cores over to.
 - Reputation cost for purchasing blueprints roughly halved across the board.
 - Personal reputation requirement required to gain Isabelle as a contact reduced from 14 > 5.
 
-- All ship variants revised to account for balance changes to hulls & weapons, several altered for balance some rather situational variants added/removed.
+- All ship variants revised to account for balance changes to hulls & weapons, several altered for balance, some rather situational variants added/removed.
 - Fissile Confluence Emitter added to the Pact blueprint package.
-- Phased out some weapons from Pact markets & variants; most notably railguns, breach missiles and hypervelocity drivers.
+- Phased out some weapons from Pact markets & variants; most notably Railguns, Breach missiles and Hypervelocity Drivers.
 - Sunder rarity in Pact 1.0 > 0.6, in line with other vanilla hulls; was previously left unset, oops.
 - Hammerhead rarity in Pact 0.3 > 0.6
 - Added single hammer/atropos/sabot to Pact markets.
 - Text revisions all over: typo fixes, proofreading & the like.
 - Fixed a handful of crash bugs, including some null checks for important characters.
 - Fixed duplicate markets that appear when markets are conquered.
-- Nexerelin: Corporate leaning shifted from -0.5 to -1.0
+- Nexerelin: Corporate leaning shifted from -0.5 to -1.0, diplomatic leaning shifted from 0.0 to -0.5
 
 Version 0.3.93-RC3
 - fixed a crash when activating the Slamfire ship system without any weapons equipped.

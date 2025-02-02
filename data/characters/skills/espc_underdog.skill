@@ -10,7 +10,6 @@
 			"effectBasedOnLevel":false,
 			"effects":[
 				{"type":"SHIP", "script":"data.campaign.skills.espc_Underdog$Level1"},
-				{"type":"SHIP", "script":"data.campaign.skills.espc_Underdog$Level2"},
 			]
 		},
 		{
@@ -18,8 +17,7 @@
 			"requiredSkillLevel":2,
 			"effectBasedOnLevel":false,
 			"effects":[
-				{"type":"SHIP", "script":"data.campaign.skills.espc_Underdog$Level3"},
-				{"type":"SHIP", "script":"data.campaign.skills.espc_Underdog$Level4"},
+				{"type":"SHIP", "script":"data.campaign.skills.espc_Underdog$Level2"},
 			]
 		},
 	],

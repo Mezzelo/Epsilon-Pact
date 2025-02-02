@@ -41,9 +41,9 @@ public class MissionDefinition implements MissionDefinitionPlugin {
 		api.defeatOnShipLoss("ISS Moonrise");
 		
 		EspcOfficerFactory.PopulateSkills(pilot, new String[]{
-			Skills.HELMSMANSHIP, Skills.FIELD_MODULATION, 
+			Skills.HELMSMANSHIP, "espc_dancing_steps", 
 			Skills.BALLISTIC_MASTERY, Skills.TARGET_ANALYSIS, 
-			Skills.SYSTEMS_EXPERTISE, Skills.GUNNERY_IMPLANTS, 
+			"espc_running_hot", "espc_underdog", 
 			Skills.TACTICAL_DRILLS, Skills.COORDINATED_MANEUVERS, 
 			Skills.WOLFPACK_TACTICS, Skills.ORDNANCE_EXPERTISE,
 			Skills.FLUX_REGULATION}, new int[]{

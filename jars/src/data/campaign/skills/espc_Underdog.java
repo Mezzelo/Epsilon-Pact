@@ -62,11 +62,18 @@ public class espc_Underdog {
 			Vector2f point, boolean shieldHit) {
 			
 			if (ship == null) return null;
+			if (ship.getParentStation() != null)
+				ship = ship.getParentStation();
+			
+			if (ship.getFleetMember() == null)
+				return null;
 			
 			if (!(target instanceof ShipAPI))
 				return null;
 			
 			ShipAPI targ = (ShipAPI) target;
+			if (targ.getParentStation() != null)
+				targ = targ.getParentStation();
 			if (targ.isFighter() || targ.getFleetMember() == null)
 				return null;
 			float diff = targ.getFleetMember().getUnmodifiedDeploymentPointsCost() - ship.getFleetMember().getUnmodifiedDeploymentPointsCost();
@@ -82,6 +89,11 @@ public class espc_Underdog {
 		public String modifyDamageTaken(Object param, CombatEntityAPI target, DamageAPI damage, Vector2f point,
 				boolean shieldHit) {
 			if (ship == null) return null;
+			if (ship.getParentStation() != null)
+				ship = ship.getParentStation();
+			
+			if (ship.getFleetMember() == null)
+				return null;
 			
 			if (ship.getMutableStats().getShieldDamageTakenMult().getModifiedValue() * 100f < 100f - DAMAGE_REDUCTION_OTHER_CAP ||
 				ship.getMutableStats().getArmorDamageTakenMult().getModifiedValue() * 100f < 100f - DAMAGE_REDUCTION_OTHER_CAP ||
@@ -97,6 +109,8 @@ public class espc_Underdog {
 			
 			if (source == null)
 				return null;
+			if (source.getParentStation() != null)
+				source = source.getParentStation();
 			if (source.isFighter() || source.getFleetMember() == null)
 				return null;
 			float diff = source.getFleetMember().getUnmodifiedDeploymentPointsCost() - ship.getFleetMember().getUnmodifiedDeploymentPointsCost();
@@ -151,7 +165,7 @@ public class espc_Underdog {
 		}
 	}
 	
-	public static class Level1 implements AfterShipCreationSkillEffect {
+	public static class Level1 extends BaseSkillEffectDescription implements AfterShipCreationSkillEffect {
 		public void applyEffectsAfterShipCreation(ShipAPI ship, String id) {
 			ship.addListener(new UDDamageDealtMod(ship, id));
 		}
@@ -161,27 +175,13 @@ public class espc_Underdog {
 		public void apply(MutableShipStatsAPI stats, HullSize hullSize, String id, float level) {}
 		public void unapply(MutableShipStatsAPI stats, HullSize hullSize, String id) {}
 		
-		public String getEffectDescription(float level) {
-			return "+" + (int)DAMAGE_BONUS_PER_DP + "% damage dealt per DP deficit between ship and target";
-		}
-		
-		public String getEffectPerLevelDescription() {
-			return null;
-		}
-		
-		public ScopeDescription getScopeDescription() {
-			return ScopeDescription.PILOTED_SHIP;
-		}
-	}
-	
-	public static class Level2 extends BaseSkillEffectDescription implements ShipSkillEffect {
-		public void apply(MutableShipStatsAPI stats, HullSize hullSize, String id, float level) {}
-		public void unapply(MutableShipStatsAPI stats, HullSize hullSize, String id) {}
-		
 		public void createCustomDescription(MutableCharacterStatsAPI stats, SkillSpecAPI skill, 
 			TooltipMakerAPI info, float width) {
 		
 			init(stats, skill);
+			info.addPara("+%s damage dealt per DP deficit between ship and target",
+				0f, hc, hc, (int)DAMAGE_BONUS_PER_DP + "%"
+			);
 			info.addPara("-%s damage taken per DP deficit between ship and attacker, up to %s reduction",
 				0f, hc, hc, (int)DAMAGE_REDUCTION_PER_DP + "%", (int)DAMAGE_REDUCTION_CAP + "%"
 			);
@@ -206,7 +206,7 @@ public class espc_Underdog {
 		}
 	}
 	
-	public static class Level3 implements AfterShipCreationSkillEffect {
+	public static class Level2 extends BaseSkillEffectDescription implements AfterShipCreationSkillEffect {
 		public void applyEffectsAfterShipCreation(ShipAPI ship, String id) {
 			ship.addListener(new UDDamageTakenModFighters(ship, id));
 		}
@@ -216,33 +216,23 @@ public class espc_Underdog {
 		public void apply(MutableShipStatsAPI stats, HullSize hullSize, String id, float level) {}
 		public void unapply(MutableShipStatsAPI stats, HullSize hullSize, String id) {}
 		
-		public String getEffectDescription(float level) {
-			return "-" + DAMAGE_REDUCTION_PER_DP_CARRIER + "% damage taken from fighters per DP deficit between ship and carrier,"
-				+ " up to " + (int)DAMAGE_REDUCTION_CARRIER_CAP + "% reduction";
-		}
-		
-		public String getEffectPerLevelDescription() {
-			return null;
-		}
-		
-		public ScopeDescription getScopeDescription() {
-			return ScopeDescription.PILOTED_SHIP;
-		}
-	}
-	
-	public static class Level4 extends BaseSkillEffectDescription implements ShipSkillEffect {
-		public void apply(MutableShipStatsAPI stats, HullSize hullSize, String id, float level) {}
-		public void unapply(MutableShipStatsAPI stats, HullSize hullSize, String id) {}
-		
 		public void createCustomDescription(MutableCharacterStatsAPI stats, SkillSpecAPI skill, 
 			TooltipMakerAPI info, float width) {
 		
 			init(stats, skill);
+			info.addPara("-" + "%s damage taken from fighters per DP deficit between ship and carrier,"
+				+ " up to %s reduction",
+				0f, stats.getSkillLevel(skill.getId()) > 1 ? hc : dhc, stats.getSkillLevel(skill.getId()) > 1? hc : dhc,
+				DAMAGE_REDUCTION_PER_DP_CARRIER + "%",
+				(int)DAMAGE_REDUCTION_CARRIER_CAP + "%"
+			);
 			info.addPara(indent + "Damage reduction past %s is half as effective",
-				0f, tc, hc, (int)DAMAGE_REDUCTION_CARRIER_SOFT_THRESHOLD + "%"
+				0f, stats.getSkillLevel(skill.getId()) > 1 ? tc : dtc, stats.getSkillLevel(skill.getId()) > 1? hc : dhc,
+				(int)DAMAGE_REDUCTION_CARRIER_SOFT_THRESHOLD + "%"
 			);
 			info.addPara(indent + "Does not trigger while the ship has shield, armor or hull damage reduction over %s from another source",
-				0f, tc, hc, (int)DAMAGE_REDUCTION_OTHER_CAP + "%"
+				0f, stats.getSkillLevel(skill.getId()) > 1 ? tc : dtc, stats.getSkillLevel(skill.getId()) > 1? hc : dhc,
+				(int)DAMAGE_REDUCTION_OTHER_CAP + "%"
 			);
 		}
 		

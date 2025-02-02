@@ -71,7 +71,7 @@ public class espc_Enclaves extends BaseIndustry implements MarketImmigrationModi
 	}
 	
 	public void modifyIncoming(MarketAPI market, PopulationComposition incoming) {
-		float bonus = 1f;
+		float bonus = 5f;
 		incoming.getWeight().modifyFlat(getModId(), bonus, getNameForModifier());
 	}
 
@@ -86,7 +86,7 @@ public class espc_Enclaves extends BaseIndustry implements MarketImmigrationModi
 		if (mode != IndustryTooltipMode.NORMAL || isFunctional()) {
 			
 			boolean hasSpeaker = market.getAdmin().getStats().getSkillLevel("espc_voice") > 0;
-			tooltip.addPara("Population growth: %s", 10f, Misc.getHighlightColor(), "+1");
+			tooltip.addPara("Population growth: %s", 10f, Misc.getHighlightColor(), "+5");
 			tooltip.addPara("Stability penalty: %s", 10f, Misc.getNegativeHighlightColor(), "" + STABILITY_MOD);
 			if (hasSpeaker)
 				addGroundDefensesImpactSection(tooltip, DEFENSE_BONUS_MILITARY, 

@@ -66,7 +66,7 @@ public class MissionDefinition implements MissionDefinitionPlugin {
 			"graphics/portraits/espc_isabelle.png", "epsilpac", 4);
 		EspcOfficerFactory.PopulateSkills(pilot, new String[]{
 			Skills.HELMSMANSHIP, Skills.TARGET_ANALYSIS, 
-			Skills.ENERGY_WEAPON_MASTERY, Skills.ORDNANCE_EXPERTISE}, new int[]{
+			"espc_running_hot", Skills.ORDNANCE_EXPERTISE}, new int[]{
 			2, 2, 2, 2});
         member.setCaptain(pilot);
 		
@@ -89,9 +89,9 @@ public class MissionDefinition implements MissionDefinitionPlugin {
 			"graphics/portraits/espc_nola.png", "epsilpac", 12);
 		
 		EspcOfficerFactory.PopulateSkills(pilot, new String[]{
-			Skills.HELMSMANSHIP, Skills.FIELD_MODULATION, 
+			Skills.HELMSMANSHIP, "espc_dancing_steps", 
 			Skills.BALLISTIC_MASTERY, Skills.TARGET_ANALYSIS, 
-			Skills.SYSTEMS_EXPERTISE, Skills.GUNNERY_IMPLANTS, 
+			"espc_running_hot", "espc_underdog", 
 			Skills.TACTICAL_DRILLS, Skills.COORDINATED_MANEUVERS, 
 			Skills.WOLFPACK_TACTICS, Skills.CREW_TRAINING,
 			Skills.ORDNANCE_EXPERTISE, Skills.FLUX_REGULATION}, new int[]{

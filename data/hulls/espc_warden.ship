@@ -35,24 +35,6 @@
       "angle": 0,
       "locations": [21, -24]
     },
-    {
-      "id": "WS0001",
-      "size": "SMALL",
-      "type": "HYBRID",
-      "mount": "HARDPOINT",
-      "arc": 10,
-      "angle": 0,
-      "locations": [20.5, -7.5]
-    },
-    {
-      "id": "WS0002",
-      "size": "SMALL",
-      "type": "UNIVERSAL",
-      "mount": "TURRET",
-      "arc": 253,
-      "angle": 121,
-      "locations": [-4.5, 11.5]
-    }
   ],
   "engineSlots": [
     {

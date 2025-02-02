@@ -4,7 +4,9 @@ package data.campaign.skills;
 import java.util.Iterator;
 import java.util.List;
 
+import org.lazywizard.lazylib.FastTrig;
 import org.lazywizard.lazylib.MathUtils;
+import org.lazywizard.lazylib.VectorUtils;
 import org.lwjgl.util.vector.Vector2f;
 
 import com.fs.starfarer.api.GameState;
@@ -41,6 +43,9 @@ public class espc_DancingSteps {
 	public static float SHIELD_RAISE_BONUS = 75f;
 	public static float ARMOR_DAMAGE_PENALTY = 20f;
 	public static float FIGHTER_DAMAGE_REDUCTION = 15f;
+	
+	public static float DAMAGE_REDUCTION_SHIELD_MAX = 80f;
+	public static float DAMAGE_REDUCTION_SPEED_MAX = 70f;
 	
 	public static int BEAM_UPDATE_RATE = 6;
 	
@@ -121,6 +126,45 @@ public class espc_DancingSteps {
 		}
 
 	}
+	
+	public static class DancingStepsEffectModShield implements DamageTakenModifier {
+		protected ShipAPI ship;
+		protected String id;
+		public DancingStepsEffectModShield(ShipAPI ship, String id) {
+			this.ship = ship;
+			this.id = id;
+		}
+		@Override
+		public String modifyDamageTaken(Object param, CombatEntityAPI target, DamageAPI damage, Vector2f point,
+				boolean shieldHit) {
+			if (!shieldHit || ship == null) return null;
+			
+			float angle = 0f;
+			
+			if (param instanceof DamagingProjectileAPI)
+				angle = (float) Math.toDegrees(FastTrig.atan2(
+					((DamagingProjectileAPI) param).getVelocity().y, ((DamagingProjectileAPI) param).getVelocity().x
+					));
+			else if (param instanceof BeamAPI)
+				angle = VectorUtils.getAngle(((BeamAPI) param).getFrom(), point);
+			else
+				return null;
+			if (Float.isNaN(angle))
+				return null;
+			
+			float angleShip = Math.abs(MathUtils.getShortestRotation((float) Math.toDegrees(FastTrig.atan2(
+				ship.getVelocity().y, ship.getVelocity().x
+			)), angle));
+			
+			angle = Math.abs(MathUtils.getShortestRotation(VectorUtils.getAngle(point, ship.getShieldCenterEvenIfNoShield()), angle));
+			
+			damage.getModifier().modifyPercent(id + "_taken_shield", (90f - Math.abs(angle - 90f))/90f
+				* Math.min(DAMAGE_REDUCTION_SPEED_MAX, ship.getVelocity().length()) / DAMAGE_REDUCTION_SPEED_MAX *
+				(90f - Math.abs(angleShip - 90f))/90f
+				* -DAMAGE_REDUCTION_SHIELD_MAX);
+			return id + "_taken_shield";
+		}
+	}
 
 	public static class DancingStepsEffectModElite implements DamageTakenModifier {
 		protected ShipAPI ship;
@@ -185,9 +229,6 @@ public class espc_DancingSteps {
 			info.addPara(indent + "Max effect when there is half of current hull's worth of enemy fire within %s",
 				0f, tc, hc, (int)HOSTILE_RANGE + " su"
 			);
-			info.addPara("%s su/second to top speed when shields are down, on ships with shields",
-					0f, hc, hc, "+" + (int)SPEED_BONUS_NO_SHIELD
-				);
 			/*
 			info.addPara("+%s armor damage taken",
 				0f, Misc.getNegativeHighlightColor(), Misc.getNegativeHighlightColor(), (int)ARMOR_DAMAGE_PENALTY + "%"
@@ -203,19 +244,30 @@ public class espc_DancingSteps {
 		}
 	}
 	
-	public static class Level2 implements AfterShipCreationSkillEffect {
+	public static class Level2 extends BaseSkillEffectDescription implements AfterShipCreationSkillEffect {
 		public void applyEffectsAfterShipCreation(ShipAPI ship, String id) {
-			ship.addListener(new DancingStepsEffectModElite(ship, id));
+			ship.addListener(new DancingStepsEffectModShield(ship, id));
 		}
 		public void unapplyEffectsAfterShipCreation(ShipAPI ship, String id) {
-			ship.removeListenerOfClass(DancingStepsEffectModElite.class);
+			ship.removeListenerOfClass(DancingStepsEffectModShield.class);
 		}
 
 		public void apply(MutableShipStatsAPI stats, HullSize hullSize, String id, float level) {}
 		public void unapply(MutableShipStatsAPI stats, HullSize hullSize, String id) {}
-		
-		public String getEffectDescription(float level) {
-			return "-" + (int)FIGHTER_DAMAGE_REDUCTION + "% armor and hull damage taken from fighters";
+
+		public void createCustomDescription(MutableCharacterStatsAPI stats, SkillSpecAPI skill, 
+			TooltipMakerAPI info, float width) {
+			init(stats, skill);
+			info.addPara("Up to -%s shield damage taken, based on current speed and impact angle against shield",
+					0f, hc, hc,
+					(int) DAMAGE_REDUCTION_SHIELD_MAX + "%"
+				);
+			info.addPara(indent + "Max damage reduction when moving perpendicular to attack at %s su/second and attack lands parallel to shield",
+				0f, tc, hc, (int) DAMAGE_REDUCTION_SPEED_MAX + ""
+			);
+			info.addPara("%s su/second to top speed when shields are down, on ships with shields",
+				0f, hc, hc, "+" + (int)SPEED_BONUS_NO_SHIELD
+			);
 		}
 		
 		public String getEffectPerLevelDescription() {
@@ -226,22 +278,28 @@ public class espc_DancingSteps {
 			return ScopeDescription.PILOTED_SHIP;
 		}
 	}
-	public static class Level3 extends BaseSkillEffectDescription implements ShipSkillEffect {
+	
+	public static class Level3 extends BaseSkillEffectDescription implements AfterShipCreationSkillEffect {
+		public void applyEffectsAfterShipCreation(ShipAPI ship, String id) {
+			ship.addListener(new DancingStepsEffectModElite(ship, id));
+		}
+		public void unapplyEffectsAfterShipCreation(ShipAPI ship, String id) {
+			ship.removeListenerOfClass(DancingStepsEffectModElite.class);
+		}
 
 		public void apply(MutableShipStatsAPI stats, HullSize hullSize, String id, float level) {}
 		public void unapply(MutableShipStatsAPI stats, HullSize hullSize, String id) {}
-		
+
 		public void createCustomDescription(MutableCharacterStatsAPI stats, SkillSpecAPI skill, 
 			TooltipMakerAPI info, float width) {
-		
 			init(stats, skill);
+			info.addPara("-%s armor and hull damage taken from fighters",
+					0f, stats.getSkillLevel(skill.getId()) > 1 ? hc : dhc, stats.getSkillLevel(skill.getId()) > 1? hc : dhc,
+					(int) FIGHTER_DAMAGE_REDUCTION + "%"
+				);
 			info.addPara(indent + "Does not apply to missiles",
-				0f, tc, hc
+				0f, stats.getSkillLevel(skill.getId()) > 1 ? tc : dtc, stats.getSkillLevel(skill.getId()) > 1? hc : dhc
 			);
-		}
-		
-		public String getEffectDescription(float level) {
-			return null;
 		}
 		
 		public String getEffectPerLevelDescription() {

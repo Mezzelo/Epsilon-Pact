@@ -124,7 +124,7 @@
 	
     "alignments":{	
         "technocratic":0.5,
-		# "diplomatic":0.0, 
+		"diplomatic":-0.5, 
         "ideological":0.5,
 		"corporate":-1.0,
 		# "militarist":0.0,

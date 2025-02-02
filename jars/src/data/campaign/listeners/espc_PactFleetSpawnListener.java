@@ -2,6 +2,9 @@ package data.campaign.listeners;
 // doing this through here rather than BaseGenerateFleetOfficersPlugin, as the generic officer generation is fine for my purposes
 // there's just a few exceptions i'd like to impose.
 
+import java.util.LinkedList;
+import java.util.List;
+
 // you can do this through the fleet inflater apparently?  i still don't know what the fuck that is need to glaze my eyes over
 // on the api for longer.  this works for the moment.
 
@@ -18,7 +21,9 @@ import com.fs.starfarer.api.characters.MutableCharacterStatsAPI.SkillLevelAPI;
 // import com.fs.starfarer.api.characters.MutableCharacterStatsAPI.SkillLevelAPI;
 import com.fs.starfarer.api.characters.PersonAPI;
 import com.fs.starfarer.api.combat.ShieldAPI.ShieldType;
+import com.fs.starfarer.api.combat.ShipAPI.HullSize;
 import com.fs.starfarer.api.combat.ShipVariantAPI;
+import com.fs.starfarer.api.combat.WeaponAPI.WeaponType;
 // 	import com.fs.starfarer.api.combat.ShipHullSpecAPI.ShipTypeHints;
 import com.fs.starfarer.api.fleet.FleetMemberAPI;
 import com.fs.starfarer.api.impl.campaign.ids.Factions;
@@ -42,28 +47,6 @@ public class espc_PactFleetSpawnListener extends BaseCampaignEventListener {
 	public espc_PactFleetSpawnListener(boolean permaRegister) {
 		super(permaRegister);
 	}
-	
-	private String[] blacklistedSkills = {
-		Skills.MISSILE_SPECIALIZATION,
-		Skills.COMBAT_ENDURANCE,
-		Skills.IMPACT_MITIGATION,
-		Skills.POLARIZED_ARMOR,
-		Skills.DAMAGE_CONTROL,
-		Skills.POINT_DEFENSE,
-	};
-	
-	private String[] whitelistedSkills = {
-		Skills.HELMSMANSHIP,
-		Skills.FIELD_MODULATION,
-		Skills.ORDNANCE_EXPERTISE,
-		Skills.TARGET_ANALYSIS
-	};
-	private String[] whitelistedSkillsLow = {
-		Skills.COMBAT_ENDURANCE,
-		Skills.GUNNERY_IMPLANTS,
-		Skills.SYSTEMS_EXPERTISE,
-		Skills.POINT_DEFENSE,
-	};
 	
 	// we need sensitively built variants on this list
 	// - i.e. weapon choices that affect systems, one-off used weapons for remnants/derelicts
@@ -101,12 +84,12 @@ public class espc_PactFleetSpawnListener extends BaseCampaignEventListener {
 	};
 	
 	private String[] portraitList = {
-			"alma",
-			"carl",
-			"ken",
-			"lindsay",
-			"sien",
-		};
+		"alma",
+		"carl",
+		"ken",
+		"lindsay",
+		"sien",
+	};
 	
 	@Override
 	public void reportFleetSpawned(CampaignFleetAPI fleet) {
@@ -166,6 +149,10 @@ public class espc_PactFleetSpawnListener extends BaseCampaignEventListener {
 			
 			if (person != null) {
 				
+				// ignore nex allied faction fleets by checking for portrait.  how convenient it is that i've drawn my own lol
+				if (!person.getPortraitSprite().contains("espc"))
+					continue;
+				
 				// can't just check for size > 4, in case of added skill categories, i'm guessing.
 				boolean hasNonZeroSkill = false;
 				for (SkillLevelAPI skill : person.getStats().getSkillsCopy()) {
@@ -174,10 +161,8 @@ public class espc_PactFleetSpawnListener extends BaseCampaignEventListener {
 						break;
 				}
 				if (hasNonZeroSkill) {
-					if (!isBounty) {
-						if (!fleetMember.getHullId().equals("espc_rampart"))
-							adjustSkills(person, fleetMember);
-					}
+					// if (!isBounty)
+					adjustSkills(person, fleetMember);
 				} else
 					continue;
 				// if (fleetMember.getHullSpec().getHints().contains(ShipTypeHints.UNBOARDABLE)) {
@@ -202,7 +187,7 @@ public class espc_PactFleetSpawnListener extends BaseCampaignEventListener {
 						if (Misc.random.nextFloat() > 0.7f)
 							name.setFirst(name.getLast());
 						name.setLast("");
-						if (Misc.random.nextFloat() > 0.5) {
+						if (Misc.random.nextFloat() > 0.9) {
 							person.setPortraitSprite(Global.getSettings().getSpriteName(
 								"characters", "espc_" + portraitList[Misc.random.nextInt(portraitList.length)]));
 						}
@@ -231,50 +216,216 @@ public class espc_PactFleetSpawnListener extends BaseCampaignEventListener {
         
 	}
 	
+	private String[] skillsFrigate = {
+		Skills.COMBAT_ENDURANCE,
+		Skills.FIELD_MODULATION,
+		"espc_underdog",
+		"espc_dancing_steps"
+	};
+	
+	private String[] skillsDestroyer = {
+		Skills.FIELD_MODULATION,
+		Skills.POINT_DEFENSE,
+		Skills.SYSTEMS_EXPERTISE,
+		"espc_running_hot",
+		"espc_second_wind",
+		"espc_unburdened",
+		"espc_underdog",
+	};
+	
+	private String[] skillsCruiser = {
+		Skills.FIELD_MODULATION,
+		Skills.ORDNANCE_EXPERTISE,
+		Skills.POINT_DEFENSE,
+		Skills.SYSTEMS_EXPERTISE,
+		"espc_running_hot",
+		"espc_unburdened",
+		"espc_second_wind"
+	};
+	
+	private String[] grabBag = {
+		Skills.FIELD_MODULATION,
+		Skills.ORDNANCE_EXPERTISE,
+		Skills.POINT_DEFENSE,
+		"espc_dancing_steps",
+		"espc_running_hot",
+	};
+
+	private String[] grabBag2 = {
+		Skills.COMBAT_ENDURANCE,
+		Skills.DAMAGE_CONTROL,
+		Skills.IMPACT_MITIGATION,
+		Skills.SYSTEMS_EXPERTISE,
+		"espc_underdog",
+	};
+	
 	private void adjustSkills(PersonAPI person, FleetMemberAPI fleetMember) {
-		int sparePoints = 0;
-		int rand = Misc.random.nextInt(blacklistedSkills.length);
-		for (int i = 0; i < blacklistedSkills.length; i++) {
-			if (person.getStats().getSkillLevel(blacklistedSkills[(rand + i) % blacklistedSkills.length]) > 0) {
-				boolean newAssigned = false;
-				int rand2 = Misc.random.nextInt(whitelistedSkills.length);
-				
-				if (person.getStats().getSkillLevel(blacklistedSkills[(rand + i) % blacklistedSkills.length]) > 1)
-					sparePoints++;
-				
-				for (int g = 0; g < whitelistedSkills.length; g++) {
-					if (whitelistedSkills[(rand2 + g) % whitelistedSkills.length].equals(Skills.FIELD_MODULATION) &&
-						fleetMember.getHullSpec().getShieldType() == ShieldType.NONE)
-						continue;
-					if (person.getStats().getSkillLevel(whitelistedSkills[(rand2 + g) % whitelistedSkills.length]) <= 0) {
-						person.getStats().setSkillLevel(
-							whitelistedSkills[(rand2 + g) % whitelistedSkills.length],
-							sparePoints > 0 ? 2 : 1
-						);
-						if (sparePoints > 0)
-							sparePoints--;
-						newAssigned = true;
-						person.getStats().setSkillLevel(blacklistedSkills[(rand + i) % blacklistedSkills.length], 0);
-						break;
-					}
+		String hullId = fleetMember.getHullId();
+		LinkedList<String> skillPool = new LinkedList<String>();
+		skillPool.add(Skills.HELMSMANSHIP);
+		skillPool.add(Skills.TARGET_ANALYSIS);
+		
+		if (fleetMember.getHullSpec().getManufacturer().equals("Low Tech") ||
+			hullId.equals("hammerhead") ||
+			fleetMember.getHullSpec().getTags().contains("espc_ballistic") ||
+			hullId.equals("espc_warden") && 
+				fleetMember.getVariant().getSlot("WS 001").getWeaponType().equals(WeaponType.BALLISTIC)
+		)
+			skillPool.add(Skills.BALLISTIC_MASTERY);
+		
+		if (fleetMember.getHullSpec().getHullSize().equals(HullSize.FRIGATE)) {
+			for (String skill : skillsFrigate)
+				skillPool.add(skill);
+			if (fleetMember.getHullSpec().getManufacturer().equals("Pact-Derelict")) {
+				skillPool.remove(Skills.COMBAT_ENDURANCE);
+				skillPool.remove(Skills.FIELD_MODULATION);
+				if (hullId.equals("espc_warden"))
+					skillPool.add(Skills.GUNNERY_IMPLANTS);
+				else if (hullId.equals("espc_sentry")) {
+					skillPool.add(Skills.POINT_DEFENSE);
+					skillPool.add(Skills.SYSTEMS_EXPERTISE);
+					skillPool.add("espc_second_wind");
 				}
-				if (!newAssigned) {
-					rand2 = Misc.random.nextInt(whitelistedSkills.length);
-					for (int g = 0; g < whitelistedSkillsLow.length; g++) {
-						if (person.getStats().getSkillLevel(whitelistedSkillsLow[(rand2 + g) % whitelistedSkillsLow.length]) <= 0) {
-							person.getStats().setSkillLevel(
-								whitelistedSkillsLow[(rand2 + g) % whitelistedSkillsLow.length],
-								sparePoints > 0 ? 2 : 1
-							);
-							if (sparePoints > 0)
-								sparePoints--;
-							person.getStats().setSkillLevel(blacklistedSkills[(rand + i) % blacklistedSkills.length], 0);
-							break;
-						}
-					}
-				}
+			} else if (hullId.equals("espc_flagbearer") || hullId.equals("espc_songbird")) {
+				skillPool.add(Skills.ORDNANCE_EXPERTISE);
+				skillPool.add(Skills.SYSTEMS_EXPERTISE);
+				skillPool.add("espc_running_hot");
+			} else if (hullId.equals("espc_opossum") || hullId.equals("espc_jackalope") || hullId.equals("omen")) {
+				skillPool.add(Skills.SYSTEMS_EXPERTISE);
+				skillPool.add("espc_second_wind");
 			}
+			if (fleetMember.getHullSpec().getTags().contains("espc_ballistic"))
+				skillPool.remove(Skills.FIELD_MODULATION);
+		}
+		else if (fleetMember.getHullSpec().getHullSize().equals(HullSize.DESTROYER)) {
+			for (String skill : skillsDestroyer)
+				skillPool.add(skill);
+			
+			if (fleetMember.getHullSpec().getManufacturer().equals("Pact-Derelict") ||
+				fleetMember.getHullSpec().getManufacturer().equals("Remnant")) {
+				skillPool.add(Skills.GUNNERY_IMPLANTS);
+				skillPool.remove(Skills.COMBAT_ENDURANCE);
+				if (hullId.equals("espc_berserker"))
+					skillPool.remove(Skills.POINT_DEFENSE);
+			}
+		}
+		else if (fleetMember.getHullSpec().getHullSize().equals(HullSize.CRUISER) ||
+				fleetMember.getHullSpec().getHullSize().equals(HullSize.CAPITAL_SHIP)) {
+			for (String skill : skillsCruiser)
+				skillPool.add(skill);
+			
+			if (hullId.equals("espc_observer") || hullId.equals("espc_amanuensis") || hullId.equals("apex")) {
+				skillPool.remove("espc_second_wind");
+				skillPool.remove(Skills.SYSTEMS_EXPERTISE);
+			} else if (hullId.equals("espc_rampart")) {
+				skillPool.add(Skills.COMBAT_ENDURANCE);
+				skillPool.add(Skills.DAMAGE_CONTROL);
+				skillPool.add(Skills.IMPACT_MITIGATION);
+			} else if (Misc.isAutomated(fleetMember))
+				skillPool.add(Skills.GUNNERY_IMPLANTS);
+			
+			if (hullId.equals("espc_observer") || hullId.equals("brilliant")) {
+				skillPool.add(Skills.ENERGY_WEAPON_MASTERY);
+				if (hullId.equals("brilliant"))
+					skillPool.remove(Skills.POINT_DEFENSE);
+			}
+		}
+		
+		List<SkillLevelAPI> skills = person.getStats().getSkillsCopy();
+		int skillPoints = 0;
+		int elitePoints = 0;
+		for (SkillLevelAPI skill : skills) {
+			if (skill.getLevel() > 0 &&
+				skill.getSkill().isCombatOfficerSkill()) {
+				skillPoints++;
+				if (skill.getLevel() > 1)
+					elitePoints++;
+				person.getStats().setSkillLevel(skill.getSkill().getId(), 0);
+			}
+		}
+		boolean usedFirst = false;
+		for (int i = 0; i < skillPoints; i++) {
+			if (skillPool.size() == 0) {
+				if (usedFirst) {
+					person.getStats().setLevel(i);
+					return;
+				}
+				for (String skill : usedFirst ? grabBag2 : grabBag)
+					if (person.getStats().getSkillLevel(skill) <= 0f)
+						skillPool.add(skill);
+				usedFirst = true;
+			}
+			
+			int rand = Misc.random.nextInt(skillPool.size());
+			person.getStats().setSkillLevel(skillPool.get(rand), elitePoints > 0 ? 2 : 1);
+			elitePoints--;
+			skillPool.remove(rand);
 		}
 	}
 
 }
+
+/*
+private String[] blacklistedSkills = {
+	Skills.MISSILE_SPECIALIZATION,
+	Skills.COMBAT_ENDURANCE,
+	Skills.IMPACT_MITIGATION,
+	Skills.POLARIZED_ARMOR,
+	Skills.DAMAGE_CONTROL,
+	Skills.POINT_DEFENSE,
+};
+
+private String[] whitelistedSkills = {
+	Skills.HELMSMANSHIP,
+	Skills.FIELD_MODULATION,
+	Skills.ORDNANCE_EXPERTISE,
+	Skills.TARGET_ANALYSIS
+};
+private String[] whitelistedSkillsLow = {
+	Skills.COMBAT_ENDURANCE,
+	Skills.GUNNERY_IMPLANTS,
+	Skills.SYSTEMS_EXPERTISE,
+	Skills.POINT_DEFENSE,
+};
+
+int rand = Misc.random.nextInt(blacklistedSkills.length);
+for (int i = 0; i < blacklistedSkills.length; i++) {
+	if (person.getStats().getSkillLevel(blacklistedSkills[(rand + i) % blacklistedSkills.length]) > 0) {
+		boolean newAssigned = false;
+		int rand2 = Misc.random.nextInt(whitelistedSkills.length);
+		
+		if (person.getStats().getSkillLevel(blacklistedSkills[(rand + i) % blacklistedSkills.length]) > 1)
+			sparePoints++;
+		
+		for (int g = 0; g < whitelistedSkills.length; g++) {
+			if (whitelistedSkills[(rand2 + g) % whitelistedSkills.length].equals(Skills.FIELD_MODULATION) &&
+				fleetMember.getHullSpec().getShieldType() == ShieldType.NONE)
+				continue;
+			if (person.getStats().getSkillLevel(whitelistedSkills[(rand2 + g) % whitelistedSkills.length]) <= 0) {
+				person.getStats().setSkillLevel(
+					whitelistedSkills[(rand2 + g) % whitelistedSkills.length],
+					sparePoints > 0 ? 2 : 1
+				);
+				if (sparePoints > 0)
+					sparePoints--;
+				newAssigned = true;
+				person.getStats().setSkillLevel(blacklistedSkills[(rand + i) % blacklistedSkills.length], 0);
+				break;
+			}
+		}
+		if (!newAssigned) {
+			rand2 = Misc.random.nextInt(whitelistedSkills.length);
+			for (int g = 0; g < whitelistedSkillsLow.length; g++) {
+				if (person.getStats().getSkillLevel(whitelistedSkillsLow[(rand2 + g) % whitelistedSkillsLow.length]) <= 0) {
+					person.getStats().setSkillLevel(
+						whitelistedSkillsLow[(rand2 + g) % whitelistedSkillsLow.length],
+						sparePoints > 0 ? 2 : 1
+					);
+					if (sparePoints > 0)
+						sparePoints--;
+					person.getStats().setSkillLevel(blacklistedSkills[(rand + i) % blacklistedSkills.length], 0);
+					break;
+				}
+			}
+		}
+	}*/

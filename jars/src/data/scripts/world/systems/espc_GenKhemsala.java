@@ -60,7 +60,6 @@ public class espc_GenKhemsala implements SectorGeneratorPlugin
         		Conditions.POPULATION_5,
         		Conditions.HABITABLE,
         		// Conditions.FREE_PORT,
-        		Conditions.DECIVILIZED_SUBPOP,
         		Conditions.RUINS_EXTENSIVE,
         		Conditions.FARMLAND_RICH,
         		Conditions.ORGANICS_ABUNDANT,
