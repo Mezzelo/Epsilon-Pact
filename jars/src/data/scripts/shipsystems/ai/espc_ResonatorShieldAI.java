@@ -37,6 +37,7 @@ public class espc_ResonatorShieldAI implements ShipSystemAIScript {
     
     private float hfBurstMax = 0f;
     private boolean toggled = false;
+    private boolean noShield = false;
 
     @Override
     public void init(ShipAPI ship, ShipSystemAPI system, ShipwideAIFlags flags, CombatEngineAPI engine) {
@@ -44,11 +45,13 @@ public class espc_ResonatorShieldAI implements ShipSystemAIScript {
         this.flags = flags;
         this.system = system;
         this.flux = ship.getFluxTracker();
+        if (ship.getShield() == null)
+        	noShield = true;
     }
 
     @Override
     public void advance(float amount, Vector2f missileDangerDir, Vector2f collisionDangerDir, ShipAPI target) {
-    	if (amount <= 0f)
+    	if (amount <= 0f || noShield)
     		return;
     	
     	if (systemScript == null) {
@@ -80,10 +83,10 @@ public class espc_ResonatorShieldAI implements ShipSystemAIScript {
         		flags.unsetFlag(AIFlags.BACK_OFF);
             }
             else
-            	hfBurstMax = Math.max(systemScript.hfToDissipate, hfBurstMax);
+            	hfBurstMax = Math.max(systemScript.getHfToDissipate(), hfBurstMax);
             
             if (ship.getShield().isOn() ||
-            		systemScript.hfToDissipate > 0f) {
+            		systemScript.getHfToDissipate() > 0f) {
             	useWeight += 1f;
             } else {
             	useWeight = 0f;
@@ -93,10 +96,10 @@ public class espc_ResonatorShieldAI implements ShipSystemAIScript {
             	// if we ever see ourselves of being in risk of overloading due to system use, disengage
             	// this is determined by either the highest burst damage received since engaging, or on reaching a soft threshold.
             	// only whenever we've dissipated most of the excess.
-            	if ((flux.getMaxFlux() - (flux.getHardFlux() - systemScript.hfToDissipate) < hfBurstMax * HF_BURST_PADDING ||
-            			flux.getHardFlux() - systemScript.hfToDissipate > flux.getMaxFlux() * HF_THRESHOLD)) {
+            	if ((flux.getMaxFlux() - (flux.getHardFlux() - systemScript.getHfToDissipate()) < hfBurstMax * HF_BURST_PADDING ||
+            			flux.getHardFlux() - systemScript.getHfToDissipate() > flux.getMaxFlux() * HF_THRESHOLD)) {
                 		flags.setFlag(AIFlags.BACK_OFF);
-            		if (systemScript.hfToDissipate < flux.getMaxFlux() * HF_DISSIPATE_OFF_THRESHOLD) {
+            		if (systemScript.getHfToDissipate() < flux.getMaxFlux() * HF_DISSIPATE_OFF_THRESHOLD) {
                 		useWeight -= 5f;
             		}
             	}

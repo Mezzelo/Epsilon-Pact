@@ -1,7 +1,7 @@
 {
   "variantId": "espc_jackalope_Anti_Armor_Pact",
   "hullId": "espc_jackalope",
-  "displayName": "Anti-Armor",
+  "displayName": "Attack",
   "goalVariant": true,
   "fluxCapacitors": 10,
   "fluxVents": 10,

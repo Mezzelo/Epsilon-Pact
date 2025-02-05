@@ -9,6 +9,7 @@ import org.lazywizard.lazylib.MathUtils;
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.combat.CombatEngineAPI;
 import com.fs.starfarer.api.combat.MutableShipStatsAPI;
+import com.fs.starfarer.api.combat.ShieldAPI.ShieldType;
 import com.fs.starfarer.api.combat.ShipAPI;
 import com.fs.starfarer.api.impl.combat.BaseShipSystemScript;
 
@@ -39,7 +40,7 @@ public class espc_ShieldwallStats extends BaseShipSystemScript {
 		Iterator<ShipAPI> targIterator = shipTargs.iterator();
 		while (targIterator.hasNext()) {
 			ShipAPI currShip = (ShipAPI) targIterator.next();
-			if (currShip.getShield() == null)
+			if (currShip.getShield() == null || currShip.getShield().getType() == ShieldType.PHASE)
 				continue;
 			float desiredArc;
 			if (effectLevel > 0f) {

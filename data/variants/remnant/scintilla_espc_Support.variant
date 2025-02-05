@@ -1,0 +1,41 @@
+{
+    "displayName": "Support",
+    "fluxCapacitors": 4,
+    "fluxVents": 5,
+    "goalVariant": false,
+    "hullId": "scintilla",
+    "hullMods": [
+		"expanded_deck_crew",
+		"targetingunit"
+	],
+    "permaMods": [],
+    "quality": 0,
+    "variantId": "scintilla_espc_Support",
+    "weaponGroups": [
+        {
+            "autofire": false,
+            "mode": "LINKED",
+            "weapons": {"WS 006": "espc_finnegan"}
+        },
+        {
+            "autofire": true,
+            "mode": "ALTERNATING",
+            "weapons": {
+                "WS 007": "ioncannon",
+                "WS 008": "ioncannon"
+            }
+        },
+        {
+            "autofire": true,
+            "mode": "LINKED",
+            "weapons": {
+                "WS 000": "irpulse",
+                "WS 001": "irpulse",
+            }
+        },
+    ],
+    "wings": [
+        "spark_wing",
+        "spark_wing"
+    ]
+}

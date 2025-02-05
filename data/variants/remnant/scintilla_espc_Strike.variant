@@ -1,0 +1,42 @@
+{
+    "displayName": "Strike",
+    "fluxCapacitors": 6,
+    "fluxVents": 3,
+    "goalVariant": false,
+    "hullId": "scintilla",
+    "hullMods": [
+		"expanded_deck_crew"
+	],
+    "permaMods": [],
+    "quality": 0,
+    "variantId": "scintilla_espc_Strike",
+    "weaponGroups": [
+        {
+            "autofire": false,
+            "mode": "LINKED",
+            "weapons": {"WS 006": "espc_finnegan"}
+        },
+        {
+            "autofire": false,
+            "mode": "ALTERNATING",
+            "weapons": {
+                "WS 007": "annihilator",
+                "WS 008": "annihilator"
+            }
+        },
+        {
+            "autofire": true,
+            "mode": "LINKED",
+            "weapons": {
+                "WS 000": "pdburst",
+                "WS 001": "pdburst",
+                "WS 002": "pdlaser",
+                "WS 003": "pdlaser"
+            }
+        }
+    ],
+    "wings": [
+        "lux_wing",
+        "flash_wing"
+    ]
+}

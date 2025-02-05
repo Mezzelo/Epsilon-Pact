@@ -1,7 +1,9 @@
 package data.scripts.shipsystems;
 
 import java.awt.Color;
+import java.util.EnumSet;
 
+import com.fs.starfarer.api.GameState;
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.combat.CombatEngineAPI;
 import com.fs.starfarer.api.combat.DamageType;
@@ -22,13 +24,26 @@ public class espc_AlternatorStats extends BaseShipSystemScript {
 	private boolean initialized = false;
 	private float ballisticDPS = 0f;
 	private float energyDPS = 0f;
-	public boolean isEnergy = true;
+	private boolean isEnergy = true;
 	private boolean lastIdle = true;
 	
 	private static final float BONUS_MAX = 2f;
 	
+	public float getBallisticDPS() {
+		return ballisticDPS;
+	}
+	public float getEnergyDPS() {
+		return energyDPS;
+	}
+	public boolean getMode() {
+		return isEnergy;
+	}
+	
 	public void apply(MutableShipStatsAPI stats, String id, State state, float effectLevel) {
 		if (stats.getEntity() == null)
+			return;
+		
+		if (!Global.getCurrentState().equals(GameState.COMBAT))
 			return;
 
 		CombatEngineAPI combatEngine = Global.getCombatEngine();
@@ -40,10 +55,21 @@ public class espc_AlternatorStats extends BaseShipSystemScript {
 			initialized = true;
 			ship = (ShipAPI) stats.getEntity();
 			for (WeaponAPI weapon : ship.getAllWeapons()) {
-				if (weapon.getType() == WeaponType.BALLISTIC)
+				if (weapon.getType() == WeaponType.BALLISTIC) {
 					ballisticDPS += weapon.getDerivedStats().getSustainedDps() 
 						* (weapon.getDamageType().equals(DamageType.FRAGMENTATION) ? 0.5f : 1f) *
 						(weapon.hasAIHint(AIHints.PD) && !weapon.hasAIHint(AIHints.PD_ALSO) ? 0.5f : 1f);
+					/*
+					weapon.getSprite().setColor(new Color(
+						0.8f, 0.8f, 0.8f));
+					if (weapon.getBarrelSpriteAPI()!= null)
+						weapon.getBarrelSpriteAPI().setColor(new Color(
+							0.8f, 0.8f, 0.8f));
+					if (weapon.getUnderSpriteAPI() != null)
+						weapon.getUnderSpriteAPI().setColor(new Color(
+							0.8f, 0.8f, 0.8f));
+					*/
+				}
 				else if (weapon.getType() == WeaponType.ENERGY)
 					energyDPS += weapon.getDerivedStats().getSustainedDps()
 						* (weapon.getDamageType().equals(DamageType.FRAGMENTATION) ? 0.5f : 1f) *
@@ -74,14 +100,64 @@ public class espc_AlternatorStats extends BaseShipSystemScript {
 			// else
 			stats.getEnergyRoFMult().unmodify(id);
 		}
+		if (ship.getFluxTracker().isOverloaded()) {
+	        ship.setWeaponGlow(0f,
+		    	new Color(255, 120, 0, 155), 
+				EnumSet.of(WeaponType.ENERGY));
+	        ship.setWeaponGlow(0f, 
+	        	new Color(255, 120, 0, 155), 
+	        	EnumSet.of(WeaponType.BALLISTIC));
+			return;
+		} else if (ballisticDPS > 0f && energyDPS > 0f){
+			if (isEnergy) {
+		        ship.setWeaponGlow((1f - effectLevel) * (Math.min(ballisticDPS/energyDPS, BONUS_MAX)/BONUS_MAX * 1.5f),
+			    	new Color(255, 120, 0, 155), 
+					EnumSet.of(WeaponType.ENERGY));
+		        ship.setWeaponGlow(effectLevel * (Math.min(energyDPS/ballisticDPS, BONUS_MAX)/BONUS_MAX * 1.5f), 
+		        	new Color(255, 120, 0, 155), 
+		        	EnumSet.of(WeaponType.BALLISTIC));
+			} else {
+			    ship.setWeaponGlow((1f - effectLevel) * (Math.min(energyDPS/ballisticDPS, BONUS_MAX)/BONUS_MAX * 1.5f), 
+					new Color(255, 120, 0, 155), 
+					EnumSet.of(WeaponType.BALLISTIC));
+		        ship.setWeaponGlow(effectLevel * (Math.min(ballisticDPS/energyDPS, BONUS_MAX)/BONUS_MAX * 1.5f),
+		        	new Color(255, 120, 0, 155), 
+			        EnumSet.of(WeaponType.ENERGY));
+			}
+		}
 		
 		for (WeaponAPI weapon : ship.getAllWeapons()) {
+			// float in = Math.min(1f, 1.9f - effectLevel);
+			// float out = Math.max(0.8f, effectLevel);
 			if (weapon.getType() == WeaponType.BALLISTIC && isEnergy ||
 				weapon.getType() == WeaponType.ENERGY && !isEnergy
 			) {
 				weapon.stopFiring();
-				weapon.setRemainingCooldownTo(weapon.getCooldownRemaining());
+				if (weapon.getCooldown() > 0f)
+					weapon.setRemainingCooldownTo(weapon.getCooldownRemaining());
 				weapon.setForceNoFireOneFrame(true);
+				/*
+				if (effectLevel > 0.7f) {
+					weapon.getSprite().setColor(new Color(
+						out, out, out));
+					if (weapon.getBarrelSpriteAPI()!= null)
+						weapon.getBarrelSpriteAPI().setColor(new Color(
+							out, out, out));
+					if (weapon.getUnderSpriteAPI() != null)
+						weapon.getUnderSpriteAPI().setColor(new Color(
+							out, out, out));
+				}
+				else if (effectLevel > 0.7f) {
+					weapon.getSprite().setColor(new Color(
+						in, in, in));
+					if (weapon.getBarrelSpriteAPI()!= null)
+						weapon.getBarrelSpriteAPI().setColor(new Color(
+							in, in, in));
+					if (weapon.getUnderSpriteAPI() != null)
+						weapon.getUnderSpriteAPI().setColor(new Color(
+							in, in, in));
+				}
+				*/
 			}
 		}
 

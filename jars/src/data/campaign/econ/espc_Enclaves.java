@@ -1,30 +1,13 @@
 package data.campaign.econ;
 
-import java.awt.Color;
-
-import org.lwjgl.util.vector.Vector2f;
-
-import com.fs.starfarer.api.Global;
-import com.fs.starfarer.api.campaign.SectorEntityToken;
-import com.fs.starfarer.api.campaign.econ.CommoditySpecAPI;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.campaign.econ.MarketImmigrationModifier;
-import com.fs.starfarer.api.campaign.econ.Industry.IndustryTooltipMode;
-import com.fs.starfarer.api.campaign.listeners.ColonyOtherFactorsListener;
-import com.fs.starfarer.api.combat.MutableStat;
 import com.fs.starfarer.api.impl.campaign.econ.impl.BaseIndustry;
 import com.fs.starfarer.api.impl.campaign.ids.Commodities;
-import com.fs.starfarer.api.impl.campaign.ids.Factions;
-import com.fs.starfarer.api.impl.campaign.ids.Industries;
 import com.fs.starfarer.api.impl.campaign.ids.Stats;
-import com.fs.starfarer.api.impl.campaign.ids.Tags;
-import com.fs.starfarer.api.impl.campaign.intel.events.ht.HyperspaceTopographyEventIntel;
-import com.fs.starfarer.api.impl.campaign.intel.events.ht.HyperspaceTopographyEventIntel.Stage;
 import com.fs.starfarer.api.impl.campaign.population.PopulationComposition;
-import com.fs.starfarer.api.ui.Alignment;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.util.Misc;
-import com.fs.starfarer.api.util.Pair;
 
 public class espc_Enclaves extends BaseIndustry implements MarketImmigrationModifier {
 

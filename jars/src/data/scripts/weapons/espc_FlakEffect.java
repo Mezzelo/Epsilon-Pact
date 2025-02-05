@@ -3,22 +3,17 @@ package data.scripts.weapons;
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.combat.CombatEngineAPI;
 import com.fs.starfarer.api.combat.CombatEntityAPI;
-import com.fs.starfarer.api.combat.DamageType;
 import com.fs.starfarer.api.combat.DamagingProjectileAPI;
 import com.fs.starfarer.api.combat.EveryFrameWeaponEffectPlugin;
-import com.fs.starfarer.api.combat.MissileAPI;
 import com.fs.starfarer.api.combat.OnFireEffectPlugin;
 import com.fs.starfarer.api.combat.WeaponAPI;
 import com.fs.starfarer.api.combat.ShipAPI;
-import com.fs.starfarer.api.combat.ShipAPI.HullSize;
 import com.fs.starfarer.api.util.Misc;
 
 import data.scripts.plugin.espc_DamageListener;
 
 import org.lwjgl.util.vector.Vector2f;
 
-import java.awt.Color;
-import java.awt.geom.Line2D;
 import java.util.ArrayList;
 import java.util.Iterator;
 

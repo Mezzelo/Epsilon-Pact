@@ -7,6 +7,7 @@ import java.util.Map;
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.CampaignFleetAPI;
 import com.fs.starfarer.api.campaign.CargoAPI;
+import com.fs.starfarer.api.campaign.CargoAPI.CargoItemType;
 import com.fs.starfarer.api.campaign.CargoPickerListener;
 import com.fs.starfarer.api.campaign.CargoStackAPI;
 import com.fs.starfarer.api.campaign.FactionAPI;
@@ -19,12 +20,15 @@ import com.fs.starfarer.api.campaign.TextPanelAPI;
 import com.fs.starfarer.api.campaign.econ.CommoditySpecAPI;
 import com.fs.starfarer.api.campaign.rules.MemoryAPI;
 import com.fs.starfarer.api.characters.PersonAPI;
+import com.fs.starfarer.api.fleet.FleetMemberAPI;
+import com.fs.starfarer.api.fleet.FleetMemberType;
 import com.fs.starfarer.api.impl.campaign.CoreReputationPlugin.CustomRepImpact;
 import com.fs.starfarer.api.impl.campaign.CoreReputationPlugin.RepActionEnvelope;
 import com.fs.starfarer.api.impl.campaign.CoreReputationPlugin.RepActions;
 import com.fs.starfarer.api.impl.campaign.ids.Commodities;
 import com.fs.starfarer.api.impl.campaign.ids.Factions;
 import com.fs.starfarer.api.impl.campaign.ids.Items;
+import com.fs.starfarer.api.impl.campaign.ids.Strings;
 import com.fs.starfarer.api.impl.campaign.rulecmd.AddRemoveCommodity;
 import com.fs.starfarer.api.impl.campaign.rulecmd.BaseCommandPlugin;
 import com.fs.starfarer.api.impl.campaign.rulecmd.FireBest;
@@ -216,6 +220,27 @@ public class espc_AITrade extends BaseCommandPlugin {
 						);
 						playerCargo.addItems(stack.getType(), stack.getData(), stack.getSize());
 						AddRemoveCommodity.addStackGainText(stack, text);
+						if (hullMap.containsKey(stack.getSpecialDataIfSpecial().getData())) {
+							FleetMemberAPI ship = Global.getFactory().createFleetMember(FleetMemberType.SHIP, 
+								stack.getSpecialDataIfSpecial().getData() + "_Hull");
+							ship.getCrewComposition().setCrew(100000);
+							ship.getRepairTracker().setCR(0.7f);
+							Global.getSector().getPlayerFleet().getFleetData().addFleetMember(ship);
+							text.setFontSmallInsignia();
+							text.addParagraph(
+								"Gained " + ship.getVariant().getFullDesignationWithHullNameForShip(), Misc.getPositiveHighlightColor());
+							text.highlightInLastPara(
+								Misc.getHighlightColor(), ship.getVariant().getFullDesignationWithHullNameForShip());
+							text.setFontInsignia();
+						} else if (weaponMap.containsKey(stack.getSpecialDataIfSpecial().getData())) {
+							playerCargo.addItems(CargoItemType.WEAPONS, stack.getSpecialDataIfSpecial().getData(), 2);
+							text.setFontSmallInsignia();
+							text.addParagraph("Gained " + 2 + Strings.X + " " + 
+								Global.getSettings().getWeaponSpec(stack.getSpecialDataIfSpecial().getData()
+								).getWeaponName() + "", Misc.getPositiveHighlightColor());
+							text.highlightInLastPara(Misc.getHighlightColor(), 2 + Strings.X);
+							text.setFontInsignia();
+						}
 					}
 				}
 				// float bpValue = computeCoreBPValue(cargo, isConstant);
@@ -311,7 +336,7 @@ public class espc_AITrade extends BaseCommandPlugin {
 						opad * 1f, Misc.getHighlightColor(),
 						"" + (int) repChange);
 					if (coreCredits < 25) {
-						panel.addPara("A reputation of %s is necessary to begin exchaning for blueprints, and you must have"
+						panel.addPara("A reputation of %s is necessary to begin exchanging for blueprints, and you must have"
 							+ " exchanged as much worth of cores.",
 							opad * 1f, Misc.getHighlightColor(),
 							"" + (int) MIN_REP_EXCHANGE);
@@ -333,6 +358,8 @@ public class espc_AITrade extends BaseCommandPlugin {
 						+ faction.getDisplayNameWithArticle() + " of %s points.",
 						opad * 1f, Misc.getHighlightColor(),
 						"" + (int) (repChange - worth));
+					panel.addPara("If trading for ship or weapon blueprints, you will also receive the respective ship or two copies of the weapon.",
+							opad * 1f, Misc.getHighlightColor());
 					panel.addPara("Your selected blueprints are worth %s points.",
 						opad * 1f, Misc.getHighlightColor(),
 						"" + (int) worth);

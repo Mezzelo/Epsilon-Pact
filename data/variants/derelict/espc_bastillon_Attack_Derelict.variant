@@ -4,12 +4,10 @@
   "displayName": "Attack",
   "goalVariant": false,
   "fluxCapacitors": 20,
-  "fluxVents": 12,
+  "fluxVents": 20,
   "quality": 1,
   "permaMods": [],
-  "hullMods": [
-    "targetingunit"
-  ],
+  "hullMods": [],
   "weaponGroups": [
     {
       "autofire": false,

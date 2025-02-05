@@ -1,27 +1,27 @@
 {
-    "displayName": "Strike",
-    "fluxCapacitors": 9,
+    "displayName": "Assault",
+    "fluxCapacitors": 8,
     "fluxVents": 10,
     "goalVariant": true,
     "hullId": "espc_warden",
     "hullMods": [
-		"fluxdistributor",
+		"targetingunit"
 	],
     "permaMods": [],
     "sMods": [],
-    "variantId": "espc_warden_Strike",
+    "variantId": "espc_warden_Assault",
     "weaponGroups": [
         {
             "autofire": true,
             "mode": "LINKED",
-            "weapons": {"WS 001": "espc_fission"}
+            "weapons": {"WS 001": "espc_minimirdual"}
         },
         {
             "autofire": true,
             "mode": "ALTERNATING",
             "weapons": {
-				"WS 002": "lightdualac",
-				"WS 003": "lightdualac",
+				"WS 002": "irpulse",
+				"WS 003": "irpulse",
 			}
         }
     ]

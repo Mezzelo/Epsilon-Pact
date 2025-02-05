@@ -12,7 +12,6 @@ import com.fs.starfarer.api.combat.ShipAPI;
 import com.fs.starfarer.api.combat.ShipAPI.HullSize;
 import com.fs.starfarer.api.combat.WeaponAPI;
 import com.fs.starfarer.api.combat.listeners.AdvanceableListener;
-import com.fs.starfarer.api.impl.campaign.skills.BaseSkillEffectDescription;
 
 public class espc_VoidEmbrace {
 

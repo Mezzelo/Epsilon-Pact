@@ -18,12 +18,10 @@ import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.*;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.characters.PersonAPI;
-import com.fs.starfarer.api.impl.campaign.ids.Factions;
-import com.fs.starfarer.api.impl.campaign.ids.Submarkets;
 import com.fs.starfarer.api.util.Misc;
 import com.fs.starfarer.api.util.WeightedRandomPicker;
 
-import data.scripts.world.espc_NexusConstruction;
+// import data.scripts.world.espc_NexusConstruction;
 
 // import com.fs.starfarer.api.campaign.econ.MarketAPI;
 // import com.fs.starfarer.api.campaign.listeners.FleetSpawnListener;

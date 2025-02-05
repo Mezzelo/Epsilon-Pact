@@ -10,7 +10,6 @@
 			"effectBasedOnLevel":false,
 			"effects":[
 				{"type":"SHIP", "script":"data.campaign.skills.espc_RunningHot$Level1"},
-				{"type":"SHIP", "script":"data.campaign.skills.espc_RunningHot$Level3"},
 			]
 		},
 		{
@@ -18,7 +17,7 @@
 			"requiredSkillLevel":2,
 			"effectBasedOnLevel":false,
 			"effects":[
-				{"type":"SHIP", "script":"data.campaign.skills.espc_RunningHot$Level4"},
+				{"type":"SHIP", "script":"data.campaign.skills.espc_RunningHot$Level2"},
 			]
 		},
 	],

@@ -1,5 +1,8 @@
 package data.scripts.shipsystems;
 
+import java.awt.Color;
+import java.util.EnumSet;
+
 import com.fs.starfarer.api.combat.*;
 import com.fs.starfarer.api.combat.WeaponAPI.WeaponType;
 import com.fs.starfarer.api.combat.WeaponAPI.WeaponSize;
@@ -29,7 +32,7 @@ public class espc_HarmonizerStats extends BaseShipSystemScript {
 		
 		if (largestSize == -1) {
 			largestSize = 0;
-			ShipAPI ship = (ShipAPI)stats.getEntity();
+			ShipAPI ship = (ShipAPI) stats.getEntity();
 			
 			for (WeaponSlotAPI mount : ship.getHullSpec().getAllWeaponSlotsCopy()) {
 				/*
@@ -69,6 +72,11 @@ public class espc_HarmonizerStats extends BaseShipSystemScript {
 				stats.getEnergyRoFMult().modifyMult(id, 1f + ROF_BONUSES[energyBoost] * effectLevel);
 				stats.getEnergyWeaponFluxCostMod().modifyMult(id, 1f - FLUX_USE_BONUSES[energyBoost] * effectLevel);
 			}
+
+	        ((ShipAPI) stats.getEntity()).setWeaponGlow(effectLevel, new Color(255, 120, 0, 155), 
+	        	ballisticBoost > -1 && energyBoost > -1 ? 
+	        		EnumSet.of(WeaponType.ENERGY, WeaponType.BALLISTIC) :
+	        		EnumSet.of(energyBoost > -1 ? WeaponType.ENERGY : WeaponType.BALLISTIC));
 		}
 	}
 	public void unapply(MutableShipStatsAPI stats, String id) {

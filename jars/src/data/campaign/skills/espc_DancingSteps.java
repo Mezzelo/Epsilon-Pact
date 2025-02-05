@@ -14,7 +14,6 @@ import com.fs.starfarer.api.Global;
 // import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.characters.AfterShipCreationSkillEffect;
 import com.fs.starfarer.api.characters.MutableCharacterStatsAPI;
-import com.fs.starfarer.api.characters.ShipSkillEffect;
 import com.fs.starfarer.api.characters.SkillSpecAPI;
 import com.fs.starfarer.api.combat.BeamAPI;
 import com.fs.starfarer.api.combat.CombatEngineAPI;
@@ -30,7 +29,6 @@ import com.fs.starfarer.api.combat.listeners.AdvanceableListener;
 import com.fs.starfarer.api.combat.listeners.DamageTakenModifier;
 import com.fs.starfarer.api.impl.campaign.skills.BaseSkillEffectDescription;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
-import com.fs.starfarer.api.util.Misc;
 
 public class espc_DancingSteps {
 
@@ -262,8 +260,8 @@ public class espc_DancingSteps {
 					0f, hc, hc,
 					(int) DAMAGE_REDUCTION_SHIELD_MAX + "%"
 				);
-			info.addPara(indent + "Max damage reduction when moving perpendicular to attack at %s su/second and attack lands parallel to shield",
-				0f, tc, hc, (int) DAMAGE_REDUCTION_SPEED_MAX + ""
+			info.addPara(indent + "Max damage reduction when moving perpendicular to an attack at %s, and it lands parallel to shield",
+				0f, tc, hc, (int) DAMAGE_REDUCTION_SPEED_MAX + " su/second"
 			);
 			info.addPara("%s su/second to top speed when shields are down, on ships with shields",
 				0f, hc, hc, "+" + (int)SPEED_BONUS_NO_SHIELD

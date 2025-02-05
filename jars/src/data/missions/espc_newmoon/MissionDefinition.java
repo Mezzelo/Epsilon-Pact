@@ -53,7 +53,7 @@ public class MissionDefinition implements MissionDefinitionPlugin {
 			Skills.WOLFPACK_TACTICS, Skills.CREW_TRAINING,
 			Skills.ORDNANCE_EXPERTISE, Skills.FLUX_REGULATION}, new int[]{
 			2, 2, 2, 
-			2, 2, 2, 
+			2, 1, 2, 
 			1, 1, 1, 1, 2, 1});
         member.setCaptain(pilot);
 		api.getDefaultCommander(FleetSide.PLAYER).setStats(pilot.getStats());
@@ -68,7 +68,7 @@ public class MissionDefinition implements MissionDefinitionPlugin {
 			"espc_second_wind", "espc_running_hot", 
 			Skills.ORDNANCE_EXPERTISE}, new int[]{
 			2, 2,
-			1, 2, 2});
+			1, 1, 2});
         member.setCaptain(pilot);
 
 		api.addToFleet(FleetSide.PLAYER, "espc_observer_Strike", FleetMemberType.SHIP, "EPS Name of God", false);

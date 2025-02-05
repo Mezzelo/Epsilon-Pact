@@ -16,8 +16,12 @@ public class espc_ResonatorShieldStats extends BaseShipSystemScript {
 	private static final float HARDFLUX_DISSIPATE_FRACTION = 0.85f;
 
 	private float hfLast = 0f;
-	public float hfToDissipate = 0f;
+	private float hfToDissipate = 0f;
 	private ShipAPI ship;
+	
+	public float getHfToDissipate() {
+		return hfToDissipate;
+	}
 	
 	public void apply(MutableShipStatsAPI stats, String id, State state, float effectLevel) {
 		if (stats.getEntity() == null)

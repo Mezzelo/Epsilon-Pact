@@ -35,6 +35,15 @@
       "angle": 0,
       "locations": [21, -24]
     },
+    {
+      "id": "WS 003",
+      "size": "SMALL",
+      "type": "HYBRID",
+      "mount": "HARDPOINT",
+      "arc": 10,
+      "angle": 0,
+      "locations": [20.5, -7.5]
+    },
   ],
   "engineSlots": [
     {

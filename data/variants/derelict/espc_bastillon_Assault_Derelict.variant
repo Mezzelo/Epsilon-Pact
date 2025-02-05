@@ -4,12 +4,12 @@
   "displayName": "Assault",
   "goalVariant": false,
   "fluxCapacitors": 20,
-  "fluxVents": 13,
+  "fluxVents": 17,
   "quality": 1,
   "permaMods": [],
   "hullMods": [
-    "targetingunit",
-    "magazines"
+    "magazines",
+	"turretgyros"
   ],
   "weaponGroups": [
     {

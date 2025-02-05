@@ -4,8 +4,6 @@
 	"aiType":"WEAPON_BOOST",
 	
 	"statsScript":"data.scripts.shipsystems.espc_HarmonizerStats",
-	
-	"weaponGlowColor":[255,120,0,155],
 	"weaponTypes":[BALLISTIC,ENERGY],
 	
 	"useSound":"system_high_energy_focus_activate",

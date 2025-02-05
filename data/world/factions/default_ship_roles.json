@@ -22,9 +22,16 @@
 		"espc_picket_Anti_Armor":3,
 		"espc_sentry_Support":6,
 		"espc_sentry_Escort":4,
+		"espc_warden_Assault":3,
+		"espc_warden_Attack":3,
+		"espc_warden_Strike":1,
+		"espc_warden_Support":3,
 		
+		"espc_picket_Assault":0,
 		"espc_sentry_Attack_Derelict":0,
 		"espc_sentry_Support_Derelict":0,
+		"espc_warden_Attack_Derelict":0,
+		"espc_warden_Assault_Derelict":0,
 		
 		"glimmer_espc_Escort":0,
 		"lumen_espc_Escort":0,
@@ -59,14 +66,20 @@
 		"wolf_espc_Support":0,
 		"lasher_espc_Strike":0,
 		
-		"espc_picket_Assault":0,
 		"espc_picket_Anti_Armor":4,
 		"espc_picket_Strike":6,
 		"espc_sentry_Support":6,
 		"espc_sentry_Escort":4,
+		"espc_warden_Assault":3,
+		"espc_warden_Attack":3,
+		"espc_warden_Strike":1,
+		"espc_warden_Support":3,
 		
+		"espc_picket_Assault":0,
 		"espc_sentry_Attack_Derelict":0,
 		"espc_sentry_Support_Derelict":0,
+		"espc_warden_Attack_Derelict":0,
+		"espc_warden_Assault_Derelict":0,
 		
 		"glimmer_espc_Escort":0,
 		"lumen_espc_Escort":0,
@@ -95,6 +108,8 @@
 		"espc_bastillon_Assault":7,
 		"espc_bastillon_Support":3,
 		
+		"espc_berserker_Assault_Derelict":0,
+		"espc_berserker_Support_Derelict":0,
 		"espc_bastillon_Assault_Derelict":0,
 		"espc_bastillon_Attack_Derelict":0,
 		
@@ -148,6 +163,10 @@
 		"nova_espc_Strike":0,
 	},
 	
+	"carrierSmall":{
+		"scintilla_espc_Strike":0,
+		"scintilla_espc_Support":0,
+	},
 	
 	# hybrid ships with good combat and cargo capacity
 	"combatFreighterMedium":{

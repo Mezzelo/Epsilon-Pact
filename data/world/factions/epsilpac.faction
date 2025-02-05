@@ -50,9 +50,10 @@
         "glimmer_espc_Escort":6,
 		"glimmer_Assault":4,
 		"lumen_espc_Escort":10,
-		"fulgent_Assault":2,
 		"fulgent_espc_Assault":4,
 		"fulgent_espc_Strike":4,
+		"scintilla_espc_Strike":4,
+		"scintilla_espc_Support":4,
 		"brilliant_espc_Assault":4,
 		"brilliant_espc_Standard":2,
 		"brilliant_espc_Support":4,
@@ -94,7 +95,7 @@
 			"glimmer":0.4,
 			"lumen":0.3,
 			"fulgent":0.6,
-			"scintilla":0.3,
+			"scintilla":0.2,
 			"brilliant":0.6,
 			"apex":0.6,
 			"nova":0.4,
@@ -244,7 +245,7 @@
 			
 			"amblaster",
 			"irpulse",
-			"taclaser",
+			# "taclaser",
 			"ioncannon",
 			
 			"pulselaser",
@@ -348,7 +349,7 @@
 		
 		"amblaster":3,
 		"irpulse":3,
-		"taclaser":3,
+		# "taclaser":3,
 		"ioncannon":3,
 		
 		"pulselaser":3,

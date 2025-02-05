@@ -179,7 +179,7 @@ bpsEpsilpac_turnInResponseIsabelle,epsilpacBlueprintsExchanged,$id == espc_isabe
 epsilpacIsabelle_ConactOffer,DialogOptionSelected,"$id == espc_isabelle score:2500
 $option == cutCommLinkPolite
 RepGTE epsilpac WELCOMING score:500
-espc_RulesUtil relationGT 5 score:500
+espc_RulesUtil relationGT -1 score:500
 !$global.espcIsabelleContactOffered","AddPotentialContact
 $global.espcIsabelleContactOffered = true","Isabelle addresses you before she moves to cut off her comm link. ""$playerFirstName, you've proven yourself useful to our cause - and us to yours, I trust.
 
@@ -545,7 +545,7 @@ epsilpacIsabellehijackOperation3NotBar,DialogOptionSelected,"$option == hijack_o
 !$hijack_barEvent
 $id == espc_isabelle score:1000",,"The ship joins your fleet, the marines disembarking and returning promptly afterwards. Isabelle nods with satisfaction as she returns to her feed.
 
-""Very good. A well-trained lot, those."" $HeOrShe smiles softly, a hint of tenderness peeking from her typical expression. ""You're lucky to have them under you.""",contact_acceptNoText:Continue,
+""Very good. A well-trained lot, those."" $HeOrShe grins. ""You're lucky to have them under you.""",contact_acceptNoText:Continue,
 ,,,,,,
 epsilpacIsabellejabrOfferTextContact1,DialogOptionSelected,"$option == jabr_start
 $id == espc_isabelle score:1000","$missionId = jabr
@@ -560,7 +560,7 @@ epsilpacIsabellesitmBlurb1,sitm_blurb,$id == espc_isabelle score:1000,,"""We've 
 epsilpacIsabellesitmOfferTextContact1,DialogOptionSelected,"$option == sitm_start
 $id == espc_isabelle score:1000","$missionId = sitm
 Highlight $sitm_price
-DoCanAffordCheck $sitm_price contact_accept false","$HeOrShe taps a few times on their datapad, before continuing. ""Comm-feed leak. Pays to have eyes everywhere - and to ensure your own channels are secure, yes?"" She gives you a knowing grin.
+DoCanAffordCheck $sitm_price contact_accept false","$HeOrShe taps a few times on their datapad, before continuing. ""Comms-feed leak. Pays to have eyes everywhere - and to ensure your own channels are secure, yes?"" She gives you a knowing smile.
 
 ""Not interested in this particular acquisition, so I'm offering it to you. Now, this is from a little while ago. There's a slim chance another party might've taken it already, but you should still be able to act on it if you get there fast."" 
 
@@ -684,10 +684,10 @@ epsilHistorianBackstoryBlurb1,HistorianBackstoryBlurb,!WasHistorianBlurbShown ep
 
 The historian instinctively begins to raise $hisOrHer arm, as if to call upon an eager answer, before waving in rhetorical motion.
 
-""It's self-evident, isn't it? Especially now, given the autarky-capable nature of its present governance - a planet so self-sufficient is more able to make demands, grounds ripe for dissent. And so with hyperspace transport as a sole lifeline, the Domain may keep those elements well in check. The contract here is plainly implied.""
+""It's self-evident, isn't it? Especially now, given the autarky-capable nature of its present governance - a self-sufficient populace is more able to make demands, grounds ripe for dissent. And so with hyperspace transport as a sole lifeline, the Domain may keep those elements well in check. The contract here is plainly implied.""
 
-""Of course, this ended up being no empty threat. In its dying throes, the Domain doles out a punitive measure to the distant colony and all like it."" $HeOrShe grimaces, underscoring the irony. ""A cruel calculus of control, laid so bare. Is it any wonder that, to this day, its ancestors refuse a foreign banner?""",,
-epsilHistorianBackstoryBlurb2,HistorianBackstoryBlurb,!WasHistorianBlurbShown epsilhistoryBlurb2,SetHistorianBlurbShownAfterDelay epsilhistoryBlurb2,"""Nola Ganymede. A fascinating figure, one shrouded in mystery even to those in power, their eyes and ears everywhere and yet blind and deaf to a person so important. As you can imagine, a favorite kind of figure for those of my profession."" $HeOrShe chuckles, as though to commiserate with $hisOrHer own. ""What could a humble itinerant archaeologist know of someone like that?""
+""Of course, this ended up being no empty threat. In its dying throes, the Domain doles out a punitive measure to all like it."" $HeOrShe grimaces, underscoring the irony. ""A cruel calculus of control, laid so bare. Is it any wonder that, to this day, its ancestors refuse a foreign banner?""",,
+epsilHistorianBackstoryBlurb2,HistorianBackstoryBlurb,!WasHistorianBlurbShown epsilhistoryBlurb2,SetHistorianBlurbShownAfterDelay epsilhistoryBlurb2,"""Nola Ganymede. A fascinating figure, one shrouded in mystery even to those in power, their eyes and ears everywhere and yet blind and deaf to someone so crucial. As you can imagine, a favorite kind of figure for those of my profession."" $HeOrShe chuckles, as though to commiserate with $hisOrHer own. ""What could a humble itinerant archaeologist know of someone like that?""
 
 ""Though so representative of the present, perhaps of a future she might wish to see to fruition, history's patterns are inevitable. Try as some may wish, there's no escaping those."" The historian shakes $hisOrHer head. ""None of us can, truly.""
 

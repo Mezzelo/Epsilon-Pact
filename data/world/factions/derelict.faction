@@ -4,9 +4,14 @@
 		"espc_picket_Strike":5,
 		"espc_sentry_Attack_Derelict":5,
 		"espc_sentry_Support_Derelict":5,
+		"espc_warden_Attack_Derelict":5,
+		"espc_warden_Assault_Derelict":5,
 		
 		"espc_bastillon_Assault_Derelict":5,
 		"espc_bastillon_Attack_Derelict":5,
+		"espc_berserker_Assault_Derelict":5,
+		"espc_berserker_Support_Derelict":5,
+		
 		"espc_rampart_Assault_Derelict":10,
     },
 	
@@ -14,6 +19,7 @@
         "hulls":{
 			"espc_picket":0.3,
 			"espc_sentry":0.3,
+			"espc_warden":0.3,
 			"espc_bastillon":0.3,
 			"espc_berserker":0.3,
 			"espc_rampart":0.3,
@@ -23,6 +29,7 @@
         "hulls":[
 			"espc_picket",
 			"espc_sentry",
+			"espc_warden",
 			"espc_bastillon",
 			"espc_berserker",
 			"espc_rampart",

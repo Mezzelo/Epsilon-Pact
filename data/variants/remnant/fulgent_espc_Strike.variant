@@ -3,7 +3,7 @@
   "hullId": "fulgent",
   "displayName": "Strike",
   "goalVariant": false,
-  "fluxCapacitors": 20,
+  "fluxCapacitors": 12,
   "fluxVents": 18,
   "quality": 0,
   "permaMods": [],
@@ -13,7 +13,7 @@
   "weaponGroups": [
     {
       "autofire": true,
-      "mode": "ALTERNATING",
+      "mode": "LINKED",
       "weapons": {
         "WS 001": "espc_riftspear",
         "WS 004": "espc_riftspear"
@@ -28,26 +28,21 @@
     },
     {
       "autofire": true,
-      "mode": "ALTERNATING",
+      "mode": "LINKED",
       "weapons": {
-        "WS 009": "hammer",
-        "WS 010": "hammer"
+        "WS 000": "irpulse",
+        "WS 002": "irpulse",
+        "WS 005": "irpulse",
+        "WS 006": "irpulse"
       }
     },
     {
       "autofire": true,
       "mode": "LINKED",
       "weapons": {
-        "WS 005": "pdlaser",
-        "WS 006": "pdlaser",
         "WS 007": "pdlaser",
         "WS 008": "pdlaser"
       }
-    },
-    {
-      "autofire": false,
-      "mode": "LINKED",
-      "weapons": {}
     }
   ],
   "modules": [],

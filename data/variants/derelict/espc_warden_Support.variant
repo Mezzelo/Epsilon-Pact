@@ -1,26 +1,26 @@
 {
-    "displayName": "Strike",
-    "fluxCapacitors": 9,
+    "displayName": "Support",
+    "fluxCapacitors": 10,
     "fluxVents": 10,
     "goalVariant": true,
     "hullId": "espc_warden",
     "hullMods": [
-		"fluxdistributor",
+		"fluxdistributor"
 	],
     "permaMods": [],
     "sMods": [],
-    "variantId": "espc_warden_Strike",
+    "variantId": "espc_warden_Support",
     "weaponGroups": [
         {
             "autofire": true,
             "mode": "LINKED",
-            "weapons": {"WS 001": "espc_fission"}
+            "weapons": {"WS 001": "espc_riftspear"}
         },
         {
             "autofire": true,
-            "mode": "ALTERNATING",
+            "mode": "LINKED",
             "weapons": {
-				"WS 002": "lightdualac",
+				"WS 002": "lightac",
 				"WS 003": "lightdualac",
 			}
         }

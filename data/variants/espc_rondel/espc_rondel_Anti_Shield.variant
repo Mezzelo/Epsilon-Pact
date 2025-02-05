@@ -2,7 +2,7 @@
   "variantId": "espc_rondel_Anti_Shield",
   "hullId": "espc_rondel",
   "displayName": "Anti Shield",
-  "goalVariant": true,
+  "goalVariant": false,
   "fluxCapacitors": 10,
   "fluxVents": 2,
   "quality": 1,

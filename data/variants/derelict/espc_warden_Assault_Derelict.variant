@@ -1,20 +1,21 @@
 {
-    "displayName": "Strike",
+    "displayName": "Attack",
     "fluxCapacitors": 9,
     "fluxVents": 10,
     "goalVariant": true,
     "hullId": "espc_warden",
     "hullMods": [
-		"fluxdistributor",
+		"magazines",
+		"insulatedengine"
 	],
     "permaMods": [],
     "sMods": [],
-    "variantId": "espc_warden_Strike",
+    "variantId": "espc_warden_Assault_Derelict",
     "weaponGroups": [
         {
             "autofire": true,
             "mode": "LINKED",
-            "weapons": {"WS 001": "espc_fission"}
+            "weapons": {"WS 001": "miningblaster"}
         },
         {
             "autofire": true,

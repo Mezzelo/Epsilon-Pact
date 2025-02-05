@@ -17,8 +17,6 @@ import com.fs.starfarer.api.impl.campaign.skills.BaseSkillEffectDescription;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.util.Misc;
 
-import data.campaign.skills.espc_Underdog.UDDamageDealtMod;
-
 public class espc_ClearSkies {
 	
 	public static float DAMAGE_BONUS = 100f;

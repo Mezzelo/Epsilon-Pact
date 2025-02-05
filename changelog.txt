@@ -1,4 +1,4 @@
-Version 0.5.0-RC1
+Version 0.5.0
 New hulls: Amanuensis-class battleship & Warden (EP) class frigate
 New weapon: Scatter Rifle, large ballistic
 Portraiture: 19/22 portraits revised, 14 new portraits
@@ -68,6 +68,7 @@ Chorale
 
 Picket (EP)
 - FP 4 > 3
+- Side turret slots changed to composite, from ballistic
 
 Snety (EP)
 - FP 5 > 4
@@ -99,6 +100,7 @@ Remote Salvo
 
 Hybrid Harmonizer
 - System duration 10 seconds > 7.5 seconds
+- Visuals altered to now only cause boosted weapons to glow.
 
 Weapon changes:
 Minimir Cannon
@@ -117,6 +119,8 @@ Auto Scattershot
 Heavy Gatling
 - OP 26 > 24
 - Damage/shot 80 > 90
+- Refire delay 0.75 > 0.8
+- Min refire delay 0.075 > 0.1
 - Flux/shot 56 > 60
 
 Half-Rift Pike
@@ -144,9 +148,11 @@ Tocquiera
 - Officers (including mercenary officers) that spawn on Pact markets always use these skills.
 
 - Nexus contruction feature disabled.
+- All Derelict (EP) hulls now use proper derelict loadouts - except the sentry (EP) with hammers, that keeps missile autoloader cos it's funny.
 - Reputation gain from turning in AI cores capped, both with faction & the contacts you turn cores over to.
 - Reputation cost for purchasing blueprints roughly halved across the board.
-- Personal reputation requirement required to gain Isabelle as a contact reduced from 14 > 5.
+- When purchasing blueprints, you are also given copies of their respective items: 2 of each weapon, 1 of each ship.
+- Personal reputation requirement required to gain Isabelle as a contact removed (or set to >-1, to be exact)
 
 - All ship variants revised to account for balance changes to hulls & weapons, several altered for balance, some rather situational variants added/removed.
 - Fissile Confluence Emitter added to the Pact blueprint package.
@@ -154,10 +160,13 @@ Tocquiera
 - Sunder rarity in Pact 1.0 > 0.6, in line with other vanilla hulls; was previously left unset, oops.
 - Hammerhead rarity in Pact 0.3 > 0.6
 - Added single hammer/atropos/sabot to Pact markets.
-- Text revisions all over: typo fixes, proofreading & the like.
-- Fixed a handful of crash bugs, including some null checks for important characters.
-- Fixed duplicate markets that appear when markets are conquered.
 - Nexerelin: Corporate leaning shifted from -0.5 to -1.0, diplomatic leaning shifted from 0.0 to -0.5
+
+- Text revisions all over: typo fixes, proofreading & the like.
+- Fixed null crash that occurred when Isabelle moves between markets, for some reason I'm still not sure of.
+- Fixed a null crash when shield shunting the Observer (lol)
+- other crash bugs idr fixed.
+- Fixed duplicate markets that appear when markets are conquered.
 
 Version 0.3.93-RC3
 - fixed a crash when activating the Slamfire ship system without any weapons equipped.

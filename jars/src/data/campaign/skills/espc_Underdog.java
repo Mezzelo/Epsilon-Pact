@@ -5,7 +5,6 @@ import org.lwjgl.util.vector.Vector2f;
 // import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.characters.AfterShipCreationSkillEffect;
 import com.fs.starfarer.api.characters.MutableCharacterStatsAPI;
-import com.fs.starfarer.api.characters.ShipSkillEffect;
 import com.fs.starfarer.api.characters.SkillSpecAPI;
 import com.fs.starfarer.api.combat.BeamAPI;
 import com.fs.starfarer.api.combat.CombatEntityAPI;
