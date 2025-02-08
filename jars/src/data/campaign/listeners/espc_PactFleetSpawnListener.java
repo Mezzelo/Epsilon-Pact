@@ -87,6 +87,7 @@ public class espc_PactFleetSpawnListener extends BaseCampaignEventListener {
 		"carl",
 		"ken",
 		"lindsay",
+		"nadia",
 		"sien",
 	};
 	

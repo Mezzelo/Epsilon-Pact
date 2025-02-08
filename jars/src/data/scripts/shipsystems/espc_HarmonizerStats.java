@@ -73,7 +73,9 @@ public class espc_HarmonizerStats extends BaseShipSystemScript {
 				stats.getEnergyWeaponFluxCostMod().modifyMult(id, 1f - FLUX_USE_BONUSES[energyBoost] * effectLevel);
 			}
 
-	        ((ShipAPI) stats.getEntity()).setWeaponGlow(effectLevel, new Color(255, 120, 0, 155), 
+	        ((ShipAPI) stats.getEntity()).setWeaponGlow(
+	        	effectLevel * Math.min(((float) Math.max(ballisticBoost, energyBoost) + 1f) * 0.8f, 1.25f), 
+	        	new Color(255, 120, 0, 155), 
 	        	ballisticBoost > -1 && energyBoost > -1 ? 
 	        		EnumSet.of(WeaponType.ENERGY, WeaponType.BALLISTIC) :
 	        		EnumSet.of(energyBoost > -1 ? WeaponType.ENERGY : WeaponType.BALLISTIC));

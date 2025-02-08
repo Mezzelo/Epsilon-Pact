@@ -12,7 +12,7 @@ import org.lwjgl.util.vector.Vector2f;
 public class espc_FeintAI implements ShipSystemAIScript {
     
     // private static final float THINK_INTERVAL_NORMAL = 0.1f;
-	private static final float FLUX_THRESHOLD = 0.8f;
+	private static final float FLUX_THRESHOLD = 0.7f;
 
     // private IntervalUtil aiInterval = new IntervalUtil(THINK_INTERVAL_NORMAL, THINK_INTERVAL_NORMAL);
 

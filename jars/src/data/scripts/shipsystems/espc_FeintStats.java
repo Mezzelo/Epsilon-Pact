@@ -15,7 +15,7 @@ import com.fs.starfarer.api.impl.combat.BaseShipSystemScript;
 
 public class espc_FeintStats extends BaseShipSystemScript {
 
-	private static final float FLUX_THRESHOLD = 0.8f;
+	// private static final float FLUX_THRESHOLD = 0.8f;
 	private static final float OVERLOAD_DURATION = 0.5f;
 	
 // 	private static final float DAMAGE_RECEIVED_MULT = 0.3f;
@@ -64,6 +64,7 @@ public class espc_FeintStats extends BaseShipSystemScript {
 		debounce = false;
 	}
 
+	/*
 	@Override
 	public String getInfoText(ShipSystemAPI system, ShipAPI ship) {
 		if (system.getState() != SystemState.IDLE || system.getAmmo() <= 0)
@@ -74,9 +75,8 @@ public class espc_FeintStats extends BaseShipSystemScript {
 			return "FLUX BELOW THRESHOLD";
 	}
 	
-	
 	@Override
 	public boolean isUsable(ShipSystemAPI system, ShipAPI ship) {
-		return (system.getAmmo() > 0 && ship.getFluxTracker().getFluxLevel() >= FLUX_THRESHOLD);
-	}
+		// return (system.getAmmo() > 0 && ship.getFluxTracker().getFluxLevel() >= FLUX_THRESHOLD);
+	} */
 }

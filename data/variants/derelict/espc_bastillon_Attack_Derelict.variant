@@ -3,11 +3,14 @@
   "hullId": "espc_bastillon",
   "displayName": "Attack",
   "goalVariant": false,
-  "fluxCapacitors": 20,
-  "fluxVents": 20,
+  "fluxCapacitors": 17,
+  "fluxVents": 18,
   "quality": 1,
   "permaMods": [],
-  "hullMods": [],
+  "hullMods": [
+	"autorepair",
+	"turretgyros"
+  ],
   "weaponGroups": [
     {
       "autofire": false,

@@ -1,7 +1,7 @@
 Version 0.5.0
 New hulls: Amanuensis-class battleship & Warden (EP) class frigate
 New weapon: Scatter Rifle, large ballistic
-Portraiture: 19/22 portraits revised, 14 new portraits
+Portraiture: 17/22 existing portraits revised, 14 new portraits
 
 AI changes:
 - Faction personality doctrine changed from STEADY to AGGRESSIVE
@@ -19,7 +19,7 @@ Rondel (all variants)
 Jackalope (all variants)
 - FP 5 > 6
 - Self-recoil effect from firing large and medium weapons reduced by 20%
-	- LP Jackalope recoil unchanged lol
+    - LP Jackalope recoil unchanged lol
 - Acceleration 100 > 150, deceleration 50 > 85
 - Flux Capacity 2500 > 3000
 - Dissipation 140 > 160
@@ -34,7 +34,7 @@ Songbird (TT)
 
 Opossum
 - FP 4 > 5
-	
+
 Militia
 - DP 11 > 10
 - Militia (S) DP 10 > 9
@@ -55,7 +55,7 @@ Observer (TT)
 
 Pilgrim (all variants)
 - OP 125 > 130
-	- Pilgrim (H)'s OP remains at 125
+    - Pilgrim (H)'s OP remains at 125
 - Hull 8500 > 9000
 - Dissipation 450 > 500
 
@@ -76,16 +76,25 @@ Snety (EP)
 
 Bastillon (EP)
 - FP 8 > 7
-- Significant aneuverability buffs
+- OP 90 > 95
+- Significant maneuverability buffs
 
 Berserker (EP)
-- Significant aneuverability buffs
+- Significant maneuverability buffs
 
 Rampart
 - DP 22 > 24
 
 
 System changes:
+Feint Overload
+- Removed 80% flux capacity requirement for system activation
+- Reduced flux capacity threshold at which AI activates system from 80% to 70%
+
+Hybrid Harmonizer
+- System duration 10 seconds > 7.5 seconds
+- Visuals altered to now only cause boosted weapons to glow, and glow amount depends on how much weapons are being boosted by.
+
 Overpressure Loaders
 - Increases ballistic range by 15% on activation
 
@@ -97,10 +106,6 @@ Remote Salvo
 - Bursts per fighter limited to 2.  This significantly nerfs swarmers and other high ammo/low OP missiles.
 - Bursts now fire twice as quickly
 - Barrel angle offsets now apply.  This only affects the annihilator in vanilla, which previously had perfect accuracy.
-
-Hybrid Harmonizer
-- System duration 10 seconds > 7.5 seconds
-- Visuals altered to now only cause boosted weapons to glow.
 
 Weapon changes:
 Minimir Cannon
@@ -141,10 +146,10 @@ Tocquiera
 - Heavy Batteries removed, instead spawns with a unique structure that reflects lore
 - Dealmaker Holosuite removed
 - Administrator given a unique skill
-	- If using Nexerelin, unique administrator leaves colony if Tocquiera is conquered, and returns only if Pact regains control
+    - If using Nexerelin, unique administrator leaves colony if Tocquiera is conquered, and returns only if Pact regains control
 - Officers in Pact fleets have access to a unique set of skills alongside the vanilla ones, and utilize a selection algorithm based on hull type.
-	- Pact bounty fleets now use their regular skill selection as opposed to before, where it was genericized.
-	- Officers in missions reworked to incorporate new skills
+    - Pact bounty fleets now use their regular skill selection as opposed to before, where it was genericized.
+    - Officers in missions reworked to incorporate new skills
 - Officers (including mercenary officers) that spawn on Pact markets always use these skills.
 
 - Nexus contruction feature disabled.

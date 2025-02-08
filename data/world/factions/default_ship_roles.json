@@ -134,9 +134,9 @@
 		"espc_pilgrim_Escort":0,
 		
 		
-		"espc_rampart_Strike":4,
-		"espc_rampart_Support":4,
-		"espc_rampart_Assault":2,
+		"espc_rampart_Strike":6,
+		"espc_rampart_Support":3,
+		"espc_rampart_Assault":1,
 		"espc_rampart_Assault_Derelict":0,
 		
 		"brilliant_espc_Assault":0,

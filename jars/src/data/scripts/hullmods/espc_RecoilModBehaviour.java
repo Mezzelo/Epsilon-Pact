@@ -32,14 +32,14 @@ public class espc_RecoilModBehaviour extends BaseHullMod {
 	@Override
 	public String getDescriptionParam(int index, HullSize hullSize) {
 		if (index == 0)
-			return ("large");
-		else if (index == 1 || index == 2)
+			return ("large and medium");
+		else if (index == 1)
 			return ("medium");
-		else if (index == 3)
+		else if (index == 2)
 			return ((int) (ROF_BONUS * 100f) + "%");
-		else if (index == 4)
+		else if (index == 3)
 			return ("Heavy Armor");
-		else if (index == 5)
+		else if (index == 4)
 			return ("20%");
 		return null;
 	}

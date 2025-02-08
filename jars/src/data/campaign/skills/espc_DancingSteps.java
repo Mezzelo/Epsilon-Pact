@@ -34,7 +34,9 @@ public class espc_DancingSteps {
 
 	public static float SPEED_BONUS = 50f;
 	public static float MANEUVERABILITY_BONUS = 80f;
-	public static float SPEED_BONUS_NO_SHIELD = 25f;
+	public static float SPEED_BONUS_NO_SHIELD = 30f;
+	public static float SHIELD_DECAY_TIME = 3f;
+	public static float SHIELD_TIME_GAIN_MULT = 4f;
 	public static float HULL_STATIC_MAX = 2000f;
 	public static float HULL_PORTION_MAX = 50f;
 	public static float HOSTILE_RANGE = 350f;
@@ -46,6 +48,8 @@ public class espc_DancingSteps {
 	public static float DAMAGE_REDUCTION_SPEED_MAX = 70f;
 	
 	public static int BEAM_UPDATE_RATE = 6;
+
+	public static Object SHIELD_DROP_STATUS_KEY = new Object();
 	
 	public static class DancingStepsEffectMod implements AdvanceableListener {
 		protected ShipAPI ship;
@@ -53,11 +57,13 @@ public class espc_DancingSteps {
 		// beams appear to update once every 6 ticks
 		protected float beamDamageLast = 0f;
 		protected int beamTicks = 0;
+		protected float shieldTimer = 0f;
 		public DancingStepsEffectMod(ShipAPI ship, String id) {
 			this.ship = ship;
 			this.id = id;
 			this.beamDamageLast = 0f;
 			this.beamTicks = 0;
+			this.shieldTimer = 0f;
 		}
 		
 		public void advance(float amount) {
@@ -101,11 +107,26 @@ public class espc_DancingSteps {
 				
 			}
 			damage += beamDamage;
-			if (ship.getShield() != null && ship.getShield().isOff())
-				ship.getMutableStats().getMaxSpeed().modifyFlat(id + "noShield", SPEED_BONUS_NO_SHIELD);
-			else
+			if (ship.getShield() != null && ship.getShield().isOff()) {
+				if (shieldTimer > 0f) {
+					shieldTimer = Math.max(shieldTimer - amount, 0f);
+					ship.getMutableStats().getMaxSpeed().modifyFlat(id + "noShield", SPEED_BONUS_NO_SHIELD * shieldTimer/SHIELD_DECAY_TIME);
+					if (Global.getCombatEngine() != null && Global.getCombatEngine().getPlayerShip() == ship) {
+						Global.getCombatEngine().maintainStatusForPlayerShip(SHIELD_DROP_STATUS_KEY,
+							Global.getSettings().getSpriteName("ui", "icon_tactical_engine_boost"),
+							"Dancing steps", 
+							"+" + (int)(SPEED_BONUS_NO_SHIELD * shieldTimer/SHIELD_DECAY_TIME) + " top speed", false);
+					}
+				} else {
+					ship.getMutableStats().getMaxSpeed().unmodify(id + "noShield");
+				}
+			}
+			else {
 				ship.getMutableStats().getMaxSpeed().unmodify(id + "noShield");
-			if (damage > 0f) {
+				if (ship.getShield() != null && ship.getShield().isOn())
+					shieldTimer = Math.min(shieldTimer + amount * SHIELD_TIME_GAIN_MULT, SHIELD_DECAY_TIME);
+			}
+			if (damage > 0f && !ship.isPhased()) {
 				float mult = Math.min(damage / Math.min(HULL_STATIC_MAX, ship.getHitpoints() * HULL_PORTION_MAX/100f), 1f);
 				MutableShipStatsAPI stats = ship.getMutableStats();
 				stats.getMaxSpeed().modifyPercent(id, SPEED_BONUS * mult);
@@ -224,7 +245,7 @@ public class espc_DancingSteps {
 			info.addPara("Up to +%s top speed and +%s maneuverability, based on nearby incoming fire",
 				0f, hc, hc, (int)SPEED_BONUS + "%", (int)MANEUVERABILITY_BONUS + "%"
 			);
-			info.addPara(indent + "Max effect when there is half of current hull's worth of enemy fire within %s",
+			info.addPara(indent + "Max effect when there is half of current hull's worth of enemy fire within %s. No effect while phased.",
 				0f, tc, hc, (int)HOSTILE_RANGE + " su"
 			);
 			/*
@@ -263,8 +284,8 @@ public class espc_DancingSteps {
 			info.addPara(indent + "Max damage reduction when moving perpendicular to an attack at %s, and it lands parallel to shield",
 				0f, tc, hc, (int) DAMAGE_REDUCTION_SPEED_MAX + " su/second"
 			);
-			info.addPara("%s su/second to top speed when shields are down, on ships with shields",
-				0f, hc, hc, "+" + (int)SPEED_BONUS_NO_SHIELD
+			info.addPara("Up to %s su/second to top speed after dropping shields, decaying over %s",
+				0f, hc, hc, "+" + (int)SPEED_BONUS_NO_SHIELD, (int)SHIELD_DECAY_TIME + " seconds"
 			);
 		}
 		

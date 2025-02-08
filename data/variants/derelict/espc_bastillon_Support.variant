@@ -4,11 +4,12 @@
   "displayName": "Support",
   "goalVariant": true,
   "fluxCapacitors": 20,
-  "fluxVents": 14,
+  "fluxVents": 15,
   "quality": 1,
   "permaMods": [],
   "hullMods": [
-    "targetingunit"
+    "targetingunit",
+    "turretgyros"
   ],
   "weaponGroups": [
     {

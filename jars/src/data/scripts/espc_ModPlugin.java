@@ -104,7 +104,6 @@ public class espc_ModPlugin extends BaseModPlugin {
 	
 	@Override
 	public void onGameLoad(boolean isNewGame) {
-		// check if fac is in 
 		if (!SharedData.getData().getPersonBountyEventData().getParticipatingFactions().contains("epsilpac")) {
 	        new espc_WorldGen().generate(Global.getSector(), isNewGame,
 	        	(hasNex && !SectorManager.getManager().isCorvusMode())
@@ -171,7 +170,8 @@ public class espc_ModPlugin extends BaseModPlugin {
         }
         /*  -- overrides for use in balance testing, to replicate desired campaign behaviour --
  
-        else if (Misc.isAutomated(ship)
+        else if (Misc.isAutomated(ship) &&
+       		ship.getName() != null && ship.getName().contains("EPS") && !ship.hasLaunchBays()
 	    	&& !ship.getHullSpec().getBaseHullId().equals("espc_rampart")
 	    	&& !ship.getHullSpec().getBaseHullId().equals("radiant")) {
 	        ShipAIConfig config = new ShipAIConfig();

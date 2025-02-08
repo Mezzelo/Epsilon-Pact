@@ -4,10 +4,11 @@
   "displayName": "Assault",
   "goalVariant": false,
   "fluxCapacitors": 20,
-  "fluxVents": 17,
+  "fluxVents": 16,
   "quality": 1,
   "permaMods": [],
   "hullMods": [
+	"autorepair",
     "magazines",
 	"turretgyros"
   ],

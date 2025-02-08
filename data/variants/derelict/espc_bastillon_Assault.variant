@@ -3,12 +3,13 @@
   "hullId": "espc_bastillon",
   "displayName": "Assault",
   "goalVariant": true,
-  "fluxCapacitors": 17,
-  "fluxVents": 13,
+  "fluxCapacitors": 16,
+  "fluxVents": 15,
   "quality": 1,
   "permaMods": [],
   "hullMods": [
-    "targetingunit"
+    "targetingunit",
+	"turretgyros",
   ],
   "weaponGroups": [
     {

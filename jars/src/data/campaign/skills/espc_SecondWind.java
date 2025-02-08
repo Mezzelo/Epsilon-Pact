@@ -33,6 +33,8 @@ public class espc_SecondWind {
 		public void advance(float amount) {
 			if (Global.getCurrentState() != GameState.COMBAT)
 				return;
+			if (ship == null || ship.getSystem() == null)
+				return;
 			if (ship.getSystem().isActive() && !systemOn && cooldown <= 0f &&
 				(ship.getSystem().getMaxAmmo() > 10000 ||
 				ship.getSystem().getMaxAmmo() > 0 && ship.getSystem().getAmmo() <= 0)) {
