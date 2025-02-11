@@ -17,8 +17,8 @@ public class espc_SecondWind {
 	
 	public static float SYSTEM_COOLDOWN = 20f;
 	public static float OVERLOAD_COOLDOWN = 90f;
-	public static float DISSIPATION_BONUS_OVERLOAD = 2f;
-	public static float OVERLOAD_DURATION = 0.5f;
+	public static float DISSIPATION_BONUS_OVERLOAD = 3f;
+	public static float OVERLOAD_DURATION = 0.25f;
 	
 	public static class SecondWindEffectMod implements AdvanceableListener {
 		protected ShipAPI ship;
@@ -140,7 +140,7 @@ public class espc_SecondWind {
 		
 		public String getEffectDescription(float level) {
 			return "Once per " + (int)Math.round(OVERLOAD_COOLDOWN) + " seconds on overload, "
-				+ "halves the overload duration and doubles flux dissipation while overloading";
+				+ "quarters overload duration and triples flux dissipation while overloaded";
 		}
 		public String getEffectPerLevelDescription() {
 			return null;

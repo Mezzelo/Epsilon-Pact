@@ -30,7 +30,7 @@ public class espc_FinneganProjEffect implements OnHitEffectPlugin {
 		if (!(target instanceof ShipAPI))
 			return;
 		float speed = Math.min(MAX_VEL, proj.getVelocity().length());
-		Global.getLogger(espc_FinneganProjEffect.class).info("speed finonHit: " + speed);
+		// Global.getLogger(espc_FinneganProjEffect.class).info("speed finonHit: " + speed);
 		if (speed < MIN_VEL)
 			return;
 		

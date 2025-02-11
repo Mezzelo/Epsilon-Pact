@@ -47,7 +47,7 @@ Militia
 Ember (all variants)
 - Flux Capacity 4000 > 6000
 
-Observer (all variants)
+Observer (base variant)
 - Speed 60 > 65
 Observer (TT)
 - FP 16 > 17
@@ -103,7 +103,7 @@ Remote Salvo
 - System duration automatically ends early when all missiles have been launched
 - Missile range for missiles launched via this system increased by 25%
 - Missiles tagged as ANTI_FTR now prioritize targeting the nearest fighter when launched
-- Bursts per fighter limited to 2.  This significantly nerfs swarmers and other high ammo/low OP missiles.
+- Bursts per fighter limited to 3.  This significantly nerfs swarmers and other high ammo/low OP missiles.
 - Bursts now fire twice as quickly
 - Barrel angle offsets now apply.  This only affects the annihilator in vanilla, which previously had perfect accuracy.
 
@@ -154,9 +154,11 @@ Tocquiera
 
 - Nexus contruction feature disabled.
 - All Derelict (EP) hulls now use proper derelict loadouts - except the sentry (EP) with hammers, that keeps missile autoloader cos it's funny.
+- Autofit chance in Pact doctrine lowered from 0.1 > 0
 - Reputation gain from turning in AI cores capped, both with faction & the contacts you turn cores over to.
 - Reputation cost for purchasing blueprints roughly halved across the board.
 - When purchasing blueprints, you are also given copies of their respective items: 2 of each weapon, 1 of each ship.
+- Fissile Confluence Emitter removed as a purchasable blueprint - it uses no auto-fit tags, on account of being too fickle to build with.
 - Personal reputation requirement required to gain Isabelle as a contact removed (or set to >-1, to be exact)
 
 - All ship variants revised to account for balance changes to hulls & weapons, several altered for balance, some rather situational variants added/removed.

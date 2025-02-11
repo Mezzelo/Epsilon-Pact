@@ -31,8 +31,8 @@
       "autofire": false,
       "mode": "ALTERNATING",
       "weapons": {
-        "WS 003": "swarmer",
-        "WS 004": "swarmer"
+        "WS 003": "annihilator",
+        "WS 004": "annihilator"
       }
     },
     {

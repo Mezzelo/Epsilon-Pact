@@ -85,7 +85,6 @@ public class espc_AITrade extends BaseCommandPlugin {
     	weaponMap.put("espc_gatling", 6);
     	weaponMap.put("espc_flak", 6);
     	
-    	weaponMap.put("espc_fission", 8);
     	weaponMap.put("espc_riftspear", 8);
     	weaponMap.put("espc_riftpike", 12);
 	}

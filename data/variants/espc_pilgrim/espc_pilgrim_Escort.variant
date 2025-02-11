@@ -3,8 +3,8 @@
   "hullId": "espc_pilgrim",
   "displayName": "Escort",
   "goalVariant": false,
-  "fluxCapacitors": 22,
-  "fluxVents": 20,
+  "fluxCapacitors": 24,
+  "fluxVents": 22,
   "quality": 1,
   "permaMods": [],
   "hullMods": [
@@ -45,7 +45,7 @@
   ],
   "modules": [],
   "wings": [
-    "lux_wing",
-    "lux_wing"
+    "spark_wing",
+    "spark_wing"
   ]
 }

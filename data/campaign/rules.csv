@@ -380,7 +380,7 @@ epsilpacgreetingFriendly,OpenCommLink,"$faction.friendlyToPlayer
 $faction.id == epsilpac","$menuState = fleetConvMain 0
 FireAll PopulateOptions","""AIS code received - captain $playerLastName. Burn bright, friend."" The $personRank turns their attention elsewhere.
 OR
-""Comms received, over. Might the stars light your way, captain. How may we be of service?""
+""Comms received"", the $personRank states with a nod. ""Might the stars light your way, captain. How may we be of service?""
 OR
 A nod, as the $personRank verifies your identity. ""Comms are open, captain, your signature is acknowledged. It's good to see you.""",,
 epsilpacgreetingHostileWeaker,OpenCommLink,"$entity.isHostile
@@ -391,7 +391,7 @@ A tinge of consternation comes through the feed, but only briefly. ""So this is 
 OR
 ""Ah. It's you."" The $personRank's feed flickers, punctuating an uncomfortable pause. ""Go on, do your worst. We're waiting.""
 OR
-Not a single emotion is visible on the $personRank's visage, as they face you down. ""What could you possibly have to say for yourself? Go on. Do what you've come to do.""",cutCommLink:Cut the comm link,
+Not a hint of emotion comes across the $personRank's face as they address you. ""What could you possibly have to say for yourself? Go on. Do what you've come to do.""",cutCommLink:Cut the comm link,
 epsilpacgreetingHostileStronger,OpenCommLink,"$entity.isHostile
 $entity.relativeStrength >= 0
 $faction.id == epsilpac",$ignorePlayerCommRequests = true 1,"The $personRank's voice feeds through comms, cold and emotionless. ""Power down your weapons, captain. You don't have to make this hard.""
@@ -404,14 +404,16 @@ OR
 OR
 ""Only one of our fleets leaves this intact. With the stars as our witness, may they shine on the better of us.""
 OR
-Not an eye twitch, not a smirk, nothing as $heOrShe speaks. ""Don't run. Face us with the dignity you couldn't show to those you've wronged.""",cutCommLink:Cut the comm link,
+Not an eye twitch, not a smirk, nothing as the $personRank speaks. ""Don't run. Face us with the dignity you couldn't show to those you've wronged.""",cutCommLink:Cut the comm link,
 epsilpacgreetingNeutral,OpenCommLink,"$faction.neutralToPlayer
 $faction.id == epsilpac","$menuState = fleetConvMain 0
 FireAll PopulateOptions","""AIS code received - captain $playerLastName, aye. Stay safe out there."" The $personRank turns their attention elsewhere.
 OR
-""Hail, $playerLastName, your identity's been confirmed. Go about your business.""
+The $personRank acknowledges you. ""Hail, $playerLastName, your identity's been confirmed. Go about your business.""
 OR
-""Your AIS code has been received, captain. If you're not in need of assistance, you'd best be on your way.""",,
+The $personRank glances over at you through the comm feed. ""Your AIS code has been received, captain. If you're not in need of assistance, you'd best be on your way.""
+OR
+""Acknowledged"", the $personRank states, plainly. ""Go about your business, and may the stars treat you well.""",,
 epsilpacgreetingInfamous,OpenCommLink,"$player.atrocities > 1
 RollProbability 0.5 score:2
 $faction.id == epsilpac","$menuState = fleetConvMain 0
@@ -624,12 +626,12 @@ You have complete freedom to revoke these responsibilities at any time after the
 CMSNTextSuitedPart2_epsilpac,CMSNTextSuitedPart2,$faction.id == epsilpac,,"""Everything is ready if you are willing to sign on. Do you accept? This is an important decision, take your time need be.""",,
 CMSNTextWelcomePart1_epsilpac,CMSNTextWelcomePart1,$faction.id == epsilpac,,"""On the behalf of the Epsilon Pact, I welcome you. Your authorizations have already been provided. May the stars treat you well.""",,
 CMSNTextWelcomePart2_epsilpac,CMSNTextWelcomePart2,$faction.id == epsilpac,,"""While you're still here, though, is there anything else I can help you with?""",,
-CMSNTextChangeMind_epsilpac,CMSNTextChangeMind,$faction.id == epsilpac,,"""Your apprehension is understandable. To fight for our pact is not an enviable role. Your help would be appreciated, however, so should you change your mind the offer will still be available.
+CMSNTextChangeMind_epsilpac,CMSNTextChangeMind,$faction.id == epsilpac,,"""Your apprehension is understandable. Not all are ready to share our struggles. Should you change your mind, however, the offer will still be available.
 
 Is there anything else I can help you with?""",,
 CMSNResignAskToConfirm_epsilpac,CMSNResignAskToConfirm,$faction.id == epsilpac,,"""Are you sure about this? Your aid is greatly appreciated, to see it go would be a great shame. If you are to proceed with this, we would ask that you distance yourself for some time afterwards as a matter of security.""",,
 CMSNResignConfirmed_epsilpac,CMSNResignConfirmed,$faction.id == epsilpac,,"""I understand. Thank you for your service, captain, and may the stars treat you well.""",,
-CMSNResignCancelled_epsilpac,CMSNResignCancelled,$faction.id == epsilpac,,"""You are free to resign whenever you like, but your commitment to the cause does not go unnoticed. Thank you, captain.""",,
+CMSNResignCancelled_epsilpac,CMSNResignCancelled,$faction.id == epsilpac,,"""Your commitment to the cause does not go unrecognized. Thank you, captain.""",,
 ,,,,,,
 ,,,,,,
 ,,,,,,

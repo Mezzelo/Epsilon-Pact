@@ -36,7 +36,7 @@ public class espc_DancingSteps {
 	public static float MANEUVERABILITY_BONUS = 80f;
 	public static float SPEED_BONUS_NO_SHIELD = 30f;
 	public static float SHIELD_DECAY_TIME = 3f;
-	public static float SHIELD_TIME_GAIN_MULT = 4f;
+	public static float SHIELD_TIME_GAIN_MULT = 3f;
 	public static float HULL_STATIC_MAX = 2000f;
 	public static float HULL_PORTION_MAX = 50f;
 	public static float HOSTILE_RANGE = 350f;
@@ -47,14 +47,13 @@ public class espc_DancingSteps {
 	public static float DAMAGE_REDUCTION_SHIELD_MAX = 80f;
 	public static float DAMAGE_REDUCTION_SPEED_MAX = 70f;
 	
-	public static int BEAM_UPDATE_RATE = 6;
+	public static int BEAM_UPDATE_RATE = 8;
 
 	public static Object SHIELD_DROP_STATUS_KEY = new Object();
 	
 	public static class DancingStepsEffectMod implements AdvanceableListener {
 		protected ShipAPI ship;
 		protected String id;
-		// beams appear to update once every 6 ticks
 		protected float beamDamageLast = 0f;
 		protected int beamTicks = 0;
 		protected float shieldTimer = 0f;
@@ -159,7 +158,6 @@ public class espc_DancingSteps {
 			if (!shieldHit || ship == null) return null;
 			
 			float angle = 0f;
-			
 			if (param instanceof DamagingProjectileAPI)
 				angle = (float) Math.toDegrees(FastTrig.atan2(
 					((DamagingProjectileAPI) param).getVelocity().y, ((DamagingProjectileAPI) param).getVelocity().x
@@ -177,10 +175,20 @@ public class espc_DancingSteps {
 			
 			angle = Math.abs(MathUtils.getShortestRotation(VectorUtils.getAngle(point, ship.getShieldCenterEvenIfNoShield()), angle));
 			
+			// something's thrown NaN here very rarely, either an error in the math or a return on one of the many calls here
+			// don't have time to properly debug before release so it's a gross fix for now lol
+			angle = (90f - Math.abs(angle - 90f))/90f
+					* Math.min(DAMAGE_REDUCTION_SPEED_MAX, ship.getVelocity().length()) / DAMAGE_REDUCTION_SPEED_MAX *
+					(90f - Math.abs(angleShip - 90f))/90f
+					* -DAMAGE_REDUCTION_SHIELD_MAX;
+			if (Float.isNaN(angle) || angle <= -95f)
+				return null;
+			damage.getModifier().modifyPercent(id + "_taken_shield", angle);
+			/*
 			damage.getModifier().modifyPercent(id + "_taken_shield", (90f - Math.abs(angle - 90f))/90f
 				* Math.min(DAMAGE_REDUCTION_SPEED_MAX, ship.getVelocity().length()) / DAMAGE_REDUCTION_SPEED_MAX *
 				(90f - Math.abs(angleShip - 90f))/90f
-				* -DAMAGE_REDUCTION_SHIELD_MAX);
+				* -DAMAGE_REDUCTION_SHIELD_MAX); */
 			return id + "_taken_shield";
 		}
 	}

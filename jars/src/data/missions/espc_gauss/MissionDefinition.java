@@ -66,7 +66,7 @@ public class MissionDefinition implements MissionDefinitionPlugin {
 			"graphics/portraits/espc_isabelle.png", "epsilpac", 4);
 		EspcOfficerFactory.PopulateSkills(pilot, new String[]{
 			Skills.HELMSMANSHIP, Skills.TARGET_ANALYSIS, 
-			"espc_running_hot", Skills.ORDNANCE_EXPERTISE}, new int[]{
+			Skills.ENERGY_WEAPON_MASTERY, Skills.ORDNANCE_EXPERTISE}, new int[]{
 			2, 2, 2, 2});
         member.setCaptain(pilot);
 		

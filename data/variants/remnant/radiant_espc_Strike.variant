@@ -4,14 +4,14 @@
   "displayName": "Strike",
   "goalVariant": false,
   "fluxCapacitors": 50,
-  "fluxVents": 24,
+  "fluxVents": 42,
   "quality": 1,
   "permaMods": [],
   "hullMods": [
     "targetingunit",
     "stabilizedshieldemitter",
-    "missleracks",
-    "hardenedshieldemitter"
+    "hardenedshieldemitter",
+	"magazines"
   ],
   "weaponGroups": [
     {
@@ -50,15 +50,13 @@
       "autofire": true,
       "mode": "LINKED",
       "weapons": {
-        "WS 003": "ionpulser",
+        "WS 003": "tachyonlance",
       }
     },
     {
       "autofire": true,
       "mode": "LINKED",
       "weapons": {
-        "WS 012": "ioncannon",
-        "WS 015": "ioncannon",
         "WS 010": "pdlaser",
         "WS 017": "pdlaser"
       }

@@ -3,7 +3,7 @@
   "hullId": "espc_sentry",
   "displayName": "Support",
   "goalVariant": false,
-  "fluxCapacitors": 8,
+  "fluxCapacitors": 10,
   "fluxVents": 0,
   "quality": 1,
   "permaMods": [],

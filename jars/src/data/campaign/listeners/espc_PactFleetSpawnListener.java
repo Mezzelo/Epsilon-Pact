@@ -27,6 +27,7 @@ import com.fs.starfarer.api.combat.WeaponAPI.WeaponType;
 import com.fs.starfarer.api.fleet.FleetMemberAPI;
 import com.fs.starfarer.api.impl.campaign.ids.Factions;
 import com.fs.starfarer.api.impl.campaign.ids.Skills;
+import com.fs.starfarer.api.impl.campaign.ids.Tags;
 import com.fs.starfarer.api.impl.campaign.intel.PersonBountyIntel;
 import com.fs.starfarer.api.loading.VariantSource;
 import com.fs.starfarer.api.util.Misc;
@@ -50,6 +51,7 @@ public class espc_PactFleetSpawnListener extends BaseCampaignEventListener {
 	// we need sensitively built variants on this list
 	// - i.e. weapon choices that affect systems, one-off used weapons for remnants/derelicts
 	// only necessary for ships w/out no-autofit tag
+	/*
 	private String[] variantList = {
 		"espc_observer_Strike",
 		"espc_observer_Suppressive",
@@ -72,7 +74,9 @@ public class espc_PactFleetSpawnListener extends BaseCampaignEventListener {
 		"espc_pilgrim_Support",
 		"espc_flagbearer_Standard",
 		"espc_flagbearer_Support",
+		"espc_jackalope_Standard",
 		"espc_jackalope_Strike",
+		"espc_jackalope_Escort_Pact",
 		"espc_songbird_Standard",
 		"espc_militia_Support",
 		"espc_berserker_Assault",
@@ -80,12 +84,13 @@ public class espc_PactFleetSpawnListener extends BaseCampaignEventListener {
 		"espc_rampart_Strike",
 		"espc_rampart_Support",
 		"espc_rampart_Assault",
-	};
+	}; */
 	
 	private String[] portraitList = {
 		"alma",
 		"carl",
 		"ken",
+		"lin",
 		"lindsay",
 		"nadia",
 		"sien",
@@ -94,12 +99,13 @@ public class espc_PactFleetSpawnListener extends BaseCampaignEventListener {
 	@Override
 	public void reportFleetSpawned(CampaignFleetAPI fleet) {
 		if (!(
+			// pact fleets (duh)
 			fleet.getFaction().getId().equals("epsilpac") || 
-			(fleet.getFaction().getId().equals(Factions.NEUTRAL) && fleet.getNameWithFactionKeepCase().contains("'s Fleet"))
-			))
+			// pact bounty fleets
+			(fleet.getFaction().getId().equals(Factions.NEUTRAL) && fleet.getNameWithFactionKeepCase().contains("'s Fleet")) ||
+			// nex pact allied fleets, under a different faction
+			fleet.getNameWithFactionKeepCase().contains("Epsilon Pact")))
 			return;
-		
-		// boolean hasCores = false;
 		
 		boolean isBounty = fleet.getFaction().getId().equals(Factions.NEUTRAL);
 		
@@ -129,27 +135,99 @@ public class espc_PactFleetSpawnListener extends BaseCampaignEventListener {
 			if (!found)
 				return;
 		}
-		
-		// getofficerscopy doesn't appear to work urghh
         for (FleetMemberAPI fleetMember : fleet.getFleetData().getMembersListCopy()) {
 			// 	
-        	if (fleet.getFaction().getId().equals("epsilpac")) {
-            	for (int i = 0; i < variantList.length; i++) {
-            		if (variantList[i].equals(fleetMember.getVariant().getHullVariantId()) ) {
-            			ShipVariantAPI refit = Global.getSettings().getVariant(variantList[i]).clone();
-        	            refit.addTag("no_autofit");
-            			refit.setSource(VariantSource.REFIT);
-                        fleetMember.setVariant(refit, false, true);
-            			break;
+        	if (fleet.getFaction().getId().equals("epsilpac") ||
+        		(fleetMember.getVariant().getHullVariantId() != null && 
+            	Global.getSettings().getVariant(fleetMember.getVariant().getHullVariantId()) != null &&
+            	fleetMember.getVariant().getHullVariantId().contains("espc")) ||
+        		(fleetMember.getCaptain() != null && fleetMember.getCaptain().getPortraitSprite().contains("espc")))
+        		{
+            	// for (int i = 0; i < variantList.length; i++) {
+            		// if (variantList[i].equals(fleetMember.getVariant().getHullVariantId()) ) {
+        		
+        			// NO WEAPON AUTOFITS ALLOWED!!!
+        			// due to the specific nature of a lot of the weapon designs & hulls in this mod
+        			// isolated rem drivers & fce's is pain
+        			
+        			// we still want to preserve original smods & dmods
+        			// also this ^ part doesn't fucking work because we can't get dmods on spawn? smile
+        			// guess i'm doing this after i get some answers
+        		
+            	if (fleetMember.getVariant().getHullVariantId() != null && 
+           			Global.getSettings().getVariant(fleetMember.getVariant().getHullVariantId()) != null &&
+           			fleetMember.getVariant().getHullVariantId().contains("espc")) {
+           			ShipVariantAPI refit = Global.getSettings().getVariant(fleetMember.getVariant().getHullVariantId()).clone();
+        	        refit.addTag(Tags.TAG_NO_AUTOFIT);
+            		refit.setSource(VariantSource.REFIT);
+            		/*
+            		for (String hullmod : fleetMember.getVariant().getHullMods()) {
+            			if (Global.getSettings().getHullModSpec(hullmod).hasTag(Tags.HULLMOD_DMOD) &&
+            				!refit.hasHullMod(hullmod)) {
+            				refit.removeSuppressedMod(hullmod);
+            				refit.addMod(hullmod);
+            				refit.addPermaMod(hullmod, false);
+            			}
             		}
+            		for (String hullmod : fleetMember.getVariant().getSMods()) {
+            			if (!refit.getHullMods().contains(hullmod))
+            				refit.addMod(hullmod);
+            			refit.addPermaMod(hullmod, true);
+            		}
+            		// core autofit quickactions would be ideal here but it's a pain in the ass to deal with the edge cases
+            		// for the excess OP on s-modded ships, we'll just max caps/vents and call it a day.
+            		int op = refit.getUnusedOP(fleetMember.getCaptain() != null ? fleetMember.getCaptain().getStats() : null);
+            		if (op > 0) {
+            			int maxCaps = CoreAutofitPlugin.getBaseMax(refit.getHullSize());
+            			int maxVents = maxCaps;
+            			if (fleet.getCommander() != null) {
+            				maxCaps = (int) fleet.getCommander().getStats().getMaxCapacitorsBonus().computeEffective(maxCaps);
+            				maxVents = (int) fleet.getCommander().getStats().getMaxCapacitorsBonus().computeEffective(maxVents);
+            			}
+	           			if (refit.getNumFluxVents() < maxVents) {
+	        				refit.setNumFluxVents(
+	        					Math.min(maxVents, 
+	        					refit.getNumFluxVents() + op));
+	        				op = refit.getUnusedOP(fleetMember.getCaptain() != null ? fleetMember.getCaptain().getStats() : null);
+	        			}
+            			if (op > 0 &&
+            				refit.getNumFluxCapacitors() < maxCaps) {
+	        				refit.setNumFluxCapacitors(
+		       					Math.min(maxVents, 
+		       					refit.getNumFluxCapacitors() + op));
+	        				op = refit.getUnusedOP(fleetMember.getCaptain() != null ? fleetMember.getCaptain().getStats() : null);
+            			}
+            			// ahh this is nasty i gotta rework this after release
+        				if (op > 0 && !refit.getHullMods().contains(HullMods.FLUX_DISTRIBUTOR)) {
+	        				HullModSpecAPI distributor = Misc.getMod(HullMods.FLUX_DISTRIBUTOR);
+	        				int cost = distributor.getCostFor(refit.getHullSize());
+	        				if (cost <= op + refit.getNumFluxVents() * 0.3f) {
+	        					int remove = cost - op;
+	        					if (remove > 0)
+	        						refit.setNumFluxVents(refit.getNumFluxVents() - remove);
+	        					refit.addMod(HullMods.FLUX_DISTRIBUTOR);
+	        					op = refit.getUnusedOP(fleetMember.getCaptain() != null ? fleetMember.getCaptain().getStats() : null);
+	        				}
+        				}
+        				if (op > 0 && !refit.getHullMods().contains(HullMods.FLUX_COIL)) {
+	        				HullModSpecAPI distributor = Misc.getMod(HullMods.FLUX_COIL);
+	        				int cost = distributor.getCostFor(refit.getHullSize());
+	        				if (cost <= op + refit.getNumFluxCapacitors() * 0.3f) {
+	        					int remove = cost - op;
+	        					if (remove > 0)
+	        						refit.setNumFluxVents(refit.getNumFluxCapacitors() - remove);
+	        					refit.addMod(HullMods.FLUX_COIL);
+	        				}
+        				}
+            		}
+            		*/
+                    fleetMember.setVariant(refit, false, true);
             	}
         	}
-			// OfficerDataAPI officer = (OfficerDataAPI) officerIterator.next();
 			PersonAPI person = fleetMember.getCaptain();
-			
 			if (person != null) {
 				
-				// ignore nex allied faction fleets by checking for portrait.  how convenient it is that i've drawn my own lol
+				// ignore nex allied faction fleets by checking for portrait.  how convenient it is that this mod uses its own portraits lol
 				if (!person.getPortraitSprite().contains("espc"))
 					continue;
 				
@@ -176,7 +254,6 @@ public class espc_PactFleetSpawnListener extends BaseCampaignEventListener {
 						coreType = 3;
 					else
 						coreType = 1;
-
 					person.setPortraitSprite("graphics/portraits/portrait_ai" + coreType + "b.png");
 					// if (Misc.random.nextFloat() > 0.5f)
 					// else
@@ -187,7 +264,7 @@ public class espc_PactFleetSpawnListener extends BaseCampaignEventListener {
 						if (Misc.random.nextFloat() > 0.7f)
 							name.setFirst(name.getLast());
 						name.setLast("");
-						if (Misc.random.nextFloat() > 0.9) {
+						if (Misc.random.nextFloat() > 0.85) {
 							person.setPortraitSprite(Global.getSettings().getSpriteName(
 								"characters", "espc_" + portraitList[Misc.random.nextInt(portraitList.length)]));
 						}
@@ -203,7 +280,7 @@ public class espc_PactFleetSpawnListener extends BaseCampaignEventListener {
 					person.setName(name);
 					// fleetMember.setCaptain(person);
 				}
-			}
+	        }
         }
         /*
         if (hasCores && fleet.getFlagship() != null && !Misc.isAutomated(fleet.getFlagship())) {

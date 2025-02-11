@@ -4,10 +4,11 @@
   "displayName": "Escort",
   "goalVariant": false,
   "fluxCapacitors": 10,
-  "fluxVents": 10,
+  "fluxVents": 6,
   "quality": 0,
   "permaMods": [],
   "hullMods": [
+	"targetingunit"
   ],
   "weaponGroups": [
     {
@@ -21,8 +22,8 @@
       "autofire": true,
       "mode": "LINKED",
       "weapons": {
-        "WS 002": "ioncannon",
-        "WS 003": "ioncannon"
+        "WS 002": "pdburst",
+        "WS 003": "pdburst"
       }
     },
     {

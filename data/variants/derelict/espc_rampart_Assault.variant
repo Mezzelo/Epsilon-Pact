@@ -4,11 +4,12 @@
   "displayName": "Assault",
   "goalVariant": false,
   "fluxCapacitors": 0,
-  "fluxVents": 23,
+  "fluxVents": 18,
   "quality": 1,
   "permaMods": [],
   "hullMods": [
     "heavyarmor",
+    "autorepair",
     "targetingunit",
     "armoredweapons"
   ],
@@ -31,7 +32,7 @@
       "autofire": true,
       "mode": "LINKED",
       "weapons": {
-        "WS 002": "espc_gatling",
+        "WS 002": "espc_flak",
       }
     },
     {

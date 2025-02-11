@@ -62,13 +62,13 @@ public class MissionDefinition implements MissionDefinitionPlugin {
 		
 		member = api.addToFleet(FleetSide.PLAYER, "espc_chorale_Elite", FleetMemberType.SHIP, "EPS Taste for Blood", false);
 		pilot = EspcOfficerFactory.MakePilot("Isabelle", "de' Medici", FullName.Gender.FEMALE, "aggressive", 
-			"graphics/portraits/espc_isabelle.png", "epsilpac", 5);
+			"graphics/portraits/espc_isabelle.png", "epsilpac", 6);
 		EspcOfficerFactory.PopulateSkills(pilot, new String[]{
 			Skills.HELMSMANSHIP, Skills.TARGET_ANALYSIS, 
 			"espc_second_wind", "espc_running_hot", 
-			Skills.ORDNANCE_EXPERTISE}, new int[]{
+			Skills.ORDNANCE_EXPERTISE, "espc_dancing_steps"}, new int[]{
 			2, 2,
-			1, 1, 2});
+			1, 1, 2, 2});
         member.setCaptain(pilot);
 
 		api.addToFleet(FleetSide.PLAYER, "espc_observer_Strike", FleetMemberType.SHIP, "EPS Name of God", false);

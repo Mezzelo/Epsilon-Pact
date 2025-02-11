@@ -68,6 +68,7 @@ public class espc_SalvoStats extends BaseShipSystemScript {
 	// private static final int BURST_MAX = 25;
 	private static final int OP_PER_WING = 3;
 	private static final int OP_PER_WING_SMALL = 4;
+	private static final int BURSTS_PER_FIGHTER = 3;
 	private static final float MIN_RANGE = 150f;
 	private static final float UNGUIDED_RADIUS_THRESHOLD = 0.7f;
 	// public static final float BURST_INTERVAL_DEFAULT = 0.5f;
@@ -237,6 +238,7 @@ public class espc_SalvoStats extends BaseShipSystemScript {
 			for (WeaponAPI weapon : ship.getAllWeapons()) {
 				if (weapon.getType() == WeaponType.MISSILE) {
 					// If your missile is worth more than 2 OP per shot, I'm not firing it.  Fuck you.
+					// sorry dragonfires lmfao
 					if (weapon.getSpec().getOrdnancePointCost(null) / weapon.getSpec().getMaxAmmo() > 2)
 						continue;
 					shipMissiles.add(weapon);
@@ -245,16 +247,15 @@ public class espc_SalvoStats extends BaseShipSystemScript {
 						fightersPerMissile.add(Math.max((int)Math.floor(((float)weapon.getSpec().getOrdnancePointCost(null)
 							/(float)weapon.getMaxAmmo() /(float)weapon.getSpec().getBurstSize())), 1));*/
 						fightersPerMissile.add(Math.max(Math.min((int)Math.floor(((float)weapon.getSpec().getOrdnancePointCost(null)
-							/(float)weapon.getMaxAmmo())), weapon.getSpec().getBurstSize() * 2), 1));
+							/(float)weapon.getMaxAmmo())), weapon.getSpec().getBurstSize() * BURSTS_PER_FIGHTER), 1));
 					else
-						// TODO: base shot count on shots/minute?
+						// base shot count on shots/minute?
 						// fightersPerMissile.add(2);
 						// salamander: 2.4 shots/min, 5 OP
 						// salamander mrm: 4.8 shots/min, 10 OP
 						// pilum: 6 shots/min, 7 OP
 						// pilum lrm: 20 shots/min, 14 OP
 					fightersPerMissile.add((int) weapon.getSpec().getAmmoPerSecond());
-					// TODO DO NOT FORGET THIS LMAO
 				}
 			}
 			if (shipMissiles.size() < 1) {
@@ -313,7 +314,7 @@ public class espc_SalvoStats extends BaseShipSystemScript {
 						((WeaponAPI) shipMissiles.get(missileIndex)).getSpec().getBurstSize() > 1 ?
 							// Math.min(
 								Math.min(
-									((WeaponAPI) shipMissiles.get(missileIndex)).getSpec().getBurstSize() * 2,
+									((WeaponAPI) shipMissiles.get(missileIndex)).getSpec().getBurstSize() * BURSTS_PER_FIGHTER,
 									(int) (
 										((WeaponAPI) shipMissiles.get(missileIndex)).getMaxAmmo() /
 										((WeaponAPI) shipMissiles.get(missileIndex)).getSpec().getOrdnancePointCost(null)

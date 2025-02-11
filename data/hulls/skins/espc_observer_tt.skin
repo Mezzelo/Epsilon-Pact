@@ -22,6 +22,7 @@
 	   "WS0011":{"type":ENERGY},
 	   "WS0012":{"type":ENERGY},
     },
+	"maxSpeed":60,
     "ordnancePoints":155,
 	"removeWeaponSlots":[], 		# ids
 	"removeEngineSlots":[], 		# indices, as engine slots have no id in the .ship file
