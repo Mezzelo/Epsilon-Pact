@@ -4,7 +4,7 @@
   "displayName": "Assault",
   "goalVariant": false,
     "fluxCapacitors": 50,
-    "fluxVents": 49,
+    "fluxVents": 45,
   "quality": 1,
   "permaMods": [],
   "hullMods": [
@@ -42,10 +42,10 @@
             "weapons": {
                 "WS 000": "ionpulser",
                 "WS 001": "ionpulser",
-                "WS 010": "pdlaser",
+                "WS 010": "pdburst",
                 "WS 012": "ioncannon",
                 "WS 015": "ioncannon",
-                "WS 017": "pdlaser"
+                "WS 017": "pdburst"
             }
         }
     ],

@@ -17,7 +17,7 @@ public class espc_ChoraleModBehaviour extends BaseHullMod {
 	
 	private static final float RANGE_BONUS = 200f;
 	private static final float RANGE_BONUS_LARGE = 100f;
-	private static final float SPEED_PENALTY = 3f;
+	private static final float SPEED_PENALTY = 2f;
 	private static final float RECOIL_MULT = 0.5f;
 	
 	@Override

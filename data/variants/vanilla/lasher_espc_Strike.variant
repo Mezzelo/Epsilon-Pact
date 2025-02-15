@@ -4,7 +4,7 @@
   "displayName": "Strike",
   "goalVariant": false,
   "fluxCapacitors": 10,
-  "fluxVents": 9,
+  "fluxVents": 10,
   "quality": 1,
   "permaMods": [],
   "hullMods": [
@@ -23,9 +23,15 @@
     },
     {
       "autofire": false,
-      "mode": "ALTERNATING",
+      "mode": "LINKED",
       "weapons": {
-        "WS 001": "annihilator",
+        "WS 001": "swarmer"
+      }
+    },
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {
         "WS 004": "annihilator"
       }
     },

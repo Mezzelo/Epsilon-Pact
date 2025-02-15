@@ -4,11 +4,12 @@
   "displayName": "Escort",
   "goalVariant": false,
   "fluxCapacitors": 10,
-  "fluxVents": 6,
+  "fluxVents": 3,
   "quality": 0,
   "permaMods": [],
   "hullMods": [
-	"targetingunit"
+	"targetingunit",
+	"frontemitter"
   ],
   "weaponGroups": [
     {

@@ -2,7 +2,7 @@
     "displayName": "Attack",
     "fluxCapacitors": 10,
     "fluxVents": 8,
-    "goalVariant": true,
+    "goalVariant": false,
     "hullId": "espc_warden",
     "hullMods": [
 		"targetingunit",

@@ -16,6 +16,7 @@ import com.fs.starfarer.api.mission.MissionDefinitionAPI;
 import com.fs.starfarer.api.mission.MissionDefinitionPlugin;
 // import com.fs.starfarer.api.util.Misc;
 import com.fs.starfarer.api.fleet.FleetMemberAPI;
+import com.fs.starfarer.api.impl.campaign.ids.Personalities;
 import com.fs.starfarer.api.impl.campaign.ids.Skills;
 // import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.characters.FullName;
@@ -48,7 +49,7 @@ public class MissionDefinition implements MissionDefinitionPlugin {
 		
 		
 		FleetMemberAPI member = api.addToFleet(FleetSide.PLAYER, "espc_chorale_Elite", FleetMemberType.SHIP, "EPS Taste for Blood", true);
-		PersonAPI pilot = EspcOfficerFactory.MakePilot("Isabelle", "de' Medici", FullName.Gender.FEMALE, "aggressive", 
+		PersonAPI pilot = EspcOfficerFactory.MakePilot("Isabelle", "de' Medici", FullName.Gender.FEMALE, Personalities.AGGRESSIVE, 
 			"graphics/portraits/espc_isabelle.png", "epsilpac", 5);
 		EspcOfficerFactory.PopulateSkills(pilot, new String[]{
 			Skills.HELMSMANSHIP, Skills.TARGET_ANALYSIS, 

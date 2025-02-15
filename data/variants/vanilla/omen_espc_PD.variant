@@ -2,7 +2,7 @@
     "displayName": "EW",
     "fluxCapacitors": 10,
     "fluxVents": 2,
-    "goalVariant": true,
+    "goalVariant": false,
     "hullId": "omen",
     "hullMods": [
         "hardened_subsystems",

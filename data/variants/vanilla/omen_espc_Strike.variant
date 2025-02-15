@@ -1,24 +1,27 @@
 {
-    "displayName": "Assault",
+    "displayName": "Strike",
     "fluxCapacitors": 10,
     "fluxVents": 7,
     "goalVariant": false,
     "hullId": "omen",
     "hullMods": [
-        "hardened_subsystems",
-		"hardenedshieldemitter"
+        "hardened_subsystems"
     ],
     "permaMods": [],
     "sMods": [],
-    "variantId": "omen_espc_Assault",
+    "variantId": "omen_espc_Strike",
     "weaponGroups": [
         {
             "autofire": true,
             "mode": "LINKED",
             "weapons": {
-                "WS 001": "irpulse",
-                "WS 002": "irpulse"
+                "WS 001": "amblaster"
             }
+        },
+        {
+            "autofire": true,
+            "mode": "LINKED",
+            "weapons": {"WS 002": "irpulse"}
         },
         {
             "autofire": false,

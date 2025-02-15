@@ -63,7 +63,8 @@ Chorale
 - FP 18 > 17
 - Speed 65 > 75
 - Maneuverability increased significantly.
-- Shield arc 140 > 210
+- Shield arc 140 > 180
+- Rear turret arcs changed to 360 degrees
 - Range bonus from hullmod to weapon range beneath 700 > 800 increased by 100/100 > 200/100 for medium/large weapons, to a max of 700 > 800
 
 Picket (EP)
@@ -124,9 +125,9 @@ Auto Scattershot
 Heavy Gatling
 - OP 26 > 24
 - Damage/shot 80 > 90
-- Refire delay 0.75 > 0.8
-- Min refire delay 0.075 > 0.1
-- Flux/shot 56 > 60
+- Refire delay 0.75 > 0.9
+- Min refire delay 0.075 > 0.09
+- Flux/shot 56 > 63
 
 Half-Rift Pike
 - Range 1100 > 1000

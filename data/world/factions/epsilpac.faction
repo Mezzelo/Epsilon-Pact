@@ -39,8 +39,9 @@
         "wolf_espc_Strike":2,
         "wolf_espc_Support":2,
         "lasher_espc_Strike":8,
-		"omen_espc_PD":4,
+		"omen_espc_PD":3,
 		"omen_espc_Assault":2,
+		"omen_espc_Strike":1,
 		
 		"hammerhead_espc_Elite":3,
 		"hammerhead_espc_Support":2,
@@ -51,7 +52,9 @@
 		
         "glimmer_espc_Escort":2,
 		"glimmer_espc_Assault":8,
-		"lumen_espc_Escort":10,
+		"lumen_espc_Escort":4,
+		"lumen_espc_Assault":3,
+		"lumen_espc_Strike":3,
 		"fulgent_espc_Assault":4,
 		"fulgent_espc_Strike":4,
 		"scintilla_espc_Strike":4,
@@ -80,7 +83,7 @@
 			"centurion":0,
 			"mora":0,
 			
-			"omen":0.3,
+			"omen":0.2,
 			"wolf":0.3,
 			"hammerhead":0.6,
 			"sunder":0.6,

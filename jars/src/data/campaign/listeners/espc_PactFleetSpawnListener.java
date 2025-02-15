@@ -343,7 +343,7 @@ public class espc_PactFleetSpawnListener extends BaseCampaignEventListener {
 		skillPool.add(Skills.TARGET_ANALYSIS);
 		
 		if (fleetMember.getHullSpec().getManufacturer().equals("Low Tech") ||
-			hullId.equals("hammerhead") ||
+			hullId.equals("hammerhead") || hullId.equals("lasher") ||
 			fleetMember.getHullSpec().getTags().contains("espc_ballistic") ||
 			hullId.equals("espc_warden") && 
 				fleetMember.getVariant().getSlot("WS 001").getWeaponType().equals(WeaponType.BALLISTIC)
@@ -370,7 +370,11 @@ public class espc_PactFleetSpawnListener extends BaseCampaignEventListener {
 			} else if (hullId.equals("espc_opossum") || hullId.equals("espc_jackalope") || hullId.equals("omen")) {
 				skillPool.add(Skills.SYSTEMS_EXPERTISE);
 				skillPool.add("espc_second_wind");
+				if (!hullId.equals("omen"))
+					skillPool.add("espc_running_hot");
 			}
+			if (hullId.equals("lasher") || hullId.equals("espc_rondel") || hullId.equals("espc_picket"))
+				skillPool.add("espc_running_hot");
 			if (fleetMember.getHullSpec().getTags().contains("espc_ballistic"))
 				skillPool.remove(Skills.FIELD_MODULATION);
 		}
@@ -401,7 +405,7 @@ public class espc_PactFleetSpawnListener extends BaseCampaignEventListener {
 			} else if (Misc.isAutomated(fleetMember))
 				skillPool.add(Skills.GUNNERY_IMPLANTS);
 			
-			if (hullId.equals("espc_observer") || hullId.equals("brilliant")) {
+			if (hullId.equals("espc_observer") || hullId.equals("brilliant") || hullId.equals("espc_chorale")) {
 				skillPool.add(Skills.ENERGY_WEAPON_MASTERY);
 				if (hullId.equals("brilliant"))
 					skillPool.remove(Skills.POINT_DEFENSE);
@@ -434,7 +438,15 @@ public class espc_PactFleetSpawnListener extends BaseCampaignEventListener {
 			}
 			
 			int rand = Misc.random.nextInt(skillPool.size());
+			// more priority!  i really gotta pull out every stop to make the ship ai not BEANS here
+			if (skillPool.contains(Skills.HELMSMANSHIP) && (hullId.equals("espc_chorale") || hullId.equals("espc_amanuensis")))
+				rand = skillPool.indexOf(Skills.HELMSMANSHIP);
 			person.getStats().setSkillLevel(skillPool.get(rand), elitePoints > 0 ? 2 : 1);
+			if (skillPool.get(rand).equals(Skills.HELMSMANSHIP) && 
+				!skillPool.contains("espc_dancing_steps") &&
+				person.getStats().getSkillLevel("espc_dancing_steps") <= 0f) {
+				skillPool.add("espc_dancing_steps");
+			}
 			elitePoints--;
 			skillPool.remove(rand);
 		}

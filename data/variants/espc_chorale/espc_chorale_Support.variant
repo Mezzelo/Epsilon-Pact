@@ -3,17 +3,17 @@
   "hullId": "espc_chorale",
   "displayName": "Support",
   "goalVariant": false,
-  "fluxCapacitors": 25,
-  "fluxVents": 25,
+  "fluxCapacitors": 23,
+  "fluxVents": 30,
   "quality": 1,
   "permaMods": [],
   "hullMods": [
     "targetingunit",
-    "fluxcoil"
+    "stabilizedshieldemitter"
   ],
   "weaponGroups": [
     {
-      "autofire": false,
+      "autofire": true,
       "mode": "LINKED",
       "weapons": {
         "WS 002": "espc_flak"

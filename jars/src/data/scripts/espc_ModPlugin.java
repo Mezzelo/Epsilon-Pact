@@ -166,7 +166,7 @@ public class espc_ModPlugin extends BaseModPlugin {
             ShipAIConfig config = new ShipAIConfig();
             config.personalityOverride = Personalities.AGGRESSIVE;
             return new PluginPick<ShipAIPlugin>(Global.getSettings().createDefaultShipAI(ship, config), PickPriority.MOD_SPECIFIC);
-            
+            	
         }
         /*  -- overrides for use in balance testing, to replicate desired campaign behaviour --
  

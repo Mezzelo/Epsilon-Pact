@@ -14,6 +14,7 @@ import com.fs.starfarer.api.mission.MissionDefinitionAPI;
 import com.fs.starfarer.api.mission.MissionDefinitionPlugin;
 
 import com.fs.starfarer.api.fleet.FleetMemberAPI;
+import com.fs.starfarer.api.impl.campaign.ids.Personalities;
 import com.fs.starfarer.api.impl.campaign.ids.Skills;
 import com.fs.starfarer.api.impl.campaign.ids.StarTypes;
 import com.fs.starfarer.api.characters.FullName;
@@ -113,7 +114,7 @@ public class MissionDefinition implements MissionDefinitionPlugin {
 		*/
 		
 		member = api.addToFleet(FleetSide.ENEMY, "espc_ashes_champion_Assault", FleetMemberType.SHIP, "PLS Coronis", false);
-		pilot = EspcOfficerFactory.MakePilot("Craig", "Hope", FullName.Gender.MALE, "aggressive", 
+		pilot = EspcOfficerFactory.MakePilot("Craig", "Hope", FullName.Gender.MALE, Personalities.AGGRESSIVE, 
 			"graphics/portraits/portrait_mercenary03.png", "independent", 5);
 		
 		EspcOfficerFactory.PopulateSkills(pilot, new String[]{
@@ -123,7 +124,7 @@ public class MissionDefinition implements MissionDefinitionPlugin {
 			1, 1, 1, 1, 2});
         member.setCaptain(pilot);
 		member = api.addToFleet(FleetSide.ENEMY, "espc_ashes_apogee_Strike", FleetMemberType.SHIP, false);
-		pilot = EspcOfficerFactory.MakePilot("Raymond", "Chen", FullName.Gender.MALE, "steady", 
+		pilot = EspcOfficerFactory.MakePilot("Raymond", "Chen", FullName.Gender.MALE, Personalities.STEADY, 
 			"graphics/portraits/portrait_corporate01.png", "independent", 5);
 		
 		EspcOfficerFactory.PopulateSkills(pilot, new String[]{
@@ -136,7 +137,7 @@ public class MissionDefinition implements MissionDefinitionPlugin {
 		api.addToFleet(FleetSide.ENEMY, "espc_ashes_heron_Attack", FleetMemberType.SHIP, false);
 		
 		member = api.addToFleet(FleetSide.ENEMY, "espc_ashes_gryphon_Strike", FleetMemberType.SHIP, false);
-		pilot = EspcOfficerFactory.MakePilot("Lynn Anno", "Nuevo", FullName.Gender.FEMALE, "cautious", 
+		pilot = EspcOfficerFactory.MakePilot("Lynn Anno", "Nuevo", FullName.Gender.FEMALE, Personalities.STEADY, 
 			"graphics/portraits/portrait_mercenary08.png", "independent", 5);
 		
 		EspcOfficerFactory.PopulateSkills(pilot, new String[]{
@@ -147,7 +148,7 @@ public class MissionDefinition implements MissionDefinitionPlugin {
         member.setCaptain(pilot);
 		
 		member = api.addToFleet(FleetSide.ENEMY, "espc_ashes_medusa_Attack", FleetMemberType.SHIP, false);
-		pilot = EspcOfficerFactory.MakePilot("Anurak", "Kerr", FullName.Gender.MALE, "steady", 
+		pilot = EspcOfficerFactory.MakePilot("Anurak", "Kerr", FullName.Gender.MALE, Personalities.STEADY, 
 			"graphics/portraits/portrait_league07.png", "independent", 5);
 		
 		EspcOfficerFactory.PopulateSkills(pilot, new String[]{
@@ -159,7 +160,7 @@ public class MissionDefinition implements MissionDefinitionPlugin {
 		
 		
 		member = api.addToFleet(FleetSide.ENEMY, "espc_ashes_hammerhead_Elite", FleetMemberType.SHIP, "ISS Britomaris", false);
-		pilot = EspcOfficerFactory.MakePilot("Vacha", "Temujax", FullName.Gender.FEMALE, "steady", 
+		pilot = EspcOfficerFactory.MakePilot("Vacha", "Temujax", FullName.Gender.FEMALE, Personalities.STEADY, 
 			"graphics/portraits/portrait27.png", "independent", 5);
 		
 		EspcOfficerFactory.PopulateSkills(pilot, new String[]{
@@ -171,7 +172,7 @@ public class MissionDefinition implements MissionDefinitionPlugin {
 		
 		
 		member = api.addToFleet(FleetSide.ENEMY, "espc_ashes_scarab_Escort", FleetMemberType.SHIP, false);
-		pilot = EspcOfficerFactory.MakePilot("Lynn", "Fares", FullName.Gender.FEMALE, "aggressive", 
+		pilot = EspcOfficerFactory.MakePilot("Lynn", "Fares", FullName.Gender.FEMALE, Personalities.AGGRESSIVE, 
 			"graphics/portraits/portrait_league08.png", "independent", 5);
 		
 		EspcOfficerFactory.PopulateSkills(pilot, new String[]{
@@ -182,7 +183,7 @@ public class MissionDefinition implements MissionDefinitionPlugin {
         member.setCaptain(pilot);
 		
 		member = api.addToFleet(FleetSide.ENEMY, "espc_ashes_afflictor_Strike", FleetMemberType.SHIP, "Cuchulainn", false);
-		pilot = EspcOfficerFactory.MakePilot("Halcyon", "Oni", FullName.Gender.FEMALE, "aggressive", 
+		pilot = EspcOfficerFactory.MakePilot("Halcyon", "Oni", FullName.Gender.FEMALE, Personalities.AGGRESSIVE, 
 			"graphics/portraits/portrait_luddic11.png", "independent", 5);
 		
 		EspcOfficerFactory.PopulateSkills(pilot, new String[]{
@@ -193,7 +194,7 @@ public class MissionDefinition implements MissionDefinitionPlugin {
         member.setCaptain(pilot);
 		
 		member = api.addToFleet(FleetSide.ENEMY, "espc_ashes_shade_Assault", FleetMemberType.SHIP, false);
-		pilot = EspcOfficerFactory.MakePilot("Leita", "Navarez", FullName.Gender.FEMALE, "reckless", 
+		pilot = EspcOfficerFactory.MakePilot("Leita", "Navarez", FullName.Gender.FEMALE, Personalities.RECKLESS, 
 			"graphics/portraits/portrait44.png", "independent", 5);
 		
 		EspcOfficerFactory.PopulateSkills(pilot, new String[]{

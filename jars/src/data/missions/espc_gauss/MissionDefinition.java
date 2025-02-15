@@ -14,6 +14,7 @@ import com.fs.starfarer.api.mission.MissionDefinitionAPI;
 import com.fs.starfarer.api.mission.MissionDefinitionPlugin;
 
 import com.fs.starfarer.api.fleet.FleetMemberAPI;
+import com.fs.starfarer.api.impl.campaign.ids.Personalities;
 import com.fs.starfarer.api.impl.campaign.ids.Skills;
 import com.fs.starfarer.api.characters.FullName;
 import com.fs.starfarer.api.characters.PersonAPI;
@@ -48,7 +49,7 @@ public class MissionDefinition implements MissionDefinitionPlugin {
 		
 		// Set up the player's fleet
 		FleetMemberAPI member = api.addToFleet(FleetSide.PLAYER, "wolf_espc_Gauss_Original", FleetMemberType.SHIP, "That's my ship, you runt!", true);
-		PersonAPI pilot = EspcOfficerFactory.MakePilot("Gauss", "", FullName.Gender.FEMALE, "reckless", 
+		PersonAPI pilot = EspcOfficerFactory.MakePilot("Gauss", "", FullName.Gender.FEMALE, Personalities.RECKLESS, 
 			"graphics/portraits/espc_gauss.png", "pirates", 1);
 		
 		EspcOfficerFactory.PopulateSkills(pilot, new String[]{
@@ -62,7 +63,7 @@ public class MissionDefinition implements MissionDefinitionPlugin {
 		
 		// chorale
 		member = api.addToFleet(FleetSide.PLAYER, "espc_chorale_Common", FleetMemberType.SHIP, "EPS Taste for Blood", false);
-		pilot = EspcOfficerFactory.MakePilot("Isabelle", "de' Medici", FullName.Gender.FEMALE, "aggressive", 
+		pilot = EspcOfficerFactory.MakePilot("Isabelle", "de' Medici", FullName.Gender.FEMALE, Personalities.AGGRESSIVE, 
 			"graphics/portraits/espc_isabelle.png", "epsilpac", 4);
 		EspcOfficerFactory.PopulateSkills(pilot, new String[]{
 			Skills.HELMSMANSHIP, Skills.TARGET_ANALYSIS, 
@@ -85,7 +86,7 @@ public class MissionDefinition implements MissionDefinitionPlugin {
 		api.addToFleet(FleetSide.PLAYER, "espc_jackalope_Standard", FleetMemberType.SHIP, "EPS Cottontail", false);
 		
 		member = api.addToFleet(FleetSide.PLAYER, "lasher_espc_Strike_Dated", FleetMemberType.SHIP, "EPS Retour Près De Toi", false);
-		pilot = EspcOfficerFactory.MakePilot("Nola", "Ganymede", FullName.Gender.FEMALE, "steady", 
+		pilot = EspcOfficerFactory.MakePilot("Nola", "Ganymede", FullName.Gender.FEMALE, Personalities.AGGRESSIVE, 
 			"graphics/portraits/espc_nola.png", "epsilpac", 12);
 		
 		EspcOfficerFactory.PopulateSkills(pilot, new String[]{

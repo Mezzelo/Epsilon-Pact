@@ -10,7 +10,7 @@ import com.fs.starfarer.api.combat.WeaponEffectPluginWithInit;
 
 public class espc_GatlingEffect implements OnFireEffectPlugin, EveryFrameWeaponEffectPlugin, WeaponEffectPluginWithInit {
 
-	public static final float minCooldown = 0.1f;
+	public static final float minCooldown = 0.09f;
 	public static final float rateDecayPerSecond = 0.25f;
 	public static final float rateIncreasePerShot = 0.1f;
 	

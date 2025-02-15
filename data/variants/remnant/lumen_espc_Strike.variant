@@ -1,0 +1,33 @@
+{
+    "displayName": "Strike",
+    "fluxCapacitors": 8,
+    "fluxVents": 2,
+    "goalVariant": false,
+    "hullId": "lumen",
+    "hullMods": ["frontemitter"],
+    "permaMods": [],
+    "sMods": [],
+    "variantId": "lumen_espc_Strike",
+    "weaponGroups": [
+        {
+            "autofire": false,
+            "mode": "LINKED",
+            "weapons": {"WS 006": "amblaster"}
+        },
+        {
+            "autofire": false,
+            "mode": "LINKED",
+            "weapons": {"WS 008": "annihilator"}
+        },
+        {
+            "autofire": false,
+            "mode": "LINKED",
+            "weapons": {"WS 009": "swarmer"}
+        },
+        {
+            "autofire": true,
+            "mode": "LINKED",
+            "weapons": {"WS 007": "ioncannon"}
+        }
+    ]
+}

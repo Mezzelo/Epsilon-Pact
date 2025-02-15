@@ -1,11 +1,11 @@
 {
     "displayName": "Strike",
-    "fluxCapacitors": 9,
+    "fluxCapacitors": 7,
     "fluxVents": 10,
     "goalVariant": true,
     "hullId": "espc_warden",
     "hullMods": [
-		"fluxdistributor",
+		"magazines"
 	],
     "permaMods": [],
     "sMods": [],
@@ -14,14 +14,20 @@
         {
             "autofire": true,
             "mode": "LINKED",
-            "weapons": {"WS 001": "espc_fission"}
+            "weapons": {"WS 001": "heavyac"}
+        },
+        {
+            "autofire": false,
+            "mode": "LINKED",
+            "weapons": {
+				"WS 002": "amblaster"
+			}
         },
         {
             "autofire": true,
-            "mode": "ALTERNATING",
+            "mode": "LINKED",
             "weapons": {
-				"WS 002": "lightdualac",
-				"WS 003": "lightdualac",
+				"WS 003": "ioncannon"
 			}
         }
     ]

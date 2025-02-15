@@ -3,12 +3,13 @@
   "hullId": "espc_chorale",
   "displayName": "Strike",
   "goalVariant": true,
-  "fluxCapacitors": 28,
+  "fluxCapacitors": 25,
   "fluxVents": 30,
   "quality": 1,
   "permaMods": [],
   "hullMods": [
-    "targetingunit"
+    "targetingunit",
+    "stabilizedshieldemitter"
   ],
   "weaponGroups": [
     {
@@ -22,15 +23,9 @@
       "autofire": true,
       "mode": "ALTERNATING",
       "weapons": {
-        "WS 003": "espc_aa",
-        "WS 007": "espc_aa"
-      }
-    },
-    {
-      "autofire": true,
-      "mode": "LINKED",
-      "weapons": {
-        "WS 004": "heavyac"
+        "WS 003": "heavyac",
+        "WS 004": "heavyac",
+        "WS 007": "heavyac"
       }
     },
     {

@@ -18,14 +18,15 @@
 		"wolf_espc_Support":0,
 		"lasher_espc_Strike":0,
 		"omen_espc_Assault":0,
+		"omen_espc_Strike":0,
 		
 		"espc_picket_Strike":7,
 		"espc_picket_Anti_Armor":3,
 		"espc_sentry_Support":6,
 		"espc_sentry_Escort":4,
 		"espc_warden_Assault":3,
-		"espc_warden_Attack":3,
-		"espc_warden_Strike":1,
+		"espc_warden_Attack":2,
+		"espc_warden_Strike":2,
 		"espc_warden_Support":3,
 		
 		"espc_picket_Assault":0,
@@ -35,7 +36,8 @@
 		"espc_warden_Assault_Derelict":0,
 		
 		"glimmer_espc_Assault":0,
-		"lumen_espc_Escort":0,
+		"lumen_espc_Assault":0,
+		"lumen_espc_Strike":0,
 		
 		"espc_jackalope_lp_Strike":5,
 		
@@ -67,14 +69,15 @@
 		"lasher_espc_Strike":0,
 		"omen_espc_PD":0,
 		"omen_espc_Assault":0,
+		"omen_espc_Strike":0,
 		
 		"espc_picket_Anti_Armor":4,
 		"espc_picket_Strike":6,
 		"espc_sentry_Support":6,
 		"espc_sentry_Escort":4,
 		"espc_warden_Assault":3,
-		"espc_warden_Attack":3,
-		"espc_warden_Strike":1,
+		"espc_warden_Attack":2,
+		"espc_warden_Strike":2,
 		"espc_warden_Support":3,
 		
 		"espc_picket_Assault":0,
@@ -86,6 +89,8 @@
 		"glimmer_espc_Escort":0,
 		"glimmer_espc_Assault":0,
 		"lumen_espc_Escort":0,
+		"lumen_espc_Assault":0,
+		"lumen_espc_Strike":0,
 		
 		"espc_jackalope_lp_Strike":10,
 		
@@ -122,11 +127,11 @@
 		
 	},
 	"combatLarge":{
-		"espc_chorale_Assault":2,
+		"espc_chorale_Assault":3,
 		"espc_chorale_Elite_Support":3,
 		"espc_chorale_Elite":1,
 		"espc_chorale_Strike":1,
-		"espc_chorale_Support":2,
+		"espc_chorale_Support":1,
 		"espc_chorale_Suppressive":1,
 		"espc_observer_Assault":4,
 		"espc_observer_Strike":4,

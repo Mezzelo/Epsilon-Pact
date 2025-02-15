@@ -1,8 +1,8 @@
 {
-    "displayName": "Attack",
+    "displayName": "Support",
     "fluxCapacitors": 9,
     "fluxVents": 10,
-    "goalVariant": true,
+    "goalVariant": false,
     "hullId": "espc_warden",
     "hullMods": [
 		"insulatedengine",
