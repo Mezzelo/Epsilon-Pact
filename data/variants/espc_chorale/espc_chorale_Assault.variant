@@ -3,13 +3,13 @@
   "hullId": "espc_chorale",
   "displayName": "Assault",
   "goalVariant": false,
-  "fluxCapacitors": 27,
+  "fluxCapacitors": 30,
   "fluxVents": 30,
   "quality": 1,
   "permaMods": [],
   "hullMods": [
     "targetingunit",
-    "fluxdistributor"
+    "stabilizedshieldemitter"
   ],
   "weaponGroups": [
     {
@@ -38,25 +38,16 @@
       "autofire": true,
       "mode": "LINKED",
       "weapons": {
-        "WS 004": "ionpulser",
-        "WS 008": "heavyburst",
-        "WS 010": "vulcan",
+        "WS 004": "ionpulser"
       }
     },
     {
-      "autofire": false,
+      "autofire": true,
       "mode": "LINKED",
-      "weapons": {}
-    },
-    {
-      "autofire": false,
-      "mode": "LINKED",
-      "weapons": {}
-    },
-    {
-      "autofire": false,
-      "mode": "LINKED",
-      "weapons": {}
+      "weapons": {
+        "WS 008": "heavyburst",
+        "WS 010": "vulcan"
+		}
     }
   ],
   "modules": [],

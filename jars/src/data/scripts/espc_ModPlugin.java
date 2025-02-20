@@ -159,12 +159,10 @@ public class espc_ModPlugin extends BaseModPlugin {
             return new PluginPick<ShipAIPlugin>(Global.getSettings().createDefaultShipAI(ship, config), PickPriority.MOD_SET);
         } else if (member != null && Misc.isAutomated(ship) && member.getFleetData() != null && member.getFleetData().getFleet() != null &&
         	member.getFleetData().getFleet().getFaction() != null &&
-        	member.getFleetData().getFleet().getFaction().getId().equals("epsilpac") &&
-        	!ship.hasLaunchBays() &&
         	!ship.getHullSpec().getBaseHullId().equals("espc_rampart") &&
         	!ship.getHullSpec().getBaseHullId().equals("radiant")) {
             ShipAIConfig config = new ShipAIConfig();
-            config.personalityOverride = Personalities.AGGRESSIVE;
+            config.personalityOverride = ship.hasLaunchBays() ? Personalities.STEADY : Personalities.AGGRESSIVE;
             return new PluginPick<ShipAIPlugin>(Global.getSettings().createDefaultShipAI(ship, config), PickPriority.MOD_SPECIFIC);
             	
         }

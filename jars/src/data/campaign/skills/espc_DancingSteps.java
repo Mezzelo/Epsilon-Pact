@@ -33,10 +33,10 @@ import com.fs.starfarer.api.ui.TooltipMakerAPI;
 public class espc_DancingSteps {
 
 	public static float SPEED_BONUS = 50f;
-	public static float MANEUVERABILITY_BONUS = 80f;
+	public static float MANEUVERABILITY_BONUS = 50f;
 	public static float SPEED_BONUS_NO_SHIELD = 30f;
 	public static float SHIELD_DECAY_TIME = 3f;
-	public static float SHIELD_TIME_GAIN_MULT = 3f;
+	public static float SHIELD_TIME_GAIN_MULT = 2f;
 	public static float HULL_STATIC_MAX = 2000f;
 	public static float HULL_PORTION_MAX = 50f;
 	public static float HOSTILE_RANGE = 350f;
@@ -250,7 +250,7 @@ public class espc_DancingSteps {
 			TooltipMakerAPI info, float width) {
 		
 			init(stats, skill);
-			info.addPara("Up to +%s top speed and +%s maneuverability, based on nearby incoming fire",
+			info.addPara("Up to +%s top speed and maneuverability, based on nearby incoming fire",
 				0f, hc, hc, (int)SPEED_BONUS + "%", (int)MANEUVERABILITY_BONUS + "%"
 			);
 			info.addPara(indent + "Max effect when there is half of current hull's worth of enemy fire within %s. No effect while phased.",

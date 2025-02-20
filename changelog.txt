@@ -1,11 +1,11 @@
 Version 0.5.0
 New hulls: Amanuensis-class battleship & Warden (EP) class frigate
 New weapon: Scatter Rifle, large ballistic
-Portraiture: 17/22 existing portraits revised, 14 new portraits
+Portraiture: 17/22 existing portraits revised, 14 (22) new portraits
 
 AI changes:
 - Faction personality doctrine changed from STEADY to AGGRESSIVE
-- Pact automated ships now use AGGRESIVE AI, instead of FEARLESS, except for a few hulls.
+- Pact automated ships now use AGGRESIVE AI, instead of FEARLESS, except for the Rampart (EP) and Radiant.
 - Flagbearer, Jackalope, Observer & Chorale now default to AGGRESIVE AI if no officer is assigned.
 
 Hull balance changes:
@@ -34,6 +34,7 @@ Songbird (TT)
 
 Opossum
 - FP 4 > 5
+- Peak CR time 300 > 360
 
 Militia
 - DP 11 > 10
@@ -41,8 +42,8 @@ Militia
 - OP 100 > 90
 - Militia (S) OP 110 > 100
 - FP 10 > 9
-- Cargo Capacity 300 > 400
 - Dissipation 350 > 300
+- Cargo Capacity 300 > 400
 
 Ember (all variants)
 - Flux Capacity 4000 > 6000
@@ -67,30 +68,31 @@ Chorale
 - Rear turret arcs changed to 360 degrees
 - Range bonus from hullmod to weapon range beneath 700 > 800 increased by 100/100 > 200/100 for medium/large weapons, to a max of 700 > 800
 
+All Derelict (EP) hulls
+- Shield efficiency 0.7 > 0.8 (frigates, berserker)
+- Shield efficiency 0.7 > 1.0 (bastillon)
+
 Picket (EP)
 - FP 4 > 3
 - Side turret slots changed to composite, from ballistic
 
 Snety (EP)
 - FP 5 > 4
-- Increased missile OP worth fired from system from 3 > 4.
 
 Bastillon (EP)
-- FP 8 > 7
-- OP 90 > 95
+- OP 90 > 100
+- Speed 90 > 85
+- Dissipation 400 > 300
 - Significant maneuverability buffs
 
 Berserker (EP)
 - Significant maneuverability buffs
 
-Rampart
-- DP 22 > 24
-
 
 System changes:
 Feint Overload
 - Removed 80% flux capacity requirement for system activation
-- Reduced flux capacity threshold at which AI activates system from 80% to 70%
+- Lowered flux capacity threshold at which AI activates system from 80% to 70%
 
 Hybrid Harmonizer
 - System duration 10 seconds > 7.5 seconds
@@ -104,9 +106,11 @@ Remote Salvo
 - System duration automatically ends early when all missiles have been launched
 - Missile range for missiles launched via this system increased by 25%
 - Missiles tagged as ANTI_FTR now prioritize targeting the nearest fighter when launched
+- Missile count calculation revised for reloading missiles
 - Bursts per fighter limited to 3.  This significantly nerfs swarmers and other high ammo/low OP missiles.
 - Bursts now fire twice as quickly
 - Barrel angle offsets now apply.  This only affects the annihilator in vanilla, which previously had perfect accuracy.
+
 
 Weapon changes:
 Minimir Cannon
@@ -117,10 +121,20 @@ Dual Minimir Cannon
 - Flux/shot 125 > 105
 - Merc tag removed
 
+Remise Mortar
+- Behaviour changed to reset cooldown of Remise Rifles, instead of forcing them to fire.
+- Removed flux cost-multiplying effect of having multiple Remise Mortars mounted.
+
+Remise Rifle
+- Damage/shot 240 > 300
+- Flux/shot 192/240
+(effective DPS reduction from 180 > 150, but higher hit-strength and non-compulsory fire.  no effective change in efficiency, apart from the multiple mortars case)
+
 Auto Scattershot
 - OP 15 > 13
-- Finnegan Launcher
-- HE damage 2500 > 2000.  T'was too funny, unfortunately.
+
+Finnegan Launcher
+- HE damage 2500 > 2000
 
 Heavy Gatling
 - OP 26 > 24
@@ -154,8 +168,9 @@ Tocquiera
 - Officers (including mercenary officers) that spawn on Pact markets always use these skills.
 
 - Nexus contruction feature disabled.
-- All Derelict (EP) hulls now use proper derelict loadouts - except the sentry (EP) with hammers, that keeps missile autoloader cos it's funny.
-- Autofit chance in Pact doctrine lowered from 0.1 > 0
+- All Derelict (EP) hulls now use proper derelict loadouts - except the snety (EP) with hammers, that keeps missile autoloader cos it's funny.
+- Picket (EP), Snety (EP), and Bastillon (EP) no longer use the NO_AUTOFIT tag and will appear in Derelict and Pact fleets with d-mods now.
+- Variant randomization disabled completely for Pact fleets (including bounties and allied Nexerelin fleets for either faction), but fleets will now properly spawn with s-mods and d-mods where they were previously missing.
 - Reputation gain from turning in AI cores capped, both with faction & the contacts you turn cores over to.
 - Reputation cost for purchasing blueprints roughly halved across the board.
 - When purchasing blueprints, you are also given copies of their respective items: 2 of each weapon, 1 of each ship.
@@ -163,18 +178,19 @@ Tocquiera
 - Personal reputation requirement required to gain Isabelle as a contact removed (or set to >-1, to be exact)
 
 - All ship variants revised to account for balance changes to hulls & weapons, several altered for balance, some rather situational variants added/removed.
+- Additional variants added, especially for vanilla hulls which had relatively few.
 - Fissile Confluence Emitter added to the Pact blueprint package.
-- Phased out some weapons from Pact markets & variants; most notably Railguns, Breach missiles and Hypervelocity Drivers.
+- Added single hammer/atropos/sabot to Pact weapon markets.
+- Phased out some weapons from Pact weapon markets & variants; most notably Railguns, Breach missiles and Hypervelocity Drivers.
 - Sunder rarity in Pact 1.0 > 0.6, in line with other vanilla hulls; was previously left unset, oops.
 - Hammerhead rarity in Pact 0.3 > 0.6
-- Added single hammer/atropos/sabot to Pact markets.
 - Nexerelin: Corporate leaning shifted from -0.5 to -1.0, diplomatic leaning shifted from 0.0 to -0.5
 
 - Text revisions all over: typo fixes, proofreading & the like.
 - Fixed null crash that occurred when Isabelle moves between markets, for some reason I'm still not sure of.
 - Fixed a null crash when shield shunting the Observer (lol)
 - other crash bugs idr fixed.
-- Fixed duplicate markets that appear when markets are conquered.
+- Fixed duplicate submarkets that appear when markets are conquered.
 
 Version 0.3.93-RC3
 - fixed a crash when activating the Slamfire ship system without any weapons equipped.

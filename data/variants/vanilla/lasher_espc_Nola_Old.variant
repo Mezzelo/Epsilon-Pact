@@ -1,15 +1,14 @@
 {
-  "variantId": "lasher_espc_Nola",
+  "variantId": "lasher_espc_Nola_Old",
   "hullId": "lasher",
   "displayName": "Strike",
   "goalVariant": false,
-  "fluxCapacitors": 9,
+  "fluxCapacitors": 10,
   "fluxVents": 10,
   "quality": 1,
   "permaMods": [
   ],
   "hullMods": [
-	"fluxdistributor"
   ],
   "sMods": [
     "operations_center",
@@ -25,9 +24,15 @@
     },
     {
       "autofire": false,
-      "mode": "ALTERNATING",
+      "mode": "LINKED",
       "weapons": {
-        "WS 001": "annihilator",
+        "WS 001": "amsrm"
+      }
+    },
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {
         "WS 004": "annihilator"
       }
     },
@@ -38,6 +43,11 @@
         "WS 006": "vulcan",
         "WS 007": "lightag"
       }
+    },
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {}
     }
   ],
   "modules": [],

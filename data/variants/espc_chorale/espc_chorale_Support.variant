@@ -28,11 +28,17 @@
     },
     {
       "autofire": true,
-      "mode": "ALTERNATING",
+      "mode": "LINKED",
       "weapons": {
         "WS 003": "espc_riftspear",
-        "WS 004": "espc_riftspear",
-        "WS 007": "espc_riftspear"
+        "WS 004": "espc_riftspear"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 007": "heavyblaster"
       }
     },
     {

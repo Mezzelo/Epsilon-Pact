@@ -1,9 +1,11 @@
 {
-	# for folks looking in here for a run-down on relations
-	# tl;dr: anti-hierarchical, egalitarian, anti-capitalist. secretly accelerationist! hence the automated shenanigans
-	# while most who adhere their philosophy advocate a kinder approach, the head of state is more willing to let it all burn for the sake of a better world
-	# not necessarily technocratic, but their progressive approach aligns them somewhat with those factions
-	# more ideological/spiritual than one might expect - many agreeances with luddic philosophy, even, if not for AI personhood
+	# for folks looking in here for a run-down on diplo relations
+	# tl;dr: anti-hierarchical, egalitarian, anti-capitalist, NOT techpilled.  leadership is secretly accelerationist - hence the automated shenanigans
+	# while most who adhere their philosophy advocate a kinder approach, the head of state is more willing to let it all burn for the sake of a better world.
+	# prefers to maintain an external status quo conducive to accelerationism, hence anti-diplo:  though altruistic on a smaller scale, largely untrusting & occupied with their own machinations.  recognizes the sector as-is cannot last, and its powers are weaker for it.
+	# re anti-hierarchical: nominally democratic & power structures are looser, but we all know who really holds the reins here - until the sector is a safer place, anyhow.
+	# not necessarily technocratic, but their progressive disposition aligns them slightly with tech-forwards factions
+	# more ideological/spiritual than one might expect - many agreeances with luddic philosophy, even, if not for AI personhood.  establishing a minimum standard of living means plainer lives for many (luxury commodities banned), especially with the state of the sector as-is.
 	
     "playableFaction":true,
     "corvusCompatible":true,

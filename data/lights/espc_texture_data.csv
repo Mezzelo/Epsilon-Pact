@@ -17,6 +17,7 @@ espc_pilgrim_h,ship,,1.35,normal,graphics/shaders/ships/espc_pilgrim_hegemony_no
 espc_observer,ship,,1.35,normal,graphics/shaders/ships/espc_observer_base_normal.png
 espc_observer_tt,ship,,1.35,normal,graphics/shaders/ships/espc_observer_tt_normal.png
 espc_chorale,ship,,1.35,normal,graphics/shaders/ships/espc_chorale_base_normal.png
+espc_amanuensis,ship,,1.35,normal,graphics/shaders/ships/espc_amanuensis_base_normal.png
 espc_picket,ship,,1.35,normal,graphics/shaders/ships/espc_picket_normal.png
 espc_sentry,ship,,1.35,normal,graphics/shaders/ships/espc_sentry_normal.png
 espc_bastillon,ship,,1.35,normal,graphics/shaders/ships/espc_bastillon_normal.png
@@ -103,6 +104,10 @@ espc_mkl,turret,,1,normal,graphics/shaders/weapons/espc_mkl_turret_base_normal.p
 espc_mkl,turretbarrel,,1,normal,graphics/shaders/weapons/espc_mkl_turret_recoil_normal.png
 espc_mkl,hardpoint,,1,normal,graphics/shaders/weapons/espc_mkl_hardpoint_base_normal.png
 espc_mkl,hardpointbarrel,,1,normal,graphics/shaders/weapons/espc_mkl_hardpoint_recoil_normal.png
+espc_flak,turret,,1,normal,graphics/shaders/weapons/espc_flak_turret_base_normal.png
+espc_flak,turretbarrel,,1,normal,graphics/shaders/weapons/espc_flak_turret_recoil_normal.png
+espc_flak,hardpoint,,1,normal,graphics/shaders/weapons/espc_flak_hardpoint_base_normal.png
+espc_flak,hardpointbarrel,,1,normal,graphics/shaders/weapons/espc_flak_hardpoint_recoil_normal.png
 ,,,,,
 espc_gatling,turret,0,1,normal,graphics/shaders/weapons/espc_gatflet_turret_base00_normal.png
 espc_gatling,turret,1,1,normal,graphics/shaders/weapons/espc_gatflet_turret_base01_normal.png
