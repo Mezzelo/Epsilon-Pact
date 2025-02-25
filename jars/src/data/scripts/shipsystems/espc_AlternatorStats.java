@@ -11,12 +11,10 @@ import com.fs.starfarer.api.combat.MutableShipStatsAPI;
 import com.fs.starfarer.api.combat.ShipAPI;
 import com.fs.starfarer.api.combat.WeaponAPI;
 import com.fs.starfarer.api.combat.WeaponAPI.AIHints;
-import com.fs.starfarer.api.combat.WeaponAPI.WeaponSize;
 import com.fs.starfarer.api.combat.WeaponAPI.WeaponType;
 import com.fs.starfarer.api.impl.combat.BaseShipSystemScript;
 // import com.fs.starfarer.api.plugins.ShipSystemStatsScript.State;
 // import com.fs.starfarer.api.plugins.ShipSystemStatsScript.StatusData;
-import org.dark.shaders.distortion.*;
 
 public class espc_AlternatorStats extends BaseShipSystemScript {
 

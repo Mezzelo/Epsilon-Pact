@@ -237,16 +237,17 @@ public class espc_SalvoStats extends BaseShipSystemScript {
 			List<Integer> fightersPerMissile = new ArrayList<Integer>();
 			for (WeaponAPI weapon : ship.getAllWeapons()) {
 				if (weapon.getType() == WeaponType.MISSILE) {
-					// If your missile is worth more than 5 OP per shot, I'm not firing it.  Fuck you.
-					if (weapon.getSpec().getOrdnancePointCost(null) / weapon.getSpec().getMaxAmmo() > 5)
+					// If your missile is worth more than 3 OP per shot, it's not gettin fired.
+					// rip dragonfires
+					if (weapon.getSpec().getOrdnancePointCost(null) / weapon.getSpec().getMaxAmmo() / weapon.getSpec().getBurstSize() > 3)
 						continue;
-					shipMissiles.add(weapon);
+					int fpm = 1;
 					if (weapon.usesAmmo() && weapon.getAmmoPerSecond() <= 0f)
 						/*
 						fightersPerMissile.add(Math.max((int)Math.floor(((float)weapon.getSpec().getOrdnancePointCost(null)
 							/(float)weapon.getMaxAmmo() /(float)weapon.getSpec().getBurstSize())), 1));*/
-						fightersPerMissile.add(Math.max(Math.min((int)Math.floor(((float)weapon.getSpec().getOrdnancePointCost(null)
-							/(float)weapon.getMaxAmmo())), weapon.getSpec().getBurstSize() * BURSTS_PER_FIGHTER), 1));
+						fpm = Math.max(Math.min((int)Math.floor(((float)weapon.getSpec().getOrdnancePointCost(null)
+							/(float)weapon.getMaxAmmo())), weapon.getSpec().getBurstSize() * BURSTS_PER_FIGHTER), 1);
 					else {
 						// base shot count on shots/minute?
 						// fightersPerMissile.add(2);
@@ -254,9 +255,13 @@ public class espc_SalvoStats extends BaseShipSystemScript {
 						// salamander mrm: 4.8 shots/min, 10 OP
 						// pilum: 6 shots/min, 7 OP
 						// pilum lrm: 20 shots/min, 14 OP
-						fightersPerMissile.add(
-							(int) (weapon.getSpec().getAmmoPerSecond() * 60f * weapon.getSpec().getOrdnancePointCost(null)) /
-							weapon.getSpec().getBurstSize());
+						fpm = (int) Math.max(1f, 
+							0.5f / weapon.getSpec().getAmmoPerSecond() / 60f * weapon.getSpec().getOrdnancePointCost(null)
+							/ weapon.getSpec().getBurstSize());
+					}
+					if (fpm <= 2) {
+						shipMissiles.add(weapon);
+						fightersPerMissile.add(fpm);
 					}
 				}
 			}
@@ -289,13 +294,17 @@ public class espc_SalvoStats extends BaseShipSystemScript {
 			// weaponIndex.size() = amount of fighters left still bursting, as we add an entry for each fighter.
 			while (useState != 2 && shipFighters.size() > 0 && remainingOP > 0) {
 				remainingOP--;
-				if (fighterSplit > 0) {
+				
+				if ((Integer) fightersPerMissile.get(missileIndex) > 1 && fighterSplit == 0)
+					fighterSplit = (Integer) fightersPerMissile.get(missileIndex) - 1;
+				else if (fighterSplit > 0) {
 					--fighterSplit;
 					shipFighters.remove(0);
 					continue;
 				}
-				if ((Integer) fightersPerMissile.get(missileIndex) > 1 && fighterSplit == 0)
-					fighterSplit = (Integer) fightersPerMissile.get(missileIndex) - 1;
+
+				if (fighterSplit > remainingOP)
+					break;
 				
 				OnFireEffectPlugin thisPlugin = null;
 				if (((MissileSpecAPI) ((WeaponAPI) shipMissiles.get(missileIndex)).getSpec().getProjectileSpec()).getOnFireEffect() != null)

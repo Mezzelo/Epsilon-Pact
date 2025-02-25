@@ -7,8 +7,8 @@
 	},
     "hullFrequency":{
         "hulls":{
-            "espc_rondel_h":0.7,
-			"espc_pilgrim_h":0.7,
+            "espc_rondel_h":0.3,
+			"espc_pilgrim_h":0.3,
         },
     },
     "knownShips":{

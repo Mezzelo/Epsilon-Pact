@@ -1,7 +1,11 @@
-Version 0.5.0
+Version 0.6.0
 New hulls: Amanuensis-class battleship & Warden (EP) class frigate
 New weapon: Scatter Rifle, large ballistic
-Portraiture: 17/22 existing portraits revised, 14 (22) new portraits
+Portraiture: 18/22 existing portraits revised, 14 (21) new portraits
+Added 5 unique skills utilized by Pact fleets and hireable officers, new skill selection algorithm & Pact fleet spawn behaviour adjustments.
+Major round of balance changes, adjustments & bugfixes.  Minor changes/additions to Pact markets, AI core exchange rebalanced.
+Added two Nexerelin starting backgrounds, unlocked by achieving perfect scores on Loose Ends and New Moon.
+	Unlock requirement can be toggled off if using LunaLib.
 
 AI changes:
 - Faction personality doctrine changed from STEADY to AGGRESSIVE
@@ -73,11 +77,13 @@ All Derelict (EP) hulls
 - Shield efficiency 0.7 > 1.0 (bastillon)
 
 Picket (EP)
-- FP 4 > 3
 - Side turret slots changed to composite, from ballistic
 
 Snety (EP)
 - FP 5 > 4
+- Drone count in wing reduced from 6 > 4
+- Drones now possess Integrated Point Defense AI
+	- IPDAI addition be reverted and weapon changed to PD laser with 0.98a update.
 
 Bastillon (EP)
 - OP 90 > 100
@@ -93,6 +99,7 @@ System changes:
 Feint Overload
 - Removed 80% flux capacity requirement for system activation
 - Lowered flux capacity threshold at which AI activates system from 80% to 70%
+- AI will no longer use system when below 20% hull, if shielded.
 
 Hybrid Harmonizer
 - System duration 10 seconds > 7.5 seconds
@@ -107,6 +114,7 @@ Remote Salvo
 - Missile range for missiles launched via this system increased by 25%
 - Missiles tagged as ANTI_FTR now prioritize targeting the nearest fighter when launched
 - Missile count calculation revised for reloading missiles
+- Missiles in excess of remaing OP per wing will no longer fire (e.g. two reapers, anything over 3 OP/missile lol)
 - Bursts per fighter limited to 3.  This significantly nerfs swarmers and other high ammo/low OP missiles.
 - Bursts now fire twice as quickly
 - Barrel angle offsets now apply.  This only affects the annihilator in vanilla, which previously had perfect accuracy.
@@ -169,7 +177,7 @@ Tocquiera
 
 - Nexus contruction feature disabled.
 - All Derelict (EP) hulls now use proper derelict loadouts - except the snety (EP) with hammers, that keeps missile autoloader cos it's funny.
-- Picket (EP), Snety (EP), and Bastillon (EP) no longer use the NO_AUTOFIT tag and will appear in Derelict and Pact fleets with d-mods now.
+- Picket (EP), Snety (EP), and Bastillon (EP) no longer use the NO_AUTOFIT tag and will appear in Derelict and Pact fleets with d-mods (and terrible loadouts) now.
 - Variant randomization disabled completely for Pact fleets (including bounties and allied Nexerelin fleets for either faction), but fleets will now properly spawn with s-mods and d-mods where they were previously missing.
 - Reputation gain from turning in AI cores capped, both with faction & the contacts you turn cores over to.
 - Reputation cost for purchasing blueprints roughly halved across the board.
@@ -184,6 +192,7 @@ Tocquiera
 - Phased out some weapons from Pact weapon markets & variants; most notably Railguns, Breach missiles and Hypervelocity Drivers.
 - Sunder rarity in Pact 1.0 > 0.6, in line with other vanilla hulls; was previously left unset, oops.
 - Hammerhead rarity in Pact 0.3 > 0.6
+- Frequency of cross-faction skins lowered (~0.7 commonality to ~0.3 for most)
 - Nexerelin: Corporate leaning shifted from -0.5 to -1.0, diplomatic leaning shifted from 0.0 to -0.5
 
 - Text revisions all over: typo fixes, proofreading & the like.
@@ -191,6 +200,7 @@ Tocquiera
 - Fixed a null crash when shield shunting the Observer (lol)
 - other crash bugs idr fixed.
 - Fixed duplicate submarkets that appear when markets are conquered.
+
 
 Version 0.3.93-RC3
 - fixed a crash when activating the Slamfire ship system without any weapons equipped.

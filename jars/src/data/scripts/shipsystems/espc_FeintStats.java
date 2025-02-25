@@ -5,8 +5,6 @@ import java.awt.Color;
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.combat.MutableShipStatsAPI;
 import com.fs.starfarer.api.combat.ShipAPI;
-import com.fs.starfarer.api.combat.ShipSystemAPI;
-import com.fs.starfarer.api.combat.ShipSystemAPI.SystemState;
 import com.fs.starfarer.api.impl.combat.BaseShipSystemScript;
 // import com.fs.starfarer.api.plugins.ShipSystemStatsScript.State;
 // import com.fs.starfarer.api.plugins.ShipSystemStatsScript.StatusData;

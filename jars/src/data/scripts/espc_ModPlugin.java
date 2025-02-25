@@ -24,22 +24,25 @@ import org.dark.shaders.light.LightData;
 import org.dark.shaders.util.ShaderLib;
 import org.dark.shaders.util.TextureData;
 
-import data.campaign.listeners.espc_ColonyInteractionListener;
-import data.campaign.listeners.espc_EconomyListener;
-import data.campaign.listeners.espc_PactFleetSpawnListener;
 // import data.campaign.ids.espc_People;
 import data.scripts.ai.espc_FinneganAI;
+import data.scripts.campaign.listeners.espc_ColonyInteractionListener;
+import data.scripts.campaign.listeners.espc_EconomyListener;
+import data.scripts.campaign.listeners.espc_PactFleetSpawnListener;
+import data.scripts.campaign.plugins.espc_CampaignPlugin;
 import data.scripts.world.espc_WorldGen;
 import data.scripts.world.espc_People;
 // import com.fs.starfarer.api.PluginPick;
 // import data.scripts.world.systems.espc_GenHalestar;
 // import data.scripts.world.systems.espc_GenKhemsala;
 import exerelin.campaign.SectorManager;
+import exerelin.campaign.backgrounds.CharacterBackgroundUtils;
 
 public class espc_ModPlugin extends BaseModPlugin {
 
     private static boolean hasNex = false;
     private static boolean hasGlib = false;
+    private static boolean hasLuna = false;
     public static boolean espc_generateDerelicts = false;
     public static boolean espc_modifyExplorarium = true;
 
@@ -47,6 +50,7 @@ public class espc_ModPlugin extends BaseModPlugin {
     public void onApplicationLoad() {
 
         hasNex = Global.getSettings().getModManager().isModEnabled("nexerelin");
+        hasLuna = Global.getSettings().getModManager().isModEnabled("lunalib");
         {
             if (!Global.getSettings().getModManager().isModEnabled("lw_lazylib"))
                 throw new RuntimeException("Epsilon Pact requires LazyLib to run - http://fractalsoftworks.com/forum/index.php?topic=5444");
@@ -81,7 +85,10 @@ public class espc_ModPlugin extends BaseModPlugin {
     public static boolean hasGlib() {
     	return hasGlib;
     }
-    
+
+    public static boolean hasLuna() {
+    	return hasLuna;
+    }
 
     @Override
     public void onNewGame() {
@@ -121,6 +128,10 @@ public class espc_ModPlugin extends BaseModPlugin {
 		);
 		if (!Global.getSector().getListenerManager().hasListenerOfClass(espc_ColonyInteractionListener.class))
 			Global.getSector().getListenerManager().addListener(new espc_ColonyInteractionListener());
+
+		if (hasNex && CharacterBackgroundUtils.isBackgroundActive("espc_realHumanBeing")) {
+			Global.getSector().registerPlugin(new espc_CampaignPlugin());
+		}
 	}
 	
 	@Override

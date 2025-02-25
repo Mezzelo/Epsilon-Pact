@@ -2,7 +2,7 @@
     "hullFrequency":{
         "hulls":{
 #            "espc_billhook_p":0.3,
-			"espc_ember_p":0.8,
+			"espc_ember_p":0.4,
         },
     },
     "knownShips":{

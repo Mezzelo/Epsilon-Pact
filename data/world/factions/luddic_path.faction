@@ -7,7 +7,7 @@
 	},
     "hullFrequency":{
         "hulls":{
-			"espc_jackalope_lp":0.7,
+			"espc_jackalope_lp":0.4,
         },
     },
     "knownShips":{

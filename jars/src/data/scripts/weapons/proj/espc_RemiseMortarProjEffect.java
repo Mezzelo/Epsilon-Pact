@@ -2,7 +2,6 @@ package data.scripts.weapons.proj;
 
 import com.fs.starfarer.api.combat.*;
 import com.fs.starfarer.api.combat.listeners.ApplyDamageResultAPI;
-import com.fs.starfarer.api.util.Misc;
 
 import java.util.Iterator;
 import java.util.List;

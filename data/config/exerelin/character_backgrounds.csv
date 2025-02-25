@@ -1,0 +1,3 @@
+id,name,shortDescription,longDescription,order,iconPath,plugin
+espc_humbleTastes,Humble Tastes,"An exceptional pilot of uncommon skill, with an unfortunate preference for common hulls.",,413,graphics/icons/backgrounds/espc_humbleTastesIcon.png,data.scripts.campaign.backgrounds.espc_HumbleTastesBackground
+espc_realHumanBeing,Real Human Being,"You're just a regular human being, commanding a regular human fleet. It's unclear why this is of note, frankly.",,414,graphics/icons/backgrounds/espc_realHumanBeingIcon.png,data.scripts.campaign.backgrounds.espc_RealHumanBeingBackground

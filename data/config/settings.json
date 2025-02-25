@@ -1,7 +1,7 @@
 {
-   	# "plugins":{
-		#"ESPC_TestPlugin":"data.scripts.plugins.ESPC_TestPlugin",
-	# },
+   	"plugins":{
+		"espc_CampaignPlugin":"data.scripts.campaign.plugins.espc_CampaignPlugin",
+	},
     "designTypeColors":{
         "Epsilon Pact":[10, 119, 158, 255],
         "Pact-Derelict":[10, 153, 131, 255],
@@ -53,6 +53,8 @@
 		#},
 		"icons":{
 			"espc_modicon":"graphics/icons/espc_modicon.png",
+			"espc_realHumanBeingBgIconLocked":"graphics/icons/backgrounds/espc_realHumanBeingIconLocked.png",
+			"espc_humbleTastesBgIconLocked":"graphics/icons/backgrounds/espc_humbleTastesIconLocked.png",
 		},
 		"illustrations":{
 			"espc_lunron_illustration":"graphics/illustrations/espc_lunron_illustration.jpg",

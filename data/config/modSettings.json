@@ -1,0 +1,12 @@
+{
+	"epsilonpact":{
+		"espc_AIBGPortraits": true,
+		"espc_BGScoreRequirements": "Perfect",
+	},
+	
+	"TakeNoPrisoners": {
+		"factionsWithConfigs": [
+			"epsilpac",
+		]
+	},
+}

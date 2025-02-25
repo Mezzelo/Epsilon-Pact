@@ -34,7 +34,8 @@ public class espc_FeintAI implements ShipSystemAIScript {
 
         // if (aiInterval.intervalElapsed()) {
         	if (amount > 0f && !system.isCoolingDown() && system.getAmmo() > 0 && !flux.isOverloadedOrVenting() &&
-        		flux.getFluxLevel() > FLUX_THRESHOLD
+        		flux.getFluxLevel() > FLUX_THRESHOLD && (ship.getHullLevel() > 0.2f || ship.getShield() == null || (ship.getShield() != null &&
+        		ship.getShield().isOff()))
             )
             	ship.useSystem();
         // }

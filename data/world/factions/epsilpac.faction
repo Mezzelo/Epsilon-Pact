@@ -49,6 +49,8 @@
 		"sunder_espc_Support":2,
 		
 		"espc_rondel_Standard":0,
+		"espc_rondel_Assault":3,
+		"espc_rondel_Anti_Shield":7,
 		
         "glimmer_espc_Escort":2,
 		"glimmer_espc_Assault":8,
