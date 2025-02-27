@@ -178,10 +178,10 @@ public class espc_Underdog {
 			TooltipMakerAPI info, float width) {
 		
 			init(stats, skill);
-			info.addPara("+%s damage dealt per DP deficit between ship and target",
+			info.addPara("+%s damage dealt per base DP deficit between ship and target",
 				0f, hc, hc, (int)DAMAGE_BONUS_PER_DP + "%"
 			);
-			info.addPara("-%s damage taken per DP deficit between ship and attacker, up to %s reduction",
+			info.addPara("-%s damage taken per base DP deficit between ship and attacker, up to %s reduction",
 				0f, hc, hc, (int)DAMAGE_REDUCTION_PER_DP + "%", (int)DAMAGE_REDUCTION_CAP + "%"
 			);
 			info.addPara(indent + "Damage bonus and reduction past %s is half as effective",
@@ -219,7 +219,7 @@ public class espc_Underdog {
 			TooltipMakerAPI info, float width) {
 		
 			init(stats, skill);
-			info.addPara("-" + "%s damage taken from fighters per DP deficit between ship and carrier,"
+			info.addPara("-" + "%s damage taken from fighters per base DP deficit between ship and carrier,"
 				+ " up to %s reduction",
 				0f, stats.getSkillLevel(skill.getId()) > 1 ? hc : dhc, stats.getSkillLevel(skill.getId()) > 1? hc : dhc,
 				DAMAGE_REDUCTION_PER_DP_CARRIER + "%",

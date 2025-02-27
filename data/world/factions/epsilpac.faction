@@ -207,7 +207,6 @@
 			"spark_wing",
 			"lux_wing",
 			"flash_wing",
-			"broadsword_wing",
 			"dagger_wing",
 			"xyphos_wing",
         ],
@@ -398,6 +397,14 @@
 		"espc_riftspear":3,	
 		# "espc_hcl":10,
 		"espc_riftpike":3,
+	},
+	"fighterSellFrequency":{
+		"wasp_wing":3,
+		"dagger_wing":3,
+		"xyphos_wing":3,
+		"spark_wing":0,
+		"lux_wing":0,
+		"flash_wing":0,
 	},
 	
 	"factionDoctrine":{

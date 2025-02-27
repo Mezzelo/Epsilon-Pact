@@ -17,8 +17,9 @@ Flagbearer (all variants)
 - FP 15 > 14
 
 Rondel (all variants)
-- DP 5 > 6
 - Deceleration 70 > 125
+- Flux Capacity 2000 > 1000
+- Shield Efficiency 1 > 0.8
 
 Jackalope (all variants)
 - FP 5 > 6
@@ -37,7 +38,6 @@ Songbird (TT)
 - Delicate Machinery built-in hullmod added
 
 Opossum
-- FP 4 > 5
 - Peak CR time 300 > 360
 
 Militia
@@ -73,17 +73,14 @@ Chorale
 - Range bonus from hullmod to weapon range beneath 700 > 800 increased by 100/100 > 200/100 for medium/large weapons, to a max of 700 > 800
 
 All Derelict (EP) hulls
-- Shield efficiency 0.7 > 0.8 (frigates, berserker)
-- Shield efficiency 0.7 > 1.0 (bastillon)
+- Shield Efficiency 0.7 > 0.8 (frigates, berserker)
+- Shield Efficiency 0.7 > 1.0 (bastillon)
 
 Picket (EP)
 - Side turret slots changed to composite, from ballistic
 
 Snety (EP)
 - FP 5 > 4
-- Drone count in wing reduced from 6 > 4
-- Drones now possess Integrated Point Defense AI
-	- IPDAI addition be reverted and weapon changed to PD laser with 0.98a update.
 
 Bastillon (EP)
 - OP 90 > 100
@@ -112,10 +109,12 @@ Remote Salvo
 - Removed flux cost for activation
 - System duration automatically ends early when all missiles have been launched
 - Missile range for missiles launched via this system increased by 25%
+- System will attempt to split missiles fired between wings, instead of prioritizing the first wing if it has more than 3 fighters.
 - Missiles tagged as ANTI_FTR now prioritize targeting the nearest fighter when launched
+- Fighters that are not classified as support or bombers are forced to recall after launching missiles.
 - Missile count calculation revised for reloading missiles
 - Missiles in excess of remaing OP per wing will no longer fire (e.g. two reapers, anything over 3 OP/missile lol)
-- Bursts per fighter limited to 3.  This significantly nerfs swarmers and other high ammo/low OP missiles.
+- Bursts per fighter limited to 4.  This significantly nerfs swarmers and other high ammo/low OP missiles.
 - Bursts now fire twice as quickly
 - Barrel angle offsets now apply.  This only affects the annihilator in vanilla, which previously had perfect accuracy.
 
@@ -130,6 +129,8 @@ Dual Minimir Cannon
 - Merc tag removed
 
 Remise Mortar
+- Damage/shot 375 > 300
+- Flux/shot 525 > 420
 - Behaviour changed to reset cooldown of Remise Rifles, instead of forcing them to fire.
 - Removed flux cost-multiplying effect of having multiple Remise Mortars mounted.
 
@@ -140,6 +141,9 @@ Remise Rifle
 
 Auto Scattershot
 - OP 15 > 13
+
+Auto Slugshot
+- Minimum and maximum spread increased substantially
 
 Finnegan Launcher
 - HE damage 2500 > 2000
@@ -189,7 +193,8 @@ Tocquiera
 - Additional variants added, especially for vanilla hulls which had relatively few.
 - Fissile Confluence Emitter added to the Pact blueprint package.
 - Added single hammer/atropos/sabot to Pact weapon markets.
-- Phased out some weapons from Pact weapon markets & variants; most notably Railguns, Breach missiles and Hypervelocity Drivers.
+- Phased out some weapons from Pact weapon markets & variants; most notably Railguns, Breach missiles, Hypervelocity Drivers and Broadswords.
+	- Pact markets also sell fighter LPCs less frequently, and no longer sell remnant fighter LPCs.
 - Sunder rarity in Pact 1.0 > 0.6, in line with other vanilla hulls; was previously left unset, oops.
 - Hammerhead rarity in Pact 0.3 > 0.6
 - Frequency of cross-faction skins lowered (~0.7 commonality to ~0.3 for most)

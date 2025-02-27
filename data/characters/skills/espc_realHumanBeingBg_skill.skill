@@ -13,6 +13,7 @@
 				{"type":"ALL_SHIPS_IN_FLEET", "script":"data.scripts.campaign.skills.espc_RealHumanBeingBg_Skill$Level1"},
 				{"type":"SHIP", "script":"data.scripts.campaign.skills.espc_RealHumanBeingBg_Skill$Level2"},
 				{"type":"CHARACTER_STATS", "script":"data.scripts.campaign.skills.espc_RealHumanBeingBg_Skill$Level3"},
+				{"type":"CHARACTER_STATS", "script":"data.scripts.campaign.skills.espc_RealHumanBeingBg_Skill$Level4"},
 			]
 		}
 	],

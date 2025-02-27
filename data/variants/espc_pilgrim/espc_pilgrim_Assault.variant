@@ -2,9 +2,9 @@
   "variantId": "espc_pilgrim_Assault",
   "hullId": "espc_pilgrim",
   "displayName": "Assault",
-  "goalVariant": true,
-  "fluxCapacitors": 13,
-  "fluxVents": 19,
+  "goalVariant": false,
+  "fluxCapacitors": 16,
+  "fluxVents": 16,
   "quality": 1,
   "permaMods": [],
   "hullMods": [
@@ -53,7 +53,7 @@
   ],
   "modules": [],
   "wings": [
-    "broadsword_wing",
+    "spark_wing",
     "dagger_wing"
   ]
 }

@@ -43,8 +43,8 @@ public class espc_ModPlugin extends BaseModPlugin {
     private static boolean hasNex = false;
     private static boolean hasGlib = false;
     private static boolean hasLuna = false;
-    public static boolean espc_generateDerelicts = false;
-    public static boolean espc_modifyExplorarium = true;
+    // private static boolean espc_generateDerelicts = false;
+    // private static boolean espc_modifyExplorarium = true;
 
     @Override
     public void onApplicationLoad() {

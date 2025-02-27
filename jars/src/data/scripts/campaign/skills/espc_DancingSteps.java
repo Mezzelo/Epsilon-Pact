@@ -106,7 +106,7 @@ public class espc_DancingSteps {
 				
 			}
 			damage += beamDamage;
-			if (ship.getShield() != null && ship.getShield().isOff()) {
+			if (ship.getShield() != null && ship.getShield().isOff() && ship.getMaxSpeed() > 0f) {
 				if (shieldTimer > 0f) {
 					shieldTimer = Math.max(shieldTimer - amount, 0f);
 					ship.getMutableStats().getMaxSpeed().modifyFlat(id + "noShield", SPEED_BONUS_NO_SHIELD * shieldTimer/SHIELD_DECAY_TIME);
@@ -122,7 +122,7 @@ public class espc_DancingSteps {
 			}
 			else {
 				ship.getMutableStats().getMaxSpeed().unmodify(id + "noShield");
-				if (ship.getShield() != null && ship.getShield().isOn())
+				if (ship.getShield() != null && ship.getShield().isOn() && ship.getMaxSpeed() > 0f)
 					shieldTimer = Math.min(shieldTimer + amount * SHIELD_TIME_GAIN_MULT, SHIELD_DECAY_TIME);
 			}
 			if (damage > 0f && !ship.isPhased()) {
@@ -218,7 +218,8 @@ public class espc_DancingSteps {
 			if (!source.isFighter())
 				return null;
 			
-			damage.getModifier().modifyPercent(id, -FIGHTER_DAMAGE_REDUCTION);
+			damage.getModifier().modifyPercent(id, -FIGHTER_DAMAGE_REDUCTION *
+				Math.min(1f, ship.getVelocity().length() / DAMAGE_REDUCTION_SPEED_MAX));
 			return id;
 		}
 	}
@@ -320,12 +321,13 @@ public class espc_DancingSteps {
 		public void createCustomDescription(MutableCharacterStatsAPI stats, SkillSpecAPI skill, 
 			TooltipMakerAPI info, float width) {
 			init(stats, skill);
-			info.addPara("-%s armor and hull damage taken from fighters",
+			info.addPara("Up to -%s armor and hull damage taken from fighters",
 					0f, stats.getSkillLevel(skill.getId()) > 1 ? hc : dhc, stats.getSkillLevel(skill.getId()) > 1? hc : dhc,
 					(int) FIGHTER_DAMAGE_REDUCTION + "%"
 				);
-			info.addPara(indent + "Does not apply to missiles",
-				0f, stats.getSkillLevel(skill.getId()) > 1 ? tc : dtc, stats.getSkillLevel(skill.getId()) > 1? hc : dhc
+			info.addPara(indent + "Max effect when moving at %s. Does not apply to missiles",
+				0f, stats.getSkillLevel(skill.getId()) > 1 ? tc : dtc, stats.getSkillLevel(skill.getId()) > 1? hc : dhc,
+					(int) DAMAGE_REDUCTION_SPEED_MAX + " su/second"
 			);
 		}
 		

@@ -67,7 +67,6 @@ public class espc_RealHumanBeingBackground extends BaseCharacterBackground {
 		ship.getCrewComposition().setCrew(100000);
 		ship.getRepairTracker().setCR(0.7f);
 		Global.getSector().getPlayerFleet().getFleetData().addFleetMember(ship);
-		ship.setCaptain(Global.getSector().getPlayerPerson());
         
         if (espc_ModPlugin.hasLuna() && !LunaSettings.getBoolean("epsilonpact", "espc_AIBGPortraits")) {
         	return;
@@ -113,8 +112,8 @@ public class espc_RealHumanBeingBackground extends BaseCharacterBackground {
         if (!isUnlocked()) 
         	return "This background is locked.";
 
-        return "Start with an Automated Ships-equivalent skill and the ability to commandeer automated ships mid-combat.\n\n" + 
-        	"Officers are no longer available to recruit from comms directories, except on Pact markets.";
+        return "Start with the bonuses of the Automated Ships skill and the ability to pilot and transfer between automated ships. " + 
+        	"Your ability to recruit officers is severely hampered.";
     }
     @Override
     public String getIcon(FactionSpecAPI factionSpec, NexFactionConfig factionConfig) {
@@ -130,7 +129,22 @@ public class espc_RealHumanBeingBackground extends BaseCharacterBackground {
         super.addTooltipForSelection(tooltip, factionSpec, factionConfig, expanded);
         if (expanded && isUnlocked()) {
             tooltip.addSpacer(10f);
-            tooltip.addPara("It is possible to also learn the Automated Ships skill itself, effectively doubling your maximum automated ships"
+            tooltip.addPara(
+               	"Your maximum officer level is increased by 1. However, your base maximum officer count is reduced to 0.",
+               	0f,
+               	Misc.getTextColor(), 
+               	Misc.getNegativeHighlightColor(),
+               	"reduced to 0");
+            tooltip.addPara(
+            	"Officers are no longer available to recruit from promotion or comms directories, except on %s. " +
+            	"Officers hired this way decrease the initial penalty by 1 each.", 
+                0f,
+                Misc.getTextColor(), 
+                Misc.getHighlightColor(),
+                "Pact markets");
+            tooltip.addSpacer(10f);
+            tooltip.addPara(
+            	"It is possible to learn the Automated Ships skill itself, effectively doubling your maximum automated ship"
             	+ " points.", 
             	0f,
             	Misc.getTextColor(), 
@@ -143,11 +157,26 @@ public class espc_RealHumanBeingBackground extends BaseCharacterBackground {
     public void addTooltipForIntel(TooltipMakerAPI tooltip, FactionSpecAPI factionSpec, NexFactionConfig factionConfig) {
         super.addTooltipForIntel(tooltip, factionSpec, factionConfig);
         tooltip.addSpacer(10f);
-        tooltip.addPara("It is possible to also learn the Automated Ships skill itself, effectively doubling your maximum automated ships"
+        tooltip.addPara(
+            "Your maximum officer level is increased by 1. However, your base maximum officer count is reduced to 0.",
+        	0f,
+        	Misc.getTextColor(), 
+        	Misc.getNegativeHighlightColor(),
+        	"reduced to 0");
+        tooltip.addPara(
+        	"Officers are no longer available to recruit from promotion or comms directories, except on %s. " +
+        	"Officers hired this way decrease the initial penalty by 1 each.", 
+        	0f,
+        	Misc.getTextColor(), 
+        	Misc.getHighlightColor(),
+        	"Pact markets");
+        tooltip.addSpacer(10f);
+        tooltip.addPara(
+        	"It is possible to learn the Automated Ships skill itself, effectively doubling your maximum automated ship"
         	+ " points.", 
         	0f,
-            Misc.getTextColor(), 
-            Misc.getHighlightColor(),
+        	Misc.getTextColor(), 
+        	Misc.getHighlightColor(),
         	"Automated Ships");
     }
 

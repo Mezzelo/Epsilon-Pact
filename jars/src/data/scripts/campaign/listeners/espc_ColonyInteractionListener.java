@@ -1,5 +1,6 @@
 package data.scripts.campaign.listeners;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.fs.starfarer.api.Global;
@@ -11,6 +12,7 @@ import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.campaign.listeners.ColonyInteractionListener;
 import com.fs.starfarer.api.characters.MutableCharacterStatsAPI.SkillLevelAPI;
 import com.fs.starfarer.api.characters.PersonAPI;
+import com.fs.starfarer.api.combat.MutableStat.StatMod;
 import com.fs.starfarer.api.impl.campaign.events.OfficerManagerEvent;
 import com.fs.starfarer.api.impl.campaign.ids.Factions;
 import com.fs.starfarer.api.impl.campaign.ids.Submarkets;
@@ -35,24 +37,9 @@ public class espc_ColonyInteractionListener implements ColonyInteractionListener
 
 	@Override
 	public void reportPlayerOpenedMarket(MarketAPI market) {
-		if (market.getFactionId().equals("epsilpac") || (espc_ModPlugin.hasNex() && CharacterBackgroundUtils.isBackgroundActive("espc_realHumanBeing"))) {
-
-			if (espc_ModPlugin.hasNex() && CharacterBackgroundUtils.isBackgroundActive("espc_realHumanBeing")) {
-				boolean found = false;
-				for (CargoStackAPI stack : Global.getSector().getPlayerFleet().getCargo().getStacksCopy()) {
-					CommoditySpecAPI spec = stack.getResourceIfResource();
-					if (spec != null && spec.getId().equals("espc_meCore")) {
-						found = true;
-						stack.setSize(1f);
-						break;
-					}
-				}
-				if (!found) {
-			        Global.getSector().getPlayerFleet().getCargo().addItems(
-			        	CargoAPI.CargoItemType.RESOURCES, "espc_meCore", 1
-				    );
-				}
-			}
+		if (market.getFactionId().equals("epsilpac") || espc_ModPlugin.hasNex() && CharacterBackgroundUtils.isBackgroundActive("espc_realHumanBeing")) {
+			int pactOfficerCount = 0;
+			
 			if (market.getFactionId().equals("epsilpac")) {
 				if (market.hasSubmarket(Submarkets.SUBMARKET_OPEN)) {
 		        	market.removeSubmarket(Submarkets.SUBMARKET_OPEN);
@@ -63,6 +50,32 @@ public class espc_ColonyInteractionListener implements ColonyInteractionListener
 					market.addSubmarket("espc_black_market");
 					market.getSubmarket("espc_black_market").setFaction(Global.getSector().getFaction(Factions.PIRATES));
 				}
+				
+				/* can't get this to proc soon enough without a more regular listener, which i don't really care to do.
+				it's your story point to waste.
+				if (espc_ModPlugin.hasNex() && CharacterBackgroundUtils.isBackgroundActive("espc_realHumanBeing")) {
+					PortsideBarData data = PortsideBarData.getInstance();
+					for (PortsideBarEvent event : data.getEvents()) {
+						if (event instanceof LuddicPathBaseBarEvent) {
+							LuddicPathBaseBarEvent patherEvent = (LuddicPathBaseBarEvent) event;
+							if (patherEvent.getMarket() != null &&
+								patherEvent.getMarket().getId().equals(market.getId())) {
+								List<SkillLevelAPI> skills = patherEvent.getPerson().getStats().getSkillsCopy();
+					        	for (SkillLevelAPI skill : skills) {
+					        		if (!skill.getSkill().getId().contains("espc") && skill.getLevel() > 0 &&
+					        			skill.getSkill().isCombatOfficerSkill()) {
+										patherEvent.getPerson().getStats().setSkillLevel(
+											skillsList[Misc.random.nextInt(skillsList.length)], skill.getLevel());
+										patherEvent.getPerson().getStats().setSkillLevel(skill.getSkill().getId(), 0);
+							       		break;
+					        		}
+					        	}
+					        	pactOfficerCount++;
+					        	break;
+							}
+						}
+					}
+				} */
 			}
 			
 	        List<OfficerManagerEvent> managers = Global.getSector().getListenerManager().getListeners(OfficerManagerEvent.class);
@@ -70,10 +83,12 @@ public class espc_ColonyInteractionListener implements ColonyInteractionListener
 	        	manager.reportPlayerOpenedMarket(market);
 	        	for (PersonAPI person : market.getPeopleCopy()) {
 		        	if (manager.getOfficer(person.getId()) != null) {
-		        		if (espc_ModPlugin.hasNex() && CharacterBackgroundUtils.isBackgroundActive("espc_realHumanBeing") &&
+		        		if (person.getMemoryWithoutUpdate().getBoolean(Misc.IS_MERCENARY) ||
+		        			espc_ModPlugin.hasNex() && CharacterBackgroundUtils.isBackgroundActive("espc_realHumanBeing") &&
 		        			!market.getFactionId().equals("epsilpac")) {
 		        			manager.removeAvailable(manager.getOfficer(person.getId()));
-		        		} else if (!person.getMemoryWithoutUpdate().getBoolean(Misc.IS_MERCENARY)) {
+		        		} else {
+		        			pactOfficerCount++;
 			        		// PersonAPI officer = manager.getOfficer(person.getId()).person;
 			        		String[] skillsListCopy = skillsList.clone();
 			        		int max = skillsListCopy.length;
@@ -96,11 +111,40 @@ public class espc_ColonyInteractionListener implements ColonyInteractionListener
 		        	}
 	        	}
 	        }
+	        if (espc_ModPlugin.hasNex() && CharacterBackgroundUtils.isBackgroundActive("espc_realHumanBeing")) {
+	        	if (pactOfficerCount > 0) {
+	        		HashMap<String, StatMod> penalty = Global.getSector().getPlayerPerson().getStats().getOfficerNumber().getFlatMods();
+	        		for (String key : penalty.keySet()) {
+	        			if (key.contains("espc") && penalty.get(key).getValue() < 0f) {
+	    	        		Global.getSector().getPlayerPerson().getStats().getOfficerNumber().modifyFlat("espc_aibgmaxmod", 
+	    	        		Math.min(pactOfficerCount, -penalty.get(key).getValue()));
+	    	        		break;
+	        			}
+	        		}
+	        	}
+
+				boolean found = false;
+				for (CargoStackAPI stack : Global.getSector().getPlayerFleet().getCargo().getStacksCopy()) {
+					CommoditySpecAPI spec = stack.getResourceIfResource();
+					if (spec != null && spec.getId().equals("espc_meCore")) {
+						found = true;
+						stack.setSize(1f);
+						break;
+					}
+				}
+				if (!found) {
+			        Global.getSector().getPlayerFleet().getCargo().addItems(
+			        	CargoAPI.CargoItemType.RESOURCES, "espc_meCore", 1
+				    );
+				}
+			}
 		}
 	}
 
 	@Override
 	public void reportPlayerClosedMarket(MarketAPI market) {
+        if (espc_ModPlugin.hasNex() && CharacterBackgroundUtils.isBackgroundActive("espc_realHumanBeing"))
+        	Global.getSector().getPlayerPerson().getStats().getOfficerNumber().unmodify("espc_aibgmaxmod");
 	}
 
 	@Override

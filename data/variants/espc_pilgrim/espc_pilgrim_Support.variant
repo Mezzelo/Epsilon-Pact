@@ -3,13 +3,12 @@
   "hullId": "espc_pilgrim",
   "displayName": "Support",
   "goalVariant": true,
-  "fluxCapacitors": 19,
+  "fluxCapacitors": 26,
   "fluxVents": 20,
   "quality": 1,
   "permaMods": [],
   "hullMods": [
-    "targetingunit",
-    "magazines"
+    "targetingunit"
   ],
   "weaponGroups": [
     {

@@ -5,7 +5,7 @@
 	"fluxVents":0,
 	"fluxCapacitors":0,
 	"mods":[], # array of strings
-	"hullMods":["advancedoptics", "pointdefenseai"], # array of strings
+	"hullMods":["advancedoptics"], # array of strings
 	
 	# mode is either LINKED or ALTERNATING
 	# slot ids (WS ***) must match what's in the .ship file
