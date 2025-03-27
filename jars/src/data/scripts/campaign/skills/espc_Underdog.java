@@ -23,7 +23,7 @@ public class espc_Underdog {
 	
 	public static float DAMAGE_BONUS_PER_DP = 1f;
 	public static float DAMAGE_REDUCTION_PER_DP = 1f;
-	public static float DAMAGE_REDUCTION_SOFT_THRESHOLD = 20f;
+	public static float DAMAGE_REDUCTION_SOFT_THRESHOLD = 30f;
 	public static float DAMAGE_REDUCTION_SOFT_MULT = 0.5f;
 	public static float DAMAGE_REDUCTION_CAP = 80f;
 	public static float DAMAGE_REDUCTION_OTHER_CAP = 40f;
@@ -78,10 +78,11 @@ public class espc_Underdog {
 			float diff = targ.getFleetMember().getUnmodifiedDeploymentPointsCost() - ship.getFleetMember().getUnmodifiedDeploymentPointsCost();
 			if (diff <= 0f)
 				return null;
-			else if (diff > DAMAGE_REDUCTION_SOFT_THRESHOLD)
+			diff *= DAMAGE_BONUS_PER_DP;
+			if (diff > DAMAGE_REDUCTION_SOFT_THRESHOLD)
 				diff = DAMAGE_REDUCTION_SOFT_THRESHOLD + (diff - DAMAGE_REDUCTION_SOFT_THRESHOLD) * DAMAGE_REDUCTION_SOFT_MULT;
 			
-			damage.getModifier().modifyPercent(id + "_given", diff * DAMAGE_BONUS_PER_DP);
+			damage.getModifier().modifyPercent(id + "_given", diff);
 			return id + "_given";
 		}
 		@Override
@@ -115,10 +116,11 @@ public class espc_Underdog {
 			float diff = source.getFleetMember().getUnmodifiedDeploymentPointsCost() - ship.getFleetMember().getUnmodifiedDeploymentPointsCost();
 			if (diff <= 0f)
 				return null;
-			else if (diff > DAMAGE_REDUCTION_SOFT_THRESHOLD)
+			diff *= DAMAGE_REDUCTION_PER_DP;
+			if (diff > DAMAGE_REDUCTION_SOFT_THRESHOLD)
 				diff = DAMAGE_REDUCTION_SOFT_THRESHOLD + (diff - DAMAGE_REDUCTION_SOFT_THRESHOLD) * DAMAGE_REDUCTION_SOFT_MULT;
 			
-			damage.getModifier().modifyPercent(id + "_taken", Math.max(-diff * DAMAGE_REDUCTION_PER_DP, -DAMAGE_REDUCTION_CAP));
+			damage.getModifier().modifyPercent(id + "_taken", Math.max(-diff, -DAMAGE_REDUCTION_CAP));
 			return id + "_taken";
 		}
 	}
@@ -154,10 +156,13 @@ public class espc_Underdog {
 			if (source.isFighter() && source.getWing() != null && source.getWing().getLeader() != null && source.getWing().getSourceShip().getFleetMember() != null) {
 				float diff = source.getWing().getSourceShip().getFleetMember().getUnmodifiedDeploymentPointsCost() - 
 					ship.getFleetMember().getUnmodifiedDeploymentPointsCost();
+				if (diff <= 0f)
+					return null;
+				diff *= DAMAGE_REDUCTION_PER_DP_CARRIER;
 				if (diff > DAMAGE_REDUCTION_CARRIER_SOFT_THRESHOLD)
 					diff = DAMAGE_REDUCTION_CARRIER_SOFT_THRESHOLD + (diff - DAMAGE_REDUCTION_CARRIER_SOFT_THRESHOLD) * DAMAGE_REDUCTION_CARRIER_SOFT_MULT;
 				// Global.getLogger(espc_Underdog.class).info("dp diff: " + diff);
-				damage.getModifier().modifyPercent(id + "_taken_fighter", Math.max(-diff * DAMAGE_REDUCTION_PER_DP_CARRIER, -DAMAGE_REDUCTION_CARRIER_CAP));
+				damage.getModifier().modifyPercent(id + "_taken_fighter", Math.max(-diff, -DAMAGE_REDUCTION_CARRIER_CAP));
 				return id + "_taken_fighter";
 			}
 			return null;

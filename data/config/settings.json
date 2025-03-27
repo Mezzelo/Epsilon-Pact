@@ -1,6 +1,7 @@
 {
    	"plugins":{
 		"espc_CampaignPlugin":"data.scripts.campaign.plugins.espc_CampaignPlugin",
+		"espc_MeCoreCombatPlugin":"data.scripts.plugin.espc_MeCoreCombatPlugin",
 	},
     "designTypeColors":{
         "Epsilon Pact":[10, 119, 158, 255],
@@ -23,7 +24,9 @@
             "espc_lin":"graphics/portraits/espc_lin.png",
             "espc_lindsay":"graphics/portraits/espc_lindsay.png",
             "espc_nadia":"graphics/portraits/espc_nadia.png",
+            "espc_ross":"graphics/portraits/espc_ross.png",
             "espc_sien":"graphics/portraits/espc_sien.png",
+            "espc_tam":"graphics/portraits/espc_tam.png",
         },
 		"fx":{
             "espc_trail_hard":"graphics/fx/espc_trail_hard.png",
@@ -54,6 +57,7 @@
 		"icons":{
 			"espc_modicon":"graphics/icons/espc_modicon.png",
 			"espc_realHumanBeingBgIconLocked":"graphics/icons/backgrounds/espc_realHumanBeingIconLocked.png",
+			"espc_realHumbleBeingBgIconLocked":"graphics/icons/backgrounds/espc_realHumbleBeingIconLocked.png",
 			"espc_humbleTastesBgIconLocked":"graphics/icons/backgrounds/espc_humbleTastesIconLocked.png",
 		},
 		"illustrations":{

@@ -286,14 +286,14 @@ public class espc_DancingSteps {
 		public void createCustomDescription(MutableCharacterStatsAPI stats, SkillSpecAPI skill, 
 			TooltipMakerAPI info, float width) {
 			init(stats, skill);
-			info.addPara("Up to -%s shield damage taken, based on current speed and impact angle against shield",
+			info.addPara("Up to -%s damage taken by shields, based on current speed and impact angle against shield",
 					0f, hc, hc,
 					(int) DAMAGE_REDUCTION_SHIELD_MAX + "%"
 				);
 			info.addPara(indent + "Max damage reduction when moving perpendicular to an attack at %s, and it lands parallel to shield",
 				0f, tc, hc, (int) DAMAGE_REDUCTION_SPEED_MAX + " su/second"
 			);
-			info.addPara("Up to %s su/second to top speed after dropping shields, decaying over %s",
+			info.addPara("%s su/second to top speed after dropping shields, decaying over %s",
 				0f, hc, hc, "+" + (int)SPEED_BONUS_NO_SHIELD, (int)SHIELD_DECAY_TIME + " seconds"
 			);
 		}

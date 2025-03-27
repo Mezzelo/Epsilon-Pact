@@ -2,10 +2,12 @@ Version 0.6.0
 New hulls: Amanuensis-class battleship & Warden (EP) class frigate
 New weapon: Scatter Rifle, large ballistic
 Portraiture: 18/22 existing portraits revised, 14 (21) new portraits
-Added 5 unique skills utilized by Pact fleets and hireable officers, new skill selection algorithm & Pact fleet spawn behaviour adjustments.
 Major round of balance changes, adjustments & bugfixes.  Minor changes/additions to Pact markets, AI core exchange rebalanced.
+Procedural additions to sector activity & new scripted encounters.
 Added two Nexerelin starting backgrounds, unlocked by achieving perfect scores on Loose Ends and New Moon.
 	Unlock requirement can be toggled off if using LunaLib.
+
+Added 5 unique skills utilized by Pact fleets and hireable officers, new skill selection algorithm & Pact fleet spawn behaviour adjustments.
 
 AI changes:
 - Faction personality doctrine changed from STEADY to AGGRESSIVE
@@ -13,10 +15,14 @@ AI changes:
 - Flagbearer, Jackalope, Observer & Chorale now default to AGGRESIVE AI if no officer is assigned.
 
 Hull balance changes:
+Most non-droneship hulls
+- Slight reductions in CR to deploy and increases in CR recovery/day
+
 Flagbearer (all variants)
 - FP 15 > 14
 
 Rondel (all variants)
+- DP 5 > 6
 - Deceleration 70 > 125
 - Flux Capacity 2000 > 1000
 - Shield Efficiency 1 > 0.8
@@ -51,6 +57,7 @@ Militia
 
 Ember (all variants)
 - Flux Capacity 4000 > 6000
+- Peak CR time 480 > 420
 
 Observer (base variant)
 - Speed 60 > 65
@@ -59,10 +66,12 @@ Observer (TT)
 - DP 28 > 30
 
 Pilgrim (all variants)
-- OP 125 > 130
-    - Pilgrim (H)'s OP remains at 125
 - Hull 8500 > 9000
 - Dissipation 450 > 500
+
+Pilgrim (base variant)
+- Speed 60 > 65
+- OP 125 > 130
 
 Chorale
 - FP 18 > 17
@@ -77,15 +86,16 @@ All Derelict (EP) hulls
 - Shield Efficiency 0.7 > 1.0 (bastillon)
 
 Picket (EP)
+- DP 3 > 4
 - Side turret slots changed to composite, from ballistic
 
 Snety (EP)
-- FP 5 > 4
+- Drones now have Integrated Point Defense AI
 
 Bastillon (EP)
 - OP 90 > 100
 - Speed 90 > 85
-- Dissipation 400 > 300
+- Dissipation 400 > 350
 - Significant maneuverability buffs
 
 Berserker (EP)
@@ -112,7 +122,7 @@ Remote Salvo
 - System will attempt to split missiles fired between wings, instead of prioritizing the first wing if it has more than 3 fighters.
 - Missiles tagged as ANTI_FTR now prioritize targeting the nearest fighter when launched
 - Fighters that are not classified as support or bombers are forced to recall after launching missiles.
-- Missile count calculation revised for reloading missiles
+- Missile count calculation revised for reloading/non-ammo missiles
 - Missiles in excess of remaing OP per wing will no longer fire (e.g. two reapers, anything over 3 OP/missile lol)
 - Bursts per fighter limited to 4.  This significantly nerfs swarmers and other high ammo/low OP missiles.
 - Bursts now fire twice as quickly
@@ -129,19 +139,25 @@ Dual Minimir Cannon
 - Merc tag removed
 
 Remise Mortar
+- OP 10 > 11
 - Damage/shot 375 > 300
-- Flux/shot 525 > 420
+- Flux/shot 525 > 360
 - Behaviour changed to reset cooldown of Remise Rifles, instead of forcing them to fire.
-- Removed flux cost-multiplying effect of having multiple Remise Mortars mounted.
+- Added scripted behaviour that forces autofire to stagger
 
 Remise Rifle
-- Damage/shot 240 > 300
-- Flux/shot 192/240
-(effective DPS reduction from 180 > 150, but higher hit-strength and non-compulsory fire.  no effective change in efficiency, apart from the multiple mortars case)
+- OP 13 > 12
+- Damage/shot 240 > 320
+- Flux/shot 192 > 256
+(effective DPS reduction for one mortar from 180 > 160, per-shot efficiency unchanged)
+- Removed flux cost-multiplying effect of having multiple Remise Mortars mounted.
+- Added 25% multiplicative damage penalty per additional Remise Mortar mounted.
 
 Auto Scattershot
 - OP 15 > 13
-
+- Reworked internal logic to fix rare instances of odd desynced spread behaviour
+- Merc tag removed
+	
 Auto Slugshot
 - Minimum and maximum spread increased substantially
 
@@ -155,35 +171,51 @@ Heavy Gatling
 - Min refire delay 0.075 > 0.09
 - Flux/shot 56 > 63
 
+Fissile Confluence Emitter
+- Significantly reduced activation distance (~1/4), which was erronenously set too high.
+
 Half-Rift Pike
 - Range 1100 > 1000
+
+AM Flamer
+- Removed CR degradation effect
+- Added PD and PD_ALSO tags
 
 
 World-gen changes (non-random sector):
 - Star systems (Khemsala & Tocquiera) shifted south and slightly west to resolve conflicts with Kemet/The Crown Constellation
 - Lunron Saba and Bruniel given the the AI Sub-Population planetary condition, which permutates into Rogue AI Population if conquered via Nexerelin.  Consider saturation bombardment.
 Lunron Saba
+- Commerce replaced by a Military Base, also upgrading from Patrol HQ
 - Heavy Batteries added, replacing Ground Defenses
 - Heavy Industry moved here, from Bruniel
+- Battlestation upgraded to Star Fortress
 Bruniel
 - Light Industry moved here, from Lunron Saba
 Falris
 - Heavy Batteries added, replacing Ground Defenses
 Tocquiera
 - Heavy Batteries removed, instead spawns with a unique structure that reflects lore
+- Military Base replaced with Command Center
 - Dealmaker Holosuite removed
+- Battlestation upgraded to Star Fortress
 - Administrator given a unique skill
     - If using Nexerelin, unique administrator leaves colony if Tocquiera is conquered, and returns only if Pact regains control
+	
 - Officers in Pact fleets have access to a unique set of skills alongside the vanilla ones, and utilize a selection algorithm based on hull type.
     - Pact bounty fleets now use their regular skill selection as opposed to before, where it was genericized.
     - Officers in missions reworked to incorporate new skills
 - Officers (including mercenary officers) that spawn on Pact markets always use these skills.
 
 - Nexus contruction feature disabled.
+- Special encounters have a chance to spawn when salvaging AI cores and when salvaging certain ship blueprints and colony items. Will seek to negotiate for/confiscate those items.
+- Procedural Pact fleets will spawn at the end of slipstreams and outside/in Remnant systems.
+
 - All Derelict (EP) hulls now use proper derelict loadouts - except the snety (EP) with hammers, that keeps missile autoloader cos it's funny.
 - Picket (EP), Snety (EP), and Bastillon (EP) no longer use the NO_AUTOFIT tag and will appear in Derelict and Pact fleets with d-mods (and terrible loadouts) now.
 - Variant randomization disabled completely for Pact fleets (including bounties and allied Nexerelin fleets for either faction), but fleets will now properly spawn with s-mods and d-mods where they were previously missing.
 - Reputation gain from turning in AI cores capped, both with faction & the contacts you turn cores over to.
+- You can no longer trade in modded AI cores.  Untested outcomes that might've behaved weird, might take a look at this later.
 - Reputation cost for purchasing blueprints roughly halved across the board.
 - When purchasing blueprints, you are also given copies of their respective items: 2 of each weapon, 1 of each ship.
 - Fissile Confluence Emitter removed as a purchasable blueprint - it uses no auto-fit tags, on account of being too fickle to build with.
@@ -193,11 +225,16 @@ Tocquiera
 - Additional variants added, especially for vanilla hulls which had relatively few.
 - Fissile Confluence Emitter added to the Pact blueprint package.
 - Added single hammer/atropos/sabot to Pact weapon markets.
-- Phased out some weapons from Pact weapon markets & variants; most notably Railguns, Breach missiles, Hypervelocity Drivers and Broadswords.
+- Phased out some weapons from Pact weapon markets & variants
+	- most notably: Light Needlers, Railguns, Breach missiles, Hypervelocity Drivers and Broadswords.
 	- Pact markets also sell fighter LPCs less frequently, and no longer sell remnant fighter LPCs.
 - Sunder rarity in Pact 1.0 > 0.6, in line with other vanilla hulls; was previously left unset, oops.
 - Hammerhead rarity in Pact 0.3 > 0.6
 - Frequency of cross-faction skins lowered (~0.7 commonality to ~0.3 for most)
+- You will lose a large amount of reputation with the faction each month if you own any of their (non-random sector) markets or you are using the Supercomputer industry from Industrial Evolution.
+- You will permanently lose Isabelle as a contact if your rep falls below neutral, or after committing more than 1 atrocity.
+	- Gauss will also refuse to speak to you if you commit any atrocities.
+
 - Nexerelin: Corporate leaning shifted from -0.5 to -1.0, diplomatic leaning shifted from 0.0 to -0.5
 
 - Text revisions all over: typo fixes, proofreading & the like.

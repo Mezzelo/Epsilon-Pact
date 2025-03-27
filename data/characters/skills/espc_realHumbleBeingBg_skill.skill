@@ -1,5 +1,5 @@
 {
-	"id":"espc_realHumanBeingBg_skill",
+	"id":"espc_realHumbleBeingBg_skill",
 	"governingAptitude":"espc_skillapt_pact",
 	"compressHullmods":false,
 	"elite":false,
@@ -11,9 +11,9 @@
 			"effectBasedOnLevel":false,
 			"effects":[
 				{"type":"CHARACTER_STATS", "script":"com.fs.starfarer.api.impl.campaign.skills.AutomatedShips$Level2"},
-				{"type":"ALL_SHIPS_IN_FLEET", "script":"data.scripts.campaign.skills.espc_RealHumanBeingBg_Skill$Level1"},
-				{"type":"CHARACTER_STATS", "script":"data.scripts.campaign.skills.espc_RealHumanBeingBg_Skill$Level2"},
 				{"type":"SHIP", "script":"data.scripts.campaign.skills.espc_RealHumanBeingBg_Skill$Level3"},
+				{"type":"ALL_SHIPS_IN_FLEET", "script":"data.scripts.campaign.skills.espc_RealHumbleBeingBg_Skill$Level1"},
+				{"type":"CHARACTER_STATS", "script":"data.scripts.campaign.skills.espc_RealHumbleBeingBg_Skill$Level2"},
 			]
 		}
 	],

@@ -4,7 +4,7 @@
   "displayName": "Anti Shield",
   "goalVariant": false,
   "fluxCapacitors": 10,
-  "fluxVents": 2,
+  "fluxVents": 3,
   "quality": 1,
   "permaMods": [],
   "hullMods": [

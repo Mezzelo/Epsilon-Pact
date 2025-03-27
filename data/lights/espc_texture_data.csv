@@ -18,11 +18,12 @@ espc_observer,ship,,1.35,normal,graphics/shaders/ships/espc_observer_base_normal
 espc_observer_tt,ship,,1.35,normal,graphics/shaders/ships/espc_observer_tt_normal.png
 espc_chorale,ship,,1.35,normal,graphics/shaders/ships/espc_chorale_base_normal.png
 espc_amanuensis,ship,,1.35,normal,graphics/shaders/ships/espc_amanuensis_base_normal.png
-espc_picket,ship,,1.35,normal,graphics/shaders/ships/espc_picket_normal.png
-espc_sentry,ship,,1.35,normal,graphics/shaders/ships/espc_sentry_normal.png
-espc_bastillon,ship,,1.35,normal,graphics/shaders/ships/espc_bastillon_normal.png
-espc_berserker,ship,,1.35,normal,graphics/shaders/ships/espc_berserker_normal.png
-espc_rampart,ship,,1.35,normal,graphics/shaders/ships/espc_rampart_normal.png
+espc_picket,ship,,1.2,normal,graphics/shaders/ships/espc_picket_normal.png
+espc_sentry,ship,,1.2,normal,graphics/shaders/ships/espc_sentry_normal.png
+espc_warden,ship,,1.2,normal,graphics/shaders/ships/espc_warden_normal.png
+espc_bastillon,ship,,1.2,normal,graphics/shaders/ships/espc_bastillon_normal.png
+espc_berserker,ship,,1.2,normal,graphics/shaders/ships/espc_berserker_normal.png
+espc_rampart,ship,,1.2,normal,graphics/shaders/ships/espc_rampart_normal.png
 ,,,,,
 espc_wolf_d,ship,,1,normal,graphics/shaders/normal/ships/wolf/wolf_pirates_normal.png
 espc_drone_borer,ship,,1,normal,graphics/shaders/normal/ships/drones/drone_borer_normal.png

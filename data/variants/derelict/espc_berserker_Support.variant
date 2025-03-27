@@ -4,7 +4,7 @@
   "displayName": "Support",
   "goalVariant": true,
   "fluxCapacitors": 16,
-  "fluxVents": 13,
+  "fluxVents": 16,
   "quality": 1,
   "permaMods": [],
   "hullMods": [
@@ -13,18 +13,10 @@
   "weaponGroups": [
     {
       "autofire": false,
-      "mode": "LINKED",
+      "mode": "ALTERNATING",
       "weapons": {
-        "WS 005": "espc_remmortar"
-      }
-    },
-    {
-      "autofire": false,
-      "mode": "LINKED",
-      "weapons": {
-        "WS 003": "espc_remdriver",
-        "WS 007": "espc_remdriver",
-        "WS0001": "espc_remdriver"
+        "WS 005": "espc_remmortar",
+        "WS0001": "espc_remmortar"
       }
     },
     {
@@ -39,24 +31,11 @@
       "autofire": true,
       "mode": "LINKED",
       "weapons": {
+        "WS 003": "espc_remdriver",
+        "WS 007": "espc_remdriver",
         "WS0002": "vulcan",
         "WS0003": "vulcan"
       }
-    },
-    {
-      "autofire": false,
-      "mode": "LINKED",
-      "weapons": {}
-    },
-    {
-      "autofire": false,
-      "mode": "LINKED",
-      "weapons": {}
-    },
-    {
-      "autofire": false,
-      "mode": "LINKED",
-      "weapons": {}
     }
   ],
   "modules": [],

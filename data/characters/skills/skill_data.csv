@@ -19,6 +19,7 @@ espc_voice,Voice of Many,2140,2,20,,"Yes, they're inhuman, a transgression upon 
 #,,,,,2,,,,,,"active_defenses, ballistic_weapons, missile_weapons, energy_weapons",,
 espc_humbleTastesBg_skill,Humble Tastes,2200,1,0,,insert lasher glaze here,,,,,"player_only, npc_only, deprecated",graphics/icons/skills/espc_placeholderSkillIcon.png,
 espc_realHumanBeingBg_skill,Real Human Being,2201,1,0,,You're not really sure why this is being noted. Everyone else is a real human being. Why are you being so weird about this?,,,,,"player_only, npc_only, deprecated",graphics/icons/skills/espc_placeholderSkillIcon.png,
+espc_realHumbleBeingBg_skill,Real Humble Being,2202,1,0,,You're not really sure why this is being noted. Everyone else is a real human being. Why are you being so weird about this?,,,,,"player_only, npc_only, deprecated",graphics/icons/skills/espc_placeholderSkillIcon.png,
 ,,,,,,,,,,,,,
 ,,,,,,,,,,,"npc_only, player_only, deprecated",,
 ,,,,,,,,,,,,,

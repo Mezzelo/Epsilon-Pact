@@ -1,5 +1,5 @@
 name,id,tier,rarity,tech/manufacturer,tags,uiTags,base value,unlocked,hidden,hiddenEverywhere,cost_frigate,cost_dest,cost_cruiser,cost_capital,script,desc,short,sprite
-Recoiling Frame,espc_recoilmod,,,,,,,,TRUE,,0,0,0,0,data.scripts.hullmods.espc_RecoilModBehaviour,"This ship's frame is unusually lightweight, absorbing disproportionately high amounts of weapons fire with backwards movement. High tolerances allow over-clocking undersized weapons if adequate armament is unavailable.
+Recoiling Frame,espc_recoilmod,,,,,,,,TRUE,,0,0,0,0,data.scripts.hullmods.espc_RecoilModBehaviour,"This ship's frame is unusually lightweight, absorbing disproportionately heavy weapons fire with backwards movement. High tolerances allow for the over-clocking of undersized armaments.
 
 Propels the ship opposite to the direction of %s weapons fire, based on their damage output. If a %s weapon is mounted, increases ballistic rate of fire and ammo regeneration for all weapons by %s.
 

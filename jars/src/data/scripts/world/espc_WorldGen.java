@@ -90,6 +90,8 @@ public class espc_WorldGen implements SectorGeneratorPlugin {
         faction.setRelationship("interstellarimperium", -0.25f);
         faction.setRelationship("ironsentinel", -0.25f);
         faction.setRelationship("ironshell", -0.25f);
+        faction.setRelationship("ix_battlegroup", -0.5f);
+        faction.setRelationship("ix_trinity", -0.5f);
         faction.setRelationship("hiigaran_descendants", -0.05f);
         faction.setRelationship("hmi", -0.15f);
         faction.setRelationship("kadur_remnant", -0.15f);

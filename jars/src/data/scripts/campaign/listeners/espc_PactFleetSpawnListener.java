@@ -52,8 +52,10 @@ public class espc_PactFleetSpawnListener extends BaseCampaignEventListener {
 		"alma",
 		"lindsay",
 		"nadia",
+		"tam",
 		"carl",
 		"lin",
+		"ross",
 		"sien",
 		"ken",
 	};
@@ -97,7 +99,9 @@ public class espc_PactFleetSpawnListener extends BaseCampaignEventListener {
 			if (!found)
 				return;
 		}
-		if (fleet.getInflater() != null && fleet.getInflater().getParams() instanceof DefaultFleetInflaterParams &&
+		if (fleet.getInflater() != null && 
+			!(fleet.getInflater() instanceof espc_PactFleetInflater) &&
+			fleet.getInflater().getParams() instanceof DefaultFleetInflaterParams &&
 			!fleet.isStationMode())
 			fleet.setInflater(new espc_PactFleetInflater((DefaultFleetInflaterParams) fleet.getInflater().getParams()));
         for (FleetMemberAPI fleetMember : fleet.getFleetData().getMembersListCopy()) {

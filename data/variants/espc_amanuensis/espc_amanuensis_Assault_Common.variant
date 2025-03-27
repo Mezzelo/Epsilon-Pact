@@ -3,13 +3,14 @@
   "hullId": "espc_amanuensis",
   "displayName": "Assault",
   "goalVariant": true,
-  "fluxCapacitors": 42,
+  "fluxCapacitors": 31,
   "fluxVents": 50,
   "quality": 1,
   "permaMods": [],
   "hullMods": [
     "targetingunit",
     "stabilizedshieldemitter",
+    "hardenedshieldemitter",
     "fluxdistributor"
   ],
   "weaponGroups": [
@@ -38,8 +39,8 @@
       "mode": "LINKED",
       "weapons": {
         "WS0009": "dualflak",
-        "WS0012": "pdburst",
-        "WS0013": "pdburst",
+        "WS0012": "ioncannon",
+        "WS0013": "ioncannon",
         "WS0014": "irpulse",
         "WS0015": "irpulse",
         "WS0016": "pdburst",

@@ -1,9 +1,9 @@
 {
   "variantId": "hammerhead_espc_Elite",
   "hullId": "hammerhead",
-  "displayName": "Elite",
+  "displayName": "Assault",
   "goalVariant": false,
-  "fluxCapacitors": 20,
+  "fluxCapacitors": 17,
   "fluxVents": 20,
   "quality": 1,
   "permaMods": [],
@@ -23,8 +23,8 @@
       "autofire": true,
       "mode": "LINKED",
       "weapons": {
-        "WS 005": "lightag",
-        "WS 006": "lightag"
+        "WS 005": "espc_minimir",
+        "WS 006": "espc_minimir"
       }
     },
     {

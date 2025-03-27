@@ -47,6 +47,7 @@
 		"hammerhead_espc_Support":2,
 		"sunder_espc_Assault":2,
 		"sunder_espc_Support":2,
+		"sunder_espc_Strike":1,
 		
 		"espc_rondel_Standard":0,
 		"espc_rondel_Assault":3,
@@ -76,8 +77,8 @@
 
     # multiplier for how often hulls show up in the faction's fleets
     "hullFrequency":{
-        "tags":{"base_bp":0.2, "lowtech_bp":0.3, "midline_bp":0.3, "hightech_bp":0.3, "independent":0.3, "epsilpac":1, "remnant":1,
-        },
+		# "base_bp":0.2, "lowtech_bp":0.3, "midline_bp":0.3, "hightech_bp":0.3, "independent":0.3, "epsilpac":1, "remnant":1,
+        "tags":{"epsilpac":1},
         "hulls":{
 			"buffalo2":0,
 			"monitor":0, # we hate sturdy ships in this household
@@ -89,8 +90,6 @@
 			"wolf":0.3,
 			"hammerhead":0.6,
 			"sunder":0.6,
-			
-			# "espc_flagbearer":0.7,
 			
 			"espc_picket":0.5,
 			"espc_sentry":0.7,
@@ -129,6 +128,12 @@
 			"mule",
 			"tarsus",
 		
+			"espc_picket",
+			"espc_sentry",
+			"espc_warden",
+			"espc_bastillon",
+			"espc_berserker",
+			"espc_rampart",
 			
 			"glimmer",
 			"lumen",
@@ -165,15 +170,12 @@
 			"espc_jackalope",
 			"espc_songbird",
 			"espc_opossum",
-			# "espc_narthex",
 			"espc_militia",
 			"espc_ember",
 			"espc_chorale",
 			"espc_observer",
 			"espc_pilgrim",
 			"espc_amanuensis",
-			# "espc_atavist",
-			# "espc_gallant",
 			
 			"espc_picket",
 			"espc_sentry",
@@ -201,7 +203,7 @@
     },
 
     "knownFighters":{
-		"tags":["remnant"],
+		"tags":[],
         "fighters":[
 			"wasp_wing",
 			"spark_wing",
@@ -235,7 +237,7 @@
 			"lightag",
 			"lightac",
 			"lightdualac",
-			"lightneedler",
+			# "lightneedler",
 			# "railgun",
 			
 			"heavyac",
@@ -308,9 +310,6 @@
     "knownHullMods":{
         "tags":[],
 		"hullMods":[
-			"advancedshieldemitter",
-			"advancedoptics",
-			"augmentedengines",
 			"auxiliary_fuel_tanks",
 			"fluxbreakers",
 			"fluxcoil",
@@ -321,11 +320,8 @@
 			"frontemitter",
 			"hardenedshieldemitter",
 			"hardened_subsystems",
-			"hiressensors",
 			"insulatedengine",
 			"magazines",
-			"nav_relay",
-			"pointdefenseai",
 			"turretgyros",
 			"targetingunit",
 			"stabilizedshieldemitter",
@@ -346,7 +342,7 @@
 		"lightag":3,
 		"lightac":3,
 		"lightdualac":3,
-		"lightneedler":3,
+		# "lightneedler":3,
 		# "railgun":3,
 		
 		"heavyac":3,
@@ -370,6 +366,7 @@
 		"ionbeam":3,
 		"plasma":3,
 		"tachyonlance":3,
+		"guardian":3,
 		
 		# "breach":3,
 		"swarmer":3,
@@ -382,7 +379,7 @@
 		# "sabotpod":2,
 		# "breachpod":3,
 		# "phasecl":3,
-		"locust":2,
+		# "locust":1,
 	
 		"espc_finnegan":10,
 		"espc_minimir":10,
@@ -431,7 +428,7 @@
 			"officer_training",
 			"coordinated_maneuvers",
 			# "electronic_warfare",
-			"flux_regulation",
+			# "flux_regulation",
 			"wolfpack_tactics",
 		],
 	},

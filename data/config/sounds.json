@@ -30,7 +30,7 @@
 		{"file":"sounds/weapon/espc_as_fire.ogg","pitch":1.0,"volume":1.05},
 	],
 	 "espc_remdriver_fire":[
-		{"file":"sounds/weapon/espc_buzzer_fire.ogg","pitch":1.0,"volume":0.7},
+		{"file":"sounds/weapon/espc_remrifle_fire.ogg","pitch":1.0,"volume":0.7},
 	],
 	 "espc_remmortar_fire":[
 		{"file":"sounds/weapon/espc_remmortar_fire_loud.ogg","pitch":1.0,"volume":1.1},
@@ -39,7 +39,7 @@
 		{"file":"sounds/weapon/espc_gatling_fire_loud.ogg","pitch":1.0,"volume":0.7},
 	],
 	"espc_flak_fire":[
-		{"file":"sounds/weapon/espc_buzzer_fire.ogg","pitch":0.75,"volume":1.1},
+		{"file":"sounds/weapon/espc_flak_fire.ogg","pitch":0.75,"volume":1.1},
 	],
 	"espc_finnegan_fire":[
 		{"file":"sounds/weapon/espc_finnegan_fire.ogg","pitch":1.0,"volume":0.8},		
@@ -64,6 +64,9 @@
 	],
 	 "espc_riftspear_fire":[
 		{"file":"sounds/weapon/espc_riftspear_fire.ogg","pitch":1.0,"volume":1.0},
+	],
+	 "espc_rift_impact":[
+		{"file":"sounds/weapon/espc_riftpike_fire.ogg","pitch":1.0,"volume":1.3},
 	],
 	 "espc_spark":[
 		{"file":"sounds/sfx_systems/termination_sequence_activate.ogg","pitch":1.0,"volume":1.0},

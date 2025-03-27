@@ -34,7 +34,7 @@ public class MissionDefinition implements MissionDefinitionPlugin {
 			api.setFleetTagline(FleetSide.ENEMY, "Whatever THOSE are");
 			
 			api.addBriefingItem("Defeat all enemy forces");
-			api.addBriefingItem("Be wary - those droneships aren't like the usual kind.");
+			api.addBriefingItem("Utilize your range and missile firepower to deter their powerful offense.");
 			api.addBriefingItem("Stay close to your allies for support. You'll be quickly overwhelmed otherwise.");
 		}
 

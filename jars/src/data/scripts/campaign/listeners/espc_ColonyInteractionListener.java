@@ -19,6 +19,7 @@ import com.fs.starfarer.api.impl.campaign.ids.Submarkets;
 import com.fs.starfarer.api.util.Misc;
 
 import data.scripts.espc_ModPlugin;
+import data.scripts.campaign.skills.espc_RealHumanBeingBg_Skill;
 import exerelin.campaign.backgrounds.CharacterBackgroundUtils;
 
 public class espc_ColonyInteractionListener implements ColonyInteractionListener {
@@ -37,7 +38,12 @@ public class espc_ColonyInteractionListener implements ColonyInteractionListener
 
 	@Override
 	public void reportPlayerOpenedMarket(MarketAPI market) {
-		if (market.getFactionId().equals("epsilpac") || espc_ModPlugin.hasNex() && CharacterBackgroundUtils.isBackgroundActive("espc_realHumanBeing")) {
+		boolean isMeCore = false;
+		if (espc_ModPlugin.hasNex() && Global.getSector().getPlayerPerson() != null &&
+			Global.getSector().getPlayerPerson().getStats() != null)
+			isMeCore = Global.getSector().getPlayerPerson().getStats().getSkillLevel("espc_realHumanBeingBg_skill") > 0f;
+		
+		if (market.getFactionId().equals("epsilpac") || isMeCore) {
 			int pactOfficerCount = 0;
 			
 			if (market.getFactionId().equals("epsilpac")) {
@@ -84,7 +90,7 @@ public class espc_ColonyInteractionListener implements ColonyInteractionListener
 	        	for (PersonAPI person : market.getPeopleCopy()) {
 		        	if (manager.getOfficer(person.getId()) != null) {
 		        		if (person.getMemoryWithoutUpdate().getBoolean(Misc.IS_MERCENARY) ||
-		        			espc_ModPlugin.hasNex() && CharacterBackgroundUtils.isBackgroundActive("espc_realHumanBeing") &&
+		        			isMeCore &&
 		        			!market.getFactionId().equals("epsilpac")) {
 		        			manager.removeAvailable(manager.getOfficer(person.getId()));
 		        		} else {
@@ -94,7 +100,7 @@ public class espc_ColonyInteractionListener implements ColonyInteractionListener
 			        		int max = skillsListCopy.length;
 			        		List<SkillLevelAPI> skills = person.getStats().getSkillsCopy();
 			        		for (SkillLevelAPI skill : skills) {
-			        			if (!skill.getSkill().getId().contains("espc") && skill.getLevel() > 0 &&
+			        			if (!skill.getSkill().getId().contains("espc_realHumanBeingBg") && skill.getLevel() > 0 &&
 			        				skill.getSkill().isCombatOfficerSkill()) {
 									int rand = Misc.random.nextInt(max);
 			        				person.getStats().setSkillLevel(skillsListCopy[rand], skill.getLevel());
@@ -111,14 +117,19 @@ public class espc_ColonyInteractionListener implements ColonyInteractionListener
 		        	}
 	        	}
 	        }
-	        if (espc_ModPlugin.hasNex() && CharacterBackgroundUtils.isBackgroundActive("espc_realHumanBeing")) {
+	        if (isMeCore) {
 	        	if (pactOfficerCount > 0) {
 	        		HashMap<String, StatMod> penalty = Global.getSector().getPlayerPerson().getStats().getOfficerNumber().getFlatMods();
 	        		for (String key : penalty.keySet()) {
-	        			if (key.contains("espc") && penalty.get(key).getValue() < 0f) {
+	        			if (key.contains("espc_realHumanBeingBg") && penalty.get(key).getValue() < 0f) {
 	    	        		Global.getSector().getPlayerPerson().getStats().getOfficerNumber().modifyFlat("espc_aibgmaxmod", 
-	    	        		Math.min(pactOfficerCount, -penalty.get(key).getValue()));
-	    	        		break;
+	    	        			Math.min(pactOfficerCount, -penalty.get(key).getValue()));
+	        				Global.getSector().getPlayerPerson().getStats().getOfficerNumber().modifyFlat(
+    	        				key,
+    	        				Math.min(espc_RealHumanBeingBg_Skill.OFFICER_CAP_PENALTY + 
+    	        					espc_RealHumanBeingBg_Skill.RecomputeOfficerCap(Global.getSector().getPlayerPerson().getStats()), 0)
+    	        			);
+    	    	        	break;
 	        			}
 	        		}
 	        	}
@@ -143,8 +154,21 @@ public class espc_ColonyInteractionListener implements ColonyInteractionListener
 
 	@Override
 	public void reportPlayerClosedMarket(MarketAPI market) {
-        if (espc_ModPlugin.hasNex() && CharacterBackgroundUtils.isBackgroundActive("espc_realHumanBeing"))
+        if (espc_ModPlugin.hasNex() && CharacterBackgroundUtils.isBackgroundActive("espc_realHumanBeing")) {
         	Global.getSector().getPlayerPerson().getStats().getOfficerNumber().unmodify("espc_aibgmaxmod");
+        	// could call refreshCharacterStatsEffects but i'm just not confident enough to do that lol
+    		HashMap<String, StatMod> penalty = Global.getSector().getPlayerPerson().getStats().getOfficerNumber().getFlatMods();
+    		for (String key : penalty.keySet()) {
+    			if (key.contains("espc_realHumanBeingBg")) {
+    				Global.getSector().getPlayerPerson().getStats().getOfficerNumber().modifyFlat(
+    					key,
+    					Math.min(espc_RealHumanBeingBg_Skill.OFFICER_CAP_PENALTY + 
+    						espc_RealHumanBeingBg_Skill.RecomputeOfficerCap(Global.getSector().getPlayerPerson().getStats()), 0)
+    				);
+	        		break;
+    			}
+    		}
+        }
 	}
 
 	@Override

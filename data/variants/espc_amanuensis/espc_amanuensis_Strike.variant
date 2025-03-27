@@ -3,7 +3,7 @@
   "hullId": "espc_amanuensis",
   "displayName": "Strike",
   "goalVariant": true,
-  "fluxCapacitors": 49,
+  "fluxCapacitors": 43,
   "fluxVents": 50,
   "quality": 1,
   "permaMods": [],
@@ -11,16 +11,15 @@
     "targetingunit",
     "stabilizedshieldemitter",
     "hardenedshieldemitter",
-    "magazines",
     "fluxdistributor"
   ],
   "weaponGroups": [
     {
       "autofire": true,
-      "mode": "LINKED",
+      "mode": "ALTERNATING",
       "weapons": {
-        "WS0001": "autopulse",
-        "WS0002": "autopulse"
+        "WS0001": "plasma",
+        "WS0002": "plasma"
       }
     },
     {
@@ -35,8 +34,8 @@
       "autofire": true,
       "mode": "ALTERNATING",
       "weapons": {
-        "WS0005": "espc_aa",
-        "WS0006": "espc_aa"
+        "WS0005": "heavyac",
+        "WS0006": "heavyac"
       }
     },
     {
@@ -48,8 +47,8 @@
         "WS0009": "dualflak",
         "WS0012": "pdburst",
         "WS0013": "pdburst",
-        "WS0014": "vulcan",
-        "WS0015": "vulcan",
+        "WS0014": "irpulse",
+        "WS0015": "irpulse",
         "WS0016": "irpulse",
         "WS0017": "irpulse"
       }

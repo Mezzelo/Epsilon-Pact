@@ -1,8 +1,14 @@
 {
 	# for folks looking in here for a run-down on diplo relations
-	# tl;dr: anti-hierarchical, egalitarian, anti-capitalist, NOT techpilled.  leadership is secretly accelerationist - hence the automated shenanigans
-	# while most who adhere their philosophy advocate a kinder approach, the head of state is more willing to let it all burn for the sake of a better world.
-	# prefers to maintain an external status quo conducive to accelerationism, hence anti-diplo:  though altruistic on a smaller scale, largely untrusting & occupied with their own machinations.  recognizes the sector as-is cannot last, and its powers are weaker for it.
+	# tl;dr: anti-hierarchical, egalitarian, anti-capitalist, NOT techpilled.  leadership has accelerationist aims - thus, the automated shenanigans
+	# while most who adhere their philosophy advocate a kinder approach, the head of state is more willing to let it burn.
+	
+	# seemingly contradictory, but prefers to maintain an external status quo for multiple reasons: 
+	# - foments internal dissatisfation, conducive to accelerationism
+	# - give time for their own polity to consolidate/strengthen
+	# - believes the sector's militarized stalemate is better equipped against external threats, i.e. omega, possible domain incursion, anime
+	
+	# hence anti-diplo:  though altruistic on a smaller scale, largely untrusting & occupied with their own machinations.  recognizes the sector as-is cannot last, and opposing powers are weaker for it.
 	# re anti-hierarchical: nominally democratic & power structures are looser, but we all know who really holds the reins here - until the sector is a safer place, anyhow.
 	# not necessarily technocratic, but their progressive disposition aligns them slightly with tech-forwards factions
 	# more ideological/spiritual than one might expect - many agreeances with luddic philosophy, even, if not for AI personhood.  establishing a minimum standard of living means plainer lives for many (luxury commodities banned), especially with the state of the sector as-is.
@@ -29,18 +35,18 @@
 	"startRelationships":{
 		"default":-0.2,
 		"player":-0.1,		
-		"independent":0.0,					
-		"pirates":-0.5,						# diplomatic profile is actually quite close to pirates. still out ruining lives, just not for personal gain :)
+		"independent":0.0,					# a real mixed bag to indies, they prefer not to have more enemies
+		"pirates":-0.5,						# diplomatic profile is actually quite close to pirates. still out ruining lives, just not of avarice :)
 		"persean":-0.15,					# actually align with Heg more in many ways, if it weren't for the whole A.I. thing.
 		"tritachyon":-0.2,					
-		"hegemony":-0.2,					# funny situation here.  what the pact does with ai is infinitely more benign than tritach, but appearances must be maintained - for the time being, anyway!
-
+		"hegemony":-0.2,					# what the pact does with ai is actually infinitely more benign than tritach/others to heg leadership
+											# but appearances must be maintained - for the time being, anyway!
 		"lions_guard":-0.4,				
 		"sindrian_diktat":-0.4,				# blatant totalitarian state that doesn't care for its people.  also small enough to pick on lol lmao
 
 		"luddic_church":-0.2,				# for obvious reasons.
 		"knights_of_ludd":-0.2,				
-		"luddic_path":-0.8,					# it's me, the anti-ludd!
+		"luddic_path":-0.8,					# ah if only
 		
 		"remnant":1.0,						# my only friends are computers.
 		"derelict":0.8,						# ditto
@@ -67,6 +73,8 @@
 		"interstellarimperium":-0.4,
 		"ironsentinel":-0.25,
 		"ironshell":-0.25,
+		"ix_battlegroup":-0.4,
+		"ix_trinity":-0.4,
 		"hiigaran_descendants":-0.1,
 		"hmi":-0.15,
 		"kadur_remnant":-0.15,		
@@ -88,6 +96,7 @@
 		"uaf":-0.2,
 		"unitedpamed":0.0,
 		"vic":-0.15,
+		"vri":-0.1,
 		"xhanempire":-0.6,
 		
 		"neutrinocorp":-0.1,
@@ -114,6 +123,8 @@
 		"interstellarimperium":-0.25,
 		"ironsentinel":-0.25,
 		"ironshell":-0.25,
+		"ix_battlegroup":-0.25,
+		"ix_trinity":-0.25,
 		"tahlan_legioinfernalis":-0.25,
 		"templars":-0.25,
 		"uaf":-0.25,

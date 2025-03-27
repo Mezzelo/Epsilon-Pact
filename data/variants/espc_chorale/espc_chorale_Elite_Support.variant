@@ -3,7 +3,7 @@
   "hullId": "espc_chorale",
   "displayName": "Elite Support",
   "goalVariant": false,
-  "fluxCapacitors": 28,
+  "fluxCapacitors": 29,
   "fluxVents": 30,
   "quality": 1,
   "permaMods": [],

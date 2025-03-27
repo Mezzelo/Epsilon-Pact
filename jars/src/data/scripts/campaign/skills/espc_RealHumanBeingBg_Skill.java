@@ -137,25 +137,28 @@ public class espc_RealHumanBeingBg_Skill {
 		}
 	}
 	
+	public static int RecomputeOfficerCap(MutableCharacterStatsAPI stats) {
+		int pactOfficerCount = 0;
+		if (stats.getFleet() != null && stats.getFleet().getFleetData() != null) {
+			for (OfficerDataAPI officer: stats.getFleet().getFleetData().getOfficersCopy()) {
+    			boolean found = false;
+        		for (SkillLevelAPI skill : officer.getPerson().getStats().getSkillsCopy()) {
+        			if (!found && skill.getSkill().getId().contains("espc") && skill.getLevel() > 0 &&
+        				skill.getSkill().isCombatOfficerSkill()) {
+        				pactOfficerCount++;
+        				found = true;
+        			}
+        		}
+			}
+		}
+		return pactOfficerCount;
+	}
+	
 	public static class Level4 implements CharacterStatsSkillEffect {
 
 		public void apply(MutableCharacterStatsAPI stats, String id, float level) {
 			stats.getDynamic().getMod(Stats.OFFICER_MAX_LEVEL_MOD).modifyFlat(id, MAX_LEVEL_BONUS);
-			
-			int pactOfficerCount = 0;
-			if (stats.getFleet() != null && stats.getFleet().getFleetData() != null) {
-				for (OfficerDataAPI officer: stats.getFleet().getFleetData().getOfficersCopy()) {
-        			boolean found = false;
-	        		for (SkillLevelAPI skill : officer.getPerson().getStats().getSkillsCopy()) {
-	        			if (!found && skill.getSkill().getId().contains("espc") && skill.getLevel() > 0 &&
-	        				skill.getSkill().isCombatOfficerSkill()) {
-	        				pactOfficerCount++;
-	        				found = true;
-	        			}
-	        		}
-				}
-				stats.getOfficerNumber().modifyFlat(id, Math.min(OFFICER_CAP_PENALTY + pactOfficerCount, 0));
-			}
+			stats.getOfficerNumber().modifyFlat(id, Math.min(OFFICER_CAP_PENALTY + RecomputeOfficerCap(stats), 0));
 		}
 
 		public void unapply(MutableCharacterStatsAPI stats, String id) {

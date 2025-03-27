@@ -33,7 +33,7 @@
     {
       "id": "WS0003",
       "size": "LARGE",
-      "type": "HYBRID",
+      "type": "UNIVERSAL",
       "mount": "HARDPOINT",
       "arc": 10,
       "angle": 0,
@@ -42,7 +42,7 @@
     {
       "id": "WS0004",
       "size": "LARGE",
-      "type": "HYBRID",
+      "type": "UNIVERSAL",
       "mount": "HARDPOINT",
       "arc": 10,
       "angle": 0,
@@ -133,7 +133,7 @@
       "id": "WS0005",
       "size": "MEDIUM",
       "type": "HYBRID",
-      "mount": "TURRET",
+      "mount": "HARDPOINT",
       "arc": 10,
       "angle": 0,
       "locations": [21, -70]
@@ -142,7 +142,7 @@
       "id": "WS0006",
       "size": "MEDIUM",
       "type": "HYBRID",
-      "mount": "TURRET",
+      "mount": "HARDPOINT",
       "arc": 10,
       "angle": -0,
       "locations": [21, 70]
@@ -150,7 +150,7 @@
   ],
   "engineSlots": [
     {
-      "location": [-158, 28.5],
+      "location": [-157, 32],
       "length": 31,
       "width": 16,
       "angle": 180,
@@ -158,7 +158,7 @@
       "style": "MIDLINE"
     },
     {
-      "location": [-158, -28.5],
+      "location": [-157, -32],
       "length": 31,
       "width": 16,
       "angle": -180,
@@ -211,6 +211,38 @@
       "width": 30,
       "angle": -180,
       "contrailSize": 30,
+      "style": "MIDLINE"
+    },
+    {
+      "location": [-150.5, -20],
+      "length": 24,
+      "width": 13,
+      "angle": -180,
+      "contrailSize": 13,
+      "style": "MIDLINE"
+    },
+    {
+      "location": [-150.5, 20],
+      "length": 24,
+      "width": 13,
+      "angle": 180,
+      "contrailSize": 13,
+      "style": "MIDLINE"
+    },
+    {
+      "location": [-73, -104.5],
+      "length": 41.5,
+      "width": 24,
+      "angle": -175,
+      "contrailSize": 24,
+      "style": "MIDLINE"
+    },
+    {
+      "location": [-73, 104.5],
+      "length": 41.5,
+      "width": 24,
+      "angle": 175,
+      "contrailSize": 24,
       "style": "MIDLINE"
     }
   ],

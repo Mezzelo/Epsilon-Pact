@@ -77,9 +77,18 @@ public class espc_EconomyListener extends BaseCampaignEventListener {
 					if (!market.getFactionId().equals("epsilpac")) {
 						if (market.getAdmin().getId().equals("espc_anlo"))
 							market.setAdmin(null);
-					} else if (!market.getAdmin().getId().equals("espc_anlo") && 
-						Global.getSector().getImportantPeople().getPerson("espc_anlo") != null)
-						market.setAdmin(Global.getSector().getImportantPeople().getPerson("espc_anlo"));
+						if (market.getCommDirectory().getEntryForPerson("espc_gauss") != null &&
+							!market.getCommDirectory().getEntryForPerson("espc_gauss").isHidden()) {
+							market.getCommDirectory().getEntryForPerson("espc_gauss").setHidden(true);
+						}
+					} else {
+						if (!market.getAdmin().getId().equals("espc_anlo") && 
+							Global.getSector().getImportantPeople().getPerson("espc_anlo") != null)
+							market.setAdmin(Global.getSector().getImportantPeople().getPerson("espc_anlo"));
+						if (market.getCommDirectory().getEntryForPerson("espc_gauss") != null &&
+							market.getCommDirectory().getEntryForPerson("espc_gauss").isHidden())
+							market.getCommDirectory().getEntryForPerson("espc_gauss").setHidden(false);
+					}
 				} 
 				if (market.getFactionId().equals("epsilpac") && market != isabelle.getMarket()) {
 					marketPicker.add(market);

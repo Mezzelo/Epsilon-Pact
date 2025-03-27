@@ -399,6 +399,14 @@ public class espc_PactAutofitPlugin extends BaseAutofitPlugin {
 			}
 		});
 		
+		// prioritize hullmods with certain s-modded effects
+		for (int i = 0; i < mods.size(); i++) {
+			if (mods.get(i).getId().equals("extendedshieldemitter") ||
+				mods.get(i).getId().equals("magazines") ||
+				mods.get(i).getId().equals("auxiliary_fuel_tanks"))
+				mods.add(0, mods.remove(i));
+		}
+		
 		int count = 0;
 		for (int i = 0; i < num && i < mods.size(); i++) {
 			String id = mods.get(i).getId();

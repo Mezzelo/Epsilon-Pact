@@ -87,18 +87,18 @@ public class MissionDefinition implements MissionDefinitionPlugin {
 		
 		member = api.addToFleet(FleetSide.PLAYER, "lasher_espc_Strike_Dated", FleetMemberType.SHIP, "EPS Retour Près De Toi", false);
 		pilot = EspcOfficerFactory.MakePilot("Nola", "Ganymede", FullName.Gender.FEMALE, Personalities.AGGRESSIVE, 
-			"graphics/portraits/espc_nola.png", "epsilpac", 12);
+			"graphics/portraits/espc_nola.png", "epsilpac", 11);
 		
 		EspcOfficerFactory.PopulateSkills(pilot, new String[]{
 			Skills.HELMSMANSHIP, "espc_dancing_steps", 
 			Skills.BALLISTIC_MASTERY, Skills.TARGET_ANALYSIS, 
 			"espc_running_hot", "espc_underdog", 
 			Skills.TACTICAL_DRILLS, Skills.COORDINATED_MANEUVERS, 
-			Skills.WOLFPACK_TACTICS, Skills.CREW_TRAINING,
+			Skills.WOLFPACK_TACTICS,
 			Skills.ORDNANCE_EXPERTISE, Skills.FLUX_REGULATION}, new int[]{
 			2, 2, 2, 
 			2, 2, 2, 
-			1, 1, 1, 1, 2, 1});
+			1, 1, 1, 2, 1});
         member.setCaptain(pilot);
 		api.getDefaultCommander(FleetSide.PLAYER).setStats(pilot.getStats());
 		

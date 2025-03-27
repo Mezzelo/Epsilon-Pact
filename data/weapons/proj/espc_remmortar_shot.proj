@@ -4,6 +4,7 @@
 	"spawnType":"BALLISTIC",
 	"collisionClass":"PROJECTILE_FF",
 	"collisionClassByFighter":"PROJECTILE_FIGHTER",
+	"onFireEffect":"data.scripts.weapons.espc_RemMortarEffect",
 	"onHitEffect":"data.scripts.weapons.proj.espc_RemiseMortarProjEffect",
 	"length":20.0,
 	"hitGlowRadius":120,

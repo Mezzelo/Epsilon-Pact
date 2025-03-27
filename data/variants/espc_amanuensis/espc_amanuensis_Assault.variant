@@ -3,7 +3,7 @@
   "hullId": "espc_amanuensis",
   "displayName": "Assault",
   "goalVariant": true,
-  "fluxCapacitors": 49,
+  "fluxCapacitors": 48,
   "fluxVents": 50,
   "quality": 1,
   "permaMods": [],
@@ -23,16 +23,17 @@
     },
     {
       "autofire": true,
-      "mode": "LINKED",
+      "mode": "ALTERNATING",
       "weapons": {
         "WS0001": "espc_flak",
-        "WS0002": "hellbore"
+        "WS0002": "espc_flak"
       }
     },
     {
       "autofire": true,
-      "mode": "LINKED",
+      "mode": "ALTERNATING",
       "weapons": {
+        "WS0005": "espc_remmortar",
         "WS0006": "espc_remmortar"
       }
     },
@@ -40,7 +41,6 @@
       "autofire": true,
       "mode": "LINKED",
       "weapons": {
-        "WS0005": "espc_remdriver",
         "WS0007": "espc_remdriver",
         "WS0008": "espc_remdriver",
         "WS0009": "dualflak",

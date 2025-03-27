@@ -16,6 +16,7 @@
 	   "LB 3":{"type": LAUNCH_BAY, "mount": HIDDEN},
     },
 	"fleetPoints":15,
+	"maxSpeed":60,
     "ordnancePoints":125,
 	"suppliesToRecover":20,
 	"suppliesPerMonth":20,

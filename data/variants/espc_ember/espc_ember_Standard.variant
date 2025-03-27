@@ -3,13 +3,13 @@
   "hullId": "espc_ember",
   "displayName": "Anti-CV",
   "goalVariant": true,
-  "fluxCapacitors": 17,
-  "fluxVents": 17,
+  "fluxCapacitors": 18,
+  "fluxVents": 18,
   "quality": 1,
   "permaMods": [],
   "hullMods": [
     "insulatedengine",
-    "auxiliary_fuel_tanks"
+    "fluxdistributor"
   ],
   "weaponGroups": [
     {

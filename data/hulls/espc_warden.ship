@@ -14,7 +14,7 @@
   "builtInMods": [
     "automated",
     "rugged",
-	"coherer"
+    "coherer"
   ],
   "weaponSlots": [
     {
@@ -42,8 +42,8 @@
       "mount": "HARDPOINT",
       "arc": 10,
       "angle": 0,
-      "locations": [20.5, -7.5]
-    },
+      "locations": [23, -8]
+    }
   ],
   "engineSlots": [
     {

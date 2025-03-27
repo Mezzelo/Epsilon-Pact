@@ -1,7 +1,7 @@
 {
 	"id":"espc_aa",  # this id must match what's in the spreadsheet
 	"specClass":"projectile",
-	"everyFrameEffect":"data.scripts.weapons.espc_AAEffect",
+	"onFireEffect":"data.scripts.weapons.espc_AAEffect",
 	"type":"BALLISTIC",
 	"size":"MEDIUM",
 	"turretSprite":"graphics/weapons/espc_aa_turret_base.png",

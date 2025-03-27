@@ -59,8 +59,8 @@ public class espc_RealHumanBeingBackground extends BaseCharacterBackground {
         	CargoAPI.CargoItemType.RESOURCES, "espc_meCore", 1
         );
         
-        Global.getSector().getPlayerFaction().setRelationship(Factions.DERELICT, 0.5f);
-        Global.getSector().getPlayerFaction().setRelationship(Factions.REMNANTS, 0.5f);
+        Global.getSector().getPlayerFaction().setRelationship(Factions.DERELICT, 0.25f);
+        Global.getSector().getPlayerFaction().setRelationship(Factions.REMNANTS, 0.25f);
 
 		FleetMemberAPI ship = Global.getFactory().createFleetMember(FleetMemberType.SHIP, 
 			"glimmer_Assault");
@@ -74,11 +74,11 @@ public class espc_RealHumanBeingBackground extends BaseCharacterBackground {
         if (Global.getSector().getPlayerPerson().getGender() == Gender.FEMALE)
 	        Global.getSector().getPlayerPerson().setPortraitSprite(Global.getSettings().getSpriteName(
 				"characters", "espc_" + espc_PactFleetSpawnListener.portraitList[Misc.random.nextInt(
-					3)]));
+					4)]));
         else if (Global.getSector().getPlayerPerson().getGender() == Gender.MALE)
 	        Global.getSector().getPlayerPerson().setPortraitSprite(Global.getSettings().getSpriteName(
 				"characters", "espc_" + espc_PactFleetSpawnListener.portraitList[Misc.random.nextInt(
-					2) + 3]));
+					3) + 4]));
         else
 	        Global.getSector().getPlayerPerson().setPortraitSprite(Global.getSettings().getSpriteName(
 				"characters", "espc_" + espc_PactFleetSpawnListener.portraitList[Misc.random.nextInt(

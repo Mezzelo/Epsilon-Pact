@@ -159,7 +159,10 @@ public class espc_AITrade extends BaseCommandPlugin {
 		//copy.setOrigSource(playerCargo);
 		for (CargoStackAPI stack : playerCargo.getStacksCopy()) {
 			CommoditySpecAPI spec = stack.getResourceIfResource();
-			if (spec != null && spec.getDemandClass().equals(Commodities.AI_CORES)) {
+			if (spec != null && 
+				(spec.getId().equals(Commodities.ALPHA_CORE) ||
+				spec.getId().equals(Commodities.BETA_CORE) ||
+				spec.getId().equals(Commodities.GAMMA_CORE))) {
 				copy.addFromStack(stack);
 			}
 		}

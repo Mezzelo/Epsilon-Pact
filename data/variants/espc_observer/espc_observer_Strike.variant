@@ -24,7 +24,13 @@
       "mode": "LINKED",
       "weapons": {
         "WS0003": "ioncannon",
-        "WS0004": "ioncannon",
+        "WS0004": "ioncannon"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
         "WS0007": "irpulse",
         "WS0008": "irpulse",
         "WS0009": "irpulse",

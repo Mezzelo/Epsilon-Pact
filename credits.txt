@@ -1,8 +1,12 @@
-All of the art, code, design, writing, and sound in this mod is made by Mezzelo or is derived from the vanilla game or its open-licensed community libraries, with the following exceptions:
+All of the art, code, design, writing, and sound in this mod is made by Mezzelo or derived from the vanilla game or its open-licensed community libraries, with the following exceptions:
 
 - Faction music is taken from cuts of Patricia Taxxon's album Aeroplane - specifically, from the songs Scruff and Aeroplane. Consider checking out her discography, my amateur edits do her work no justice.
 https://patriciataxxon.bandcamp.com/album/aeroplane
 
+- Sounds use a mix of my own foley and samples from the following no-attribution sources:
+https://creativesounddesign.com/
+https://www.boomlibrary.com/
+https://sonniss.com/gameaudiogdc
 
 This was made with the use of the following community tools and libraries:
 

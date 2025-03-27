@@ -4,13 +4,13 @@
   "displayName": "Anti-Armor",
   "goalVariant": true,
   "fluxCapacitors": 10,
-  "fluxVents": 6,
+  "fluxVents": 7,
   "quality": 1,
   "permaMods": [],
   "hullMods": [
     "fluxcoil",
     "targetingunit",
-    "extendedshieldemitter",
+    "frontemitter",
     "heavyarmor"
   ],
   "weaponGroups": [

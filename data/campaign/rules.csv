@@ -117,6 +117,23 @@ bpsEpsilpac_disablePurchaseOption,EpsilpacDisablePurchaseOptionIfNeeded,RepLTE e
 SetEnabled epsilpac_startBPExchange false",,,
 ,,,,,,
 ,,,,,,
+EpsilpacIsabelleGreetingLoseContactAtrocities,PickGreeting,"$id == espc_isabelle score:2500
+$player.atrocities > 1 score: 2000
+$isContact score:1000",ShowPersonVisual,"This time, your communications request doesn't hang for long. When Isabelle appears on the feed, her characteristic grin is gone.
+
+She addresses you, impasively. ""So, you've come.""",epsilpacIsabelle_LoseContactEnd:Continue,
+EpsilpacIsabelleGreetingLoseContactFactionRep,PickGreeting,"$id == espc_isabelle score:2500
+RepLTE epsilpac SUSPICIOUS score:1000
+$isContact score:1000",ShowPersonVisual,"This time, your communications request doesn't hang for long. When Isabelle appears on the feed, her characteristic grin is gone.
+
+She addresses you, impassively. ""So, you've come.""",epsilpacIsabelle_LoseContactEnd:Continue,
+EpsilpacIsabelleGreetingLoseContactEnd,DialogOptionSelected,$option == epsilpacIsabelle_LoseContactEnd,"AdjustRepPerson espc_isabelle INHOSPITABLE -25
+ShowDefaultVisual
+EndConversation","You've barely considered any potential choice of words before she interrupts you.
+
+""We no longer consider you a reliable contact. I'm rescinding the cryptokey I provided you.""
+
+The comm link disconnects.",,
 ,,,,,,
 EpsilpacIsabelleGreetingInhospitable,PickGreeting,"$id == espc_isabelle score:2500
 RepLTE epsilpac INHOSPITABLE score:1000","ShowPersonVisual
@@ -134,10 +151,14 @@ FireAll EpsilpacIsabelleMain","Your communications request hangs for a minute be
 ""Hello, captain. What business might you have with us?""",,
 EpsilpacIsabelleGreetingFriendly,PickGreeting,"$id == espc_isabelle score:2500
 RepGTE epsilpac FAVORABLE score:500
-espc_RulesUtil relationGT 15","ShowPersonVisual
+espc_RulesUtil relationGT 9","ShowPersonVisual
 FireAll EpsilpacIsabelleMain","As always, your comms request is left ignored for a suitably aggravating duration before Isabelle finally responds.
 
-Her grin is ever-present as she greets you. ""Good to see you, captain.""",,
+Her grin is ever-present as she greets you. ""Good to see you, captain.""
+OR
+As always, your comms request is left ignored for a suitably aggravating duration before Isabelle finally responds.
+
+She turns towards you casually as the feed begins. ""Ah, it's you. What is it?""",,
 ,,,,,,
 epsilpac_IsabelleMain,EpsilpacIsabelleMain,$id == espc_isabelle score:2500,"FireAll EpsilpacTradeOptions
 FireBest DisableTurnInCoresOptionIfNeeded
@@ -187,6 +208,8 @@ I'm providing you my cryptokey. It'd be beneficial for our arrangement continue 
 epsilpacIsabelle_ConactOfferEnd,DialogOptionSelected,$option == epsilpacIsabelle_ConactOfferEnd,"ShowDefaultVisual
 EndConversation",,,
 ,,,,,,
+EpsilpacGaussGreetingAtrocity,PickGreeting,"$id == espc_gauss score:2500
+$player.atrocities > 0 score: 2000","SetShortcut cutCommLink ""ESCAPE""","Your communications request lasts for only a few dozen seconds, before being promptly denied.",0:cutCommLink:Cut the comm link,
 EpsilpacGaussGreetingBetrayed,PickGreeting,"$id == espc_gauss score:2500
 $global.espcGaussWolfOutcome < 0 score: 2000","SetShortcut cutCommLink ""ESCAPE""","Your communications request lasts for only a few dozen seconds, before being promptly denied.",0:cutCommLink:Cut the comm link,
 EpsilpacGaussGreetingHostile,PickGreeting,"$id == espc_gauss score:2500
@@ -205,7 +228,7 @@ FireAll EpsilpacGaussMain","The comm-link connects almost immediately, but head 
 She finally pokes her head into the comms-feed. ""Yes, hello. How might I help you, captain?""",,
 EpsilpacGaussGreetingFriendly,PickGreeting,"$id == espc_gauss score:2500
 RepGTE epsilpac WELCOMING score:500
-espc_RulesUtil relationGT 20","ShowPersonVisual
+espc_RulesUtil relationGT 9","ShowPersonVisual
 FireAll EpsilpacGaussMain","The comms-feed opens to Gauss, busy working away on some sort of apparatus. She places her tools down as she turns to the feed.
 
 ""Hey, cap. How can I help?""",,
@@ -254,13 +277,13 @@ RepGTE epsilpac FAVORABLE score:500
 espc_RulesUtil relationGT -1 score: 500","ShowPersonVisual
 $global.espcAnyiwoContactOffered = true","As per usual, there's only a short delay before the comm-link connects. This time, however, Gauss looks eager to address you.
 
-""Captain, how are you? One of the cores you've sent our way wants to speak to you!""","0:epsilpacAnyiwoIntro2:""It'd be my pleasure. Put it over comms.""
+""Captain, how are you? One of the cores you've sent our way wishes to speak to you!""","0:epsilpacAnyiwoIntro2:""It'd be my pleasure. Put it over comms.""
 0:epsilpacAnyiwoIntro2b:""Alright?""
 10:epsilpacAnyiwoRefuse:""No.""
 10:epsilpacAnyiwoIntro2c:Don't say anything.",
 epsilpacAnyiwoRefuse,DialogOptionSelected,$option == epsilpacAnyiwoRefuse,,"Gauss looks hurt at your curt refusal, if not entirely shocked.
 
-""..sorry, but why not? You've.. done a lot for us, surely you understand what it means to them?""","0:epsilpacAnyiwoIntro2b:""Alright, fine.""
+""..sorry, but why not? You've done a lot for them.. For us. Surely you could spare a moment?""","0:epsilpacAnyiwoIntro2b:""Alright, fine.""
 5:epsilpacAnyiwoIntro2c:""I'm sorry, I didn't realize this was important to you. Put it on comms.""
 10:epsilpacAnyiwoRefuse2:""No, I won't entertain this.""
 15:epsilpacAnyiwoRefuse2b:""It's an AI core. What do you expect out of it?""
@@ -334,7 +357,7 @@ epsilpacAnyiwoIntro6,DialogOptionSelected,$option == epsilpacAnyiwoIntro6,"AddPo
 HideSecondPerson
 FireAll EpsilpacGaussMain","Gauss chimes in. ""Anyiwo's helping me run acquisitions here. It's been great to have a helping hand here - we're always short on staff.""
 
-The core's feed closes, as it returns to its duties. ""I'll drop their cryptokey for you, if you're looking for some extra work. Again, everything helps! But for now, let's get to business.""",,
+The core's feed closes, as it returns to its duties. ""I'll drop their cryptokey for you, if you're looking for some extra work. Again, everything helps! For now, though, let's get to business.""",,
 ,,,,,,
 charEpsilpacAnyiwoRejected,PickGreeting,$id == espc_anyiwo score:1000,"SetShortcut cutCommLink ""ESCAPE""","Your communications request is denied almost instantaneously. You tap again to ensure it went through, only for it to bounce off once more.",0:cutCommLink:Cut the comm link,
 charEpsilpacAnyiwoGreeting,PickGreeting,"$id == espc_anyiwo score:1000
@@ -396,13 +419,13 @@ epsilpacgreetingHostileStronger,OpenCommLink,"$entity.isHostile
 $entity.relativeStrength >= 0
 $faction.id == epsilpac",$ignorePlayerCommRequests = true 1,"The $personRank's voice feeds through comms, cold and emotionless. ""Power down your weapons, captain. You don't have to make this hard.""
 OR
-""Turn yourself in, and we'll let your crew leave. Do the right thing."" $HeOrShe speaks softly, but with gravitas beneath their words.
+""Turn yourself in, and we'll let your crew leave. Do the right thing."" $HeOrShe speaks softly, but with gravitas beneath $hisOrHer words.
 OR
 A silence hangs through the comms, before the $personRank speaks. ""We can't let you go. You know it has to be this way.""
 OR
 ""You caused so much suffering, for what? No longer."" $HeOrShe stares, determinedly. ""This ends now.""
 OR
-""Only one of our fleets leaves this intact. With the stars as our witness, may they shine on the better of us.""
+""Only one of our fleets leaves this intact. Stars as our witness, might they shine on the better of us.""
 OR
 Not an eye twitch, not a smirk, nothing as the $personRank speaks. ""Don't run. Face us with the dignity you couldn't show to those you've wronged.""",cutCommLink:Cut the comm link,
 epsilpacgreetingNeutral,OpenCommLink,"$faction.neutralToPlayer
@@ -413,9 +436,8 @@ The $personRank acknowledges you. ""Hail, $playerLastName, your identity's been 
 OR
 The $personRank glances over at you through the comm feed. ""Your AIS code has been received, captain. If you're not in need of assistance, you'd best be on your way.""
 OR
-""Acknowledged"", the $personRank states, plainly. ""Go about your business, and may the stars treat you well.""",,
-epsilpacgreetingInfamous,OpenCommLink,"$player.atrocities > 1
-RollProbability 0.5 score:2
+""Acknowledged"", the $personRank states, plainly. ""Go about your business, and stars treat you well.""",,
+epsilpacgreetingInfamous,OpenCommLink,"$player.atrocities > 0
 $faction.id == epsilpac","$menuState = fleetConvMain 0
 FireAll PopulateOptions","The $personRank remains stone-faced as they address you. ""Our contact has been logged. Keep your distance, state your purpose - I'm not looking to make acquaintance with the likes of you.""
 OR
@@ -620,17 +642,17 @@ CMSNTextHasOther_epsilpac,CMSNTextHasOther,$faction.id == epsilpac,,"""It's on g
 CMSNTextUnsuited_epsilpac,CMSNTextUnsuited,$faction.id == epsilpac,,"""I'm afraid we'll have to deny your request for now, your history with the Pact is currently unsatisfactory to undertake such work.""",,
 CMSNTextSuitedPart1_epsilpac,CMSNTextSuitedPart1,$faction.id == epsilpac,,"""Given your past records, you appear to be in order to undertake such a task. We would be more than happy to have you on - although I will need to clarify what that would entail.
 
-Accepting commission with the Pact is no light matter. Remote as we are, eyes are on our systems and most are at odds with the principles and virtues we strive to uphold. To accept commission with the Epsilon Pact is to share those burdens and animosities, to fight for our independence in the face of all and any that would stand in the way of equality, and not just for the rights of humans. Wherever you stand on the issue, know exactly who you would be fighting for.
+Accepting commission with the Pact is no light matter. Remote as we are, eyes are on our systems and most are at odds with the principles and virtues we strive to uphold. To accept commission with the Epsilon Pact is to share those burdens and animosities, to fight against those that would stand in the way of equity and equality, and not just for humans. Wherever you stand on the issue, know exactly who you would be fighting for.
 
-You have complete freedom to revoke these responsibilities at any time after the fact, but understand that doing so creates a great deal of liability. Our intelligence is well guarded by necessity, and so your resignation would require you distance yourselves from us after the fact.""",,
+You are free to renege on these responsibilities at any time after the fact, but understand that doing so creates a great deal of liability. Our intelligence is well guarded by necessity, and so your resignation would require you distance yourselves from us after the fact.""",,
 CMSNTextSuitedPart2_epsilpac,CMSNTextSuitedPart2,$faction.id == epsilpac,,"""Everything is ready if you are willing to sign on. Do you accept? This is an important decision, take your time need be.""",,
-CMSNTextWelcomePart1_epsilpac,CMSNTextWelcomePart1,$faction.id == epsilpac,,"""On the behalf of the Epsilon Pact, I welcome you. Your authorizations have already been provided. May the stars treat you well.""",,
+CMSNTextWelcomePart1_epsilpac,CMSNTextWelcomePart1,$faction.id == epsilpac,,"""On the behalf of the Epsilon Pact, I welcome you. Your authorizations have already been provided. Bright stars and long burns, captain.""",,
 CMSNTextWelcomePart2_epsilpac,CMSNTextWelcomePart2,$faction.id == epsilpac,,"""While you're still here, though, is there anything else I can help you with?""",,
-CMSNTextChangeMind_epsilpac,CMSNTextChangeMind,$faction.id == epsilpac,,"""Your apprehension is understandable. Not all are ready to share our struggles. Should you change your mind, however, the offer will still be available.
+CMSNTextChangeMind_epsilpac,CMSNTextChangeMind,$faction.id == epsilpac,,"""Your apprehension is understandable - I won't hold this against you. Should you change your mind, however, the offer remains.
 
 Is there anything else I can help you with?""",,
 CMSNResignAskToConfirm_epsilpac,CMSNResignAskToConfirm,$faction.id == epsilpac,,"""Are you sure about this? Your aid is greatly appreciated, to see it go would be a great shame. If you are to proceed with this, we would ask that you distance yourself for some time afterwards as a matter of security.""",,
-CMSNResignConfirmed_epsilpac,CMSNResignConfirmed,$faction.id == epsilpac,,"""I understand. Thank you for your service, captain, and may the stars treat you well.""",,
+CMSNResignConfirmed_epsilpac,CMSNResignConfirmed,$faction.id == epsilpac,,"""I understand. Thank you for your service, captain, and might the stars treat you well.""",,
 CMSNResignCancelled_epsilpac,CMSNResignCancelled,$faction.id == epsilpac,,"""Your commitment to the cause does not go unrecognized. Thank you, captain.""",,
 ,,,,,,
 ,,,,,,
@@ -645,7 +667,7 @@ $faction.id == epsilpac",,"You have ingratiated yourself to the Pact's aims some
 repLevelWelcomingEpsilpac,RelationshipLevelDesc,"$faction.rel == WELCOMING
 $faction.id == epsilpac",,"For your actions across the sector, you're greeted warmly by those who consider themselves part of the Pact. Wherever your intentions lie, they consider you by their side for the time being.",,
 repLevelFriendlyEpsilpac,RelationshipLevelDesc,"$faction.rel == FRIENDLY
-$faction.id == epsilpac",,"To most in the Pact, you might as well be one of them. Those that are usually guarded allow themselves relax in your presence, knowing you to be a trustworthy captain, or at least a helpful ally.",,
+$faction.id == epsilpac",,"Most in the Pact treat you as functionally one of their own, nearly. Those that are usually guarded allow themselves relax in your presence, knowing you to be a trustworthy, or at least consistently helpful ally.",,
 repLevelCooperativeEpsilpac,RelationshipLevelDesc,"$faction.rel == COOPERATIVE
 $faction.id == epsilpac",,"You have done much to aid the Pact in one way or another, and for it they seek to help you wherever they can in return.",,
 repLevelSuspiciousEpsilpac,RelationshipLevelDesc,"$faction.rel == SUSPICIOUS
@@ -682,14 +704,14 @@ AddText ""An overwhelming experience for most, some of the local tribes offer th
 #END MarketFlavourText,,,,,,
 ,,,,,,
 ,,,,,,
-epsilHistorianBackstoryBlurb1,HistorianBackstoryBlurb,!WasHistorianBlurbShown epsilhistoryBlurb1,SetHistorianBlurbShownAfterDelay epsilhistoryBlurb1,"""Tocquiera? Or, what it's known to us by now. Its original name under the Domain has, regrettably, become obscured beneath a wealth of fractured mythos and tradition. An interesting story, perhaps one better suited for an anthropologist - although"", $heOrShe muses, nodding $hisOrHer head, ""the circumstances leading to such a question would lie well uner my purview, yes."" $HeOrShe clasps $hisOrHer hands together. ""Why no gate, for a colony so valuable and so distant?""
+espcHistorianBackstoryBlurb1,HistorianBackstoryBlurb,!WasHistorianBlurbShown espchistoryBlurb1,SetHistorianBlurbShownAfterDelay espchistoryBlurb1,"""Tocquiera? Or, what it's known to us by now. Its original name under the Domain has, regrettably, become obscured beneath a wealth of fractured mythos and tradition. An interesting story, perhaps one better suited for an anthropologist - although"", $heOrShe muses, nodding $hisOrHer head, ""the circumstances leading to such a question would lie well uner my purview, yes."" $HeOrShe clasps $hisOrHer hands together. ""Why no gate, for a colony so valuable and so distant?""
 
 The historian instinctively begins to raise $hisOrHer arm, as if to call upon an eager answer, before waving in rhetorical motion.
 
 ""It's self-evident, isn't it? Especially now, given the autarky-capable nature of its present governance - a self-sufficient populace is more able to make demands, grounds ripe for dissent. And so with hyperspace transport as a sole lifeline, the Domain may keep those elements well in check. The contract here is plainly implied.""
 
 ""Of course, this ended up being no empty threat. In its dying throes, the Domain doles out a punitive measure to all like it."" $HeOrShe grimaces, underscoring the irony. ""A cruel calculus of control, laid so bare. Is it any wonder that, to this day, its ancestors refuse a foreign banner?""",,
-epsilHistorianBackstoryBlurb2,HistorianBackstoryBlurb,!WasHistorianBlurbShown epsilhistoryBlurb2,SetHistorianBlurbShownAfterDelay epsilhistoryBlurb2,"""Nola Ganymede. A fascinating figure, one shrouded in mystery even to those in power, their eyes and ears everywhere and yet blind and deaf to someone so crucial. As you can imagine, a favorite kind of figure for those of my profession."" $HeOrShe chuckles, as though to commiserate with $hisOrHer own. ""What could a humble itinerant archaeologist know of someone like that?""
+espcHistorianBackstoryBlurb2,HistorianBackstoryBlurb,!WasHistorianBlurbShown espchistoryBlurb2,SetHistorianBlurbShownAfterDelay espchistoryBlurb2,"""Nola Ganymede. A fascinating figure, one shrouded in mystery even to those in power, their eyes and ears everywhere and yet blind and deaf to someone so crucial. As you can imagine, a favorite kind of figure for those of my profession."" $HeOrShe chuckles, as though to commiserate with $hisOrHer own. ""What could a humble itinerant archaeologist know of someone like that?""
 
 ""Though so representative of the present, perhaps of a future she might wish to see to fruition, history's patterns are inevitable. Try as some may wish, there's no escaping those."" The historian shakes $hisOrHer head. ""None of us can, truly.""
 
@@ -698,3 +720,134 @@ Resting $hisOrHer arm on the countertop, $heOrShe mimes revealing face-down card
 ""The triumvirate; a locus of power and expertise, upon which all machinations live, and inevitably die. And the federation, the city-state; bastions of commerce and culture, defiant in the face of dominion... a governance long lost to the grand scale of the Domain.""
 
 ""A bold vision for the future they hold, indeed."" $HeOrShe stares down, a finger tapping on the countertop - perhaps, in her mind, upon one of those cards.",,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+espcAIInterceptionEncounter,BeginFleetEncounter,"$espcAIInterceptFleet score:1000
+!$espcAIInterceptFleet_encounteredAlready","$espcAIInterceptFleet_encounteredAlready = true
+FleetDesc
+HailPlayer",,,
+espcAIInterceptionEncounterComm,OpenCommLink,"$entity.espcAIInterceptFleet score:1000
+!$entity.ignorePlayerCommRequests","$entity.ignorePlayerCommRequests = true
+FireBest espcAIInterceptFleetInitial",,,
+espcAIInterceptionEncounterStandard,espcAIInterceptFleetInitial,,,"""Hail, captain,"" the $rank says with a nod, ""and ease up. We're not looking for a fight.""
+
+$HeOrShe blinks. ""Not without reason.""",0:espcAIInterceptionEncounterStandard2:Continue.,
+espcAIInterceptionEncounterStandard2,DialogOptionSelected,$option == espcAIInterceptionEncounterStandard2,,"""We have it on good intel that an AI core can be found somewhere in a nearby volume."" $HeOrShe shakes $hisOrHer head, solemnly. 
+
+""Highly, highly illegal under Domain jurisdiction. You wouldn't happen to know about this, would you?""","0:espcAIInterceptionEncounterStandard3a:""Yes, we found and salvaged an AI core.""
+5:espcAIInterceptionEncounterStandard3b:""We came across an AI core, but left it where we discovered it.""
+10:espcAIInterceptionEncounterStandard3b:""No, we wouldn't.""
+15:espcAIInterceptionEncounterStandard3a:Remain silent.",
+espcAIInterceptionEncounterStandard3a,DialogOptionSelected,$option == espcAIInterceptionEncounterStandard3a,,"The $rank smiles, not quite reaching $hisOrHer eyes. ""No games, then. Your honesty is appreciated.
+
+Now, tell us. What use do you have with this core?"" $HisOrHer gaze meets yours, unblinking.","0:espcAIInterceptionEncounterStandard4Trade:""To trade it in, for credits and favors.""
+5:espcAIInterceptionEncounterStandard4Colony:""It will be assigned a role in colonial administration.""
+10:espcAIInterceptionEncounterStandard4Fleet:""It will make for a fine captain.""
+15:espcAIInterceptionEncounterStandard4Destroy:""None. This creation of Mammon will soon find itself in the nearest black hole.
+20:espcAIInterceptionEncounterStandard4NoAnswer:""Doesn't matter. I'm not giving it to you.""
+25:espcAIInterceptionEncounterStandard4Deny:""What I do with it is none of your business.""",
+espcAIInterceptionEncounterStandard3b,DialogOptionSelected,$option == espcAIInterceptionEncounterStandard3b,,"The $rank's eyes narrow. ""That was rhetorical, captain. We know you're in posession of a core. You'd be insane to leave one behind, no matter your intentions.
+
+Now, be honest with us. What use do you have with this core?"" $HisOrHer gaze meets yours, unblinking.","0:espcAIInterceptionEncounterStandard4Trade:""To trade it in, for credits and favors.""
+5:espcAIInterceptionEncounterStandard4Colony:""It will be assigned a role in colonial administration.""
+10:espcAIInterceptionEncounterStandard4Fleet:""It will make for a fine captain.""
+15:espcAIInterceptionEncounterStandard4Destroy:""None. This creation of Mammon will soon find itself in the nearest black hole.
+20:espcAIInterceptionEncounterStandard4NoAnswer:""Doesn't matter. I'm not giving it to you.""
+25:espcAIInterceptionEncounterStandard4Deny:""What I do with it is none of your business.""",
+espcAIInterceptionEncounterStandard4NoAnswer,DialogOptionSelected,$option == espcAIInterceptionEncounterStandard4NoAnswer,,"The $rank's expression hardens. ""Oh, but it does. Between my fleet and yours, what you say next will matter - to you, to I, and certainly to your crew. Or your bottom-line, if that'll get your attention.""
+
+$HisOrHer voice turns cold, like ice. ""Now, answer.""","0:espcAIInterceptionEncounterStandard4Trade:""To trade it in, for credits and favors.""
+5:espcAIInterceptionEncounterStandard4Colony:""It will be assigned a role in colonial administration.""
+10:espcAIInterceptionEncounterStandard4Fleet:""It will make for a fine captain.""
+15:espcAIInterceptionEncounterStandard4Destroy:""None. This creation of Mammon will soon find itself in the nearest black hole.
+20:espcAIInterceptionEncounterStandard4Deny:""What I do with it is none of your business.""",
+espcAIInterceptionEncounterStandard4Trade,DialogOptionSelected,$option == espcAIInterceptionEncounterStandard4Trade,,"""A mercenary, through and through, then. Is there no appealing to your better nature?"" $HisOrHer tone softens, though the rest of $hisOrHer demeanour remains uncannily consistent. ""We don't need to see this core thrown to the wolves, sold into slavery or destroyed by fanatics. Can there not be something better? A fairer world, both for us and for your captive?""
+
+Despite the act, you sense an undercurrent of conviction in $hisOrHer voice - or perhaps that's what $heOrShe wants you to believe. ""We don't have to work against each other. Our forces combined - if you choose to do the right thing.""","0:espcAIInterceptionEncounterStandard4Trade:""To trade it in, for credits and favors.""
+5:espcAIInterceptionEncounterStandard4Colony:""It will be assigned a role in colonial administration.""
+10:espcAIInterceptionEncounterStandard4Fleet:""It will make for a fine captain.""
+15:espcAIInterceptionEncounterStandard4Destroy:""None. This creation of Mammon will soon find itself in the nearest black hole.
+20:espcAIInterceptionEncounterStandard4Deny:""What I do with it is none of your business.""",
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+gaPZTriTachEncounterComm,OpenCommLink,"$entity.gaPZ_tritachyon score:1000
+!$entity.ignorePlayerCommRequests
+ZigguratCMD updateData","$entity.ignorePlayerCommRequests = true
+FireBest GAPZTTInitial",,,
+gaPZTriTachEncounterStandard,GAPZTTInitial,,FireAll GAPZTTHub,"""Good shift, captain,"" the Tri-Tachyon $rank says crisply. ""You possess property belonging to the Tri-Tachyon Corporation and I have come to recover it. Surrender the Ziggurat-class TTS Xenorphica to me at once.""
+
+$HeOrShe locks you with an unblinking gaze, awaiting your response.",,
+gaPZTriTachEncounterNoZig,GAPZTTInitial,!$entity.hasZiggurat,FireBest GAPZTTInitialCont,"""Good shift, captain,"" the Tri-Tachyon $rank says crisply. ""Long-range sensors recently detected a certain Ziggurat-class TTS Xenorphica in your fleet; this is property of the Tri-Tachyon Corporation.""
+
+$HisOrHer eyes flick down, reading from a screen ""Let this statement be notice that the Tri-Tachyon Corporation considers legitimate all appropriate and necessary means to recover property belonging to said company, including use of militarized force, employment of mercenaries or privateers, et cetera.""",,
+gaPZTriTachEncounterOnlyZig,GAPZTTInitial,$entity.hasOnlyZiggurat,FireBest GAPZTTInitialCont,"""Good shift, captain,"" the Tri-Tachyon $rank says crisply. ""You possess property belonging to the Tri-Tachyon Corporation.""
+
+$HisOrHer eyes flick down, reading from a screen ""Let this statement be notice that the Tri-Tachyon Corporation considers legitimate all appropriate and necessary means to recover property belonging to said company, including use of militarized force, employment of mercenaries or privateers, et cetera.""",,
+gaPZTriTachEncounterInitialCont,GAPZTTInitialCont,,"MakeOtherFleetNonHostile gaPZ true
+MakeOtherFleetImportant gaPZ false
+MakeOtherFleetGoAway true","The Tri-Tachyon $rank looks back at you directly, without emotion. ""Consider this ample warning.""
+The comms cut. The Tri-Tachyon logo spins while a synthesized voice asks you to submit feedback on your customer experience. ",cutCommLinkNoText:Continue,
+GAPZTTHub1,GAPZTTHub,!$gaPZ_ttHubSal,,,"gaPZ_ttHubSal:""Haven't you heard of salvage rights?""",
+GAPZTTHub2,GAPZTTHub,,,,"gaPZ_ttHubPry:""You're going to have to pry it from my cold, dead hands.""",
+GAPZTTHub3,GAPZTTHub,,,,"gaPZ_ttHubThreat:""What does the Hegemony think of this flying treaty violation?""",
+GAPZTTHub4,GAPZTTHub,,,,"gaPZ_ttHubPay:""How about payment? Perhaps a finder's fee?""",
+GAPZTTHub5,GAPZTTHub,,,,"gaPZ_ttHubAccept:""I'll transfer command protocols at once."" (accept)",
+gaPZ_ttHubSal,DialogOptionSelected,$option == gaPZ_ttHubSal,"$gaPZ_ttHubSal = true 0
+FireAll GAPZTTHub","""We are well aware of the rights of salvage, captain,"" $heOrShe says, jaw tightening ""But the Company views these as exceptional circumstances. A great deal of proprietary research has gone into that hull, and the Company expects to make good on its investment.""",,
+gaPZ_ttHubPryStronger,DialogOptionSelected,"$option == gaPZ_ttHubPry
+$entity.relativeStrength >= 0",$entity.ignorePlayerCommRequests = true,"""Gladly,"" says the Tri-Tachyon $rank with vicious satisfaction. The comms go dark.",cutCommLinkNoText:Continue,
+gaPZ_ttHubPryWeaker,DialogOptionSelected,"$option == gaPZ_ttHubPry
+$entity.relativeStrength < 0","AdjustRep tritachyon VENGEFUL -75
+MakeOtherFleetNonHostile gaPZ true
+MakeOtherFleetImportant gaPZ false
+MakeOtherFleetGoAway true","The Tri-Tachyon $rank swallows uncomfortably, then says ""That won't be necessary. We are running a business, not a slaughterhouse.""
+
+$HeOrShe pauses for a moment, unsure of how to proceed, then speaks. ""You're making a terrible mistake, captain,"" $heOrShe says. ""If that's what it comes to- a word of advice: the Tri-Tachyon Corporation is bigger than you, it's bigger than any person. It's bigger than all people, because it forms something greater than the sum of its components, human and otherwise.""
+
+""You'll never win."" And with that, the Tri-Tachyon $rank cuts the comms as $hisOrHer fleet moves to disengage.",cutCommLinkNoText:Continue,
+gaPZ_ttHubThreat,DialogOptionSelected,$option == gaPZ_ttHubThreat,,"The Tri-Tachyon $rank seems caught cold, and pauses to swallow uncomfortably.
+
+""I don't, um. The Tri-Tachyon Corporation makes no admission of responsibility or guilt in any matter covered by the cycle 194 Treaty of Crom Cruach,"" $heOrShe say automatically. ""This conversation does not confirm or deny any speculation on your part as to the nature of the Tri-Tachyon property in question.""
+
+A cough. ""I must reiterate my demand: return the TTS Xenorphica.""",gaPZ_ttHubThreat1:Threaten to give the Hegemony access to the Ziggurat hull,
+gaPZ_ttHubThreat1,DialogOptionSelected,$option == gaPZ_ttHubThreat1,"AdjustRep tritachyon INHOSPITABLE -25
+MakeOtherFleetNonHostile gaPZ true
+MakeOtherFleetImportant gaPZ false
+MakeOtherFleetGoAway true","The Tri-Tachyon $rank's face seems to freeze in place as you explain that, in your opinion, the technology on this ship definitely appears to break the Treaty of Crom Cruach, which ended the 2nd AI War. That is, it would if it were developed by Tri-Tachyon. 
+
+And if the Hegemony Ministry of Technology Standards hypothetically received your survey of a Tri-Tachyon black site, the so-called ""Alpha Site"", where such technology was developed.
+
+Hypothetically.
+
+""We'll be in touch,"" the $rank hisses. The comm cuts to a Tri-Tachyon logo.",cutCommLinkNoText:Continue,
+gaPZ_ttHubPay,DialogOptionSelected,$option == gaPZ_ttHubPay,Highlight $entity.ttZigBuyPrice,"The Tri-Tachyon $rank smiles, ""Now we're talking business, captain."" $HeOrShe quickly consults a TriPad, then says ""I'm prepared to offer $entity.ttZigBuyPrice credits as a 'consulting fee' in assisting in the recovery of the TTS Xenomorphica.""","gaPZ_ttHubPayAccept:Accept
+gaPZ_ttHubPayDecline:Decline",
+gaPZ_ttHubPayDecline,DialogOptionSelected,$option == gaPZ_ttHubPayDecline,FireAll GAPZTTHub,,,
+gaPZ_ttHubPayAccept,DialogOptionSelected,$option == gaPZ_ttHubPayAccept,"AdjustRep tritachyon COOPERATIVE 15
+AddCredits $entity.ttZigBuyPrice
+RemoveShip $entity.zigguratMember
+AddShipToOtherFleet $entity.zigguratMember
+MakeOtherFleetNonHostile gaPZ true
+MakeOtherFleetImportant gaPZ false
+MakeOtherFleetGoAway true","Once you signal agreement, the Tri-Tachyon officer is all cheer. $HeOrShe transfers the lordly sum of credits to you in exchange for the command codes of the Ziggurat-class hull.
+
+$Rank $PersonName looks at you over the top of $hisOrHer TriPad, ""Your discretion in this matter is assumed, of course,"" and gives another flinty smile. ""It's been a pleasure doing business with you, captain.""",cutCommLinkNoText:Continue,
+gaPZ_ttHubAccept,DialogOptionSelected,$option == gaPZ_ttHubAccept,"Highlight $entity.ttZigLowBuyPrice
+AdjustRep tritachyon COOPERATIVE 30
+AddCredits $entity.ttZigLowBuyPrice
+RemoveShip $entity.zigguratMember
+AddShipToOtherFleet $entity.zigguratMember
+MakeOtherFleetNonHostile gaPZ true
+MakeOtherFleetImportant gaPZ false
+MakeOtherFleetGoAway true","The Tri-Tachyon $rank seems caught off guard by your ready agreement.
+
+""I, I mean of course. The Tri-Tachyon Corporation thanks you for your cooperation in this matter. We shall of course arrange for a token payment for the recovery of company property - ah, of $entity.ttZigLowBuyPrice credits."" $HeOrShe looks at you over the top of a TriPad, ""Your discretion in this matter is assumed, of course.""
+ 
+The transfer of executive command functions proceeds smoothly.",cutCommLinkNoText:Continue,

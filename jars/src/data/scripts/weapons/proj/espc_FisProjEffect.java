@@ -14,7 +14,7 @@ import data.scripts.plugin.espc_DamageListener;
 public class espc_FisProjEffect implements OnHitEffectPlugin, OnFireEffectPlugin {
 	
 	
-	private static final float FIS_ACTIVATE_RADIUS = 1000f;
+	private static final float FIS_ACTIVATE_RADIUS = 550f;
 	
     private static final float FIS_DURATION = 1f;
     private static final float FIS_EXPLOSION_DAMAGE = 1000f;
@@ -60,7 +60,7 @@ public class espc_FisProjEffect implements OnHitEffectPlugin, OnFireEffectPlugin
 				if (MathUtils.isWithinRange(
 					proj.getLocation(), 
 					(Vector2f) engine.getCustomData().get(("espc_fisLoc" + i)), 
-					FIS_ACTIVATE_RADIUS * 2f)) {
+					FIS_ACTIVATE_RADIUS)) {
 						
 					didFission = true;
 					didEntry = true;

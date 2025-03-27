@@ -3,7 +3,7 @@
   "hullId": "espc_chorale",
   "displayName": "Suppressive",
   "goalVariant": true,
-  "fluxCapacitors": 21,
+  "fluxCapacitors": 22,
   "fluxVents": 30,
   "quality": 1,
   "permaMods": [],

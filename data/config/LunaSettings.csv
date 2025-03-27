@@ -16,7 +16,10 @@ Make sure to set a condition for your input checks to not accept numbers of 0, a
 
 The defaultValue decides which one is selected by default, the secondaryValue creates the list of choices with a comma seperated String. 
 Can be retrieved as a String.",,,Examples
-,,,,,,,,
-espc_LunaHeader_Miscellaneous,Miscellaneous,Header,Miscellaneous,,,,,Settings
+espc_LunaHeader_Graphical,Graphical,Header,Graphical,,,,,Settings
 espc_AIBGPortraits,Real Human Portraits,Boolean,TRUE,,Force sets the player to use a random selection of portraits when using the [Real Human Being] Nexerelin start.,,,Settings
+espc_LunaHeader_Miscellaneous,Miscellaneous,Header,Miscellaneous,,,,,Settings
 espc_BGScoreRequirements,Background Score Requirements,Radio,Perfect,"Perfect, Complete, None",Score requirement for the custom Nexerelin backgrounds added by this mod.,,,Settings
+espc_RealHumbleBeing,A Real Human Being of Humble Tastes,Boolean,FALSE,,"Enables the [Real Human Being of Humble Tastes] background, which combines the stipulations (and unlock requirements) of an older version of the [Real Human Being] background with the [Humble Tastes] background.
+
+Y'know, in case you're looking to pilot a Glimmer for the entirety of your playthrough, you absolute psycho and also my kindred spirit.",,,Other
