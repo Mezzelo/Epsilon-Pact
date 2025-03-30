@@ -8,6 +8,7 @@
     "systemId":"fortressshield",
 	"tech":"Tri-Tachyon",
     "spriteName": "graphics/ships/espc_observer_tt.png",
+	"coversColor":[145,115,130,255],
 	"fleetPoints":17,
 	"suppliesToRecover":30,
 	"suppliesPerMonth":30,

@@ -1,7 +1,5 @@
 package data.scripts.campaign.enc;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 import org.lwjgl.util.vector.Vector2f;
@@ -88,7 +86,6 @@ public class espc_OutsideSystemEpsilpacEPEC extends BaseEPEncounterCreator {
 		m.triggerCreateFleet(size, quality, "epsilpac", type, loc);
 		m.triggerSetFleetOfficers(oNum, oQuality);
 		m.triggerMakeLowRepImpact();
-		m.triggerAddAbilities(Abilities.EMERGENCY_BURN);
 		m.triggerAddAbilities(Abilities.SENSOR_BURST);
 		m.triggerAddAbilities(Abilities.GO_DARK);
 		m.triggerFleetAllowJump();
@@ -120,7 +117,7 @@ public class espc_OutsideSystemEpsilpacEPEC extends BaseEPEncounterCreator {
 		if (!(point.custom instanceof RemnantStationFleetManager)) return 0f;
 		RemnantStationFleetManager fm = (RemnantStationFleetManager) point.custom;
 		// remnant is 10f;
-		float baseFreq = 7f;
+		float baseFreq = 10f;
 		int marketCount = 0;
 		for (MarketAPI market : Global.getSector().getEconomy().getMarketsCopy()) {
 			if (market.getFactionId().equals("epsilpac") &&
@@ -129,10 +126,10 @@ public class espc_OutsideSystemEpsilpacEPEC extends BaseEPEncounterCreator {
 			}
 		}
 		if (marketCount == 3)
-			baseFreq = 4f;
+			baseFreq = 7f;
 		else if (marketCount < 3 && marketCount > 0)
-			 baseFreq = 2f;
-		else
+			 baseFreq = 3f;
+		else if (marketCount == 0)
 			return 0f;
 		
 		float mult = 0.5f;

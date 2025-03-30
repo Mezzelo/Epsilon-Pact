@@ -2,37 +2,33 @@ package data.scripts.weapons;
 
 import com.fs.starfarer.api.combat.CombatEngineAPI;
 import com.fs.starfarer.api.combat.DamagingProjectileAPI;
-import com.fs.starfarer.api.combat.EveryFrameWeaponEffectPlugin;
 import com.fs.starfarer.api.combat.OnFireEffectPlugin;
 import com.fs.starfarer.api.combat.WeaponAPI;
-import com.fs.starfarer.api.combat.ShipAPI;
 
 import com.fs.starfarer.api.util.Misc;
 import org.lwjgl.util.vector.Vector2f;
 import org.lazywizard.lazylib.FastTrig;
 import org.lazywizard.lazylib.MathUtils;
 
-public class espc_AAEffect implements OnFireEffectPlugin, EveryFrameWeaponEffectPlugin {
+public class espc_AAEffect implements OnFireEffectPlugin {
 
-	public static final int shotsPerBurst = 4;
 	public static final float burstSpread = 8f;
 	
-	private int currentShot = 0;
+	private float shotTime = 0f;
 	private float spreadFacing = 0f;
 	// private Vector2f spreadLocation;
 	private float spreadVel;
 	
-	private ShipAPI thisShip;
 	private Vector2f shipVel;
 	
-    @Override
     public void onFire(DamagingProjectileAPI proj, WeaponAPI weapon, CombatEngineAPI engine) {
-    	if (MathUtils.getDistanceSquared(proj, weapon.getFirePoint(0)) > 1f)
+    	if (MathUtils.getDistanceSquared(proj, weapon.getFirePoint(0)) > 1f || weapon.getShip() == null)
     		return;
-        if (currentShot == 0) {
+    	if (engine.getTotalElapsedTime(false) - shotTime > 0.02f) {
+        	shotTime = engine.getTotalElapsedTime(false);
 			// spreadLocation = proj.getLocation();
 			spreadFacing = proj.getFacing();
-			shipVel = thisShip.getVelocity();
+			shipVel = weapon.getShip().getVelocity();
 			// spreadVel = (float) Math.hypot(proj.getVelocity().x - shipVel.x, proj.getVelocity().y - shipVel.y);
 			spreadVel = weapon.getProjectileSpeed();
 		} else {
@@ -43,15 +39,5 @@ public class espc_AAEffect implements OnFireEffectPlugin, EveryFrameWeaponEffect
 				(float) FastTrig.sin(Math.toRadians(proj.getFacing())) * spreadVel * (0.95f + speedMod * 0.15f) + shipVel.y), new Vector2f(), proj.getVelocity());
 			
 		}
-		currentShot++;
-		if (currentShot >= shotsPerBurst)
-			currentShot = 0;
-    }
-	
-    @Override
-    public void advance(float amount, CombatEngineAPI engine, WeaponAPI weapon) {
-		if (thisShip == null)
-			thisShip = weapon.getShip();
-       // unsure if there's any way to only implement ofe/circumvent this.  too stubborn to ask around.
     }
 }

@@ -19,24 +19,34 @@ public class espc_MeCoreCombatPlugin extends BaseEveryFrameCombatPlugin {
     private boolean found = false;
 
     public void init(CombatEngineAPI engine) {
+    	if (engine.isMission() || !espc_ModPlugin.hasNex()
+        	|| !CharacterBackgroundUtils.isBackgroundActive("espc_realHumanBeing") &&
+        	!CharacterBackgroundUtils.isBackgroundActive("espc_realHumbleBeing"))
+        	engine.removePlugin(this);
+    	
         this.engine = engine;
         interval = 0f;
-        found = false;
     }
 
     public void advance(float amount, List<InputEventAPI> events) {
-        if (amount == 0f || found || engine == null || !espc_ModPlugin.hasNex()
-        	|| !CharacterBackgroundUtils.isBackgroundActive("espc_realHumanBeing") 
-        	|| engine.isMission() || Global.getCurrentState() != GameState.COMBAT ||
-        	Global.getSector() == null) return;
-        if (engine.isMission()) return;
+        if (amount == 0f || found || engine == null ||
+        	engine.isMission() || Global.getCurrentState() != GameState.COMBAT) return;
         interval -= amount;
         if (interval <= 0f)
-        	interval += 5f;
+        	interval += 2.5f;
         else
         	return;
         
 		for (ShipAPI ship : Global.getCombatEngine().getShips()) {
+			if (ship.getOwner() == 0 && !ship.isAlly() && !ship.isStation() && !ship.isStationModule() &&
+				!ship.isShuttlePod()) {
+				if (Misc.isAutomated(ship) && ship.isInvalidTransferCommandTarget())
+					ship.setInvalidTransferCommandTarget(false);
+				else if (!Misc.isAutomated(ship) && !ship.isInvalidTransferCommandTarget())
+					ship.setInvalidTransferCommandTarget(true);
+			}
+
+			/* prior implementation, before finding out that player core assignment works *relatively* well
 			if (Misc.isAutomated(ship) && ship.getCaptain() != null && ship.getCaptain().isAICore() &&
 				ship.getCaptain().getAICoreId().equals("espc_meCore")) {
 				if (found == false ) {
@@ -45,7 +55,8 @@ public class espc_MeCoreCombatPlugin extends BaseEveryFrameCombatPlugin {
 				} else
 					
 				break;
-			}
+			} */
+			
 		}
         
     }

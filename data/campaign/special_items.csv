@@ -1,7 +1,7 @@
 name,id,tags,tech/manufacturer,rarity,base price,stack size,cargo space,baseRaidDanger,icon,sound id,sound id drop,plugin,plugin params,desc,order
 ,,,,,,,,,,,,,,,
 # blueprints,,,,,,,,,,,,,,,
-Epsilon Pact Blueprint Package,espc_bp_package,"package_bp, no_drop",Epsilon Pact,,1000000,1000,1,,graphics/icons/cargo/blueprint_basic.png,ui_chip_pickup,ui_bp_package_drop,com.fs.starfarer.api.campaign.impl.items.MultiBlueprintItemPlugin,espc_bp,A set of blueprints that enable heavy industry to produce all known Pact-designed hulls and weapons.,100
+Epsilon Pact Blueprint Package,espc_bp_package,"package_bp, no_drop, hide_in_codex",Epsilon Pact,,1000000,1000,1,,graphics/icons/cargo/blueprint_basic.png,ui_chip_pickup,ui_bp_package_drop,com.fs.starfarer.api.campaign.impl.items.MultiBlueprintItemPlugin,espc_bp,A set of blueprints that enable heavy industry to produce all known Pact-designed hulls and weapons.,100
 # You!,espc_meCore,mission_item,,,6,1,graphics/icons/cargo/espc_meCore.png,,,ai_core_pickup,ui_beta_core_drop,com.fs.starfarer.api.campaign.impl.items.GenericSpecialItemPlugin,,"I mean, uh, no, that's obviously not you. Sorry, that wasn't a very good joke. This is the special device from which you interface with and communicate with everyone, and nothing more.
 
 If installed into an automated ship, you will take control of it in combat.",1

@@ -28,8 +28,8 @@ import com.fs.starfarer.api.combat.ShipAPI;
 
 public class espc_AMFlamerEffect implements OnFireEffectPlugin, OnHitEffectPlugin, EveryFrameWeaponEffectPlugin, WeaponEffectPluginWithInit {
 
-	private static final float DECAY_PER_SHOT = 0.0005f;
-	private static final float HULLMOD_DECAY_MULT = 0.5f;
+	// private static final float DECAY_PER_SHOT = 0.0005f;
+	// private static final float HULLMOD_DECAY_MULT = 0.5f;
 	
 	private static final float BURST_HALT_FLUX_THRESHOLD = 0.95f;
 	private static final float BURST_HALT_TIME_THRESHOLD = 0.1f;
@@ -50,7 +50,7 @@ public class espc_AMFlamerEffect implements OnFireEffectPlugin, OnHitEffectPlugi
 	private static final float MALFUNCTION_EXPLOSION_CHANCE = 0.25f;
 	
 	private ShipAPI ship;
-	private float finalDecay = DECAY_PER_SHOT;
+	// private float finalDecay = DECAY_PER_SHOT;
 	private float delayTime = -10f;
 	private float explosionLast = 0f;
 	private float lastFiredTime = 0f;
@@ -69,7 +69,7 @@ public class espc_AMFlamerEffect implements OnFireEffectPlugin, OnHitEffectPlugi
 		if (!isSolo)
 			isSolo = ship.getSystem() == null;
 		if (ship.getVariant().hasHullMod("auxiliary_fuel_tanks")) {
-			finalDecay *= HULLMOD_DECAY_MULT;
+			// finalDecay *= HULLMOD_DECAY_MULT;
 			MALFUNCTION_CHANCE_BASE *= 0.5f;
 		}
 	}
@@ -107,9 +107,10 @@ public class espc_AMFlamerEffect implements OnFireEffectPlugin, OnHitEffectPlugi
 		);
     	
     	if (!isSolo) {
+    		/*
     		ship.setCurrentCR(ship.getCurrentCR() - finalDecay);
     		if (ship.getCurrentCR() <= 0f)
-    			weapon.disable(true);
+    			weapon.disable(true); */
     	} else if (weapon.getAmmo() < weapon.getMaxAmmo() * AMMO_MALFUNCTION_THRESHOLD) {
 			if (Misc.random.nextFloat() < MALFUNCTION_CHANCE_BASE) {
 				weapon.disable(false);

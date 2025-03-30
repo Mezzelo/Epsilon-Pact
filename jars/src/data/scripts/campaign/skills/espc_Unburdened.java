@@ -22,6 +22,7 @@ import com.fs.starfarer.api.ui.TooltipMakerAPI;
 public class espc_Unburdened {
 
 	public static float HULL_PERCENT_PER_SECOND = 1.0f;
+	public static float HULL_PERCENT_PER_SECOND_TARGET = 1.0f;
 	public static float HEAL_RATIO = 2f;
 	public static float HEAL_RANGE = 700f;
 	public static float MAX_SPEND = 50f;
@@ -71,8 +72,9 @@ public class espc_Unburdened {
 			}
 			if (target != null) {
 				float heal = Math.min(hullRemaining * HEAL_RATIO, 
-					Math.min(target.getMaxHitpoints() - target.getHitpoints(), 
-						ship.getMaxHitpoints() * amount * HULL_PERCENT_PER_SECOND / 100f) * HEAL_RATIO);
+					Math.min(target.getMaxHitpoints() * MIN_TARGET_THRESHOLD / 100f - target.getHitpoints(), 
+						Math.min(ship.getMaxHitpoints() * amount * HULL_PERCENT_PER_SECOND / 100f,
+							target.getMaxHitpoints() * amount * HULL_PERCENT_PER_SECOND_TARGET / 100f) * HEAL_RATIO));
 				hullRemaining -= heal;
 				ship.setHitpoints(ship.getHitpoints() - heal/HEAL_RATIO);
 				target.setHitpoints(target.getHitpoints() + heal);
@@ -118,11 +120,14 @@ public class espc_Unburdened {
 			TooltipMakerAPI info, float width) {
 
 			init(stats, skill);
-			info.addPara("Ship sacrifices its hull at %s of max hull per second to repair nearby allies for twice the hull spent.",
-				0f, hc, hc, HULL_PERCENT_PER_SECOND + "%"
+			info.addPara("Ship sacrifices hull integrity to repair nearby allies for twice the hull spent.",
+				0f, hc, hc
 			);
 			info.addPara("Affects allies below %s hull and within %s, prioritizing allies with the lowest hull remaining",
 				0f, hc, hc, (int) MIN_TARGET_THRESHOLD + "%", (int)HEAL_RANGE + " su"
+			);
+			info.addPara(indent + "Uses hull at a rate of %s of ship's or %s of target's max hull per second, whichever is lower.",
+				0f, tc, hc, HULL_PERCENT_PER_SECOND + "%", HULL_PERCENT_PER_SECOND_TARGET + "%"
 			);
 			info.addPara(indent + "Up to %s of maximum hull can be used. This effect pauses when below %s of maximum hull",
 				0f, tc, hc, (int)MAX_SPEND + "%", (int)MIN_THRESHOLD + "%"

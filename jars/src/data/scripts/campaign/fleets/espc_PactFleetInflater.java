@@ -15,6 +15,7 @@ import com.fs.starfarer.api.campaign.CampaignFleetAPI;
 import com.fs.starfarer.api.campaign.CargoAPI;
 import com.fs.starfarer.api.campaign.FactionAPI;
 import com.fs.starfarer.api.campaign.FleetInflater;
+import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.campaign.econ.SubmarketAPI;
 import com.fs.starfarer.api.characters.MutableCharacterStatsAPI;
 import com.fs.starfarer.api.combat.MutableShipStatsAPI;
@@ -630,6 +631,17 @@ public class espc_PactFleetInflater implements FleetInflater, AutofitPluginDeleg
 		return false;
 	}
 	public boolean isAllowSlightRandomization() {
-		return true;
+		return false;
+	}
+
+
+	@Override
+	public FleetMemberAPI getFleetMember() {
+		return null;
+	}
+
+	@Override
+	public MarketAPI getMarket() {
+		return null;
 	}
 }

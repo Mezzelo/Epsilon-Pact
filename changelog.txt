@@ -6,6 +6,8 @@ Major round of balance changes, adjustments & bugfixes.  Minor changes/additions
 Procedural additions to sector activity & new scripted encounters.
 Added two Nexerelin starting backgrounds, unlocked by achieving perfect scores on Loose Ends and New Moon.
 	Unlock requirement can be toggled off if using LunaLib.
+	
+Updated for 0.98a-RC5: codex compliant!  variants altered to reflect new balance changes (literally just pd laser lol)
 
 Added 5 unique skills utilized by Pact fleets and hireable officers, new skill selection algorithm & Pact fleet spawn behaviour adjustments.
 
@@ -41,23 +43,38 @@ Songbird (all variants)
 - Dissipation 250 > 275
 
 Songbird (TT)
+- DP 10 > 12
 - Delicate Machinery built-in hullmod added
 
 Opossum
+- Flux Capacity 2500 > 2100	
 - Peak CR time 300 > 360
+
+Militia (all variants)
+- Speed 75 > 80
+- Dissipation 350 > 300
+- Cargo Capacity 300 > 400
 
 Militia
 - DP 11 > 10
-- Militia (S) DP 10 > 9
 - OP 100 > 90
-- Militia (S) OP 110 > 100
 - FP 10 > 9
-- Dissipation 350 > 300
-- Cargo Capacity 300 > 400
+
+Militia (S)
+- DP 10 > 9
+- OP 110 > 100
 
 Ember (all variants)
 - Flux Capacity 4000 > 6000
 - Peak CR time 480 > 420
+
+Ember (C)
+- Rarity 0.4 > 0.3 in independent fleets
+- Sell frequency added: 3
+
+Ember Mk. II
+- Rarity 0.4 > 0.2 in pirate fleets
+- Sell frequency added: 3
 
 Observer (base variant)
 - Speed 60 > 65
@@ -75,7 +92,7 @@ Pilgrim (base variant)
 
 Chorale
 - FP 18 > 17
-- Speed 65 > 75
+- Speed 65 > 80
 - Maneuverability increased significantly.
 - Shield arc 140 > 180
 - Rear turret arcs changed to 360 degrees
@@ -103,6 +120,12 @@ Berserker (EP)
 
 
 System changes:
+Battlecry
+- Revised internal mechanics: Overload duration should now be consistent with flux received
+	- heavy soft flux hits that result in an overload will be converted to hard flux as a side-effect. sorry, black box vanilla code workaround smile
+- Visuals polished & reworked to use new EMP visuals
+- Fixed arc visuals affecting DEMs and other visuals implemented via invisible fighter
+
 Feint Overload
 - Removed 80% flux capacity requirement for system activation
 - Lowered flux capacity threshold at which AI activates system from 80% to 70%
@@ -127,6 +150,9 @@ Remote Salvo
 - Bursts per fighter limited to 4.  This significantly nerfs swarmers and other high ammo/low OP missiles.
 - Bursts now fire twice as quickly
 - Barrel angle offsets now apply.  This only affects the annihilator in vanilla, which previously had perfect accuracy.
+
+Resonator Shield
+- Beam damage taken increased from 25% > 50%, resulting in normalized beam damage overall.
 
 
 Weapon changes:
@@ -160,6 +186,7 @@ Auto Scattershot
 	
 Auto Slugshot
 - Minimum and maximum spread increased substantially
+- Removed from Pirate Blueprint
 
 Finnegan Launcher
 - HE damage 2500 > 2000
@@ -180,6 +207,9 @@ Half-Rift Pike
 AM Flamer
 - Removed CR degradation effect
 - Added PD and PD_ALSO tags
+	
+Solo AM Flamer
+- Removed from Pirate Blueprint
 
 
 World-gen changes (non-random sector):
@@ -221,6 +251,7 @@ Tocquiera
 - Fissile Confluence Emitter removed as a purchasable blueprint - it uses no auto-fit tags, on account of being too fickle to build with.
 - Personal reputation requirement required to gain Isabelle as a contact removed (or set to >-1, to be exact)
 
+- Anubis added to Pact fleets & markets (albeit very rarely for sale)
 - All ship variants revised to account for balance changes to hulls & weapons, several altered for balance, some rather situational variants added/removed.
 - Additional variants added, especially for vanilla hulls which had relatively few.
 - Fissile Confluence Emitter added to the Pact blueprint package.
@@ -237,11 +268,11 @@ Tocquiera
 
 - Nexerelin: Corporate leaning shifted from -0.5 to -1.0, diplomatic leaning shifted from 0.0 to -0.5
 
+- Fixed duplicate submarkets that appear when markets are conquered in Nex
 - Text revisions all over: typo fixes, proofreading & the like.
 - Fixed null crash that occurred when Isabelle moves between markets, for some reason I'm still not sure of.
 - Fixed a null crash when shield shunting the Observer (lol)
 - other crash bugs idr fixed.
-- Fixed duplicate submarkets that appear when markets are conquered.
 
 
 Version 0.3.93-RC3

@@ -43,7 +43,7 @@ public class espc_HumbleTastesBg_Skill {
 		public void apply(MutableShipStatsAPI stats, HullSize hullSize, String id, float level) {
 			if (stats.getFleetMember() != null && stats.getFleetMember().getUnmodifiedDeploymentPointsCost() > DP_THRESHOLD)
 			stats.getMaxCombatReadiness().modifyFlat(id, 
-				(DP_THRESHOLD - stats.getFleetMember().getUnmodifiedDeploymentPointsCost()) * CR_PENALTY_PER_DP * 0.01f, 
+				(DP_THRESHOLD - stats.getFleetMember().getDeploymentPointsCost()) * CR_PENALTY_PER_DP * 0.01f, 
 				"Humble Tastes");
 		}
 		public void unapply(MutableShipStatsAPI stats, HullSize hullSize, String id)  {

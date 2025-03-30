@@ -1,2 +1,2 @@
 name,id,demand class,base price,export value,price variability,utility,origin,tags,stack size,cargo space,icon,sound id,sound id drop,order,economyTier,econUnit,iconWidthMult,plugin,desc
-You!,espc_meCore,survey_data,,,,1,,,100,1,graphics/icons/cargo/espc_meCore.png,ai_core_pickup,ui_beta_core_drop,1,,,1,,
+You!,espc_meCore,survey_data,,,,1,,hide_in_codex,100,1,graphics/icons/cargo/espc_meCore.png,ai_core_pickup,ui_beta_core_drop,1,,,1,,

@@ -3,7 +3,7 @@
   "hullId": "espc_observer",
   "displayName": "Beam",
   "goalVariant": true,
-  "fluxCapacitors": 22,
+  "fluxCapacitors": 24,
   "fluxVents": 30,
   "quality": 1,
   "permaMods": [],

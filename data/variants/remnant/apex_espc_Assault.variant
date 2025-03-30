@@ -3,7 +3,7 @@
   "hullId": "apex",
   "displayName": "Assault",
   "goalVariant": false,
-    "fluxCapacitors": 19,
+    "fluxCapacitors": 23,
     "fluxVents": 30,
   "quality": 0,
   "permaMods": [],

@@ -44,7 +44,7 @@ public class espc_AITrade extends BaseCommandPlugin {
 	
 	private final float MIN_REP_EXCHANGE = 12f;
 	
-	private final float ALPHA_REP_VAL = 8f;
+	private final float ALPHA_REP_VAL = 10f;
 	private final float BETA_REP_VAL = 5f;
 	private final float GAMMA_REP_VAL = 3f;
 	private final float CONSTANT_REP_VAL = 4f;
@@ -57,20 +57,20 @@ public class espc_AITrade extends BaseCommandPlugin {
 	private final Map<String, Integer> hullMap;
 	{
     	hullMap = new HashMap<String, Integer>();
-    	hullMap.put("espc_flagbearer", 8);
-    	hullMap.put("espc_songbird", 5);
-    	hullMap.put("espc_jackalope", 3);
-    	hullMap.put("espc_rondel", 3);
-    	hullMap.put("espc_opossum", 3);
+    	hullMap.put("espc_flagbearer", 12);
+    	hullMap.put("espc_songbird", 6);
+    	hullMap.put("espc_jackalope", 6);
+    	hullMap.put("espc_rondel", 6);
+    	hullMap.put("espc_opossum", 6);
     	
-    	hullMap.put("espc_militia", 3);
-    	hullMap.put("espc_ember", 3);
+    	hullMap.put("espc_militia", 5);
+    	hullMap.put("espc_ember", 5);
     	
-    	hullMap.put("espc_pilgrim", 8);
-    	hullMap.put("espc_observer", 8);
-    	hullMap.put("espc_chorale", 8);
+    	hullMap.put("espc_pilgrim", 12);
+    	hullMap.put("espc_observer", 12);
+    	hullMap.put("espc_chorale", 12);
     	
-    	hullMap.put("espc_amanuensis", 12);
+    	hullMap.put("espc_amanuensis", 15);
 	}
 	
 	private final Map<String, Integer> weaponMap;
@@ -85,8 +85,8 @@ public class espc_AITrade extends BaseCommandPlugin {
     	weaponMap.put("espc_gatling", 6);
     	weaponMap.put("espc_flak", 6);
     	
-    	weaponMap.put("espc_riftspear", 8);
-    	weaponMap.put("espc_riftpike", 12);
+    	weaponMap.put("espc_riftspear", 12);
+    	weaponMap.put("espc_riftpike", 16);
 	}
 	
 	protected CampaignFleetAPI playerFleet;
@@ -258,14 +258,16 @@ public class espc_AITrade extends BaseCommandPlugin {
 							faction.getId());
 					
 					impact.delta *= 0.25f;
-					impact.limit = isConstant ? RepLevel.WELCOMING : RepLevel.FAVORABLE;
+					if (isConstant)
+						impact.delta *= 0.5f;
+					impact.limit = RepLevel.FAVORABLE;
+					// impact.limit = isConstant ? RepLevel.WELCOMING : RepLevel.FAVORABLE;
 					if (impact.delta >= 0.01f) {
 						Global.getSector().adjustPlayerReputation(
 							new RepActionEnvelope(RepActions.CUSTOM, impact,
 								null, text, true), 
 									person);
 					}
-					
 
 					Global.getSector().getMemoryWithoutUpdate().set(
 						"$espcBPCredit", 
@@ -274,15 +276,21 @@ public class espc_AITrade extends BaseCommandPlugin {
 					Global.getSector().getMemoryWithoutUpdate().set(
 						"$espcAlphaCores", 
 						Global.getSector().getMemoryWithoutUpdate().getInt("$espcAlphaCores")
-						+ (int) alphaCores);
+						+ alphaCores);
 					Global.getSector().getMemoryWithoutUpdate().set(
 						"$espcBetaCores", 
 						Global.getSector().getMemoryWithoutUpdate().getInt("$espcBetaCores")
-						+ (int) betaCores);
+						+ betaCores);
 					Global.getSector().getMemoryWithoutUpdate().set(
 						"$espcGammaCores", 
 						Global.getSector().getMemoryWithoutUpdate().getInt("$espcGammaCores")
-						+ (int) gammaCores);
+						+ gammaCores);
+					Global.getSector().getMemoryWithoutUpdate().set(
+						"$espcAnyCores", 
+						Global.getSector().getMemoryWithoutUpdate().getInt("$espcAnyCores")
+						+ alphaCores + betaCores + gammaCores);
+					if (Global.getSector().getMemoryWithoutUpdate().getInt("$espcAIInterceptCount") > -1)
+						Global.getSector().getMemoryWithoutUpdate().set("$espcAIInterceptCount", -1);
 				}
 				
 				FireBest.fire(null, dialog, memoryMap, "AICoresTurnedIn");

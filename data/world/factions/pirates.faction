@@ -2,7 +2,7 @@
     "hullFrequency":{
         "hulls":{
 #            "espc_billhook_p":0.3,
-			"espc_ember_p":0.4,
+			"espc_ember_p":0.2,
         },
     },
     "knownShips":{
@@ -21,7 +21,10 @@
 	},
 
 	"weaponSellFrequency":{
-		"espc_amflamersolo":3,
+		"espc_amflamersolo":1,
 		"espc_as":3,
+	},
+	"shipSellFrequency":{
+		"espc_ember_p":3,
 	},
 },

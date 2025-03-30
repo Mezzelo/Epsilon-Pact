@@ -3,7 +3,7 @@
   "hullId": "heron",
   "displayName": "Attack",
   "goalVariant": true,
-  "fluxCapacitors": 6,
+  "fluxCapacitors": 7,
   "fluxVents": 7,
   "quality": 1,
   "permaMods": [],

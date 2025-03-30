@@ -4,9 +4,9 @@
     "modThreadId":27327,
     "modVersion":
     {
-        "major":3,
-        "minor":97,
-        "patch":"0"
+        "major":0,
+        "minor":5,
+        "patch":"9"
     },
 	"directDownloadURL":"https://github.com/Mezzelo/Epsilon-Pact/releases/latest/download/Epsilon-Pact.zip",
 	"changelogURL":"https://raw.githubusercontent.com/mezzelo/Epsilon-Pact/main/changelog.txt"

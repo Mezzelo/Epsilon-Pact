@@ -3,7 +3,7 @@
   "hullId": "scarab",
   "displayName": "Escort",
   "goalVariant": false,
-  "fluxCapacitors": 10,
+  "fluxCapacitors": 12,
   "fluxVents": 10,
   "quality": 1,
   "permaMods": [],

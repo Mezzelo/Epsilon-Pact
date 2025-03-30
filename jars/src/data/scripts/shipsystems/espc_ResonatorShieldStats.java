@@ -11,7 +11,7 @@ import com.fs.starfarer.api.impl.combat.BaseShipSystemScript;
 public class espc_ResonatorShieldStats extends BaseShipSystemScript {
 
 	private static final float DAMAGE_RECEIVED_MULT = 2f;
-	private static final float BEAM_DAMAGE_RECEIVED_MULT = 0.25f;
+	private static final float BEAM_DAMAGE_RECEIVED_MULT = 0.5f;
 	private static final float HARDFLUX_DISSIPATION_RATE = 2.0f;
 	private static final float HARDFLUX_DISSIPATE_FRACTION = 0.85f;
 

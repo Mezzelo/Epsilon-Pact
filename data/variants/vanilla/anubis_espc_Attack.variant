@@ -1,0 +1,39 @@
+{
+    "displayName": "Attack",
+    "fluxCapacitors": 0,
+    "fluxVents": 26,
+    "goalVariant": true,
+    "hullId": "anubis",
+    "hullMods": [
+        "targetingunit",
+        "hardenedshieldemitter",
+        "stabilizedshieldemitter"
+    ],
+    "permaMods": [],
+    "sMods": [],
+    "variantId": "anubis_espc_Attack",
+    "weaponGroups": [
+        {
+            "autofire": false,
+            "mode": "ALTERNATING",
+            "weapons": {
+                "WS 003": "espc_aa",
+                "WS 004": "espc_aa"
+            }
+        },
+        {
+            "autofire": true,
+            "mode": "LINKED",
+            "weapons": {"WS 001": "tachyonlance"}
+        },
+        {
+            "autofire": true,
+            "mode": "LINKED",
+            "weapons": {
+                "WS 000": "guardian",
+                "WS 002": "guardian"
+            }
+        }
+    ],
+    "wings": ["xyphos_wing"]
+}

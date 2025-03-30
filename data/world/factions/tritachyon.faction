@@ -7,7 +7,7 @@
 	},
     "hullFrequency":{
         "hulls":{
-			"espc_songbird_tt":0.3,
+			"espc_songbird_tt":0.2,
 			"espc_observer_tt":0.3,
 			"espc_ember_c":0.2,
         },

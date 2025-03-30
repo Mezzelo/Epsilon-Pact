@@ -97,7 +97,7 @@ public class espc_ShieldwallStats extends BaseShipSystemScript {
 				}
 				
 				// effect is contingent on number of ships affected, so we'll have to iterate twice over.
-				shieldSizeBonusMult = Math.min(ARC_BONUS * shipTargs.size(), BONUS_MAX);
+				shieldSizeBonusMult = ARC_BONUS * shipTargs.size();
 				shieldEfficiencyBonusMult = Math.min(SHIELD_EFFICIENCY_BONUS * shipTargs.size(), BONUS_MAX);
 			}
 			if (state == State.IN)

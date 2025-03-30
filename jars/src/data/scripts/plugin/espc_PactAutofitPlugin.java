@@ -402,8 +402,8 @@ public class espc_PactAutofitPlugin extends BaseAutofitPlugin {
 		// prioritize hullmods with certain s-modded effects
 		for (int i = 0; i < mods.size(); i++) {
 			if (mods.get(i).getId().equals("extendedshieldemitter") ||
-				mods.get(i).getId().equals("magazines") ||
-				mods.get(i).getId().equals("auxiliary_fuel_tanks"))
+				// mods.get(i).getId().equals("auxiliary_fuel_tanks") ||
+				mods.get(i).getId().equals("magazines"))
 				mods.add(0, mods.remove(i));
 		}
 		

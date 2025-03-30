@@ -2,12 +2,13 @@ package data.scripts.shipsystems;
 
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.combat.*;
+import com.fs.starfarer.api.combat.EmpArcEntityAPI.EmpArcParams;
+import com.fs.starfarer.api.impl.campaign.ids.Tags;
 import com.fs.starfarer.api.impl.combat.BaseShipSystemScript;
 import com.fs.starfarer.api.util.IntervalUtil;
 
 import java.util.Iterator;
 import java.awt.Color;
-import org.lwjgl.util.vector.Vector2f;
 import com.fs.starfarer.api.util.Misc;
 
 import org.lazywizard.lazylib.MathUtils;
@@ -74,11 +75,14 @@ public class espc_BattlecryStats extends BaseShipSystemScript {
 				FLUX_RANGE_BASE * 2f));
 			
 			boolean didArc = false;
+			
 			while (shipGridIterator.hasNext()) {
 				ShipAPI currShip = (ShipAPI) shipGridIterator.next();
 				boolean setForArc = false;
 				boolean setForOverload = false;
-				if (currShip.isShuttlePod() || currShip == ship || currShip.isHulk() || !currShip.isAlive() || currShip.getMaxFlux() <= 0f
+				if (currShip.isShuttlePod() || currShip == ship || currShip.hasTag(Tags.VARIANT_FX_DRONE) ||
+					currShip.getMutableStats().getHullDamageTakenMult().getMult() <= 0f
+					|| currShip.isHulk() || !currShip.isAlive() || currShip.getMaxFlux() <= 0f
 					|| !MathUtils.isWithinRange(
 						currShip, ship.getLocation(), FLUX_RANGE_BASE - FLUX_RANGE_MAX_PENALTY * ship.getFluxLevel()
 					)
@@ -95,14 +99,18 @@ public class espc_BattlecryStats extends BaseShipSystemScript {
 					if (!currShip.getFluxTracker().isOverloaded()) {
 						setForOverload = currShip.getCurrFlux() + (fluxChange + hardFluxChange) * FLUX_PROJECT_MULT >
 							currShip.getMaxFlux();
+						float excess = currShip.getCurrFlux() + (fluxChange + hardFluxChange) - currShip.getMaxFlux();
+						currShip.getFluxTracker().increaseFlux(fluxChange * FLUX_PROJECT_MULT, false);
 						currShip.getFluxTracker().increaseFlux(hardFluxChange * FLUX_PROJECT_MULT, true);
-						if (setForOverload && !Float.isNaN(currShip.getFluxLevel()) && currShip.getFluxLevel() < 1f) {
-							// assuming we've fluxed them out with our own soft flux, just push them over the edge with a static
-							// proportion to give a set overload duration.
+						if (setForOverload && !Float.isNaN(currShip.getFluxLevel()) && 
+							currShip.getFluxLevel() < 1f &&
+							currShip.getCurrFlux() 	+ hardFluxChange * FLUX_PROJECT_MULT < currShip.getMaxFlux()) {
+							// if it would be soft flux that overloads the target, add it as hard flux.
+							// can potentially add a lot of hard flux that should be soft flux, but
+							// this method allows for proportional overload times
 							currShip.getFluxTracker().increaseFlux(currShip.getMaxFlux() - currShip.getCurrFlux(), false);
-							currShip.getFluxTracker().increaseFlux(currShip.getMaxFlux() * 0.025f, true);
-						} else {
-							currShip.getFluxTracker().increaseFlux(fluxChange * FLUX_PROJECT_MULT, false);
+							currShip.getFluxTracker().increaseFlux(
+								Math.min(excess, currShip.getMaxFlux() * 0.15f), true);
 						}
 					}
 					else {
@@ -111,7 +119,7 @@ public class espc_BattlecryStats extends BaseShipSystemScript {
 							currShip.getMaxFlux())
 						);
 						currShip.getFluxTracker().setHardFlux(
-							Math.min(currShip.getFluxTracker().getHardFlux() + (hardFluxChange) * FLUX_PROJECT_MULT,
+							Math.min(currShip.getFluxTracker().getHardFlux() + hardFluxChange * FLUX_PROJECT_MULT,
 							currShip.getMaxFlux())
 						);
 					}
@@ -134,13 +142,33 @@ public class espc_BattlecryStats extends BaseShipSystemScript {
 						Misc.random.nextFloat() > 0.7f - Math.min(0.4f, arcFlux / ship.getMaxFlux() * 6f)
 						) {
 						didArc = true;
-						EmpArcEntityAPI arc = combatEngine.spawnEmpArc(ship, new Vector2f(currShip.getLocation()), currShip, ship,
-							DamageType.ENERGY, 0f, 0f, FLUX_RANGE_BASE,
-							"system_emp_emitter_impact",
-							setForOverload ? 50f : Math.abs(arcFlux)/10f, 
-							new Color(240, 0, 255), new Color(185, 0, 255)
+						EmpArcParams params = new EmpArcParams();
+						params.segmentLengthMult = 8f;
+						params.zigZagReductionFactor = 0.15f;
+						params.fadeOutDist = 800f;
+						if (!setForOverload)
+							params.minFadeOutMult = 3f;
+						params.flickerRateMult = 0.7f;
+						if (!setForOverload)
+							params.movementDurOverride = Math.max(0.1f, 
+								Misc.getDistance(ship.getLocation(), currShip.getLocation()) / 5000f);
+						
+						EmpArcEntityAPI arc = combatEngine.spawnEmpArcVisual(
+							ship.getLocation(), ship, currShip.getLocation(), currShip,
+							(setForOverload && !currShip.isFighter()) ? 55f : Math.min(Math.abs(arcFlux)/10f, 35f), 
+							new Color(240, 0, 255), new Color(185, 0, 255),
+							params
 						);
-						arc.setSingleFlickerMode();
+						Global.getSoundPlayer().playSound(
+							"system_emp_emitter_impact",
+							0.8f + Misc.random.nextFloat() * 0.2f,
+							setForOverload ? 1.15f : 1f,
+							currShip.getLocation(),
+							currShip.getVelocity()
+						);
+						arc.setSingleFlickerMode(!setForOverload);
+						arc.setRenderGlowAtStart(setForOverload);
+						arc.setFadedOutAtStart(!setForOverload);
 					}
 				}
 				if (didArc)

@@ -75,7 +75,9 @@ public class espc_Underdog {
 				targ = targ.getParentStation();
 			if (targ.isFighter() || targ.getFleetMember() == null)
 				return null;
-			float diff = targ.getFleetMember().getUnmodifiedDeploymentPointsCost() - ship.getFleetMember().getUnmodifiedDeploymentPointsCost();
+			float diff = 
+				Math.max(targ.getFleetMember().getUnmodifiedDeploymentPointsCost(), targ.getFleetMember().getDeploymentPointsCost())
+				- Math.max(ship.getFleetMember().getUnmodifiedDeploymentPointsCost(), ship.getFleetMember().getDeploymentPointsCost());
 			if (diff <= 0f)
 				return null;
 			diff *= DAMAGE_BONUS_PER_DP;
@@ -113,7 +115,9 @@ public class espc_Underdog {
 				source = source.getParentStation();
 			if (source.isFighter() || source.getFleetMember() == null)
 				return null;
-			float diff = source.getFleetMember().getUnmodifiedDeploymentPointsCost() - ship.getFleetMember().getUnmodifiedDeploymentPointsCost();
+			float diff = 
+				Math.max(source.getFleetMember().getUnmodifiedDeploymentPointsCost(), source.getFleetMember().getDeploymentPointsCost())
+				- Math.max(ship.getFleetMember().getUnmodifiedDeploymentPointsCost(), ship.getFleetMember().getDeploymentPointsCost());
 			if (diff <= 0f)
 				return null;
 			diff *= DAMAGE_REDUCTION_PER_DP;
@@ -154,8 +158,10 @@ public class espc_Underdog {
 				return null;
 			
 			if (source.isFighter() && source.getWing() != null && source.getWing().getLeader() != null && source.getWing().getSourceShip().getFleetMember() != null) {
-				float diff = source.getWing().getSourceShip().getFleetMember().getUnmodifiedDeploymentPointsCost() - 
-					ship.getFleetMember().getUnmodifiedDeploymentPointsCost();
+				float diff =
+					Math.max(source.getWing().getSourceShip().getFleetMember().getUnmodifiedDeploymentPointsCost(), 
+						source.getWing().getSourceShip().getFleetMember().getDeploymentPointsCost())
+					- Math.max(ship.getFleetMember().getUnmodifiedDeploymentPointsCost(), ship.getFleetMember().getDeploymentPointsCost());
 				if (diff <= 0f)
 					return null;
 				diff *= DAMAGE_REDUCTION_PER_DP_CARRIER;
@@ -183,11 +189,14 @@ public class espc_Underdog {
 			TooltipMakerAPI info, float width) {
 		
 			init(stats, skill);
-			info.addPara("+%s damage dealt per base DP deficit between ship and target",
+			info.addPara("+%s damage dealt per DP deficit between ship and target",
 				0f, hc, hc, (int)DAMAGE_BONUS_PER_DP + "%"
 			);
-			info.addPara("-%s damage taken per base DP deficit between ship and attacker, up to %s reduction",
+			info.addPara("-%s damage taken per DP deficit between ship and attacker, up to %s reduction",
 				0f, hc, hc, (int)DAMAGE_REDUCTION_PER_DP + "%", (int)DAMAGE_REDUCTION_CAP + "%"
+			);
+			info.addPara(indent + "Based on base or modified DP cost for each ship, whichever is highest.",
+				0f, tc, hc
 			);
 			info.addPara(indent + "Damage bonus and reduction past %s is half as effective",
 				0f, tc, hc, (int)DAMAGE_REDUCTION_SOFT_THRESHOLD + "%"
@@ -229,6 +238,9 @@ public class espc_Underdog {
 				0f, stats.getSkillLevel(skill.getId()) > 1 ? hc : dhc, stats.getSkillLevel(skill.getId()) > 1? hc : dhc,
 				DAMAGE_REDUCTION_PER_DP_CARRIER + "%",
 				(int)DAMAGE_REDUCTION_CARRIER_CAP + "%"
+			);
+			info.addPara(indent + "Based on base or modified DP cost for each ship, whichever is highest.",
+				0f, stats.getSkillLevel(skill.getId()) > 1 ? tc : dtc, stats.getSkillLevel(skill.getId()) > 1? hc : dhc
 			);
 			info.addPara(indent + "Damage reduction past %s is half as effective",
 				0f, stats.getSkillLevel(skill.getId()) > 1 ? tc : dtc, stats.getSkillLevel(skill.getId()) > 1? hc : dhc,

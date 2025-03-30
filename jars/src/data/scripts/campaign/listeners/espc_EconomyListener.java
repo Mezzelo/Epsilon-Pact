@@ -18,6 +18,11 @@ import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.*;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.characters.PersonAPI;
+import com.fs.starfarer.api.impl.campaign.CoreReputationPlugin.CustomRepImpact;
+import com.fs.starfarer.api.impl.campaign.CoreReputationPlugin.RepActionEnvelope;
+import com.fs.starfarer.api.impl.campaign.CoreReputationPlugin.RepActions;
+import com.fs.starfarer.api.impl.campaign.intel.contacts.ContactIntel;
+import com.fs.starfarer.api.impl.campaign.intel.contacts.ContactIntel.ContactState;
 import com.fs.starfarer.api.util.Misc;
 import com.fs.starfarer.api.util.WeightedRandomPicker;
 
@@ -49,23 +54,34 @@ public class espc_EconomyListener extends BaseCampaignEventListener {
 		if (Global.getSector().getClock().getMonth() % 6 == 0)
 			espc_NexusConstruction.monthlyConstruction(); */
 		
-		if (nexRandom)
-			return;
-		
 		if (!Global.getSector().getMemoryWithoutUpdate().getBoolean("$espcAnyiwoCores") &&
 			Global.getSector().getMemoryWithoutUpdate().getInt("$espcBetaCores") > 1)
 			Global.getSector().getMemoryWithoutUpdate().set("$espcAnyiwoCores", true);
 		
 		PersonAPI isabelle = Global.getSector().getImportantPeople().getPerson("espc_isabelle");
-		if (isabelle == null)
-			return;
 		
-		// isabelle.getMarket().getCommDirectory().removePerson(isabelle);
-		// isabelle.getMarket().removePerson(isabelle);
-		
+		String aiCrimes = "";
+		String playerPactMarket = "";
+		boolean tribesGone = false;
+		int pactMarketCount = 0;
 		WeightedRandomPicker<MarketAPI> marketPicker = new WeightedRandomPicker<MarketAPI>();
 		for (MarketAPI market : Global.getSector().getEconomy().getMarketsCopy()) {
+			if (market.isPlayerOwned() && market.hasIndustry("IndEvo_SupCom"))
+				aiCrimes = market.getName();
+			
+			if (market.getFactionId().equals("epsilpac"))
+				pactMarketCount++;
+			
+			if (nexRandom)
+				continue;
+			
 			if (market.getId().contains("espc")) {
+				if (market.isPlayerOwned()) {
+					playerPactMarket = market.getId();
+					if (market.getId().equals("espc_tocquiera_market") && !market.hasIndustry("espc_enclaves")) {
+						tribesGone = true;
+					}
+				}
 				if (market.hasCondition("espc_ai_population") && !market.getFactionId().equals("epsilpac")) {
 					market.removeCondition("espc_ai_population");
 					market.addCondition("espc_rogue_ai_population");
@@ -81,16 +97,27 @@ public class espc_EconomyListener extends BaseCampaignEventListener {
 							!market.getCommDirectory().getEntryForPerson("espc_gauss").isHidden()) {
 							market.getCommDirectory().getEntryForPerson("espc_gauss").setHidden(true);
 						}
+						if (market.getCommDirectory().getEntryForPerson("espc_anyiwo") != null &&
+							!market.getCommDirectory().getEntryForPerson("espc_anyiwo").isHidden()) {
+							market.getCommDirectory().getEntryForPerson("espc_anyiwo").setHidden(true);
+							PersonAPI anyiwo = Global.getSector().getImportantPeople().getPerson("espc_anyiwo");
+							if (anyiwo != null && ContactIntel.playerHasContact(anyiwo, false) &&
+								ContactIntel.getContactIntel(anyiwo) != null &&
+								!ContactIntel.getContactIntel(anyiwo).getState().equals(ContactState.LOST_CONTACT)) {
+								ContactIntel.getContactIntel(anyiwo).setState(ContactState.LOST_CONTACT);
+							}
+						}
 					} else {
 						if (!market.getAdmin().getId().equals("espc_anlo") && 
 							Global.getSector().getImportantPeople().getPerson("espc_anlo") != null)
 							market.setAdmin(Global.getSector().getImportantPeople().getPerson("espc_anlo"));
 						if (market.getCommDirectory().getEntryForPerson("espc_gauss") != null &&
-							market.getCommDirectory().getEntryForPerson("espc_gauss").isHidden())
+							market.getCommDirectory().getEntryForPerson("espc_gauss").isHidden() &&
+							Global.getSector().getMemoryWithoutUpdate().getBoolean("$espcCoresRedirected"))
 							market.getCommDirectory().getEntryForPerson("espc_gauss").setHidden(false);
 					}
 				} 
-				if (market.getFactionId().equals("epsilpac") && market != isabelle.getMarket()) {
+				if (isabelle != null && market.getFactionId().equals("epsilpac") && market != isabelle.getMarket()) {
 					marketPicker.add(market);
 				}
 			} 
@@ -105,6 +132,45 @@ public class espc_EconomyListener extends BaseCampaignEventListener {
 				}
 			} */
 		}
+		if (pactMarketCount > 0) {
+			// normally wouldn't care to do this (no transferring ownership in vanilla), but faction is pacifist in nex otherwise
+			if (tribesGone &&
+				Global.getSector().getFaction("epsilpac") != null &&
+				!Global.getSector().getFaction("epsilpac").getRelToPlayer().isAtBest(RepLevel.VENGEFUL)) {
+				CustomRepImpact impact = new CustomRepImpact();
+				impact.limit = RepLevel.VENGEFUL;
+				impact.delta = -0.7f;
+				Global.getSector().adjustPlayerReputation(
+					new RepActionEnvelope(RepActions.CUSTOM, 
+					impact, null, null, false, true, "Change caused due to destruction of Tribal Enclaves on Tocquiera."),
+					"epsilpac");
+			} else if (!playerPactMarket.equals("") &&
+					Global.getSector().getFaction("epsilpac") != null &&
+					!Global.getSector().getFaction("epsilpac").getRelToPlayer().isAtBest(RepLevel.VENGEFUL)) {
+					CustomRepImpact impact = new CustomRepImpact();
+					impact.limit = RepLevel.HOSTILE;
+					impact.delta = -0.35f;
+					Global.getSector().adjustPlayerReputation(
+						new RepActionEnvelope(RepActions.CUSTOM, 
+						impact, null, null, false, true, "Change caused due to ownership of a former Pact market, " + pactMarketCount + "."),
+						"epsilpac");
+				}
+			if (!aiCrimes.equals("") &&
+				Global.getSector().getFaction("epsilpac") != null &&
+				!Global.getSector().getFaction("epsilpac").getRelToPlayer().isAtBest(RepLevel.VENGEFUL)) {
+				CustomRepImpact impact = new CustomRepImpact();
+				impact.limit = RepLevel.HOSTILE;
+				impact.delta = -0.35f;
+				Global.getSector().adjustPlayerReputation(
+					new RepActionEnvelope(RepActions.CUSTOM, 
+					impact, null, null, false, true, "Change caused due to having a Supercomputer on " + aiCrimes + "."),
+					"epsilpac");
+			}
+		}
+
+		// isabelle relocation
+		if (nexRandom || isabelle == null)
+			return;
 		
 		if (marketPicker.isEmpty()) {
 			if (!isabelle.getMarket().getCommDirectory().getEntryForPerson(isabelle).isHidden())

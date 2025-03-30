@@ -52,6 +52,7 @@ public class espc_AlternatorStats extends BaseShipSystemScript {
 		if (!initialized) {
 			initialized = true;
 			ship = (ShipAPI) stats.getEntity();
+			ship.setCustomData("espc_alternatorRef", this);
 			for (WeaponAPI weapon : ship.getAllWeapons()) {
 				if (weapon.getType() == WeaponType.BALLISTIC) {
 					ballisticDPS += weapon.getDerivedStats().getSustainedDps() 

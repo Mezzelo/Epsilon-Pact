@@ -3,8 +3,8 @@
   "hullId": "radiant",
   "displayName": "Assault",
   "goalVariant": false,
-  "fluxCapacitors": 42,
-  "fluxVents": 42,
+  "fluxCapacitors": 44,
+  "fluxVents": 44,
   "quality": 1,
   "permaMods": [],
   "hullMods": [

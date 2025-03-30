@@ -8,7 +8,7 @@
     "hullFrequency":{
         "hulls":{
 			"espc_militia_o":0.4,
-			"espc_ember_c":0.4,
+			"espc_ember_c":0.3,
         },
     },
     "knownShips":{
@@ -17,4 +17,7 @@
 			"espc_ember_c",
         ],
     },
+	"shipSellFrequency":{
+		"espc_ember_c":3,
+	},
 }

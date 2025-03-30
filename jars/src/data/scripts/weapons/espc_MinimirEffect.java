@@ -13,7 +13,6 @@ public class espc_MinimirEffect implements OnFireEffectPlugin {
 	
 	boolean hasListener = false;
 	
-	// no way to only have an init without an every frame effect, as far as i can tell.
     @Override
     public void onFire(DamagingProjectileAPI proj, WeaponAPI weapon, CombatEngineAPI engine) {
 		

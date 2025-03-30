@@ -6,6 +6,7 @@ import com.fs.starfarer.api.campaign.FactionSpecAPI;
 import com.fs.starfarer.api.characters.FullName.Gender;
 import com.fs.starfarer.api.fleet.FleetMemberAPI;
 import com.fs.starfarer.api.fleet.FleetMemberType;
+import com.fs.starfarer.api.impl.campaign.ids.Commodities;
 import com.fs.starfarer.api.impl.campaign.ids.Factions;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.util.Misc;
@@ -58,6 +59,9 @@ public class espc_RealHumanBeingBackground extends BaseCharacterBackground {
         Global.getSector().getPlayerFleet().getCargo().addItems(
         	CargoAPI.CargoItemType.RESOURCES, "espc_meCore", 1
         );
+        Global.getSector().getPlayerFleet().getCargo().addItems(
+            CargoAPI.CargoItemType.RESOURCES, Commodities.SUPPLIES, 100
+        );
         
         Global.getSector().getPlayerFaction().setRelationship(Factions.DERELICT, 0.25f);
         Global.getSector().getPlayerFaction().setRelationship(Factions.REMNANTS, 0.25f);
@@ -66,6 +70,7 @@ public class espc_RealHumanBeingBackground extends BaseCharacterBackground {
 			"glimmer_Assault");
 		ship.getCrewComposition().setCrew(100000);
 		ship.getRepairTracker().setCR(0.7f);
+		Global.getSector().getPlayerFleet().getFlagship().getRepairTracker().setCR(0.7f);
 		Global.getSector().getPlayerFleet().getFleetData().addFleetMember(ship);
         
         if (espc_ModPlugin.hasLuna() && !LunaSettings.getBoolean("epsilonpact", "espc_AIBGPortraits")) {
@@ -130,26 +135,20 @@ public class espc_RealHumanBeingBackground extends BaseCharacterBackground {
         if (expanded && isUnlocked()) {
             tooltip.addSpacer(10f);
             tooltip.addPara(
-               	"Your maximum officer level is increased by 1. However, your base maximum officer count is reduced to 0.",
-               	0f,
-               	Misc.getTextColor(), 
-               	Misc.getNegativeHighlightColor(),
-               	"reduced to 0");
-            tooltip.addPara(
-            	"Officers are no longer available to recruit from promotion or comms directories, except on %s. " +
-            	"Officers hired this way decrease the initial penalty by 1 each.", 
-                0f,
-                Misc.getTextColor(), 
-                Misc.getHighlightColor(),
-                "Pact markets");
+            	"You can now commandeer automated ships, but %s. "
+            	+ "Your base maximum officer count is %s.",
+            	0f,
+            	Misc.getTextColor(), 
+            	Misc.getNegativeHighlightColor(),
+            	"any non-automated ship you commandeer will be reduced to 0 CR, except via Neural Interface", "reduced to 0");
             tooltip.addSpacer(10f);
             tooltip.addPara(
-            	"It is possible to learn the Automated Ships skill itself, effectively doubling your maximum automated ship"
-            	+ " points.", 
+            	"You start with %s automated ship points and the ability to recover automated ships. "
+            	+ "It is possible to learn the %s skill itself, gaining an additional 120 points.",
             	0f,
             	Misc.getTextColor(), 
             	Misc.getHighlightColor(),
-            	"Automated Ships");
+            	"360", "Automated Ships");
         }
     }
     
@@ -158,26 +157,20 @@ public class espc_RealHumanBeingBackground extends BaseCharacterBackground {
         super.addTooltipForIntel(tooltip, factionSpec, factionConfig);
         tooltip.addSpacer(10f);
         tooltip.addPara(
-            "Your maximum officer level is increased by 1. However, your base maximum officer count is reduced to 0.",
+        	"You can now commandeer automated ships, but %s. "
+        	+ "Your base maximum officer count is %s.",
         	0f,
         	Misc.getTextColor(), 
         	Misc.getNegativeHighlightColor(),
-        	"reduced to 0");
-        tooltip.addPara(
-        	"Officers are no longer available to recruit from promotion or comms directories, except on %s. " +
-        	"Officers hired this way decrease the initial penalty by 1 each.", 
-        	0f,
-        	Misc.getTextColor(), 
-        	Misc.getHighlightColor(),
-        	"Pact markets");
+        	"any non-automated ship you commandeer will be reduced to 0 CR, except via Neural Interface", "reduced to 0");
         tooltip.addSpacer(10f);
         tooltip.addPara(
-        	"It is possible to learn the Automated Ships skill itself, effectively doubling your maximum automated ship"
-        	+ " points.", 
+        	"You start with %s automated ship points and the ability to recover automated ships. "
+        	+ "It is possible to learn the %s skill itself, gaining an additional 120 points.",
         	0f,
         	Misc.getTextColor(), 
         	Misc.getHighlightColor(),
-        	"Automated Ships");
+        	"360", "Automated Ships");
     }
 
 }

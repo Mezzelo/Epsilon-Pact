@@ -14,12 +14,11 @@ import com.fs.starfarer.api.characters.MutableCharacterStatsAPI.SkillLevelAPI;
 import com.fs.starfarer.api.characters.PersonAPI;
 import com.fs.starfarer.api.combat.MutableStat.StatMod;
 import com.fs.starfarer.api.impl.campaign.events.OfficerManagerEvent;
-import com.fs.starfarer.api.impl.campaign.ids.Factions;
 import com.fs.starfarer.api.impl.campaign.ids.Submarkets;
 import com.fs.starfarer.api.util.Misc;
 
 import data.scripts.espc_ModPlugin;
-import data.scripts.campaign.skills.espc_RealHumanBeingBg_Skill;
+import data.scripts.campaign.skills.espc_RealHumbleBeingBg_Skill;
 import exerelin.campaign.backgrounds.CharacterBackgroundUtils;
 
 public class espc_ColonyInteractionListener implements ColonyInteractionListener {
@@ -41,21 +40,22 @@ public class espc_ColonyInteractionListener implements ColonyInteractionListener
 		boolean isMeCore = false;
 		if (espc_ModPlugin.hasNex() && Global.getSector().getPlayerPerson() != null &&
 			Global.getSector().getPlayerPerson().getStats() != null)
-			isMeCore = Global.getSector().getPlayerPerson().getStats().getSkillLevel("espc_realHumanBeingBg_skill") > 0f;
+			isMeCore = Global.getSector().getPlayerPerson().getStats().getSkillLevel("espc_realHumbleBeingBg_skill") > 0f;
 		
 		if (market.getFactionId().equals("epsilpac") || isMeCore) {
 			int pactOfficerCount = 0;
 			
 			if (market.getFactionId().equals("epsilpac")) {
+				
 				if (market.hasSubmarket(Submarkets.SUBMARKET_OPEN)) {
 		        	market.removeSubmarket(Submarkets.SUBMARKET_OPEN);
 					market.addSubmarket("espc_open_market");
-				}
+				}/*
 				if (market.hasSubmarket(Submarkets.SUBMARKET_BLACK)) {
 		        	market.removeSubmarket(Submarkets.SUBMARKET_BLACK);
 					market.addSubmarket("espc_black_market");
 					market.getSubmarket("espc_black_market").setFaction(Global.getSector().getFaction(Factions.PIRATES));
-				}
+				}*/
 				
 				/* can't get this to proc soon enough without a more regular listener, which i don't really care to do.
 				it's your story point to waste.
@@ -100,7 +100,7 @@ public class espc_ColonyInteractionListener implements ColonyInteractionListener
 			        		int max = skillsListCopy.length;
 			        		List<SkillLevelAPI> skills = person.getStats().getSkillsCopy();
 			        		for (SkillLevelAPI skill : skills) {
-			        			if (!skill.getSkill().getId().contains("espc_realHumanBeingBg") && skill.getLevel() > 0 &&
+			        			if (!skill.getSkill().getId().contains("espc") && skill.getLevel() > 0 &&
 			        				skill.getSkill().isCombatOfficerSkill()) {
 									int rand = Misc.random.nextInt(max);
 			        				person.getStats().setSkillLevel(skillsListCopy[rand], skill.getLevel());
@@ -121,13 +121,13 @@ public class espc_ColonyInteractionListener implements ColonyInteractionListener
 	        	if (pactOfficerCount > 0) {
 	        		HashMap<String, StatMod> penalty = Global.getSector().getPlayerPerson().getStats().getOfficerNumber().getFlatMods();
 	        		for (String key : penalty.keySet()) {
-	        			if (key.contains("espc_realHumanBeingBg") && penalty.get(key).getValue() < 0f) {
+	        			if (key.contains("espc_realHumbleBeingBg") && penalty.get(key).getValue() < 0f) {
 	    	        		Global.getSector().getPlayerPerson().getStats().getOfficerNumber().modifyFlat("espc_aibgmaxmod", 
 	    	        			Math.min(pactOfficerCount, -penalty.get(key).getValue()));
 	        				Global.getSector().getPlayerPerson().getStats().getOfficerNumber().modifyFlat(
     	        				key,
-    	        				Math.min(espc_RealHumanBeingBg_Skill.OFFICER_CAP_PENALTY + 
-    	        					espc_RealHumanBeingBg_Skill.RecomputeOfficerCap(Global.getSector().getPlayerPerson().getStats()), 0)
+    	        				Math.min(espc_RealHumbleBeingBg_Skill.OFFICER_CAP_PENALTY + 
+    	        				espc_RealHumbleBeingBg_Skill.RecomputeOfficerCap(Global.getSector().getPlayerPerson().getStats()), 0)
     	        			);
     	    	        	break;
 	        			}
@@ -149,21 +149,32 @@ public class espc_ColonyInteractionListener implements ColonyInteractionListener
 				    );
 				}
 			}
+		} else if (!market.getFactionId().equals("epsilpac")) {
+			if (market.hasSubmarket("espc_open_market")) {
+				market.removeSubmarket("espc_open_market");
+	        	market.addSubmarket(Submarkets.SUBMARKET_OPEN);
+			}/*
+			if (market.hasSubmarket("espc_black_market")) {
+				market.removeSubmarket("espc_black_market");
+	        	market.addSubmarket(Submarkets.SUBMARKET_BLACK);
+				market.getSubmarket(Submarkets.SUBMARKET_BLACK).setFaction(Global.getSector().getFaction(Factions.PIRATES));
+			}*/
 		}
 	}
 
 	@Override
 	public void reportPlayerClosedMarket(MarketAPI market) {
-        if (espc_ModPlugin.hasNex() && CharacterBackgroundUtils.isBackgroundActive("espc_realHumanBeing")) {
+        if (espc_ModPlugin.hasNex() && 
+        	CharacterBackgroundUtils.isBackgroundActive("espc_realHumbleBeing")) {
         	Global.getSector().getPlayerPerson().getStats().getOfficerNumber().unmodify("espc_aibgmaxmod");
         	// could call refreshCharacterStatsEffects but i'm just not confident enough to do that lol
     		HashMap<String, StatMod> penalty = Global.getSector().getPlayerPerson().getStats().getOfficerNumber().getFlatMods();
     		for (String key : penalty.keySet()) {
-    			if (key.contains("espc_realHumanBeingBg")) {
+    			if (key.contains("espc_realHumbleBeing")) {
     				Global.getSector().getPlayerPerson().getStats().getOfficerNumber().modifyFlat(
     					key,
-    					Math.min(espc_RealHumanBeingBg_Skill.OFFICER_CAP_PENALTY + 
-    						espc_RealHumanBeingBg_Skill.RecomputeOfficerCap(Global.getSector().getPlayerPerson().getStats()), 0)
+    					Math.min(espc_RealHumbleBeingBg_Skill.OFFICER_CAP_PENALTY + 
+    						espc_RealHumbleBeingBg_Skill.RecomputeOfficerCap(Global.getSector().getPlayerPerson().getStats()), 0)
     				);
 	        		break;
     			}
@@ -177,7 +188,8 @@ public class espc_ColonyInteractionListener implements ColonyInteractionListener
 
 	@Override
 	public void reportPlayerMarketTransaction(PlayerMarketTransaction transaction) {
-		if (espc_ModPlugin.hasNex() && CharacterBackgroundUtils.isBackgroundActive("espc_realHumanBeing") &&
+		if (espc_ModPlugin.hasNex() && (CharacterBackgroundUtils.isBackgroundActive("espc_realHumanBeing") ||
+    		CharacterBackgroundUtils.isBackgroundActive("espc_realHumbleBeing")) &&
 			transaction.getCreditValue() != 0f) {
 			for (CargoStackAPI stack : transaction.getSold().getStacksCopy()) {
 				CommoditySpecAPI spec = stack.getResourceIfResource();

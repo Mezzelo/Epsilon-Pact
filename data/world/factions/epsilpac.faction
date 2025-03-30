@@ -49,6 +49,9 @@
 		"sunder_espc_Support":2,
 		"sunder_espc_Strike":1,
 		
+		"anubis_espc_Assault":5,
+		"anubis_espc_Attack":5,
+		
 		"espc_rondel_Standard":0,
 		"espc_rondel_Assault":3,
 		"espc_rondel_Anti_Shield":7,
@@ -91,6 +94,8 @@
 			"hammerhead":0.6,
 			"sunder":0.6,
 			
+			"anubis":0.25,
+			
 			"espc_picket":0.5,
 			"espc_sentry":0.7,
 			"espc_warden":0.5,
@@ -123,6 +128,7 @@
 			"sunder",
 			
 			"apogee",
+			"anubis",
 
 			"dram",
 			"mule",
@@ -158,6 +164,7 @@
 			"sunder",
 			
 			# "apogee",
+			"anubis",
 			# "venture",
 			
 			# "dram",
@@ -199,6 +206,42 @@
     "priorityShips":{
         "tags":[],
         "hulls":[
+			"lasher",
+			"omen",
+			"wolf",
+			
+			"hammerhead",
+			"sunder",
+			
+			"anubis",
+			
+			"espc_flagbearer",
+			"espc_rondel",
+			"espc_jackalope",
+			"espc_songbird",
+			"espc_opossum",
+			"espc_militia",
+			"espc_ember",
+			"espc_chorale",
+			"espc_observer",
+			"espc_pilgrim",
+			"espc_amanuensis",
+			
+			"espc_picket",
+			"espc_sentry",
+			"espc_warden",
+			"espc_bastillon",
+			"espc_berserker",
+			"espc_rampart",
+			
+			"glimmer",
+			"lumen",
+			"fulgent",
+			"scintilla",
+			"brilliant",
+			"apex",
+			"nova",
+			"radiant",
         ],
     },
 
@@ -329,6 +372,45 @@
 		],
     },
 
+	"shipSellFrequency":{
+	
+		"lasher":5,
+		"omen":5,
+		"wolf":5,
+			
+		"hammerhead":5,
+		"sunder":5,
+			
+		"anubis":1,
+			
+		"espc_flagbearer":4,
+		"espc_rondel":10,
+		"espc_jackalope":10,
+		"espc_songbird":4,
+		"espc_opossum":10,
+		"espc_militia":4,
+		"espc_ember":4,
+		"espc_chorale":10,
+		"espc_observer":10,
+		"espc_pilgrim":10,
+		"espc_amanuensis":2,
+		
+		"espc_picket":0,
+		"espc_sentry":0,
+		"espc_warden":0,
+		"espc_bastillon":0,
+		"espc_berserker":0,
+		"espc_rampart":0,
+		
+		"glimmer":0,
+		"lumen":0,
+		"fulgent":0,
+		"scintilla":0,
+		"brilliant":0,
+		"apex":0,
+		"nova":0,
+		"radiant":0,
+	},
 	"weaponSellFrequency":{
 		"vulcan":3,
 		# "lightmg":3,
@@ -560,6 +642,11 @@
             "canBombard":false,
             "territorial":false,
         },
+		"simulatorData":{
+			"showInSimulator":true,
+			"standardAICores":true,
+			"includeCivShipsWithFaction":true,
+		},
     },
 
     "fleetTypeNames":{

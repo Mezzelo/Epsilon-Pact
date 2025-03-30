@@ -15,10 +15,10 @@ import com.fs.starfarer.api.combat.ShipAIConfig;
 import com.fs.starfarer.api.combat.ShipAIPlugin;
 import com.fs.starfarer.api.combat.ShipAPI;
 import com.fs.starfarer.api.fleet.FleetMemberAPI;
-import com.fs.starfarer.api.impl.campaign.enc.EPEncounterCreator;
 import com.fs.starfarer.api.impl.campaign.enc.EncounterManager;
 import com.fs.starfarer.api.impl.campaign.ids.Personalities;
 import com.fs.starfarer.api.impl.campaign.shared.SharedData;
+import com.fs.starfarer.api.impl.codex.CodexDataV2;
 import com.fs.starfarer.api.util.Misc;
 import com.thoughtworks.xstream.XStream;
 
@@ -85,6 +85,36 @@ public class espc_ModPlugin extends BaseModPlugin {
         }
 
     }
+
+	@Override
+	public void onAboutToLinkCodexEntries() {
+    	CodexDataV2.makeRelated(CodexDataV2.getWeaponEntryId("espc_amflamer"),
+    		CodexDataV2.getWeaponEntryId("espc_amflamersolo"));
+    	CodexDataV2.makeRelated(CodexDataV2.getWeaponEntryId("espc_remdriver"),
+        		CodexDataV2.getWeaponEntryId("espc_remmortar"));
+    	CodexDataV2.makeRelated(CodexDataV2.getWeaponEntryId("espc_as"),
+    		CodexDataV2.getWeaponEntryId("espc_aa"));
+    	CodexDataV2.makeRelated(CodexDataV2.getShipEntryId("espc_ember"),
+        		CodexDataV2.getWeaponEntryId("espc_amflamer"));
+    	CodexDataV2.makeRelated(CodexDataV2.getShipEntryId("picket"),
+    		CodexDataV2.getShipEntryId("espc_picket"));
+    	CodexDataV2.makeRelated(CodexDataV2.getShipEntryId("sentry"),
+    		CodexDataV2.getShipEntryId("espc_sentry"));
+    	CodexDataV2.makeRelated(CodexDataV2.getShipEntryId("warden"),
+    		CodexDataV2.getShipEntryId("espc_warden"));
+    	CodexDataV2.makeRelated(CodexDataV2.getShipEntryId("bastillon"),
+    		CodexDataV2.getShipEntryId("espc_bastillon"));
+    	CodexDataV2.makeRelated(CodexDataV2.getShipEntryId("berserker"),
+    		CodexDataV2.getShipEntryId("espc_berserker"));
+    	CodexDataV2.makeRelated(CodexDataV2.getShipEntryId("rampart"),
+    		CodexDataV2.getShipEntryId("espc_rampart"));
+    	CodexDataV2.makeRelated(CodexDataV2.getFighterEntryId("borer_wing"),
+    		CodexDataV2.getFighterEntryId("espc_borer_wing"));
+    	CodexDataV2.makeRelated(CodexDataV2.getShipEntryId("espc_bastillon"),
+        	CodexDataV2.getHullmodEntryId("pointdefenseai"));
+    	
+	}
+	
 	@Override
 	public void configureXStream(XStream x) {
 		super.configureXStream(x);
@@ -144,7 +174,9 @@ public class espc_ModPlugin extends BaseModPlugin {
 		if (!Global.getSector().getListenerManager().hasListenerOfClass(espc_ColonyInteractionListener.class))
 			Global.getSector().getListenerManager().addListener(new espc_ColonyInteractionListener());
 
-		if (hasNex && CharacterBackgroundUtils.isBackgroundActive("espc_realHumanBeing")) {
+		if (hasNex && 
+			(CharacterBackgroundUtils.isBackgroundActive("espc_realHumanBeing") ||
+			CharacterBackgroundUtils.isBackgroundActive("espc_realHumbleBeing"))) {
 			Global.getSector().registerPlugin(new espc_CampaignPlugin());
 		}
 	}
@@ -169,8 +201,9 @@ public class espc_ModPlugin extends BaseModPlugin {
         if (ship.getHullSpec().getBaseHullId().equals("espc_chorale")) {
             ShipAIConfig config = new ShipAIConfig();
             // i am so tired of fiddling with this game's wonky ass black box ai.
-            if (ship.getCaptain() == null || ship.getCaptain() != null && ship.getCaptain().getNameString().equals(""))
+            if (ship.getCaptain() == null || ship.getCaptain() != null && ship.getCaptain().getNameString().equals("")) {
             	config.personalityOverride = Personalities.AGGRESSIVE;
+            }
             config.turnToFaceWithUndamagedArmor = false;
             config.alwaysStrafeOffensively = true;
             return new PluginPick<ShipAIPlugin>(Global.getSettings().createDefaultShipAI(ship, config), PickPriority.MOD_SET);

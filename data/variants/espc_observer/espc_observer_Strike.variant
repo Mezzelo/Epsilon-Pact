@@ -3,7 +3,7 @@
   "hullId": "espc_observer",
   "displayName": "Strike",
   "goalVariant": true,
-  "fluxCapacitors": 23,
+  "fluxCapacitors": 27,
   "fluxVents": 30,
   "quality": 1,
   "permaMods": [],

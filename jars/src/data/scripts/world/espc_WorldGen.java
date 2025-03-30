@@ -114,6 +114,7 @@ public class espc_WorldGen implements SectorGeneratorPlugin {
         faction.setRelationship("sylphon", 0.05f);
         faction.setRelationship("uaf", -0.2f);
         faction.setRelationship("vic", -0.15f);
+        faction.setRelationship("vri", -0.1f);
         faction.setRelationship("unitedpamed", 0.0f);
         faction.setRelationship("xhanempire", -0.6f);
     }

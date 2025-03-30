@@ -3,7 +3,7 @@
   "hullId": "apex",
   "displayName": "Strike",
   "goalVariant": false,
-    "fluxCapacitors": 9,
+    "fluxCapacitors": 11,
     "fluxVents": 30,
   "quality": 0,
   "permaMods": [],

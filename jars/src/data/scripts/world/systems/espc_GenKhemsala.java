@@ -44,7 +44,7 @@ public class espc_GenKhemsala implements SectorGeneratorPlugin
         SectorEntityToken khemsala_commRelay = system.addCustomEntity(
                 "espc_khemsala_comm",
                 "Khemsala Relay",
-                Entities.COMM_RELAY,
+                Entities.COMM_RELAY_MAKESHIFT,
                 "epsilpac"
         );
         khemsala_commRelay.setCircularOrbit(systemStar, 20f, 4800f, 270f);
@@ -65,21 +65,22 @@ public class espc_GenKhemsala implements SectorGeneratorPlugin
         		Conditions.ORGANICS_ABUNDANT,
         		Conditions.ORE_ABUNDANT,
         		Conditions.RARE_ORE_MODERATE,
+        		Conditions.DECIVILIZED_SUBPOP,
         	},
         	new String[][] {
         		{Industries.POPULATION},
         		{Industries.SPACEPORT},
         		{Industries.WAYSTATION},
-        		{Industries.BATTLESTATION_HIGH},
-        		{Industries.MILITARYBASE},
+        		{Industries.STARFORTRESS_HIGH},
+        		{Industries.HIGHCOMMAND},
         		{Industries.TECHMINING},
         		{"commerce"},
         		{"espc_enclaves"},
         	},
         	new String[] {
-        		"espc_open_market",
-        		// "espc_generic_military",
-        		"espc_black_market",
+               	"espc_open_market",
+                Submarkets.GENERIC_MILITARY,
+                Submarkets.SUBMARKET_BLACK,
         		Submarkets.SUBMARKET_STORAGE
         	}
         );

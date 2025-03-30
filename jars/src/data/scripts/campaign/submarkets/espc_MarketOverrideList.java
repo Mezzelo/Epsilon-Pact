@@ -28,7 +28,7 @@ public class espc_MarketOverrideList {
 		"apogee",
 	};
 	
-	public static float overrideChance = 0.9f;
+	public static float overrideChance = 0.8f;
 	
 	public static boolean isOverride(String hullId) {
 		for (int i = 0; i < overrideList.length; i++) {

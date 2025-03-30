@@ -42,7 +42,7 @@ public class espc_DancingSteps {
 	public static float HOSTILE_RANGE = 350f;
 	public static float SHIELD_RAISE_BONUS = 75f;
 	public static float ARMOR_DAMAGE_PENALTY = 20f;
-	public static float FIGHTER_DAMAGE_REDUCTION = 15f;
+	public static float FIGHTER_DAMAGE_REDUCTION = 25f;
 	
 	public static float DAMAGE_REDUCTION_SHIELD_MAX = 80f;
 	public static float DAMAGE_REDUCTION_SPEED_MAX = 70f;

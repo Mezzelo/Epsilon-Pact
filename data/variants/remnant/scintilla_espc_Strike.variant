@@ -1,6 +1,6 @@
 {
     "displayName": "Strike",
-    "fluxCapacitors": 6,
+    "fluxCapacitors": 8,
     "fluxVents": 3,
     "goalVariant": false,
     "hullId": "scintilla",

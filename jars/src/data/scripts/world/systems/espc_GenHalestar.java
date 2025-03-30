@@ -157,19 +157,17 @@ public class espc_GenHalestar implements SectorGeneratorPlugin
         		{Industries.MEGAPORT, 
         			//Items.FULLERENE_SPOOL
         		},
-        		{Industries.BATTLESTATION_HIGH},
+        		{Industries.STARFORTRESS_HIGH},
         		{Industries.HEAVYBATTERIES},
-        		{Industries.PATROLHQ},
+        		{Industries.MILITARYBASE},
         		{Industries.ORBITALWORKS, Items.PRISTINE_NANOFORGE},
         		{Industries.FARMING},
         		{Industries.MINING},
-        		{"commerce", Items.DEALMAKER_HOLOSUITE},
         	},
         	new String[] {
-            	"espc_open_market",
-            	Submarkets.GENERIC_MILITARY,
-            	// "espc_generic_military",
-            	"espc_black_market",
+               	"espc_open_market",
+               	Submarkets.GENERIC_MILITARY,
+               	Submarkets.SUBMARKET_BLACK,
             	Submarkets.SUBMARKET_STORAGE
         	}
         );
@@ -199,8 +197,7 @@ public class espc_GenHalestar implements SectorGeneratorPlugin
         	},
         	new String[] {
             	"espc_open_market",
-            	// "espc_generic_military",
-            	"espc_black_market",
+            	Submarkets.SUBMARKET_BLACK,
             	Submarkets.SUBMARKET_STORAGE
             }
         );
@@ -233,10 +230,9 @@ public class espc_GenHalestar implements SectorGeneratorPlugin
             		{Industries.FUELPROD, Items.SYNCHROTRON},
             	},
             	new String[] {
-                	"espc_open_market",
-                	Submarkets.GENERIC_MILITARY,
-                	// "espc_generic_military",
-                	"espc_black_market",
+                   	"espc_open_market",
+                   	Submarkets.GENERIC_MILITARY,
+                   	Submarkets.SUBMARKET_BLACK,
                 	Submarkets.SUBMARKET_STORAGE
                 }
             );

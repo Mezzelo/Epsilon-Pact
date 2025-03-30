@@ -142,6 +142,9 @@
 		"espc_pilgrim_Support":3,
 		"espc_pilgrim_Escort":2,
 		
+		"anubis_espc_Assault":0,
+		"anubis_espc_Attack":0,
+		
 		
 		"espc_rampart_Strike":6,
 		"espc_rampart_Support":3,

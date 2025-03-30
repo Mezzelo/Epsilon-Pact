@@ -17,6 +17,7 @@
 		"cloudTexture":"graphics/planets/espc_giver_clouds.png", # omit for no cloud layer
 		"cloudColor":[220,174,96,200],
 		"cloudRotation":-7, # degrees/second, optional
+		"tags":["hide_in_codex"],
 	},
 	"espc_falris":{
 		"name":"Volcanic",
@@ -36,6 +37,7 @@
 		"glowColor":[255,255,255,255],
 		"useReverseLightForGlow":false,
 		"doNotShowInCombat":true, # meant for brighter planets that make it hard to see what's going on
+		"tags":["hide_in_codex"],
 	},
 	"espc_tocquiera":{
 		"name":"Terran",
@@ -56,6 +58,7 @@
 		"cloudTexture":"graphics/planets/espc_tocquiera_clouds.png", # omit for no cloud layer
 		"cloudColor":[235,240,250,225],
 		"cloudRotation":-5, # degrees/second, optional
+		"tags":["hide_in_codex"],
 	},
 	"espc_bruniel":{
 		"name":"Barren-Desert",
@@ -77,6 +80,7 @@
 		"cloudTexture":"graphics/planets/espc_bruniel_clouds.png", # omit for no cloud layer
 		"cloudColor":[220,160,100,220],
 		"cloudRotation":12, # degrees/second, optional
+		"tags":["hide_in_codex"],
 	},
 	"espc_lunron":{
 		"name":"Terran Eccentric",
@@ -98,6 +102,7 @@
 		"cloudTexture":"graphics/planets/espc_lunron_clouds.png", # omit for no cloud layer
 		"cloudColor":[210, 240, 150, 200],
 		"cloudRotation":15, # degrees/second, optional
+		"tags":["hide_in_codex"],
 	},
 }
 

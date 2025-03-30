@@ -4,7 +4,7 @@
   "displayName": "Escort",
   "goalVariant": false,
   "fluxCapacitors": 10,
-  "fluxVents": 7,
+  "fluxVents": 9,
   "quality": 1,
   "permaMods": [],
   "hullMods": [

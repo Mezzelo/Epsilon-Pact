@@ -33,7 +33,7 @@
     {
       "id": "WS0003",
       "size": "LARGE",
-      "type": "UNIVERSAL",
+      "type": "HYBRID",
       "mount": "HARDPOINT",
       "arc": 10,
       "angle": 0,
@@ -42,7 +42,7 @@
     {
       "id": "WS0004",
       "size": "LARGE",
-      "type": "UNIVERSAL",
+      "type": "HYBRID",
       "mount": "HARDPOINT",
       "arc": 10,
       "angle": 0,

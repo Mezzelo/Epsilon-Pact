@@ -14,7 +14,6 @@ import com.fs.starfarer.api.impl.campaign.enc.BaseEPEncounterCreator;
 import com.fs.starfarer.api.impl.campaign.enc.EncounterManager;
 import com.fs.starfarer.api.impl.campaign.enc.EncounterPoint;
 import com.fs.starfarer.api.impl.campaign.fleets.DefaultFleetInflaterParams;
-import com.fs.starfarer.api.impl.campaign.ids.Factions;
 import com.fs.starfarer.api.impl.campaign.intel.bases.LuddicPathBaseIntel;
 import com.fs.starfarer.api.impl.campaign.intel.bases.PirateBaseIntel;
 import com.fs.starfarer.api.impl.campaign.missions.FleetCreatorMission;
@@ -68,7 +67,7 @@ public class espc_SlipstreamEpsilpacEPEC extends BaseEPEncounterCreator {
 			if (f > 0) {
 				f = 0.25f + 0.75f * f;
 			}
-			return 2f * f;
+			return 10f * f;
 		}
 		
 		public static float getProximityFactor(Vector2f locInHyper) {
@@ -83,7 +82,7 @@ public class espc_SlipstreamEpsilpacEPEC extends BaseEPEncounterCreator {
 			StarSystemAPI ruins = getClosestSystemWithRuins(locInHyper);
 			float f3 = getRuinsProximityFactor(ruins, locInHyper);
 			result = Math.max(result, f3);
-			result *= 0.35f;
+			result *= 0.7f;
 			
 			if (result <= 0f)
 				return 0f;
@@ -98,7 +97,7 @@ public class espc_SlipstreamEpsilpacEPEC extends BaseEPEncounterCreator {
 				result *= 0.7f;
 			else if (marketCount < 3 && marketCount > 0)
 				result *= 0.4f;
-			else
+			else if (marketCount == 0)
 				return 0f;
 			
 			return result;

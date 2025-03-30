@@ -9,20 +9,13 @@ import java.util.List;
 // on the api for longer.  this works for the moment.
 
 import com.fs.starfarer.api.Global;
-// import com.fs.starfarer.api.Global;
-// import com.fs.starfarer.api.Global;
-// import com.fs.starfarer.api.EveryFrameScript;
-// import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.*;
-// import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.campaign.listeners.FleetEventListener;
 import com.fs.starfarer.api.characters.FullName;
 import com.fs.starfarer.api.characters.MutableCharacterStatsAPI.SkillLevelAPI;
-// import com.fs.starfarer.api.characters.MutableCharacterStatsAPI.SkillLevelAPI;
 import com.fs.starfarer.api.characters.PersonAPI;
 import com.fs.starfarer.api.combat.ShipAPI.HullSize;
 import com.fs.starfarer.api.combat.WeaponAPI.WeaponType;
-// 	import com.fs.starfarer.api.combat.ShipHullSpecAPI.ShipTypeHints;
 import com.fs.starfarer.api.fleet.FleetMemberAPI;
 import com.fs.starfarer.api.impl.campaign.fleets.DefaultFleetInflaterParams;
 import com.fs.starfarer.api.impl.campaign.ids.Factions;
@@ -31,16 +24,6 @@ import com.fs.starfarer.api.impl.campaign.intel.PersonBountyIntel;
 import com.fs.starfarer.api.util.Misc;
 
 import data.scripts.campaign.fleets.espc_PactFleetInflater;
-
-// import com.fs.starfarer.api.campaign.econ.MarketAPI;
-// import com.fs.starfarer.api.campaign.listeners.FleetSpawnListener;
-// import com.fs.starfarer.api.characters.OfficerDataAPI;
-//import com.fs.starfarer.api.impl.campaign.ids.Abilities;
-//import com.fs.starfarer.api.impl.campaign.ids.Factions;
-// import java.util.Iterator;
-// import java.util.List;
-
-// import org.apache.log4j.Logger;
 
 public class espc_PactFleetSpawnListener extends BaseCampaignEventListener {
 
@@ -106,7 +89,7 @@ public class espc_PactFleetSpawnListener extends BaseCampaignEventListener {
 			fleet.setInflater(new espc_PactFleetInflater((DefaultFleetInflaterParams) fleet.getInflater().getParams()));
         for (FleetMemberAPI fleetMember : fleet.getFleetData().getMembersListCopy()) {
 			PersonAPI person = fleetMember.getCaptain();
-			if (person != null) {
+			if (person != null && !Global.getSector().getImportantPeople().containsPerson(person)) {
 				// ignore nex allied faction fleets by checking for portrait.  how convenient it is that this mod uses its own portraits lol
 				if (!person.getPortraitSprite().contains("espc"))
 					continue;
@@ -158,7 +141,6 @@ public class espc_PactFleetSpawnListener extends BaseCampaignEventListener {
 							name.setFirst("Beta");
 					}
 					person.setName(name);
-					// fleetMember.setCaptain(person);
 				}
 	        }
         }
@@ -219,6 +201,7 @@ public class espc_PactFleetSpawnListener extends BaseCampaignEventListener {
 	private void adjustSkills(PersonAPI person, FleetMemberAPI fleetMember) {
 		String hullId = fleetMember.getHullId();
 		LinkedList<String> skillPool = new LinkedList<String>();
+		LinkedList<String> prioritySkills = new LinkedList<String>();
 		skillPool.add(Skills.HELMSMANSHIP);
 		skillPool.add(Skills.TARGET_ANALYSIS);
 		
@@ -275,6 +258,16 @@ public class espc_PactFleetSpawnListener extends BaseCampaignEventListener {
 			for (String skill : skillsCruiser)
 				skillPool.add(skill);
 			
+			if (hullId.equals("espc_chorale") || hullId.equals("espc_amanuensis"))
+				prioritySkills.add(Skills.HELMSMANSHIP);
+			else if (hullId.equals("anubis")) {
+				prioritySkills.add(Skills.ENERGY_WEAPON_MASTERY);
+				prioritySkills.add(Skills.ORDNANCE_EXPERTISE);
+				prioritySkills.add("espc_running_hot");
+				prioritySkills.add(Skills.POINT_DEFENSE);
+				skillPool.remove("espc_unburdened");
+			}
+			
 			if (hullId.equals("espc_observer") || hullId.equals("espc_amanuensis") || hullId.equals("apex")) {
 				skillPool.remove("espc_second_wind");
 				skillPool.remove(Skills.SYSTEMS_EXPERTISE);
@@ -304,7 +297,14 @@ public class espc_PactFleetSpawnListener extends BaseCampaignEventListener {
 				person.getStats().setSkillLevel(skill.getSkill().getId(), 0);
 			}
 		}
+		if (skillPool.contains("espc_unburdened") && skillPool.size() > skillPoints &&
+			Misc.random.nextFloat() > 0.35f && !hullId.equals("espc_rampart") &&
+			!hullId.equals("espc_militia") && !hullId.equals("espc_ember")) {
+			skillPool.remove("espc_unburdened");
+		}
 		boolean usedFirst = false;
+		
+		// todo: implement priority skill selection, deprioritize running hot/second wind elite
 		for (int i = 0; i < skillPoints; i++) {
 			if (skillPool.size() == 0) {
 				if (usedFirst) {
@@ -318,9 +318,8 @@ public class espc_PactFleetSpawnListener extends BaseCampaignEventListener {
 			}
 			
 			int rand = Misc.random.nextInt(skillPool.size());
-			// more priority!  i really gotta pull out every stop to make the ship ai not BEANS here
-			if (skillPool.contains(Skills.HELMSMANSHIP) && (hullId.equals("espc_chorale") || hullId.equals("espc_amanuensis")))
-				rand = skillPool.indexOf(Skills.HELMSMANSHIP);
+			if (prioritySkills.size() > 0)
+				rand = skillPool.indexOf(prioritySkills.removeFirst());
 			person.getStats().setSkillLevel(skillPool.get(rand), elitePoints > 0 ? 2 : 1);
 			if (skillPool.get(rand).equals(Skills.HELMSMANSHIP) && 
 				!skillPool.contains("espc_dancing_steps") &&
@@ -333,68 +332,3 @@ public class espc_PactFleetSpawnListener extends BaseCampaignEventListener {
 	}
 
 }
-
-/*
-private String[] blacklistedSkills = {
-	Skills.MISSILE_SPECIALIZATION,
-	Skills.COMBAT_ENDURANCE,
-	Skills.IMPACT_MITIGATION,
-	Skills.POLARIZED_ARMOR,
-	Skills.DAMAGE_CONTROL,
-	Skills.POINT_DEFENSE,
-};
-
-private String[] whitelistedSkills = {
-	Skills.HELMSMANSHIP,
-	Skills.FIELD_MODULATION,
-	Skills.ORDNANCE_EXPERTISE,
-	Skills.TARGET_ANALYSIS
-};
-private String[] whitelistedSkillsLow = {
-	Skills.COMBAT_ENDURANCE,
-	Skills.GUNNERY_IMPLANTS,
-	Skills.SYSTEMS_EXPERTISE,
-	Skills.POINT_DEFENSE,
-};
-
-int rand = Misc.random.nextInt(blacklistedSkills.length);
-for (int i = 0; i < blacklistedSkills.length; i++) {
-	if (person.getStats().getSkillLevel(blacklistedSkills[(rand + i) % blacklistedSkills.length]) > 0) {
-		boolean newAssigned = false;
-		int rand2 = Misc.random.nextInt(whitelistedSkills.length);
-		
-		if (person.getStats().getSkillLevel(blacklistedSkills[(rand + i) % blacklistedSkills.length]) > 1)
-			sparePoints++;
-		
-		for (int g = 0; g < whitelistedSkills.length; g++) {
-			if (whitelistedSkills[(rand2 + g) % whitelistedSkills.length].equals(Skills.FIELD_MODULATION) &&
-				fleetMember.getHullSpec().getShieldType() == ShieldType.NONE)
-				continue;
-			if (person.getStats().getSkillLevel(whitelistedSkills[(rand2 + g) % whitelistedSkills.length]) <= 0) {
-				person.getStats().setSkillLevel(
-					whitelistedSkills[(rand2 + g) % whitelistedSkills.length],
-					sparePoints > 0 ? 2 : 1
-				);
-				if (sparePoints > 0)
-					sparePoints--;
-				newAssigned = true;
-				person.getStats().setSkillLevel(blacklistedSkills[(rand + i) % blacklistedSkills.length], 0);
-				break;
-			}
-		}
-		if (!newAssigned) {
-			rand2 = Misc.random.nextInt(whitelistedSkills.length);
-			for (int g = 0; g < whitelistedSkillsLow.length; g++) {
-				if (person.getStats().getSkillLevel(whitelistedSkillsLow[(rand2 + g) % whitelistedSkillsLow.length]) <= 0) {
-					person.getStats().setSkillLevel(
-						whitelistedSkillsLow[(rand2 + g) % whitelistedSkillsLow.length],
-						sparePoints > 0 ? 2 : 1
-					);
-					if (sparePoints > 0)
-						sparePoints--;
-					person.getStats().setSkillLevel(blacklistedSkills[(rand + i) % blacklistedSkills.length], 0);
-					break;
-				}
-			}
-		}
-	}*/

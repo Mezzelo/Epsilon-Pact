@@ -5,7 +5,7 @@
 	"hullDesignation":"Hybrid Liner",
 	"descriptionId":"espc_militia",  # optional
 	"descriptionPrefix":"Although this hull is of the original manufacturing variant designed for civilian use, its lack of military fittings counts for shockingly little against its combat capabilities - a lesson many an inopportune pirate crew has learned the hard way.",
-	"tags":["rare_bp", "merc"],
+	"tags":["rare_bp", "merc", "codex_unlockable"],
 	"tech":"Midline",
     "systemId":"flarelauncher",
     "weaponSlotChanges":{

@@ -8,8 +8,8 @@
 	"tech":"Tri-Tachyon",
     "systemId":"entropyamplifier",
 	"fleetPoints":11,
-	# "suppliesToRecover":11,
-	# "suppliesPerMonth":11,
+	"suppliesToRecover":12,
+	"suppliesPerMonth":12,
 	"baseValueMult":0.8,
 	"spriteName":"graphics/ships/espc_songbird_tt.png",
 	"removeWeaponSlots":[], 		# ids

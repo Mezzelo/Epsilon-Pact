@@ -133,9 +133,3 @@ public class MissionDefinition implements MissionDefinitionPlugin {
 	}
 
 }
-
-
-
-
-
-

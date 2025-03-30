@@ -67,7 +67,6 @@ public class espc_ResonatorShieldAI implements ShipSystemAIScript {
     	
         aiInterval.advance(amount);
 
-        //Wait for interval elapse before doing a check
         if (aiInterval.intervalElapsed()) {
         	if (toggled) {
         		toggled = false;
