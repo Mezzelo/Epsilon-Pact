@@ -318,8 +318,12 @@ public class espc_PactFleetSpawnListener extends BaseCampaignEventListener {
 			}
 			
 			int rand = Misc.random.nextInt(skillPool.size());
-			if (prioritySkills.size() > 0)
-				rand = skillPool.indexOf(prioritySkills.removeFirst());
+			if (prioritySkills.size() > 0) {
+				String skill = prioritySkills.removeFirst();
+				if (!skillPool.contains(skill))
+					skillPool.add(skill);
+				rand = skillPool.indexOf(skill);
+			}
 			person.getStats().setSkillLevel(skillPool.get(rand), elitePoints > 0 ? 2 : 1);
 			if (skillPool.get(rand).equals(Skills.HELMSMANSHIP) && 
 				!skillPool.contains("espc_dancing_steps") &&
