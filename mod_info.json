@@ -2,7 +2,7 @@
 	"id":"epsilonpact", # internal id
 	"name":"Epsilon Pact", # displayed to the player
 	"author":"Mezzelo",
-    "version": "0.5.9",
+    "version": "0.6.0",
 	"description":"A silly faction of silly ships.  AI cores and small mammals are involved.",
     "gameVersion": "0.98a-RC5",
     "dependencies": [

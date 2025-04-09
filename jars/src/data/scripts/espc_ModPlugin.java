@@ -113,6 +113,10 @@ public class espc_ModPlugin extends BaseModPlugin {
     	CodexDataV2.makeRelated(CodexDataV2.getShipEntryId("espc_bastillon"),
         	CodexDataV2.getHullmodEntryId("pointdefenseai"));
     	
+
+    	CodexDataV2.makeRelated(CodexDataV2.getShipEntryId("espc_bastillon"),
+        	CodexDataV2.getHullmodEntryId("pointdefenseai"));
+    	
 	}
 	
 	@Override

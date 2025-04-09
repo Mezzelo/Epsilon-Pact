@@ -1,4 +1,31 @@
-Version 0.6.0
+Verion 0.6.0
+
+- Special encounters have a chance to spawn when salvaging beta+ cores and when salvaging certain ship blueprints and colony items. Will seek to negotiate for/confiscate those items.
+- Encounter code for when interacting with Pact fleets and markets while using Shrouded hullmods. The player is given 2 warnings before hostilities begin.
+
+Fissile Confluence Emitter
+- Renamed to Confluence Emitter.
+- Explosion damage is now based off of projectile damage
+
+Remote Salvo
+- Ship can no longer use missiles that are permanently disabled
+- Fragment missiles can no longer be used with the ship system.
+
+- Hybrid Alternator's rudimentary shipsystem AI replaced
+- finished painting the bear
+- Finalize sprite for Amanuensis-class battleship
+- Placeholder sprite replaced for Scatter Rifle
+- Placeholder sprites replaced for planetary conditions
+- Placeholder sprite replaced for Tribal Enclaves
+- Placeholder sprites replaced for new skills
+- Sound reworks for the Rift Pike, Rift Spear, Fissile Confluence Emitter, Remise Mortar, Remise Rifle and Scatter Rifle.
+- Support for graphicslib distortions & additional lights added
+
+- fixed a crash when a Pact fleet spawns with an officered Anubis
+- Isabelle will no longer be offered as a contact while commissioned by another faction or without having given a Beta/Alpha core, & will not give missions while worse than favorable with the Pact.
+
+Version 0.5.9
+(0.6.0 pre-release)
 New hulls: Amanuensis-class battleship & Warden (EP) class frigate
 New weapon: Scatter Rifle, large ballistic
 Portraiture: 18/22 existing portraits revised, 14 (21) new portraits
@@ -6,10 +33,13 @@ Major round of balance changes, adjustments & bugfixes.  Minor changes/additions
 Procedural additions to sector activity & new scripted encounters.
 Added two Nexerelin starting backgrounds, unlocked by achieving perfect scores on Loose Ends and New Moon.
 	Unlock requirement can be toggled off if using LunaLib.
-	
-Updated for 0.98a-RC5: codex compliant!  variants altered to reflect new balance changes (literally just pd laser lol)
-
 Added 5 unique skills utilized by Pact fleets and hireable officers, new skill selection algorithm & Pact fleet spawn behaviour adjustments.
+
+
+	
+Updated for 0.98a-RC5:
+- variants altered to reflect new balance changes (literally just pd laser lol)
+- Simplified ship system descriptions, with details now contained in Codex entries
 
 AI changes:
 - Faction personality doctrine changed from STEADY to AGGRESSIVE
@@ -238,7 +268,6 @@ Tocquiera
 - Officers (including mercenary officers) that spawn on Pact markets always use these skills.
 
 - Nexus contruction feature disabled.
-- Special encounters have a chance to spawn when salvaging AI cores and when salvaging certain ship blueprints and colony items. Will seek to negotiate for/confiscate those items.
 - Procedural Pact fleets will spawn at the end of slipstreams and outside/in Remnant systems.
 
 - All Derelict (EP) hulls now use proper derelict loadouts - except the snety (EP) with hammers, that keeps missile autoloader cos it's funny.
@@ -319,8 +348,6 @@ Version 0.3.92-RC1
 - added normal maps for weapons
 - fixed mis-aligned Type XII-a turret sprite
 - added missing graphicslib light effects for the Auto-Scattershot and Auto-Slugshot
-
-- Replaced placeholder sounds for the Rift Pike, Rift Spear, Fissile Confluence Emitter and Remise Mortar with slightly less placeholder sounds
 
 - Rep gain/blueprint exchange rate for core trades readjusted: 3/5/8 with Isabelle, 4 with Gauss or administrators in Nex random worlds.
 - Task force construction fleet interval increased from once every 3 months -> 4 months

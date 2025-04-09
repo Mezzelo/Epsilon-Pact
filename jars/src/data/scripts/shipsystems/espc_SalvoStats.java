@@ -1,6 +1,7 @@
 package data.scripts.shipsystems;
 
 import com.fs.starfarer.api.combat.MutableShipStatsAPI;
+import com.fs.starfarer.api.impl.campaign.ids.Tags;
 import com.fs.starfarer.api.impl.combat.BaseShipSystemScript;
 import com.fs.starfarer.api.loading.MissileSpecAPI;
 import com.fs.starfarer.api.loading.WingRole;
@@ -270,7 +271,8 @@ public class espc_SalvoStats extends BaseShipSystemScript {
 					ship.getAllWings().size();
 			shipMissiles = new ArrayList<MissileToFire>();
 			for (WeaponAPI weapon : ship.getAllWeapons()) {
-				if (weapon.getType() == WeaponType.MISSILE) {
+				if (weapon.getType() == WeaponType.MISSILE && !weapon.isPermanentlyDisabled() &&
+					!weapon.getSpec().hasTag(Tags.FRAGMENT)) {
 					int fpm = 99;
 					int missileCount = weapon.getSpec().getBurstSize();
 					float refireDelay = 0f;

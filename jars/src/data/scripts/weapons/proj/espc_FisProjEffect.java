@@ -1,5 +1,6 @@
 package data.scripts.weapons.proj;
 
+import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.combat.*;
 import com.fs.starfarer.api.combat.listeners.ApplyDamageResultAPI;
 import com.fs.starfarer.api.loading.DamagingExplosionSpec;
@@ -17,7 +18,8 @@ public class espc_FisProjEffect implements OnHitEffectPlugin, OnFireEffectPlugin
 	private static final float FIS_ACTIVATE_RADIUS = 550f;
 	
     private static final float FIS_DURATION = 1f;
-    private static final float FIS_EXPLOSION_DAMAGE = 1000f;
+    private static final float FIS_EXPLOSION_DAMAGE_MULT = 2f;
+    private static final float FIS_BASE_DAMAGE = 250f;
     private static final float FIS_EXPLOSION_RADIUS = 100f;
 	
 	public boolean didEntry = false;
@@ -67,19 +69,14 @@ public class espc_FisProjEffect implements OnHitEffectPlugin, OnFireEffectPlugin
 					
 					// if opposite sides both contribute to the explosion, it friendly fires everyone, including the shooters :)
 					boolean clash = (Float) engine.getCustomData().get("espc_fisTime" + i) * (-0.5 + proj.getOwner()) < 0f;
+					float dmg = proj.getDamageAmount() + (Float) engine.getCustomData().get("espc_fisDmg" + i);
 
 					DamagingExplosionSpec fisExplosion = new DamagingExplosionSpec(
 						0.5f, // duration
 						FIS_EXPLOSION_RADIUS,
 						FIS_EXPLOSION_RADIUS / 1.5f, // core radius, max -> min falloff
-						FIS_EXPLOSION_DAMAGE * (1f +
-							proj.getSource().getMutableStats().getEnergyWeaponDamageMult().getFlatMod() +
-							proj.getSource().getMutableStats().getEnergyWeaponDamageMult().getPercentMod() / 100f)
-							* proj.getSource().getMutableStats().getEnergyWeaponDamageMult().getMult(),
-						FIS_EXPLOSION_DAMAGE / 1.5f * (1f +
-							proj.getSource().getMutableStats().getEnergyWeaponDamageMult().getFlatMod() +
-							proj.getSource().getMutableStats().getEnergyWeaponDamageMult().getPercentMod() / 100f)
-							* proj.getSource().getMutableStats().getEnergyWeaponDamageMult().getMult(),
+						dmg * FIS_EXPLOSION_DAMAGE_MULT,
+						dmg * FIS_EXPLOSION_DAMAGE_MULT / 1.5f,
 						clash ? CollisionClass.HITS_SHIPS_AND_ASTEROIDS : CollisionClass.PROJECTILE_FF,
 						clash ? CollisionClass.HITS_SHIPS_AND_ASTEROIDS : CollisionClass.PROJECTILE_FIGHTER,
 						7f, // min particle size
@@ -91,7 +88,9 @@ public class espc_FisProjEffect implements OnHitEffectPlugin, OnFireEffectPlugin
 					);
 
 					fisExplosion.setDamageType(DamageType.ENERGY);
-					fisExplosion.setSoundSetId("riftcascade_rift");
+					fisExplosion.setSoundSetId("espc_fission_explode");
+					fisExplosion.setSoundVolume(fisExplosion.getSoundVolume() *
+						Math.min(Math.max(0.65f, dmg / FIS_BASE_DAMAGE * 2f * FIS_EXPLOSION_DAMAGE_MULT), 1f));
 					fisExplosion.setUseDetailedExplosion(true);
 					
 					engine.spawnDamagingExplosion(
@@ -101,11 +100,13 @@ public class espc_FisProjEffect implements OnHitEffectPlugin, OnFireEffectPlugin
 					);
 					
 					engine.getCustomData().remove("espc_fisTime" + i);
+					engine.getCustomData().remove("espc_fisDmg" + i);
 					engine.getCustomData().remove("espc_fisLoc" + i);
 					keyMax--;
 				}
 			} else {
 				engine.getCustomData().remove("espc_fisTime" + i);
+				engine.getCustomData().remove("espc_fisDmg" + i);
 				engine.getCustomData().remove("espc_fisLoc" + i);
 				keyMax--;
 			}
@@ -123,8 +124,10 @@ public class espc_FisProjEffect implements OnHitEffectPlugin, OnFireEffectPlugin
 				if (low >= high)
 					break;
 				engine.getCustomData().put("espc_fisTime" + low, engine.getCustomData().get("espc_fisTime" + high));
+				engine.getCustomData().put("espc_fisDmg" + low, engine.getCustomData().get("espc_fisDmg" + high));
 				engine.getCustomData().put("espc_fisLoc" + low, engine.getCustomData().get("espc_fisLoc" + high));
 				engine.getCustomData().remove("espc_fisTime" + high);
+				engine.getCustomData().remove("espc_fisDmg" + high);
 				engine.getCustomData().remove("espc_fisLoc" + high);
 				++low;
 				--high;
@@ -135,6 +138,9 @@ public class espc_FisProjEffect implements OnHitEffectPlugin, OnFireEffectPlugin
 			engine.getCustomData().put("espc_fisTime" + keyMax, 
 				// owner data is baked into the time's sign
 				engine.getTotalElapsedTime(false) * (-1 + 2 * proj.getOwner())
+			);
+			engine.getCustomData().put("espc_fisDmg" + keyMax, 
+				proj.getDamageAmount()
 			);
 			engine.getCustomData().put("espc_fisLoc" + keyMax, proj.getLocation());
 			didEntry = true;

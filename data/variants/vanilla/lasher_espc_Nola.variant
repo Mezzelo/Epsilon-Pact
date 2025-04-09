@@ -7,9 +7,13 @@
   "fluxVents": 10,
   "quality": 1,
   "permaMods": [
+    "operations_center",
+    "extendedshieldemitter"
   ],
   "hullMods": [
-	"fluxdistributor"
+	"fluxdistributor",
+    "operations_center",
+    "extendedshieldemitter"
   ],
   "sMods": [
     "operations_center",

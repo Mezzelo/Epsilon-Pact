@@ -53,6 +53,17 @@
 	"espc_fission_fire":[
 		{"file":"sounds/weapon/espc_fission_fire_loud.ogg","pitch":0.85,"volume":0.65},		
 	],
+	"espc_fission_explode":[
+		{"file":"sounds/weapon/espc_fission_explode_01.ogg","pitch":0.9,"volume":1.0},
+		{"file":"sounds/weapon/espc_fission_explode_01.ogg","pitch":1.1,"volume":1.0},
+		{"file":"sounds/weapon/espc_fission_explode_01.ogg","pitch":1.0,"volume":1.0},
+		{"file":"sounds/weapon/espc_fission_explode_02.ogg","pitch":0.9,"volume":1.0},
+		{"file":"sounds/weapon/espc_fission_explode_02.ogg","pitch":1.1,"volume":1.0},
+		{"file":"sounds/weapon/espc_fission_explode_02.ogg","pitch":1.0,"volume":1.0},
+		{"file":"sounds/weapon/espc_fission_explode_03.ogg","pitch":0.9,"volume":1.0},
+		{"file":"sounds/weapon/espc_fission_explode_03.ogg","pitch":1.1,"volume":1.0},
+		{"file":"sounds/weapon/espc_fission_explode_03.ogg","pitch":1.0,"volume":1.0},
+	],
 	 "espc_riftchargeloop":[
 		{"file":"sounds/weapon/espc_riftchargeloop.ogg","pitch":1.0,"volume":1.0},
 	],

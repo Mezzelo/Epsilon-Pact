@@ -851,3 +851,366 @@ MakeOtherFleetGoAway true","The Tri-Tachyon $rank seems caught off guard by your
 ""I, I mean of course. The Tri-Tachyon Corporation thanks you for your cooperation in this matter. We shall of course arrange for a token payment for the recovery of company property - ah, of $entity.ttZigLowBuyPrice credits."" $HeOrShe looks at you over the top of a TriPad, ""Your discretion in this matter is assumed, of course.""
  
 The transfer of executive command functions proceeds smoothly.",cutCommLinkNoText:Continue,
+,,,,,,
+,,,,,,
+,,,,,,
+espcPactMarketPostWeirdHullmods,MarketPostDock,"$faction.id == epsilpac
+!$failedWeirdHullmodCheck
+!$faction.isHostile
+$player.transponderOn
+$player.espcWeirdHullmodWarnings < 0
+$player.encounteredWeird score:100",FireBest espcPactMarketWeirdHullmodCheck,,,
+espcPactMarketPostWeirdHullmods2,FireBest espcPactMarketWeirdHullmodCheck,PlayerFleetHasShroudedShips,"$option = espcPactMarketWeirdHullmodCheckBegin 0
+FireBest DialogOptionSelected",,,
+espcPactMarketPostWeirdHullmods3,espcPactMarketWeirdHullmodCheck,,"$failedWeirdHullmodCheck = true 1
+FireBest MarketPostDock",,,
+espcPactMarketWeirdHullmods4,DialogOptionSelected,$option == espcPactMarketWeirdHullmodCheckBegin,,"Your notice a reaction from your comms officer, as the usual traffic clearance procedure is interrupted.
+
+""$PlayerSirOrMadam. The port authority wishes to, um, speak to you. Personally.""",espcPactMarketWeirdBegin:Continue,
+espcPactMarketWeirdBegin,DialogOptionSelected,$option == espcPactMarketWeirdBegin,"BeginConversation POST:portmaster
+$option = espcPactMarket_weird1 0
+FireBest DialogOptionSelected",,,
+espcPactMarketWeird1,DialogOptionSelected,$option == espcPactMarket_weird1 ,,"The $post looks like they've seen a ghost.
+
+""Captain $playerLastName, by the grace of holy Ludd and all that is blessed, what unholy creation have you brought here? What have you done to your $shipOrFleet?""
+
+The questions are rhetorical, judging by the chimes and pings from your tactical officer's console- targeting alerts from defense batteries.",espcPactMarket_weird2:Continue,
+espcPactMarketWeirdOutro,DialogOptionSelected,$option == espcPactMarket_weird2,"AdjustRep epsilpac HOSTILE -200
+AddTextSmall ""Hostility due to use of unusual modifications"" bad
+SetShortcut espcPactMarket_weirdEnd ""ESCAPE""","""The curates technologia have already passed judgement on your... your unholy combination of human craft and demonic 'technology',"" $heOrShe says.
+
+""Go now from this place and never return! Take your technological abominations and be accursed in the eyes of God and the Church. You are henceforth an abomination to be destroyed on sight!""
+
+$HeOrShe clasps $hisOrHer hands together, mumbling some prayer.",espcPactmarket_weirdEnd:Cut the link,
+espcPactmarketWeirdOutroCom,DialogOptionSelected,"$option == espcPactmarket_weird2
+$player.fcm_faction == epsilpac","AdjustRep luddic_church HOSTILE -200
+AddTextSmall ""Hostility due to use of unusual modifications"" bad
+AddTextSmall ""Church of Galactic Redemption commission revoked"" bad
+SetShortcut espcPactmarket_weirdEnd ""ESCAPE""","""The curates technologia have already passed judgement on your... your unholy combination of human craft and demonic 'technology',"" $heOrShe says. ""Your commission is revoked.""
+
+""Go now from this place and never return! Take your technological abominations and be accursed in the eyes of God and the Church. You are henceforth an abomination to be destroyed on sight!""
+
+$HeOrShe clasps $hisOrHer hands together, mumbling some prayer.",espcPactmarket_weirdEnd:Cut the link,
+CGRmarketWeirdOutroFaith,DialogOptionSelected,"$option == CGRmarket_weird2
+$player.fcm_faction != luddic_church
+$player.mostLuddicEthosFaithful","AdjustRep luddic_church HOSTILE -200
+AddTextSmall ""Hostility due to use of unusual modifications"" bad
+AddTextSmall ""Excommunicated from the Church of Galactic Redemption"" bad
+$player.excommunicatedFromChurch = true
+SetShortcut CGRmarket_weirdEnd ""ESCAPE""","""The curates technologia have already passed judgement on your... your unholy combination of human craft and demonic 'technology',"" $heOrShe says. ""You are excommunicated, declared outlaw and enemy of the Faith.""
+
+""Go now from this place and never return! Take your technological abominations and be accursed in the eyes of God and the Church. You are henceforth an abomination to be destroyed on sight!""
+
+$HeOrShe clasps $hisOrHer hands together, mumbling some prayer.",CGRmarket_weirdEnd:Cut the link and take evasive action,
+CGRmarketWeirdOutroComFaith,DialogOptionSelected,"$option == CGRmarket_weird2
+$player.fcm_faction == luddic_church
+$player.mostLuddicEthosFaithful","AdjustRep luddic_church HOSTILE -200
+AddTextSmall ""Hostility due to use of unusual modifications"" bad
+AddTextSmall ""Church of Galactic Redemption commission revoked"" bad
+AddTextSmall ""Excommunicated from the Church of Galactic Redemption"" bad
+$player.excommunicatedFromChurch = true
+SetShortcut CGRmarket_weirdEnd ""ESCAPE""","""The curates technologia have already passed judgement on your... your unholy combination of human craft and demonic 'technology',"" $heOrShe says. ""Your commission is revoked. You are excommunicated, declared outlaw and enemy of the Faith.""
+
+""Go now from this place and never return! Take your technological abominations and be accursed in the eyes of God and the Church. You are henceforth an abomination to be destroyed on sight!""
+
+$HeOrShe clasps $hisOrHer hands together, mumbling some prayer.",CGRmarket_weirdEnd:Cut the link and take evasive action,
+CGRmarketWeirdEnd,DialogOptionSelected,$option == CGRmarket_weirdEnd,"$player.didespcPactweirdHullmodReaction = true 1
+EndConversation DO_NOT_FIRE
+DismissDialog",,,
+,,,,,,
+# Church fleet sees weird hullmods,,#$entity.isWarFleet,,,,
+greetingCGRweirdHM,OpenCommLink,"$faction.id == luddic_church
+!$failedWeirdHullmodCheck
+!$faction.isHostile
+!$player.didCGRweirdHullmodReaction
+$player.encounteredWeird
+#$player.transponderOn",FireBest CGRpatrolWeirdHullmodCheck,,,
+#CGRpatrolWeirdHullmods1,CGRpatrolWeirdHullmodCheck,PlayerFleetHasFragmentShips,"$option = CGRpatrol_weirdMods0 0
+FireBest DialogOptionSelected",,,
+CGRpatrolWeirdHullmods2,CGRpatrolWeirdHullmodCheck,PlayerFleetHasShroudedShips,"$option = CGRpatrol_weirdMods0 0
+FireBest DialogOptionSelected",,,
+CGRpatrolWeirdHullmods3,CGRpatrolWeirdHullmodCheck,,"$failedWeirdHullmodCheck = true 1
+FireBest OpenCommLink",,,
+CGRpatrolWeirdMods0unknown,DialogOptionSelected,"$option == CGRpatrol_weirdMods0
+!$entity.knowWhoPlayerIs",FireAll MostLuddicEthosRefresh,"""The blessing of Ludd be upon-"" The $post's eyes go suddenly wide at a red flash from a secondary display.
+
+""By the holy pneuma,"" $heOrShe gasps.","CGRpatrol_weirdModsEnd2unknown:""Is there a problem, $post?""",
+CGRpatrolWeirdModsUnknownEnd,DialogOptionSelected,"$option == CGRpatrol_weirdModsEnd2unknown
+$entity.relativeStrength >= 0","AddTextSmall ""Hostility due to use of unusual modifications"" bad
+AdjustRep luddic_church HOSTILE -30
+MakeOtherFleetHostile true
+MakeOtherFleetAggressive true
+$entity.ignorePlayerCommRequests = true 0
+EndConversation
+ShowDefaultVisual","""An abomination, a devil-$shipOrFleet from Hell itself is before us! We pray to Providence to pass this test which has been given unto our unworthy-""
+
+The $post's words are for $hisOrHer crew, not you, and the link shudders into static. The last image you see are hands clasped in prayer.",,
+CGRpatrolWeirdModsUnknownEndWeaker,DialogOptionSelected,"$option == CGRpatrol_weirdModsEnd2unknown
+$entity.relativeStrength < 0","AddTextSmall ""Hostility due to use of unusual modifications"" bad
+AdjustRep luddic_church HOSTILE -30
+MakeOtherFleetHostile true
+MakeOtherFleetGoAway
+MakeOtherFleetAllowDisengage true
+$entity.ignorePlayerCommRequests = true 0
+EndConversation
+ShowDefaultVisual","""An abomination, a devil-$shipOrFleet from Hell itself is before us! We pray to Providence to pass this test which has been given unto our unworthy-""
+
+The $post's words are for $hisOrHer crew, not you, and the link shudders into static. The last image you see are hands clasped in prayer.",,
+CGRpatrolWeirdModsUnknownEndTrade,DialogOptionSelected,"$option == CGRpatrol_weirdModsEnd2unknown
+$entity.isTradeFleet score:100","AddTextSmall ""Hostility due to use of unusual modifications"" bad
+AdjustRep luddic_church HOSTILE -30
+MakeOtherFleetHostile true
+MakeOtherFleetGoAway
+MakeOtherFleetAllowDisengage true
+$entity.ignorePlayerCommRequests = true 0
+EndConversation
+ShowDefaultVisual","""An abomination, a devil-$shipOrFleet from Hell itself is before us! We pray to Providence to pass this test which has been given unto our unworthy-""
+
+The $post's words are for $hisOrHer crew, not you, and the link shudders into static. The last image you see are hands clasped in prayer.",,
+CGRpatrolWeirdMods0,DialogOptionSelected,$option == CGRpatrol_weirdMods0,,"""The blessing of Ludd be upon-"" The $post's eyes go suddenly wide at a red flash from a secondary display.
+
+""By the holy pneuma,"" $heOrShe gasps.","CGRpatrol_weirdMods1:""Is there a problem, $post?""",
+CGRpatrolWeirdMods1,DialogOptionSelected,$option == CGRpatrol_weirdMods1,,"""What by blessed Ludd's holy right glove have you done to your $shipOrFleet? Is that the cursed work of Moloch my eyes do perceive in your $shipOrFleet?""
+
+$HeOrShe looks over $hisOrHer shoulder, ""Summon the subcurate technologia! For immediate consultation!""
+
+The $post turns back to you. ""You have but a moment to explain what my sensors suggest, captain."" ","CGRpatrol_weirdMods2a:""Is it my... unique modifications you object to?""
+CGRpatrol_weirdMods2b:""There seems to be some kind of misunderstanding.""
+CGRpatrol_weirdMods2c:""What exactly do your sensors suggest?""",
+CGRpatrolWeirdMods2a,DialogOptionSelected,$option == CGRpatrol_weirdMods2a,,"""Unique mod-"" $HeOrShe sputters.
+
+""It is devilry! You've joined human craft with abomination. It is an unholy thing!""  $HeOrShe makes some kind of hurry-up hand signal over $hisOrHer shoulder.
+
+""You condemn your soul to the abyss. And you condemn yourself as mortal enemy to the Church and accursed in the eyes of God and all who hold faith."" $HisOrHer expression is grim.
+
+The $post turns and exchanges a few words with someone you can't see.",CGRpatrol_weirdMods3:Continue,
+CGRpatrolWeirdMods2b,DialogOptionSelected,$option == CGRpatrol_weirdMods2b,,"""Methinks there is not, $playerSirOrMadam, and you merely dissemble with a devil's tongue to gain advantage."" $HeOrShe makes some kind of hurry-up hand signal over $hisOrHer shoulder.
+
+""Judgement shall be pronounced ere long upon what my heart fears.""
+
+The $post turns and exchanges a few words with someone you can't see.",CGRpatrol_weirdMods3:Continue,
+CGRpatrolWeirdMods2c,DialogOptionSelected,$option == CGRpatrol_weirdMods2c,,"""Overt devilry. You've combined human craft with abomination."" $HeOrShe makes some kind of hurry-up hand signal over $hisOrHer shoulder.
+
+""By this unholy 'technology' you condemn your soul to the abyss. And you condemn yourself as mortal enemy to the Church, accursed in the eyes of God and all who hold faith!""
+
+The $post turns and exchanges a few words with someone you can't see.",CGRpatrol_weirdMods3:Continue,
+CGRpatrolWeirdMods3,DialogOptionSelected,$option == CGRpatrol_weirdMods3,FireAll CGRpatrolWeirdModsOpts,"""You're certain?"" $heOrShe asks. $HisOrHer face has gone pale, as if $heOrShe has been informed that $heOrShe has been condemned.
+
+The briefest flash of emotions: pain, fear, outrage, sadness, acceptance. The eyes that turn back to the comm-link are that of an enemy across battle-lines.",,
+CGRpatrolWeirdModsOpt3a,CGRpatrolWeirdModsOpts,$player.fcm_faction == luddic_church,,,"CGRpatrol_weirdModsOpt3aSel:""I am commissioned by the Church!""",
+CGRpatrolWeirdModsOpt3b,CGRpatrolWeirdModsOpts,$player.luddicAttitudeFaithful,,,"CGRpatrol_weirdModsOpt3bSel:""Hold your condemnation for a moment, for I share your Faith.""",
+CGRpatrolWeirdModsOpt3c,CGRpatrolWeirdModsOpts,,,,"CGRpatrol_weirdModsOpt3cSel:""Let's discuss this before jumping to conclusions...""",
+CGRpatrolWeirdModsOpt3d,CGRpatrolWeirdModsOpts,,,,"CGRpatrol_weirdModsOpt3dSel:""Perhaps we come to an 'arrangement'? Just name a price...""",
+CGRpatrolWeirdModsOpt3e,CGRpatrolWeirdModsOpts,$player.luddicAttitudeCynical,,,"CGRpatrol_weirdModsOpt3eSel:""This is an irrational outburst, $post.""",
+CGRpatrolWeirdModsOpt3aSel,DialogOptionSelected,$option == CGRpatrol_weirdModsOpt3aSel,"$option = CGRpatrol_weirdModsEnd1 0
+FireBest DialogOptionSelected","""You are no longer,"" $heOrShe says.",,
+CGRpatrolWeirdModsOpt3bSel,DialogOptionSelected,$option == CGRpatrol_weirdModsOpt3bSel,"$option = CGRpatrol_weirdModsEnd1 0
+FireBest DialogOptionSelected","""I abjure your heresy ,"" $heOrShe says.",,
+CGRpatrolWeirdModsOpt3cSel,DialogOptionSelected,$option == CGRpatrol_weirdModsOpt3cSel,"$option = CGRpatrol_weirdModsEnd1 0
+FireBest DialogOptionSelected",,,
+CGRpatrolWeirdModsOpt3dSel,DialogOptionSelected,$option == CGRpatrol_weirdModsOpt3dSel,"$option = CGRpatrol_weirdModsEnd1 0
+FireBest DialogOptionSelected","""Corruptor, mammonite!"" $heOrShe spits.",,
+CGRpatrolWeirdModsOpt3eSel,DialogOptionSelected,$option == CGRpatrol_weirdModsOpt3eSel,"$option = CGRpatrol_weirdModsEnd1 0
+FireBest DialogOptionSelected",,,
+CGRpatrolWeirdModsEnd,DialogOptionSelected,"$option == CGRpatrol_weirdModsEnd1
+$entity.relativeStrength >= 0","MakeOtherFleetHostile true
+MakeOtherFleetAggressive true
+$option = CGRpatrol_weirdModsEnd2 0
+FireBest DialogOptionSelected",,,
+CGRpatrolWeirdModsEndWeaker,DialogOptionSelected,"$option == CGRpatrol_weirdModsEnd1
+$entity.relativeStrength < 0","MakeOtherFleetGoAway
+MakeOtherFleetAllowDisengage true
+$option = CGRpatrol_weirdModsEnd2 0
+FireBest DialogOptionSelected",,,
+CGRpatrolWeirdModsEndTrade,DialogOptionSelected,"$option == CGRpatrol_weirdModsEnd1
+$entity.isTradeFleet score:100","MakeOtherFleetGoAway
+MakeOtherFleetAllowDisengage true
+$option = CGRpatrol_weirdModsEnd2 0
+FireBest DialogOptionSelected",,,
+CGRpatrolWeirdModsEnd3,DialogOptionSelected,$option == CGRpatrol_weirdModsEnd2,"AdjustRep luddic_church HOSTILE -200
+AddTextSmall ""Hostility due to use of unusual modifications"" bad
+$entity.ignorePlayerCommRequests = true 0
+EndConversation
+ShowDefaultVisual","""There is no negotiation with evil, no compromise."" The $post's words are for $hisOrHer crew, not you.
+
+The link shudders into static, the last image is of hands clasped in a brief prayer.",,
+CGRpatrolWeirdModsEnd3b,DialogOptionSelected,"$option == CGRpatrol_weirdModsEnd2
+$player.mostLuddicEthosFaithful
+!$player.excommunicatedFromChurch","AdjustRep luddic_church HOSTILE -200
+AddTextSmall ""Hostility due to use of unusual modifications"" bad
+AddTextSmall ""Excommunicated from the Church of Galactic Redemption"" bad
+$player.excommunicatedFromChurch = true
+$entity.ignorePlayerCommRequests = true 0
+EndConversation
+ShowDefaultVisual","""There is no negotiation with evil, no compromise."" The $post's words are for $hisOrHer crew, not you.
+
+The link shudders into static, the last image is of hands clasped in a brief prayer.",,
+,,,,,,
+,,,,,,
+# Luddic Path market notices Weird Hullmods,,,,,,
+PathMarketPostWeirdHullmods,MarketPostDock,"$faction.id == luddic_path
+!$failedWeirdHullmodCheck
+!$faction.isHostile
+$player.transponderOn
+!$player.didPathWeirdHullmodReaction
+$player.encounteredWeird",FireBest PathMarketWeirdHullmodCheck,,,
+#PathMarketPostWeirdHullmods1,PathMarketWeirdHullmodCheck,PlayerFleetHasFragmentShips,"$option = PathMarketWeirdHullmodCheckBegin 0
+FireBest DialogOptionSelected",,,
+PathMarketPostWeirdHullmods2,PathMarketWeirdHullmodCheck,PlayerFleetHasShroudedShips,"$option = pathMarketWeird_HullmodCheckBegin 0
+FireBest DialogOptionSelected",,,
+PathMarketPostWeirdHullmods3,PathMarketWeirdHullmodCheck,,"$failedWeirdHullmodCheck = true 1
+FireBest MarketPostDock",,,
+PathMarketWeirdHullmods4,DialogOptionSelected,$option == pathMarketWeird_HullmodCheckBegin,,"Your comms officer calls for your attention.
+
+""$PlayerSirOrMadam. There's an incoming comms request, marked urgent, from the portwatcher. They want to speak with you personally.""","PathMarketWeirdBegin:""Put them through.""",
+PathMarketWeirdBegin,DialogOptionSelected,$option == PathMarketWeirdBegin,"BeginConversation POST:portmaster
+$option = PathMarket_weird1 0
+FireBest DialogOptionSelected",,,
+PathMarketWeird1,DialogOptionSelected,$option == PathMarket_weird1 ,,"The link flickers open and the conversation begins poorly.
+
+""Befouler, defiler, sinful spite-God! Demoniac!""
+
+The look of rage and religious mania pulls the $post's face into a devilish mask as $heOrShe shouts.",PathMarket_weird2:Continue,
+PathMarketWeird2,DialogOptionSelected,$option == PathMarket_weird2,"$player.didPathWeirdHullmodReaction = true 365
+AddTextSmall ""Hostility due to use of unusual modifications"" bad
+AdjustRep luddic_path HOSTILE -200
+SetShortcut PathMarket_weird3 ""ESCAPE""","""What work-of-Moloch $shipOrFleet appears in our skies? What unholy combination of human craft and... and abomination? You are to be destroyed on sight, accursed by God and all who are faithful!""
+
+$HeOrShe desperately clasps $hisOrHer hands together and prays. ""Blessed Ludd, give me strength when the evil one appears...""
+
+Targeting alerts chime from your tactical officer's console.",PathMarket_weird3:Cut the link and take evasive action,
+PathMarketWeird3,DialogOptionSelected,$option == PathMarket_weird3,"EndConversation DO_NOT_FIRE
+DismissDialog",,,
+,,,,,,
+"# Pather fleet sees weird hullmods
+# hostile, pursuing to demand tithe",,#$entity.isWarFleet,,,,
+#greetingPathWeirdHMintroTithe,OpenCommLink,"$entity.LP_titheConv score:100
+$faction.id == luddic_path
+!$failedWeirdHullmodCheck
+!$player.didPathWeirdHullmodReaction
+$player.encounteredWeird",FireBest PathFleetWeirdHullmodCheck,,,"# they're chasing you for a tithe, but get distracted by your hullmod(s)"
+greetingPathWeirdHMintroTitheB,OpenCommLink,"$entity.LP_titheConv score:100
+$faction.id == luddic_path
+$player.encounteredWeird
+!$failedWeirdHullmodCheck",FireBest PathFleetWeirdHullmodCheck,,,
+PathFleetWeirdMods0tithe,DialogOptionSelected,"$option == pathFleet_weirdMods0
+$entity.LP_titheConv score:10",FireAll MostLuddicEthosRefresh,"""Servant of Moloch! Redemption is not- is not...""
+
+The Pather's eyes go wide at a red flash from a secondary display.
+
+""By Ludd's hells, it is..."" $HeOrShe returns to stare, horrified, through the comm-link. $HisOrHer face is full of terror... and hatred.
+OR
+""Submit and repent! Your use of sinful technologies may- may...""
+
+The Pather's eyes go wide at a red flash from a secondary display.
+
+""By the blessed stars is that..."" $HisOrHer eyes return to the comm-link, fixed with horror... and hatred.","pathFleet_weirdMods1:""Is this about a tithe?""",
+,,,,,,
+,,,,,,
+# Path fleet sees weird hullmods,,#$entity.isWarFleet,,,,
+greetingPathWeirdHM,OpenCommLink,"$faction.id == luddic_path
+!$failedWeirdHullmodCheck
+!$faction.isHostile
+!$player.didPathWeirdHullmodReaction
+$player.encounteredWeird
+#$player.transponderOn",FireBest PathFleetWeirdHullmodCheck,,,
+#CGRpatrolWeirdHullmods1,PathFleetWeirdHullmodCheck,PlayerFleetHasFragmentShips,"$option = pathFleet_weirdMods0 0
+FireBest DialogOptionSelected",,,
+PathFleetWeirdHullmods2,PathFleetWeirdHullmodCheck,PlayerFleetHasShroudedShips,"$option = pathFleet_weirdMods0 0
+FireBest DialogOptionSelected",,,
+PathFleetWeirdHullmods3,PathFleetWeirdHullmodCheck,,"$failedWeirdHullmodCheck = true 1
+FireBest OpenCommLink",,,
+PathFleetWeirdMods0unknown,DialogOptionSelected,"$option == pathFleet_weirdMods0
+!$entity.knowWhoPlayerIs",FireAll MostLuddicEthosRefresh,"""May the Path be r-"" The $post's eyes go suddenly wide at a red flash from a secondary display.
+
+""Blessed Ludd!"" $heOrShe gasps.","pathFleet_weirdModsEnd2unknown:""Is there a problem?""",
+PathFleetWeirdModsUnknownEnd,DialogOptionSelected,"$option == pathFleet_weirdModsEnd2unknown
+$entity.relativeStrength >= 0","AddTextSmall ""Hostility due to use of unusual modifications"" bad
+AdjustRep luddic_path HOSTILE -30
+MakeOtherFleetHostile true
+MakeOtherFleetAggressive true
+$entity.ignorePlayerCommRequests = true 0
+EndConversation
+ShowDefaultVisual","""An abomination, a devil-$shipOrFleet from Hell itself is before us! We pray to Providence to pass this test which has been given unto our unworthy-""
+
+The $post's words are for $hisOrHer crew, not you, and the link shudders into static. The last image you see are hands clasped in prayer.",,
+PathFleetWeirdModsUnknownEndWeaker,DialogOptionSelected,"$option == pathFleet_weirdModsEnd2unknown
+$entity.relativeStrength < 0","AddTextSmall ""Hostility due to use of unusual modifications"" bad
+AdjustRep luddic_path HOSTILE -30
+MakeOtherFleetHostile true
+MakeOtherFleetGoAway
+MakeOtherFleetAllowDisengage true
+$entity.ignorePlayerCommRequests = true 0
+EndConversation
+ShowDefaultVisual","""An abomination, a devil-$shipOrFleet from Hell itself is before us! We pray to Providence to pass this test which has been given unto our unworthy-""
+
+The $post's words are for $hisOrHer crew, not you, and the link shudders into static. The last image you see are hands clasped in prayer.",,
+PathFleetWeirdModsUnknownEndTrade,DialogOptionSelected,"$option == pathFleet_weirdModsEnd2unknown
+$entity.isTradeFleet score:100","AddTextSmall ""Hostility due to use of unusual modifications"" bad
+AdjustRep luddic_path HOSTILE -30
+MakeOtherFleetHostile true
+MakeOtherFleetGoAway
+MakeOtherFleetAllowDisengage true
+$entity.ignorePlayerCommRequests = true 0
+EndConversation
+ShowDefaultVisual","""An abomination, a devil-$shipOrFleet from Hell itself is before us! We pray to Providence to pass this test which has been given unto our unworthy-""
+
+The $post's words are for $hisOrHer crew, not you, and the link shudders into static. The last image you see are hands clasped in prayer.",,
+PathFleetWeirdMods0,DialogOptionSelected,$option == pathFleet_weirdMods0,FireAll MostLuddicEthosRefresh,"""May the Path be r-"" The $post's eyes go suddenly wide at a red flash from a secondary display.
+
+They return to the comm-link, fixed with fear... and hatred.","pathFleet_weirdMods1:""Is there a problem?""",
+PathFleetWeirdMods1,DialogOptionSelected,$option == pathFleet_weirdMods1,,"""Befouler, defiler, sinful spite-God! Demoniac!"" The look of rage and religious mania pulls the $post's face into a devilish mask as $heOrShe shouts.
+
+""What work-of-Moloch $shipOrFleet is this? What unholy combination of human craft and abomination? You are to be destroyed on sight, accursed by God and all who follow the Path of our faith!""
+
+Targeting alerts chime from your tactical officer's console.
+OR
+""You accursed meddler, servant of Moloch! What unnatural work have you wrought in the shadow so far from the Path?""
+
+Targeting alerts chime from your tactical officer's console.
+
+""I name you abomination, adversary, god-spite! It is my holy duty to destroy your infernal $shipOrFleet,"" $heOrShe shouts, flecks of spittle flashing in the holo. ""-And you as well before you slither back into the abyss whence you spawned!""","pathFleet_weirdMods2:""Hold a moment, let us talk this through.""
+pathFleet_weirdMods2a:""You should calm down before doing something you'll regret.""
+pathFleet_weirdMods2b:""Funny way to ask for a bribe, but let's talk credits...""
+pathFleet_weirdMods2c:""Enough of this. Battle stations!"" (cut comms)",
+PathFleetWeirdMods2,DialogOptionSelected,$option == pathFleet_weirdMods2,"$option = pathFleet_weirdMods4 0
+FireBest DialogOptionSelected",,,
+PathFleetWeirdMods2a,DialogOptionSelected,$option == pathFleet_weirdMods2a,"$option = pathFleet_weirdMods4 0
+FireBest DialogOptionSelected",,,
+PathFleetWeirdMods2b,DialogOptionSelected,$option == pathFleet_weirdMods2b,"$option = pathFleet_weirdMods4 0
+FireBest DialogOptionSelected",,,
+PathFleetWeirdMods2c,DialogOptionSelected,$option == pathFleet_weirdMods2c,"$option = pathFleet_weirdMods4b 0
+FireBest DialogOptionSelected",,,
+PathFleetWeirdModsEnd4,DialogOptionSelected,$option == pathFleet_weirdMods4,"$player.didPathWeirdHullmodReaction = true 180
+AdjustRep luddic_path HOSTILE -200
+AddTextSmall ""Hostility due to use of unusual modifications"" bad
+$entity.ignorePlayerCommRequests = true 0
+EndConversation
+ShowDefaultVisual","""Before me I saw evil incarnate, and I stood strong..."" The $Post's words are for $hisOrHer crew, not you.
+
+The link shudders into static, the last image is of hands clasped in a brief prayer.",,
+PathFleetWeirdModsEnd4b,DialogOptionSelected,$option == pathFleet_weirdMods4b,"$player.didPathWeirdHullmodReaction = true 180
+AdjustRep luddic_path HOSTILE -200
+AddTextSmall ""Hostility due to use of unusual modifications"" bad
+$entity.ignorePlayerCommRequests = true 0
+EndConversation
+ShowDefaultVisual","""Before me I saw evil incarnate, and-""
+
+The Pather's words are lost in static as you hit the comms-cutoff.",,
+PathFleetWeirdModsAgainStart,DialogOptionSelected,"$option == pathFleet_weirdMods0
+$player.didPathWeirdHullmodReaction score:10","$option = pathFleet_weirdModsAgain2 0
+FireBest DialogOptionSelected","""May the Path be r-"" The $post's eyes go suddenly wide at a red flash from a secondary display.
+
+They return to the comm-link, fixed with fear... and hatred.
+OR
+""May the Path be r-"" The $post's eyes go suddenly wide at a red flash from a secondary display.
+
+""Blessed Ludd!"" $heOrShe gasps.",,
+PathFleetWeirdModsAgain2,DialogOptionSelected,$option == pathFleet_weirdModsAgain2,"AddTextSmall ""Hostility due to use of unusual modifications"" bad
+$entity.ignorePlayerCommRequests = true 0","""Before me I saw evil incarnate, and I stood strong..."" The Pather's words are for $hisOrHer crew, not you.
+
+The link shudders into static, the last image is of hands clasped in a brief prayer.
+OR
+""Before me I saw evil incarnate, and-""
+
+The Pather's words are lost in static as you hit the comms-cutoff.",cutCommLink:Cut the comm link,
