@@ -1,6 +1,5 @@
 package data.scripts.weapons.proj;
 
-import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.combat.*;
 import com.fs.starfarer.api.combat.listeners.ApplyDamageResultAPI;
 import com.fs.starfarer.api.loading.DamagingExplosionSpec;

@@ -141,6 +141,9 @@ public class espc_PactFleetSpawnListener extends BaseCampaignEventListener {
 							name.setFirst("Beta");
 					}
 					person.setName(name);
+				} else if (Misc.random.nextFloat() > 0.98f) {
+					person.setPortraitSprite(Global.getSettings().getSpriteName(
+						"characters", "espc_" + portraitList[Misc.random.nextInt(portraitList.length)]));
 				}
 	        }
         }

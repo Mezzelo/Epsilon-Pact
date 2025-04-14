@@ -2,7 +2,7 @@
     "displayName": "Assault",
     "fluxCapacitors": 4,
     "fluxVents": 30,
-    "goalVariant": true,
+    "goalVariant": false,
     "hullId": "anubis",
     "hullMods": [
         "targetingunit",

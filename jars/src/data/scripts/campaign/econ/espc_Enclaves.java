@@ -77,20 +77,16 @@ public class espc_Enclaves extends BaseIndustry implements MarketImmigrationModi
 			
 		}
 	}
-	
-	/*
-	
+
 	@Override
 	public boolean isAvailableToBuild() {
-//		return false;
+		return false;
 	}
-
 
 	@Override
 	public boolean showWhenUnavailable() {
 		return false;
 	}
-	*/
 	@Override
 	public boolean canImprove() {
 		return false;

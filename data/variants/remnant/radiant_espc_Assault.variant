@@ -3,8 +3,8 @@
   "hullId": "radiant",
   "displayName": "Assault",
   "goalVariant": false,
-    "fluxCapacitors": 50,
-    "fluxVents": 45,
+    "fluxCapacitors": 40,
+    "fluxVents": 42,
   "quality": 1,
   "permaMods": [],
   "hullMods": [
@@ -26,7 +26,15 @@
         {
             "autofire": true,
             "mode": "LINKED",
-            "weapons": {"WS 003": "espc_riftpike"}
+            "weapons": {
+                "WS 000": "autopulse",
+                "WS 001": "autopulse"
+            }
+        },
+        {
+            "autofire": true,
+            "mode": "LINKED",
+            "weapons": {"WS 003": "tachyonlance"}
         },
         {
             "autofire": true,
@@ -40,8 +48,6 @@
             "autofire": true,
             "mode": "LINKED",
             "weapons": {
-                "WS 000": "ionpulser",
-                "WS 001": "ionpulser",
                 "WS 010": "pdburst",
                 "WS 012": "ioncannon",
                 "WS 015": "ioncannon",

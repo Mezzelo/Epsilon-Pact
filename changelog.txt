@@ -3,6 +3,16 @@ Verion 0.6.0
 - Special encounters have a chance to spawn when salvaging beta+ cores and when salvaging certain ship blueprints and colony items. Will seek to negotiate for/confiscate those items.
 - Encounter code for when interacting with Pact fleets and markets while using Shrouded hullmods. The player is given 2 warnings before hostilities begin.
 
+Jackalope
+- DP 6 > 7
+- FP 6 > 7
+
+Minimir Cannon
+- Flux/shot 95 > 105
+
+Dual Minimir Cannon
+- Flux/shot 105 > 115
+
 Fissile Confluence Emitter
 - Renamed to Confluence Emitter.
 - Explosion damage is now based off of projectile damage
@@ -21,7 +31,10 @@ Remote Salvo
 - Sound reworks for the Rift Pike, Rift Spear, Fissile Confluence Emitter, Remise Mortar, Remise Rifle and Scatter Rifle.
 - Support for graphicslib distortions & additional lights added
 
+- fixed Jackalope's recoil not working with beams
 - fixed a crash when a Pact fleet spawns with an officered Anubis
+- fixed Tocquiera's unique industry being buildable
+- further variant revisions
 - Isabelle will no longer be offered as a contact while commissioned by another faction or without having given a Beta/Alpha core, & will not give missions while worse than favorable with the Pact.
 
 Version 0.5.9

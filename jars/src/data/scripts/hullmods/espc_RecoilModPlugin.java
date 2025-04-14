@@ -34,33 +34,31 @@ public class espc_RecoilModPlugin extends BaseEveryFrameCombatPlugin {
 	
 	private ShipAPI ship;
 	
-	// sim appears to sometimes fail to call the init method, typically on immediately setting autopilot?
 	void doInit() {
 		// recoilWeps = new ArrayList<WeaponAPI>();
 		for (WeaponAPI weapon : ship.getAllWeapons()) {
 			if (weapon.getSize() == WeaponSize.LARGE || weapon.getSize() == WeaponSize.MEDIUM) {
 				recoilWep = weapon;
+				if (weapon.isBeam()) {
+					isBeam = true;
+					knockbackMod = weapon.getDamage().getDamage() 
+						// * Math.max(recoilWep.getSpec().getBurstSize(), 0f) 
+						/ ship.getMass() * KNOCKBACK_PER_DAMAGE_OVER_WEIGHT * BEAM_KNOCKBACK_MULT;
+				} else
+					knockbackMod = weapon.getDerivedStats().getDamagePerShot() 
+						// * Math.max(recoilWep.getSpec().getBurstSize(), 0f) 
+						/ ship.getMass() * KNOCKBACK_PER_DAMAGE_OVER_WEIGHT;
+				if (weapon.getType() == WeaponType.MISSILE)
+					knockbackMod *= MISSILE_KNOCKBACK_MULT;
+				if (ship.getVariant().hasHullMod("heavyarmor")) {
+					knockbackMod *= (1f + HEAVY_ARMOR_MODIFIER);
+				}
+				
 				didInit = true;
-				break;
-			}
-				// recoilWeps.add(weapon);
-		}
-		// cooldownLast = new float[recoilWeps.size()];
-		if (didInit) {
-			if (recoilWep.isBeam())
-				knockbackMod = recoilWep.getDamage().getDamage() 
-					// * Math.max(recoilWep.getSpec().getBurstSize(), 0f) 
-					/ ship.getMass() * KNOCKBACK_PER_DAMAGE_OVER_WEIGHT * BEAM_KNOCKBACK_MULT;
-			else
-				knockbackMod = recoilWep.getDerivedStats().getDamagePerShot() 
-					// * Math.max(recoilWep.getSpec().getBurstSize(), 0f) 
-					/ ship.getMass() * KNOCKBACK_PER_DAMAGE_OVER_WEIGHT;
-			if (recoilWep.getType() == WeaponType.MISSILE)
-				knockbackMod *= MISSILE_KNOCKBACK_MULT;
-			if (ship.getVariant().hasHullMod("heavyarmor")) {
-				knockbackMod *= (1f + HEAVY_ARMOR_MODIFIER);
+				return;
 			}
 		}
+		Global.getCombatEngine().removePlugin(this);
 	}
 	
 	
