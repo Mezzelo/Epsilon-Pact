@@ -37,6 +37,8 @@ public class espc_AlternatorStats extends BaseShipSystemScript {
 		return isEnergy;
 	}
 	
+	
+	
 	public void apply(MutableShipStatsAPI stats, String id, State state, float effectLevel) {
 		if (stats.getEntity() == null)
 			return;

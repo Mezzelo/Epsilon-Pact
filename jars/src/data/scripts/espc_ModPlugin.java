@@ -112,10 +112,13 @@ public class espc_ModPlugin extends BaseModPlugin {
     		CodexDataV2.getFighterEntryId("espc_borer_wing"));
     	CodexDataV2.makeRelated(CodexDataV2.getShipEntryId("espc_bastillon"),
         	CodexDataV2.getHullmodEntryId("pointdefenseai"));
-    	
 
     	CodexDataV2.makeRelated(CodexDataV2.getShipEntryId("espc_bastillon"),
         	CodexDataV2.getHullmodEntryId("pointdefenseai"));
+    	CodexDataV2.makeRelated(CodexDataV2.getShipSystemEntryId("espc_Alternator"),
+        		CodexDataV2.getHullmodEntryId("espc_alternatorinfomod"));
+    	CodexDataV2.makeRelated(CodexDataV2.getShipSystemEntryId("espc_Salvo"),
+        		CodexDataV2.getHullmodEntryId("espc_salvoinfomod"));
     	
 	}
 	

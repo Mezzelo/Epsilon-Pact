@@ -3,8 +3,8 @@
   "hullId": "espc_sentry",
   "displayName": "Attack",
   "goalVariant": false,
-  "fluxCapacitors": 6,
-  "fluxVents": 0,
+  "fluxCapacitors": 10,
+  "fluxVents": 4,
   "quality": 1,
   "permaMods": [],
   "hullMods": [
@@ -13,44 +13,13 @@
   ],
   "weaponGroups": [
     {
-      "autofire": true,
+      "autofire": false,
       "mode": "ALTERNATING",
       "weapons": {
-        "WS 001": "lightac",
-        "WS 003": "lightac"
+        "WS 001": "hammer_single",
+        "WS 002": "hammer_single",
+        "WS 003": "hammer_single"
       }
-    },
-    {
-      "autofire": false,
-      "mode": "LINKED",
-      "weapons": {
-        "WS 002": "hammer_single"
-      }
-    },
-    {
-      "autofire": false,
-      "mode": "LINKED",
-      "weapons": {}
-    },
-    {
-      "autofire": false,
-      "mode": "LINKED",
-      "weapons": {}
-    },
-    {
-      "autofire": false,
-      "mode": "LINKED",
-      "weapons": {}
-    },
-    {
-      "autofire": false,
-      "mode": "LINKED",
-      "weapons": {}
-    },
-    {
-      "autofire": false,
-      "mode": "LINKED",
-      "weapons": {}
     }
   ],
   "modules": [],

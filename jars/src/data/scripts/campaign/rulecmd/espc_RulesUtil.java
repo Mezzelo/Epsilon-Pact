@@ -74,6 +74,15 @@ public class espc_RulesUtil extends BaseCommandPlugin {
         		if (Misc.isAutomated(member))
         			return true;
         }
+        else if (command.equals("hasTurnedInNonGamma")) {
+        	return Global.getSector().getMemoryWithoutUpdate().getInt("$espcBetaCores") > 0 ||
+        			Global.getSector().getMemoryWithoutUpdate().getInt("$espcAlphaCores") > 0;
+        }
+        else if (command.equals("isNotCommissionedToOther")) {
+        	return Misc.getCommissionFactionId() == null ||
+        		Misc.getCommissionFactionId().equals(
+        			dialog.getInteractionTarget().getActivePerson().getFaction().getId());
+        }
 		
 		return false;
 	}

@@ -4,8 +4,20 @@ Verion 0.6.0
 - Encounter code for when interacting with Pact fleets and markets while using Shrouded hullmods. The player is given 2 warnings before hostilities begin.
 
 Jackalope
-- DP 6 > 7
+- DP 6 > 8
 - FP 6 > 7
+
+Opossum
+- Dissipation 150 > 140
+- Shield Efficiency 0.6 > 0.8
+
+Pilgrim
+- OP 130 > 135
+- variants revised
+
+Snety (EP)
+- OP 28 > 30
+- variants revised
 
 Minimir Cannon
 - Flux/shot 95 > 105
@@ -18,24 +30,31 @@ Fissile Confluence Emitter
 - Explosion damage is now based off of projectile damage
 
 Remote Salvo
+- Cosmetic hullmod added to ships using Remote Salvo that explains system & shows calculations
+- Each equipped missile can no longer be used more than once per wing, requiring you to mount as many missiles as you want to fire.
 - Ship can no longer use missiles that are permanently disabled
 - Fragment missiles can no longer be used with the ship system.
 
-- Hybrid Alternator's rudimentary shipsystem AI replaced
+Hybrid Alternator
+- Cosmetic hullmod added to ships using Hybrid Alternator that explains system & shows calculations
+- Rudimentary shipsystem AI replaced with more sophisticated behaviour
+
 - finished painting the bear
 - Finalize sprite for Amanuensis-class battleship
 - Placeholder sprite replaced for Scatter Rifle
 - Placeholder sprites replaced for planetary conditions
 - Placeholder sprite replaced for Tribal Enclaves
+- Unique text added for bars on Pact worlds.
 - Placeholder sprites replaced for new skills
 - Sound reworks for the Rift Pike, Rift Spear, Fissile Confluence Emitter, Remise Mortar, Remise Rifle and Scatter Rifle.
 - Support for graphicslib distortions & additional lights added
+- All Pact officers have a chance of using gender neutral pronouns.
 
 - fixed Jackalope's recoil not working with beams
 - fixed a crash when a Pact fleet spawns with an officered Anubis
 - fixed Tocquiera's unique industry being buildable
 - further variant revisions
-- Isabelle will no longer be offered as a contact while commissioned by another faction or without having given a Beta/Alpha core, & will not give missions while worse than favorable with the Pact.
+- Isabelle will no longer be offered as a contact while commissioned by another faction, without having given a Beta/Alpha core or if you have committed any atrocities, & will not give missions while worse than favorable with the Pact.
 
 Version 0.5.9
 (0.6.0 pre-release)

@@ -1,7 +1,7 @@
 {
   "variantId": "espc_rondel_Pirate",
   "hullId": "espc_rondel",
-  "displayName": "Pirate",
+  "displayName": "Attack",
   "goalVariant": true,
   "fluxCapacitors": 8,
   "fluxVents": 10,

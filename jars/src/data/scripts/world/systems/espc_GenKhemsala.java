@@ -73,7 +73,7 @@ public class espc_GenKhemsala implements SectorGeneratorPlugin
         		{Industries.WAYSTATION},
         		{Industries.STARFORTRESS_HIGH},
         		{Industries.PATROLHQ},
-        		{Industries.FARMING},
+        		{Industries.LIGHTINDUSTRY},
         		{Industries.TECHMINING},
         		{"commerce"},
         		{"espc_enclaves"},

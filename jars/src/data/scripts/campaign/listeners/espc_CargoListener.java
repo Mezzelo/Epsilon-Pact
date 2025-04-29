@@ -86,7 +86,6 @@ public class espc_CargoListener implements GenericPlugin, CargoScreenListener {
 				!market.isHidden())
 				return;
 		}
-
 		
 		int AIInterceptCount = Global.getSector().getMemoryWithoutUpdate().getInt("$espcAIInterceptCount");
 		boolean hasAICore = AIInterceptCount >= 0 && 
@@ -122,11 +121,11 @@ public class espc_CargoListener implements GenericPlugin, CargoScreenListener {
 					}
 				}
 			}
-		}
+		}	
+		/*
 		if (!hasAICore && !hasColonyItem)
 			return;
 		
-		/* temp disabled for prerelease
 		if (hasAICore && AIInterceptCount >= 0) {
 			AIInterceptCount++;
 			

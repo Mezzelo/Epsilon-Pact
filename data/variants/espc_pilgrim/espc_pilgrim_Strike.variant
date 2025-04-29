@@ -3,8 +3,8 @@
   "hullId": "espc_pilgrim",
   "displayName": "Strike",
   "goalVariant": false,
-  "fluxCapacitors": 15,
-  "fluxVents": 18,
+  "fluxCapacitors": 16,
+  "fluxVents": 16,
   "quality": 1,
   "permaMods": [],
   "hullMods": [
@@ -28,8 +28,10 @@
     },
     {
       "autofire": false,
-      "mode": "LINKED",
+      "mode": "ALTERNATING",
       "weapons": {
+        "WS 001": "sabot_single",
+        "WS 002": "sabot_single",
         "WS 003": "sabot_single"
       }
     },

@@ -1,8 +1,8 @@
 {
   "variantId": "espc_amanuensis_Attack",
   "hullId": "espc_amanuensis",
-  "displayName": "Assault",
-  "goalVariant": true,
+  "displayName": "Attack",
+  "goalVariant": false,
   "fluxCapacitors": 33,
   "fluxVents": 50,
   "quality": 1,

@@ -118,7 +118,7 @@ SetEnabled epsilpac_startBPExchange false",,,
 ,,,,,,
 ,,,,,,
 EpsilpacIsabelleGreetingLoseContactAtrocities,PickGreeting,"$id == espc_isabelle score:2500
-$player.atrocities > 1 score: 2000
+$player.atrocities > 0 score: 2000
 $isContact score:1000",ShowPersonVisual,"This time, your communications request doesn't hang for long. When Isabelle appears on the feed, her characteristic grin is gone.
 
 She addresses you, impasively. ""So, you've come.""",epsilpacIsabelle_LoseContactEnd:Continue,
@@ -199,9 +199,12 @@ bpsEpsilpac_turnInResponseIsabelle,epsilpacBlueprintsExchanged,$id == espc_isabe
 ,,,,,,
 epsilpacIsabelle_ConactOffer,DialogOptionSelected,"$id == espc_isabelle score:2500
 $option == cutCommLinkPolite
+$player.atrocities < 1
+!$global.espcIsabelleContactOffered
 RepGTE epsilpac WELCOMING score:500
 espc_RulesUtil relationGT -1 score:500
-!$global.espcIsabelleContactOffered","AddPotentialContact
+espc_RulesUtil hasTurnedInNonGamma
+espc_RulesUtil isNotCommissionedToOther","AddPotentialContact
 $global.espcIsabelleContactOffered = true","Isabelle addresses you before she moves to cut off her comm link. ""$playerFirstName, you've proven yourself useful to our cause - and us to yours, I trust.
 
 I'm providing you my cryptokey. It'd be beneficial for our arrangement continue in a more pro-active manner."" With her key sent, the comm link fades.",epsilpacIsabelle_ConactOfferEnd:Continue,
@@ -690,7 +693,6 @@ flavorTextMarketEpsilpacBruniel,TradePanelFlavorText,"$global.tradePanelMode == 
 $faction.id == epsilpac
 $market.id == espc_bruniel_market score:100","AddText ""Massive walls loom around this desert planet's sparse pockets of industry, giving reprieve from the billowing sands of its endless dunes. Piping and machinery line the streets, scouring valuable volatiles from beneath each and every grain of sand."" marketFlavorTextColor
 AddText ""Departing the shuttle, you're guided away from the stream of arriving laborers and towards the planetary station’s elevated commerce center, the din of ceaseless engines and shouted orders giving way to hushed deals and electronic confirmations."" marketFlavorTextColor",,,
-,,,,,,
 flavorTextMarketEpsilpacFalris,TradePanelFlavorText,"$global.tradePanelMode == MARKET
 $faction.id == epsilpac
 $market.id == espc_falris_market score:100","AddText ""Markets are situated in the very center of habitation platforms, with housing radiating outwards and industry situated towards the edges. The constant rumbling of tectonic activity is punctuated only by that of departing cargo shuttles, their busy traffic drawing contrail ley lines between platforms that converge over the planet's central spaceport."" marketFlavorTextColor
@@ -699,10 +701,19 @@ flavorTextMarketEpsilpacTocquiera,TradePanelFlavorText,"$global.tradePanelMode =
 $faction.id == epsilpac
 $market.id == espc_tocquiera_market score:100","AddText ""Commerce is concentrated in Tocquiera's open air markets, as much of the planet's population lacks access to the sector's relays. Merchants garbed in tunics, tabards and tech-wear alike shout out offers from behind their stalls, trading credit chits for coinage. All manner of goods are exchanged, shipped off in wooden carts and shuttles."" marketFlavorTextColor
 AddText ""An overwhelming experience for most, some of the local tribes offer their expertise in guidance and barter in exchange for shipments of modern amenities. Recognizing your station, the local authority directs you to a government-subsidized translator as you approach a busy square."" marketFlavorTextColor",,,
-,,,,,,
-,,,,,,
 #END MarketFlavourText,,,,,,
 ,,,,,,
+#BarText,,,,,,
+bar_descEspcLunron,BarPrintDesc,"$faction.id == epsilpac
+$market.id == espc_lunron_market score:100",ShowImageVisual space_bar,"Absent of the typical entertainment feeds and ad-holos, you're instead met by the low din of conversation over light music. Patrons are seen in all manner of dress, incluing worn vacsuits, disprate uniforms, jackets of varying formality, and unlikely combinations in-between. A brew of tea native to Lunron's exotic biosphere cross-pollinates with the usual fare - its popularity conveniently coincides with an official policy advising restraint of vice and luxury.",,
+bar_descEspcBruniel,BarPrintDesc,"$faction.id == epsilpac
+$market.id == espc_bruniel_market score:100",ShowImageVisual space_bar,"Absent of the typical entertainment feeds and ad-holos, you're instead met by the low din of conversation over light music and the scent of rough drink. Patrons are seen in all manner of dress - worn vacsuits, disprate uniforms, jackets of varying formality, and unlikely combinations in-between. You can discern who calls this world home by the heterogeneity of their cohorts' wear.",,
+bar_descEspcFalris,BarPrintDesc,"$faction.id == epsilpac
+$market.id == espc_falris_market score:100",ShowImageVisual space_bar,"Absent of the typical entertainment feeds and ad-holos, you're instead met by the low din of conversation over light music and the scent of rough drink. Patrons are seen in all manner of dress - worn vacsuits, disprate uniforms, jackets of varying formality, and unlikely combinations in-between. You can discern who calls this world home by the heterogeneity of their cohorts' wear.",,
+bar_descEspcTocquiera,BarPrintDesc,"$faction.id == epsilpac
+$market.id == espc_tocquiera_market score:100",ShowImageVisual teahouse,"As the planetary government runs only a skeletal infrastructure planetside, business is instead conducted within enclaves - hospitality nonwithstanding. The crowd is eclectic even for the Pact, a mix of unfamiliar, even atavistic dialects and customs tinting the ambient conversation. Fine brews and harsh chems are imbibed openly, a result of non-interventionist policy that foreigners are often keen to take advantage of.",,
+bar_descEspcGeneric,BarPrintDesc,$faction.id == epsilpac,ShowImageVisual space_bar,"Absent of the typical entertainment feeds and ad-holos, you're instead met by the low din of conversation over light music and the scent of rough drink. Patrons are seen in all manner of dress - worn vacsuits, disprate uniforms, jackets of varying formality, and unlikely combinations in-between. You can discern who calls this world home by the heterogeneity of their cohorts' wear.",,
+#END BarText,,,,,,
 ,,,,,,
 espcHistorianBackstoryBlurb1,HistorianBackstoryBlurb,!WasHistorianBlurbShown espchistoryBlurb1,SetHistorianBlurbShownAfterDelay espchistoryBlurb1,"""Tocquiera? Or, what it's known to us by now. Its original name under the Domain has, regrettably, become obscured beneath a wealth of fractured mythos and tradition. An interesting story, perhaps one better suited for an anthropologist - although"", $heOrShe muses, nodding $hisOrHer head, ""the circumstances leading to such a question would lie well uner my purview, yes."" $HeOrShe clasps $hisOrHer hands together. ""Why no gate, for a colony so valuable and so distant?""
 

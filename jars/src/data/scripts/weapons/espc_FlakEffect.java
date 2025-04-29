@@ -3,14 +3,16 @@ package data.scripts.weapons;
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.combat.CombatEngineAPI;
 import com.fs.starfarer.api.combat.CombatEntityAPI;
+import com.fs.starfarer.api.combat.DamageType;
 import com.fs.starfarer.api.combat.DamagingProjectileAPI;
 import com.fs.starfarer.api.combat.EveryFrameWeaponEffectPlugin;
+import com.fs.starfarer.api.combat.MissileAPI;
 import com.fs.starfarer.api.combat.OnFireEffectPlugin;
+import com.fs.starfarer.api.combat.OnHitEffectPlugin;
 import com.fs.starfarer.api.combat.WeaponAPI;
+import com.fs.starfarer.api.combat.listeners.ApplyDamageResultAPI;
 import com.fs.starfarer.api.combat.ShipAPI;
 import com.fs.starfarer.api.util.Misc;
-
-import data.scripts.plugin.espc_DamageListener;
 
 import org.lwjgl.util.vector.Vector2f;
 
@@ -20,11 +22,13 @@ import java.util.Iterator;
 import org.lazywizard.lazylib.FastTrig;
 import org.lazywizard.lazylib.MathUtils;
 
-public class espc_FlakEffect implements OnFireEffectPlugin, EveryFrameWeaponEffectPlugin {
+public class espc_FlakEffect implements OnFireEffectPlugin, EveryFrameWeaponEffectPlugin, OnHitEffectPlugin {
 
 	public static final int shotsPerBurst = 5;
 	public static final float burstSpread = 24f;
 	public static final float minDamageForTarget = 250f;
+	
+    public static final float FLAK_BONUS_DAMAGE = 120f;
 	
 	private int currentShot = 0;
 	// private Vector2f spreadLocation;
@@ -198,8 +202,6 @@ public class espc_FlakEffect implements OnFireEffectPlugin, EveryFrameWeaponEffe
     public void advance(float amount, CombatEngineAPI engine, WeaponAPI weapon) {
 		if (thisShip == null)
 			thisShip = weapon.getShip();
-		if (!thisShip.hasListenerOfClass(espc_DamageListener.class))
-			thisShip.addListener(new espc_DamageListener());
 		if (pdThreats != null && pdThreats.size() > 0) {
 			CombatEngineAPI combatEngine = Global.getCombatEngine();
 			if (combatEngine.getElapsedInLastFrame() <= 0f)
@@ -233,4 +235,13 @@ public class espc_FlakEffect implements OnFireEffectPlugin, EveryFrameWeaponEffe
 			}
 		}
     }
+
+	public void onHit(DamagingProjectileAPI dProj, CombatEntityAPI targ, Vector2f point, boolean shieldHit,
+		ApplyDamageResultAPI damageResult, CombatEngineAPI engine) {
+		if (targ instanceof MissileAPI || targ instanceof ShipAPI && ((ShipAPI) targ).isFighter()) {
+			Global.getCombatEngine().applyDamage(
+				targ, point, FLAK_BONUS_DAMAGE, DamageType.FRAGMENTATION, 0f, false, false, dProj.getSource() != null ?
+					dProj.getSource() : Global.getCombatEngine());
+		}
+	}
 }

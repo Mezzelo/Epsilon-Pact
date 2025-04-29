@@ -66,16 +66,25 @@ public class espc_SalvoStats extends BaseShipSystemScript {
 		}
 	}
 	
-	private static class MissileToFire {
+	public static class MissileToFire {
 		public WeaponAPI missileWep;
-		public int count = 0;
-		public int cost = 0;
-		public float refireDelay = 0f;
+		public int count;
+		public int cost;
+		public float refireDelay = 0.05f;
+		public float missilesPerMinute = -1f;
 		public MissileToFire(WeaponAPI missileWep, int count, int cost, float refireDelay) {
 			this.missileWep = missileWep;
 			this.count = count;
 			this.cost = cost;
 			this.refireDelay = refireDelay;
+		}
+		public MissileToFire(WeaponAPI missileWep, int count, int cost, float refireDelay,
+			float missilesPerMinute) {
+			this.missileWep = missileWep;
+			this.count = count;
+			this.cost = cost;
+			this.refireDelay = refireDelay;
+			this.missilesPerMinute = missilesPerMinute;
 		}
 	}
 	
@@ -83,10 +92,11 @@ public class espc_SalvoStats extends BaseShipSystemScript {
 	// i.e. a reaper (2 OP/missile) is split between two fighters, 5 OP/2 missiles would see a similar split.
 	// private static final float MISSILE_OP_MAX = 1f;
 	// private static final int BURST_MAX = 25;
-	private static final int OP_PER_WING = 3;
-	private static final int OP_PER_WING_SMALL = 3;
-	private static final int BURSTS_PER_FIGHTER = 4;
-	private static final int MAX_MISSILE_OP = 5;
+	public static final int OP_PER_WING = 3;
+	public static final int OP_PER_WING_SMALL = 3;
+	public static final int FIGHTERS_PER_WING = 3;
+	public static final int BURSTS_PER_FIGHTER = 4;
+	public static final int MAX_MISSILE_OP = 5;
 	private static final float MIN_RANGE = 150f;
 	private static final float UNGUIDED_RADIUS_THRESHOLD = 0.7f;
 	// 0 = initialize, 1 = still bursting missiles, 2 = finished
@@ -94,7 +104,6 @@ public class espc_SalvoStats extends BaseShipSystemScript {
 	private static final boolean SHOULD_RECALL_AFTER = true;
 	
 	private int useState = 0;
-	private int remainingOP = 0;
 	
 	private List<MissileToFire> shipMissiles;
 	private List<ShipAPI> shipFighters;
@@ -252,6 +261,53 @@ public class espc_SalvoStats extends BaseShipSystemScript {
 		return false;
 	}
 	
+	public static MissileToFire calcMissile(WeaponAPI weapon) {
+		int fpm = 99;
+		int missileCount = weapon.getSpec().getBurstSize();
+		float refireDelay = 0f;
+		float missilesPerMinute = -1f;
+		
+		if (weapon.usesAmmo() && weapon.getAmmoPerSecond() <= 0f) {
+			fpm = Math.max(1,
+				(int) Math.floor(weapon.getSpec().getOrdnancePointCost(null)
+				/ weapon.getMaxAmmo() * weapon.getSpec().getBurstSize())
+			);
+			if (fpm == 1 && weapon.getSpec().getBurstSize() > 1)
+				missileCount = Math.min(weapon.getSpec().getBurstSize() * BURSTS_PER_FIGHTER,
+					Math.max((int) (weapon.getMaxAmmo() / weapon.getSpec().getOrdnancePointCost(null)),
+					weapon.getSpec().getBurstSize())
+				);
+		} else if (weapon.usesAmmo() && weapon.getAmmoPerSecond() > 0f) {
+			// pilum: 0.1 ammo/sec (6 shots/min), 7 OP, burst size 3
+			// fpm: 
+			// pilum lrm: 0.33 ammo/sec (20 shots/min), 14 OP, burst size 6
+			// fpm: 
+			// antimatter srm: 0.05 ammo/sec (3 shots/min), 7 op, burst size 1
+				// fpm: 1.4
+			// restonator: 0.4 ammo/sec (24 shots/min), 16 op, burst size 4
+				// fpm: 1.6
+			missilesPerMinute = weapon.getSpec().getAmmoPerSecond() / weapon.getSpec().getBurstSize() * 60f;
+			float fpmf = 1f / 100f / weapon.getSpec().getAmmoPerSecond() * weapon.getSpec().getOrdnancePointCost(null)
+				* weapon.getSpec().getBurstSize();
+			if (fpmf < 1f) {
+				missileCount = Math.max(weapon.getSpec().getBurstSize(),
+					(int) (1f / fpmf * weapon.getSpec().getBurstSize())
+				);
+				fpm = 1;
+			} else
+				fpm = Math.round(fpmf);
+		} else if (weapon.getRefireDelay() > 0f){
+			// salamanders go here - just using their 25 second reload as a base to limit really obnoxious modded missiles
+			fpm = Math.max(1, Math.round(weapon.getRefireDelay() / 25f));
+			missilesPerMinute = 60f / weapon.getRefireDelay();
+			refireDelay = weapon.getRefireDelay() / 2f;
+			if (fpm == 1) {
+				missileCount = Math.max(weapon.getSpec().getBurstSize(),
+				Math.round(25f / weapon.getRefireDelay()));
+			}
+		}
+		return new MissileToFire(weapon, missileCount, fpm, refireDelay, missilesPerMinute);
+	}
 					
 	public void apply(MutableShipStatsAPI stats, String id, State state, float effectLevel) {
 		
@@ -267,57 +323,17 @@ public class espc_SalvoStats extends BaseShipSystemScript {
 			if (ship == null)
 				ship = (ShipAPI) stats.getEntity();
 			
-			remainingOP = (ship.getHullSize() == HullSize.CRUISER ? OP_PER_WING : OP_PER_WING_SMALL) *
-					ship.getAllWings().size();
+			// slightly erroneous variables, but as missiles cannot cost less than 1 OP it works out
+			int remainingOP = (ship.getHullSize() == HullSize.CRUISER ? OP_PER_WING : OP_PER_WING_SMALL) *
+				ship.getHullSpec().getFighterBays();
 			shipMissiles = new ArrayList<MissileToFire>();
 			for (WeaponAPI weapon : ship.getAllWeapons()) {
 				if (weapon.getType() == WeaponType.MISSILE && !weapon.isPermanentlyDisabled() &&
 					!weapon.getSpec().hasTag(Tags.FRAGMENT)) {
-					int fpm = 99;
-					int missileCount = weapon.getSpec().getBurstSize();
-					float refireDelay = 0f;
-					
-					if (weapon.usesAmmo() && weapon.getAmmoPerSecond() <= 0f) {
-						fpm = Math.max(1,
-							(int) Math.round(Math.floor(weapon.getSpec().getOrdnancePointCost(null)
-							/ weapon.getMaxAmmo() * weapon.getSpec().getBurstSize()))
-						);
-						if (fpm == 1 && weapon.getSpec().getBurstSize() > 1)
-							missileCount = Math.min(weapon.getSpec().getBurstSize() * BURSTS_PER_FIGHTER,
-								Math.max((int) (weapon.getMaxAmmo() / weapon.getSpec().getOrdnancePointCost(null)),
-								weapon.getSpec().getBurstSize())
-							);
-					} else if (weapon.usesAmmo() && weapon.getAmmoPerSecond() > 0f) {
-						// pilum: 0.1 ammo/sec (6 shots/min), 7 OP, burst size 3
-						// fpm: 
-						// pilum lrm: 0.33 ammo/sec (20 shots/min), 14 OP, burst size 6
-						// fpm: 
-						// antimatter srm: 0.05 ammo/sec (3 shots/min), 7 op, burst size 1
-							// fpm: 1.4
-						// restonator: 0.4 ammo/sec (24 shots/min), 16 op, burst size 4
-							// fpm: 1.6
-						float fpmf = 1f / 100f / weapon.getSpec().getAmmoPerSecond() * weapon.getSpec().getOrdnancePointCost(null)
-							* weapon.getSpec().getBurstSize();
-						if (fpmf < 1f) {
-							missileCount = Math.max(weapon.getSpec().getBurstSize(),
-								(int) (1f / fpmf * weapon.getSpec().getBurstSize())
-							);
-							fpm = 1;
-						} else
-							fpm = Math.round(fpmf);
-					} else if (weapon.getRefireDelay() > 0f){
-						// salamanders go here - just using their 25 second reload as a base to limit really obnoxious modded missiles
-						fpm = Math.max(1, Math.round(weapon.getRefireDelay() / 25f));
-						refireDelay = weapon.getRefireDelay() / 2f;
-						if (fpm == 1) {
-							missileCount = Math.max(weapon.getSpec().getBurstSize(),
-							Math.round(25f / weapon.getRefireDelay()));
-						}
-					}
-					// just checking charge time to avoid possible divide by zero
-					// if your weapon doesn't meet any of those criteria i don't know what the hell you're doing
-					if (fpm < MAX_MISSILE_OP && fpm < remainingOP) {
-						shipMissiles.add(new MissileToFire(weapon, missileCount, fpm, refireDelay));
+					MissileToFire missile = calcMissile(weapon);
+					if (missile.cost < Math.min(MAX_MISSILE_OP, OP_PER_WING * ship.getHullSpec().getFighterBays()) &&
+						missile.cost < remainingOP) {
+						shipMissiles.add(missile);
 					}
 				}
 			}
@@ -327,36 +343,41 @@ public class espc_SalvoStats extends BaseShipSystemScript {
 			}
 			
 			int missileIndex = 0;
-			// 0 = check for split or add missile, 1 = add missile, 2 = split
+			int fightersMax = Math.min(shipMissiles.size(), FIGHTERS_PER_WING);
+			int remainingMissiles = shipMissiles.size() * ship.getHullSpec().getFighterBays();
 			shipFighters = new ArrayList<ShipAPI>();
 
-			// get the first three fighters of each wing, to alternate between missiles within wings
+			// get the first [num equipped missles] fighters of each wing, to alternate between missiles within wings
 			for (FighterWingAPI thisWing : ship.getAllWings()) {
-				for (int i = 0; i < OP_PER_WING && i < thisWing.getWingMembers().size(); i++) {
+				for (int i = 0; i < fightersMax && i < thisWing.getWingMembers().size()
+					&& remainingMissiles > 0; i++) {
 					ShipAPI thisWingFighter = thisWing.getWingMembers().get(i);
 					if (thisWingFighter != null &&
 						thisWingFighter.isAlive() && !thisWingFighter.isHulk() &&
 						!thisWing.isReturning(thisWingFighter)){
 						shipFighters.add(thisWingFighter);
+						remainingMissiles--;
 					}
 				}
 			}
 			
 			// alternate between wings to assign remaining fighters
-			if (shipFighters.size() < remainingOP) {
+			if (shipFighters.size() < remainingOP && remainingMissiles > 0) {
 				int maxSize = 0;
 				for (FighterWingAPI thisWing : ship.getAllWings()) {
 					if (thisWing.getWingMembers().size() > maxSize)
 						maxSize = thisWing.getWingMembers().size();
 				}
-				for (int i = OP_PER_WING; i < maxSize && shipFighters.size() < remainingOP; i++) {
+				for (int i = FIGHTERS_PER_WING; i < maxSize && shipFighters.size() < remainingOP
+					&& remainingMissiles > 0; i++) {
 					for (FighterWingAPI thisWing : ship.getAllWings()) {
-						if (i < thisWing.getWingMembers().size() && shipFighters.size() < remainingOP) {
+						if (i < thisWing.getWingMembers().size() && shipFighters.size() < remainingOP && remainingMissiles > 0) {
 							ShipAPI thisWingFighter = thisWing.getWingMembers().get(i);
 							if (thisWingFighter != null &&
 								thisWingFighter.isAlive() && !thisWingFighter.isHulk() &&
 								!thisWing.isReturning(thisWingFighter)){
 								shipFighters.add(thisWingFighter);
+								remainingMissiles--;
 							}
 						}
 					}
@@ -505,7 +526,6 @@ public class espc_SalvoStats extends BaseShipSystemScript {
 
 	public void unapply(MutableShipStatsAPI stats, String id) {
 		useState = 0;
-		remainingOP = 0;
 		shipMissiles = null;
 		shipFighters = null;
 		mFighters = null;

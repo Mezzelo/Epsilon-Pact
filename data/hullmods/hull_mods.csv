@@ -21,6 +21,9 @@ Integrated Point Defense AI,espc_defendermod,,,,hide_in_codex,,,,TRUE,,0,0,0,0,d
 
 On the Defender (EP), this hullmod is considered %s. All small non-missile weapons are classified as ""point-defense"", automatically target missiles, and are affected by point-defense stat modifiers. Additionally, the damage bonus applies to fighters as well.",Small non-missile weapons act as point-defense; PD not affected by decoy flares.,graphics/hullmods/integrated_point_defense_ai.png
 ,,,,,,,,,,,,,,,,,,
+Ordnance Clamps,espc_salvoinfomod,,,,codex_require_related,,,,TRUE,,0,0,0,0,data.scripts.hullmods.espc_SalvoInfoMod,<tooltip created in the script due to sections/other complexity>,Ship can launch equipped missiles from its fighters.,graphics/hullmods/espc_choralemodicon.png
+Alternator Internals,espc_alternatorinfomod,,,,codex_require_related,,,,TRUE,,0,0,0,0,data.scripts.hullmods.espc_AlternatorInfoMod,<tooltip created in the script due to sections/other complexity>,"Ship's non-missile weapons have increased fire rate, but can only be used one at a time.",graphics/hullmods/espc_recoilmodicon.png
+,,,,,,,,,,,,,,,,,,
 # commissioned crews,,,,,,,,,,,,,,,,,,
 Pact Will,CHM_epsilpac,,,Epsilon Pact,,,,,TRUE,,0,0,0,0,data.scripts.hullmods.CHM_epsilpac,"The prospect of life under constant threat gives Pact crew a certain proclivity not just to live on the edge, but to thrive in the face of the void itself.
 

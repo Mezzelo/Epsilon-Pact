@@ -4,7 +4,7 @@
   "displayName": "Escort",
   "goalVariant": false,
   "fluxCapacitors": 25,
-  "fluxVents": 21,
+  "fluxVents": 20,
   "quality": 1,
   "permaMods": [],
   "hullMods": [
@@ -28,8 +28,10 @@
     },
     {
       "autofire": false,
-      "mode": "LINKED",
+      "mode": "ALTERNATING",
       "weapons": {
+        "WS 001": "swarmer",
+        "WS 002": "swarmer",
         "WS 003": "swarmer"
       }
     },

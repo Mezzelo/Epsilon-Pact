@@ -11,6 +11,9 @@
   "shieldCenter": [0, -0],
   "shieldRadius": 164,
   "viewOffset": 0,
+  "builtInMods": [
+    "espc_salvoinfomod"
+  ],
   "weaponSlots": [
     {
       "id": "WS 004",
@@ -37,7 +40,7 @@
       "mount": "HARDPOINT",
       "arc": 20,
       "angle": 0,
-      "locations": [38, -67]
+      "locations": [58, -0]
     },
     {
       "id": "WS 003",
@@ -46,7 +49,7 @@
       "mount": "HARDPOINT",
       "arc": 20,
       "angle": 0,
-      "locations": [58, -0]
+      "locations": [38, -67]
     },
     {
       "id": "WS 009",

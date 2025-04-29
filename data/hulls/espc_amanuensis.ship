@@ -11,6 +11,9 @@
   "shieldCenter": [3.5, -0],
   "shieldRadius": 217.5,
   "viewOffset": 0,
+  "builtInMods": [
+    "espc_alternatorinfomod"
+  ],
   "weaponSlots": [
     {
       "id": "WS0001",

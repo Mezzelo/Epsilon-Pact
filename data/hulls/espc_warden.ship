@@ -14,7 +14,8 @@
   "builtInMods": [
     "automated",
     "rugged",
-    "coherer"
+    "coherer",
+    "espc_alternatorinfomod",
   ],
   "weaponSlots": [
     {

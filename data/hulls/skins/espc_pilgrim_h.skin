@@ -23,12 +23,11 @@
 	"baseValueMult":0.75,
 	"spriteName":"graphics/ships/espc_pilgrim_hegemony.png",
 	"fighterBays":3,
-	"removeWeaponSlots":[], 		# ids
-	"removeEngineSlots":[], 		# indices, as engine slots have no id in the .ship file
-	"removeBuiltInMods":[], 		# hullmod ids
+	"removeWeaponSlots":[],
+	"removeEngineSlots":[],
+	"removeBuiltInMods":["espc_salvoinfomod"],
 	"removeBuiltInWeapons":[], 		# weapon slot ids
-	#"builtInMods":["heg_militarized"],
-	# "builtInMods":["armoredweapons"],
+	#"builtInMods":[],
 	"builtInWeapons":{
     },
 }
