@@ -8,8 +8,7 @@ Jackalope
 - FP 6 > 7
 
 Opossum
-- Dissipation 150 > 140
-- Shield Efficiency 0.6 > 0.8
+- Shield Efficiency 0.6 > 0.7
 
 Pilgrim
 - OP 130 > 135
