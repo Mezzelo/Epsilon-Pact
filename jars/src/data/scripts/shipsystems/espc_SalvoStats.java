@@ -392,12 +392,12 @@ public class espc_SalvoStats extends BaseShipSystemScript {
 				useState = 2;
 			
 			// weaponIndex.size() = amount of fighters left still bursting, as we add an entry for each fighter.
-			while (useState != 2 && shipFighters.size() > 0 && remainingOP > 0) {
+			while (useState != 2 && shipFighters.size() > 0 && remainingOP > 0 && shipMissiles.size() > 0) {
 				if (remainingOP < shipMissiles.get(missileIndex).cost) {
 					shipMissiles.remove(missileIndex);
 					if (shipMissiles.size() == 0)
 						break;
-					else if (missileIndex > shipMissiles.size())
+					else if (missileIndex >= shipMissiles.size())
 						missileIndex = 0;
 					continue;
 				} else
@@ -441,7 +441,9 @@ public class espc_SalvoStats extends BaseShipSystemScript {
 					}
 				}
 				shipFighters.remove(0);
-				missileIndex = (missileIndex + 1) % shipMissiles.size();
+				missileIndex++;
+				if (missileIndex >= shipMissiles.size())
+					missileIndex = 0;
 			}
 			if (useState == 0 && mFighters.size() > 0) {
 				useState = 1;

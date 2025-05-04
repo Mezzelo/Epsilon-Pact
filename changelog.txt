@@ -14,6 +14,10 @@ Pilgrim
 - OP 130 > 135
 - variants revised
 
+Amanuensis-class
+- Dissipation 1200 > 1250
+- Armor 1250 > 1400
+
 Snety (EP)
 - OP 28 > 30
 - variants revised
