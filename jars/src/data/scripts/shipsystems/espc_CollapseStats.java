@@ -108,7 +108,7 @@ public class espc_CollapseStats extends BaseShipSystemScript {
 			
 				if (target == null) {
 					target = findTarget(ship);
-					target.setCustomData("espc_collapsed", true);
+					target.setCustomData("espc_collapse", true);
 					// self-targeting.  i have decided this is too big-brained to allow.
 					// if (target == null)
 					// 	target = (ShipAPI) stats.getEntity();
@@ -238,7 +238,6 @@ public class espc_CollapseStats extends BaseShipSystemScript {
 			}
 			freezeRenderer.releaseVisuals();
 			if (target != null) {
-				target.removeCustomData("espc_collapsed");
 				for (StaticProjType thisType : freezeTypes.values()) {
 					while (thisType.projs.peek() != null) {
 						StaticProj thisProj = (StaticProj) thisType.projs.pop();
@@ -366,7 +365,7 @@ public class espc_CollapseStats extends BaseShipSystemScript {
 			return false;
 		if (hasTarget.getHullSize() == HullSize.FIGHTER)
 			return false;
-		if (!hasTarget.getCustomData().containsKey("espc_collapse"))
+		if (!(hasTarget.getCustomData().containsKey("espc_collapse")))
 			return true;
 		else {
 			if (((Boolean) hasTarget.getCustomData().get("espc_collapse"))) {

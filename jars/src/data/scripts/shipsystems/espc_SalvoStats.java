@@ -1,16 +1,13 @@
 package data.scripts.shipsystems;
 
-import com.fs.starfarer.api.combat.MutableShipStatsAPI;
 import com.fs.starfarer.api.impl.campaign.ids.Tags;
 import com.fs.starfarer.api.impl.combat.BaseShipSystemScript;
 import com.fs.starfarer.api.loading.MissileSpecAPI;
 import com.fs.starfarer.api.loading.WingRole;
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.combat.*;
-import com.fs.starfarer.api.combat.ShipAPI;
-import com.fs.starfarer.api.combat.WeaponAPI;
-import com.fs.starfarer.api.combat.MissileAPI;
 import com.fs.starfarer.api.combat.ShipAPI.HullSize;
+import com.fs.starfarer.api.combat.ShipSystemAPI.SystemState;
 import com.fs.starfarer.api.combat.WeaponAPI.AIHints;
 import com.fs.starfarer.api.combat.WeaponAPI.WeaponType;
 // import com.fs.starfarer.api.util.IntervalUtil;
@@ -96,7 +93,7 @@ public class espc_SalvoStats extends BaseShipSystemScript {
 	public static final int OP_PER_WING_SMALL = 3;
 	public static final int FIGHTERS_PER_WING = 3;
 	public static final int BURSTS_PER_FIGHTER = 4;
-	public static final int MAX_MISSILE_OP = 5;
+	public static final int MAX_MISSILE_OP = 6;
 	private static final float MIN_RANGE = 150f;
 	private static final float UNGUIDED_RADIUS_THRESHOLD = 0.7f;
 	// 0 = initialize, 1 = still bursting missiles, 2 = finished
@@ -104,6 +101,7 @@ public class espc_SalvoStats extends BaseShipSystemScript {
 	private static final boolean SHOULD_RECALL_AFTER = true;
 	
 	private int useState = 0;
+	private int usableState = -1;
 	
 	private List<MissileToFire> shipMissiles;
 	private List<ShipAPI> shipFighters;
@@ -532,6 +530,47 @@ public class espc_SalvoStats extends BaseShipSystemScript {
 		shipFighters = null;
 		mFighters = null;
 	}
+	
+	/*
+	@Override
+	public String getInfoText(ShipSystemAPI system, ShipAPI ship) {
+		if (usableState == 0)
+			return "INVALID LOADOUT";
+		
+		if (system.getState().equals(SystemState.IDLE))
+			return "READY";
+		else if (system.getState().equals(SystemState.ACTIVE))
+			return "ACTIVE";
+		else
+			return "";
+	}
+	
+	@Override
+	public boolean isUsable(ShipSystemAPI system, ShipAPI ship) {
+		if (usableState == -1) {
+			if (ship.getAllWings().size() <= 0) {
+				usableState = 0;
+				return false;
+			}
+			for (WeaponAPI wep : ship.getAllWeapons()) {
+				if (wep.isPermanentlyDisabled() || wep.isDecorative() ||
+					wep.getSpec().hasTag(Tags.FRAGMENT) ||
+					!wep.getType().equals(WeaponType.MISSILE))
+					continue;
+				MissileToFire missile = calcMissile(wep);
+				if (missile.cost < Math.min(MAX_MISSILE_OP, 
+					(ship.getHullSize().ordinal() < HullSize.CRUISER.ordinal() ? OP_PER_WING :
+						OP_PER_WING_SMALL)
+						* ship.getAllWings().size())) {
+					usableState = 1;
+					return true;
+				}
+			}
+		} else if (usableState == 1)
+			return true;
+		return false;
+	}
+	*/
 	
 
 	/*

@@ -9,12 +9,12 @@ import com.fs.starfarer.api.combat.CombatEngineAPI;
 import com.fs.starfarer.api.combat.DamageType;
 import com.fs.starfarer.api.combat.MutableShipStatsAPI;
 import com.fs.starfarer.api.combat.ShipAPI;
+import com.fs.starfarer.api.combat.ShipSystemAPI;
 import com.fs.starfarer.api.combat.WeaponAPI;
+import com.fs.starfarer.api.combat.ShipSystemAPI.SystemState;
 import com.fs.starfarer.api.combat.WeaponAPI.AIHints;
 import com.fs.starfarer.api.combat.WeaponAPI.WeaponType;
 import com.fs.starfarer.api.impl.combat.BaseShipSystemScript;
-// import com.fs.starfarer.api.plugins.ShipSystemStatsScript.State;
-// import com.fs.starfarer.api.plugins.ShipSystemStatsScript.StatusData;
 
 public class espc_AlternatorStats extends BaseShipSystemScript {
 
@@ -24,6 +24,8 @@ public class espc_AlternatorStats extends BaseShipSystemScript {
 	private float energyDPS = 0f;
 	private boolean isEnergy = true;
 	private boolean lastIdle = true;
+	
+	private int usableState = -1;
 	
 	private static final float BONUS_MAX = 2f;
 	
@@ -195,5 +197,40 @@ public class espc_AlternatorStats extends BaseShipSystemScript {
 			}
 		}
 		return null;
+	}
+	
+	@Override
+	public String getInfoText(ShipSystemAPI system, ShipAPI ship) {
+		if (usableState == 0)
+			return "INVALID LOADOUT";
+		
+		if (system.getState().equals(SystemState.IDLE))
+			return isEnergy ? "ENERGY" : "BALLISTIC";
+		else if (system.getState().equals(SystemState.ACTIVE) ||
+			system.getState().equals(SystemState.OUT))
+			return "SWITCHING";
+		else
+			return "";
+	}
+	
+	@Override
+	public boolean isUsable(ShipSystemAPI system, ShipAPI ship) {
+		if (usableState == -1) {
+			boolean hasBallistic = false;
+			boolean hasEnergy = false;
+			for (WeaponAPI wep : ship.getAllWeapons()) {
+				if (wep.isPermanentlyDisabled() || wep.isDecorative())
+					continue;
+				hasBallistic = hasBallistic || wep.getType().equals(WeaponType.BALLISTIC);
+				hasEnergy = hasEnergy || wep.getType().equals(WeaponType.ENERGY);
+				if (hasBallistic && hasEnergy) {
+					usableState = 1;
+					return true;
+				}
+			}
+			usableState = 0;
+		} else if (usableState == 1)
+			return true;
+		return false;
 	}
 }

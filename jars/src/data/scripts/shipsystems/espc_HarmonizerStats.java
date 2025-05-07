@@ -3,13 +3,13 @@ package data.scripts.shipsystems;
 import java.awt.Color;
 import java.util.EnumSet;
 
+// import com.fs.starfarer.api.SoundPlayerAPI;
 import com.fs.starfarer.api.combat.*;
+import com.fs.starfarer.api.combat.ShipSystemAPI.SystemState;
 import com.fs.starfarer.api.combat.WeaponAPI.WeaponType;
 import com.fs.starfarer.api.combat.WeaponAPI.WeaponSize;
 import com.fs.starfarer.api.impl.combat.BaseShipSystemScript;
 import com.fs.starfarer.api.loading.WeaponSlotAPI;
-// import com.fs.starfarer.api.SoundPlayerAPI;
-import com.fs.starfarer.api.combat.ShipAPI;
 
 public class espc_HarmonizerStats extends BaseShipSystemScript {
 
@@ -24,6 +24,7 @@ public class espc_HarmonizerStats extends BaseShipSystemScript {
 	// 0 = small, 1 = med, 2 = large
 	private int largestSize = -1;
 	private int largestCount = 0;
+	private int usableState = -1;
 	
 	public void apply(MutableShipStatsAPI stats, String id, State state, float effectLevel) {
 		
@@ -108,5 +109,59 @@ public class espc_HarmonizerStats extends BaseShipSystemScript {
 		else if (index == 3 && ballisticBoost > -1 && energyBoost > -1)
 			return new StatusData("energy flux use -" + (int) (FLUX_USE_BONUSES[energyBoost] * 100f * effectLevel) + "%", false);
 		return null;
+	}
+	
+	@Override
+	public String getInfoText(ShipSystemAPI system, ShipAPI ship) {
+		if (usableState == 0)
+			return "INVALID LOADOUT";
+		
+		if (system.getState().equals(SystemState.IDLE))
+			return "READY";
+		else if (system.getState().equals(SystemState.ACTIVE) ||
+			system.getState().equals(SystemState.IN))
+			return "ACTIVE";
+		else
+			return "";
+	}
+	
+	@Override
+	public boolean isUsable(ShipSystemAPI system, ShipAPI ship) {
+		if (usableState == -1) {
+			WeaponSize largestMount = WeaponSize.MEDIUM;
+			for (WeaponSlotAPI mount : ship.getHullSpec().getAllWeaponSlotsCopy()) {
+				if (mount.getSlotSize() == WeaponSize.LARGE) {
+					largestMount = WeaponSize.LARGE;
+					break;
+				}
+			}
+			int largeBallisticCount = 0;
+			int largeEnergyCount = 0;
+			int ballisticCount = 0;
+			int energyCount = 0;
+			for (WeaponAPI wep : ship.getAllWeapons()) {
+				if (wep.isPermanentlyDisabled() || wep.isDecorative())
+					continue;
+				if (wep.getType().equals(WeaponType.BALLISTIC)) {
+					if (wep.getSize().equals(largestMount))
+						largeBallisticCount++;
+					else
+						ballisticCount++;
+				} else if (wep.getType().equals(WeaponType.ENERGY)) {
+					if (wep.getSize().equals(largestMount))
+						largeEnergyCount++;
+					else
+						energyCount++;
+				}
+				if (largeBallisticCount > 0 && energyCount > 0 ||
+					largeEnergyCount > 0 && ballisticCount > 0) {
+					usableState = 1;
+					return true;
+				}
+				usableState = 0;
+			}
+		} else if (usableState == 1)
+			return true;
+		return false;
 	}
 }

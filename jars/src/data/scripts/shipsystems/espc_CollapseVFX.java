@@ -147,6 +147,8 @@ public class espc_CollapseVFX extends BaseEveryFrameCombatPlugin {
     		setToRemove(combatEngine);
     	
     	if (removeTime > 0f && combatEngine.getTotalElapsedTime(false) > removeTime + COLLAPSE_TIME) {
+    		if (target != null && combatEngine.isInPlay(target))
+    			target.removeCustomData("espc_collapse");
 			combatEngine.removePlugin(this);
     	}
 	}

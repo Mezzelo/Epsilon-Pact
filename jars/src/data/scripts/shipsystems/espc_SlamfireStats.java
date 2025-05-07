@@ -16,9 +16,11 @@ import com.fs.starfarer.api.combat.DamagingProjectileAPI;
 import com.fs.starfarer.api.combat.MutableShipStatsAPI;
 import com.fs.starfarer.api.combat.OnFireEffectPlugin;
 import com.fs.starfarer.api.combat.ShipAPI;
+import com.fs.starfarer.api.combat.ShipSystemAPI;
 import com.fs.starfarer.api.combat.WeaponAPI;
 import com.fs.starfarer.api.combat.WeaponAPI.WeaponType;
 import com.fs.starfarer.api.combat.WeaponGroupAPI;
+import com.fs.starfarer.api.combat.ShipSystemAPI.SystemState;
 import com.fs.starfarer.api.impl.combat.BaseShipSystemScript;
 import com.fs.starfarer.api.loading.ProjectileSpecAPI;
 import com.fs.starfarer.api.util.Misc;
@@ -38,6 +40,7 @@ public class espc_SlamfireStats extends BaseShipSystemScript {
 	// state machine
 	private int burstState = 0;
 	private int weaponsCheck = 0;
+	private int usableState = -1;
 
 	private class SlamWeapon {
 		public WeaponAPI weapon;
@@ -337,13 +340,33 @@ public class espc_SlamfireStats extends BaseShipSystemScript {
 		// stats.getBallisticWeaponFluxCostMod().unmodify(id);
     }
 	
-
+	@Override
+	public String getInfoText(ShipSystemAPI system, ShipAPI ship) {
+		if (usableState == 0)
+			return "NO BALLISTICS MOUNTED";
+		
+		if (system.getState().equals(SystemState.IDLE))
+			return "READY";
+		else if (system.getState().equals(SystemState.ACTIVE))
+			return "ARMED";
+		else
+			return "";
+	}
 	
-	public StatusData getStatusData(int index, State state, float effectLevel) {
-		if (index == 0) {
-			return new StatusData("will consume all flux on next ballistic shot", false);
-		}
-		return null;
+	@Override
+	public boolean isUsable(ShipSystemAPI system, ShipAPI ship) {
+		if (usableState == -1) {
+			for (WeaponAPI wep : ship.getAllWeapons()) {
+				if (!wep.isPermanentlyDisabled() && !wep.isDecorative() && wep.getType().equals(WeaponType.BALLISTIC)) {
+					usableState = 1;
+					return true;
+				}
+				usableState = 0;
+				return false;
+			}
+		} else if (usableState == 1)
+			return true;
+		return false;
 	}
 	
 }

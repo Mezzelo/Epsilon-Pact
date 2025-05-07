@@ -17,13 +17,14 @@ public class espc_BastillonModBehaviour extends BaseHullMod {
 	
     // private static final float RANGE_BONUS_MAX = 700f;
 	// private static final float RANGE_BONUS = 200f;
-	private static final float DAMAGE_BONUS = 50f;
+	private static final float DAMAGE_BONUS = 100f;
 	
 	@Override
 	public void applyEffectsBeforeShipCreation(HullSize hullSize, MutableShipStatsAPI stats, String id) {
 		stats.getDynamic().getMod(Stats.PD_IGNORES_FLARES).modifyFlat(id, 1f);
 		stats.getDynamic().getMod(Stats.PD_BEST_TARGET_LEADING).modifyFlat(id, 1f);
 		stats.getDamageToMissiles().modifyPercent(id, DAMAGE_BONUS);
+		stats.getDamageToFighters().modifyPercent(id, DAMAGE_BONUS);
 		
 	}
 
@@ -44,7 +45,7 @@ public class espc_BastillonModBehaviour extends BaseHullMod {
     @Override
     public String getDescriptionParam(int index, HullSize hullSize) {
         if (index == 0)
-            return ("50%");
+            return ((int) DAMAGE_BONUS + "%");
         else if (index == 1)
             return ("upgraded by default");
 

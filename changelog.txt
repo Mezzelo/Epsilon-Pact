@@ -32,15 +32,29 @@ Fissile Confluence Emitter
 - Renamed to Confluence Emitter.
 - Explosion damage is now based off of projectile damage
 
+
+Temporal Collapse
+- Fixed a bug allowing the system to be applied multiple times on targets.
+
 Remote Salvo
+- System no longer usable if no valid missiles or fighters are mounted
 - Cosmetic hullmod added to ships using Remote Salvo that explains system & shows calculations
 - Each equipped missile can no longer be used more than once per wing, requiring you to mount as many missiles as you want to fire.
 - Ship can no longer use missiles that are permanently disabled
 - Fragment missiles can no longer be used with the ship system.
 
+Resonator Shield
+- System no longer usable on shieldless ships
+- While system is in use, shield efficiency is normalized to base: additional shield efficiency past base only affects final hard-flux received after excess is dissipated.
+- Low-pass filter now raises in strength while the system has hard-flux to dissipate, instead of always being on while the system is on.
+
 Hybrid Alternator
+- System no longer usable if loadout is invalid
 - Cosmetic hullmod added to ships using Hybrid Alternator that explains system & shows calculations
 - Rudimentary shipsystem AI replaced with more sophisticated behaviour
+
+Slamfire
+- System no longer usable if no ballistic weapons are mounted
 
 - finished painting the bear
 - Finalize sprite for Amanuensis-class battleship
