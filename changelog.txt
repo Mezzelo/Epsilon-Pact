@@ -22,11 +22,17 @@ Snety (EP)
 - OP 28 > 30
 - variants revised
 
+
 Minimir Cannon
 - Flux/shot 95 > 105
 
 Dual Minimir Cannon
 - Flux/shot 105 > 115
+
+Heavy Gatling
+- Refire delay 0.9 > 0.3 (base dps from 100 > 300)
+- Min refire delay 0.09 > 0.07 (max dps from 1000 > 1200)
+- Fire rate acceleration decreased to account for higher initial fire rate
 
 Fissile Confluence Emitter
 - Renamed to Confluence Emitter.
