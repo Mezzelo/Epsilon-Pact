@@ -1,0 +1,62 @@
+{
+  "variantId": "espc_pilgrim_Nola",
+  "hullId": "espc_pilgrim",
+  "displayName": "Assault",
+  "goalVariant": false,
+  "fluxCapacitors": 18,
+  "fluxVents": 20,
+  "quality": 1,
+  "hullMods": [
+    "expanded_deck_crew",
+    "targetingunit",
+    "frontemitter"
+  ],
+  "permaMods": [
+    "expanded_deck_crew",
+    "targetingunit"
+  ],
+  "sMods": [
+    "expanded_deck_crew",
+    "targetingunit"
+  ],
+  "weaponGroups": [
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 004": "espc_aa"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 005": "espc_minimirdual"
+      }
+    },
+    {
+      "autofire": false,
+      "mode": "ALTERNATING",
+      "weapons": {
+        "WS 001": "amsrm",
+        "WS 002": "amsrm",
+        "WS 003": "amsrm"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 006": "vulcan",
+        "WS 007": "vulcan",
+        "WS 008": "vulcan",
+        "WS 009": "vulcan"
+      }
+    }
+  ],
+  "modules": [],
+  "wings": [
+    "spark_wing",
+    "dagger_wing"
+  ]
+}

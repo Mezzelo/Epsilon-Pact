@@ -24,6 +24,10 @@ On the Defender (EP), this hullmod is considered %s. All small non-missile weapo
 Ordnance Clamps,espc_salvoinfomod,,,,codex_require_related,,,,TRUE,,0,0,0,0,data.scripts.hullmods.espc_SalvoInfoMod,<tooltip created in the script due to sections/other complexity>,Ship can launch equipped missiles from its fighters.,graphics/hullmods/espc_choralemodicon.png
 Alternator Internals,espc_alternatorinfomod,,,,codex_require_related,,,,TRUE,,0,0,0,0,data.scripts.hullmods.espc_AlternatorInfoMod,<tooltip created in the script due to sections/other complexity>,"Ship's non-missile weapons have increased fire rate, but can only be used one at a time.",graphics/hullmods/espc_recoilmodicon.png
 ,,,,,,,,,,,,,,,,,,
+Sundered Hull,espc_halfslaughtmod,,,,codex_require_related,,,,TRUE,,0,0,0,0,data.scripts.hullmods.espc_HalfslaughtModBehaviour,"The left portion of this hull appears to have been effectively vaporized prior to recovery, leaving it only partially recoverable.
+
+The loss of mass, volume & internals has resulted in %s, as well as defective ship system behaviour.",The missing left portion of this ship has resulted in significant performance alterations and defective ship system behaviour.,graphics/hullmods/espc_emberpmodicon.png
+,,,,,,,,,,,,,,,,,,
 # commissioned crews,,,,,,,,,,,,,,,,,,
 Pact Will,CHM_epsilpac,,,Epsilon Pact,,,,,TRUE,,0,0,0,0,data.scripts.hullmods.CHM_epsilpac,"The prospect of life under constant threat gives Pact crew a certain proclivity not just to live on the edge, but to thrive in the face of the void itself.
 

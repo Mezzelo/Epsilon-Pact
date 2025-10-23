@@ -1,0 +1,54 @@
+{
+  "variantId": "brilliant_espc_Nola",
+  "hullId": "brilliant",
+  "displayName": "Attack",
+  "goalVariant": false,
+  "fluxCapacitors": 28,
+  "fluxVents": 30,
+  "quality": 0,
+  "hullMods": [
+    "targetingunit",
+	"stabilizedshieldemitter"
+  ],
+  "permaMods": [
+	"targetingunit",
+	"stabilizedshieldemitter"
+  ],
+  "sMods": [
+	"targetingunit",
+	"stabilizedshieldemitter"
+  ],
+  "weaponGroups": [
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 000": "espc_riftpike"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "ALTERNATING",
+      "weapons": {
+        "WS 005": "espc_aa",
+        "WS 006": "espc_aa"
+      }
+    },
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 004": "resonatormrm"
+	  }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 001": "riftbeam"
+      }
+    }
+  ],
+  "modules": [],
+  "wings": []
+}

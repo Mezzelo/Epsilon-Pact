@@ -16,4 +16,5 @@ Feint Overload,espc_Feint,,,,,,,,2,0.05,0.25,1,0.5,1,FALSE,,FALSE,FALSE,FALSE,,,
 Split Feed,espc_Split,,,,,,,,,,1,5,1,10,,,,,,,,,,,,codex_require_related,graphics/icons/hullsys/ammo_feeder.png
 Hybrid Alternator,espc_Alternator,,,,,,,,,,,,1,0,FALSE,,FALSE,FALSE,FALSE,,,,,,,codex_require_related,graphics/icons/hullsys/ammo_feeder.png
 ,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,
 Hammer Down,espc_MissileBoost,,,,,,,,,,1,5,1,10,,,,,,,,,,,,codex_require_related,graphics/icons/hullsys/ammo_feeder.png

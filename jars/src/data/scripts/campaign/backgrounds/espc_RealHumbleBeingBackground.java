@@ -61,8 +61,8 @@ public class espc_RealHumbleBeingBackground extends BaseCharacterBackground {
     public void onNewGameAfterTimePass(FactionSpecAPI factionSpec, NexFactionConfig factionConfig) {
         Global.getSector().getPlayerPerson().getStats().setSkillLevel("espc_dancing_steps", 2.0f);
         Global.getSector().getPlayerPerson().getStats().setSkillLevel("espc_underdog", 2.0f);
-        Global.getSector().getPlayerPerson().getStats().setSkillLevel("espc_second_wind", 1.0f);
-        Global.getSector().getPlayerPerson().getStats().setSkillLevel("espc_running_hot", 1.0f);
+        Global.getSector().getPlayerPerson().getStats().setSkillLevel("espc_second_wind", 2.0f);
+        Global.getSector().getPlayerPerson().getStats().setSkillLevel("espc_running_hot", 2.0f);
         Global.getSector().getPlayerPerson().getStats().setSkillLevel("espc_humbleTastesBg_skill", 1.0f);
         
         Global.getSector().getPlayerPerson().getStats().setSkillLevel("espc_realHumbleBeingBg_skill", 1.0f);
@@ -152,8 +152,8 @@ public class espc_RealHumbleBeingBackground extends BaseCharacterBackground {
             	"do not");
             PersonAPI personForSkills = Global.getFactory().createPerson();
             personForSkills.getStats().setSkillLevel("espc_dancing_steps", 2f);
-            personForSkills.getStats().setSkillLevel("espc_running_hot", 1f);
-            personForSkills.getStats().setSkillLevel("espc_second_wind", 1f);
+            personForSkills.getStats().setSkillLevel("espc_running_hot", 2f);
+            personForSkills.getStats().setSkillLevel("espc_second_wind", 2f);
             personForSkills.getStats().setSkillLevel("espc_underdog", 2f);
             tooltip.addSkillPanel(personForSkills, 0f);
             tooltip.addSpacer(10f);
@@ -210,8 +210,8 @@ public class espc_RealHumbleBeingBackground extends BaseCharacterBackground {
         	"do not");
         PersonAPI personForSkills = Global.getFactory().createPerson();
         personForSkills.getStats().setSkillLevel("espc_dancing_steps", 2f);
-        personForSkills.getStats().setSkillLevel("espc_running_hot", 1f);
-        personForSkills.getStats().setSkillLevel("espc_second_wind", 1f);
+        personForSkills.getStats().setSkillLevel("espc_running_hot", 2f);
+        personForSkills.getStats().setSkillLevel("espc_second_wind", 2f);
         personForSkills.getStats().setSkillLevel("espc_underdog", 2f);
         tooltip.addSkillPanel(personForSkills, 0f);
         tooltip.addSpacer(10f);

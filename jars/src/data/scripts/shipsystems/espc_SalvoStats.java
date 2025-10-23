@@ -531,7 +531,7 @@ public class espc_SalvoStats extends BaseShipSystemScript {
 		mFighters = null;
 	}
 	
-	/*
+	
 	@Override
 	public String getInfoText(ShipSystemAPI system, ShipAPI ship) {
 		if (usableState == 0)
@@ -548,7 +548,7 @@ public class espc_SalvoStats extends BaseShipSystemScript {
 	@Override
 	public boolean isUsable(ShipSystemAPI system, ShipAPI ship) {
 		if (usableState == -1) {
-			if (ship.getAllWings().size() <= 0) {
+			if (ship.getVariant().getFittedWings().size() < 1) {
 				usableState = 0;
 				return false;
 			}
@@ -561,16 +561,17 @@ public class espc_SalvoStats extends BaseShipSystemScript {
 				if (missile.cost < Math.min(MAX_MISSILE_OP, 
 					(ship.getHullSize().ordinal() < HullSize.CRUISER.ordinal() ? OP_PER_WING :
 						OP_PER_WING_SMALL)
-						* ship.getAllWings().size())) {
+						* ship.getNumFighterBays())) {
 					usableState = 1;
 					return true;
 				}
 			}
+			usableState = 0;
 		} else if (usableState == 1)
 			return true;
 		return false;
 	}
-	*/
+	
 	
 
 	/*

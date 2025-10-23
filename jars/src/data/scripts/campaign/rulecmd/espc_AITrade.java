@@ -220,6 +220,19 @@ public class espc_AITrade extends BaseCommandPlugin {
 						Global.getSector().getMemoryWithoutUpdate().set(
 							("$espcPurchasedBP_" + stack.getSpecialDataIfSpecial().getData()), true
 						);
+						// dupe check
+						boolean hasBP = false;
+						for (CargoStackAPI stackCheck : playerCargo.getStacksCopy()) {
+							if (stackCheck.isSpecialStack() &&
+								stackCheck.getSpecialDataIfSpecial().getData().equals(
+									stack.getSpecialDataIfSpecial().getData())
+								) {
+								hasBP = true;
+								break;
+							}
+						}
+						if (hasBP)
+							continue;
 						playerCargo.addItems(stack.getType(), stack.getData(), stack.getSize());
 						AddRemoveCommodity.addStackGainText(stack, text);
 						if (hullMap.containsKey(stack.getSpecialDataIfSpecial().getData())) {

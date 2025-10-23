@@ -1,0 +1,34 @@
+{
+  "variantId": "espc_sentry_Nola",
+  "hullId": "espc_sentry",
+  "displayName": "Support",
+  "goalVariant": false,
+  "fluxCapacitors": 9,
+  "fluxVents": 0,
+  "quality": 1,
+  "hullMods": [
+    "expanded_deck_crew",
+    "extendedshieldemitter"
+  ],
+  "permaMods": [
+    "expanded_deck_crew",
+    "extendedshieldemitter"
+  ],
+  "sMods": [
+    "expanded_deck_crew",
+    "extendedshieldemitter"
+  ],
+  "weaponGroups": [
+    {
+      "autofire": false,
+      "mode": "ALTERNATING",
+      "weapons": {
+        "WS 001": "amsrm",
+        "WS 002": "amsrm",
+        "WS 003": "amsrm"
+      }
+    }
+  ],
+  "modules": [],
+  "wings": []
+}

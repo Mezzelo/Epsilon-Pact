@@ -27,6 +27,9 @@ espc_rampart,ship,,1.2,normal,graphics/shaders/ships/espc_rampart_normal.png
 ,,,,,
 espc_wolf_d,ship,,1,normal,graphics/shaders/normal/ships/wolf/wolf_pirates_normal.png
 espc_drone_borer,ship,,1,normal,graphics/shaders/normal/ships/drones/drone_borer_normal.png
+espc_halfslaught,ship,,,material,graphics/shaders/material/ships/espc_halfslaught_base_material.png
+espc_halfslaught,ship,,1,normal,graphics/shaders/normal/ships/espc_halfslaught_base_normal.png
+espc_halfslaught,ship,,,surface,graphics/shaders/surface/ships/espc_halfslaught_base_surface.png
 ,,,,,
 ESPC_LOW_TECH,turretcoversmall,,,material,graphics/shaders/material/weapons/covers/cover_turret_lowtech_small_material.png
 ESPC_LOW_TECH,turretcovermedium,,,material,graphics/shaders/material/weapons/covers/cover_turret_lowtech_medium_material.png

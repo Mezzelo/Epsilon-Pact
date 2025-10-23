@@ -1,0 +1,35 @@
+{
+    "variantId": "espc_warden_Nola",
+    "displayName": "Attack",
+    "fluxCapacitors": 6,
+    "fluxVents": 9,
+    "goalVariant": false,
+    "hullId": "espc_warden",
+    "hullMods": [
+		"targetingunit",
+		"extendedshieldemitter"
+	],
+    "permaMods": [
+		"targetingunit",
+		"extendedshieldemitter"
+    ],
+    "sMods": [
+		"targetingunit",
+		"extendedshieldemitter"
+    ],
+    "weaponGroups": [
+        {
+            "autofire": true,
+            "mode": "LINKED",
+            "weapons": {"WS 001": "rift_lightning"}
+        },
+        {
+            "autofire": true,
+            "mode": "ALTERNATING",
+            "weapons": {
+				"WS 002": "lightdualac",
+				"WS 003": "lightdualac",
+			}
+        }
+    ]
+}

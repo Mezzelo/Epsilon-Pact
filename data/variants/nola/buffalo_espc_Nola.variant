@@ -1,0 +1,28 @@
+{
+    "displayName": "Standard",
+    "fluxCapacitors": 0,
+    "fluxVents": 0,
+    "goalVariant": true,
+    "hullId": "buffalo",
+    "hullMods": [
+		"insulatedengine",
+		"expanded_cargo_holds",
+		"solar_shielding",
+		"efficiency_overhaul",
+		"unstable_injector"
+	],
+    "permaMods": [
+		"insulatedengine",
+		"expanded_cargo_holds"
+	],
+    "sMods": [
+		"insulatedengine",
+		"expanded_cargo_holds"
+	],
+    "variantId": "buffalo_espc_Nola",
+    "weaponGroups": [{
+        "autofire": true,
+        "mode": "LINKED",
+        "weapons": {"WS 001": "pdburst"}
+    }]
+}

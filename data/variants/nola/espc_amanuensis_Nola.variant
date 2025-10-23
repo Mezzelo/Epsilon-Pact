@@ -1,0 +1,72 @@
+{
+  "variantId": "espc_amanuensis_Nola",
+  "hullId": "espc_amanuensis",
+  "displayName": "Attack",
+  "goalVariant": false,
+  "fluxCapacitors": 45,
+  "fluxVents": 55,
+  "quality": 1,
+  "hullMods": [
+    "targetingunit",
+    "stabilizedshieldemitter",
+    "hardenedshieldemitter",
+	"insulatedengine"
+  ],
+  "permaMods": [
+    "targetingunit",
+    "hardenedshieldemitter"
+  ],
+  "sMods": [
+    "targetingunit",
+    "hardenedshieldemitter"
+  ],
+  "weaponGroups": [
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0001": "espc_flak",
+        "WS0002": "espc_flak"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0003": "espc_riftpike",
+        "WS0004": "espc_riftpike"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0005": "espc_minimirdual",
+        "WS0006": "espc_minimirdual"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0007": "rift_lightning",
+        "WS0008": "rift_lightning"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0009": "dualflak",
+        "WS0012": "inimical_emanation",
+        "WS0013": "inimical_emanation",
+        "WS0014": "irpulse",
+        "WS0015": "irpulse",
+        "WS0016": "pdburst",
+        "WS0017": "pdburst"
+      }
+    }
+  ],
+  "modules": [],
+  "wings": []
+}

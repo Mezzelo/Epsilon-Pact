@@ -17,6 +17,7 @@ import com.fs.starfarer.api.combat.ShipAPI;
 import com.fs.starfarer.api.fleet.FleetMemberAPI;
 import com.fs.starfarer.api.impl.campaign.enc.EncounterManager;
 import com.fs.starfarer.api.impl.campaign.ids.Personalities;
+import com.fs.starfarer.api.impl.campaign.rulecmd.salvage.SalvageEntity;
 import com.fs.starfarer.api.impl.campaign.shared.SharedData;
 import com.fs.starfarer.api.impl.codex.CodexDataV2;
 import com.fs.starfarer.api.util.Misc;
@@ -43,6 +44,7 @@ import data.scripts.world.espc_People;
 // import data.scripts.world.systems.espc_GenKhemsala;
 import exerelin.campaign.SectorManager;
 import exerelin.campaign.backgrounds.CharacterBackgroundUtils;
+import lunalib.lunaSettings.LunaSettings;
 
 public class espc_ModPlugin extends BaseModPlugin {
 
@@ -180,11 +182,20 @@ public class espc_ModPlugin extends BaseModPlugin {
 		
 		if (!Global.getSector().getListenerManager().hasListenerOfClass(espc_ColonyInteractionListener.class))
 			Global.getSector().getListenerManager().addListener(new espc_ColonyInteractionListener());
-
-		if (hasNex && 
-			(CharacterBackgroundUtils.isBackgroundActive("espc_realHumanBeing") ||
+		
+		if (hasNex) {
+			if ((CharacterBackgroundUtils.isBackgroundActive("espc_realHumanBeing") ||
 			CharacterBackgroundUtils.isBackgroundActive("espc_realHumbleBeing"))) {
-			Global.getSector().registerPlugin(new espc_CampaignPlugin());
+				Global.getSector().registerPlugin(new espc_CampaignPlugin());
+			}
+			if (CharacterBackgroundUtils.isBackgroundActive("espc_realHumanBeing") &&
+				espc_ModPlugin.hasLuna()) {
+				// not the nicest solution, but one i've come to learn exists.  this is a silly feature anyways.
+				if (LunaSettings.getBoolean("epsilonpact", "espc_MeatlessSalvage")) {
+					SalvageEntity.BASE_CREW = 0;
+				} else if (SalvageEntity.BASE_CREW == 0)
+					SalvageEntity.BASE_CREW = 30;
+			}
 		}
 	}
 	

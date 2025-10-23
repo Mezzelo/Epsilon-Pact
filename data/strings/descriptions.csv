@@ -112,6 +112,12 @@ Tough, dependable and not overly expensive, Venture-class cruisers are usually c
 The Venture-class ships are perhaps the most widely used civilian cruisers in the Sector. The blueprints for the Venture are widely available and can often be secured without too much trouble. 
 
 When used by small corporations, the ship is usually the pride of the fleet and is used to underpin vital operations. Due to its ubiquity, the vessel also serves with quite a few pirate outfits, where it sometimes fills the role of command ship.","A strange offshoot of the Venture unknown to any databases, this hull has almost completely substituted the missile firepower it was once dependent on for weaponry it cannot support. Its mining pods have been melded into crude approximations of escort fighters. An altogether uncanny result, that your engineers prefer not to dwell on.",,,,
+espc_riftpeak,SHIP,A prototype destroyer built around its main armament. Highly unstable in nature.,A prototype destroyer built around its main armament. Highly unstable in nature.,,,,
+espc_halfslaught,SHIP,"""Shouldn't be different from any other salvage. The damage on the right half looks to be largely superficial in comparison - that'll net us a month's worth of supplies, at least.""
+
+"".. no. Very funny, though.""
+
+""Sorry, you're not being serious, are you?""","""Shouldn't be different from any other salvage. The damage on the right half looks to be largely superficial in comparison - that'll net us a month's worth of supplies, at least.""",,,,
 ,,,,,,,
 espc_gatflet,WEAPON,"Fires spreads of fragmentation rounds, ramping up in speed during sustaind fire. Effective at countering persistent targets, but can falter due to slow tracking.
 
@@ -220,6 +226,7 @@ Although simple in concept, the AM Flamer is deceptively complex operationally. 
 The AM Flamer was designed in tandem with the Ember-class tanker, whose ship system bolsters its impact significantly. Though surprisingly easy to decouple, doing so for use on other hulls is thoroughly inadvisable, as other ships lack the Ember's bespoke feed and auxiliary mechanisms.
 
 Mounting the AM Flamer independently of its original hull involves precariously linking up the weapon directly to the fuel reserves of whatever ship intends to use it. Resulting performance is even less efficient in terms of flux generation, and prone to malfunctions.",,,,,
+espc_semirift,WEAPON,"""This isn't a good idea, no.""",- ???,,,,
 espc_procession,WEAPON,"Uses the ship's AM fuel reserves to fire a stream of superheated plasma. Usage consumes CR, rendering the weapon unable to operate when reserves are depleted.",,,,,
 ,,,,,,,
 espc_drone_borer,SHIP,"These otherwise common-pattern borer drones have been modified, equipped with improved lenses and fittings from which missiles (sometimes larger than the drones themselves) can be fired from. This added capability allows them to act as a persistent threat against targets of any size, in spite of their fragility.",,,,,

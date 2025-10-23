@@ -17,7 +17,7 @@
 		{"file":"sounds/weapon/espc_amflamer_burst.ogg","pitch":1.0,"volume":0.8},
 	],
 	
-	 "espc_mkl_fire":[
+	"espc_mkl_fire":[
 		{"file":"sounds/weapon/espc_mkl_fire_loud.ogg","pitch":0.95,"volume":0.75},
 	],
 	 "espc_buzzer_fire":[
@@ -37,6 +37,9 @@
 	],
 	 "espc_gatling_fire":[
 		{"file":"sounds/weapon/espc_gatling_fire_loud.ogg","pitch":1.0,"volume":0.7},
+	],
+	"espc_gatling_fire_secondary":[
+		{"file":"sounds/weapon/espc_mkl_fire_loud.ogg","pitch":1,"volume":0.8},
 	],
 	"espc_flak_fire":[
 		{"file":"sounds/weapon/espc_flak_fire.ogg","pitch":0.75,"volume":1.1},

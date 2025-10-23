@@ -1,5 +1,6 @@
 package data.scripts.weapons;
 
+import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.combat.CombatEngineAPI;
 import com.fs.starfarer.api.combat.DamagingProjectileAPI;
 import com.fs.starfarer.api.combat.EveryFrameWeaponEffectPlugin;
@@ -10,9 +11,9 @@ import com.fs.starfarer.api.combat.WeaponEffectPluginWithInit;
 
 public class espc_GatlingEffect implements OnFireEffectPlugin, EveryFrameWeaponEffectPlugin, WeaponEffectPluginWithInit {
 
-	public static final float minCooldown = 0.09f;
+	public static final float minCooldown = 0.075f;
 	public static final float rateDecayPerSecond = 0.25f;
-	public static final float rateIncreasePerShot = 0.1f;
+	public static final float rateIncreasePerShot = 0.022f;
 	
 	private float cCooldown = -1f;
 	private float cooldownLast = 0f;
@@ -39,6 +40,15 @@ public class espc_GatlingEffect implements OnFireEffectPlugin, EveryFrameWeaponE
 		if (weapon.getCooldownRemaining() > cooldownLast) {
 			cCooldown = Math.max(cCooldown - rateIncreasePerShot, minCooldown);
 			weapon.setRemainingCooldownTo(cCooldown);
+			Global.getSoundPlayer().playSound(
+					"espc_gatling_fire_secondary",
+					0.9f,
+					0.2f * (1f - ((cCooldown
+						* Math.min(ship.getMutableStats().getBallisticRoFMult().getMult(), 1f))
+						- 0.075f)/ 0.225f),
+					weapon.getFirePoint(0),
+					ship.getVelocity()
+				);
 		}
 		else if (weapon.getCooldownRemaining() <= 0f) {
 			cCooldown = Math.min(weapon.getCooldown(), cCooldown + rateDecayPerSecond * amount * Math.min(ship.getMutableStats().getBallisticRoFMult().getMult(), 1f));

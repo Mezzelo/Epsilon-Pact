@@ -12,6 +12,7 @@ import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.campaign.listeners.ColonyInteractionListener;
 import com.fs.starfarer.api.characters.MutableCharacterStatsAPI.SkillLevelAPI;
 import com.fs.starfarer.api.characters.PersonAPI;
+import com.fs.starfarer.api.characters.FullName.Gender;
 import com.fs.starfarer.api.combat.MutableStat.StatMod;
 import com.fs.starfarer.api.impl.campaign.events.OfficerManagerEvent;
 import com.fs.starfarer.api.impl.campaign.ids.Submarkets;
@@ -98,10 +99,12 @@ public class espc_ColonyInteractionListener implements ColonyInteractionListener
 			        		// PersonAPI officer = manager.getOfficer(person.getId()).person;
 			        		String[] skillsListCopy = skillsList.clone();
 			        		int max = skillsListCopy.length;
+			        		boolean skillsChanged = false;
 			        		List<SkillLevelAPI> skills = person.getStats().getSkillsCopy();
 			        		for (SkillLevelAPI skill : skills) {
 			        			if (!skill.getSkill().getId().contains("espc") && skill.getLevel() > 0 &&
 			        				skill.getSkill().isCombatOfficerSkill()) {
+			        				skillsChanged = true;
 									int rand = Misc.random.nextInt(max);
 			        				person.getStats().setSkillLevel(skillsListCopy[rand], skill.getLevel());
 			        				person.getStats().setSkillLevel(skill.getSkill().getId(), 0);
@@ -112,6 +115,9 @@ public class espc_ColonyInteractionListener implements ColonyInteractionListener
 			        					skillsListCopy[i] = skillsListCopy[i + 1];
 			        				rand = Misc.random.nextInt(max);
 			        			}
+			        		}
+			        		if (skillsChanged && Misc.random.nextFloat() > 0.65f) {
+								person.setGender(Gender.ANY);
 			        		}
 		        		}
 		        	}

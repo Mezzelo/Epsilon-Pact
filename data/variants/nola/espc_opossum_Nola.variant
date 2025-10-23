@@ -1,0 +1,46 @@
+{
+  "variantId": "espc_opossum_Nola",
+  "hullId": "espc_opossum",
+  "displayName": "Strike",
+  "goalVariant": false,
+  "fluxCapacitors": 5,
+  "fluxVents": 5,
+  "quality": 1,
+  "hullMods": [
+    "hardenedshieldemitter",
+    "fluxdistributor"
+  ],
+  "permaMods": [
+    "hardenedshieldemitter",
+    "fluxdistributor"
+  ],
+  "sMods": [
+    "hardenedshieldemitter",
+    "fluxdistributor"
+  ],
+  "weaponGroups": [
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 001": "minipulser"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 003": "cryoflux"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 002": "shockrepeater"
+      }
+    },
+  ],
+  "modules": [],
+  "wings": []
+}

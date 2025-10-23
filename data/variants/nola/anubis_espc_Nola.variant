@@ -1,0 +1,45 @@
+{
+    "displayName": "Nola",
+    "fluxCapacitors": 21,
+    "fluxVents": 30,
+    "goalVariant": false,
+    "hullId": "anubis",
+    "hullMods": [
+		"targetingunit",
+		"hardenedshieldemitter",
+        "stabilizedshieldemitter"
+    ],
+    "permaMods": [
+		"targetingunit",
+		"hardenedshieldemitter"
+	],
+    "sMods": [
+		"targetingunit",
+		"hardenedshieldemitter"
+	],
+    "variantId": "anubis_espc_Nola",
+    "weaponGroups": [
+        {
+            "autofire": false,
+            "mode": "ALTERNATING",
+            "weapons": {
+                "WS 003": "espc_aa",
+                "WS 004": "espc_aa"
+            }
+        },
+        {
+            "autofire": true,
+            "mode": "LINKED",
+            "weapons": {"WS 001": "abyssal_glare"}
+        },
+        {
+            "autofire": true,
+            "mode": "LINKED",
+            "weapons": {
+                "WS 000": "guardian",
+                "WS 002": "guardian"
+            }
+        }
+    ],
+    "wings": ["xyphos_wing"]
+}

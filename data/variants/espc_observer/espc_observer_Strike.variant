@@ -3,13 +3,12 @@
   "hullId": "espc_observer",
   "displayName": "Strike",
   "goalVariant": false,
-  "fluxCapacitors": 27,
+  "fluxCapacitors": 26,
   "fluxVents": 30,
   "quality": 1,
   "permaMods": [],
   "hullMods": [
-    "targetingunit",
-    "stabilizedshieldemitter"
+    "targetingunit"
   ],
   "weaponGroups": [
     {
@@ -23,8 +22,8 @@
       "autofire": true,
       "mode": "LINKED",
       "weapons": {
-        "WS0003": "ioncannon",
-        "WS0004": "ioncannon"
+        "WS0003": "ionpulser",
+        "WS0004": "ionpulser"
       }
     },
     {

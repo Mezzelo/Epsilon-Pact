@@ -48,6 +48,14 @@ public class espc_RulesStory extends BaseCommandPlugin {
 			if (market != null) {
 				market.getCommDirectory().getEntryForPerson(person).setHidden(false);
 			}
+		} else if (command.equals("isabelleRelationLimit")) {
+			if (Global.getSector().getMemoryWithoutUpdate().getInt("$espcIsabelleRelationsLimit") <= 0f) {
+				Global.getSector().getMemoryWithoutUpdate().set("$espcIsabelleRelationsLimit", 5);
+			}
+			if (dialog.getInteractionTarget().getActivePerson().getRelToPlayer().getRepInt() >
+				Global.getSector().getMemoryWithoutUpdate().getInt("$espcIsabelleRelationsLimit"))
+				dialog.getInteractionTarget().getActivePerson().getRelToPlayer().setRel(
+					Global.getSector().getMemoryWithoutUpdate().getInt("$espcIsabelleRelationsLimit") / 100f);
 		}
 		return true;
 	}

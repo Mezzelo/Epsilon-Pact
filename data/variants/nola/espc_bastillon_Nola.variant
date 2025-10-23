@@ -1,0 +1,56 @@
+{
+  "variantId": "espc_bastillon_Nola",
+  "hullId": "espc_bastillon",
+  "displayName": "Assault",
+  "goalVariant": false,
+  "fluxCapacitors": 12,
+  "fluxVents": 14,
+  "quality": 1,
+  "hullMods": [
+    "targetingunit",
+	"turretgyros"
+  ],
+  "permaMods": [
+    "targetingunit",
+	"turretgyros"
+  ],
+  "sMods": [
+    "targetingunit",
+	"turretgyros"
+  ],
+  "weaponGroups": [
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0001": "shredder",
+        "WS0002": "espc_minimirdual"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 005": "inimical_emanation",
+        "WS 006": "inimical_emanation",
+        "WS 007": "inimical_emanation",
+        "WS 008": "inimical_emanation"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "ALTERNATING",
+      "weapons": {
+        "WS 001": "shockrepeater",
+        "WS 002": "shockrepeater"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {}
+    }
+  ],
+  "modules": [],
+  "wings": []
+}

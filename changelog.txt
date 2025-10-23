@@ -20,8 +20,12 @@ Amanuensis-class
 
 Snety (EP)
 - OP 28 > 30
+- DP 5 > 6
+- FP 5 > 6
 - variants revised
 
+Berserker (EP)
+- DP 10 > 11
 
 Minimir Cannon
 - Flux/shot 95 > 105
@@ -78,6 +82,7 @@ Slamfire
 - fixed Tocquiera's unique industry being buildable
 - further variant revisions
 - Isabelle will no longer be offered as a contact while commissioned by another faction, without having given a Beta/Alpha core or if you have committed any atrocities, & will not give missions while worse than favorable with the Pact.
+- Isabelle's relation is now limited to 5.
 
 Version 0.5.9
 (0.6.0 pre-release)

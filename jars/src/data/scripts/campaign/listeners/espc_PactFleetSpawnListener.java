@@ -12,6 +12,7 @@ import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.*;
 import com.fs.starfarer.api.campaign.listeners.FleetEventListener;
 import com.fs.starfarer.api.characters.FullName;
+import com.fs.starfarer.api.characters.FullName.Gender;
 import com.fs.starfarer.api.characters.MutableCharacterStatsAPI.SkillLevelAPI;
 import com.fs.starfarer.api.characters.PersonAPI;
 import com.fs.starfarer.api.combat.ShipAPI.HullSize;
@@ -122,6 +123,10 @@ public class espc_PactFleetSpawnListener extends BaseCampaignEventListener {
 					// else
 					// 	person.setPortraitSprite("graphics/portraits/portrait_ai" + coreType + ".png");
 					
+
+					if (Misc.random.nextFloat() > 0.35f)
+						person.setGender(Gender.ANY);
+					
 					FullName name = person.getName();
 					if (Misc.random.nextFloat() > 0.35f || isBounty) {
 						if (Misc.random.nextFloat() > 0.7f)
@@ -141,9 +146,13 @@ public class espc_PactFleetSpawnListener extends BaseCampaignEventListener {
 							name.setFirst("Beta");
 					}
 					person.setName(name);
-				} else if (Misc.random.nextFloat() > 0.98f) {
-					person.setPortraitSprite(Global.getSettings().getSpriteName(
-						"characters", "espc_" + portraitList[Misc.random.nextInt(portraitList.length)]));
+				} else {
+					if (Misc.random.nextFloat() > 0.75f)
+						person.setGender(Gender.ANY);
+					if (Misc.random.nextFloat() > 0.98f) {
+						person.setPortraitSprite(Global.getSettings().getSpriteName(
+								"characters", "espc_" + portraitList[Misc.random.nextInt(portraitList.length)]));
+					}
 				}
 	        }
         }

@@ -1,0 +1,67 @@
+{
+  "variantId": "lasher_espc_Nola_Modern",
+  "hullId": "lasher",
+  "displayName": "Strike",
+  "goalVariant": false,
+  "fluxCapacitors": 12,
+  "fluxVents": 7,
+  "quality": 1,
+  "hullMods": [
+    "operations_center",
+    "extendedshieldemitter"
+  ],
+  "permaMods": [
+    "operations_center",
+    "extendedshieldemitter"
+  ],
+  "sMods": [
+    "operations_center",
+    "extendedshieldemitter"
+  ],
+  "weaponGroups": [
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 003": "light_mass_driver"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 002": "espc_minimir"
+      }
+    },
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 001": "swarmer"
+      }
+    },
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 004": "amsrm"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 007": "lightag"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 006": "vulcan"
+      }
+    }
+  ],
+  "modules": [],
+  "wings": []
+}

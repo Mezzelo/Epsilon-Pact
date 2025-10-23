@@ -7,6 +7,10 @@ espc_riftpike_shot_core,espc_riftpike_shot,espc_trail_hard,30,0.02,0.2,0.01,30,6
 espc_riftpike_shot_fringe,espc_riftpike_shot,espc_trail_hard_inverted,30,0.02,0.2,0.01,50,10,"[191,0,255]","[255,179,81]",1,128,0,TRUE,-20,0,0,2,FALSE,FALSE,TRUE,50,0,0,0,0,0,FALSE,FALSE
 espc_riftpike_shot_bloom,espc_riftpike_shot,base_trail_smooth,30,0.02,0.2,0.01,130,65,"[191,0,255]","[255,179,81]",0.6,128,0,TRUE,-20,0,0,2,FALSE,FALSE,TRUE,50,0,0,0,0,0,FALSE,FALSE
 espc_riftpike_shot_linger,espc_riftpike_shot,espc_trail_wispy,30,0.02,0.8,0.2,20,10,"[255,79,252]","[123,0,255]",1,512,0,TRUE,-20,0,0,2,FALSE,FALSE,TRUE,50,0,0,0,0,0,FALSE,FALSE
+espc_semirift_shot_core,espc_semirift_shot,espc_trail_hard,30,0.02,0.2,0.01,90,12,"[255,255,255]","[255,248,230]",1,128,0,TRUE,-20,0,0,2,FALSE,FALSE,TRUE,50,0,0,0,0,0,FALSE,FALSE
+espc_semirift_shot_fringe,espc_semirift_shot,espc_trail_hard_inverted,30,0.02,0.2,0.01,150,20,"[191,0,255]","[255,179,81]",1,128,0,TRUE,-20,0,0,2,FALSE,FALSE,TRUE,50,0,0,0,0,0,FALSE,FALSE
+espc_semirift_shot_bloom,espc_semirift_shot,base_trail_smooth,30,0.02,0.2,0.01,300,125,"[191,0,255]","[255,179,81]",0.6,128,0,TRUE,-20,0,0,2,FALSE,FALSE,TRUE,50,0,0,0,0,0,FALSE,FALSE
+# espc_semirift_shot_linger,espc_semirift_shot,espc_trail_wispy,30,0.02,0.8,0.2,40,20,"[255,79,252]","[123,0,255]",1,512,0,TRUE,-20,0,0,2,FALSE,FALSE,TRUE,50,0,0,0,0,0,FALSE,FALSE
 ,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 espc_flak_shot_trail,espc_flak_shot,base_trail_smooth,30,0,0.15,0.15,10,10,"[200,255,255,255]","[200,255,255,255]",0.4,128,0,TRUE,40,0,1,2,TRUE,FALSE,TRUE,0,0,0,0,0,0,FALSE,FALSE
 espc_remisemortar_trail,espc_remmortar_shot,espc_trail_hard,10,0.1,0.1,0.2,11,20,"[255,120,50]","[255,70,30]",0.6,128,-128,TRUE,30,40,1,1,FALSE,FALSE,FALSE,2,4,5,0,0,0,FALSE,TRUE

@@ -137,21 +137,25 @@ The comm link disconnects.",,
 ,,,,,,
 EpsilpacIsabelleGreetingInhospitable,PickGreeting,"$id == espc_isabelle score:2500
 RepLTE epsilpac INHOSPITABLE score:1000","ShowPersonVisual
+espc_RulesStory isabelleRelationLimit
 FireAll EpsilpacIsabelleMain","Your communications request hangs for a good few minutes, before audio suddenly feeds through. After verifying your identity, the comm-link connects you to Isabelle.
 
 She gazes you over before she speaks. ""State your business.""",,
 EpsilpacIsabelleGreetingNonEpsilpac,PickGreeting,"$id == espc_isabelle score:2500
 $faction.id != epsilpac score:2000","ShowPersonVisual
+espc_RulesStory isabelleRelationLimit
 FireAll EpsilpacIsabelleMain","Your communications request hangs for a good few minutes, before audio suddenly feeds through. After verifying your identity, the comm-link connects you to Isabelle.
 
 She gazes you over before she speaks. ""State your business.""",,
 EpsilpacIsabelleGreetingSuspicious,PickGreeting,$id == espc_isabelle score:2500,"ShowPersonVisual
+espc_RulesStory isabelleRelationLimit
 FireAll EpsilpacIsabelleMain","Your communications request hangs for a minute before Isabelle appears, turning to face you.
 
 ""Hello, captain. What business might you have with us?""",,
 EpsilpacIsabelleGreetingFriendly,PickGreeting,"$id == espc_isabelle score:2500
 RepGTE epsilpac FAVORABLE score:500
 espc_RulesUtil relationGT 9","ShowPersonVisual
+espc_RulesStory isabelleRelationLimit
 FireAll EpsilpacIsabelleMain","As always, your comms request is left ignored for a suitably aggravating duration before Isabelle finally responds.
 
 Her grin is ever-present as she greets you. ""Good to see you, captain.""

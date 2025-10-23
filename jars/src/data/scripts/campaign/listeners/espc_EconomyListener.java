@@ -1,20 +1,6 @@
 package data.scripts.campaign.listeners;
-// doing this through here rather than BaseGenerateFleetOfficersPlugin, as the generic officer generation is fine for my purposes
-// there's just a few exceptions i'd like to impose.
-
-// import java.util.Random;
-
-// import org.lwjgl.util.vector.Vector2f;
-
-// you can do this through the fleet inflater apparently?  i still don't know what the fuck that is need to glaze my eyes over
-// on the api for longer.  this works for the moment.
 
 import com.fs.starfarer.api.Global;
-// import com.fs.starfarer.api.Script;
-// import com.fs.starfarer.api.Global;
-// import com.fs.starfarer.api.Global;
-// import com.fs.starfarer.api.EveryFrameScript;
-// import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.*;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.characters.PersonAPI;
@@ -25,18 +11,6 @@ import com.fs.starfarer.api.impl.campaign.intel.contacts.ContactIntel;
 import com.fs.starfarer.api.impl.campaign.intel.contacts.ContactIntel.ContactState;
 import com.fs.starfarer.api.util.Misc;
 import com.fs.starfarer.api.util.WeightedRandomPicker;
-
-// import data.scripts.world.espc_NexusConstruction;
-
-// import com.fs.starfarer.api.campaign.econ.MarketAPI;
-// import com.fs.starfarer.api.campaign.listeners.FleetSpawnListener;
-// import com.fs.starfarer.api.characters.OfficerDataAPI;
-//import com.fs.starfarer.api.impl.campaign.ids.Abilities;
-//import com.fs.starfarer.api.impl.campaign.ids.Factions;
-// import java.util.Iterator;
-// import java.util.List;
-
-// import org.apache.log4j.Logger;
 
 public class espc_EconomyListener extends BaseCampaignEventListener {
 	

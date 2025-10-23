@@ -23,7 +23,7 @@
       "mount": "TURRET",
       "arc": 241,
       "angle": 61,
-      "locations": [15.5, 47.5]
+      "locations": [15, 48]
     },
     {
       "id": "LB 1",
