@@ -1,17 +1,3 @@
-todo lol
-
-- Special encounters have a chance to spawn when salvaging beta+ cores and when salvaging certain ship blueprints and colony items. Will seek to negotiate for/confiscate those items.
-- Encounter code for when interacting with Pact fleets and markets while using Shrouded hullmods. The player is given 2 warnings before hostilities begin.
-- finished painting the bear
-- Finalize sprite for Amanuensis-class battleship
-- Placeholder sprite replaced for Scatter Rifle
-- Placeholder sprites replaced for planetary conditions
-- Placeholder sprite replaced for Tribal Enclaves
-- Placeholder sprites replaced for new skills
-- Sound reworks for the Rift Pike, Rift Spear, Fissile Confluence Emitter, Remise Mortar, Remise Rifle and Scatter Rifle.
-- Support for graphicslib distortions & additional lights added
-- Isabelle relation gain from blueprint trades & missions is now capped.
-
 Version 0.6.1
 
 Opossum
