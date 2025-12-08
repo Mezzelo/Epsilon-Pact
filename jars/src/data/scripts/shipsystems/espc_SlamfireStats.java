@@ -22,6 +22,7 @@ import com.fs.starfarer.api.combat.WeaponAPI.WeaponType;
 import com.fs.starfarer.api.combat.WeaponGroupAPI;
 import com.fs.starfarer.api.combat.ShipSystemAPI.SystemState;
 import com.fs.starfarer.api.impl.combat.BaseShipSystemScript;
+import com.fs.starfarer.api.loading.MissileSpecAPI;
 import com.fs.starfarer.api.loading.ProjectileSpecAPI;
 import com.fs.starfarer.api.util.Misc;
 
@@ -67,8 +68,12 @@ public class espc_SlamfireStats extends BaseShipSystemScript {
 			if (burstSize > 100)
 				burstSize = 1;
 			
-			linkedMult = (int) (weapon.getDerivedStats().getDamagePerShot() /
-				((ProjectileSpecAPI) weapon.getSpec().getProjectileSpec()).getDamage().getBaseDamage());
+			if (weapon.getSpec().getProjectileSpec() instanceof MissileSpecAPI)
+				linkedMult = (int) (weapon.getDerivedStats().getDamagePerShot() /
+					((MissileSpecAPI) weapon.getSpec().getProjectileSpec()).getDamage().getBaseDamage());
+			else
+				linkedMult = (int) (weapon.getDerivedStats().getDamagePerShot() /
+					((ProjectileSpecAPI) weapon.getSpec().getProjectileSpec()).getDamage().getBaseDamage());
 			
 			if (weapon.getFluxCostToFire() < MIN_FLUX_COST) {
 				projectileCountMult = weapon.getFluxCostToFire() / MIN_FLUX_COST;
@@ -76,14 +81,19 @@ public class espc_SlamfireStats extends BaseShipSystemScript {
 					MAX_DAMAGE_MULT);
 			}
 			
+			
 			if (weapon.getEffectPlugin() != null) {
 				if (weapon.getEffectPlugin().getClass().isAssignableFrom(OnFireEffectPlugin.class))
 					weaponEffectPlugin = (OnFireEffectPlugin) weapon.getEffectPlugin();
 			}
-				
 			if (weapon.getSpec().getProjectileSpec() != null) {
-				if (((ProjectileSpecAPI) weapon.getSpec().getProjectileSpec()).getOnFireEffect() != null)
+				if (weapon.getSpec().getProjectileSpec() instanceof MissileSpecAPI) {
+					if (((MissileSpecAPI) weapon.getSpec().getProjectileSpec()).getOnFireEffect() != null) {
+						projEffectPlugin = ((MissileSpecAPI) weapon.getSpec().getProjectileSpec()).getOnFireEffect();
+					}
+				} else if (((ProjectileSpecAPI) weapon.getSpec().getProjectileSpec()).getOnFireEffect() != null) {
 					projEffectPlugin = ((ProjectileSpecAPI) weapon.getSpec().getProjectileSpec()).getOnFireEffect();
+				}
 			}
 			fluxPerSecond = weapon.getDerivedStats().getFluxPerSecond();
 		}

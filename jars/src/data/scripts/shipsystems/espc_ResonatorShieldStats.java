@@ -13,10 +13,9 @@ import com.fs.starfarer.api.impl.combat.BaseShipSystemScript;
 
 public class espc_ResonatorShieldStats extends BaseShipSystemScript {
 
-	private static final float DAMAGE_RECEIVED_MULT = 2f;
-	private static final float BEAM_DAMAGE_RECEIVED_MULT = 0.5f;
+	private static final float DAMAGE_RECEIVED_MULT = 1.5f;
 	private static final float HARDFLUX_DISSIPATION_RATE = 2.0f;
-	private static final float HARDFLUX_DISSIPATE_FRACTION = 0.85f;
+	private static final float HARDFLUX_DISSIPATE_FRACTION = 0.8f;
 	
 	private static final float LOW_PASS_FLUX_MAX = 4000f;
 	
@@ -45,16 +44,15 @@ public class espc_ResonatorShieldStats extends BaseShipSystemScript {
 			ship.setCustomData("espc_resonatorShieldRef", this);
 		}
 		
-		stats.getBeamShieldDamageTakenMult().modifyMult(id, 
-			1f + (BEAM_DAMAGE_RECEIVED_MULT - 1f) * effectLevel);
-		
 		stats.getShieldDamageTakenMult().unmodify(id);
 		shieldMultOffset = ship.getMutableStats().getShieldDamageTakenMult().getMult() < 1f ? 
 			1f / ship.getMutableStats().getShieldDamageTakenMult().getMult() : 1f;
 		
-		stats.getShieldDamageTakenMult().modifyMult(id, 
-			(1f + (DAMAGE_RECEIVED_MULT - 1f) * effectLevel)
-			 * (1f + (shieldMultOffset - 1f) * effectLevel));
+		float shieldMult = (1f + (DAMAGE_RECEIVED_MULT - 1f) * effectLevel)
+			* (1f + (shieldMultOffset - 1f) * effectLevel);
+		stats.getShieldDamageTakenMult().modifyMult(id, shieldMult);
+		
+		stats.getBeamShieldDamageTakenMult().modifyMult(id, 1f / shieldMult);
 		
 		hfToDissipate += Math.max((ship.getFluxTracker().getHardFlux() - hfLast) * 
 			(1f - (1f - HARDFLUX_DISSIPATE_FRACTION) / shieldMultOffset) * effectLevel, 0f);

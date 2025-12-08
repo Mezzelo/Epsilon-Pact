@@ -149,8 +149,9 @@ public class espc_DamageListener implements DamageDealtModifier {
 				);
 			}
 			return null;
-		} else if (((dProj.getProjectileSpecId().equals("espc_riftpike_shot") ||
-			dProj.getProjectileSpecId().equals("espc_riftspear_shot"))) && shieldHit) {
+		} else if ((dProj.getProjectileSpecId().equals("espc_riftpike_shot") ||
+			dProj.getProjectileSpecId().equals("espc_riftspear_shot") ||
+			dProj.getProjectileSpecId().equals("espc_semirift_shot")) && shieldHit) {
 			// if something ends up reducing rift spear damage to a 10th of its base damage it deals hard flux now
 			// fuck you
 			damage.setSoftFlux(true);

@@ -67,8 +67,8 @@ public class espc_RunningHot {
 			if (Float.isNaN(fluxLevel))
 				fluxLevel = 0f;
 			fluxLevel = Math.max(0f, fluxLevel - FLUX_MIN_THRESHOLD/100f) * 100f/(100f - FLUX_MIN_THRESHOLD);
-			stats.getBallisticRoFMult().modifyPercent(id, fluxLevel * frBonus);
-			stats.getEnergyRoFMult().modifyPercent(id, fluxLevel * frBonus);
+			stats.getBallisticRoFMult().modifyPercent(id, fluxLevel * frBonus * (hasShield ? 1f : 0.5f));
+			stats.getEnergyRoFMult().modifyPercent(id, fluxLevel * frBonus * (hasShield ? 1f : 0.5f));
 			stats.getFluxDissipation().modifyPercent(id, fluxLevel * dissipationBonus * (hasShield ? 1f : 0.5f) +
 				(ship.getFluxTracker().isOverloaded() ? (DISSIPATION_BONUS_OVERLOAD) : 0f));
 			
@@ -82,7 +82,7 @@ public class espc_RunningHot {
 					Global.getCombatEngine().maintainStatusForPlayerShip(DAM_BONUS_STATUS_KEY,
 						Global.getSettings().getSpriteName("ui", "icon_energy"),
 						"Running hot", 
-						"+" + (int)(fluxLevel * frBonus) + "% non-missile fire rate", false);
+						"+" + (int)(fluxLevel * frBonus * (hasShield ? 1f : 0.5f)) + "% non-missile fire rate", false);
 				}
 				
 			}
@@ -137,7 +137,7 @@ public class espc_RunningHot {
 			info.addPara(indent + "Bonuses begin at %s of flux capacity",
 					0f, tc, hc, (int)FLUX_MIN_THRESHOLD + "%"
 				);
-			info.addPara(indent + "Dissipation bonus is %s for ships with safety overrides or without shields",
+			info.addPara(indent + "All bonuses are %s for ships with safety overrides or without shields",
 				0f, tc, hc, "halved"
 			);
 		}

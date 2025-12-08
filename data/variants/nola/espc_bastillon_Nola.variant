@@ -3,8 +3,8 @@
   "hullId": "espc_bastillon",
   "displayName": "Assault",
   "goalVariant": false,
-  "fluxCapacitors": 12,
-  "fluxVents": 14,
+  "fluxCapacitors": 13,
+  "fluxVents": 15,
   "quality": 1,
   "hullMods": [
     "targetingunit",
@@ -20,35 +20,42 @@
   ],
   "weaponGroups": [
     {
-      "autofire": false,
+      "autofire": true,
       "mode": "LINKED",
       "weapons": {
-        "WS0001": "shredder",
         "WS0002": "espc_minimirdual"
       }
     },
     {
-      "autofire": true,
+      "autofire": false,
       "mode": "LINKED",
       "weapons": {
-        "WS 005": "inimical_emanation",
-        "WS 006": "inimical_emanation",
-        "WS 007": "inimical_emanation",
-        "WS 008": "inimical_emanation"
-      }
-    },
-    {
-      "autofire": true,
-      "mode": "ALTERNATING",
-      "weapons": {
-        "WS 001": "shockrepeater",
-        "WS 002": "shockrepeater"
+        "WS0001": "shredder"
       }
     },
     {
       "autofire": true,
       "mode": "LINKED",
-      "weapons": {}
+      "weapons": {
+        "WS 005": "taclaser",
+        "WS 006": "taclaser"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 007": "amblaster",
+        "WS 008": "amblaster"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 001": "mininglaser",
+        "WS 002": "mininglaser"
+      }
     }
   ],
   "modules": [],

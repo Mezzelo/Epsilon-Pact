@@ -54,6 +54,8 @@ public class espc_PactFleetSpawnListener extends BaseCampaignEventListener {
 			// nex pact allied fleets, under a different faction
 			fleet.getNameWithFactionKeepCase().contains("Epsilon Pact")))
 			return;
+		if (fleet.hasTag("ESPC_TAG_NO_RANDOMIZE"))
+			return;
 		
 		boolean isBounty = fleet.getFaction().getId().equals(Factions.NEUTRAL);
 		
@@ -70,10 +72,8 @@ public class espc_PactFleetSpawnListener extends BaseCampaignEventListener {
 	        }
 	        if (!found)
 	        	return;
-		}
-		
-		if (isBounty) {
-			boolean found = false;
+	        
+			found = false;
 	        for (FleetMemberAPI fleetMember : fleet.getFleetData().getMembersListCopy()) {
 	        	found = (fleetMember.getHullSpec().getManufacturer().equals("Pact-Explorarium") ||
 	        		fleetMember.getHullSpec().getManufacturer().equals("Epsilon Pact"));
@@ -88,6 +88,13 @@ public class espc_PactFleetSpawnListener extends BaseCampaignEventListener {
 			fleet.getInflater().getParams() instanceof DefaultFleetInflaterParams &&
 			!fleet.isStationMode())
 			fleet.setInflater(new espc_PactFleetInflater((DefaultFleetInflaterParams) fleet.getInflater().getParams()));
+		
+		boolean isTradeOrAlly = (!fleet.getFaction().getId().equals("epsilpac") || 
+				(fleet.getName().toLowerCase().contains("trade") ||
+				fleet.getName().toLowerCase().contains("mercantile") ||
+				fleet.getName().toLowerCase().contains("convoy") ||
+				fleet.getName().toLowerCase().contains("mining")) 
+					&& Global.getSector().getClock().getCycle() < 210);
         for (FleetMemberAPI fleetMember : fleet.getFleetData().getMembersListCopy()) {
 			PersonAPI person = fleetMember.getCaptain();
 			if (person != null && !Global.getSector().getImportantPeople().containsPerson(person)) {
@@ -109,6 +116,13 @@ public class espc_PactFleetSpawnListener extends BaseCampaignEventListener {
 					continue;
 				// if (fleetMember.getHullSpec().getHints().contains(ShipTypeHints.UNBOARDABLE)) {
 				if (Misc.isAutomated(fleetMember)) {
+					// for allied nex fleets or civilian fleets before a certain date, prevent them from spawning w/ automated ships
+					if (!isBounty && isTradeOrAlly) {
+						// int fpToReplace = fleetMember.getFleetPointCost();
+						// fleet.getFleetData().removeFleetMember(fleetMember);
+						// a
+						
+					}
 					// hasCores = true;
 					
 					int coreType = Misc.random.nextInt(11);
@@ -151,7 +165,7 @@ public class espc_PactFleetSpawnListener extends BaseCampaignEventListener {
 						person.setGender(Gender.ANY);
 					if (Misc.random.nextFloat() > 0.98f) {
 						person.setPortraitSprite(Global.getSettings().getSpriteName(
-								"characters", "espc_" + portraitList[Misc.random.nextInt(portraitList.length)]));
+							"characters", "espc_" + portraitList[Misc.random.nextInt(portraitList.length)]));
 					}
 				}
 	        }
@@ -316,7 +330,6 @@ public class espc_PactFleetSpawnListener extends BaseCampaignEventListener {
 		}
 		boolean usedFirst = false;
 		
-		// todo: implement priority skill selection, deprioritize running hot/second wind elite
 		for (int i = 0; i < skillPoints; i++) {
 			if (skillPool.size() == 0) {
 				if (usedFirst) {

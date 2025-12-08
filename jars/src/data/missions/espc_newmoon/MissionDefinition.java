@@ -30,7 +30,7 @@ public class MissionDefinition implements MissionDefinitionPlugin {
 		api.initFleet(FleetSide.ENEMY, "PLS", FleetGoal.ATTACK, true, 10);
 
 		// Set a blurb for each fleet
-		api.setFleetTagline(FleetSide.PLAYER, "Epsilon strike fleet");
+		api.setFleetTagline(FleetSide.PLAYER, "Pact strike fleet");
 		api.setFleetTagline(FleetSide.ENEMY, "Persean League response fleet, from Kazeron and Suddene");
 		
 		// These show up as items in the bulleted list under 

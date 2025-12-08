@@ -41,6 +41,7 @@ public class espc_CollapseStats extends BaseShipSystemScript {
 	// additional radius around the given ship's shield bounds (or collision bounds, whichever is more generous as to mod-proof) 
 	private static final float FREEZE_RADIUS = 150f;
 	private static final float FREEZE_RADIUS_MIN = 50f;
+	private static final float DAMAGE_BONUS = 1.5f;
 	
 	private ShipAPI target;
 	// 0: initialize, 1: initialized, 2 = projectiles released
@@ -115,7 +116,7 @@ public class espc_CollapseStats extends BaseShipSystemScript {
 					freezeTypes = new HashMap<String, StaticProjType>();
 				}
 				
-		        freezeRenderer = new espc_CollapseVFX(target, ship, combatEngine.getTotalElapsedTime(false));
+		        freezeRenderer = new espc_CollapseVFX(target, ship, combatEngine.getTotalElapsedTime(false), id);
 		        combatEngine.addPlugin(freezeRenderer);
 				useState = 1;
 				
@@ -141,7 +142,9 @@ public class espc_CollapseStats extends BaseShipSystemScript {
 				
 				DamagingProjectileAPI thisProj = (DamagingProjectileAPI) entity;
 			// for (DamagingProjectileAPI thisProj : combatEngine.getProjectiles()) {
-				if (combatEngine.isInPlay(thisProj) && !thisProj.didDamage() && !thisProj.isExpired() && thisProj.getWeapon() != null) {
+				if (combatEngine.isInPlay(thisProj) && 
+					thisProj.getOwner() == ship.getOwner() && 
+					!thisProj.didDamage() && !thisProj.isExpired() && thisProj.getWeapon() != null) {
 					if (MathUtils.isWithinRange(target.getLocation(), thisProj.getLocation(), FREEZE_RADIUS + target.getShieldRadiusEvenIfNoShield())) {
 						if (!MathUtils.isWithinRange(target.getLocation(), thisProj.getLocation(), FREEZE_RADIUS_MIN + target.getShieldRadiusEvenIfNoShield())
 							) {
@@ -253,7 +256,7 @@ public class espc_CollapseStats extends BaseShipSystemScript {
 	
 						if (thisType.projEffectPlugin != null)
 							thisType.projEffectPlugin.onFire(spawnProj, thisType.weapon, combatEngine);
-						spawnProj.setDamageAmount(thisProj.damage / spawnProj.getDamageAmount());
+						spawnProj.setDamageAmount(thisProj.damage / spawnProj.getDamageAmount() * DAMAGE_BONUS);
 						
 						float projDamage = thisProj.damage;
 						if (projDamage > 175f) {

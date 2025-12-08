@@ -42,7 +42,7 @@ import data.scripts.plugin.espc_PactAutofitPlugin;
 
 public class espc_PactFleetInflater implements FleetInflater, AutofitPluginDelegate {
 
-	public static float GOAL_VARIANT_PROBABILITY = 0.5f;
+	public static float GOAL_VARIANT_PROBABILITY = 1.0f;
 	
 	
 	public static class SortedWeapons {

@@ -244,9 +244,16 @@ public class espc_ModPlugin extends BaseModPlugin {
             ShipAIConfig config = new ShipAIConfig();
             config.personalityOverride = ship.hasLaunchBays() ? Personalities.STEADY : Personalities.AGGRESSIVE;
             return new PluginPick<ShipAIPlugin>(Global.getSettings().createDefaultShipAI(ship, config), PickPriority.MOD_SPECIFIC);
-            	
+        } else if (Misc.isAutomated(ship) &&
+        	ship.getCaptain() != null && ship.getCaptain().getFaction() != null &&
+           	ship.getCaptain().getFaction().getId().equals("epsilpac") &&
+           	!ship.getHullSpec().getBaseHullId().equals("espc_rampart") &&
+           	!ship.getHullSpec().getBaseHullId().equals("radiant")) {
+            ShipAIConfig config = new ShipAIConfig();
+            config.personalityOverride = ship.getCaptain().getPersonalityAPI().getId();
+            return new PluginPick<ShipAIPlugin>(Global.getSettings().createDefaultShipAI(ship, config), PickPriority.MOD_SPECIFIC);
         }
-        /*  // overrides for use in balance testing, to replicate desired campaign behaviour --
+        /*  // overrides for use in balance testing, to replicate desired campaign behaviour
  
         else if (Misc.isAutomated(ship) &&
        		ship.getName() != null && ship.getName().contains("EPS") && !ship.hasLaunchBays()

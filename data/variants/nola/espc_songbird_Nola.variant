@@ -38,7 +38,7 @@
       "autofire": true,
       "mode": "LINKED",
       "weapons": {
-        "WS 001": "shockrepeater"
+        "WS 001": "mininglaser"
       }
     }
   ],

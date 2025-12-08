@@ -9,7 +9,6 @@ public class espc_ChoraleLGModBehaviour extends BaseHullMod {
     private static final float SPEED_PENALTY = 20f;
     private static final float DISSIPATION_PENALTY = 100f;
 	
-	@Override
     public void applyEffectsBeforeShipCreation(HullSize hullSize, MutableShipStatsAPI stats, String id) {
 		stats.getMaxSpeed().modifyFlat(id, -SPEED_PENALTY);
 		stats.getFluxDissipation().modifyFlat(id, -DISSIPATION_PENALTY);
@@ -20,7 +19,6 @@ public class espc_ChoraleLGModBehaviour extends BaseHullMod {
     public void applyEffectsAfterShipCreation(ShipAPI ship, String id) {
     }*/
     
-    @Override
     public String getDescriptionParam(int index, HullSize hullSize) {
         if (index == 0)
             return ("" + ((int) SPEED_PENALTY));

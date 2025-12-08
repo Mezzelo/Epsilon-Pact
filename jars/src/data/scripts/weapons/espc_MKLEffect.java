@@ -18,7 +18,7 @@ public class espc_MKLEffect implements OnFireEffectPlugin, EveryFrameWeaponEffec
 	private static final float FLUX_DECAY_PERCENT_FRIGATE = 0.8f;
 	private static final float FLUX_DECAY_PERCENT_DESTROYER = 0.75f;
 	private static final float FLUX_DECAY_PERCENT_CRUISER = 0.7f;
-	private static final float FLUX_DECAY_PERCENT_CAPITAL = 0.5f;
+	private static final float FLUX_DECAY_PERCENT_CAPITAL = 0.6f;
 	
 	/* original vals, scaled for half fire rate/double flux cost
 	private static final float FLUX_DECAY_PERCENT_LIGHT = 0.76f;

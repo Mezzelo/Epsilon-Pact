@@ -146,7 +146,8 @@
 
     "isPirateNeutral":false,
 
-	"colonyExpeditionChance":0.0,
+    "colonyExpeditionChance":1,	# baseline expansion behaviour
+    "colonyTargetValuator":"exerelin.campaign.colony.IndustrialColonyTargetValuator",
 	"canInvade":true,
 	"invasionOnlyRetake":true,			# no expansion!
 	
@@ -162,7 +163,7 @@
 	# "specialForcesMaxFleets":2,
 	
 	
-	"diplomacyTraits":["pacifist", "irredentist", "lowprofile", "devious"],
+	"diplomacyTraits":["pacifist", "irredentist", "weak-willed", "devious"],
     
     "vengeanceLevelNames":["Strike", "Retaliation", "Vengeance"],
     "vengeanceFleetNames":["Strike Fleet", "Retaliation Fleet", "Vengeance Fleet",],

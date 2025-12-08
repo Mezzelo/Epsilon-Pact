@@ -49,8 +49,8 @@
       "autofire": true,
       "mode": "LINKED",
       "weapons": {
-        "WS0007": "rift_lightning",
-        "WS0008": "rift_lightning"
+        "WS0007": "irautolance",
+        "WS0008": "irautolance"
       }
     },
     {
@@ -58,8 +58,8 @@
       "mode": "LINKED",
       "weapons": {
         "WS0009": "dualflak",
-        "WS0012": "inimical_emanation",
-        "WS0013": "inimical_emanation",
+        "WS0012": "taclaser",
+        "WS0013": "taclaser",
         "WS0014": "irpulse",
         "WS0015": "irpulse",
         "WS0016": "pdburst",

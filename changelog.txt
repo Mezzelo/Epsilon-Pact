@@ -1,7 +1,54 @@
-Verion 0.6.0
+todo lol
 
 - Special encounters have a chance to spawn when salvaging beta+ cores and when salvaging certain ship blueprints and colony items. Will seek to negotiate for/confiscate those items.
 - Encounter code for when interacting with Pact fleets and markets while using Shrouded hullmods. The player is given 2 warnings before hostilities begin.
+- finished painting the bear
+- Finalize sprite for Amanuensis-class battleship
+- Placeholder sprite replaced for Scatter Rifle
+- Placeholder sprites replaced for planetary conditions
+- Placeholder sprite replaced for Tribal Enclaves
+- Placeholder sprites replaced for new skills
+- Sound reworks for the Rift Pike, Rift Spear, Fissile Confluence Emitter, Remise Mortar, Remise Rifle and Scatter Rifle.
+- Support for graphicslib distortions & additional lights added
+- Isabelle relation gain from blueprint trades & missions is now capped.
+
+Version 0.6.1
+
+Opossum
+- Dissipation 150 > 140
+
+Pilgrim
+- DP 25 > 20
+	it'd be worth 25 if battlecarrier ai wasn't completely useless lol
+	
+Amanuensis-class
+- Speed 45 > 50
+	
+
+Slamfire
+- System no longer causes a crash when firing a ballistic weapon that fires missiles — thanks to Surge for finding this one
+
+Temporal Collapse
+- System now only affects friendly projectiles, and applies a 50% damage bonus to frozen projectiles
+- Fixed a bug allowing the system to be applied multiple times on targets.
+
+Resonator Shield
+- Damage taken mult from 2x > 1.5x, hard-flux dissipation from 85% > 80%
+- Fixed beams dealing extra damage when shield efficiency was increased past base
+
+
+Type XII-a
+- Additional flux dissipation 50% > 60% for capital-sized hulls
+
+
+- Giver's Gaze will no longer be considered owned by the Pact, and will no longer erroneously penalize your relations with them if colonized.
+- The Pact are now allowed to colonize planets in Nexerelin
+- Low Profile diplomacy trait in Nexerelin changed to weak-willed
+
+- String revisions
+- Further work on portraiture
+
+Verion 0.6.0
 
 Jackalope
 - DP 6 > 8
@@ -43,9 +90,6 @@ Fissile Confluence Emitter
 - Explosion damage is now based off of projectile damage
 
 
-Temporal Collapse
-- Fixed a bug allowing the system to be applied multiple times on targets.
-
 Remote Salvo
 - System no longer usable if no valid missiles or fighters are mounted
 - Cosmetic hullmod added to ships using Remote Salvo that explains system & shows calculations
@@ -66,23 +110,16 @@ Hybrid Alternator
 Slamfire
 - System no longer usable if no ballistic weapons are mounted
 
-- finished painting the bear
-- Finalize sprite for Amanuensis-class battleship
-- Placeholder sprite replaced for Scatter Rifle
-- Placeholder sprites replaced for planetary conditions
-- Placeholder sprite replaced for Tribal Enclaves
 - Unique text added for bars on Pact worlds.
-- Placeholder sprites replaced for new skills
-- Sound reworks for the Rift Pike, Rift Spear, Fissile Confluence Emitter, Remise Mortar, Remise Rifle and Scatter Rifle.
-- Support for graphicslib distortions & additional lights added
 - All Pact officers have a chance of using gender neutral pronouns.
 
 - fixed Jackalope's recoil not working with beams
 - fixed a crash when a Pact fleet spawns with an officered Anubis
 - fixed Tocquiera's unique industry being buildable
+- fixed crash when trading for blueprints and having some special items (i.e. janus device, or a lot of modded stuff)
+
 - further variant revisions
 - Isabelle will no longer be offered as a contact while commissioned by another faction, without having given a Beta/Alpha core or if you have committed any atrocities, & will not give missions while worse than favorable with the Pact.
-- Isabelle's relation is now limited to 5.
 
 Version 0.5.9
 (0.6.0 pre-release)

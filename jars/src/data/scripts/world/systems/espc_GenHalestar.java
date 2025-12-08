@@ -53,7 +53,7 @@ public class espc_GenHalestar implements SectorGeneratorPlugin
         		260f,
         		4500f,
         		255f);
-        giver.setFaction("epsilpac");
+        // giver.setFaction("epsilpac");
         giver.setCustomDescriptionId("espc_giver");
         
         PlanetAPI bruniel = system.addPlanet(

@@ -30,7 +30,7 @@
         {
             "autofire": true,
             "mode": "LINKED",
-            "weapons": {"WS 001": "abyssal_glare"}
+            "weapons": {"WS 001": "tachyonlance"}
         },
         {
             "autofire": true,

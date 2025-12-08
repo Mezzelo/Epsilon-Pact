@@ -23,13 +23,11 @@ public class espc_SerenadeModBehaviour extends BaseHullMod {
         return true;
     }
 	
-	@Override
     public void applyEffectsBeforeShipCreation(HullSize hullSize, MutableShipStatsAPI stats, String id) {
 		stats.getDynamic().getMod(Stats.LARGE_BALLISTIC_MOD).modifyFlat(id, -OP_DISCOUNT_LARGE);
 		stats.getDynamic().getMod(Stats.MEDIUM_BALLISTIC_MOD).modifyFlat(id, -OP_DISCOUNT_MEDIUM);
     }
     
-    @Override
     public void applyEffectsAfterShipCreation(ShipAPI ship, String id) {
         
 		int asymmetryBonus = 0;
@@ -64,7 +62,6 @@ public class espc_SerenadeModBehaviour extends BaseHullMod {
 		ship.getMutableStats().getFluxDissipation().modifyFlat("id", asymmetryBonus);      
     }
     
-    @Override
     public String getDescriptionParam(int index, HullSize hullSize) {
         if (index == 0)
             return ("10");

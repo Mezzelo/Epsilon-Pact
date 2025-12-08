@@ -56,7 +56,7 @@ charEpsilpacMHOpenTextIsabelle,MHOpenText,$id == espc_isabelle score:1000,FireBe
 OR
 ""Alright, let's take a look."" She casually thumbs through a nearby feed as she speaks.
 OR
-Isabelle nods and turns away. Light dances in her eyes from an off-screen display.",,
+Isabelle nods and turns away. Lights from an off-screen display dance in her eyes.",,
 charEpsilpacContactPrintAcceptTextIsabelle,ContactPrintAcceptText,$id == espc_isabelle score:1000,,"She taps a nearby screen. ""Excellent. Thank you, $playerFirstName.""
 OR
 Her grin widens. ""Very good. You'll let us know if it works out, yes?""

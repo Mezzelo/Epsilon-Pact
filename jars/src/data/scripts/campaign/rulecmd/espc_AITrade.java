@@ -223,7 +223,7 @@ public class espc_AITrade extends BaseCommandPlugin {
 						// dupe check
 						boolean hasBP = false;
 						for (CargoStackAPI stackCheck : playerCargo.getStacksCopy()) {
-							if (stackCheck.isSpecialStack() &&
+							if (stackCheck.isSpecialStack() && stackCheck.getSpecialDataIfSpecial().getData() != null &&
 								stackCheck.getSpecialDataIfSpecial().getData().equals(
 									stack.getSpecialDataIfSpecial().getData())
 								) {

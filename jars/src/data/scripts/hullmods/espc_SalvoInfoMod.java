@@ -255,7 +255,6 @@ public class espc_SalvoInfoMod extends BaseHullMod {
 		
 	}
 	
-	@Override
 	public boolean shouldAddDescriptionToTooltip(HullSize hullSize, ShipAPI ship, boolean isForModSpec) {
 		return false;
 	}

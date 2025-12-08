@@ -42,6 +42,7 @@ public class espc_CollapseVFX extends BaseEveryFrameCombatPlugin {
 	private LinkedList<StaticProjSprite> freezeProjs;
 	private ShipAPI target;
 	private ShipAPI ship;
+	// private String id;
 	private Vector2f jitter;
 	private float startTime = -1f;
 	private float removeTime = -1f;
@@ -56,9 +57,10 @@ public class espc_CollapseVFX extends BaseEveryFrameCombatPlugin {
 	private static final float PARTICLE_SIZE_MIN = 4f;
 	private static final float PARTICLE_SIZE_DIFF = 2f;
 
-    public espc_CollapseVFX(ShipAPI target, ShipAPI user, float startTime) {
+    public espc_CollapseVFX(ShipAPI target, ShipAPI user, float startTime, String id) {
     	this.target = target;
     	this.ship = user;
+    	// this.id = id;
     	freezeProjs = new LinkedList<StaticProjSprite>();
     	jitter = new Vector2f();
     	this.startTime = startTime;
@@ -126,6 +128,11 @@ public class espc_CollapseVFX extends BaseEveryFrameCombatPlugin {
 	
 	public void setToRemove(CombatEngineAPI combatEngine) {
 		removeTime = combatEngine.getTotalElapsedTime(false);
+		/*
+		target.getMutableStats().getHullDamageTakenMult().modifyMult(id, DAMAGE_BONUS);
+		target.getMutableStats().getArmorDamageTakenMult().modifyMult(id, DAMAGE_BONUS);
+		target.getMutableStats().getShieldDamageTakenMult().modifyMult(id, DAMAGE_BONUS);
+		target.getMutableStats().getEmpDamageTakenMult().modifyMult(id, DAMAGE_BONUS); */
 	}
 	
 	
@@ -147,8 +154,15 @@ public class espc_CollapseVFX extends BaseEveryFrameCombatPlugin {
     		setToRemove(combatEngine);
     	
     	if (removeTime > 0f && combatEngine.getTotalElapsedTime(false) > removeTime + COLLAPSE_TIME) {
-    		if (target != null && combatEngine.isInPlay(target))
+    		if (target != null && combatEngine.isInPlay(target)) {
+    			/*
+				target.getMutableStats().getHullDamageTakenMult().unmodify(id);
+				target.getMutableStats().getArmorDamageTakenMult().unmodify(id);
+				target.getMutableStats().getShieldDamageTakenMult().unmodify(id);
+				target.getMutableStats().getEmpDamageTakenMult().unmodify(id); 
+				*/
     			target.removeCustomData("espc_collapse");
+    		}
 			combatEngine.removePlugin(this);
     	}
 	}

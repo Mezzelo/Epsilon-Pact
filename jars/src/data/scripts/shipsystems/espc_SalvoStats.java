@@ -225,7 +225,6 @@ public class espc_SalvoStats extends BaseShipSystemScript {
 			);
 			// honestly i'd be the sort of fucker to require this check.
 			if (missile instanceof MissileAPI) {
-				// this is a lot of effort to makes swarmers work tbh.  saving grace is that this doesn't need to fire ALL the time
 				if (spawnMissile.hasAIHint(AIHints.ANTI_FTR) &&
 					((MissileAPI) missile).getMissileAI() instanceof GuidedMissileAI) {
 					Iterator<Object> entityIterator = combatEngine.getAiGridShips().getCheckIterator(

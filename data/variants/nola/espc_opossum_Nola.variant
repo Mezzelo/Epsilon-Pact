@@ -23,21 +23,21 @@
       "autofire": false,
       "mode": "LINKED",
       "weapons": {
-        "WS 001": "minipulser"
+        "WS 001": "railgun"
       }
     },
     {
       "autofire": true,
       "mode": "LINKED",
       "weapons": {
-        "WS 003": "cryoflux"
+        "WS 003": "kineticblaster"
       }
     },
     {
       "autofire": true,
       "mode": "LINKED",
       "weapons": {
-        "WS 002": "shockrepeater"
+        "WS 002": "mininglaser"
       }
     },
   ],

@@ -49,7 +49,7 @@ public class espc_EconomyListener extends BaseCampaignEventListener {
 			if (nexRandom)
 				continue;
 			
-			if (market.getId().contains("espc")) {
+			if (market.getId().contains("espc") && !market.getPlanetEntity().getId().contains("giver")) {
 				if (market.isPlayerOwned()) {
 					playerPactMarket = market.getId();
 					if (market.getId().equals("espc_tocquiera_market") && !market.hasIndustry("espc_enclaves")) {
@@ -126,7 +126,8 @@ public class espc_EconomyListener extends BaseCampaignEventListener {
 					impact.delta = -0.35f;
 					Global.getSector().adjustPlayerReputation(
 						new RepActionEnvelope(RepActions.CUSTOM, 
-						impact, null, null, false, true, "Change caused due to ownership of a former Pact market, " + pactMarketCount + "."),
+						impact, null, null, false, true, "Change caused due to ownership of a former Pact market, " 
+							+ Global.getSector().getEconomy().getMarket(playerPactMarket).getName() + "."),
 						"epsilpac");
 				}
 			if (!aiCrimes.equals("") &&

@@ -35,6 +35,13 @@ public class espc_RiftProjEffect implements OnHitEffectPlugin {
 				"rifttorpedo_explosion",
 				//"riftcascade_rift",
 				1.5f, 1f, point, Misc.ZERO);
+		} else if (((DamagingProjectileAPI) proj).getProjectileSpecId().equals("espc_semirift_shot")) {
+			engine.addSwirlyNebulaParticle(point, Misc.ZERO, 30f, 2.5f, 0.5f, 0.8f, 0.5f, new Color(163,0,255), true);
+			engine.spawnExplosion(point, Misc.ZERO, new Color(255,180,250), 45f, 0.4f);
+			Global.getSoundPlayer().playSound(
+				"rifttorpedo_explosion",
+				//"riftcascade_rift",
+				1.5f, 0.9f, point, Misc.ZERO);
 		} else {
 			engine.addSwirlyNebulaParticle(point, Misc.ZERO, 30f, 2.5f, 0.5f, 0.8f, 0.5f, new Color(163,0,255), true);
 			engine.spawnExplosion(point, Misc.ZERO, new Color(255,180,250), 45f, 0.4f);

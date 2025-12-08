@@ -17,7 +17,6 @@ public class espc_RecoilModBehaviour extends BaseHullMod {
 	
 	private static final float ROF_BONUS = 0.5f;
 	
-    @Override
 	public void applyEffectsAfterShipCreation(ShipAPI ship, String id) {
         Global.getCombatEngine().addPlugin(new espc_RecoilModPlugin(ship));
 		List<WeaponAPI> shipWeps = ship.getAllWeapons();
@@ -29,7 +28,6 @@ public class espc_RecoilModBehaviour extends BaseHullMod {
 		ship.getMutableStats().getBallisticAmmoRegenMult().modifyMult(id, 1f + ROF_BONUS);
 	}
 
-	@Override
 	public String getDescriptionParam(int index, HullSize hullSize) {
 		if (index == 0)
 			return ("large and medium");

@@ -45,14 +45,14 @@
       "autofire": true,
       "mode": "LINKED",
       "weapons": {
-        "WS 004": "cryoblaster"
+        "WS 004": "pulselaser"
       }
     },
     {
       "autofire": true,
       "mode": "LINKED",
       "weapons": {
-        "WS 008": "rift_lightning"
+        "WS 008": "irautolance"
       }
     },
     {

@@ -20,7 +20,6 @@ public class espc_ChoraleModBehaviour extends BaseHullMod {
 	private static final float SPEED_PENALTY = 2f;
 	private static final float RECOIL_MULT = 0.5f;
 	
-	@Override
 	public void applyEffectsBeforeShipCreation(HullSize hullSize, MutableShipStatsAPI stats, String id) {
 		// the AI REALLY wants the larges to be turrets in order to orient the ship properly
 		// ends up being a pretty massive downside to large ballistics
@@ -30,7 +29,6 @@ public class espc_ChoraleModBehaviour extends BaseHullMod {
 		stats.getMaxRecoilMult().modifyMult(id, RECOIL_MULT);
 	}
     
-    @Override
     public void applyEffectsAfterShipCreation(ShipAPI ship, String id) {
 		
 		List<WeaponAPI> shipWeps = ship.getAllWeapons();
@@ -46,7 +44,6 @@ public class espc_ChoraleModBehaviour extends BaseHullMod {
         ship.addListener(new espc_ChoraleRangeMod());  
     }
     
-    @Override
     public String getDescriptionParam(int index, HullSize hullSize) {
         if (index == 0)
             return ("" + (int) RANGE_BONUS_MAX);

@@ -57,6 +57,9 @@ public class MissionDefinition implements MissionDefinitionPlugin {
 		api.addToFleet(FleetSide.ENEMY, "espc_sentry_Escort", FleetMemberType.SHIP, "EPS Snikaree", false);
 		
 		if (Keyboard.isKeyDown(Keyboard.KEY_LCONTROL) && Keyboard.isKeyDown(Keyboard.KEY_Q)) {
+			api.addToFleet(FleetSide.PLAYER, "espc_riftpeak_Rogue", FleetMemberType.SHIP, "EPS Razorleaf", false);
+			api.addToFleet(FleetSide.PLAYER, "espc_halfslaught_Salvaged", FleetMemberType.SHIP,  "HSS Macedon", false);
+			
 			api.addToFleet(FleetSide.PLAYER, "anubis_Standard", FleetMemberType.SHIP, "EPS Homeward Bound", false);
 			// api.addToFleet(FleetSide.PLAYER, "espc_gallant_Standard", FleetMemberType.SHIP, false);
 			api.addToFleet(FleetSide.PLAYER, "espc_amanuensis_Assault", FleetMemberType.SHIP, false);

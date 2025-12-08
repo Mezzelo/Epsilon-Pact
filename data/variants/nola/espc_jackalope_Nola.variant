@@ -8,16 +8,16 @@
   "quality": 1,
   "hullMods": [
     "targetingunit",
-    "hardenedshieldemitter",
+    "fluxcoil",
     "frontemitter"
   ],
   "permaMods": [
     "targetingunit",
-    "hardenedshieldemitter"
+    "fluxcoil"
   ],
   "sMods": [
     "targetingunit",
-    "hardenedshieldemitter"
+    "fluxcoil"
   ],
   "weaponGroups": [
     {

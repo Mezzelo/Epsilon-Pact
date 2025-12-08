@@ -6,7 +6,7 @@
     {
         "major":0,
         "minor":6,
-        "patch":"0"
+        "patch":"1"
     },
 	"directDownloadURL":"https://github.com/Mezzelo/Epsilon-Pact/releases/latest/download/Epsilon-Pact.zip",
 	"changelogURL":"https://raw.githubusercontent.com/mezzelo/Epsilon-Pact/main/changelog.txt"

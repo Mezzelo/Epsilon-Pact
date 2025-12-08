@@ -23,9 +23,9 @@
       "autofire": false,
       "mode": "ALTERNATING",
       "weapons": {
-        "WS 001": "amsrm",
-        "WS 002": "amsrm",
-        "WS 003": "amsrm"
+        "WS 001": "harpoon",
+        "WS 002": "harpoon",
+        "WS 003": "harpoon"
       }
     }
   ],
