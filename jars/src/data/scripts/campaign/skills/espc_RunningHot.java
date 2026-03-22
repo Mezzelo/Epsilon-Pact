@@ -44,6 +44,7 @@ public class espc_RunningHot {
 			this.frBonus = 0f;
 			this.dissipationBonus = 0f;
 			this.hasShield = ship.getShield() != null && ship.getShield().getType() != ShieldType.PHASE &&
+				ship.getShield().getType() != ShieldType.NONE &&
 				(ship.getVariant() == null || ship.getVariant() != null && !ship.getVariant().hasHullMod("safetyoverrides"));
 		}
 		
@@ -60,7 +61,8 @@ public class espc_RunningHot {
  					(ship.getHullSize().equals(HullSize.DESTROYER) ? DISSIPATION_BONUS_FLUX_DESTROYER :
  					(ship.getHullSize().equals(HullSize.CRUISER) ? DISSIPATION_BONUS_FLUX_CRUISER : DISSIPATION_BONUS_FLUX_CAPITAL));
  				hasShield = ship.getShield() != null && ship.getShield().getType() != ShieldType.PHASE &&
- 						(ship.getVariant() == null || ship.getVariant() != null && !ship.getVariant().hasHullMod("safetyoverrides"));
+ 					ship.getShield().getType() != ShieldType.NONE &&
+ 					(ship.getVariant() == null || ship.getVariant() != null && !ship.getVariant().hasHullMod("safetyoverrides"));
  			}
 			
 			float fluxLevel = ship.getFluxLevel();

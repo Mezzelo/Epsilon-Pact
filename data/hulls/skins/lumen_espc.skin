@@ -1,0 +1,16 @@
+{
+	"baseHullId":"lumen",
+	"skinHullId":"lumen_espc",
+	"hullName":"Lumen",
+	"restoreToBaseHull":true,
+	"descriptionId":"lumen",
+	"addHints":["HIDE_IN_CODEX"],
+    "systemId":"espc_Collapse",
+	# "suppliesToRecover":4,
+	# "suppliesPerMonth":4,
+	"removeWeaponSlots":[], 		# ids
+	"removeEngineSlots":[], 		# indices, as engine slots have no id in the .ship file
+	"removeBuiltInMods":[], 		# hullmod ids
+	"removeBuiltInWeapons":[], 		# weapon slot ids
+	"builtInMods":["espc_pactskin"],
+}

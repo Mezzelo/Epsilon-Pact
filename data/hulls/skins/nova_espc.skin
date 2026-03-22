@@ -1,0 +1,16 @@
+{
+	"baseHullId":"nova",
+	"skinHullId":"nova_espc",
+	"hullName":"Nova",
+	"restoreToBaseHull":true,
+	"descriptionId":"nova",
+	"addHints":["HIDE_IN_CODEX"],
+    "systemId":"espc_Collapse",
+	# "suppliesToRecover":40,
+	# "suppliesPerMonth":40,
+	"removeWeaponSlots":[], 		# ids
+	"removeEngineSlots":[], 		# indices, as engine slots have no id in the .ship file
+	"removeBuiltInMods":[], 		# hullmod ids
+	"removeBuiltInWeapons":[], 		# weapon slot ids
+	"builtInMods":["espc_pactskin"],
+}

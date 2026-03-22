@@ -35,6 +35,7 @@ public class espc_DancingSteps {
 	public static float SPEED_BONUS = 50f;
 	public static float MANEUVERABILITY_BONUS = 50f;
 	public static float SPEED_BONUS_NO_SHIELD = 30f;
+	public static float SPEED_BONUS_TOP_SPEED_PORTION = 0.5f;
 	public static float SHIELD_DECAY_TIME = 3f;
 	public static float SHIELD_TIME_GAIN_MULT = 2f;
 	public static float HULL_STATIC_MAX = 2000f;
@@ -254,6 +255,9 @@ public class espc_DancingSteps {
 			info.addPara("Up to +%s top speed and maneuverability, based on nearby incoming fire",
 				0f, hc, hc, (int)SPEED_BONUS + "%", (int)MANEUVERABILITY_BONUS + "%"
 			);
+			info.addPara(indent + "Speed boost is %s su/second or %s of top speed, whichever is lower",
+				0f, tc, hc, (int) SPEED_BONUS_NO_SHIELD + "", (int) (SPEED_BONUS_TOP_SPEED_PORTION * 100f) + "%"
+			);
 			info.addPara(indent + "Max effect when there is half of current hull's worth of enemy fire within %s. No effect while phased.",
 				0f, tc, hc, (int)HOSTILE_RANGE + " su"
 			);
@@ -287,14 +291,17 @@ public class espc_DancingSteps {
 			TooltipMakerAPI info, float width) {
 			init(stats, skill);
 			info.addPara("Up to -%s damage taken by shields, based on current speed and impact angle against shield",
-					0f, hc, hc,
-					(int) DAMAGE_REDUCTION_SHIELD_MAX + "%"
-				);
+				0f, hc, hc,
+				(int) DAMAGE_REDUCTION_SHIELD_MAX + "%"
+			);
 			info.addPara(indent + "Max damage reduction when moving perpendicular to an attack at %s, and it lands parallel to shield",
 				0f, tc, hc, (int) DAMAGE_REDUCTION_SPEED_MAX + " su/second"
 			);
-			info.addPara("%s su/second to top speed after dropping shields, decaying over %s",
+			info.addPara("Up to %s su/second to top speed after dropping shields, decaying over %s",
 				0f, hc, hc, "+" + (int)SPEED_BONUS_NO_SHIELD, (int)SHIELD_DECAY_TIME + " seconds"
+			);
+			info.addPara(indent + "Speed boost is %s su/second or %s of top speed, whichever is lower",
+				0f, tc, hc, (int) SPEED_BONUS_NO_SHIELD + "", (int) (SPEED_BONUS_TOP_SPEED_PORTION * 100f) + "%"
 			);
 		}
 		

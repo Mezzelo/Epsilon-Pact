@@ -97,6 +97,106 @@
 	 "espc_shieldwall":[
 		{"file":"sounds/sfx_shields/shields_up_small.ogg","pitch":0.9,"volume":1.2},
 	],
+	
+	"espc_explosion_ship":{
+		"sounds":[
+			{"file":"sounds/sfx_impacts/explosion_01.ogg","pitch":1,"volume":1.0},				# 0
+			{"file":"sounds/sfx_impacts/explosion_02.ogg","pitch":1,"volume":1.0},				# 1
+			{"file":"sounds/sfx_impacts/explosion_03_fighter.ogg","pitch":1,"volume":1.0},		# 2
+			{"file":"sounds/sfx_impacts/explosion_04.ogg","pitch":1,"volume":1.0},				# 3
+		],
+		"ESPC_LOW_TECH":{"sounds":[0,1,2,3], "pitch":1.0, "volume":1},
+		"ESPC_MIDLINE":{"sounds":[0,1,2,3], "pitch":1.0, "volume":1},
+		"ESPC_HIGH_TECH":{"sounds":[0,1,2,3], "pitch":1, "volume":1},
+	},
+	
+	"espc_engine_loop":{
+		"sounds":[
+			{"file":"sounds/sfx_engines/engine_01_lotek_00_fighter.ogg","pitch":0.67,"volume":1}, # index:  0
+			{"file":"sounds/sfx_engines/engine_01_lotek_01_frigate.ogg","pitch":1,"volume":1},    # index:  1
+			{"file":"sounds/sfx_engines/engine_01_lotek_02_destroyer.ogg","pitch":1,"volume":1},  # index:  2
+			{"file":"sounds/sfx_engines/engine_01_lotek_03_cruiser.ogg","pitch":1,"volume":1},    # index:  3
+			{"file":"sounds/sfx_engines/engine_01_lotek_04_capital.ogg","pitch":1,"volume":1},    # index:  4
+			{"file":"sounds/sfx_engines/engine_02_midtek_00_fighter.ogg","pitch":0.67,"volume":1},# index:  5
+			{"file":"sounds/sfx_engines/engine_02_midtek_01_frigate.ogg","pitch":1,"volume":1},   # index:  6
+			{"file":"sounds/sfx_engines/engine_02_midtek_02_destroyer.ogg","pitch":1,"volume":1}, # index:  7
+			{"file":"sounds/sfx_engines/engine_02_midtek_03_cruiser.ogg","pitch":1,"volume":1},   # index:  8
+			{"file":"sounds/sfx_engines/engine_02_midtek_04_capital.ogg","pitch":1,"volume":1},   # index:  9
+			{"file":"sounds/sfx_engines/engine_03_hitek_00_fighter.ogg","pitch":0.67,"volume":1}, # index: 10
+			{"file":"sounds/sfx_engines/engine_03_hitek_01_frigate.ogg","pitch":1,"volume":1},    # index: 11
+			{"file":"sounds/sfx_engines/engine_03_hitek_02_destroyer.ogg","pitch":1,"volume":1},  # index: 12
+			{"file":"sounds/sfx_engines/engine_03_hitek_03_cruiser.ogg","pitch":1,"volume":1},    # index: 13
+			{"file":"sounds/sfx_engines/engine_03_hitek_04_capital.ogg","pitch":1,"volume":1},    # index: 14
+		],
+		"ESPC_LOW_TECH":{"sounds":[0,1,2,3,4], "pitch":1, "volume":0.5},
+		"ESPC_MIDLINE":{"sounds":[5,6,7,8,9], "pitch":1, "volume":0.3},
+		"ESPC_HIGH_TECH":{"sounds":[10,11,12,13,14], "pitch":1, "volume":0.5},
+		},
+	
+	"espc_engine_accelerate":{
+		"sounds":[
+			{"file":"sounds/sfx_engines/engine_boost_01.ogg","pitch":1.0,"volume":0.4},
+			{"file":"sounds/sfx_engines/engine_boost_02.ogg","pitch":1.0,"volume":0.4},
+			{"file":"sounds/sfx_engines/engine_boost_03.ogg","pitch":1.0,"volume":0.4},
+		],
+		"ESPC_LOW_TECH":{"sounds":[0,1,2], "pitch":0.8, "volume":1},
+		"ESPC_MIDLINE":{"sounds":[0,1,2], "pitch":0.9, "volume":1},
+		"ESPC_HIGH_TECH":{"sounds":[0,1,2], "pitch":1, "volume":1},
+	},
+	
+	"espc_shield_burnout":{
+		"sounds":[
+			{"file":"sounds/sfx_shields/shields_burnout_oneshot.ogg","pitch":1,"volume":1},
+		],
+		"ESPC_LOW_TECH":{"sounds":[0], "pitch":0.7, "volume":1},
+		"ESPC_MIDLINE":{"sounds":[0], "pitch":0.85, "volume":1},
+		"ESPC_HIGH_TECH":{"sounds":[0], "pitch":1, "volume":1},
+	},
+	"espc_emp_loop":{
+		"sounds":[
+			{"file":"sounds/sfx_shields/shields_burnout_loop.ogg","pitch":1,"volume":0.6},
+		],
+		"ESPC_LOW_TECH":{"sounds":[0], "pitch":0.7, "volume":1},
+		"ESPC_MIDLINE":{"sounds":[0], "pitch":0.85, "volume":1},
+		"ESPC_HIGH_TECH":{"sounds":[0], "pitch":1, "volume":1},	
+	},
+	"espc_flux_loop":{
+		"sounds":[
+			{"file":"sounds/sfx_flux/flux_flush_loop.ogg","pitch":1,"volume":0.8},
+		],
+		"ESPC_LOW_TECH":{"sounds":[0], "pitch":0.7, "volume":1},
+		"ESPC_MIDLINE":{"sounds":[0], "pitch":0.85, "volume":1},
+		"ESPC_HIGH_TECH":{"sounds":[0], "pitch":1, "volume":1},
+	},
+	"espc_vent_flux":{
+		"sounds":[
+			{"file":"sounds/sfx_flux/flux_vent.ogg","pitch":1,"volume":0.5},
+		],
+		"ESPC_LOW_TECH":{"sounds":[0], "pitch":0.7, "volume":1},
+		"ESPC_MIDLINE":{"sounds":[0], "pitch":0.85, "volume":1},
+		"ESPC_HIGH_TECH":{"sounds":[0], "pitch":1, "volume":1},
+	},	
+	"espc_shield_lower":{
+		"sounds":[
+			{"file":"sounds/sfx_shields/shields_down_large.ogg","pitch":1,"volume":0.4},
+			{"file":"sounds/sfx_shields/shields_down_medium.ogg","pitch":1,"volume":0.4},
+			{"file":"sounds/sfx_shields/shields_down_small.ogg","pitch":1,"volume":0.4},
+		],
+		"ESPC_LOW_TECH":{"sounds":[0,1,2], "pitch":1, "volume":0.75},
+		"ESPC_MIDLINE":{"sounds":[0,1,2], "pitch":1, "volume":0.75},
+		"ESPC_HIGH_TECH":{"sounds":[0,1,2], "pitch":1, "volume":0.75},
+	},
+	"espc_shield_raise":{
+		"sounds":[
+			{"file":"sounds/sfx_shields/shields_up_large.ogg","pitch":1,"volume":1},
+			{"file":"sounds/sfx_shields/shields_up_medium.ogg","pitch":1,"volume":1},
+			{"file":"sounds/sfx_shields/shields_up_small.ogg","pitch":1,"volume":1},
+		],
+		"ESPC_LOW_TECH":{"sounds":[0,1,2], "pitch":1, "volume":0.75},
+		"ESPC_MIDLINE":{"sounds":[0,1,2], "pitch":1, "volume":0.75},
+		"ESPC_HIGH_TECH":{"sounds":[0,1,2], "pitch":1, "volume":0.75},
+	},
+	
     "music":{
         "music_epsilpac_encounter_neutral":[
             {"file":"faction_epsilpac_encounter_01_neutral.ogg","source":"sounds/music","volume":0.25,"randomStart":true}

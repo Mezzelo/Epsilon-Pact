@@ -1,7 +1,7 @@
 {
-  "variantId": "wolf_espc_Assault",
-  "hullId": "wolf",
-  "displayName": "Assault",
+  "variantId": "wolf_espc_Support",
+  "hullId": "wolf_espc",
+  "displayName": "Support",
   "goalVariant": false,
   "fluxCapacitors": 10,
   "fluxVents": 10,
@@ -15,7 +15,7 @@
       "autofire": false,
       "mode": "LINKED",
       "weapons": {
-        "WS 004": "heavyblaster"
+        "WS 004": "espc_riftspear"
       }
     },
     {

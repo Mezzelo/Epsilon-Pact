@@ -17,7 +17,7 @@ public class espc_BastillonModBehaviour extends BaseHullMod {
 	
     // private static final float RANGE_BONUS_MAX = 700f;
 	// private static final float RANGE_BONUS = 200f;
-	private static final float DAMAGE_BONUS = 100f;
+	private static final float DAMAGE_BONUS = 50f;
 	
 	public void applyEffectsBeforeShipCreation(HullSize hullSize, MutableShipStatsAPI stats, String id) {
 		stats.getDynamic().getMod(Stats.PD_IGNORES_FLARES).modifyFlat(id, 1f);

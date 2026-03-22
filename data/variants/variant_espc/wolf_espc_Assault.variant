@@ -1,10 +1,10 @@
 {
-  "variantId": "wolf_espc_Strike",
-  "hullId": "wolf",
-  "displayName": "Strike",
+  "variantId": "wolf_espc_Assault",
+  "hullId": "wolf_espc",
+  "displayName": "Assault",
   "goalVariant": false,
   "fluxCapacitors": 10,
-  "fluxVents": 8,
+  "fluxVents": 10,
   "quality": 1,
   "permaMods": [],
   "hullMods": [
@@ -12,16 +12,11 @@
   ],
   "weaponGroups": [
     {
-      "autofire": true,
+      "autofire": false,
       "mode": "LINKED",
       "weapons": {
-        "WS 004": "ionpulser"
+        "WS 004": "heavyblaster"
       }
-    },
-    {
-        "autofire": false,
-        "mode": "LINKED",
-        "weapons": {"WS 001": "amblaster"}
     },
     {
       "autofire": false,
@@ -35,6 +30,7 @@
       "autofire": true,
       "mode": "LINKED",
       "weapons": {
+        "WS 001": "ioncannon",
         "WS 002": "pdlaser",
         "WS 003": "pdlaser"
       }

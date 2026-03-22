@@ -90,6 +90,7 @@ public class espc_ModPlugin extends BaseModPlugin {
 
 	@Override
 	public void onAboutToLinkCodexEntries() {
+		
     	CodexDataV2.makeRelated(CodexDataV2.getWeaponEntryId("espc_amflamer"),
     		CodexDataV2.getWeaponEntryId("espc_amflamersolo"));
     	CodexDataV2.makeRelated(CodexDataV2.getWeaponEntryId("espc_remdriver"),

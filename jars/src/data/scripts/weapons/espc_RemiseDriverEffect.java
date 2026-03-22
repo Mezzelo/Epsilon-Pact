@@ -1,5 +1,6 @@
 package data.scripts.weapons;
 
+import com.fs.starfarer.api.GameState;
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.combat.CombatEngineAPI;
 import com.fs.starfarer.api.combat.DamagingProjectileAPI;
@@ -91,7 +92,8 @@ public class espc_RemiseDriverEffect implements OnFireEffectPlugin, EveryFrameWe
 
     @Override
     public void advance(float amount, CombatEngineAPI engine, WeaponAPI weapon) {
-        if (weapon == null || engine.isPaused() || amount <= 0f) return;
+        if (Global.getCurrentState() != GameState.COMBAT ||
+        	weapon == null || engine.isPaused() || amount <= 0f) return;
 		
 		if (barrel != null) {
 			currRecoil = Math.max(

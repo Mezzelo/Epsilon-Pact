@@ -105,7 +105,7 @@ public class espc_SecondWind {
 		// return "";
 		
 		public void createCustomDescription(MutableCharacterStatsAPI stats, SkillSpecAPI skill, 
-											TooltipMakerAPI info, float width) {
+			TooltipMakerAPI info, float width) {
 
 			init(stats, skill);
 			info.addPara("Once per " + (int)Math.round(SYSTEM_COOLDOWN) + " seconds, instantly refreshes ship system cooldown" + " after it elapses.",
@@ -126,7 +126,7 @@ public class espc_SecondWind {
 	}
 	
 	
-	public static class Level2 implements AfterShipCreationSkillEffect {
+	public static class Level2 extends BaseSkillEffectDescription implements AfterShipCreationSkillEffect {
 		public void applyEffectsAfterShipCreation(ShipAPI ship, String id) {
 			ship.addListener(new SecondWindEffectModElite(ship, id));
 		}
@@ -142,9 +142,23 @@ public class espc_SecondWind {
 			return "Once per " + (int)Math.round(OVERLOAD_COOLDOWN) + " seconds on overload, "
 				+ "quarters overload duration and triples flux dissipation while overloaded";
 		}
+		public void createCustomDescription(MutableCharacterStatsAPI stats, SkillSpecAPI skill, 
+			TooltipMakerAPI info, float width) {
+
+			init(stats, skill);
+			info.addPara("Once per " + (int)Math.round(OVERLOAD_COOLDOWN) + " seconds on overload, "
+				+ "quarters overload duration and triples flux dissipation while overloaded",
+				0f, hc, hc
+			);
+			info.addPara(indent + "Only applies to overloads lasting longer than %s seconds.",
+				0f, tc, hc, "1.5"
+			);
+		}
+			
 		public String getEffectPerLevelDescription() {
 			return null;
 		}
+		
 		public ScopeDescription getScopeDescription() {
 			return ScopeDescription.PILOTED_SHIP;
 		}

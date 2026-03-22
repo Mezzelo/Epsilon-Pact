@@ -1,0 +1,14 @@
+id,name,iconPath,npcSpawnWeight,plugin
+espc_sc_pact_in_harmony,In Harmony,graphics/icons/skills/secondInCommand/espc_sic_in_harmony.png,1,data.scripts.sic.espc.espc_InHarmony
+espc_sc_pact_clear_skies,Clear Skies,graphics/icons/skills/secondInCommand/espc_sic_clear_skies.png,1,data.scripts.sic.espc.espc_ClearSkies
+espc_sc_pact_in_unison,In Unison,graphics/icons/skills/secondInCommand/espc_sic_in_unison.png,1,data.scripts.sic.espc.espc_InUnison
+espc_sc_pact_against_the_odds,Against the Odds,graphics/icons/skills/secondInCommand/espc_sic_against_the_odds.png,1,data.scripts.sic.espc.espc_AgainstTheOdds
+espc_sc_pact_travel_light,Travel Light,graphics/icons/skills/secondInCommand/espc_sic_travel_light.png,0.5,data.scripts.sic.espc.espc_TravelLight
+espc_sc_pact_strike_twice,Strike Twice,graphics/icons/skills/secondInCommand/espc_sic_strike_twice.png,1,data.scripts.sic.espc.espc_StrikeTwice
+espc_sc_pact_all_walks,All Walks,graphics/icons/skills/secondInCommand/espc_sic_all_walks.png,1,data.scripts.sic.espc.espc_AllWalks
+espc_sc_pact_something_different,Something Different,graphics/icons/skills/secondInCommand/espc_sic_something_different.png,0,data.scripts.sic.espc.espc_SomethingDifferent
+,,,,
+espc_sc_pact_aces_high,Aces High,graphics/icons/skills/secondInCommand/espc_sic_aces_high.png,0,data.scripts.sic.espc.espc_AcesHigh
+espc_sc_pact_beyond_perfection,Beyond Perfection,graphics/icons/skills/secondInCommand/espc_sic_beyond_perfection.png,0,data.scripts.sic.espc.espc_BeyondPerfection
+,,,,
+# espc_sc_pact_from_the_dark,From the Dark,graphics/icons/skills/secondInCommand/espc_sic_from_the_dark.png,0.5,data.scripts.sic.espc.espc_FromTheDark

@@ -172,6 +172,8 @@ public class espc_AlternatorStats extends BaseShipSystemScript {
 	}
 	
 	public StatusData getStatusData(int index, State state, float effectLevel) {
+		if (usableState == 0)
+			return null;
 		
 		if (index == 0)  {
 			if (isEnergy)
@@ -181,19 +183,13 @@ public class espc_AlternatorStats extends BaseShipSystemScript {
 		}
 		else if (index == 1) {
 			if (isEnergy) {
-				if (energyDPS > 0f)
-					return new StatusData("energy rate of fire +" + 
-						(int) (Math.min(ballisticDPS/energyDPS, BONUS_MAX) * (1f - effectLevel) * 100f)
-						 + "%",false);
-				else
-					return new StatusData("no energy weapons", true);
+				return new StatusData("energy rate of fire +" + 
+					(int) (Math.min(ballisticDPS/energyDPS, BONUS_MAX) * (1f - effectLevel) * 100f)
+					 + "%",false);
 			} else {
-				if (ballisticDPS > 0f)
-					return new StatusData("ballistic rate of fire +" + 
-							(int) (Math.min(energyDPS/ballisticDPS, BONUS_MAX) * (1f - effectLevel) * 100f)
-							 + "%",false);
-				else
-					return new StatusData("no ballistic weapons", true);
+				return new StatusData("ballistic rate of fire +" + 
+					(int) (Math.min(energyDPS/ballisticDPS, BONUS_MAX) * (1f - effectLevel) * 100f)
+					 + "%",false);
 			}
 		}
 		return null;

@@ -1,0 +1,16 @@
+{
+	"baseHullId":"wolf",
+	"skinHullId":"wolf_espc",
+	"hullName":"Wolf",
+	"restoreToBaseHull":true,
+	"descriptionId":"wolf",
+	"addHints":["HIDE_IN_CODEX"],
+    "systemId":"espc_Collapse",
+	# "suppliesToRecover":5,
+	# "suppliesPerMonth":5,
+	"removeWeaponSlots":[], 		# ids
+	"removeEngineSlots":[], 		# indices, as engine slots have no id in the .ship file
+	"removeBuiltInMods":[], 		# hullmod ids
+	"removeBuiltInWeapons":[], 		# weapon slot ids
+	"builtInMods":["espc_pactskin"],
+}

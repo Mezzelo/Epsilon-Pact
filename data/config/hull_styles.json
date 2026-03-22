@@ -15,15 +15,15 @@
 		"fluxVentFringeColor":[125,0,155,255],
 		"fluxVentTextureSheet":"graphics/fx/nebula_colorless.png", # optional, this is the default value
 		"fluxVentRadialTexture":"graphics/fx/radial_fx.png", # optional, this is the default value
-		"engineLoopSet":"engine_loop", 					# id of entry in sounds.json
-		"engineAccelerateSet":"engine_accelerate",		# id of entry in sounds.json
-		"empLoopSet":"emp_loop",						# id of entry in sounds.json
-		"fluxLoopSet":"flux_loop",						# id of entry in sounds.json
-		"ventFluxSet":"vent_flux",						# id of entry in sounds.json
-		"shieldBurnoutSet":"shield_burnout",			# id of entry in sounds.json
-		"shieldLowerSet":"shield_lower",				# id of entry in sounds.json
-		"shieldRaiseSet":"shield_raise",				# id of entry in sounds.json
-		"explosionShipSet":"explosion_ship",			# id of entry in sounds.json
+		"engineLoopSet":"espc_engine_loop", 					# id of entry in sounds.json
+		"engineAccelerateSet":"espc_engine_accelerate",		# id of entry in sounds.json
+		"empLoopSet":"espc_emp_loop",						# id of entry in sounds.json
+		"fluxLoopSet":"espc_flux_loop",						# id of entry in sounds.json
+		"ventFluxSet":"espc_vent_flux",						# id of entry in sounds.json
+		"shieldBurnoutSet":"espc_shield_burnout",			# id of entry in sounds.json
+		"shieldLowerSet":"espc_shield_lower",				# id of entry in sounds.json
+		"shieldRaiseSet":"espc_shield_raise",				# id of entry in sounds.json
+		"explosionShipSet":"espc_explosion_ship",			# id of entry in sounds.json
 		"damageDecalSheet":"graphics/damage/damage_decal_sheet_base.png",
 		"damageDecalGlowSheet":"graphics/damage/damage_decal_sheet_glow.png",
 		
@@ -52,15 +52,15 @@
 		"shieldInnerColor":[125,125,255,75],
 		"fluxVentCoreColor":[255,255,255,255],
 		"fluxVentFringeColor":[125,0,155,255],
-		"engineLoopSet":"engine_loop", 					# id of entry in sounds.json
-		"engineAccelerateSet":"engine_accelerate",		# id of entry in sounds.json
-		"empLoopSet":"emp_loop",						# id of entry in sounds.json
-		"fluxLoopSet":"flux_loop",						# id of entry in sounds.json
-		"ventFluxSet":"vent_flux",						# id of entry in sounds.json
-		"shieldBurnoutSet":"shield_burnout",			# id of entry in sounds.json
-		"shieldLowerSet":"shield_lower",				# id of entry in sounds.json
-		"shieldRaiseSet":"shield_raise",				# id of entry in sounds.json
-		"explosionShipSet":"explosion_ship",			# id of entry in sounds.json
+		"engineLoopSet":"espc_engine_loop", 					# id of entry in sounds.json
+		"engineAccelerateSet":"espc_engine_accelerate",		# id of entry in sounds.json
+		"empLoopSet":"espc_emp_loop",						# id of entry in sounds.json
+		"fluxLoopSet":"espc_flux_loop",						# id of entry in sounds.json
+		"ventFluxSet":"espc_vent_flux",						# id of entry in sounds.json
+		"shieldBurnoutSet":"espc_shield_burnout",			# id of entry in sounds.json
+		"shieldLowerSet":"espc_shield_lower",				# id of entry in sounds.json
+		"shieldRaiseSet":"espc_shield_raise",				# id of entry in sounds.json
+		"explosionShipSet":"espc_explosion_ship",			# id of entry in sounds.json
 		"damageDecalSheet":"graphics/damage/damage_decal_sheet_base.png",
 		"damageDecalGlowSheet":"graphics/damage/damage_decal_sheet_glow.png",
 		
@@ -88,15 +88,15 @@
 		"shieldInnerColor":[125,125,255,75],
 		"fluxVentCoreColor":[255,255,255,255],
 		"fluxVentFringeColor":[125,0,155,255],
-		"engineLoopSet":"engine_loop", 					# id of entry in sounds.json
-		"engineAccelerateSet":"engine_accelerate",		# id of entry in sounds.json
-		"empLoopSet":"emp_loop",						# id of entry in sounds.json
-		"fluxLoopSet":"flux_loop",						# id of entry in sounds.json
-		"ventFluxSet":"vent_flux",						# id of entry in sounds.json
-		"shieldBurnoutSet":"shield_burnout",			# id of entry in sounds.json
-		"shieldLowerSet":"shield_lower",				# id of entry in sounds.json
-		"shieldRaiseSet":"shield_raise",				# id of entry in sounds.json
-		"explosionShipSet":"explosion_ship",			# id of entry in sounds.json
+		"engineLoopSet":"espc_engine_loop", 					# id of entry in sounds.json
+		"engineAccelerateSet":"espc_engine_accelerate",		# id of entry in sounds.json
+		"empLoopSet":"espc_emp_loop",						# id of entry in sounds.json
+		"fluxLoopSet":"espc_flux_loop",						# id of entry in sounds.json
+		"ventFluxSet":"espc_vent_flux",						# id of entry in sounds.json
+		"shieldBurnoutSet":"espc_shield_burnout",			# id of entry in sounds.json
+		"shieldLowerSet":"espc_shield_lower",				# id of entry in sounds.json
+		"shieldRaiseSet":"espc_shield_raise",				# id of entry in sounds.json
+		"explosionShipSet":"espc_explosion_ship",			# id of entry in sounds.json
 		"damageDecalSheet":"graphics/damage/damage_decal_sheet_base.png",
 		"damageDecalGlowSheet":"graphics/damage/damage_decal_sheet_glow.png",
 		

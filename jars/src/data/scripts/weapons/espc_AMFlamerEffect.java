@@ -37,7 +37,7 @@ public class espc_AMFlamerEffect implements OnFireEffectPlugin, OnHitEffectPlugi
 	private static final float BURST_HALT_COOLDOWN_TIME = 1f;
 	
 	private static final float SHOT_DELAY_MAX = 0.075f;
-	private static final float SHOT_DISTANCE_MAX = 15f;
+	private static final float SHOT_DISTANCE_MAX = 35f;
 	
 	private static final float PROXIMITY_DAMAGE = 150f;
 	private static final float PROXIMITY_RADIUS = 120f;
@@ -76,7 +76,6 @@ public class espc_AMFlamerEffect implements OnFireEffectPlugin, OnHitEffectPlugi
 	
     @Override
     public void onFire(DamagingProjectileAPI proj, WeaponAPI weapon, CombatEngineAPI engine) {
-
     	float systemLevel = !isSolo ? ship.getSystem().getEffectLevel() : 0f;
 		if (systemLevel > 0f) {
 			spurt(engine, weapon.getFirePoint(0), weapon.getCurrAngle(), 400f, 5, 95f, 2.3f);

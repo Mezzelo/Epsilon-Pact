@@ -33,7 +33,7 @@ public class espc_FeintStats extends BaseShipSystemScript {
 		} else {
 			if (!debounce) {
 				debounce = true;
-				Global.getSoundPlayer().playSound("shield_burnout", 0.9f, 1.1f, ship.getLocation(), ship.getVelocity());
+				Global.getSoundPlayer().playSound("espc_shield_burnout", 0.9f, 1.1f, ship.getLocation(), ship.getVelocity());
 				ship.getMutableStats().getFluxDissipation().modifyMult(id, DISSIPATION_MULT);
 				if (!ship.getFluxTracker().isOverloaded())
 					ship.getFluxTracker().beginOverloadWithTotalBaseDuration(

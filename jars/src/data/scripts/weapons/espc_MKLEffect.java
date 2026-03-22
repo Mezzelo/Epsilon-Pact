@@ -1,5 +1,7 @@
 package data.scripts.weapons;
 
+import com.fs.starfarer.api.GameState;
+import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.combat.CombatEngineAPI;
 import com.fs.starfarer.api.combat.DamagingProjectileAPI;
 import com.fs.starfarer.api.combat.EveryFrameWeaponEffectPlugin;
@@ -16,9 +18,9 @@ public class espc_MKLEffect implements OnFireEffectPlugin, EveryFrameWeaponEffec
 
 	// the percentage of flux from each shot to decay
 	private static final float FLUX_DECAY_PERCENT_FRIGATE = 0.8f;
-	private static final float FLUX_DECAY_PERCENT_DESTROYER = 0.75f;
-	private static final float FLUX_DECAY_PERCENT_CRUISER = 0.7f;
-	private static final float FLUX_DECAY_PERCENT_CAPITAL = 0.6f;
+	private static final float FLUX_DECAY_PERCENT_DESTROYER = 0.7f;
+	private static final float FLUX_DECAY_PERCENT_CRUISER = 0.6f;
+	private static final float FLUX_DECAY_PERCENT_CAPITAL = 0.5f;
 	
 	/* original vals, scaled for half fire rate/double flux cost
 	private static final float FLUX_DECAY_PERCENT_LIGHT = 0.76f;
@@ -86,7 +88,8 @@ public class espc_MKLEffect implements OnFireEffectPlugin, EveryFrameWeaponEffec
     @Override
     public void advance(float amount, CombatEngineAPI engine, WeaponAPI weapon) {
 		
-        if (weapon == null || engine.isPaused() || amount <= 0f || (fluxRemaining.size() == 0 && currRecoil <= 0f)) return;
+        if (Global.getCurrentState() != GameState.COMBAT ||
+        	weapon == null || engine.isPaused() || amount <= 0f || (fluxRemaining.size() == 0 && currRecoil <= 0f)) return;
 		
 		if (barrel != null) {
 			currRecoil = Math.max(

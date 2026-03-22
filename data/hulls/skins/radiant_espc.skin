@@ -1,0 +1,16 @@
+{
+	"baseHullId":"radiant",
+	"skinHullId":"radiant_espc",
+	"hullName":"Radiant",
+	"restoreToBaseHull":true,
+	"descriptionId":"radiant",
+	"addHints":["HIDE_IN_CODEX"],
+    "systemId":"espc_Collapse",
+	# "suppliesToRecover":60,
+	# "suppliesPerMonth":60,
+	"removeWeaponSlots":[], 		# ids
+	"removeEngineSlots":[], 		# indices, as engine slots have no id in the .ship file
+	"removeBuiltInMods":[], 		# hullmod ids
+	"removeBuiltInWeapons":[], 		# weapon slot ids
+	"builtInMods":["espc_pactskin"],
+}

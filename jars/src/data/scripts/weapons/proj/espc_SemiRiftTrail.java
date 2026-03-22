@@ -38,6 +38,7 @@ public class espc_SemiRiftTrail extends BaseEveryFrameCombatPlugin {
 	private static final Color COLOR_INNER = new Color(255, 235, 220);
 	private static final Color COLOR_MID = new Color(200, 80, 255);
 	private static final Color COLOR_OUTER = new Color(85, 45, 255);
+	private static final float TRAIL_RADIUS = 5f;
 	
 	private float angSin;
 	private float angCos;
@@ -97,9 +98,9 @@ public class espc_SemiRiftTrail extends BaseEveryFrameCombatPlugin {
 		float iMin = Math.max(cTime - PARTICLE_DUR_BASE - effectStart, 0f);
 		iMin = iMin - iMin % PARTICLE_INTERVAL;
 		float iMax = effectEnd <= 0f ? cTime - effectStart: effectEnd - effectStart;
-		Random particleNoiseX = new Random((long) (effectStart + startPos.x * 10f + startPos.y * 10f));
-		Random particleNoiseY = new Random((long) ((effectStart + startPos.x * 10f + startPos.y * 10f) * 2f));
-		Random particleNoiseZ = new Random((long) ((effectStart + startPos.x * 10f + startPos.y * 10f) * 3f));
+		Random particleNoiseX = new Random((long) (effectStart + startPos.x * TRAIL_RADIUS + startPos.y * TRAIL_RADIUS));
+		Random particleNoiseY = new Random((long) ((effectStart + startPos.x * TRAIL_RADIUS + startPos.y * TRAIL_RADIUS) * 2f));
+		Random particleNoiseZ = new Random((long) ((effectStart + startPos.x * TRAIL_RADIUS + startPos.y * TRAIL_RADIUS) * 3f));
 
         GL11.glEnable(GL11.GL_BLEND);
         GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE);
@@ -120,7 +121,7 @@ public class espc_SemiRiftTrail extends BaseEveryFrameCombatPlugin {
 			
 			float particleX = startPos.x + startVel.x * i +
 				(float) FastTrig.cos(randX * Math.PI * 2f) * randY * 80f
-				* (MezzUtils.halfSineIn((cTime - i - effectStart)/PARTICLE_DUR_BASE) * 0.8f  + 0.3f);
+				* (MezzUtils.halfSineOut((cTime - i - effectStart)/PARTICLE_DUR_BASE) * 0.8f  + 0.3f);
 			float particleY = startPos.y + startVel.y * i +
 				(float) FastTrig.sin(randY * Math.PI * 2f) * randZ * 80f
 				* (MezzUtils.halfSineIn((cTime - i - effectStart)/PARTICLE_DUR_BASE) * 0.8f + 0.3f);

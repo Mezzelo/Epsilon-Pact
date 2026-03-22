@@ -38,6 +38,7 @@
         "wolf_espc_Assault":2,
         "wolf_espc_Strike":2,
         "wolf_espc_Support":2,
+		"wolf_Overdriven":0,
         "lasher_espc_Strike":8,
 		"omen_espc_PD":2,
 		"omen_espc_Assault":2,
@@ -45,9 +46,9 @@
 		
 		"hammerhead_espc_Elite":3,
 		"hammerhead_espc_Support":2,
-		"sunder_espc_Assault":2,
+		"sunder_espc_Assault":3,
 		"sunder_espc_Support":2,
-		"sunder_espc_Strike":1,
+		"sunder_espc_Strike":0,
 		
 		"anubis_espc_Assault":5,
 		"anubis_espc_Attack":5,

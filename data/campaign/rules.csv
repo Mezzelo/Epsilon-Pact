@@ -696,7 +696,7 @@ AddText ""Storefronts are open-air as often as they are enclosed, a common tell 
 flavorTextMarketEpsilpacBruniel,TradePanelFlavorText,"$global.tradePanelMode == MARKET
 $faction.id == epsilpac
 $market.id == espc_bruniel_market score:100","AddText ""Massive walls loom around this desert planet's sparse pockets of industry, giving reprieve from the billowing sands of its endless dunes. Piping and machinery line the streets, scouring valuable volatiles from beneath each and every grain of sand."" marketFlavorTextColor
-AddText ""Departing the shuttle, you're guided away from the stream of arriving laborers and towards the planetary station’s elevated commerce center, the din of ceaseless engines and shouted orders giving way to hushed deals and electronic confirmations."" marketFlavorTextColor",,,
+AddText ""Departing the shuttle, you're guided away from the stream of arriving laborers and towards the planetary station's elevated commerce center, the din of ceaseless engines and shouted orders giving way to hushed deals and electronic confirmations."" marketFlavorTextColor",,,
 flavorTextMarketEpsilpacFalris,TradePanelFlavorText,"$global.tradePanelMode == MARKET
 $faction.id == epsilpac
 $market.id == espc_falris_market score:100","AddText ""Markets are situated in the very center of habitation platforms, with housing radiating outwards and industry situated towards the edges. The constant rumbling of tectonic activity is punctuated only by that of departing cargo shuttles, their busy traffic drawing contrail ley lines between platforms that converge over the planet's central spaceport."" marketFlavorTextColor
@@ -725,7 +725,7 @@ The historian instinctively begins to raise $hisOrHer arm, as if to call upon an
 
 ""It's self-evident, isn't it? Especially now, given the autarky-capable nature of its present governance - a self-sufficient populace is more able to make demands, grounds ripe for dissent. And so with hyperspace transport as a sole lifeline, the Domain may keep those elements well in check. The contract here is plainly implied.""
 
-""Of course, this ended up being no empty threat. In its dying throes, the Domain doles out a punitive measure to all like it."" $HeOrShe grimaces, underscoring the irony. ""A cruel calculus of control, laid so bare. Is it any wonder that, to this day, its ancestors refuse a foreign banner?""",,
+""Of course, this ended up being no empty threat. In its dying throes, the Domain doles out a punitive measure to all like it."" $HeOrShe grimaces, underscoring the irony. ""A cruel calculus of control, laid so bare. Is it any wonder that to this day, its ancestors refuse a foreign banner?""",,
 espcHistorianBackstoryBlurb2,HistorianBackstoryBlurb,!WasHistorianBlurbShown espchistoryBlurb2,SetHistorianBlurbShownAfterDelay espchistoryBlurb2,"""Nola Ganymede. A fascinating figure, one shrouded in mystery even to those in power, their eyes and ears everywhere and yet blind and deaf to someone so crucial. As you can imagine, a favorite kind of figure for those of my profession."" $HeOrShe chuckles, as though to commiserate with $hisOrHer own. ""What could a humble itinerant archaeologist know of someone like that?""
 
 ""Though so representative of the present, perhaps of a future she might wish to see to fruition, history's patterns are inevitable. Try as some may wish, there's no escaping those."" The historian shakes $hisOrHer head. ""None of us can, truly.""

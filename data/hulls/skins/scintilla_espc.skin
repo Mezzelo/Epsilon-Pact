@@ -1,0 +1,16 @@
+{
+	"baseHullId":"scintilla",
+	"skinHullId":"scintilla_espc",
+	"hullName":"Scintilla",
+	"restoreToBaseHull":true,
+	"descriptionId":"scintilla",
+	"addHints":["HIDE_IN_CODEX"],
+    "systemId":"espc_Salvo",
+	# "suppliesToRecover":12,
+	# "suppliesPerMonth":12,
+	"removeWeaponSlots":[], 		# ids
+	"removeEngineSlots":[], 		# indices, as engine slots have no id in the .ship file
+	"removeBuiltInMods":[], 		# hullmod ids
+	"removeBuiltInWeapons":[], 		# weapon slot ids
+	"builtInMods":["espc_pactskin"],
+}

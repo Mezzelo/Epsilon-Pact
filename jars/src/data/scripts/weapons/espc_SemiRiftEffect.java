@@ -1,5 +1,6 @@
 package data.scripts.weapons;
 
+import com.fs.starfarer.api.GameState;
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.combat.CombatEngineAPI;
 import com.fs.starfarer.api.combat.DamagingProjectileAPI;
@@ -48,7 +49,8 @@ public class espc_SemiRiftEffect implements OnFireEffectPlugin, EveryFrameWeapon
 
     @Override
     public void advance(float amount, CombatEngineAPI engine, WeaponAPI weapon) {
-        if (weapon == null || engine.isPaused() || amount <= 0f)
+        if (Global.getCurrentState() != GameState.COMBAT ||
+        	weapon == null || engine.isPaused() || amount <= 0f)
 			return;
 		if (weapon.getChargeLevel() > 0f && weapon.getCooldownRemaining() <= 0f) {
 			

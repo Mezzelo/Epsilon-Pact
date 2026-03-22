@@ -129,6 +129,9 @@ public class espc_CollapseStats extends BaseShipSystemScript {
 				return;
 			}
 			target.setJitterUnder(this, new Color(50, 100, 255, 170), effectLevel, 2, effectLevel * 15f);
+			target.getMutableStats().getArmorDamageTakenMult().modifyPercent(id, 50f);
+			target.getMutableStats().getShieldDamageTakenMult().modifyPercent(id, 50f);
+			target.getMutableStats().getHullDamageTakenMult().modifyPercent(id, 50f);
 			
 			Iterator<Object> entityIterator = combatEngine.getAllObjectGrid().getCheckIterator(
 				target.getLocation(), 

@@ -1,5 +1,6 @@
 package data.scripts.weapons;
 
+import com.fs.starfarer.api.GameState;
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.combat.CombatEngineAPI;
 import com.fs.starfarer.api.combat.DamagingProjectileAPI;
@@ -31,7 +32,8 @@ public class espc_GatlingEffect implements OnFireEffectPlugin, EveryFrameWeaponE
 
     @Override
     public void advance(float amount, CombatEngineAPI engine, WeaponAPI weapon) {
-        if (weapon == null || engine.isPaused() || amount <= 0f) return;
+        if (Global.getCurrentState() != GameState.COMBAT ||
+        	weapon == null || engine.isPaused() || amount <= 0f) return;
 		// Global.getLogger(espc_GatlingEffect.class).info(weapon.getCooldown() + ", " + weapon.getCooldownRemaining());
 		
 		if (cCooldown <= 0f)

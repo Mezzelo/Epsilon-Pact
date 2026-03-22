@@ -1,10 +1,62 @@
+Version 0.6.1b
+SiC officer added!  Offers an automation-type expertise, that further enables the Pact's doctrine: constrained fleet sizes, smaller ships, and death to missiles and fighters lol
+More robust graphicslib support: Lighting & distortions, specifically
+
+
+Jackalope
+- DP 8 > 7
+- FP 7 > 6
+
+Militia
+- Acceleration 35 > 40
+- Decceleration 15 > 25
+
+Pilgrim
+- Dissipation 450 > 400
+- Acceleration 20 > 35
+- Decceleration 10 > 25
+- Variants revised
+
+Amanuensis
+- Hull 16000 > 15000
+
+Scatter Rifle
+- Now ignores flares
+
+AM Flamer
+- Projectile speed 500 > 1200
+- Flux/shot 125 > 80
+- Turn speed 20 > 30
+- Now ignores flares
+
+Solo AM Flamer
+- Projectile speed 500 > 600
+- Now ignores flares
+
+
+Temporal Collapse
+- Now inflicts targets with a 50% damage taken malus while active.
+	- Disappears before the projectiles hit, so technically it should only affect beams: the main purpose is to make the target more attractive to other ships lol
+
+AM Compressor
+- System reworked: Now a no-cost toggle, that activates an offensive mode
+	- Offensive mode: +50% damage, +50% flux generation, +30% range, -30% turn speed, -50% projectile velocity, 
+
+
+- Custom shipsystem AI for Hybrid Harmonizer & Overpressure Loaders that should make them less annoying.
+- Hybrid Alternator shipsystem AI improved, less placeholder now
+- Placeholder art & audiofor the Scatter Rifle phased out
+- Placeholder skill icons replaced with more placeholder skill icons
+- VFX revisions to the Type XII-a, Half-Rift Spear, and Half-Rift Pike
+- Placeholder Amanuensis sprite mamrginally less placeholder
+
 Version 0.6.1
 
 Opossum
 - Dissipation 150 > 140
 
 Pilgrim
-- DP 25 > 20
+- DP 25 > 22
 	it'd be worth 25 if battlecarrier ai wasn't completely useless lol
 	
 Amanuensis-class

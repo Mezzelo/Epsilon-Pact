@@ -1,0 +1,16 @@
+{
+	"baseHullId":"brilliant",
+	"skinHullId":"brilliant_espc",
+	"hullName":"Brilliant",
+	"restoreToBaseHull":true,
+	"descriptionId":"brilliant",
+	"addHints":["HIDE_IN_CODEX"],
+    "systemId":"espc_Collapse",
+	# "suppliesToRecover":25,
+	# "suppliesPerMonth":25,
+	# "removeWeaponSlots":[], 		# ids
+	# "removeEngineSlots":[], 		# indices, as engine slots have no id in the .ship file
+	# "removeBuiltInMods":[], 		# hullmod ids
+	# "removeBuiltInWeapons":[], 		# weapon slot ids
+	"builtInMods":["espc_pactskin"],
+}
