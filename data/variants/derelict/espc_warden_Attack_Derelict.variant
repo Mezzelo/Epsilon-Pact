@@ -1,6 +1,6 @@
 {
     "displayName": "Support",
-    "fluxCapacitors": 9,
+    "fluxCapacitors": 10,
     "fluxVents": 10,
     "goalVariant": false,
     "hullId": "espc_warden",

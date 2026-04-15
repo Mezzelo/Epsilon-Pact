@@ -1,0 +1,49 @@
+{
+    "displayName": "Strike",
+    "fluxCapacitors": 20,
+    "fluxVents": 27,
+    "goalVariant": false,
+    "hullId": "champion",
+    "hullMods": ["targetingunit", "magazines"],
+    "permaMods": [],
+    "sMods": [],
+    "variantId": "champion_espc_Strike",
+    "weaponGroups": [
+        {
+            "autofire": true,
+            "mode": "LINKED",
+            "weapons": {"WS 008": "autopulse"}
+        },
+        {
+            "autofire": true,
+            "mode": "LINKED",
+            "weapons": {
+                "WS 006": "ionpulser",
+                "WS 007": "ionpulser"
+            }
+        },
+        {
+            "autofire": true,
+            "mode": "ALTERNATING",
+            "weapons": {
+                "WS 002": "amblaster",
+                "WS 003": "amblaster",
+            }
+        },
+        {
+            "autofire": false,
+            "mode": "LINKED",
+            "weapons": {"WS 009": "locust"}
+        },
+        {
+            "autofire": true,
+            "mode": "LINKED",
+            "weapons": {
+                "WS 000": "pdlaser",
+                "WS 001": "pdlaser",
+                "WS 004": "pdburst",
+                "WS 005": "pdburst"
+            }
+        }
+    ]
+}

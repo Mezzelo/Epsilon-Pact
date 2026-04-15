@@ -1,0 +1,55 @@
+{
+  "variantId": "espc_pilgrim_Support_Common",
+  "hullId": "espc_pilgrim",
+  "displayName": "Support",
+  "goalVariant": true,
+  "fluxCapacitors": 28,
+  "fluxVents": 21,
+  "quality": 1,
+  "permaMods": [],
+  "hullMods": [
+    "targetingunit"
+  ],
+  "weaponGroups": [
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 004": "hveldriver"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 005": "heavymauler"
+      }
+    },
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 001": "atropos_single"
+      }
+    },
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 003": "sabot_single"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 008": "vulcan"
+      }
+    }
+  ],
+  "modules": [],
+  "wings": [
+    "xyphos_wing",
+    "xyphos_wing"
+  ]
+}

@@ -28,6 +28,14 @@
             "espc_sien":"graphics/portraits/espc_sien.png",
             "espc_tam":"graphics/portraits/espc_tam.png",
         },
+		"events":{
+            "espc_doctrine_start":"graphics/icons/campaign/espc_doctrine_start.png",
+            "espc_doctrine_variants":"graphics/icons/campaign/espc_doctrine_variants.png",
+            "espc_doctrine_automated":"graphics/icons/campaign/espc_doctrine_automated.png",
+            "espc_doctrine_phaseout":"graphics/icons/campaign/espc_doctrine_phaseout.png",
+            "espc_doctrine_capitals":"graphics/icons/campaign/espc_doctrine_capitals.png",
+            "espc_doctrine_finished":"graphics/icons/campaign/espc_doctrine_finished.png",
+        },
 		"fx":{
             "espc_trail_hard":"graphics/fx/espc_trail_hard.png",
             "espc_trail_hard_inverted":"graphics/fx/espc_trail_hard_inverted.png",
@@ -39,6 +47,8 @@
             "espc_riftcharge2":"graphics/fx/circle64.png",
             "espc_riftcharge3":"graphics/fx/wormhole_corona.png",
             "espc_spark":"graphics/fx/projbody.png",
+			
+            "espc_inverseportal":"graphics/fx/espc_halo_128.png",
 		},
 		#"planets":{
 		#	"espc_giver_texture":"graphics/planets/espc_giver_texture.jpg",

@@ -1,0 +1,35 @@
+{
+    "displayName": "Standard",
+    "fluxCapacitors": 20,
+    "fluxVents": 20,
+    "goalVariant": false,
+    "hullId": "mule",
+    "hullMods": ["frontemitter", "targetingunit"],
+    "permaMods": [],
+    "sMods": [],
+    "variantId": "mule_espc_Support",
+    "weaponGroups": [
+        {
+            "autofire": false,
+            "mode": "LINKED",
+            "weapons": {"WS 003": "hveldriver"}
+        },
+        {
+            "autofire": false,
+            "mode": "ALTERNATING",
+            "weapons": {
+                "WS 001": "swarmer",
+                "WS 002": "swarmer"
+            }
+        },
+        {
+            "autofire": true,
+            "mode": "LINKED",
+            "weapons": {
+                "WS 004": "vulcan",
+                "WS 005": "vulcan",
+                "WS 006": "vulcan"
+            }
+        }
+    ]
+}

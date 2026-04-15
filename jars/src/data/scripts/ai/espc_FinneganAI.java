@@ -114,7 +114,7 @@ public class espc_FinneganAI implements MissileAIPlugin, GuidedMissileAI {
 				newVel.normalise();
 				newVel.scale(Vector2f.dot(newVel, velocityLast) * -2f);
 				
-				if (bestTarget instanceof ShipAPI && ((ShipAPI) bestTarget).getHullSize() == HullSize.FIGHTER) {
+				if (bestTarget instanceof ShipAPI && ((ShipAPI) bestTarget).isFighter()) {
 					Vector2f.add(
 						velocityLast, 
 						newVel,

@@ -5,7 +5,9 @@
 	"restoreToBaseHull":true,
 	"descriptionId":"wolf",
 	"addHints":["HIDE_IN_CODEX"],
-    "systemId":"espc_Collapse",
+	"maxSpeed":170,
+	"baseValueMult":5,
+    "systemId":"espc_InverseSkimmer",
 	# "suppliesToRecover":5,
 	# "suppliesPerMonth":5,
 	"removeWeaponSlots":[], 		# ids

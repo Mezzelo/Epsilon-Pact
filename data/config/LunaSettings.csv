@@ -17,7 +17,18 @@ Make sure to set a condition for your input checks to not accept numbers of 0, a
 The defaultValue decides which one is selected by default, the secondaryValue creates the list of choices with a comma seperated String. 
 Can be retrieved as a String.",,,Examples
 espc_LunaHeader_Graphical,Graphical,Header,Graphical,,,,,Settings
+espc_Glib,Graphicslib Effects,Boolean,TRUE,,"Enables additional Graphicslib effects for weapons, specifically extra lights and distortions.",,,Settings
 espc_AIBGPortraits,Real Human Portraits,Boolean,FALSE,,Force sets the player to use from a random selection of unique portraits when using the [Real Human Being] Nexerelin start.,,,Settings
+espc_LunaHeader_Gameplay,Gameplay,Header,Gameplay,,,,,Settings
+espc_DoctrinalProgression,Doctrinal Progression,Boolean,TRUE,,"If enabled, the Pact begins the game with only a minority of their unique hulls and weapons, instead using an Independent-esque arsenal that largely adheres to their doctrine.
+
+The Pact will gradually phase in new hulls and weapons to replace their common arsenal, and variants of their designs will proliferate to other factions in tandem. This progression can be influenced by the player and other factions.
+
+When disabled, the Pact will use the equivalent of their final arsenal. If toggled mid-save, will require reloading the save to take effect, and will only affect newly spawned fleets & market inventories after restock.
+
+This feature makes for a more spoiler-friendly experience for players newer to Starsector and better reflects the Pact's status as a recently formed polity, but may not be desireable if you wish to experience the full scope of this mod's content immediately.",,,Settings
+espc_DoctrinalProgressionSpeed,Progression Speed,Radio,4 cycles (default),"8 cycles, 4 cycles (default), 2 cycles, 1 cycle 3 months",Adjusts the baseline timespan over which the Pact's doctrine develops. Requires reloading the save to take effect.,,,Settings
+espc_DoctrinalProgressionInitial,espc_DoctrinalProgressionSpeed,Int,0,,"Adjusts the initial progression the Pact has towards their finalized doctrine, as a percentage. Requires reloading the save to take effect.",0,100,Settings
 espc_LunaHeader_Miscellaneous,Miscellaneous,Header,Miscellaneous,,,,,Settings
 espc_BGScoreRequirements,Background Score Requirements,Radio,Perfect,"Perfect, Complete, None",Score requirement for the custom Nexerelin backgrounds added by this mod.,,,Settings
 espc_MeatlessSalvage,Meatless Salvage,Boolean,FALSE,,"If using the [Real Human Being] start, completely removes the crew requirement for salvaging.  Takes effect when save is loaded.

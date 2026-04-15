@@ -214,6 +214,10 @@ public class espc_TravelLight extends SCBaseSkillPlugin {
 	             "Maximum at %s or less base cargo capacity, diminishing fully at %s cargo capacity. Your fleet has %s base cargo capacity", 0f, 
 	             Misc.getTextColor(), Misc.getHighlightColor(), 
 	    		(int) MAX_SUPPLY_CAPACITY_START + "", (int) MAX_SUPPLY_CAPACITY + "", (int) cStats.cargo + "");
+			tooltip.addPara(BaseIntelPlugin.BULLET + 
+				" maximum burn if at %s or less base cargo capacity", 0f, 
+				Misc.getTextColor(), Misc.getHighlightColor(), 
+				"+1", "" + (int) MAX_SUPPLY_CAPACITY_START);
 			tooltip.addSpacer(10f);
 			tooltip.addPara("-%s fuel usage (maximum: %s)", 0f, Misc.getHighlightColor(), Misc.getHighlightColor(), 
 				(int) (FUEL_USE_BONUS * cStats.fuelMult) + "%", (int) FUEL_USE_BONUS + "%");
@@ -221,19 +225,12 @@ public class espc_TravelLight extends SCBaseSkillPlugin {
 				"Maximum at %s or less fuel capacity, diminishing fully at %s base fuel capacity. Your fleet has %s base fuel capacity", 0f, 
 				Misc.getTextColor(), Misc.getHighlightColor(), 
 				(int) MAX_FUEL_CAPACITY_START + "", (int) MAX_FUEL_CAPACITY + "", (int) cStats.fuel + "");
+			tooltip.addPara(BaseIntelPlugin.BULLET + 
+				" maximum burn if at %s or less base fuel capacity", 0f, 
+				Misc.getTextColor(), Misc.getHighlightColor(), 
+				"+1", "" + (int) MAX_FUEL_CAPACITY_START);
     	}
-		tooltip.addSpacer(10f);	
-		tooltip.addPara("%s maximum burn level if below the lower threshold for cargo or fuel. "
-			+ "%s maximum burn if below the lower threshold of both", 
-			0f, Misc.getHighlightColor(), Misc.getHighlightColor(), 
-			"+1", "+2");
-		/*
-		tooltip.addPara("%s maximum burn level if below %s fleet cargo capacity", 
-			0f, Misc.getHighlightColor(), Misc.getHighlightColor(), 
-			"+1", (int) MAX_SUPPLY_CAPACITY_START + "");
-		tooltip.addPara("%s maximum burn level if below %s fleet fuel capacity", 
-			0f, Misc.getHighlightColor(), Misc.getHighlightColor(), 
-			"+1", (int) MAX_FUEL_CAPACITY_START + ""); */
+		tooltip.addSpacer(10f);
         tooltip.addPara("%s maximum burn level for each capital ship in fleet", 
                 0f, Misc.getNegativeHighlightColor(), Misc.getNegativeHighlightColor(), 
                 "-1", (int) MAX_FUEL_CAPACITY_START + "%");

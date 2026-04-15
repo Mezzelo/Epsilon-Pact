@@ -1,5 +1,6 @@
 package data.scripts.weapons;
 
+import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.combat.CombatEngineAPI;
 import com.fs.starfarer.api.combat.DamagingProjectileAPI;
 import com.fs.starfarer.api.combat.OnFireEffectPlugin;
@@ -18,13 +19,16 @@ public class espc_AAEffect implements OnFireEffectPlugin {
 	private float spreadFacing = 0f;
 	// private Vector2f spreadLocation;
 	private float spreadVel;
+	private static final int PROJECTILES_PER_SHOT = 4;
+	private int projs = 0;
 	
 	private Vector2f shipVel;
 	
     public void onFire(DamagingProjectileAPI proj, WeaponAPI weapon, CombatEngineAPI engine) {
     	if (MathUtils.getDistanceSquared(proj, weapon.getFirePoint(0)) > 1f || weapon.getShip() == null)
     		return;
-    	if (engine.getTotalElapsedTime(false) - shotTime > 0.02f) {
+    	if (engine.getTotalElapsedTime(false) - shotTime > 0.02f || projs >= PROJECTILES_PER_SHOT) {
+			projs = 1;
         	shotTime = engine.getTotalElapsedTime(false);
 			// spreadLocation = proj.getLocation();
 			spreadFacing = proj.getFacing();
@@ -32,6 +36,7 @@ public class espc_AAEffect implements OnFireEffectPlugin {
 			// spreadVel = (float) Math.hypot(proj.getVelocity().x - shipVel.x, proj.getVelocity().y - shipVel.y);
 			spreadVel = weapon.getProjectileSpeed();
 		} else {
+			projs++;
 			// Vector2f.add(spreadLocation, new Vector2f(), proj.getLocation());
 			proj.setFacing(spreadFacing + Misc.random.nextFloat() * burstSpread - (burstSpread / 2.0f));
 			float speedMod = Misc.random.nextFloat();

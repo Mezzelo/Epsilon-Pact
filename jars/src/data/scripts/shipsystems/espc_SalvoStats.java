@@ -35,8 +35,10 @@ public class espc_SalvoStats extends BaseShipSystemScript {
 		public float burstTime = 0.1f;
 		public boolean burstStarted = false;
 		public float baseDamage = 100f;
+		public OnFireEffectPlugin wepEffectPlugin = null;
 		public OnFireEffectPlugin projEffectPlugin = null;
-		public mFighter(ShipAPI fighter, WeaponAPI missileWep, int count, int cumulative, boolean override, float timePerShot, OnFireEffectPlugin plugin) {
+		public mFighter(ShipAPI fighter, WeaponAPI missileWep, int count, int cumulative, boolean override, float timePerShot, 
+			OnFireEffectPlugin plugin, OnFireEffectPlugin wepPlugin) {
 			this.fighter = fighter;
 			this.missileWep = missileWep;
 			this.count = count;
@@ -47,6 +49,7 @@ public class espc_SalvoStats extends BaseShipSystemScript {
 				this.timePerShot = timePerShot;
 			this.burstTime = this.timePerShot;
 			this.projEffectPlugin = plugin;
+			this.wepEffectPlugin = wepPlugin;
 			this.burstStarted = override;
 			this.baseDamage = ((MissileSpecAPI) missileWep.getSpec().getProjectileSpec()).getDamage().getBaseDamage();
 			
@@ -111,7 +114,7 @@ public class espc_SalvoStats extends BaseShipSystemScript {
 	
 	
 	private boolean fireMissileFighter(WeaponAPI spawnMissile, ShipAPI fighter, int barrel, float baseDamage, 
-		OnFireEffectPlugin plugin, CombatEngineAPI combatEngine, boolean override) {
+		OnFireEffectPlugin plugin, OnFireEffectPlugin wepPlugin, CombatEngineAPI combatEngine, boolean override) {
 		if (!fighter.getFluxTracker().isOverloaded() && (override ||
 			// support fighters never take a target.  in this case we always fire regardless of range, or
 			((fighter.getShipTarget() == null
@@ -180,7 +183,7 @@ public class espc_SalvoStats extends BaseShipSystemScript {
 				Vector2f.add(fighter.getLocation(), ray, ray);
 				while (shipGridIterator.hasNext()) {
 					ShipAPI currShip = (ShipAPI) shipGridIterator.next();
-					if (currShip.getHullSize() != HullSize.FIGHTER && 
+					if (!currShip.isFighter() && 
 						currShip.getOwner() == ship.getOwner()) {
 						float ffTravel = Vector2f.sub(
 							fighter.getLocation(), 
@@ -253,6 +256,8 @@ public class espc_SalvoStats extends BaseShipSystemScript {
 			// ship.getMutableStats().getMissileWeaponRangeBonus().unmodify("espc_salvo");
 			if (plugin != null)
 				plugin.onFire((DamagingProjectileAPI) missile, spawnMissile, combatEngine);
+			if (wepPlugin != null)
+				wepPlugin.onFire((DamagingProjectileAPI) missile, spawnMissile, combatEngine);
 			return true;
 		}
 		return false;
@@ -406,13 +411,17 @@ public class espc_SalvoStats extends BaseShipSystemScript {
 				OnFireEffectPlugin thisPlugin = null;
 				if (((MissileSpecAPI) shipMissiles.get(missileIndex).missileWep.getSpec().getProjectileSpec()).getOnFireEffect() != null)
 					thisPlugin = ((MissileSpecAPI) shipMissiles.get(missileIndex).missileWep.getSpec().getProjectileSpec()).getOnFireEffect();
+				OnFireEffectPlugin wepPlugin = null;
+				if (shipMissiles.get(missileIndex).missileWep.getEffectPlugin() != null &&
+					shipMissiles.get(missileIndex).missileWep.getEffectPlugin() instanceof OnFireEffectPlugin)
+					wepPlugin = (OnFireEffectPlugin) shipMissiles.get(missileIndex).missileWep.getEffectPlugin();
 				boolean fired = fireMissileFighter(
 					shipMissiles.get(missileIndex).missileWep,
 					(ShipAPI) shipFighters.get(0),
 					0,
 					((MissileSpecAPI) shipMissiles.get(missileIndex).missileWep.getSpec().getProjectileSpec())
 						.getDamage().getBaseDamage(),
-					thisPlugin, combatEngine,
+					thisPlugin, wepPlugin, combatEngine,
 					false
 				);
 				if (shipMissiles.get(missileIndex).count > 1 || !fired) {
@@ -425,7 +434,7 @@ public class espc_SalvoStats extends BaseShipSystemScript {
 						shipMissiles.get(missileIndex).refireDelay > 0f ? shipMissiles.get(missileIndex).refireDelay :
 							shipMissiles.get(missileIndex).missileWep.getDerivedStats().getBurstFireDuration() /
 							shipMissiles.get(missileIndex).missileWep.getSpec().getBurstSize() / 2f,
-						thisPlugin
+						thisPlugin, wepPlugin
 					));
 				} else { // used to be optimized to run on lowest burst interval & throw out
 					// probably needlessly aggressive.  want to add an entry here anyway to get the visual flash
@@ -469,7 +478,7 @@ public class espc_SalvoStats extends BaseShipSystemScript {
 							fighter.missileWep, 
 							fighter.fighter, 
 							fighter.cumulative,
-							fighter.baseDamage, fighter.projEffectPlugin, combatEngine, false);
+							fighter.baseDamage, fighter.projEffectPlugin, fighter.wepEffectPlugin, combatEngine, false);
 						if (fighter.burstStarted) {
 							fighter.cumulative+= 1;
 							if (fighter.count - fighter.cumulative == 0 && SHOULD_RECALL_AFTER &&
@@ -484,7 +493,7 @@ public class espc_SalvoStats extends BaseShipSystemScript {
 								fighter.missileWep, 
 								fighter.fighter, 
 								fighter.cumulative,
-								fighter.baseDamage, fighter.projEffectPlugin, combatEngine, true);
+								fighter.baseDamage, fighter.projEffectPlugin, fighter.wepEffectPlugin, combatEngine, true);
 							if (fired) {
 								fighter.cumulative+= 1;
 							}

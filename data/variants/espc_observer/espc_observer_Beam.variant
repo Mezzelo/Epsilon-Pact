@@ -40,11 +40,6 @@
         "WS0011": "pdlaser",
         "WS0012": "pdlaser"
       }
-    },
-    {
-      "autofire": true,
-      "mode": "LINKED",
-      "weapons": {}
     }
   ],
   "modules": [],

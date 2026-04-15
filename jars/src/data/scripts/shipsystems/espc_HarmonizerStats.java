@@ -1,7 +1,9 @@
 package data.scripts.shipsystems;
 
 import java.awt.Color;
+import java.util.ArrayList;
 import java.util.EnumSet;
+import java.util.List;
 
 // import com.fs.starfarer.api.SoundPlayerAPI;
 import com.fs.starfarer.api.combat.*;
@@ -24,7 +26,8 @@ public class espc_HarmonizerStats extends BaseShipSystemScript {
 	// 0 = small, 1 = med, 2 = large
 	private int largestSize = -1;
 	private int largestCount = 0;
-	private int usableState = -1;
+	private int usableState = -1; 
+	private List<WeaponGroupAPI> groups;
 	
 	public void apply(MutableShipStatsAPI stats, String id, State state, float effectLevel) {
 		
@@ -64,6 +67,20 @@ public class espc_HarmonizerStats extends BaseShipSystemScript {
 						ballisticBoost = ballisticBoost + (3 - largestCount);
 				}
 			}
+			
+			if ((ballisticBoost == 1 || energyBoost == 1) && ship.getShipAI() != null) {
+				groups = new ArrayList<WeaponGroupAPI>();
+				for (WeaponGroupAPI g : ship.getWeaponGroupsCopy()) {
+					boolean matching = true;
+					for (WeaponAPI wep : g.getWeaponsCopy())
+						if (matching && ((wep.getType().equals(WeaponType.BALLISTIC) && energyBoost == 1) ||
+							(wep.getType().equals(WeaponType.ENERGY) && ballisticBoost == 1)))
+							matching = false;
+					
+					if (matching)
+						groups.add(g);
+				}
+			}
 		} else {
 			if (ballisticBoost > -1) {
 				stats.getBallisticRoFMult().modifyMult(id, 1f + ROF_BONUSES[ballisticBoost] * effectLevel);
@@ -81,6 +98,18 @@ public class espc_HarmonizerStats extends BaseShipSystemScript {
 	        		EnumSet.of(WeaponType.ENERGY, WeaponType.BALLISTIC) :
 	        		EnumSet.of(energyBoost > -1 ? WeaponType.ENERGY : WeaponType.BALLISTIC));
 		}
+		
+		if ((ballisticBoost == 1 || energyBoost == 1) &&
+			((ShipAPI) stats.getEntity()).getShipAI() != null && groups != null) {
+			for (WeaponGroupAPI g : groups) {
+				if (!g.isAutofiring())
+					g.toggleOn();
+				if (((ShipAPI) stats.getEntity()).getSelectedGroupAPI() != null && 
+					((ShipAPI) stats.getEntity()).getSelectedGroupAPI().equals(g))
+					((ShipAPI) stats.getEntity()).resetSelectedGroup();
+			}
+		}
+		
 	}
 	public void unapply(MutableShipStatsAPI stats, String id) {
 		ballisticBoost = -1;

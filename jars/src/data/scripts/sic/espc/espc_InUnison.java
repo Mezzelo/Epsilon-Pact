@@ -48,7 +48,7 @@ public class espc_InUnison extends SCBaseSkillPlugin {
 	
     @Override
     public String getAffectsString() {
-        return "all ships in the fleet";
+        return "all non-cruiser ships in the fleet";
     }
 
     @Override
@@ -124,7 +124,7 @@ public class espc_InUnison extends SCBaseSkillPlugin {
            	0f, Misc.getNegativeHighlightColor(), Misc.getNegativeHighlightColor(), 
             (int) CAPITAL_PPT_MALUS + "", (int) CAPITAL_PPT_MIN + "");
         tooltip.addSpacer(10f);
-        tooltip.addPara("Skill has no effect on phase ships, ships with any PPT penalties, or if a Smallcraft executive officer is in use", 
+        tooltip.addPara("Skill has no benefits on phase ships, ships with any PPT penalties, or if a Smallcraft executive officer is in use", 
         	0f, Misc.getNegativeHighlightColor(), Misc.getNegativeHighlightColor());
 		
 	}

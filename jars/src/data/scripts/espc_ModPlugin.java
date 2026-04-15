@@ -32,6 +32,7 @@ import org.dark.shaders.util.TextureData;
 import data.scripts.ai.espc_FinneganAI;
 import data.scripts.campaign.enc.espc_OutsideSystemEpsilpacEPEC;
 import data.scripts.campaign.enc.espc_SlipstreamEpsilpacEPEC;
+import data.scripts.campaign.intel.events.PactProgressionEventIntel;
 import data.scripts.campaign.listeners.espc_CargoListener;
 import data.scripts.campaign.listeners.espc_ColonyInteractionListener;
 import data.scripts.campaign.listeners.espc_EconomyListener;
@@ -148,6 +149,8 @@ public class espc_ModPlugin extends BaseModPlugin {
         new espc_WorldGen().generate(Global.getSector(), true,
         	(hasNex && !SectorManager.getManager().isCorvusMode())
         );
+        PactProgressionEventIntel intel = new PactProgressionEventIntel();
+        Global.getSector().getIntelManager().addIntel(intel);
     }
     
 	@Override
@@ -189,7 +192,8 @@ public class espc_ModPlugin extends BaseModPlugin {
 			CharacterBackgroundUtils.isBackgroundActive("espc_realHumbleBeing"))) {
 				Global.getSector().registerPlugin(new espc_CampaignPlugin());
 			}
-			if (CharacterBackgroundUtils.isBackgroundActive("espc_realHumanBeing") &&
+			if ((CharacterBackgroundUtils.isBackgroundActive("espc_realHumanBeing") ||
+				CharacterBackgroundUtils.isBackgroundActive("espc_realHumbleBeing")) &&
 				espc_ModPlugin.hasLuna()) {
 				// not the nicest solution, but one i've come to learn exists.  this is a silly feature anyways.
 				if (LunaSettings.getBoolean("epsilonpact", "espc_MeatlessSalvage")) {
@@ -240,8 +244,7 @@ public class espc_ModPlugin extends BaseModPlugin {
         	member.getFleetData().getFleet().getFaction() != null &&
         	// won't catch nex allied fleets, but whatever.
         	member.getFleetData().getFleet().getFaction().getId().equals("epsilpac") &&
-        	!ship.getHullSpec().getBaseHullId().equals("espc_rampart") &&
-        	!ship.getHullSpec().getBaseHullId().equals("radiant")) {
+        	!ship.getHullSpec().getBaseHullId().equals("espc_rampart")) {
             ShipAIConfig config = new ShipAIConfig();
             config.personalityOverride = ship.hasLaunchBays() ? Personalities.STEADY : Personalities.AGGRESSIVE;
             return new PluginPick<ShipAIPlugin>(Global.getSettings().createDefaultShipAI(ship, config), PickPriority.MOD_SPECIFIC);

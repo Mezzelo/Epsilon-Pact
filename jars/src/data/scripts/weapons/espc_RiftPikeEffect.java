@@ -12,7 +12,6 @@ import com.fs.starfarer.api.combat.ShipAPI;
 import org.lwjgl.util.vector.Vector2f;
 import com.fs.starfarer.api.util.IntervalUtil;
 
-import data.scripts.plugin.espc_DamageListener;
 import org.magiclib.util.MagicRender;
 import java.awt.Color;
 import data.scripts.util.MezzUtils;
@@ -30,9 +29,6 @@ public class espc_RiftPikeEffect implements OnFireEffectPlugin, EveryFrameWeapon
 	
 	@Override
 	public void init(WeaponAPI weapon) {
-		if (!weapon.getShip().hasListenerOfClass(espc_DamageListener.class)){
-			weapon.getShip().addListener(new espc_DamageListener());
-		}
 		sparkInterval = new IntervalUtil(0.6f, 1.0f);
 		innerInterval = new IntervalUtil(0.02f, 0.07f);
 		ship = weapon.getShip();
@@ -41,6 +37,7 @@ public class espc_RiftPikeEffect implements OnFireEffectPlugin, EveryFrameWeapon
 	
     @Override
     public void onFire(DamagingProjectileAPI proj, WeaponAPI weapon, CombatEngineAPI engine) {
+    	proj.getDamage().setSoftFlux(true);
 		// fluxRemaining.add(weapon.getFluxCostToFire() * thisFluxPercent);
     }
 

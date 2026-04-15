@@ -2,11 +2,13 @@ package data.scripts.hullmods;
 
 import com.fs.starfarer.api.combat.BaseHullMod;
 import com.fs.starfarer.api.combat.MutableShipStatsAPI;
+import com.fs.starfarer.api.combat.ShipAIConfig;
 import com.fs.starfarer.api.combat.ShipAPI.HullSize;
 import com.fs.starfarer.api.combat.ShipAPI;
 import com.fs.starfarer.api.combat.WeaponAPI;
 import com.fs.starfarer.api.combat.WeaponAPI.WeaponSize;
 import com.fs.starfarer.api.combat.listeners.WeaponBaseRangeModifier;
+import com.fs.starfarer.api.impl.campaign.ids.Personalities;
 
 import java.util.List;
 
@@ -20,6 +22,13 @@ public class espc_ChoraleModBehaviour extends BaseHullMod {
 	private static final float SPEED_PENALTY = 2f;
 	private static final float RECOIL_MULT = 0.5f;
 	
+	private static final float AI_HULL_BACK = 0.3f;
+	private static final float AI_FLUX_BACK = 0.4f;
+	private static final float AI_FLUX_FORCE_ENGAGE = 0.15f;
+	
+	private ShipAIConfig origConfig = null;
+	private boolean timidOrCautious = false;
+	
 	public void applyEffectsBeforeShipCreation(HullSize hullSize, MutableShipStatsAPI stats, String id) {
 		// the AI REALLY wants the larges to be turrets in order to orient the ship properly
 		// ends up being a pretty massive downside to large ballistics
@@ -27,6 +36,49 @@ public class espc_ChoraleModBehaviour extends BaseHullMod {
 		stats.getRecoilPerShotMultSmallWeaponsOnly().modifyMult(id, 1f / RECOIL_MULT);
 		stats.getRecoilPerShotMult().modifyMult(id, RECOIL_MULT);
 		stats.getMaxRecoilMult().modifyMult(id, RECOIL_MULT);
+	}
+	
+	@Override
+	public void advanceInCombat(ShipAPI ship, float amount) {
+		super.advanceInCombat(ship, amount);
+    	if (ship == null || ship.isHulk())
+    		return;
+    	
+    	if (timidOrCautious)
+    		return;
+    	if (ship.getAI() == null)
+    		return;
+    	
+    	if (ship.getHullSpec().getBaseHullId().equals("espc_chorale") && origConfig == null &&
+    		ship.getShipAI().getConfig() != null)
+    		if (ship.getShipAI().getConfig().personalityOverride != null &&
+				(ship.getShipAI().getConfig().personalityOverride.equals(Personalities.TIMID) || 
+				ship.getShipAI().getConfig().personalityOverride.equals(Personalities.CAUTIOUS)))
+    			timidOrCautious = true;
+    		else {
+				ShipAIConfig config = ship.getShipAI().getConfig();
+				origConfig = config.clone();
+			}
+    	
+		if (origConfig != null) {
+			ShipAIConfig config = ship.getShipAI().getConfig();
+			if (config != null) {
+				if (ship.getFluxLevel() < AI_FLUX_BACK &&
+					ship.getHullLevel() > AI_HULL_BACK) {
+					config.personalityOverride = Personalities.RECKLESS;
+					config.alwaysStrafeOffensively = true;
+					if (ship.getFluxLevel() < AI_FLUX_FORCE_ENGAGE)
+						config.backingOffWhileNotVentingAllowed = false;
+					else
+						config.backingOffWhileNotVentingAllowed = true;
+					config.turnToFaceWithUndamagedArmor = false;
+					config.burnDriveIgnoreEnemies = true;
+				} else {
+					config.copyFrom(origConfig);
+				}
+			}
+		}
+    	
 	}
     
     public void applyEffectsAfterShipCreation(ShipAPI ship, String id) {

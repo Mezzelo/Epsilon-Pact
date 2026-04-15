@@ -3,7 +3,7 @@
   "hullId": "espc_amanuensis",
   "displayName": "Assault",
   "goalVariant": true,
-  "fluxCapacitors": 31,
+  "fluxCapacitors": 33,
   "fluxVents": 50,
   "quality": 1,
   "permaMods": [],

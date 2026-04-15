@@ -1,6 +1,6 @@
 {
     "displayName": "Support",
-    "fluxCapacitors": 4,
+    "fluxCapacitors": 6,
     "fluxVents": 5,
     "goalVariant": false,
     "hullId": "scintilla",

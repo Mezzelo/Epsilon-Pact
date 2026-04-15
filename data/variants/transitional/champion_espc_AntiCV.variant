@@ -1,0 +1,43 @@
+{
+    "displayName": "Anti-CV",
+    "fluxCapacitors": 29,
+    "fluxVents": 30,
+    "goalVariant": false,
+    "hullId": "champion",
+    "hullMods": ["targetingunit"],
+    "permaMods": [],
+    "sMods": [],
+    "variantId": "champion_espc_AntiCV",
+    "weaponGroups": [
+        {
+            "autofire": true,
+            "mode": "LINKED",
+            "weapons": {"WS 008": "guardian"}
+        },
+        {
+            "autofire": true,
+            "mode": "LINKED",
+            "weapons": {
+                "WS 006": "espc_minimirdual",
+                "WS 007": "espc_minimirdual"
+            }
+        },
+        {
+            "autofire": false,
+            "mode": "LINKED",
+            "weapons": {"WS 009": "locust"}
+        },
+        {
+            "autofire": true,
+            "mode": "LINKED",
+            "weapons": {
+                "WS 000": "ioncannon",
+                "WS 001": "ioncannon",
+                "WS 002": "ioncannon",
+                "WS 003": "ioncannon",
+                "WS 004": "pdburst",
+                "WS 005": "pdburst"
+            }
+        }
+    ]
+}

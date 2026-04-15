@@ -41,7 +41,8 @@ public class espc_ColonyInteractionListener implements ColonyInteractionListener
 		boolean isMeCore = false;
 		if (espc_ModPlugin.hasNex() && Global.getSector().getPlayerPerson() != null &&
 			Global.getSector().getPlayerPerson().getStats() != null)
-			isMeCore = Global.getSector().getPlayerPerson().getStats().getSkillLevel("espc_realHumbleBeingBg_skill") > 0f;
+			isMeCore = Global.getSector().getPlayerPerson().getStats().getSkillLevel("espc_realHumbleBeingBg_skill") > 0f ||
+				Global.getSector().getPlayerPerson().getStats().getSkillLevel("espc_realHumanBeingBg_skill") > 0f;
 		
 		if (market.getFactionId().equals("epsilpac") || isMeCore) {
 			int pactOfficerCount = 0;
@@ -127,7 +128,8 @@ public class espc_ColonyInteractionListener implements ColonyInteractionListener
 	        	if (pactOfficerCount > 0) {
 	        		HashMap<String, StatMod> penalty = Global.getSector().getPlayerPerson().getStats().getOfficerNumber().getFlatMods();
 	        		for (String key : penalty.keySet()) {
-	        			if (key.contains("espc_realHumbleBeingBg") && penalty.get(key).getValue() < 0f) {
+	        			if ((key.contains("espc_realHumanBeingBg") || key.contains("espc_realHumbleBeingBg")) && 
+	        					penalty.get(key).getValue() < 0f) {
 	    	        		Global.getSector().getPlayerPerson().getStats().getOfficerNumber().modifyFlat("espc_aibgmaxmod", 
 	    	        			Math.min(pactOfficerCount, -penalty.get(key).getValue()));
 	        				Global.getSector().getPlayerPerson().getStats().getOfficerNumber().modifyFlat(
@@ -171,7 +173,9 @@ public class espc_ColonyInteractionListener implements ColonyInteractionListener
 	@Override
 	public void reportPlayerClosedMarket(MarketAPI market) {
         if (espc_ModPlugin.hasNex() && 
-        	CharacterBackgroundUtils.isBackgroundActive("espc_realHumbleBeing")) {
+        	(CharacterBackgroundUtils.isBackgroundActive("espc_realHumbleBeing") 
+        		// || CharacterBackgroundUtils.isBackgroundActive("espc_realHumanBeing")
+        	)) {
         	Global.getSector().getPlayerPerson().getStats().getOfficerNumber().unmodify("espc_aibgmaxmod");
         	// could call refreshCharacterStatsEffects but i'm just not confident enough to do that lol
     		HashMap<String, StatMod> penalty = Global.getSector().getPlayerPerson().getStats().getOfficerNumber().getFlatMods();

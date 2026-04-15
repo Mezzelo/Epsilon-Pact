@@ -29,6 +29,7 @@ import java.util.ArrayDeque;
 // import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 
 import org.lwjgl.util.vector.Vector2f;
 import org.lazywizard.lazylib.MathUtils;
@@ -56,12 +57,16 @@ public class espc_CollapseStats extends BaseShipSystemScript {
 		public WeaponAPI weapon;
 		// public String weaponId;
 		// public String projSpecId;	
+		public OnFireEffectPlugin wepEffectPlugin;
 		public OnFireEffectPlugin projEffectPlugin;
 		public ArrayDeque<StaticProj> projs;
 		public StaticProjType(DamagingProjectileAPI proj, boolean isMissile) {
 			
 			this.weapon = proj.getWeapon();
 			
+			if (proj.getWeapon().getEffectPlugin() != null &&
+					proj.getWeapon().getEffectPlugin() instanceof OnFireEffectPlugin)
+				wepEffectPlugin = (OnFireEffectPlugin) proj.getWeapon().getEffectPlugin();
 			if (isMissile) {
 				if (((MissileSpecAPI) proj.getWeapon().getSpec().getProjectileSpec()).getOnFireEffect() != null)
 					projEffectPlugin =  ((MissileSpecAPI) proj.getWeapon().getSpec().getProjectileSpec()).getOnFireEffect();
@@ -69,7 +74,6 @@ public class espc_CollapseStats extends BaseShipSystemScript {
 				if (proj.getProjectileSpec().getOnFireEffect() != null)
 					projEffectPlugin = proj.getProjectileSpec().getOnFireEffect();
 			}
-	
 			projs = new ArrayDeque<StaticProj>();
 			addProj(proj);
 		}
@@ -84,12 +88,18 @@ public class espc_CollapseStats extends BaseShipSystemScript {
 		public Vector2f offset;
 		public Vector2f velocity;
 		public float angularVelocity;
+		public Map<String, Object> customData = null;
 		public StaticProj(DamagingProjectileAPI proj) {
 			damage = proj.getDamageAmount() * proj.getBaseDamageAmount();
 			angle = proj.getFacing();
 			offset = Vector2f.sub(proj.getLocation(), target.getLocation(), new Vector2f());
 			velocity = proj.getVelocity();
 			angularVelocity = proj.getAngularVelocity();
+			if (proj.getCustomData().size() > 0) {
+				customData = new HashMap<String, Object>();
+				for (String key: proj.getCustomData().keySet())
+					customData.put(key, proj.getCustomData().get(key));
+			}
 		}
 	}
 	
@@ -256,10 +266,17 @@ public class espc_CollapseStats extends BaseShipSystemScript {
 							Vector2f.add(target.getLocation(), thisProj.offset, new Vector2f()), 
 							thisProj.angle, 
 							Misc.ZERO);
-	
+
+						if (thisType.wepEffectPlugin != null)
+							thisType.wepEffectPlugin.onFire(spawnProj, thisType.weapon, combatEngine);
 						if (thisType.projEffectPlugin != null)
 							thisType.projEffectPlugin.onFire(spawnProj, thisType.weapon, combatEngine);
 						spawnProj.setDamageAmount(thisProj.damage / spawnProj.getDamageAmount() * DAMAGE_BONUS);
+						spawnProj.getVelocity().scale(Misc.random.nextFloat(0.8f, 1.1f));
+						
+						if (thisProj.customData != null)
+							for (String key : thisProj.customData.keySet())
+								spawnProj.setCustomData(key, thisProj.customData.get(key));
 						
 						float projDamage = thisProj.damage;
 						if (projDamage > 175f) {
@@ -369,7 +386,7 @@ public class espc_CollapseStats extends BaseShipSystemScript {
 			return false;
 		if (hasTarget == ship)
 			return false;
-		if (hasTarget.getHullSize() == HullSize.FIGHTER)
+		if (hasTarget.isFighter())
 			return false;
 		if (!(hasTarget.getCustomData().containsKey("espc_collapse")))
 			return true;

@@ -9,6 +9,7 @@ import com.fs.starfarer.api.characters.AfterShipCreationSkillEffect;
 import com.fs.starfarer.api.combat.MutableShipStatsAPI;
 import com.fs.starfarer.api.combat.ShipAPI;
 import com.fs.starfarer.api.combat.ShipAPI.HullSize;
+import com.fs.starfarer.api.combat.ShipCommand;
 import com.fs.starfarer.api.combat.listeners.AdvanceableListener;
 
 public class espc_BattleTempo {
@@ -52,7 +53,6 @@ public class espc_BattleTempo {
 
 			float mult = bonusTime / UNPAUSE_TIME_MAX;
 			MutableShipStatsAPI stats = ship.getMutableStats();
-
 			stats.getFluxDissipation().modifyPercent(id, FLUX_DISSIPATION_BONUS * mult);
 			stats.getBallisticRoFMult().modifyPercent(id, FIRE_RATE_BONUS * mult);
 			stats.getEnergyRoFMult().modifyPercent(id, FIRE_RATE_BONUS * mult);

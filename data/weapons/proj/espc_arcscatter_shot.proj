@@ -1,0 +1,41 @@
+{
+	"id":"espc_arcscatter_shot",
+	"onHitEffect":"data.scripts.weapons.espc_ArcFlakEffect",
+	"specClass":"projectile",
+	"spawnType":"BALLISTIC",
+	"collisionClass":"PROJECTILE_FF",
+	"collisionClassByFighter":"PROJECTILE_FIGHTER",
+	"length":3,
+	"hitGlowRadius":24,
+	"width":5.5,
+	"fadeTime":0.4,
+	#"fringeColor":[255,155,125,255],
+	#"coreColor":[255,255,200,150],
+	"fringeColor":[235,255,255,185],
+	"coreColor":[205,225,255,150],	
+	"textureScrollSpeed":64.0,
+	"pixelsPerTexel":5.0,
+	"bulletSprite":"graphics/missiles/flechette_sml.png",
+	"behaviorSpec":{"behavior":"PROXIMITY_FUSE",
+		"shotRangeVariance":0.1,
+		"probOfVariance":0.5,
+		"range":0,
+		"explosionSpec":{
+			"duration":0.12f,
+			"radius":55,
+			"coreRadius":30, # full damage within core radius - at least equal to proximity fuse range
+			# i don't think emp damage works lmfao.  cool cool
+			# "maxEMPDamage":50,
+			# "minEMPDamage":50,
+			"collisionClass":NONE,
+			"collisionClassByFighter":NONE,
+			"particleSizeMin":4,
+			"particleSizeRange":2.5,
+			"particleDuration":2,
+			"particleCount":15,
+			"particleColor":[215,225,235,255],
+			"explosionColor":[255,225,125,0],
+			"sound":"vpdriver_explode_before_max_range"
+		},
+	}
+}

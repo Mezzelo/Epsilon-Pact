@@ -1,0 +1,15 @@
+{
+	"id":"espc_WideInverseSkimmer",
+	"type":"STAT_MOD",
+	"aiType":"CUSTOM",
+	
+	"aiScript":"data.scripts.shipsystems.ai.espc_InverseSkimmerAI",
+	"statsScript":"data.scripts.shipsystems.espc_InverseSkimmerStats",
+
+	"range":1750,
+	
+	"fadeActivationSoundOnChargedown":false,
+	# "useSound":"system_phase_skimmer",
+	"outOfUsesSound":"gun_out_of_ammo",
+	
+}

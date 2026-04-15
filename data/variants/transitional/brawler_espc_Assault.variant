@@ -1,0 +1,29 @@
+{
+    "displayName": "Assault",
+    "fluxCapacitors": 6,
+    "fluxVents": 6,
+    "goalVariant": false,
+    "hullId": "brawler",
+    "hullMods": ["targetingunit"],
+    "permaMods": [],
+    "sMods": [],
+    "variantId": "brawler_espc_Assault",
+    "weaponGroups": [
+        {
+            "autofire": true,
+            "mode": "ALTERNATING",
+            "weapons": {
+				"WS 001": "espc_aa",
+				"WS 002": "espc_aa"
+			}
+        },
+        {
+            "autofire": true,
+            "mode": "ALTERNATING",
+            "weapons": {
+                "WS 003": "annihilator",
+                "WS 004": "annihilator"
+            }
+        }
+    ]
+}

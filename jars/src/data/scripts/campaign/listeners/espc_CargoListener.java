@@ -1,8 +1,5 @@
 package data.scripts.campaign.listeners;
 
-import java.util.ArrayList;
-import java.util.Random;
-
 import org.lwjgl.util.vector.Vector2f;
 
 import com.fs.starfarer.api.Global;
@@ -18,8 +15,12 @@ import com.fs.starfarer.api.campaign.econ.SubmarketAPI;
 import com.fs.starfarer.api.campaign.listeners.CargoScreenListener;
 import com.fs.starfarer.api.impl.campaign.ids.Commodities;
 import com.fs.starfarer.api.impl.campaign.ids.Factions;
-import com.fs.starfarer.api.impl.campaign.ids.FleetTypes;
 import com.fs.starfarer.api.impl.campaign.ids.Items;
+import com.fs.starfarer.api.impl.campaign.tutorial.TutorialMissionIntel;
+import com.fs.starfarer.api.util.Misc;
+/*
+import java.util.Random;
+import com.fs.starfarer.api.impl.campaign.ids.FleetTypes;
 import com.fs.starfarer.api.impl.campaign.ids.Skills;
 import com.fs.starfarer.api.impl.campaign.intel.MessageIntel;
 import com.fs.starfarer.api.impl.campaign.missions.DelayedFleetEncounter;
@@ -27,8 +28,7 @@ import com.fs.starfarer.api.impl.campaign.missions.hub.HubMissionWithTriggers.Fl
 import com.fs.starfarer.api.impl.campaign.missions.hub.HubMissionWithTriggers.FleetSize;
 import com.fs.starfarer.api.impl.campaign.missions.hub.HubMissionWithTriggers.OfficerNum;
 import com.fs.starfarer.api.impl.campaign.missions.hub.HubMissionWithTriggers.OfficerQuality;
-import com.fs.starfarer.api.impl.campaign.tutorial.TutorialMissionIntel;
-import com.fs.starfarer.api.util.Misc;
+*/
 
 public class espc_CargoListener implements GenericPlugin, CargoScreenListener {
 	
@@ -95,10 +95,12 @@ public class espc_CargoListener implements GenericPlugin, CargoScreenListener {
 			transaction.getBought().getCommodityQuantity(Commodities.ALPHA_CORE) > 0);
 
 		// int hasCapBP = 0;
+		
 		boolean hasColonyItem = false;
 		
-		ArrayList<String> items = new ArrayList<String>();
-
+		// ArrayList<String> items = new ArrayList<String>();
+		
+			
 		if (!hasAICore || AIInterceptCount < 0) {
 			for (CargoStackAPI stack : transaction.getBought().getStacksCopy()) {
 				if (stack.isSpecialStack()) {
@@ -122,10 +124,9 @@ public class espc_CargoListener implements GenericPlugin, CargoScreenListener {
 				}
 			}
 		}	
-		/*
 		if (!hasAICore && !hasColonyItem)
 			return;
-		
+		/*
 		if (hasAICore && AIInterceptCount >= 0) {
 			AIInterceptCount++;
 			

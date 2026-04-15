@@ -1,0 +1,60 @@
+{
+  "variantId": "radiant_espc_Pact_Assault",
+  "hullId": "radiant_espc",
+  "displayName": "Assault",
+  "goalVariant": false,
+    "fluxCapacitors": 40,
+    "fluxVents": 42,
+  "quality": 1,
+  "permaMods": [],
+  "hullMods": [
+        "targetingunit",
+        "stabilizedshieldemitter",
+        "hardenedshieldemitter"
+  ],
+    "weaponGroups": [
+        {
+            "autofire": true,
+            "mode": "LINKED",
+            "weapons": {
+                "WS 005": "espc_fission",
+                "WS 006": "espc_fission",
+                "WS 007": "espc_fission",
+                "WS 008": "espc_fission"
+            }
+        },
+        {
+            "autofire": true,
+            "mode": "LINKED",
+            "weapons": {
+                "WS 000": "autopulse",
+                "WS 001": "autopulse"
+            }
+        },
+        {
+            "autofire": true,
+            "mode": "LINKED",
+            "weapons": {"WS 003": "tachyonlance"}
+        },
+        {
+            "autofire": true,
+            "mode": "ALTERNATING",
+            "weapons": {
+                "WS 002": "locust",
+                "WS 004": "locust"
+            }
+        },
+        {
+            "autofire": true,
+            "mode": "LINKED",
+            "weapons": {
+                "WS 010": "pdburst",
+                "WS 012": "ioncannon",
+                "WS 015": "ioncannon",
+                "WS 017": "pdburst"
+            }
+        }
+    ],
+  "modules": [],
+  "wings": []
+}

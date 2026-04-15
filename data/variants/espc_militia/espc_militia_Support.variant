@@ -2,7 +2,7 @@
   "variantId": "espc_militia_Support",
   "hullId": "espc_militia",
   "displayName": "Support",
-  "goalVariant": true,
+  "goalVariant": false,
   "fluxCapacitors": 20,
   "fluxVents": 17,
   "quality": 1,

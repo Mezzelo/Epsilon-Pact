@@ -1,44 +1,44 @@
 {
-  "variantId": "wolf_espc_Assault",
-  "hullId": "wolf_espc",
-  "displayName": "Assault",
+  "variantId": "brilliant_espc_Pact_Support",
+  "hullId": "brilliant_espc",
+  "displayName": "Support",
   "goalVariant": false,
-  "fluxCapacitors": 10,
-  "fluxVents": 10,
-  "quality": 1,
+  "fluxCapacitors": 20,
+  "fluxVents": 30,
+  "quality": 0,
   "permaMods": [],
   "hullMods": [
-    "hardened_subsystems"
+    "targetingunit",
   ],
   "weaponGroups": [
     {
       "autofire": false,
       "mode": "LINKED",
       "weapons": {
-        "WS 004": "heavyblaster"
+        "WS 000": "espc_riftpike"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "ALTERNATING",
+      "weapons": {
+        "WS 005": "espc_aa",
+        "WS 006": "espc_aa"
       }
     },
     {
       "autofire": false,
-      "mode": "ALTERNATING",
+      "mode": "LINKED",
       "weapons": {
-        "WS 005": "swarmer",
-        "WS 006": "swarmer"
-      }
+        "WS 004": "espc_finnegan"
+	  }
     },
     {
       "autofire": true,
       "mode": "LINKED",
       "weapons": {
-        "WS 001": "ioncannon",
-        "WS 002": "pdlaser",
-        "WS 003": "pdlaser"
+        "WS 001": "heavyburst"
       }
-    },
-    {
-      "autofire": false,
-      "mode": "LINKED",
-      "weapons": {}
     },
     {
       "autofire": false,

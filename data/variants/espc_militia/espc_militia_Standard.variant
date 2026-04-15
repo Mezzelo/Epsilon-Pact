@@ -2,7 +2,7 @@
   "variantId": "espc_militia_Standard",
   "hullId": "espc_militia",
   "displayName": "Standard",
-  "goalVariant": true,
+  "goalVariant": false,
   "fluxCapacitors": 18,
   "fluxVents": 16,
   "quality": 1,

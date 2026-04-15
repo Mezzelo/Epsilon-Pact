@@ -3,10 +3,12 @@ package data.scripts.shipsystems;
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.combat.CombatEngineAPI;
 import com.fs.starfarer.api.combat.MutableShipStatsAPI;
+import com.fs.starfarer.api.combat.ShipAIConfig;
 import com.fs.starfarer.api.combat.ShieldAPI.ShieldType;
 import com.fs.starfarer.api.combat.ShipAPI;
 import com.fs.starfarer.api.combat.ShipSystemAPI;
 import com.fs.starfarer.api.combat.ShipSystemAPI.SystemState;
+import com.fs.starfarer.api.impl.campaign.ids.Personalities;
 import com.fs.starfarer.api.impl.combat.BaseShipSystemScript;
 // import com.fs.starfarer.api.plugins.ShipSystemStatsScript.State;
 // import com.fs.starfarer.api.plugins.ShipSystemStatsScript.StatusData;
@@ -16,6 +18,9 @@ public class espc_ResonatorShieldStats extends BaseShipSystemScript {
 	private static final float DAMAGE_RECEIVED_MULT = 1.5f;
 	private static final float HARDFLUX_DISSIPATION_RATE = 2.0f;
 	private static final float HARDFLUX_DISSIPATE_FRACTION = 0.8f;
+	private static final float AI_HULL_BACK = 0.3f;
+	private static final float AI_FLUX_BACK = 0.45f;
+	private static final float AI_FLUX_FORCE_ENGAGE = 0.2f;
 	
 	private static final float LOW_PASS_FLUX_MAX = 4000f;
 	
@@ -25,6 +30,8 @@ public class espc_ResonatorShieldStats extends BaseShipSystemScript {
 	private float hfToDissipate = 0f;
 	private float shieldMultOffset = 1f;
 	private ShipAPI ship;
+	private ShipAIConfig origConfig = null;
+	private boolean timidOrCautious = false;
 	
 	public float getHfToDissipate() {
 		return hfToDissipate;
@@ -42,6 +49,16 @@ public class espc_ResonatorShieldStats extends BaseShipSystemScript {
 		if (ship == null) {
 			ship = (ShipAPI) stats.getEntity();
 			ship.setCustomData("espc_resonatorShieldRef", this);
+			
+			if (ship.getShipAI() != null && ship.getShipAI().getConfig() != null)
+				if (ship.getShipAI().getConfig().personalityOverride != null &&
+					(ship.getShipAI().getConfig().personalityOverride.equals(Personalities.TIMID) || 
+					ship.getShipAI().getConfig().personalityOverride.equals(Personalities.CAUTIOUS))) {
+					timidOrCautious = true;
+				} else {
+					ShipAIConfig config = ship.getShipAI().getConfig();
+					origConfig = config.clone();
+				}
 		}
 		
 		stats.getShieldDamageTakenMult().unmodify(id);
@@ -72,12 +89,44 @@ public class espc_ResonatorShieldStats extends BaseShipSystemScript {
 		}
 		
 		hfLast = ship.getFluxTracker().getHardFlux();
+		
+		if (timidOrCautious)
+			return;
+		
+		if (origConfig != null &&
+			((ShipAPI) stats.getEntity()).getShipAI() != null) {
+			ShipAPI ship = (ShipAPI) stats.getEntity();
+			ShipAIConfig config = ship.getShipAI().getConfig();
+			if (config != null) {
+				if (effectLevel > 0 && ship.getFluxLevel() < AI_FLUX_BACK &&
+						ship.getHullLevel() > AI_HULL_BACK) {
+						config.personalityOverride = Personalities.RECKLESS;
+						config.alwaysStrafeOffensively = true;
+						if (ship.getFluxLevel() < AI_FLUX_FORCE_ENGAGE)
+							config.backingOffWhileNotVentingAllowed = false;
+						else
+							config.backingOffWhileNotVentingAllowed = true;
+						config.turnToFaceWithUndamagedArmor = false;
+						config.burnDriveIgnoreEnemies = true;
+					} else {
+						config.copyFrom(origConfig);
+					}
+			}
+		}
 	}
 	
 	public void unapply(MutableShipStatsAPI stats, String id) {
 		stats.getShieldDamageTakenMult().unmodify(id);
 		stats.getBeamShieldDamageTakenMult().unmodify(id);
 		hfToDissipate = 0f;
+		if (timidOrCautious)
+			return;
+		if (origConfig != null && ((ShipAPI) stats.getEntity()).getShipAI() != null) {
+			ShipAIConfig config = ((ShipAPI) stats.getEntity()).getShipAI().getConfig();
+			if (config != null) {
+				config.copyFrom(origConfig);
+			}
+		}
 	}
 	
 	public StatusData getStatusData(int index, State state, float effectLevel) {

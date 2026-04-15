@@ -5,7 +5,8 @@
 	"restoreToBaseHull":true,
 	"descriptionId":"brilliant",
 	"addHints":["HIDE_IN_CODEX"],
-    "systemId":"espc_Collapse",
+    "systemId":"espc_PlasmaJolt",
+	"maxSpeed":65,
 	# "suppliesToRecover":25,
 	# "suppliesPerMonth":25,
 	# "removeWeaponSlots":[], 		# ids

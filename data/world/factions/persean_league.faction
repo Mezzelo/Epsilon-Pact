@@ -7,14 +7,14 @@
 	},
     "hullFrequency":{
         "hulls":{
-#            "espc_militia":0.5,
-			"espc_militia_o":0.2,
+#           "espc_militia":0.5,
+# 			"espc_militia_o":0.2,
         },
     },
     "knownShips":{
         "hulls":[
 #            "espc_militia",
-            "espc_militia_o",
+#            "espc_militia_o",
         ],
     },
 }

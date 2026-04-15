@@ -3,11 +3,14 @@ package data.scripts.shipsystems;
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.combat.*;
 import com.fs.starfarer.api.combat.EmpArcEntityAPI.EmpArcParams;
+import com.fs.starfarer.api.impl.campaign.ids.Personalities;
 import com.fs.starfarer.api.impl.campaign.ids.Tags;
 import com.fs.starfarer.api.impl.combat.BaseShipSystemScript;
 import com.fs.starfarer.api.util.IntervalUtil;
 
+import java.util.ArrayDeque;
 import java.util.Iterator;
+import java.util.List;
 import java.awt.Color;
 import com.fs.starfarer.api.util.Misc;
 
@@ -17,12 +20,18 @@ public class espc_BattlecryStats extends BaseShipSystemScript {
 	
 	private static final float FLUX_PROJECT_MULT = 1.0f;
 	private static final float FLUX_RANGE_BASE = 1000f;
-	private static final float FLUX_RANGE_MAX_PENALTY = 0f;
 	
 	// public static final float FLUX_COST_MULT = 1f;
 	private static final float FLUX_DISSIPATION_MULT = 2f;
 	
 	private static final float ARC_FIGHTER_CHANCE = 0.4f;
+	
+	private static final float AI_HULL_BACK = 0.4f;
+	private static final float AI_FLUX_BACK = 0.4f;
+	private static final float AI_FLUX_FORCE_ENGAGE = 0.1f;
+	
+	private ShipAIConfig origConfig = null;
+	private boolean timidOrCautious = false;
 	
 	private float fluxLast = -100f;
 	private float hardFluxLast = 0f;
@@ -31,6 +40,8 @@ public class espc_BattlecryStats extends BaseShipSystemScript {
 	private float jitterAmount = 0f;
 	
 	private IntervalUtil fluxPulseInterval = new IntervalUtil(0.2f, 0.4f);
+	
+	private ArrayDeque<ShipAPI> fighters = new ArrayDeque<ShipAPI>();
 	
 	public void apply(MutableShipStatsAPI stats, String id, State state, float effectLevel) {
 		
@@ -48,6 +59,20 @@ public class espc_BattlecryStats extends BaseShipSystemScript {
 		stats.getFluxDissipation().modifyMult(id, FLUX_DISSIPATION_MULT * effectLevel);
 		
 		ShipAPI ship = (ShipAPI) stats.getEntity();
+		
+		for (ShipAPI fighter : fighters) {
+			if (fighter.getFluxTracker() != null && !fighter.getFluxTracker().isOverloaded()) {
+				fighter.getEngineController().forceFlameout();
+				List<WeaponAPI> weps = fighter.getAllWeapons();
+				for (WeaponAPI wep : weps) {
+					combatEngine.applyDamage(fighter, wep.getLocation(), 
+						30f, DamageType.ENERGY, 
+						1200f, true, false, ship);
+					wep.disable();
+				}
+			}
+		}
+		fighters.clear();
 		
 		jitterAmount = Math.max(0f, jitterAmount - amount * 1.5f);
 		if (jitterAmount > 0f)
@@ -71,10 +96,11 @@ public class espc_BattlecryStats extends BaseShipSystemScript {
 			Iterator<Object> shipGridIterator = (Iterator<Object>) (combatEngine.getAiGridShips().getCheckIterator(
 				ship.getLocation(),
 				// FLUX_RANGE_BASE - FLUX_RANGE_MAX_PENALTY * ship.getFluxLevel()
-				FLUX_RANGE_BASE * 2f,
-				FLUX_RANGE_BASE * 2f));
+				ship.getMutableStats().getSystemRangeBonus().computeEffective(FLUX_RANGE_BASE) * 2f,
+				ship.getMutableStats().getSystemRangeBonus().computeEffective(FLUX_RANGE_BASE) * 2f));
 			
 			boolean didArc = false;
+			ShipAPI lastArced = null;
 			
 			while (shipGridIterator.hasNext()) {
 				ShipAPI currShip = (ShipAPI) shipGridIterator.next();
@@ -84,7 +110,8 @@ public class espc_BattlecryStats extends BaseShipSystemScript {
 					currShip.getMutableStats().getHullDamageTakenMult().getMult() <= 0f
 					|| currShip.isHulk() || !currShip.isAlive() || currShip.getMaxFlux() <= 0f
 					|| !MathUtils.isWithinRange(
-						currShip, ship.getLocation(), FLUX_RANGE_BASE - FLUX_RANGE_MAX_PENALTY * ship.getFluxLevel()
+						currShip, ship.getLocation(), 
+						ship.getMutableStats().getSystemRangeBonus().computeEffective(FLUX_RANGE_BASE) 
 					)
 				)
 					continue;
@@ -111,6 +138,9 @@ public class espc_BattlecryStats extends BaseShipSystemScript {
 							currShip.getFluxTracker().increaseFlux(currShip.getMaxFlux() - currShip.getCurrFlux(), false);
 							currShip.getFluxTracker().increaseFlux(
 								Math.min(excess, currShip.getMaxFlux() * 0.15f), true);
+							if (currShip.getEngineController() != null && 
+								!currShip.getEngineController().isFlamedOut())
+								fighters.add(currShip);
 						}
 					}
 					else {
@@ -129,7 +159,7 @@ public class espc_BattlecryStats extends BaseShipSystemScript {
 							new Color(215, 125, 215), currShip, ship
 						);
 				}
-				if (setForArc || setForOverload) {
+				if ((setForArc || setForOverload) && !(currShip.isFighter() && currShip.getEngineController().isFlamedOut())) {
 					if (setForOverload)
 						Global.getSoundPlayer().playSound(
 							"espc_spark",
@@ -152,9 +182,14 @@ public class espc_BattlecryStats extends BaseShipSystemScript {
 						if (!setForOverload)
 							params.movementDurOverride = Math.max(0.1f, 
 								Misc.getDistance(ship.getLocation(), currShip.getLocation()) / 5000f);
+						ShipAPI arcFrom = ship;
+						if (lastArced != null && MathUtils.getDistanceSquared(currShip, ship) >
+							MathUtils.getDistanceSquared(currShip, lastArced))
+							arcFrom = lastArced;
 						
 						EmpArcEntityAPI arc = combatEngine.spawnEmpArcVisual(
-							ship.getLocation(), ship, currShip.getLocation(), currShip,
+							arcFrom.getLocation(), arcFrom, 
+							currShip.getLocation(), currShip,
 							(setForOverload && !currShip.isFighter()) ? 55f : Math.min(Math.abs(arcFlux)/10f, 35f), 
 							new Color(240, 0, 255), new Color(185, 0, 255),
 							params
@@ -170,6 +205,7 @@ public class espc_BattlecryStats extends BaseShipSystemScript {
 						arc.setRenderGlowAtStart(setForOverload);
 						arc.setFadedOutAtStart(!setForOverload);
 					}
+					lastArced = currShip;
 				}
 				if (didArc)
 					jitterAmount = Math.min(arcFlux / ship.getMaxFlux() * 5f, 2.5f);
@@ -188,6 +224,39 @@ public class espc_BattlecryStats extends BaseShipSystemScript {
 		hardFluxLast = ship.getFluxTracker().getHardFlux();
 //		ship.blockCommandForOneFrame(ShipCommand.FIRE);
 //		ship.setHoldFireOneFrame(true);
+		
+		if (timidOrCautious)
+			return;
+		if (origConfig == null && ship.getShipAI() != null && ship.getShipAI().getConfig() != null) {
+			if (ship.getShipAI().getConfig().personalityOverride != null &&
+				(ship.getShipAI().getConfig().personalityOverride.equals(Personalities.TIMID) || 
+				ship.getShipAI().getConfig().personalityOverride.equals(Personalities.CAUTIOUS)))
+				timidOrCautious = true;
+			else {
+				ShipAIConfig config = ship.getShipAI().getConfig();
+				origConfig = config.clone();
+			}
+		}
+		
+		if (origConfig != null && ship.getShipAI() != null) {
+			ShipAIConfig config = ship.getShipAI().getConfig();
+			if (config != null) {
+				if (effectLevel > 0 && ship.getFluxLevel() < AI_FLUX_BACK &&
+					ship.getHullLevel() > AI_HULL_BACK) {
+					config.personalityOverride = Personalities.RECKLESS;
+					config.alwaysStrafeOffensively = true;
+					if (ship.getFluxLevel() < AI_FLUX_FORCE_ENGAGE)
+						config.backingOffWhileNotVentingAllowed = false;
+					else
+						config.backingOffWhileNotVentingAllowed = true;
+					config.turnToFaceWithUndamagedArmor = false;
+					config.burnDriveIgnoreEnemies = true;
+				} else {
+					config.copyFrom(origConfig);
+				}
+			}
+		}
+		
 	}
 	public void unapply(MutableShipStatsAPI stats, String id) {
 		fluxLast = -100f;
@@ -196,6 +265,14 @@ public class espc_BattlecryStats extends BaseShipSystemScript {
 		fluxPulseInterval.setInterval(0.2f, 0.4f);
 		fluxPulseInterval.setElapsed(0.0f);
 		stats.getFluxDissipation().unmodify(id);
+		if (timidOrCautious)
+			return;
+		if (origConfig != null && ((ShipAPI) stats.getEntity()).getShipAI() != null) {
+			ShipAIConfig config = ((ShipAPI) stats.getEntity()).getShipAI().getConfig();
+			if (config != null) {
+				config.copyFrom(origConfig);
+			}
+		}
 	}
 	
 	public StatusData getStatusData(int index, State state, float effectLevel) {

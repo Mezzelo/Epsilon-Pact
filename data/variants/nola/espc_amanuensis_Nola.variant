@@ -3,7 +3,7 @@
   "hullId": "espc_amanuensis",
   "displayName": "Attack",
   "goalVariant": false,
-  "fluxCapacitors": 45,
+  "fluxCapacitors": 47,
   "fluxVents": 55,
   "quality": 1,
   "hullMods": [

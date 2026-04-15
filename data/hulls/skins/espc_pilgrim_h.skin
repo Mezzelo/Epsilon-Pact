@@ -11,7 +11,7 @@
 	   "WS 004":{"type": MISSILE},
 	   "WS 005":{"type": MISSILE},
 	   "WS 001":{"type": COMPOSITE},
-	   "WS 002":{"type": COMPOSITE},
+	   "WS 003":{"type": COMPOSITE},
 	   # "WS 003":{"type": BALLISTIC},
 	   "LB 3":{"type": LAUNCH_BAY, "mount": HIDDEN},
     },

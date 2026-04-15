@@ -23,9 +23,9 @@ On the Defender (EP), this hullmod is considered %s. All small non-missile weapo
 ,,,,,,,,,,,,,,,,,,
 Ordnance Clamps,espc_salvoinfomod,,,,codex_require_related,,,,TRUE,,0,0,0,0,data.scripts.hullmods.espc_SalvoInfoMod,<tooltip created in the script due to sections/other complexity>,Ship can launch equipped missiles from its fighters.,graphics/hullmods/espc_choralemodicon.png
 Alternator Internals,espc_alternatorinfomod,,,,codex_require_related,,,,TRUE,,0,0,0,0,data.scripts.hullmods.espc_AlternatorInfoMod,<tooltip created in the script due to sections/other complexity>,"Ship's non-missile weapons have increased fire rate, but can only be used one at a time.",graphics/hullmods/espc_recoilmodicon.png
-Pact Modifications,espc_pactskin,,,,codex_require_related,,,,TRUE,,0,0,0,0,data.scripts.hullmods.espc_AlternatorInfoMod,"This ship has been given a series of radical modifications by Pact engineers - outwardly subtle, but otherwise radical changes have altered its shipsystem, possibly in addition to other attributes.
+Pact Modifications,espc_pactskin,,,,codex_require_related,,,,TRUE,,0,0,0,0,data.scripts.hullmods.espc_PactModifications,"This ship has been given a series of modifications by Pact engineers - generally outwardly subtle, but otherwise radical changes have %s, possibly in addition to other attributes.
 
-The nature of these changes is exotic to the institutionalized nature of most shipworks, making them unreplicable: If this ship is restored, these alterations will be permanently lost.","This ship is affected by a set of exotic, internal modifications that will be lost on restoration.",graphics/hullmods/espc_choralemodicon.png
+The nature of these changes is exotic to the institutionalized nature of most shipworks, making them unreplicable: These alterations will be %s.",This ship is affected by a set of exotic internal modifications that will be lost on restoration.,graphics/hullmods/espc_pactskinicon.png
 ,,,,,,,,,,,,,,,,,,
 Sundered Hull,espc_halfslaughtmod,,,,codex_require_related,,,,TRUE,,0,0,0,0,data.scripts.hullmods.espc_HalfslaughtModBehaviour,"The left portion of this hull appears to have been effectively vaporized prior to recovery, leaving it only partially recoverable.
 

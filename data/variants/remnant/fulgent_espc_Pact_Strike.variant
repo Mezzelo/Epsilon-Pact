@@ -1,42 +1,39 @@
 {
-  "variantId": "wolf_espc_Strike",
-  "hullId": "wolf_espc",
+  "variantId": "fulgent_espc_Pact_Strike",
+  "hullId": "fulgent_espc",
   "displayName": "Strike",
   "goalVariant": false,
-  "fluxCapacitors": 10,
-  "fluxVents": 8,
-  "quality": 1,
+  "fluxCapacitors": 20,
+  "fluxVents": 20,
+  "quality": 0,
   "permaMods": [],
   "hullMods": [
-    "hardened_subsystems"
+    "targetingunit",
+	"frontemitter"
   ],
   "weaponGroups": [
     {
-      "autofire": true,
+      "autofire": false,
       "mode": "LINKED",
       "weapons": {
-        "WS 004": "ionpulser"
+        "WS 001": "espc_fission",
+        "WS 003": "espc_fission"
       }
-    },
-    {
-        "autofire": false,
-        "mode": "LINKED",
-        "weapons": {"WS 001": "amblaster"}
     },
     {
       "autofire": false,
-      "mode": "ALTERNATING",
+      "mode": "LINKED",
       "weapons": {
-        "WS 005": "swarmer",
-        "WS 006": "swarmer"
+        "WS 004": "espc_finnegan"
       }
     },
     {
       "autofire": true,
       "mode": "LINKED",
       "weapons": {
-        "WS 002": "pdlaser",
-        "WS 003": "pdlaser"
+        "WS 000": "ioncannon",
+        "WS 007": "pdburst",
+        "WS 008": "pdburst"
       }
     },
     {

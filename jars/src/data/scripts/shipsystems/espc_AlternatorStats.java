@@ -1,19 +1,23 @@
 package data.scripts.shipsystems;
 
 import java.awt.Color;
+import java.util.ArrayList;
 import java.util.EnumSet;
+import java.util.List;
 
 import com.fs.starfarer.api.GameState;
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.combat.CombatEngineAPI;
 import com.fs.starfarer.api.combat.DamageType;
 import com.fs.starfarer.api.combat.MutableShipStatsAPI;
+import com.fs.starfarer.api.combat.ShipAIConfig;
 import com.fs.starfarer.api.combat.ShipAPI;
 import com.fs.starfarer.api.combat.ShipSystemAPI;
 import com.fs.starfarer.api.combat.WeaponAPI;
 import com.fs.starfarer.api.combat.ShipSystemAPI.SystemState;
 import com.fs.starfarer.api.combat.WeaponAPI.AIHints;
 import com.fs.starfarer.api.combat.WeaponAPI.WeaponType;
+import com.fs.starfarer.api.impl.campaign.ids.Personalities;
 import com.fs.starfarer.api.impl.combat.BaseShipSystemScript;
 
 public class espc_AlternatorStats extends BaseShipSystemScript {
@@ -28,6 +32,15 @@ public class espc_AlternatorStats extends BaseShipSystemScript {
 	private int usableState = -1;
 	
 	private static final float BONUS_MAX = 2f;
+	
+	private static final float AI_HULL_BACK = 0.15f;
+	private static final float AI_HULL_BACK_FRIGATE = 0.35f;
+	private static final float AI_FLUX_BACK = 0.65f;
+	private static final float AI_FLUX_BACK_FRIGATE = 0.4f;
+	private static final float AI_FLUX_FORCE_ENGAGE = 0.4f;
+	private static final float AI_FLUX_FORCE_ENGAGE_FRIGATE = 0.2f;
+	
+	private ShipAIConfig origConfig = null;
 	
 	public float getBallisticDPS() {
 		return ballisticDPS;
@@ -79,8 +92,35 @@ public class espc_AlternatorStats extends BaseShipSystemScript {
 						(weapon.hasAIHint(AIHints.PD) && !weapon.hasAIHint(AIHints.PD_ALSO) ? 0.5f : 1f);
 				
 			}
-			// Global.getLogger(espc_AlternatorStats.class).info("balDPS: " + ballisticDPS);
-			// Global.getLogger(espc_AlternatorStats.class).info("enDPS: " + energyDPS);
+			
+			if (origConfig == null && ship.getShipAI() != null)
+				if (ship.getShipAI().getConfig() != null &&
+					ship.getShipAI().getConfig().personalityOverride != null &&
+					(!ship.getShipAI().getConfig().personalityOverride.equals(Personalities.TIMID) || 
+					!ship.getShipAI().getConfig().personalityOverride.equals(Personalities.CAUTIOUS))) {
+					ShipAIConfig config = ship.getShipAI().getConfig();
+					origConfig = config.clone();
+			}
+		}
+		
+		if (origConfig != null &&
+			ship.getShipAI() != null) {
+			ShipAIConfig config = ship.getShipAI().getConfig();
+			if (config != null) {
+				if (ship.getFluxLevel() < AI_FLUX_BACK &&
+					ship.getHullLevel() > AI_HULL_BACK) {
+					config.personalityOverride = Personalities.RECKLESS;
+					config.alwaysStrafeOffensively = true;
+					if (ship.getFluxLevel() < AI_FLUX_FORCE_ENGAGE)
+						config.backingOffWhileNotVentingAllowed = false;
+					else
+						config.backingOffWhileNotVentingAllowed = true;
+					config.turnToFaceWithUndamagedArmor = false;
+					config.burnDriveIgnoreEnemies = true;
+				} else {
+					config.copyFrom(origConfig);
+				}
+			}
 		}
 		
 		if (state == State.OUT && lastIdle) {

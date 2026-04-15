@@ -1,6 +1,15 @@
-Version 0.6.1b
+Version 0.6.2
 SiC officer added!  Offers an automation-type expertise, that further enables the Pact's doctrine: constrained fleet sizes, smaller ships, and death to missiles and fighters lol
 More robust graphicslib support: Lighting & distortions, specifically
+New Pact variants of vanilla hulls (mostly remnant), featuring new shipsystems.
+Pact campaign progression: The Pact's doctrine will develop over the course of a campaign, fully evolving after 4 cycles.  Toggleable with Lunalib.
+AI changes to Pact hull designs which should make them significantly more effective without needing player control/direction.
+
+
+
+New weapons:
+- Arc-Scatter, small ballistic
+- Ion Accumulator & Heavy Ion Accumulator, small & medium energy
 
 
 Jackalope
@@ -16,6 +25,9 @@ Pilgrim
 - Acceleration 20 > 35
 - Decceleration 10 > 25
 - Variants revised
+
+Pilgrim (H)
+- Fixed middle small mount being erroneously composite instead of missile, and right small mount being missile instead of composite
 
 Amanuensis
 - Hull 16000 > 15000
@@ -33,21 +45,32 @@ Solo AM Flamer
 - Projectile speed 500 > 600
 - Now ignores flares
 
+Battlecry
+- Now damages and disables the weapons and engines of fighters with overload protection, when it would otherwise cause overloads
+	- yeah let me remove the one major weakness of shielded fighters.  my fighter should be able to shrug off a reaper.  yeah ok.  watch this, idiot.
+	
+Slamfire
+- fixed system not proccing EveryFrame-defined OnFireEffects on projectiles, potentially fixing erroneous modded weapon behaviour
 
 Temporal Collapse
 - Now inflicts targets with a 50% damage taken malus while active.
 	- Disappears before the projectiles hit, so technically it should only affect beams: the main purpose is to make the target more attractive to other ships lol
+- Now slightly staggers the velocity of unfrozen projectiles (-20% to +10% variance) to reduce redundancies against shields
+- fixed system not proccing EveryFrame-defined OnFireEffects on projectiles, potentially fixing erroneous modded weapon behaviour
+
+Remote Salvo
+- fixed system not proccing EveryFrame-defined OnFireEffects on projectiles, potentially fixing erroneous modded weapon behaviour
 
 AM Compressor
 - System reworked: Now a no-cost toggle, that activates an offensive mode
 	- Offensive mode: +50% damage, +50% flux generation, +30% range, -30% turn speed, -50% projectile velocity, 
 
 
-- Custom shipsystem AI for Hybrid Harmonizer & Overpressure Loaders that should make them less annoying.
+- (fix) System range bonuses now properly affect all shipsystems in this mod.
+- (fix) "AI Core" now properly respawns when playing the Real Human Being Nexerelin start.
 - Hybrid Alternator shipsystem AI improved, less placeholder now
-- Placeholder art & audiofor the Scatter Rifle phased out
+- Placeholder art & audio for the Scatter Rifle phased out
 - Placeholder skill icons replaced with more placeholder skill icons
-- VFX revisions to the Type XII-a, Half-Rift Spear, and Half-Rift Pike
 - Placeholder Amanuensis sprite mamrginally less placeholder
 
 Version 0.6.1
@@ -160,7 +183,6 @@ Slamfire
 - Isabelle will no longer be offered as a contact while commissioned by another faction, without having given a Beta/Alpha core or if you have committed any atrocities, & will not give missions while worse than favorable with the Pact.
 
 Version 0.5.9
-(0.6.0 pre-release)
 New hulls: Amanuensis-class battleship & Warden (EP) class frigate
 New weapon: Scatter Rifle, large ballistic
 Portraiture: 18/22 existing portraits revised, 14 (21) new portraits
@@ -170,8 +192,6 @@ Added two Nexerelin starting backgrounds, unlocked by achieving perfect scores o
 	Unlock requirement can be toggled off if using LunaLib.
 Added 5 unique skills utilized by Pact fleets and hireable officers, new skill selection algorithm & Pact fleet spawn behaviour adjustments.
 
-
-	
 Updated for 0.98a-RC5:
 - variants altered to reflect new balance changes (literally just pd laser lol)
 - Simplified ship system descriptions, with details now contained in Codex entries

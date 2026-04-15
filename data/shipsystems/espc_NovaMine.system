@@ -1,0 +1,18 @@
+{
+	"id":"espc_NovaMine",
+	"type":"STAT_MOD",
+	"aiType":"CUSTOM",
+	
+	"aiScript":"data.scripts.shipsystems.ai.espc_NovaMineAI",
+	"statsScript":"data.scripts.shipsystems.espc_NovaMineStats",
+
+	#"fadeActivationSoundOnChargedown":true,
+	
+	"useSound":"system_nova_burst_fire",
+	"outOfUsesSound":"gun_out_of_ammo",
+	
+}
+
+
+
+

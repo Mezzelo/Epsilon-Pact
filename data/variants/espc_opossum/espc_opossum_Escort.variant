@@ -3,7 +3,7 @@
   "hullId": "espc_opossum",
   "displayName": "Escort",
   "goalVariant": true,
-  "fluxCapacitors": 7,
+  "fluxCapacitors": 8,
   "fluxVents": 8,
   "quality": 1,
   "permaMods": [],

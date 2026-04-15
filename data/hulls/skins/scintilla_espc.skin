@@ -6,11 +6,19 @@
 	"descriptionId":"scintilla",
 	"addHints":["HIDE_IN_CODEX"],
     "systemId":"espc_Salvo",
+	"suppliesToRecover":15,
+	"suppliesPerMonth":15,
+	"fleetPoints":14,
+	"baseValueMult":2,
 	# "suppliesToRecover":12,
 	# "suppliesPerMonth":12,
 	"removeWeaponSlots":[], 		# ids
 	"removeEngineSlots":[], 		# indices, as engine slots have no id in the .ship file
 	"removeBuiltInMods":[], 		# hullmod ids
 	"removeBuiltInWeapons":[], 		# weapon slot ids
-	"builtInMods":["espc_pactskin"],
+	"builtInMods":["espc_salvoinfomod", "espc_pactskin"],
+    "weaponSlotChanges":{
+	   "WS 006":{"type": ENERGY}
+    }
+
 }

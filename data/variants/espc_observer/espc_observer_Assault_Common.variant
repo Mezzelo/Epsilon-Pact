@@ -1,0 +1,45 @@
+{
+  "variantId": "espc_observer_Assault_Common",
+  "hullId": "espc_observer",
+  "displayName": "Assault",
+  "goalVariant": true,
+  "fluxCapacitors": 27,
+  "fluxVents": 30,
+  "quality": 1,
+  "permaMods": [],
+  "hullMods": [
+    "targetingunit",
+    "stabilizedshieldemitter"
+  ],
+  "weaponGroups": [
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0001": "plasma"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0003": "ionbeam",
+        "WS0004": "ionbeam"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0005": "pdlaser",
+        "WS0006": "pdlaser",
+        "WS0007": "irpulse",
+        "WS0008": "irpulse",
+        "WS0011": "pdlaser",
+        "WS0012": "pdlaser"
+      }
+    }
+  ],
+  "modules": [],
+  "wings": []
+}

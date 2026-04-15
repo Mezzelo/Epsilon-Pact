@@ -5,7 +5,9 @@
 	"restoreToBaseHull":true,
 	"descriptionId":"lumen",
 	"addHints":["HIDE_IN_CODEX"],
-    "systemId":"espc_Collapse",
+    "systemId":"espc_InverseSkimmer",
+	"maxSpeed":160,
+	"baseValueMult":5,
 	# "suppliesToRecover":4,
 	# "suppliesPerMonth":4,
 	"removeWeaponSlots":[], 		# ids
@@ -13,4 +15,8 @@
 	"removeBuiltInMods":[], 		# hullmod ids
 	"removeBuiltInWeapons":[], 		# weapon slot ids
 	"builtInMods":["espc_pactskin"],
+    "weaponSlotChanges":{
+	   "WS 006":{"type": ENERGY},
+	   "WS 007":{"type": ENERGY}
+    }
 }

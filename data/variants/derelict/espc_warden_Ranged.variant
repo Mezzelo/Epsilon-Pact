@@ -1,0 +1,34 @@
+{
+    "displayName": "Ranged",
+    "fluxCapacitors": 10,
+    "fluxVents": 4,
+    "goalVariant": false,
+    "hullId": "espc_warden",
+    "hullMods": [
+		"targetingunit"
+	],
+    "permaMods": [],
+    "sMods": [],
+    "variantId": "espc_warden_Ranged",
+    "weaponGroups": [
+        {
+            "autofire": true,
+            "mode": "LINKED",
+            "weapons": {"WS 001": "espc_remdriver"}
+        },
+        {
+            "autofire": false,
+            "mode": "LINKED",
+            "weapons": {
+				"WS 002": "amblaster"
+			}
+        },
+        {
+            "autofire": true,
+            "mode": "LINKED",
+            "weapons": {
+				"WS 003": "ioncannon"
+			}
+        }
+    ]
+}

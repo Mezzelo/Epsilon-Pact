@@ -1,0 +1,48 @@
+{
+  "variantId": "espc_pilgrim_Strike_Common",
+  "hullId": "espc_pilgrim",
+  "displayName": "Strike",
+  "goalVariant": true,
+  "fluxCapacitors": 12,
+  "fluxVents": 15,
+  "quality": 1,
+  "permaMods": [],
+  "hullMods": [
+    "targetingunit",
+    "expanded_deck_crew"
+  ],
+  "weaponGroups": [
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 004": "heavyac",
+        "WS 005": "heavyac"
+      }
+    },
+    {
+      "autofire": false,
+      "mode": "ALTERNATING",
+      "weapons": {
+        "WS 001": "sabot_single",
+        "WS 002": "sabot_single",
+        "WS 003": "sabot_single"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 006": "vulcan",
+        "WS 007": "vulcan",
+        "WS 008": "vulcan",
+        "WS 009": "vulcan"
+      }
+    }
+  ],
+  "modules": [],
+  "wings": [
+    "dagger_wing",
+    "dagger_wing"
+  ]
+}

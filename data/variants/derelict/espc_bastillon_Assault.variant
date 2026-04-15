@@ -3,7 +3,7 @@
   "hullId": "espc_bastillon",
   "displayName": "Assault",
   "goalVariant": true,
-  "fluxCapacitors": 16,
+  "fluxCapacitors": 20,
   "fluxVents": 20,
   "quality": 1,
   "permaMods": [],
@@ -43,11 +43,6 @@
         "WS 001": "ioncannon",
         "WS 002": "ioncannon"
       }
-    },
-    {
-      "autofire": true,
-      "mode": "LINKED",
-      "weapons": {}
     }
   ],
   "modules": [],

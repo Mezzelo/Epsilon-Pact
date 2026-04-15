@@ -16,5 +16,9 @@ Feint Overload,espc_Feint,,,,,,,,2,0.05,0.25,1,0.5,1,FALSE,,FALSE,FALSE,FALSE,,,
 Split Feed,espc_Split,,,,,,,,,,1,5,1,10,,,,,,,,,,,,codex_require_related,graphics/icons/hullsys/ammo_feeder.png
 Hybrid Alternator,espc_Alternator,,,,,,,,,,,,1,0,FALSE,,FALSE,FALSE,FALSE,,,,,,,codex_require_related,graphics/icons/hullsys/ammo_feeder.png
 Flux Skimmer,espc_FluxSkimmer,,,,,,,,8,0.2,0.15,,0.15,0,,TRUE,,TRUE,,,,,,,,"codex_require_related, movement",graphics/icons/hullsys/displacer.png
-,,,,,,,,,,,,,,,,,,,,,,,,,,,
+Inverse Skimmer,espc_InverseSkimmer,1,,,,,,,3,0.05,1.5,5,0.25,0,FALSE,,FALSE,FALSE,FALSE,,,,,,,codex_require_related,graphics/icons/hullsys/displacer.png
+Heavy Inverse Skimmer,espc_WideInverseSkimmer,1,,,,,,,,,2.5,8,0.25,15,FALSE,,FALSE,FALSE,FALSE,,,,,,,codex_require_related,graphics/icons/hullsys/displacer.png
+Plasma Jolt,espc_PlasmaJolt,1,,,,,,,2,0.1,0.5,0.05,0.5,,,,,,,,,,,,,codex_require_related,graphics/icons/hullsys/plasma_burn.png
+Nova Strike,espc_NovaMine,,,,,,,,2,0.1,0.5,,0,1,,,,,,,,,,,,codex_require_related,graphics/icons/hullsys/nova_burst.png
+,,,,,,,,,,,, ,,,,,,,,,,,,,,,
 Hammer Down,espc_MissileBoost,,,,,,,,,,1,5,1,10,,,,,,,,,,,,codex_require_related,graphics/icons/hullsys/ammo_feeder.png

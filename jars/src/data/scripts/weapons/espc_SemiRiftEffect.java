@@ -44,6 +44,7 @@ public class espc_SemiRiftEffect implements OnFireEffectPlugin, EveryFrameWeapon
     @Override
     public void onFire(DamagingProjectileAPI proj, WeaponAPI weapon, CombatEngineAPI engine) {
         engine.addPlugin(new espc_SemiRiftTrail(proj));
+        proj.getDamage().setSoftFlux(true);
 		// fluxRemaining.add(weapon.getFluxCostToFire() * thisFluxPercent);
     }
 

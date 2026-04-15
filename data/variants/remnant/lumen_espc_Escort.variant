@@ -1,7 +1,7 @@
 {
     "displayName": "Escort",
     "fluxCapacitors": 10,
-    "fluxVents": 2,
+    "fluxVents": 3,
     "goalVariant": false,
     "hullId": "lumen",
     "hullMods": ["frontemitter"],

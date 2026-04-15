@@ -24,7 +24,7 @@ public class espc_RiftProjEffect implements OnHitEffectPlugin {
 		if (target instanceof DamagingProjectileAPI && !proj.didDamage())
 			return;
 		
-		if (target instanceof ShipAPI && ((ShipAPI) target).getHullSize() == HullSize.FIGHTER &&
+		if (target instanceof ShipAPI && ((ShipAPI) target).isFighter() &&
 			proj.getHitpoints() > 0f)
 			return;
 		

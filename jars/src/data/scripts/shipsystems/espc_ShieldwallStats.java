@@ -91,7 +91,9 @@ public class espc_ShieldwallStats extends BaseShipSystemScript {
 				while (shipSearch.hasNext()) {
 					currShip = (ShipAPI) shipSearch.next();
 					if (!currShip.isShuttlePod() && !currShip.isHulk() && !currShip.isFighter() &&
-					MathUtils.isWithinRange(currShip, ship.getLocation(), EFFECT_RADIUS) && currShip.getOwner() == ship.getOwner()) {
+					MathUtils.isWithinRange(currShip, ship.getLocation(), 
+						ship.getMutableStats().getSystemRangeBonus().computeEffective(EFFECT_RADIUS)
+						) && currShip.getOwner() == ship.getOwner()) {
 						shipTargs.addLast(currShip);
 					}
 				}

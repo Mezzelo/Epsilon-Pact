@@ -1,0 +1,34 @@
+{
+    "displayName": "Attack",
+    "fluxCapacitors": 20,
+    "fluxVents": 20,
+    "goalVariant": false,
+    "hullId": "shrike",
+    "hullMods": ["frontemitter"],
+    "permaMods": [],
+    "sMods": [],
+    "variantId": "shrike_espc_Attack",
+    "weaponGroups": [
+        {
+            "autofire": true,
+            "mode": "LINKED",
+            "weapons": {"WS 003": "heavyblaster"}
+        },
+        {
+            "autofire": false,
+            "mode": "LINKED",
+            "weapons": {"WS 005": "espc_finnegan"}
+        },
+        {
+            "autofire": true,
+            "mode": "LINKED",
+            "weapons": {
+                "WS 000": "pdlaser",
+                "WS 001": "ioncannon",
+                "WS 002": "pdlaser",
+                "WS 006": "pdlaser",
+                "WS 007": "pdlaser"
+            }
+        }
+    ]
+}

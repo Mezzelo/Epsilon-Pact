@@ -82,10 +82,9 @@ public class espc_SlamfireStats extends BaseShipSystemScript {
 			}
 			
 			
-			if (weapon.getEffectPlugin() != null) {
-				if (weapon.getEffectPlugin().getClass().isAssignableFrom(OnFireEffectPlugin.class))
-					weaponEffectPlugin = (OnFireEffectPlugin) weapon.getEffectPlugin();
-			}
+			if (weapon.getEffectPlugin() != null &&
+				weapon.getEffectPlugin() instanceof OnFireEffectPlugin)
+				weaponEffectPlugin = (OnFireEffectPlugin) weapon.getEffectPlugin();
 			if (weapon.getSpec().getProjectileSpec() != null) {
 				if (weapon.getSpec().getProjectileSpec() instanceof MissileSpecAPI) {
 					if (((MissileSpecAPI) weapon.getSpec().getProjectileSpec()).getOnFireEffect() != null) {

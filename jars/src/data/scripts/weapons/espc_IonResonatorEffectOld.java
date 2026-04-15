@@ -14,7 +14,6 @@ import com.fs.starfarer.api.combat.OnHitEffectPlugin;
 import com.fs.starfarer.api.combat.WeaponAPI;
 import com.fs.starfarer.api.util.Misc;
 import com.fs.starfarer.api.combat.ShipAPI;
-import com.fs.starfarer.api.combat.ShipAPI.HullSize;
 
 import java.awt.Color;
 import java.util.ArrayList;
@@ -114,7 +113,7 @@ public class espc_IonResonatorEffectOld implements EveryFrameWeaponEffectPlugin,
 		if (projectile.getWeapon() == null)
 			return;
 		if (target instanceof MissileAPI ||
-			(target instanceof ShipAPI && ((ShipAPI) target).getHullSize().equals(HullSize.FIGHTER))
+			(target instanceof ShipAPI && ((ShipAPI) target).isFighter())
 			) {
 			engine.spawnEmpArc(projectile.getSource(), point, target, target,
 				DamageType.ENERGY, 

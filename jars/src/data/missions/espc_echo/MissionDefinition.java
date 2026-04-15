@@ -95,15 +95,40 @@ public class MissionDefinition implements MissionDefinitionPlugin {
 			api.addToFleet(FleetSide.PLAYER, "espc_berserker_Assault", FleetMemberType.SHIP, "EPS Then Comes Light", false);
 			api.addToFleet(FleetSide.PLAYER, "espc_rampart_Strike", FleetMemberType.SHIP, "EPS Then Comes Light", false);
 			
+			api.addToFleet(FleetSide.PLAYER, "wolf_espc_Pact_Assault", FleetMemberType.SHIP, "EPS Then Comes Light", false);
+			api.addToFleet(FleetSide.PLAYER, "wolf_espc_Pact_Strike", FleetMemberType.SHIP, "EPS Then Comes Light", false);
+			api.addToFleet(FleetSide.PLAYER, "wolf_espc_Pact_Support", FleetMemberType.SHIP, "EPS Then Comes Light", false);
+			
+			api.addToFleet(FleetSide.PLAYER, "glimmer_espc_Assault", FleetMemberType.SHIP, "EPS Then Comes Light", false);
 			api.addToFleet(FleetSide.PLAYER, "glimmer_espc_Escort", FleetMemberType.SHIP, "EPS Then Comes Light", false);
-			api.addToFleet(FleetSide.PLAYER, "lumen_Standard", FleetMemberType.SHIP, "EPS Then Comes Light", false);
-			api.addToFleet(FleetSide.PLAYER, "fulgent_espc_Assault", FleetMemberType.SHIP, "EPS Then Comes Light", false);
-			api.addToFleet(FleetSide.PLAYER, "fulgent_espc_Strike", FleetMemberType.SHIP, "EPS Then Comes Light", false);
-			api.addToFleet(FleetSide.PLAYER, "brilliant_espc_Assault", FleetMemberType.SHIP, "EPS Then Comes Light", false);
-			api.addToFleet(FleetSide.PLAYER, "brilliant_espc_Support", FleetMemberType.SHIP, "EPS Then Comes Light", false);
-			api.addToFleet(FleetSide.PLAYER, "apex_Standard", FleetMemberType.SHIP, "EPS Then Comes Light", false);
-			api.addToFleet(FleetSide.PLAYER, "nova_Standard", FleetMemberType.SHIP, "EPS Then Comes Light", false);
-			api.addToFleet(FleetSide.PLAYER, "radiant_espc_Strike", FleetMemberType.SHIP, "EPS Then Comes Light", false);
+			api.addToFleet(FleetSide.PLAYER, "lumen_espc_Pact_Assault", FleetMemberType.SHIP, "EPS Then Comes Light", false);
+			api.addToFleet(FleetSide.PLAYER, "lumen_espc_Pact_Escort", FleetMemberType.SHIP, "EPS Then Comes Light", false);
+			api.addToFleet(FleetSide.PLAYER, "lumen_espc_Pact_Strike", FleetMemberType.SHIP, "EPS Then Comes Light", false);
+			api.addToFleet(FleetSide.PLAYER, "fulgent_espc_Pact_Assault", FleetMemberType.SHIP, "EPS Then Comes Light", false);
+			api.addToFleet(FleetSide.PLAYER, "fulgent_espc_Pact_Strike", FleetMemberType.SHIP, "EPS Then Comes Light", false);
+			api.addToFleet(FleetSide.PLAYER, "scintilla_espc_Pact_Strike", FleetMemberType.SHIP, "EPS Then Comes Light", false);
+			api.addToFleet(FleetSide.PLAYER, "scintilla_espc_Pact_Support", FleetMemberType.SHIP, "EPS Then Comes Light", false);
+			api.addToFleet(FleetSide.PLAYER, "brilliant_espc_Pact_Assault", FleetMemberType.SHIP, "EPS Then Comes Light", false);
+			api.addToFleet(FleetSide.PLAYER, "brilliant_espc_Pact_Standard", FleetMemberType.SHIP, "EPS Then Comes Light", false);
+			api.addToFleet(FleetSide.PLAYER, "brilliant_espc_Pact_Support", FleetMemberType.SHIP, "EPS Then Comes Light", false);
+			api.addToFleet(FleetSide.PLAYER, "apex_espc_Assault", FleetMemberType.SHIP, "EPS Then Comes Light", false);
+			api.addToFleet(FleetSide.PLAYER, "apex_espc_Strike", FleetMemberType.SHIP, "EPS Then Comes Light", false);
+			api.addToFleet(FleetSide.PLAYER, "nova_espc_Pact_Assault", FleetMemberType.SHIP, "EPS Then Comes Light", false);
+			api.addToFleet(FleetSide.PLAYER, "nova_espc_Pact_Strike", FleetMemberType.SHIP, "EPS Then Comes Light", false);
+			api.addToFleet(FleetSide.PLAYER, "radiant_espc_Pact_Assault", FleetMemberType.SHIP, "EPS Then Comes Light", false);
+			api.addToFleet(FleetSide.PLAYER, "radiant_espc_Pact_Attack", FleetMemberType.SHIP, "EPS Then Comes Light", false);
+			api.addToFleet(FleetSide.PLAYER, "radiant_espc_Pact_Hunter", FleetMemberType.SHIP, "EPS Then Comes Light", false);
+			api.addToFleet(FleetSide.PLAYER, "radiant_espc_Pact_Strike", FleetMemberType.SHIP, "EPS Then Comes Light", false);
+			
+			api.addToFleet(FleetSide.PLAYER, "onslaught_Standard", FleetMemberType.SHIP, "EPS Then Comes Light", false);
+			api.addToFleet(FleetSide.PLAYER, "brawler_Elite", FleetMemberType.SHIP, "EPS Then Comes Light", false);
+			api.addToFleet(FleetSide.PLAYER, "tempest_Attack", FleetMemberType.SHIP, "EPS Then Comes Light", false);
+			api.addToFleet(FleetSide.PLAYER, "shrike_Attack", FleetMemberType.SHIP, "EPS Then Comes Light", false);
+			api.addToFleet(FleetSide.PLAYER, "apogee_Balanced", FleetMemberType.SHIP, "EPS Then Comes Light", false);
+			api.addToFleet(FleetSide.PLAYER, "fury_Support", FleetMemberType.SHIP, "EPS Then Comes Light", false);
+			api.addToFleet(FleetSide.PLAYER, "eradicator_Support", FleetMemberType.SHIP, "EPS Then Comes Light", false);
+			api.addToFleet(FleetSide.PLAYER, "champion_Elite", FleetMemberType.SHIP, "EPS Then Comes Light", false);
+			api.addToFleet(FleetSide.PLAYER, "aurora_Strike", FleetMemberType.SHIP, "EPS Then Comes Light", false);
 		}
 		
 		

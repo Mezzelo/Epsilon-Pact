@@ -1,0 +1,43 @@
+{
+    "displayName": "Attack",
+    "fluxCapacitors": 30,
+    "fluxVents": 26,
+    "goalVariant": false,
+    "hullId": "fury",
+    "hullMods": [
+        "targetingunit",
+        "frontemitter"
+    ],
+    "permaMods": [],
+    "sMods": [],
+    "variantId": "fury_espc_Attack",
+    "weaponGroups": [
+        {
+            "autofire": true,
+            "mode": "LINKED",
+            "weapons": {"WS 000": "heavyblaster"}
+        },
+        {
+            "autofire": false,
+            "mode": "LINKED",
+            "weapons": {"WS 002": "espc_finnegan"}
+        },
+        {
+            "autofire": true,
+            "mode": "LINKED",
+            "weapons": {"WS 001": "ionpulser"}
+        },
+        {
+            "autofire": true,
+            "mode": "LINKED",
+            "weapons": {
+                "WS 003": "pdlaser",
+                "WS 004": "pdlaser",
+                "WS 005": "pdlaser",
+                "WS 006": "pdlaser",
+                "WS 007": "pdlaser",
+                "WS 008": "pdlaser"
+            }
+        }
+    ]
+}

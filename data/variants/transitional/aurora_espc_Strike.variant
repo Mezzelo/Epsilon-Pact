@@ -1,0 +1,51 @@
+{
+    "displayName": "Strike",
+    "fluxCapacitors": 26,
+    "fluxVents": 30,
+    "goalVariant": false,
+    "hullId": "aurora",
+    "hullMods": [
+        "stabilizedshieldemitter",
+        "frontemitter"
+    ],
+    "permaMods": [],
+    "sMods": [],
+    "variantId": "aurora_espc_Strike",
+    "weaponGroups": [
+        {
+            "autofire": false,
+            "mode": "LINKED",
+            "weapons": {"WS 009": "pulselaser"}
+        },
+        {
+            "autofire": false,
+            "mode": "ALTERNATING",
+            "weapons": {
+                "WS 010": "amblaster",
+                "WS 011": "amblaster",
+                "WS 012": "amblaster",
+                "WS 013": "amblaster"
+            }
+        },
+        {
+            "autofire": true,
+            "mode": "LINKED",
+            "weapons": {
+                "WS 007": "ionpulser",
+                "WS 008": "ionpulser"
+            }
+        },
+        {
+            "autofire": true,
+            "mode": "LINKED",
+            "weapons": {
+                "WS 001": "pdlaser",
+                "WS 002": "pdlaser",
+                "WS 003": "pdlaser",
+                "WS 004": "pdlaser",
+                "WS 005": "pdlaser",
+				"WS 006": "heavyburst"
+            }
+        }
+    ]
+}

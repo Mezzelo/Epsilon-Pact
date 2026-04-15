@@ -12,22 +12,23 @@ import com.fs.starfarer.api.fleet.FleetMemberType;
 import com.fs.starfarer.api.impl.campaign.fleets.PersonalFleetScript;
 import com.fs.starfarer.api.impl.campaign.ids.Abilities;
 import com.fs.starfarer.api.impl.campaign.ids.Conditions;
-import com.fs.starfarer.api.impl.campaign.ids.Factions;
 import com.fs.starfarer.api.impl.campaign.ids.FleetTypes;
 import com.fs.starfarer.api.impl.campaign.ids.MemFlags;
-import com.fs.starfarer.api.impl.campaign.ids.People;
 import com.fs.starfarer.api.impl.campaign.missions.FleetCreatorMission;
 import com.fs.starfarer.api.impl.campaign.missions.hub.HubMissionWithTriggers.FleetQuality;
 import com.fs.starfarer.api.impl.campaign.missions.hub.HubMissionWithTriggers.FleetSize;
 import com.fs.starfarer.api.impl.campaign.missions.hub.HubMissionWithTriggers.OfficerNum;
 import com.fs.starfarer.api.impl.campaign.missions.hub.HubMissionWithTriggers.OfficerQuality;
 import com.fs.starfarer.api.impl.campaign.missions.hub.MissionFleetAutoDespawn;
+// import com.fs.starfarer.api.impl.campaign.ids.People;
+// import com.fs.starfarer.api.impl.campaign.ids.Factions;
 
 
 
 
 public class espc_PersonalFleetNola extends PersonalFleetScript {
 	
+	/*
 	private class NolaFleetMember {
 		String variant;
 		String[] wepsToReplace;
@@ -41,6 +42,7 @@ public class espc_PersonalFleetNola extends PersonalFleetScript {
 			this.sMods = sMods;
 		}
 	}
+	*/
 	
 	private FleetMemberAPI MakeNolaShip (String variant, String[] wepsToReplace, String[] replacements, String[] sMods,
 		PersonAPI commander) {

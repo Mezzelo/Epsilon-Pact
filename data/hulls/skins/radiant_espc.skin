@@ -5,7 +5,8 @@
 	"restoreToBaseHull":true,
 	"descriptionId":"radiant",
 	"addHints":["HIDE_IN_CODEX"],
-    "systemId":"espc_Collapse",
+    "systemId":"espc_WideInverseSkimmer",
+	"maxSpeed":60,
 	# "suppliesToRecover":60,
 	# "suppliesPerMonth":60,
 	"removeWeaponSlots":[], 		# ids
@@ -13,4 +14,13 @@
 	"removeBuiltInMods":[], 		# hullmod ids
 	"removeBuiltInWeapons":[], 		# weapon slot ids
 	"builtInMods":["espc_pactskin"],
+    "weaponSlotChanges":{
+	   "WS 002":{"arc": 210, "type": ENERGY},
+	   "WS 003":{"type": SYNERGY},
+	   "WS 004":{"arc": 210, "type": ENERGY},
+	   "WS 005":{"angle": -3, "arc": 5, "mount": HARDPOINT},
+	   "WS 006":{"angle": -2, "arc": 5, "mount": HARDPOINT, "type": ENERGY},
+	   "WS 007":{"angle": 2, "arc": 5, "mount": HARDPOINT, "type": ENERGY},
+	   "WS 008":{"angle": 3, "arc": 5, "mount": HARDPOINT},
+    }
 }

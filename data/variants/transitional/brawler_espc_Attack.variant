@@ -1,0 +1,29 @@
+{
+    "displayName": "Attack",
+    "fluxCapacitors": 8,
+    "fluxVents": 10,
+    "goalVariant": false,
+    "hullId": "brawler",
+    "hullMods": ["targetingunit"],
+    "permaMods": [],
+    "sMods": [],
+    "variantId": "brawler_espc_Attack",
+    "weaponGroups": [
+        {
+            "autofire": true,
+            "mode": "ALTERNATING",
+            "weapons": {
+				"WS 001": "heavyac",
+				"WS 002": "heavyac"
+			}
+        },
+        {
+            "autofire": true,
+            "mode": "ALTERNATING",
+            "weapons": {
+                "WS 003": "annihilator",
+                "WS 004": "annihilator"
+            }
+        }
+    ]
+}
