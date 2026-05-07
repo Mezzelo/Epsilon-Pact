@@ -207,7 +207,7 @@ public class espc_FlakEffect implements OnFireEffectPlugin, EveryFrameWeaponEffe
 			if (combatEngine.getElapsedInLastFrame() <= 0f)
 				return;
 			for (int i = pdThreats.size() - 1; i >= 0; i--) {
-				if (combatEngine.isInPlay(pdThreats.get(i).proj) && combatEngine.isInPlay(pdThreats.get(i).entity)) {
+				if (combatEngine.isEntityInPlay(pdThreats.get(i).proj) && combatEngine.isEntityInPlay(pdThreats.get(i).entity)) {
 					DamagingProjectileAPI proj = pdThreats.get(i).proj;
 					Vector2f.sub(proj.getVelocity(), pdThreats.get(i).initShipVel, proj.getVelocity());
 					float travel = MathUtils.getDistance(pdThreats.get(i).entity, proj) / proj.getVelocity().length();

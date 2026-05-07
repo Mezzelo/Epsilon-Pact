@@ -1,43 +1,43 @@
 {
-  "variantId": "radiant_espc_Pact_Hunter",
-  "hullId": "radiant_espc",
-  "displayName": "Hunter",
+  "variantId": "nova_espc_Pact_Assault",
+  "hullId": "nova_espc",
+  "displayName": "Assault",
   "goalVariant": false,
-    "fluxCapacitors": 41,
+    "fluxCapacitors": 50,
     "fluxVents": 50,
   "quality": 1,
   "permaMods": [],
-  "hullMods": [
+    "hullMods": [
         "targetingunit",
-        "fluxbreakers",
-        "stabilizedshieldemitter"
+        "missleracks"
     ],
     "weaponGroups": [
         {
-            "autofire": false,
-            "mode": "LINKED",
+            "autofire": true,
+            "mode": "ALTERNATING",
             "weapons": {
                 "WS 000": "espc_riftpike",
                 "WS 001": "espc_riftpike"
             }
         },
         {
-            "autofire": false,
+            "autofire": true,
             "mode": "ALTERNATING",
             "weapons": {
-                "WS 002": "espc_riftpike",
-                "WS 003": "espc_riftpike",
-                "WS 004": "espc_riftpike"
+                "WS 002": "pulselaser",
+                "WS 003": "pulselaser",
+                "WS 004": "pulselaser"
             }
         },
         {
             "autofire": true,
-            "mode": "LINKED",
+            "mode": "ALTERNATING",
             "weapons": {
+                "WS 005": "ionpulser",
                 "WS 010": "pdburst",
+                "WS 011": "pdburst",
                 "WS 012": "pdburst",
-                "WS 015": "pdburst",
-                "WS 017": "pdburst"
+                "WS 013": "pdburst"
             }
         }
     ],

@@ -1,13 +1,14 @@
 {
-  "variantId": "radiant_espc_Pact_Assault",
+  "variantId": "radiant_espc_Pact_Attack",
   "hullId": "radiant_espc",
-  "displayName": "Assault",
+  "displayName": "Attack",
   "goalVariant": false,
-    "fluxCapacitors": 40,
-    "fluxVents": 42,
+    "fluxCapacitors": 39,
+    "fluxVents": 50,
   "quality": 1,
   "permaMods": [],
   "hullMods": [
+		"auxiliarythrusters",
         "targetingunit",
         "stabilizedshieldemitter",
         "hardenedshieldemitter"
@@ -16,42 +17,42 @@
         {
             "autofire": true,
             "mode": "LINKED",
-            "weapons": {
-                "WS 005": "espc_fission",
-                "WS 006": "espc_fission",
-                "WS 007": "espc_fission",
-                "WS 008": "espc_fission"
-            }
+            "weapons": {"WS 000": "plasma"}
+        },
+        {
+            "autofire": true,
+            "mode": "LINKED",
+            "weapons": {"WS 001": "espc_riftpike"}
         },
         {
             "autofire": true,
             "mode": "LINKED",
             "weapons": {
-                "WS 000": "autopulse",
-                "WS 001": "autopulse"
+                "WS 002": "tachyonlance",
+                "WS 004": "tachyonlance"
             }
         },
         {
             "autofire": true,
             "mode": "LINKED",
-            "weapons": {"WS 003": "tachyonlance"}
+            "weapons": {"WS 003": "guardian"}
         },
         {
-            "autofire": true,
+            "autofire": false,
             "mode": "ALTERNATING",
             "weapons": {
-                "WS 002": "locust",
-                "WS 004": "locust"
+                "WS 005": "espc_finnegan",
+                "WS 008": "espc_finnegan"
             }
         },
         {
             "autofire": true,
             "mode": "LINKED",
             "weapons": {
-                "WS 010": "pdburst",
+                "WS 010": "pdlaser",
                 "WS 012": "ioncannon",
                 "WS 015": "ioncannon",
-                "WS 017": "pdburst"
+                "WS 017": "pdlaser"
             }
         }
     ],

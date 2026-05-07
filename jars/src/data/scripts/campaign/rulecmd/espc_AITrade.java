@@ -77,6 +77,8 @@ public class espc_AITrade extends BaseCommandPlugin {
 	{
     	weaponMap = new HashMap<String, Integer>();
     	weaponMap.put("espc_minimir", 3);
+    	weaponMap.put("espc_arcscatter", 3);
+    	weaponMap.put("espc_ionresonator", 3);
     	weaponMap.put("espc_minimirdual", 4);
     	weaponMap.put("espc_remdriver", 4);
     	weaponMap.put("espc_remmortar", 4);
@@ -84,7 +86,8 @@ public class espc_AITrade extends BaseCommandPlugin {
     	weaponMap.put("espc_mkl", 6);
     	weaponMap.put("espc_gatling", 6);
     	weaponMap.put("espc_flak", 6);
-    	
+
+    	weaponMap.put("espc_heavyionresonator", 3);
     	weaponMap.put("espc_riftspear", 12);
     	weaponMap.put("espc_riftpike", 16);
 	}
@@ -169,13 +172,15 @@ public class espc_AITrade extends BaseCommandPlugin {
 		
 		if ((tradeType == 1 || tradeType == 3)) {
 			for (String item : hullMap.keySet()) {
-				if (!Global.getSector().getMemoryWithoutUpdate().contains(("$espcPurchasedBP_" + item)))
+				if (Global.getSector().getFaction("epsilpac").getKnownShips().contains(item) &&
+					!Global.getSector().getMemoryWithoutUpdate().contains(("$espcPurchasedBP_" + item)))
 					copy.addSpecial(new SpecialItemData(Items.SHIP_BP, item), 1);
 			}
 		}
 		if ((tradeType == 2 || tradeType == 3)) {
 			for (String item : weaponMap.keySet()) {
-				if (!Global.getSector().getMemoryWithoutUpdate().contains(("$espcPurchasedBP_" + item)))
+				if (Global.getSector().getFaction("epsilpac").getKnownWeapons().contains(item) &&
+					!Global.getSector().getMemoryWithoutUpdate().contains(("$espcPurchasedBP_" + item)))
 					copy.addSpecial(new SpecialItemData(Items.WEAPON_BP, item), 1);
 			}
 		}

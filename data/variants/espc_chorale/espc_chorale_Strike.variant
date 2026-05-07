@@ -3,7 +3,7 @@
   "hullId": "espc_chorale",
   "displayName": "Strike",
   "goalVariant": true,
-  "fluxCapacitors": 25,
+  "fluxCapacitors": 28,
   "fluxVents": 30,
   "quality": 1,
   "permaMods": [],
@@ -11,39 +11,39 @@
     "targetingunit",
     "stabilizedshieldemitter"
   ],
-  "weaponGroups": [
-    {
-      "autofire": false,
-      "mode": "LINKED",
-      "weapons": {
-        "WS 002": "plasma"
-      }
-    },
-    {
-      "autofire": true,
-      "mode": "ALTERNATING",
-      "weapons": {
-        "WS 003": "heavyac",
-        "WS 004": "heavyac",
-        "WS 007": "heavyac"
-      }
-    },
-    {
-      "autofire": true,
-      "mode": "LINKED",
-      "weapons": {
-        "WS 001": "guardian"
-      }
-    },
-    {
-      "autofire": true,
-      "mode": "LINKED",
-      "weapons": {
-        "WS 008": "heavyburst",
-        "WS 010": "vulcan"
-      }
-    }
-  ],
+    "weaponGroups": [
+        {
+            "autofire": true,
+            "mode": "LINKED",
+            "weapons": {
+				"WS 002": "espc_autocannon"
+			}
+        },
+        {
+            "autofire": true,
+            "mode": "LINKED",
+            "weapons": {
+				"WS 001": "espc_flak"
+			}
+        },
+        {
+            "autofire": true,
+            "mode": "LINKED",
+            "weapons": {
+                "WS 003": "pulselaser",
+                "WS 007": "pulselaser",
+                "WS 004": "ionpulser"
+            }
+        },
+        {
+            "autofire": true,
+            "mode": "LINKED",
+            "weapons": {
+                "WS 008": "heavyburst",
+                "WS 010": "vulcan"
+            }
+        }
+    ],
   "modules": [],
   "wings": []
 }

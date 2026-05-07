@@ -23,6 +23,12 @@
 	 "espc_buzzer_fire":[
 		{"file":"sounds/weapon/espc_buzzer_fire.ogg","pitch":1.0,"volume":0.85},
 	],
+	 "espc_autocannon_fire":[
+		{"file":"sounds/weapon/espc_autocannon_fire_loud.ogg","pitch":0.96,"volume":1.25},
+		{"file":"sounds/weapon/espc_autocannon_fire_loud.ogg","pitch":0.9,"volume":1.25},
+		{"file":"sounds/weapon/espc_autocannon_fire_loud.ogg","pitch":0.87,"volume":1.25},
+		{"file":"sounds/weapon/espc_autocannon_fire_loud.ogg","pitch":0.93,"volume":1.25}
+	],
 	 "espc_aa_fire":[
 		{"file":"sounds/weapon/espc_aa_fire.ogg","pitch":1.0,"volume":1.1},
 	],
@@ -30,19 +36,19 @@
 		{"file":"sounds/weapon/espc_as_fire.ogg","pitch":1.0,"volume":1.05},
 	],
 	 "espc_remdriver_fire":[
-		{"file":"sounds/weapon/espc_remrifle_fire.ogg","pitch":1.0,"volume":0.7},
+		{"file":"sounds/weapon/espc_remrifle_fire.ogg","pitch":1.1,"volume":0.7},
 	],
 	 "espc_remmortar_fire":[
 		{"file":"sounds/weapon/espc_remmortar_fire_loud.ogg","pitch":1.0,"volume":1.1},
 	],
 	 "espc_gatling_fire":[
-		{"file":"sounds/weapon/espc_gatling_fire_loud.ogg","pitch":1.0,"volume":0.7},
+		{"file":"sounds/weapon/espc_gatling_fire_loud.ogg","pitch":1.0,"volume":0.9},
 	],
 	"espc_gatling_fire_secondary":[
-		{"file":"sounds/weapon/espc_mkl_fire_loud.ogg","pitch":1,"volume":0.8},
+		{"file":"sounds/weapon/espc_mkl_fire_loud.ogg","pitch":0.9,"volume":0.8},
 	],
 	"espc_flak_fire":[
-		{"file":"sounds/weapon/espc_flak_fire.ogg","pitch":0.75,"volume":1.1},
+		{"file":"sounds/weapon/espc_flak_fire_loud.ogg","pitch":0.75,"volume":1.2},
 	],
 	"espc_finnegan_fire":[
 		{"file":"sounds/weapon/espc_finnegan_fire.ogg","pitch":1.0,"volume":0.8},		
@@ -84,6 +90,9 @@
 	],
 	 "espc_spark":[
 		{"file":"sounds/sfx_systems/termination_sequence_activate.ogg","pitch":1.0,"volume":1.0},
+	],
+	 "espc_plasma_jolt":[
+		{"file":"sounds/system/espc_plasma_jolt.ogg","pitch":1.0,"volume":1.0},
 	],
 	 "espc_overpressure_fire":[
 		{"file":"sounds/system/espc_overpressure_fire.ogg","pitch":1.0,"volume":1.0},

@@ -43,12 +43,16 @@
             "espc_trail_wispy":"graphics/fx/espc_trail_wispy.png",
 			
 			
+            "espc_explosion":"graphics/fx/espc_explosion0.png",
+            "espc_explosionring":"graphics/fx/espc_explosion_ring0.png",
             "espc_riftcharge1":"graphics/fx/shields64.png",
             "espc_riftcharge2":"graphics/fx/circle64.png",
             "espc_riftcharge3":"graphics/fx/wormhole_corona.png",
             "espc_spark":"graphics/fx/projbody.png",
+            "espc_mortarhit":"graphics/fx/espc_shields64.png",
 			
             "espc_inverseportal":"graphics/fx/espc_halo_128.png",
+            "espc_accumulatorsphere":"graphics/fx/shields64.png",
 		},
 		#"planets":{
 		#	"espc_giver_texture":"graphics/planets/espc_giver_texture.jpg",

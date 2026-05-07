@@ -23,13 +23,16 @@ On the Defender (EP), this hullmod is considered %s. All small non-missile weapo
 ,,,,,,,,,,,,,,,,,,
 Ordnance Clamps,espc_salvoinfomod,,,,codex_require_related,,,,TRUE,,0,0,0,0,data.scripts.hullmods.espc_SalvoInfoMod,<tooltip created in the script due to sections/other complexity>,Ship can launch equipped missiles from its fighters.,graphics/hullmods/espc_choralemodicon.png
 Alternator Internals,espc_alternatorinfomod,,,,codex_require_related,,,,TRUE,,0,0,0,0,data.scripts.hullmods.espc_AlternatorInfoMod,<tooltip created in the script due to sections/other complexity>,"Ship's non-missile weapons have increased fire rate, but can only be used one at a time.",graphics/hullmods/espc_recoilmodicon.png
-Pact Modifications,espc_pactskin,,,,codex_require_related,,,,TRUE,,0,0,0,0,data.scripts.hullmods.espc_PactModifications,"This ship has been given a series of modifications by Pact engineers - generally outwardly subtle, but otherwise radical changes have %s, possibly in addition to other attributes.
+Pact Modifications,espc_pactskin,,,,codex_require_related,,,,TRUE,,0,0,0,0,data.scripts.hullmods.espc_PactModifications,"This ship has been given a series of modifications by Pact engineers - generally outwardly subtle, but otherwise radical alterations have been made to this ship, %s.
 
-The nature of these changes is exotic to the institutionalized nature of most shipworks, making them unreplicable: These alterations will be %s.",This ship is affected by a set of exotic internal modifications that will be lost on restoration.,graphics/hullmods/espc_pactskinicon.png
+The nature of these changes is exotic to the institutional knowledge of most shipworks, making them unreplicable: They will be %s.",This ship is affected by a set of exotic internal modifications that will be lost on restoration.,graphics/hullmods/espc_pactskinicon.png
 ,,,,,,,,,,,,,,,,,,
-Sundered Hull,espc_halfslaughtmod,,,,codex_require_related,,,,TRUE,,0,0,0,0,data.scripts.hullmods.espc_HalfslaughtModBehaviour,"The left portion of this hull appears to have been effectively vaporized prior to recovery, leaving it only partially recoverable.
+Sundered Hull,espc_halfslaughtmod,,,,codex_require_related,,,,TRUE,,0,0,0,0,data.scripts.hullmods.espc_HalfslaughtModBehaviour,"The left portion of this hull appears to have been effectively vaporized, leaving it only partially recoverable.
 
 The loss of mass, volume & internals has resulted in %s, as well as defective ship system behaviour.",The missing left portion of this ship has resulted in significant performance alterations and defective ship system behaviour.,graphics/hullmods/espc_emberpmodicon.png
+Anomalous Pattern,espc_hyperionmod,,,,hide_in_codex,,,,TRUE,,0,0,0,0,data.scripts.hullmods.espc_HyperionModBehaviour,"Beneath the damage rendered by cycles of severe neutron bombardment, your crew is able to make out a series of peculiar modifications to the base Hyperion hull pattern - chief among them, those to its central hardpoint.
+
+Use of this Hyperion's large central hardpoint is %s with the use of its other hardpoints: If %s mount sizes are used, the ship's combat endurance becomes %s.","Prevents mounting weapons in this ship's medium hardpoints if its large hardpoint is used, and vice versa.",graphics/hullmods/espc_hyperionmodicon.png
 ,,,,,,,,,,,,,,,,,,
 # commissioned crews,,,,,,,,,,,,,,,,,,
 Pact Will,CHM_epsilpac,,,Epsilon Pact,,,,,TRUE,,0,0,0,0,data.scripts.hullmods.CHM_epsilpac,"The prospect of life under constant threat gives Pact crew a certain proclivity not just to live on the edge, but to thrive in the face of the void itself.

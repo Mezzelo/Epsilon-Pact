@@ -102,7 +102,7 @@ public class espc_HCLVFX extends BaseEveryFrameCombatPlugin {
 		Random particleNoiseX = new Random((long) (effectStart + startPos.x * 10f + startPos.y * 10f));
 		Random particleNoiseY = new Random((long) ((effectStart + startPos.x * 10f + startPos.y * 10f) * 2f));
 		Random particleNoiseZ = new Random((long) ((effectStart + startPos.x * 10f + startPos.y * 10f) * 3f));
-
+		
         GL11.glEnable(GL11.GL_BLEND);
         GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE);
         GL11.glEnable(GL11.GL_TEXTURE_2D);

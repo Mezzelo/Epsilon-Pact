@@ -3,16 +3,6 @@ package data.scripts.shipsystems;
 import java.util.ArrayList;
 import java.util.List;
 
-// import java.awt.Color;
-// import java.util.Iterator;
-// import java.util.LinkedList;
-//vimport java.util.List;
-
-// import org.lazywizard.lazylib.MathUtils;
-// import org.lazywizard.lazylib.VectorUtils;
-// import org.lwjgl.opengl.GL11;
-// import org.lwjgl.util.vector.Vector2f;
-
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.combat.*;
 import com.fs.starfarer.api.combat.WeaponAPI.WeaponType;
@@ -22,13 +12,10 @@ import com.fs.starfarer.api.impl.campaign.ids.Personalities;
 import com.fs.starfarer.api.impl.combat.BaseShipSystemScript;
 //vimport com.fs.starfarer.api.util.Misc;
 
-//vimport data.scripts.plugins.MagicAutoTrails.trailData;
-// import data.scripts.plugins.MagicTrailPlugin;
-
 public class espc_OverpressureStats extends BaseShipSystemScript {
 
 	public static final float ROF_BONUS = -0.33f;
-	public static final float DAMAGE_BONUS = 2.0f;
+	public static final float DAMAGE_BONUS = 1.5f;
 	public static final float VELOCITY_BONUS = 0.33f;
 	public static final float RANGE_BONUS = 0.15f;
 	
@@ -45,7 +32,7 @@ public class espc_OverpressureStats extends BaseShipSystemScript {
 		if (stats.getEntity() == null)
 			return;
 		
-		if (!pluginInit && state != State.IDLE) {
+		if (!pluginInit) {
 			pluginInit = true;
 			Global.getCombatEngine().addPlugin(new espc_OverpressureVFX((ShipAPI) stats.getEntity()));
 		}
@@ -120,7 +107,6 @@ public class espc_OverpressureStats extends BaseShipSystemScript {
 		stats.getBeamWeaponFluxCostMult().unmodify(id);
 		stats.getBallisticWeaponRangeBonus().unmodify(id);
 		stats.getBeamWeaponRangeBonus().unmodify(id);
-		pluginInit = false;
 		if (timidOrCautious)
 			return;
 		if (origConfig != null && ((ShipAPI) stats.getEntity()).getShipAI() != null) {

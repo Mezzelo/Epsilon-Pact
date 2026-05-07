@@ -1,8 +1,8 @@
 package data.scripts.shipsystems;
 
 import java.awt.Color;
+import java.util.ArrayDeque;
 import java.util.Iterator;
-import java.util.LinkedList;
 
 import org.lazywizard.lazylib.MathUtils;
 
@@ -28,7 +28,7 @@ public class espc_ShieldwallStats extends BaseShipSystemScript {
 	// private HashMap<String, ShipAPI> shipTargs = new HashMap<String, ShipAPI>();
 	// private HashMap<String, ShipAPI> recedeTargs = new HashMap<String, ShipAPI>();
 	
-	private LinkedList<ShipAPI> shipTargs;
+	private ArrayDeque<ShipAPI> shipTargs;
 	
 	private int stateLast = 0;
 	
@@ -83,7 +83,7 @@ public class espc_ShieldwallStats extends BaseShipSystemScript {
 			if (stateLast == 0) {
 				stateLast = 1;
 				// doesn't affect fighters: too easy to stack, too trivial/obtuse to do one-way, and a pain in the ass.
-				shipTargs = new LinkedList<ShipAPI>();
+				shipTargs = new ArrayDeque<ShipAPI>();
 				
 				Iterator<ShipAPI> shipSearch = combatEngine.getShips().iterator();
 				ShipAPI currShip;

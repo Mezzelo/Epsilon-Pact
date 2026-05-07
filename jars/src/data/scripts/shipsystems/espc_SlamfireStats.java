@@ -1,9 +1,9 @@
 package data.scripts.shipsystems;
 
 import java.awt.Color;
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
 
 import org.lazywizard.lazylib.FastTrig;
@@ -18,12 +18,14 @@ import com.fs.starfarer.api.combat.OnFireEffectPlugin;
 import com.fs.starfarer.api.combat.ShipAPI;
 import com.fs.starfarer.api.combat.ShipSystemAPI;
 import com.fs.starfarer.api.combat.WeaponAPI;
+import com.fs.starfarer.api.combat.WeaponAPI.WeaponSize;
 import com.fs.starfarer.api.combat.WeaponAPI.WeaponType;
 import com.fs.starfarer.api.combat.WeaponGroupAPI;
 import com.fs.starfarer.api.combat.ShipSystemAPI.SystemState;
 import com.fs.starfarer.api.impl.combat.BaseShipSystemScript;
 import com.fs.starfarer.api.loading.MissileSpecAPI;
 import com.fs.starfarer.api.loading.ProjectileSpecAPI;
+import com.fs.starfarer.api.loading.WeaponSlotAPI;
 import com.fs.starfarer.api.util.Misc;
 
 public class espc_SlamfireStats extends BaseShipSystemScript {
@@ -37,11 +39,14 @@ public class espc_SlamfireStats extends BaseShipSystemScript {
 	private static final float MAX_DAMAGE_MULT = 3f;
 	
 	private static final float CANCEL_COOLDOWN_FRACTION = 0.15f;
+	private espc_SlamfireVFX plugin = null;
 	
 	// state machine
 	private int burstState = 0;
 	private int weaponsCheck = 0;
 	private int usableState = -1;
+	private WeaponSize largestSize = WeaponSize.SMALL;
+	private boolean isHightech = false;
 
 	private class SlamWeapon {
 		public WeaponAPI weapon;
@@ -112,14 +117,22 @@ public class espc_SlamfireStats extends BaseShipSystemScript {
 			else if (ship.getWeaponGroupsCopy().size() == 0) {
 				weaponsCheck = -1;
 				return;
-			} else
+			} else {
 				weaponsCheck = 1;
+				for (WeaponSlotAPI slot : ship.getHullSpec().getAllWeaponSlotsCopy()) {
+					if (slot.getSlotSize().compareTo(largestSize) > 0) {
+						largestSize = slot.getSlotSize();
+						// isHightech = slot.getWeaponType().equals(WeaponType.ENERGY) ||
+						// 	slot.getWeaponType().equals(WeaponType.SYNERGY);
+					}
+				}
+			}
 		}
 		
 		// stats.getBallisticWeaponFluxCostMod().modifyMult(id, 1f - FLUX_REDUCTION * effectLevel);
 		/*
 		for (WeaponAPI weapon : ship.getAllWeapons()) {
-			if (weapon.getType() == WeaponType.BALLISTIC && weapon.usesAmmo()) {
+			if (weapon.getType() != WeaponType.MISSILE && weapon.usesAmmo()) {
 				weapon.setAmmo(weapon.getMaxAmmo());
 				weapon.setRefireDelay(0f);
 				weapon.setRemainingCooldownTo(0f);
@@ -137,7 +150,8 @@ public class espc_SlamfireStats extends BaseShipSystemScript {
 					wpnGroup = groups.get(0);
 			}
 			for (WeaponAPI weapon : wpnGroup.getWeaponsCopy()) {
-				if (weapon.getType() != WeaponType.BALLISTIC || weapon.isBeam() || weapon.getFluxCostToFire() <= 0f)
+				if (!weapon.getType().equals(WeaponType.BALLISTIC) || weapon.isBeam() || weapon.getFluxCostToFire() <= 0f
+					|| !weapon.getSize().equals(largestSize))
 					continue;
 				if (weapon.isFiring() && weapon.getCooldownRemaining() <= 0f) {
 					burstState = 2;
@@ -154,14 +168,14 @@ public class espc_SlamfireStats extends BaseShipSystemScript {
 		if (burstState == 2) {
 			CombatEngineAPI combatEngine = Global.getCombatEngine();
 			ArrayList<SlamWeapon> firingWeapons = new ArrayList<SlamWeapon>();
-			LinkedList<WeaponAPI> weapons = new LinkedList<WeaponAPI>();
+			ArrayDeque<WeaponAPI> weapons = new ArrayDeque<WeaponAPI>();
 			float groupFluxCost = 0f;
 			WeaponGroupAPI wpnGroup = ship.getSelectedGroupAPI();
 			if (wpnGroup == null)
 				wpnGroup = ship.getWeaponGroupsCopy().get(0);
 			for (WeaponAPI weapon : wpnGroup.getWeaponsCopy()) {
-				if (weapon.getType() == WeaponType.BALLISTIC &&
-					!weapon.isBeam() && weapon.getFluxCostToFire() > 0f) {
+				if (weapon.getType().equals(WeaponType.BALLISTIC) &&
+					!weapon.isBeam() && weapon.getFluxCostToFire() > 0f && weapon.getSize().equals(largestSize)) {
 					SlamWeapon addWep = new SlamWeapon(weapon, ship);
 					weapons.addLast(weapon);
 					groupFluxCost += addWep.fluxPerSecond;
@@ -193,10 +207,13 @@ public class espc_SlamfireStats extends BaseShipSystemScript {
 					), ship.getVelocity(), new Vector2f()
 				);
 			*/
-			espc_SlamfireVFX plugin = new espc_SlamfireVFX(
-				ship, new Vector2f(ship.getVelocity().x, ship.getVelocity().y), weapons
-			);
-			Global.getCombatEngine().addPlugin(plugin);	
+			
+
+			if (plugin == null) {
+				plugin = new espc_SlamfireVFX(ship, isHightech);
+				Global.getCombatEngine().addPlugin(plugin);	
+			}
+			plugin.initUse(new Vector2f(ship.getVelocity().x, ship.getVelocity().y), weapons);
 			
 			// while (remainingFlux > 0f) {
 			Iterator<SlamWeapon> firingIterator = firingWeapons.iterator();
@@ -211,9 +228,11 @@ public class espc_SlamfireStats extends BaseShipSystemScript {
 					i++
 					) {
 					// range and speed variation biased as a bonus.  helps compensate for the ai being a little haphazard with use.
-					stats.getBallisticProjectileSpeedMult().modifyMult(id, Misc.random.nextFloat() * 0.15f + 0.95f);
+					stats.getProjectileSpeedMult().modifyMult(id, Misc.random.nextFloat() * 0.15f + 0.95f);
 					stats.getBallisticWeaponRangeBonus().modifyMult(id, Misc.random.nextFloat()* 0.25f + 1.0f);
+					stats.getEnergyWeaponRangeBonus().modifyMult(id, Misc.random.nextFloat()* 0.25f + 1.0f);
 					stats.getBallisticWeaponDamageMult().modifyMult(id, currWeapon.damageMult);
+					stats.getEnergyWeaponDamageMult().modifyMult(id, currWeapon.damageMult);
 					DamagingProjectileAPI cloneProj = (DamagingProjectileAPI) combatEngine.spawnProjectile(
 						ship,
 						currWeapon.weapon,
@@ -229,11 +248,13 @@ public class espc_SlamfireStats extends BaseShipSystemScript {
 							(currWeapon.isHardpoint ? 1f : 2f),
 						ship.getVelocity()
 					);
-					stats.getBallisticProjectileSpeedMult().unmodify(id);
+					stats.getProjectileSpeedMult().unmodify(id);
 					stats.getBallisticWeaponRangeBonus().unmodify(id);
+					stats.getEnergyWeaponRangeBonus().unmodify(id);
 					stats.getBallisticWeaponDamageMult().unmodify(id);
+					stats.getEnergyWeaponDamageMult().unmodify(id);
 					
-					if (i < 8)
+					if (i < 8 && !isHightech)
 						plugin.addProj(cloneProj);
 					
 					if (currWeapon.weaponEffectPlugin != null)
@@ -262,54 +283,59 @@ public class espc_SlamfireStats extends BaseShipSystemScript {
 					newVel
 				);
 				
-				for (int i = 0; i < currWeapon.numBarrels; i++) {
-					combatEngine.addHitParticle(
-						currWeapon.weapon.getFirePoint(i),
-						ship.getVelocity(),
-						50 + 100 * currWeapon.fluxPortion / currWeapon.numBarrels,
-						0.6f,
-						0.3f,
-						new Color(255, 125, 0, 40)
-					);
-					combatEngine.addHitParticle(
-						currWeapon.weapon.getFirePoint(i),
-						ship.getVelocity(),
-						15 + 35 * currWeapon.fluxPortion / currWeapon.numBarrels,
-						2f,
-						0.15f,
-						new Color(255, 235, 200, 255)
-					);
-					for (int g = 0; g < currWeapon.fluxPortion * 20 / currWeapon.numBarrels; g++) {
+				if (!isHightech)
+					for (int i = 0; i < currWeapon.numBarrels; i++) {
 						combatEngine.addHitParticle(
-							MathUtils.getRandomPointInCone(
-								currWeapon.weapon.getFirePoint(i),
-								(45f + 25f * currWeapon.fluxPortion) 
-									/ (currWeapon.fluxPortion * 20f / currWeapon.numBarrels) * g,
-								currWeapon.weapon.getCurrAngle() + ((Float) angleOffsets.get(i))
-									- 6f - 10f * currWeapon.fluxPortion,
-								currWeapon.weapon.getCurrAngle() + ((Float) angleOffsets.get(i))
-									+ 6f + 10f * currWeapon.fluxPortion
-							),
+							currWeapon.weapon.getFirePoint(i),
 							ship.getVelocity(),
-							Misc.random.nextFloat() * 35f + g * 1f,
-							1,
-							0.4f,
-							new Color(225, (int) (Misc.random.nextFloat() * 80) + 20, 20, 125)
+							50 + 100 * currWeapon.fluxPortion / currWeapon.numBarrels,
+							0.6f,
+							0.3f,
+							new Color(255, 125, 0, 40)
 						);
+						combatEngine.addHitParticle(
+							currWeapon.weapon.getFirePoint(i),
+							ship.getVelocity(),
+							15 + 35 * currWeapon.fluxPortion / currWeapon.numBarrels,
+							2f,
+							0.15f,
+							new Color(255, 235, 200, 255)
+						);
+						for (int g = 0; g < currWeapon.fluxPortion * 20 / currWeapon.numBarrels; g++) {
+							combatEngine.addHitParticle(
+								MathUtils.getRandomPointInCone(
+									currWeapon.weapon.getFirePoint(i),
+									(45f + 25f * currWeapon.fluxPortion) 
+										/ (currWeapon.fluxPortion * 20f / currWeapon.numBarrels) * g,
+									currWeapon.weapon.getCurrAngle() + ((Float) angleOffsets.get(i))
+										- 6f - 10f * currWeapon.fluxPortion,
+									currWeapon.weapon.getCurrAngle() + ((Float) angleOffsets.get(i))
+										+ 6f + 10f * currWeapon.fluxPortion
+								),
+								ship.getVelocity(),
+								Misc.random.nextFloat() * 35f + g * 1f,
+								1,
+								0.4f,
+								new Color(225, (int) (Misc.random.nextFloat() * 80) + 20, 20, 125)
+							);
+						}
 					}
-				}
-				
+					
 				remainingFlux -= Math.floor(remainingFlux/groupFluxCost / currWeapon.rateOfFire)
 					* currWeapon.weapon.getFluxCostToFire() / currWeapon.burstSize;
 				groupFluxCost -= currWeapon.fluxPerSecond;
 			}
 			
-			Global.getSoundPlayer().playSound("mjolnir_fire", 1f, 0.7f, ship.getLocation(), ship.getVelocity());
+			Global.getSoundPlayer().playSound(
+				!isHightech ? "mjolnir_fire" : "gigacannon_fire", 
+				1f, 0.7f, ship.getLocation(), ship.getVelocity());
 			Global.getSoundPlayer().playSound("mine_explosion", 1.0f, 1.0f, ship.getLocation(), ship.getVelocity());
 
-			stats.getBallisticProjectileSpeedMult().unmodify(id);
+			stats.getProjectileSpeedMult().unmodify(id);
 			stats.getBallisticWeaponRangeBonus().unmodify(id);
+			stats.getEnergyWeaponRangeBonus().unmodify(id);
 			stats.getBallisticWeaponDamageMult().unmodify(id);
+			stats.getEnergyWeaponDamageMult().unmodify(id);
 			
 			newVel.scale((1f - fluxDiff) * -KNOCKBACK / ship.getMass());
 			Vector2f.add(ship.getVelocity(), newVel, ship.getVelocity());
@@ -322,7 +348,7 @@ public class espc_SlamfireStats extends BaseShipSystemScript {
 			ship.getFluxTracker().setOverloadProgress(0.0f);
 			/*
 			for (WeaponAPI weapon : ship.getAllWeapons()) {
-				if (weapon.getType() == WeaponType.BALLISTIC && weapon.usesAmmo()) {
+				if (weapon.getType() != WeaponType.MISSILE && weapon.usesAmmo()) {
 					weapon.setAmmo(0);
 					weapon.setRefireDelay(0f);
 					weapon.setRemainingCooldownTo(0f);
@@ -345,14 +371,14 @@ public class espc_SlamfireStats extends BaseShipSystemScript {
     		ship.getSystem().setCooldownRemaining(ship.getSystem().getCooldown() * CANCEL_COOLDOWN_FRACTION);
     	}
 		burstState = 0;
-		// stats.getBallisticRoFMult().unmodify(id);
-		// stats.getBallisticWeaponFluxCostMod().unmodify(id);
+		// stats.getRoFMult().unmodify(id);
+		// stats.getWeaponFluxCostMod().unmodify(id);
     }
 	
 	@Override
 	public String getInfoText(ShipSystemAPI system, ShipAPI ship) {
 		if (usableState == 0)
-			return "NO BALLISTICS MOUNTED";
+			return "NO WEAPON COMPATIBLE";
 		
 		if (system.getState().equals(SystemState.IDLE))
 			return "READY";
@@ -365,14 +391,22 @@ public class espc_SlamfireStats extends BaseShipSystemScript {
 	@Override
 	public boolean isUsable(ShipSystemAPI system, ShipAPI ship) {
 		if (usableState == -1) {
+			for (WeaponSlotAPI slot : ship.getHullSpec().getAllWeaponSlotsCopy()) {
+				if (slot.getSlotSize().compareTo(largestSize) > 0) {
+					largestSize = slot.getSlotSize();
+					// isHightech = slot.getWeaponType().equals(WeaponType.ENERGY) ||
+					// 	slot.getWeaponType().equals(WeaponType.SYNERGY);
+				}
+			}
 			for (WeaponAPI wep : ship.getAllWeapons()) {
-				if (!wep.isPermanentlyDisabled() && !wep.isDecorative() && wep.getType().equals(WeaponType.BALLISTIC)) {
+				if (!wep.isPermanentlyDisabled() && !wep.isDecorative() && wep.getType().equals(WeaponType.BALLISTIC) &&
+					wep.getSize().equals(largestSize)) {
 					usableState = 1;
 					return true;
 				}
-				usableState = 0;
-				return false;
 			}
+			usableState = 0;
+			return false;
 		} else if (usableState == 1)
 			return true;
 		return false;

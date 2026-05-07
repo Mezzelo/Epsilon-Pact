@@ -2,7 +2,7 @@ package data.scripts.shipsystems;
 
 import java.awt.Color;
 import java.util.Iterator;
-import java.util.LinkedList;
+import java.util.ArrayDeque;
 
 import org.lazywizard.lazylib.MathUtils;
 
@@ -21,7 +21,7 @@ public class espc_SplitStats extends BaseShipSystemScript {
 	public static final float SPREAD = 10f;
 
 	private ShipAPI ship;
-	private LinkedList<DamagingProjectileAPI> projs;
+	private ArrayDeque<DamagingProjectileAPI> projs;
 	
 	
 	
@@ -33,7 +33,7 @@ public class espc_SplitStats extends BaseShipSystemScript {
 			ship = (ShipAPI) stats.getEntity();
 			
 		if (projs == null)
-			projs = new LinkedList<DamagingProjectileAPI>();
+			projs = new ArrayDeque<DamagingProjectileAPI>();
 
 		stats.getBallisticWeaponDamageMult().modifyMult(id, 1f + DAMAGE_MALUS);
 		stats.getEnergyWeaponDamageMult().modifyMult(id, 1f + DAMAGE_MALUS);
@@ -43,7 +43,7 @@ public class espc_SplitStats extends BaseShipSystemScript {
 		Iterator<DamagingProjectileAPI> projIterator = projs.iterator();
 		while (projIterator.hasNext()) {
 			DamagingProjectileAPI proj = (DamagingProjectileAPI) projIterator.next();
-			if (proj.isExpired() || proj.didDamage() || !combatEngine.isInPlay(proj))
+			if (proj.isExpired() || proj.didDamage() || !combatEngine.isEntityInPlay(proj))
 				projIterator.remove();
 		}
 		
@@ -77,7 +77,7 @@ public class espc_SplitStats extends BaseShipSystemScript {
             if (projs.contains(proj))
             	continue;
             
-            projs.add(proj);
+            projs.addLast(proj);
             
             WeaponAPI currWeapon = proj.getWeapon();
 
@@ -107,7 +107,7 @@ public class espc_SplitStats extends BaseShipSystemScript {
 					((OnFireEffectPlugin) ((ProjectileSpecAPI) currWeapon.getSpec().getProjectileSpec()).getOnFireEffect())
 						.onFire(cloneProj, currWeapon, combatEngine);
 				
-    			projs.add(cloneProj);
+    			projs.addLast(cloneProj);
             }
             
             float projDamage = proj.getDamageAmount();

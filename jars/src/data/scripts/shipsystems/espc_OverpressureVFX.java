@@ -11,7 +11,6 @@ import com.fs.starfarer.api.combat.MissileAPI;
 import com.fs.starfarer.api.combat.BaseEveryFrameCombatPlugin;
 import com.fs.starfarer.api.combat.ShipAPI;
 import com.fs.starfarer.api.combat.ShipSystemAPI;
-import com.fs.starfarer.api.combat.ShipSystemAPI.SystemState;
 import com.fs.starfarer.api.combat.WeaponAPI.WeaponSize;
 import com.fs.starfarer.api.combat.WeaponAPI.WeaponType;
 import com.fs.starfarer.api.input.InputEventAPI;
@@ -20,6 +19,7 @@ import com.fs.starfarer.api.util.Misc;
 import org.magiclib.plugins.MagicTrailPlugin;
 
 import java.awt.Color;
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -35,19 +35,19 @@ public class espc_OverpressureVFX extends BaseEveryFrameCombatPlugin {
 	private ShipAPI ship;
 	private ShipSystemAPI system;
 	
-	private boolean endSystem = false;
+	private boolean markForRemove = false;
 	
 	private LinkedList<DamagingProjectileAPI> projs;
-	private LinkedList<Float> trailIds;
-	private LinkedList<Float> effectLevelOnFire;
+	private ArrayDeque<Float> trailIds;
+	private ArrayDeque<Float> effectLevelOnFire;
 	private ArrayList<Float> fadeTimes;
 	
 	public espc_OverpressureVFX(ShipAPI ship) {
 		this.ship = ship;
 		system = ship.getSystem();
 		projs = new LinkedList<DamagingProjectileAPI>();
-		trailIds = new LinkedList<Float>();
-		effectLevelOnFire = new LinkedList<Float>();
+		trailIds = new ArrayDeque<Float>();
+		effectLevelOnFire = new ArrayDeque<Float>();
 		fadeTimes = new ArrayList<Float>();
 		
 	}
@@ -59,14 +59,17 @@ public class espc_OverpressureVFX extends BaseEveryFrameCombatPlugin {
 		if (combatEngine == null || combatEngine.getElapsedInLastFrame() <= 0f || combatEngine.isPaused())
 			return;
 		
-    	if (!endSystem && ship != null && combatEngine.isInPlay(ship) && ship.isAlive() && !ship.isHulk()) {
-    		if (!endSystem && (system.getState() == SystemState.IDLE || system.getState() == SystemState.COOLDOWN))
-    			endSystem = true;
-    		
+		if (!markForRemove && system != null && !system.isActive() && projs.size() == 0)
+			return;
+		
+		if (!markForRemove && (ship == null || !combatEngine.isEntityInPlay(ship) || !ship.isAlive() || ship.isHulk()))
+			markForRemove = true;
+		
+    	if (!markForRemove && system.isActive()) {
 			Iterator<Object> entityIterator = combatEngine.getAllObjectGrid().getCheckIterator(
 				ship.getLocation(), 
-				(ship.getShieldRadiusEvenIfNoShield() + 60f) * 2f,
-				(ship.getShieldRadiusEvenIfNoShield() + 60f) * 2f
+				(ship.getShieldRadiusEvenIfNoShield() + 100f) * 2f,
+				(ship.getShieldRadiusEvenIfNoShield() + 100f) * 2f
 			);
 			while (entityIterator.hasNext()) {
 				CombatEntityAPI entity = (CombatEntityAPI) entityIterator.next();
@@ -105,18 +108,20 @@ public class espc_OverpressureVFX extends BaseEveryFrameCombatPlugin {
             		projDamage = proj.getProjectileSpec().getDamage().getBaseDamage();
             	projDamage = Math.min(Math.max(35f, projDamage), 700f);
             	// min: needler/thumper, 50/100
-            	// max: hellbore, 750 -> 500
+            	
+            	Vector2f loc = proj.getWeapon().getSpec().getTurretAngleOffsets().size() > 1
+            		? proj.getLocation() : proj.getWeapon().getFirePoint(0);
             	
     			Global.getSoundPlayer().playSound(
     				"espc_overpressure_fire",
     				0.9f - projDamage / 1300f,
     				(0.5f + projDamage / 700f) * system.getEffectLevel(),
-    				proj.getLocation(),
+    				loc,
     				ship.getVelocity()
     			);
             	
                 combatEngine.addHitParticle(
-                	proj.getLocation(),
+                	loc,
                 	ship.getVelocity(),
                 	50 + projDamage / 6,
                 	0.6f,
@@ -126,7 +131,7 @@ public class espc_OverpressureVFX extends BaseEveryFrameCombatPlugin {
                 	)
                 );
                 combatEngine.addHitParticle(
-                	proj.getLocation(),
+                	loc,
                 	ship.getVelocity(),
                 	15 + projDamage / 16,
                 	1.5f + projDamage / 500f,
@@ -138,7 +143,7 @@ public class espc_OverpressureVFX extends BaseEveryFrameCombatPlugin {
                 for (int i = 0; i < projDamage / 50 + 4; i++) {
                 	combatEngine.addHitParticle(
                 		MathUtils.getRandomPointInCone(
-                			proj.getLocation(),
+                			loc,
                 			(45f + projDamage / 25f) / (projDamage / 50f + 4f) * i,
                 			proj.getFacing() - projDamage/50f - 6f,
                 			proj.getFacing() + projDamage/50f + 6f
@@ -152,30 +157,26 @@ public class espc_OverpressureVFX extends BaseEveryFrameCombatPlugin {
 						)
                 	);
                 }
-            	
             }
-    	} else if (!endSystem){
-    		endSystem = true;
     	}
 
-    	if (endSystem && projs.size() == 0) {
-			combatEngine.removePlugin(this);
+    	if (projs.size() == 0) {
+			if (markForRemove)
+				combatEngine.removePlugin(this);
+			return;
     	}
-    	if (projs.size() == 0)
-    		return;
     	
         Iterator<DamagingProjectileAPI> projIterator = projs.iterator();
         Iterator<Float> idIterator = trailIds.iterator();
         Iterator<Float> levelIterator = effectLevelOnFire.iterator();
         int i = -1;
         
-        
         while (projIterator.hasNext()) {
         	i++;
         	DamagingProjectileAPI proj = (DamagingProjectileAPI) projIterator.next();
         	float trailId = (Float) idIterator.next();
         	float thisLevel = (Float) levelIterator.next();
-        	if (proj == null || !combatEngine.isInPlay(proj) || proj.didDamage() || proj.isExpired()) {
+        	if (proj == null || !combatEngine.isEntityInPlay(proj) || proj.didDamage() || proj.isExpired()) {
         		projIterator.remove();
         		idIterator.remove();
         		idIterator.next();
@@ -197,8 +198,6 @@ public class espc_OverpressureVFX extends BaseEveryFrameCombatPlugin {
             	);
         	
         	// derived from magiclib's trail code, this is a cleverer solution than whatever trig i was gonna work out
-        	// but why did it have like five declarations in it
-        	// i might rewrite this anyway TODO ig :I
             Vector2f sidewaysVel = VectorUtils.rotate(
             	new Vector2f(0f,
                 VectorUtils.rotate(

@@ -27,7 +27,13 @@ public class espc_RulesStory extends BaseCommandPlugin {
 		String command = params.get(0).getString(memoryMap);
 		if (dialog == null || command == null) return false;
 		if (command.equals("spawnAnyiwo")) {
-			MarketAPI market = Global.getSector().getEconomy().getMarket("espc_tocquiera_market");
+			String marketId = Global.getSector().getMemoryWithoutUpdate().getString("$espcGaussMarketId");
+			if (marketId == null) {
+				marketId = "espc_tocquiera_market";
+		        Global.getSector().getMemoryWithoutUpdate().set("$espcGaussMarketId", "espc_tocquiera_market");
+		        Global.getSector().getMemoryWithoutUpdate().set("$espcGaussMarketName", "Tocquiera");
+			}
+			MarketAPI market = Global.getSector().getEconomy().getMarket(marketId);
 			if (market != null) {
 				PersonDataAPI data = Global.getSector().getImportantPeople().getData("espc_anyiwo");
 				PersonAPI person = data.getPerson();
@@ -35,7 +41,13 @@ public class espc_RulesStory extends BaseCommandPlugin {
 					market.getCommDirectory().getEntryForPerson(person).setHidden(false);
 			}
 		} else if (command.equals("revealCoreContacts")) {
-			MarketAPI market = Global.getSector().getEconomy().getMarket("espc_tocquiera_market");
+			String marketId = Global.getSector().getMemoryWithoutUpdate().getString("$espcGaussMarketId");
+			if (marketId == null) {
+				marketId = "espc_tocquiera_market";
+		        Global.getSector().getMemoryWithoutUpdate().set("$espcGaussMarketId", "espc_tocquiera_market");
+		        Global.getSector().getMemoryWithoutUpdate().set("$espcGaussMarketName", "Tocquiera");
+			}
+			MarketAPI market = Global.getSector().getEconomy().getMarket(marketId);
 			if (market != null) {
 				PersonDataAPI data = Global.getSector().getImportantPeople().getData("espc_gauss");
 				PersonAPI person = data.getPerson();
@@ -44,6 +56,8 @@ public class espc_RulesStory extends BaseCommandPlugin {
 			}
 			PersonDataAPI data = Global.getSector().getImportantPeople().getData("espc_isabelle");
 			PersonAPI person = data.getPerson();
+			if (person == null)
+				return true;
 			market = person.getMarket();
 			if (market != null) {
 				market.getCommDirectory().getEntryForPerson(person).setHidden(false);

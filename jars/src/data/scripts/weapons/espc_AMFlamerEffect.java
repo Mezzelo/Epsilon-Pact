@@ -6,12 +6,16 @@ import java.util.LinkedList;
 
 import org.lazywizard.lazylib.FastTrig;
 import org.lazywizard.lazylib.MathUtils;
+import org.lazywizard.lazylib.VectorUtils;
+import org.lwjgl.opengl.GL11;
 // import org.lazywizard.lazylib.VectorUtils;
 import org.lwjgl.util.vector.Vector2f;
+import org.magiclib.plugins.MagicTrailPlugin;
 
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.combat.CollisionClass;
 import com.fs.starfarer.api.combat.CombatEngineAPI;
+import com.fs.starfarer.api.combat.CombatEngineLayers;
 import com.fs.starfarer.api.combat.CombatEntityAPI;
 import com.fs.starfarer.api.combat.DamageType;
 import com.fs.starfarer.api.combat.DamagingProjectileAPI;
@@ -24,6 +28,9 @@ import com.fs.starfarer.api.combat.listeners.ApplyDamageResultAPI;
 // import com.fs.starfarer.api.combat.ShipAPI.HullSize;
 import com.fs.starfarer.api.loading.DamagingExplosionSpec;
 import com.fs.starfarer.api.util.Misc;
+
+import data.scripts.util.MezzUtils;
+
 import com.fs.starfarer.api.combat.ShipAPI;
 
 public class espc_AMFlamerEffect implements OnFireEffectPlugin, OnHitEffectPlugin, EveryFrameWeaponEffectPlugin, WeaponEffectPluginWithInit {
@@ -37,7 +44,7 @@ public class espc_AMFlamerEffect implements OnFireEffectPlugin, OnHitEffectPlugi
 	private static final float BURST_HALT_COOLDOWN_TIME = 1f;
 	
 	private static final float SHOT_DELAY_MAX = 0.075f;
-	private static final float SHOT_DISTANCE_MAX = 35f;
+	// private static final float SHOT_DISTANCE_MAX = 35f;
 	
 	private static final float PROXIMITY_DAMAGE = 150f;
 	private static final float PROXIMITY_RADIUS = 120f;
@@ -59,11 +66,16 @@ public class espc_AMFlamerEffect implements OnFireEffectPlugin, OnHitEffectPlugi
 	// private float SHOT_DISTANCE_MAX;
 	
 	private LinkedList<DamagingProjectileAPI> projs;
+	
+	private float projLast;
+	private Float trailId;
+	
 
 	@Override
 	public void init(WeaponAPI weapon) {
 		ship = weapon.getShip();
 		projs = new LinkedList<DamagingProjectileAPI>();
+		projLast = 0f;
 		
 		isSolo = weapon.getSpec().getWeaponId().equals("espc_amflamersolo");
 		if (!isSolo)
@@ -76,26 +88,75 @@ public class espc_AMFlamerEffect implements OnFireEffectPlugin, OnHitEffectPlugi
 	
     @Override
     public void onFire(DamagingProjectileAPI proj, WeaponAPI weapon, CombatEngineAPI engine) {
+    	if (weapon == null || ship == null || !engine.isInPlay(ship) || ship.isHulk() || !ship.isAlive())
+    		return;
+
     	float systemLevel = !isSolo ? ship.getSystem().getEffectLevel() : 0f;
-		if (systemLevel > 0f) {
+    	
+        engine.addNebulaParticle(
+            proj.getSpawnLocation(),
+            Vector2f.add(proj.getVelocity(), ship.getVelocity(), new Vector2f()),
+            12f, 
+            25f + 10f * systemLevel, 0f, 0f, weapon.getRange() / weapon.getProjectileSpeed() / 2f,
+            new Color(255, 25, 10 + (int)(30f * systemLevel), 80 + (int)(40f * systemLevel))
+        );
+        if (!isSolo) {
+        	// muzzleVel.scale(0.7f + systemLevel * 0.2f);
+        	engine.addNebulaParticle(
+        	proj.getSpawnLocation(),
+        	Vector2f.add(proj.getVelocity(), ship.getVelocity(), new Vector2f()),
+        	12f, 
+        	12f + 12f * systemLevel, 0f, 0f, 0.5f + systemLevel * 0.15f,
+        	new Color(85, 25, 255, 180)
+        	);	
+        }
+		
+		if (engine.getTotalElapsedTime(false) - projLast > SHOT_DELAY_MAX)
+			trailId = MagicTrailPlugin.getUniqueID();
+		projLast = engine.getTotalElapsedTime(false);
+		
+        MagicTrailPlugin.addTrailMemberAdvanced(
+			null,
+			trailId,	
+			Global.getSettings().getSprite("fx", "espc_trail_wispy"),
+			proj.getLocation(),
+			weapon.getProjectileSpeed(), // start speed
+			weapon.getProjectileSpeed(), // end speed
+			proj.getFacing(),
+			0f, // ang vel start
+			0f, // and vel end
+			70 + (int) (isSolo ? 0f : systemLevel * 50f), // size start
+			150 + (int) (isSolo ? 0f : systemLevel * 90f), //size end
+			MezzUtils.colorHSBLerp(
+				new Color(255, 125, 50), 
+				new Color(85, 25, 255), isSolo ? 0f : systemLevel),
+			MezzUtils.colorHSBLerp(
+				new Color(255, 25, 10), 
+				new Color(255, 15, 35), isSolo ? 0f : systemLevel),
+        	0.7f + (isSolo ? 0f : systemLevel * 0.2f), // opacity
+			0.05f * weapon.getRange() / weapon.getProjectileSpeed(), // in duration
+			0.75f * weapon.getRange() / weapon.getProjectileSpeed(), // main duration
+			0.2f * weapon.getRange() / weapon.getProjectileSpeed(), // out duration
+			GL11.GL_SRC_ALPHA, // blend mode source
+			GL11.GL_ONE, // blend mode dest.  try GL_DST_ALPHA ?
+			128f, // texture loop length
+			-32f - (isSolo ? 0f : systemLevel * 32f), // texture scroll speed
+			trailId * 128f, // texture offset
+			Misc.ZERO,
+			// ship.getVelocity(), // offset velocity
+			null,
+        	CombatEngineLayers.ABOVE_SHIPS_LAYER,
+			1f
+        );
+    	
+    	// if (MathUtils.getDistanceSquared(proj.getLocation(), weapon.getFirePoint(0)) > 300f)
+    	// 	return;
+    	
+		if (systemLevel > 0f)
 			spurt(engine, weapon.getFirePoint(0), weapon.getCurrAngle(), 400f, 5, 95f, 2.3f);
-			/* no way to clone projectile spec as far as i'm aware of u_u
-			proj.getProjectileSpec().setFringeColor(
-				new Color(255 - (int)(160f * systemLevel),
-					25 + (int)(60f * systemLevel),
-					10 + (int)(240f * systemLevel),
-					100)
-			);
-			proj.getProjectileSpec().setCoreColor(
-					new Color(255,
-						175 + (int)(75f * systemLevel),
-						50 + (int)(190f * systemLevel),
-						100)
-				);
-			*/
-		} else {
+		else
 			spurt(engine, weapon.getFirePoint(0), weapon.getCurrAngle(), 250f, 3, 75f, 1.5f);
-		}
+		
 		Global.getSoundPlayer().playLoop(
 				"espc_amflamer_loop",
 				weapon,
@@ -166,6 +227,7 @@ public class espc_AMFlamerEffect implements OnFireEffectPlugin, OnHitEffectPlugi
 		}
 		
 		if (projs.size() > 0) {
+			/*
 			DamagingProjectileAPI lastProj = (DamagingProjectileAPI) projs.getLast();
 			if (lastProj.getElapsed() < SHOT_DELAY_MAX &&
 				MathUtils.getDistanceSquared(proj.getLocation(), lastProj.getLocation()) > SHOT_DISTANCE_MAX * SHOT_DISTANCE_MAX) {
@@ -188,6 +250,7 @@ public class espc_AMFlamerEffect implements OnFireEffectPlugin, OnHitEffectPlugi
 				);
 				Vector2f.sub(lastProj.getLocation(), diff, proj.getLocation());
 			}
+			*/
 		} else if (lastFiredTime <= 0f) {
 			Global.getSoundPlayer().playSound(
 				"espc_amflamer_burst", 
@@ -197,30 +260,6 @@ public class espc_AMFlamerEffect implements OnFireEffectPlugin, OnHitEffectPlugi
 				ship.getVelocity()
 			);
 		}
-
-		Vector2f muzzleVel = new Vector2f(
-			(float) FastTrig.cos(Math.toRadians(proj.getFacing())),
-			(float) FastTrig.sin(Math.toRadians(proj.getFacing()))
-		);
-		
-		muzzleVel.scale(weapon.getProjectileSpeed() * 0.8f);
-        engine.addNebulaParticle(
-        	weapon.getFirePoint(0),
-        	Vector2f.add(muzzleVel, ship.getVelocity(), new Vector2f()),
-        	12f, 
-        	25f + 10f * systemLevel, 0f, 0f, 1.5f,
-        	new Color(255, 25, 10 + (int)(30f * systemLevel), 80 + (int)(40f * systemLevel))
-        );
-        if (!isSolo) {
-    		muzzleVel.scale(0.7f + systemLevel * 0.2f);
-            engine.addNebulaParticle(
-               	weapon.getFirePoint(0),
-               	Vector2f.add(muzzleVel, ship.getVelocity(), new Vector2f()),
-               	12f, 
-               	12f + 12f * systemLevel, 0f, 0f, 0.5f + systemLevel * 0.15f,
-               	new Color(85, 25, 255, 180)
-            );	
-        }
 		projs.addLast(proj);
     	lastFiredTime = 0.15f;
     }
@@ -288,6 +327,8 @@ public class espc_AMFlamerEffect implements OnFireEffectPlugin, OnHitEffectPlugi
 					!Global.getCombatEngine().isEntityInPlay(proj)) {
 					projIterator.remove();
 				} else {
+					
+					/*
 					if (proj.getElapsed() < 0.33f) {
 						// Vector2f velocity = proj.getVelocity();
 						Vector2f.add(new Vector2f(), weapon.getFirePoint(0), proj.getTailEnd());
@@ -295,6 +336,8 @@ public class espc_AMFlamerEffect implements OnFireEffectPlugin, OnHitEffectPlugi
 						// proj.setFacing(VectorUtils.getAngle(proj.getLocation(), lastProj.getLocation()) * 0.06f + proj.getFacing() * 0.94f);
 						// Vector2f.add(velocity, new Vector2f(), proj.getVelocity());
 					}
+					
+					
 					if (proj.getElapsed() - lastProj.getElapsed() < SHOT_DELAY_MAX &&
 						MathUtils.getDistanceSquared(proj.getLocation(), lastProj.getLocation()) > SHOT_DISTANCE_MAX * SHOT_DISTANCE_MAX) {
 						float facingOrig = proj.getFacing();
@@ -318,6 +361,7 @@ public class espc_AMFlamerEffect implements OnFireEffectPlugin, OnHitEffectPlugi
 						Vector2f.sub(lastProj.getLocation(), diff, proj.getLocation());
 						proj.setFacing(facingOrig);
 					}
+					*/
 					
 					if (explosionLast > PROXIMITY_EXPLOSION_INTERVAL &&
 						MathUtils.getDistanceSquared(explosionLastPos, proj.getLocation()) > PROXIMITY_RADIUS * PROXIMITY_RADIUS) {
@@ -353,11 +397,11 @@ public class espc_AMFlamerEffect implements OnFireEffectPlugin, OnHitEffectPlugi
 		}
     }
     
+    // timid obfuscated ass function name why'd i do this
     private void spurt(CombatEngineAPI engine, Vector2f loc, float ang, float speed, int count, float spread, float duration) {
     	int particles = Misc.random.nextInt(count/2) + count/2;
     	
     	for (int i = 0; i < particles; i++) {
-    		// fuck ayn rand btw lmao
     		float angRand = (float) Math.toRadians((ang + Misc.random.nextFloat() * spread - spread/2f) % 360f);
     		Vector2f vel = new Vector2f(
     			(float) FastTrig.cos(angRand),

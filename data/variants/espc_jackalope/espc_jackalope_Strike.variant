@@ -2,7 +2,7 @@
   "variantId": "espc_jackalope_Strike",
   "hullId": "espc_jackalope",
   "displayName": "Strike",
-  "goalVariant": true,
+  "goalVariant": false,
   "fluxCapacitors": 10,
   "fluxVents": 6,
   "quality": 1,

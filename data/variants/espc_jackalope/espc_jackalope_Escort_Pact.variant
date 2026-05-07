@@ -2,7 +2,7 @@
   "variantId": "espc_jackalope_Escort_Pact",
   "hullId": "espc_jackalope",
   "displayName": "Escort",
-  "goalVariant": true,
+  "goalVariant": false,
   "fluxCapacitors": 10,
   "fluxVents": 10,
   "quality": 1,

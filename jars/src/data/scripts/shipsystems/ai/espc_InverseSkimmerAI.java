@@ -35,7 +35,7 @@ public class espc_InverseSkimmerAI implements ShipSystemAIScript {
     private static final float FLUX_THRESHOLD_DANGER = 0.9f;
     private static final float HARDFLUX_THRESHOLD_DANGER = 0.8f;
     
-    private static final float RANGE_MULT = 0.9f;
+    private static final float RANGE_MULT = 0.85f;
     
     private static final float TARGET_DISTANCE_MAX = 1750f;
     private static final float TARGET_DISTANCE_MAX_CAPITAL = 2250f;
@@ -88,6 +88,7 @@ public class espc_InverseSkimmerAI implements ShipSystemAIScript {
 	    			targ.isHulk() || !targ.isAlive() ||
 	    			MathUtils.getShortestRotation(VectorUtils.getAngle(ship.getLocation(), targ.getLocation()),
 	        			ship.getFacing()) > 30f ||
+	    			(isCapital && (targ.getMaxSpeed() > 90f || targ.getHullSize().equals(HullSize.FRIGATE))) || 
 	        		!MathUtils.isWithinRange(
 	        			targ, ship.getLocation(), 
 	        	  	ship.getMutableStats().getSystemRangeBonus().computeEffective(
@@ -101,6 +102,7 @@ public class espc_InverseSkimmerAI implements ShipSystemAIScript {
 					targ = (ShipAPI) test;
 		    		if (ship.getOwner() == targ.getOwner() && targ.isFighter() ||
 		    			targ.isHulk() || !targ.isAlive() ||
+		    			(isCapital && (targ.getMaxSpeed() > 90f || targ.getHullSize().equals(HullSize.FRIGATE))) || 
 		    			MathUtils.getShortestRotation(VectorUtils.getAngle(ship.getLocation(), targ.getLocation()),
 		    	        	ship.getFacing()) > 30f ||
 		            	!MathUtils.isWithinRange(
@@ -112,10 +114,9 @@ public class espc_InverseSkimmerAI implements ShipSystemAIScript {
 				}
     		}
     		
-    		// TODO: shorter thinking interval after using system for non-capital, should raycast for autofire
-    		// for capital: if not in emergency state, don't use if captured allied hullsize points < 50% of enemy
-    		
-    		if (targ == null || targ.isPhased())
+    		if (targ == null || (targ.isPhased() && targ.getHardFluxLevel() < 0.5f) || 
+    			(targ.getFluxTracker() != null && target.getFluxTracker().isOverloaded() && 
+    			!target.getHullSize().equals(HullSize.CAPITAL_SHIP)))
     			return;
     		
     		boolean danger = ship.getFluxLevel() > FLUX_THRESHOLD_DANGER ||
@@ -155,7 +156,7 @@ public class espc_InverseSkimmerAI implements ShipSystemAIScript {
     					ship.getMutableStats().getSystemRangeBonus().computeEffective(
     					isCapital ? TARGET_DISTANCE_MAX_CAPITAL : TARGET_DISTANCE_MAX
     				))
-    				|| currShip.isPhased()
+    				|| (currShip.isPhased() && currShip.getHardFluxLevel() < 0.5f)
     				
     			)
     				continue;
@@ -251,8 +252,10 @@ public class espc_InverseSkimmerAI implements ShipSystemAIScript {
    				if (!isCapital)
    					systemScript.setAlliedTarget(ally);
    				else if (isCapital && targ.getHullSize().equals(HullSize.CAPITAL_SHIP) &&
-   					scoreTotal <= 1f)
+   					scoreTotal <= 1f) {
+   					ally = null;
    					return;
+   				}
    				systemScript.setTarget(targ);
    				ship.useSystem();
    				if (!isCapital)

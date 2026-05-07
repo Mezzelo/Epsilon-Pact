@@ -140,7 +140,7 @@ public class espc_BattlecryStats extends BaseShipSystemScript {
 								Math.min(excess, currShip.getMaxFlux() * 0.15f), true);
 							if (currShip.getEngineController() != null && 
 								!currShip.getEngineController().isFlamedOut())
-								fighters.add(currShip);
+								fighters.addLast(currShip);
 						}
 					}
 					else {

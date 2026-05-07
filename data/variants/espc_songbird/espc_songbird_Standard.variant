@@ -2,13 +2,13 @@
   "variantId": "espc_songbird_Standard",
   "hullId": "espc_songbird",
   "displayName": "Assault",
-  "goalVariant": true,
+  "goalVariant": false,
   "fluxCapacitors": 10,
-  "fluxVents": 10,
+  "fluxVents": 8,
   "quality": 1,
   "permaMods": [],
   "hullMods": [
-    "fluxdistributor",
+    "magazines",
     "fluxcoil"
   ],
   "weaponGroups": [
@@ -23,8 +23,8 @@
       "autofire": true,
       "mode": "ALTERNATING",
       "weapons": {
-        "WS 005": "lightdualac",
-        "WS 006": "lightdualac"
+        "WS 005": "espc_arcscatter",
+        "WS 006": "espc_arcscatter"
       }
     },
     {

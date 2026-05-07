@@ -20,7 +20,7 @@ import com.fs.starfarer.api.loading.ProjectileSpecAPI;
 
 // import java.awt.Color;
 import java.util.Iterator;
-import java.util.LinkedList;
+import java.util.ArrayDeque;
 import java.util.List;
 import java.util.Random;
 
@@ -39,7 +39,7 @@ import org.lwjgl.opengl.GL11;
 				
 public class espc_CollapseVFX extends BaseEveryFrameCombatPlugin {
 	
-	private LinkedList<StaticProjSprite> freezeProjs;
+	private ArrayDeque<StaticProjSprite> freezeProjs;
 	private ShipAPI target;
 	private ShipAPI ship;
 	// private String id;
@@ -61,7 +61,7 @@ public class espc_CollapseVFX extends BaseEveryFrameCombatPlugin {
     	this.target = target;
     	this.ship = user;
     	// this.id = id;
-    	freezeProjs = new LinkedList<StaticProjSprite>();
+    	freezeProjs = new ArrayDeque<StaticProjSprite>();
     	jitter = new Vector2f();
     	this.startTime = startTime;
 
@@ -150,11 +150,11 @@ public class espc_CollapseVFX extends BaseEveryFrameCombatPlugin {
     		jitter.scale(1f + (combatEngine.getTotalElapsedTime(false) - removeTime) / COLLAPSE_TIME);
     	
     	// normally i would assume unapply handles this, but who knows :)
-    	if (removeTime < 0f && (ship == null || !combatEngine.isInPlay(ship)))
+    	if (removeTime < 0f && (ship == null || !combatEngine.isEntityInPlay(ship)))
     		setToRemove(combatEngine);
     	
     	if (removeTime > 0f && combatEngine.getTotalElapsedTime(false) > removeTime + COLLAPSE_TIME) {
-    		if (target != null && combatEngine.isInPlay(target)) {
+    		if (target != null && combatEngine.isEntityInPlay(target)) {
     			/*
 				target.getMutableStats().getHullDamageTakenMult().unmodify(id);
 				target.getMutableStats().getArmorDamageTakenMult().unmodify(id);
@@ -170,8 +170,10 @@ public class espc_CollapseVFX extends BaseEveryFrameCombatPlugin {
     @Override
     public void renderInWorldCoords(ViewportAPI viewport) {
     	CombatEngineAPI combatEngine = Global.getCombatEngine();
-    	if (target == null || combatEngine == null || !combatEngine.isInPlay(target))
+    	if (target == null || combatEngine == null || !combatEngine.isEntityInPlay(target))
     		return;
+		if (!combatEngine.getViewport().isNearViewport(target.getLocation(), 500f))
+			return;
         GL11.glEnable(GL11.GL_BLEND);
         GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE);
         GL11.glEnable(GL11.GL_TEXTURE_2D);

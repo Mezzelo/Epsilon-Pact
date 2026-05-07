@@ -3,7 +3,7 @@
   "hullId": "espc_chorale",
   "displayName": "Elite",
   "goalVariant": false,
-  "fluxCapacitors": 26,
+  "fluxCapacitors": 30,
   "fluxVents": 30,
   "quality": 1,
   "permaMods": [],
@@ -27,10 +27,9 @@
     },
     {
       "autofire": true,
-      "mode": "ALTERNATING",
+      "mode": "LINKED",
       "weapons": {
         "WS 003": "espc_fission",
-        "WS 004": "espc_fission",
         "WS 007": "espc_fission"
       }
     },
@@ -38,13 +37,14 @@
       "autofire": true,
       "mode": "LINKED",
       "weapons": {
-        "WS 008": "ionpulser"
+        "WS 004": "espc_heavyionresonator"
       }
     },
     {
       "autofire": true,
       "mode": "LINKED",
       "weapons": {
+        "WS 008": "heavyburst",
         "WS 010": "vulcan"
       }
     }

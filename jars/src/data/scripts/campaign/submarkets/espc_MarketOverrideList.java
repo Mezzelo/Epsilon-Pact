@@ -18,14 +18,14 @@ public class espc_MarketOverrideList {
 		"dram",
 		"buffalo",
 		"crig",
-		"mule",
+		// "mule",
 		"tarsus",
 		"condor",
 		"gemini",
 		"nebula",
 		"phaeton",
 		"venture",
-		"apogee",
+		// "apogee",
 	};
 	
 	public static float overrideChance = 0.8f;

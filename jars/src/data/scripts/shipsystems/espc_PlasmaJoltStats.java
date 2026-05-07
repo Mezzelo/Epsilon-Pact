@@ -1,47 +1,49 @@
 package data.scripts.shipsystems;
 
-import com.fs.starfarer.api.combat.MutableShipStatsAPI;
+import java.awt.Color;
+
+import com.fs.starfarer.api.Global;
+import com.fs.starfarer.api.combat.*;
+// import com.fs.starfarer.api.combat.WeaponAPI.WeaponSize;
+// import com.fs.starfarer.api.combat.WeaponAPI.WeaponType;
 import com.fs.starfarer.api.impl.combat.BaseShipSystemScript;
+//vimport com.fs.starfarer.api.util.Misc;
 
 public class espc_PlasmaJoltStats extends BaseShipSystemScript {
 
-	// private static final float RANGE_BONUS = 0.5f;
-	private static final float DAMAGE_BONUS = 50f;
-	private static final float RANGE_BONUS = 30f;
-	private static final float FLUX_USE = 50f;
-	private static final float SPEED_MALUS = 50f;
-	private static final float TURN_MALUS = 30f;
+	private static final Color ENGINE_COLOR = new Color(100,255,100,255);
 	
+	private boolean pluginInit = false;
+	private boolean used = false;
 	
 	public void apply(MutableShipStatsAPI stats, String id, State state, float effectLevel) {
-		// stats.getEnergyWeaponRangeBonus().modifyMult(id, 1f + RANGE_BONUS * effectLevel);
-		stats.getEnergyWeaponDamageMult().modifyPercent(id, DAMAGE_BONUS * effectLevel);
-		stats.getEnergyWeaponRangeBonus().modifyPercent(id, RANGE_BONUS);
-		stats.getEnergyWeaponFluxCostMod().modifyPercent(id, FLUX_USE * effectLevel);
-		stats.getEnergyProjectileSpeedMult().modifyPercent(id, -SPEED_MALUS * effectLevel);
-		stats.getWeaponTurnRateBonus().modifyPercent(id, -TURN_MALUS * effectLevel);
+		if (stats.getEntity() == null)
+			return;
+		
+		if (!pluginInit) {
+			pluginInit = true;
+			Global.getCombatEngine().addPlugin(new espc_PlasmaJoltPlugin((ShipAPI) stats.getEntity()));
+		}
+
+		// todo: this shouldn't work going backwards!  force the ship's velocity to conform to its vector
+		ShipAPI ship = (ShipAPI) stats.getEntity();
+		ship.getEngineController().fadeToOtherColor(this, ENGINE_COLOR, new Color(0,0,0,0), 1f, 0.67f);
+		ship.getEngineController().extendFlame(this, 2f * 1f, 0f * 1f, 0f * 1f);
+		stats.getMaxSpeed().modifyMult(id, 10f * effectLevel);
+		ship.getVelocity().scale(ship.getMaxSpeed() / ship.getVelocity().length());
+		if (!used) {
+			used = true;
+		}
+
+		
 	}
 	public void unapply(MutableShipStatsAPI stats, String id) {
-		stats.getEnergyWeaponDamageMult().unmodify(id);
-		stats.getEnergyWeaponRangeBonus().unmodify(id);
-		stats.getEnergyWeaponFluxCostMod().unmodify(id);
-		stats.getEnergyProjectileSpeedMult().unmodify(id);
-		stats.getWeaponTurnRateBonus().unmodify(id);
+		stats.getMaxSpeed().unmodify(id);
+		if (stats.getEntity() == null)
+			return;
 	}
 	
 	public StatusData getStatusData(int index, State state, float effectLevel) {
-		
-		if (index == 4)
-			return new StatusData("AM Flamer projectile speed " + (int) (-SPEED_MALUS * effectLevel) + "%", false);
-		else if (index == 3)
-			return new StatusData("AM Flamer turn rate " + (int) (-TURN_MALUS * effectLevel) + "%", false);
-		else if (index == 2)
-			return new StatusData("AM Flamer flux generation +" + (int) (FLUX_USE * effectLevel) + "%", false);
-		else if (index == 1)
-			return new StatusData("AM Flamer damage +" + (int) (DAMAGE_BONUS * effectLevel) + "%", false);
-		else if (index == 0)
-			return new StatusData("AM Flamer range +" + (int) RANGE_BONUS + "%", false);
-		
 		return null;
 	}
 }

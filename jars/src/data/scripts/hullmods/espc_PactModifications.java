@@ -7,8 +7,8 @@ public class espc_PactModifications extends BaseHullMod {
 
 	public String getDescriptionParam(int index, HullSize hullSize) {
 		if (index == 0)
-			return ("altered its shipsystem");
-		else if (index == 0)
+			return ("often including its shipsystem");
+		else if (index == 1)
 			return ("permanently lost on restoration");
 		return null;
 	}

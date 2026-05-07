@@ -228,8 +228,8 @@ public class espc_PactFleetSpawnListener extends BaseCampaignEventListener {
 		String hullId = fleetMember.getHullId();
 		LinkedList<String> skillPool = new LinkedList<String>();
 		LinkedList<String> prioritySkills = new LinkedList<String>();
-		skillPool.add(Skills.HELMSMANSHIP);
-		skillPool.add(Skills.TARGET_ANALYSIS);
+		skillPool.addLast(Skills.HELMSMANSHIP);
+		skillPool.addLast(Skills.TARGET_ANALYSIS);
 		
 		if (fleetMember.getHullSpec().getManufacturer().equals("Low Tech") ||
 			hullId.equals("hammerhead") || hullId.equals("lasher") ||
@@ -237,43 +237,43 @@ public class espc_PactFleetSpawnListener extends BaseCampaignEventListener {
 			hullId.equals("espc_warden") && 
 				fleetMember.getVariant().getSlot("WS 001").getWeaponType().equals(WeaponType.BALLISTIC)
 		)
-			skillPool.add(Skills.BALLISTIC_MASTERY);
+			skillPool.addLast(Skills.BALLISTIC_MASTERY);
 		
 		if (fleetMember.getHullSpec().getHullSize().equals(HullSize.FRIGATE)) {
 			for (String skill : skillsFrigate)
-				skillPool.add(skill);
+				skillPool.addLast(skill);
 			if (fleetMember.getHullSpec().getManufacturer().equals("Pact-Derelict")) {
 				skillPool.remove(Skills.COMBAT_ENDURANCE);
 				skillPool.remove(Skills.FIELD_MODULATION);
 				if (hullId.equals("espc_warden"))
-					skillPool.add(Skills.GUNNERY_IMPLANTS);
+					skillPool.addLast(Skills.GUNNERY_IMPLANTS);
 				else if (hullId.equals("espc_sentry")) {
-					skillPool.add(Skills.POINT_DEFENSE);
-					skillPool.add(Skills.SYSTEMS_EXPERTISE);
-					skillPool.add("espc_second_wind");
+					skillPool.addLast(Skills.POINT_DEFENSE);
+					skillPool.addLast(Skills.SYSTEMS_EXPERTISE);
+					skillPool.addLast("espc_second_wind");
 				}
 			} else if (hullId.equals("espc_flagbearer") || hullId.equals("espc_songbird")) {
-				skillPool.add(Skills.ORDNANCE_EXPERTISE);
-				skillPool.add(Skills.SYSTEMS_EXPERTISE);
-				skillPool.add("espc_running_hot");
+				skillPool.addLast(Skills.ORDNANCE_EXPERTISE);
+				skillPool.addLast(Skills.SYSTEMS_EXPERTISE);
+				skillPool.addLast("espc_running_hot");
 			} else if (hullId.equals("espc_opossum") || hullId.equals("espc_jackalope") || hullId.equals("omen")) {
-				skillPool.add(Skills.SYSTEMS_EXPERTISE);
-				skillPool.add("espc_second_wind");
+				skillPool.addLast(Skills.SYSTEMS_EXPERTISE);
+				skillPool.addLast("espc_second_wind");
 				if (!hullId.equals("omen"))
-					skillPool.add("espc_running_hot");
+					skillPool.addLast("espc_running_hot");
 			}
 			if (hullId.equals("lasher") || hullId.equals("espc_rondel") || hullId.equals("espc_picket"))
-				skillPool.add("espc_running_hot");
+				skillPool.addLast("espc_running_hot");
 			if (fleetMember.getHullSpec().getTags().contains("espc_ballistic"))
 				skillPool.remove(Skills.FIELD_MODULATION);
 		}
 		else if (fleetMember.getHullSpec().getHullSize().equals(HullSize.DESTROYER)) {
 			for (String skill : skillsDestroyer)
-				skillPool.add(skill);
+				skillPool.addLast(skill);
 			
 			if (fleetMember.getHullSpec().getManufacturer().equals("Pact-Derelict") ||
 				fleetMember.getHullSpec().getManufacturer().equals("Remnant")) {
-				skillPool.add(Skills.GUNNERY_IMPLANTS);
+				skillPool.addLast(Skills.GUNNERY_IMPLANTS);
 				skillPool.remove(Skills.COMBAT_ENDURANCE);
 				if (hullId.equals("espc_berserker"))
 					skillPool.remove(Skills.POINT_DEFENSE);
@@ -282,15 +282,15 @@ public class espc_PactFleetSpawnListener extends BaseCampaignEventListener {
 		else if (fleetMember.getHullSpec().getHullSize().equals(HullSize.CRUISER) ||
 				fleetMember.getHullSpec().getHullSize().equals(HullSize.CAPITAL_SHIP)) {
 			for (String skill : skillsCruiser)
-				skillPool.add(skill);
+				skillPool.addLast(skill);
 			
 			if (hullId.equals("espc_chorale") || hullId.equals("espc_amanuensis"))
-				prioritySkills.add(Skills.HELMSMANSHIP);
+				prioritySkills.addLast(Skills.HELMSMANSHIP);
 			else if (hullId.equals("anubis")) {
-				prioritySkills.add(Skills.ENERGY_WEAPON_MASTERY);
-				prioritySkills.add(Skills.ORDNANCE_EXPERTISE);
-				prioritySkills.add("espc_running_hot");
-				prioritySkills.add(Skills.POINT_DEFENSE);
+				prioritySkills.addLast(Skills.ENERGY_WEAPON_MASTERY);
+				prioritySkills.addLast(Skills.ORDNANCE_EXPERTISE);
+				prioritySkills.addLast("espc_running_hot");
+				prioritySkills.addLast(Skills.POINT_DEFENSE);
 				skillPool.remove("espc_unburdened");
 			}
 			
@@ -298,15 +298,15 @@ public class espc_PactFleetSpawnListener extends BaseCampaignEventListener {
 				skillPool.remove("espc_second_wind");
 				skillPool.remove(Skills.SYSTEMS_EXPERTISE);
 			} else if (hullId.equals("espc_rampart")) {
-				skillPool.add(Skills.COMBAT_ENDURANCE);
-				skillPool.add(Skills.DAMAGE_CONTROL);
-				skillPool.add(Skills.IMPACT_MITIGATION);
+				skillPool.addLast(Skills.COMBAT_ENDURANCE);
+				skillPool.addLast(Skills.DAMAGE_CONTROL);
+				skillPool.addLast(Skills.IMPACT_MITIGATION);
 			} else if (Misc.isAutomated(fleetMember))
-				skillPool.add(Skills.GUNNERY_IMPLANTS);
+				skillPool.addLast(Skills.GUNNERY_IMPLANTS);
 			
-			if (hullId.equals("espc_observer") || hullId.equals("brilliant") || hullId.equals("espc_chorale")) {
-				skillPool.add(Skills.ENERGY_WEAPON_MASTERY);
-				if (hullId.equals("brilliant"))
+			if (hullId.equals("espc_observer") || hullId.equals("brilliant_espc") || hullId.equals("espc_chorale")) {
+				skillPool.addLast(Skills.ENERGY_WEAPON_MASTERY);
+				if (hullId.equals("brilliant_espc"))
 					skillPool.remove(Skills.POINT_DEFENSE);
 			}
 		}
@@ -338,7 +338,7 @@ public class espc_PactFleetSpawnListener extends BaseCampaignEventListener {
 				}
 				for (String skill : usedFirst ? grabBag2 : grabBag)
 					if (person.getStats().getSkillLevel(skill) <= 0f)
-						skillPool.add(skill);
+						skillPool.addLast(skill);
 				usedFirst = true;
 			}
 			
@@ -346,14 +346,14 @@ public class espc_PactFleetSpawnListener extends BaseCampaignEventListener {
 			if (prioritySkills.size() > 0) {
 				String skill = prioritySkills.removeFirst();
 				if (!skillPool.contains(skill))
-					skillPool.add(skill);
+					skillPool.addLast(skill);
 				rand = skillPool.indexOf(skill);
 			}
 			person.getStats().setSkillLevel(skillPool.get(rand), elitePoints > 0 ? 2 : 1);
 			if (skillPool.get(rand).equals(Skills.HELMSMANSHIP) && 
 				!skillPool.contains("espc_dancing_steps") &&
 				person.getStats().getSkillLevel("espc_dancing_steps") <= 0f) {
-				skillPool.add("espc_dancing_steps");
+				skillPool.addLast("espc_dancing_steps");
 			}
 			elitePoints--;
 			skillPool.remove(rand);

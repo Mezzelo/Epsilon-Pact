@@ -13,6 +13,7 @@ import com.fs.starfarer.api.combat.ShipAPI;
 import com.fs.starfarer.api.combat.ViewportAPI;
 import com.fs.starfarer.api.combat.WeaponAPI;
 import com.fs.starfarer.api.combat.ShipAPI.HullSize;
+import com.fs.starfarer.api.combat.ShipCommand;
 import com.fs.starfarer.api.combat.ShipwideAIFlags.AIFlags;
 import com.fs.starfarer.api.combat.WeaponAPI.AIHints;
 import com.fs.starfarer.api.combat.WeaponAPI.WeaponSize;
@@ -27,7 +28,7 @@ import data.scripts.util.MezzUtils;
 import java.awt.Color;
 import java.util.ArrayDeque;
 import java.util.Iterator;
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -52,7 +53,8 @@ public class espc_InverseSkimmerPlugin extends BaseEveryFrameCombatPlugin {
 
 	private static final float PORTAL_LENGTH = 25f;
 	private static final float PORTAL_HEIGHT = 35f;
-	private static final float FIGHTER_DELAY_INTERVAL = 0.2f;
+	private static final float FIGHTER_DELAY_INTERVAL = 1.0f;
+	private static final float FIGHTER_DELAY_INTERVAL_MIN = 0.05f;
 	
 	private ShipAPI ship;
 	private CombatEngineAPI engine;
@@ -73,9 +75,9 @@ public class espc_InverseSkimmerPlugin extends BaseEveryFrameCombatPlugin {
 		public boolean pdOnly = false;
 		public ArrayDeque<WeaponAPI> weapons;
 		public ArrayDeque<WeaponAPI> missiles;
-		public LinkedList<String> weaponIds;
-		public LinkedList<Vector2f> portals;
-		public LinkedList<Float> portalRots;
+		public ArrayList<String> weaponIds;
+		public ArrayList<Vector2f> portals;
+		public ArrayList<Float> portalRots;
 		public Long randSeed;
 		
 		private SkimmerSummonInstance(ShipAPI allyShip) {
@@ -84,24 +86,22 @@ public class espc_InverseSkimmerPlugin extends BaseEveryFrameCombatPlugin {
 			this.delay = AI_FORCEFIRE_DELAY + Misc.random.nextFloat() * AI_FORCEFIRE_DELAY;
 			this.weapons = new ArrayDeque<WeaponAPI>();
 			this.missiles = new ArrayDeque<WeaponAPI>();
-			this.weaponIds = new LinkedList<String>();
-			this.portals = new LinkedList<Vector2f>();
-			this.portalRots = new LinkedList<Float>();
+			this.weaponIds = new ArrayList<String>();
+			this.portals = new ArrayList<Vector2f>();
+			this.portalRots = new ArrayList<Float>();
 			this.randSeed = Misc.random.nextLong();
 			
-			// TODO: test w/ ships that would have no portals.  missiles only included
-			// test w/ slamfire ai
 			for (WeaponAPI wep : ally.getAllWeapons()) {
 				if (!wep.isDecorative() && !wep.isBeam() && !wep.getSlot().isSystemSlot())
 					if (wep.getType().equals(WeaponType.MISSILE) && wep.getDamageType() != DamageType.KINETIC
 						&& wep.getDamageType() != DamageType.OTHER)
-						missiles.add(wep);
+						missiles.addLast(wep);
 					else if (!(wep.hasAIHint(AIHints.PD) && !wep.hasAIHint(AIHints.PD_ALSO))) {
+						weapons.addLast(wep);
 						if (wep.getSize().equals(WeaponSize.LARGE))
 							weaponIds.add(wep.getSlot().getId());
 						else if (!weaponIds.contains(wep.getSpec().getWeaponId()))
 							weaponIds.add(wep.getSpec().getWeaponId());
-						weapons.add(wep);
 					}
 			}
 			if (weapons.size() == 0) {
@@ -111,13 +111,13 @@ public class espc_InverseSkimmerPlugin extends BaseEveryFrameCombatPlugin {
 						if (wep.getType().equals(WeaponType.MISSILE) && !missiles.contains(wep)
 							&& wep.getDamageType() != DamageType.KINETIC
 							&& wep.getDamageType() != DamageType.OTHER)
-							missiles.add(wep);
+							missiles.addLast(wep);
 						else if (!wep.getType().equals(WeaponType.MISSILE)) {
+							weapons.addLast(wep);
 							if (wep.getSize().equals(WeaponSize.LARGE))
 								weaponIds.add(wep.getId());
 							else if (!weaponIds.contains(wep.getSpec().getWeaponId()))
 								weaponIds.add(wep.getSpec().getWeaponId());
-							weapons.add(wep);
 						}
 				}
 			}
@@ -149,16 +149,17 @@ public class espc_InverseSkimmerPlugin extends BaseEveryFrameCombatPlugin {
 	public void addAlly(ShipAPI ally) {
 		fighterIds.clear();
 		SkimmerSummonInstance summon = new SkimmerSummonInstance(ally);
-		if (summon.weapons.size() > 0)
-			allies.add(summon);
+		if (summon.weapons.size() > 0) {
+			allies.addLast(summon);
 	    	ally.setCustomData("espc_InverseSkimmer_Ally", true);
+		}
 	}
 	
 	public ShipAPI getBestTarget() {
 		ShipAPI targ = ship.getShipTarget();
 		if (targ != null) {
     		if (ship.getOwner() == targ.getOwner() || targ.isFighter()
-    			|| !targ.isAlive() || targ.isHulk() || targ.isPhased())
+    			|| !targ.isAlive() || targ.isHulk() || (targ.isPhased() && targ.getHardFluxLevel() < 0.5f))
         		targ = null;
     		else {
     			Vector2f ray = new Vector2f(
@@ -179,7 +180,7 @@ public class espc_InverseSkimmerPlugin extends BaseEveryFrameCombatPlugin {
 				if (test instanceof ShipAPI) {
 					targ = (ShipAPI) test;
 		    		if (ship.getOwner() == targ.getOwner() || targ.isFighter()
-		    			|| !targ.isAlive() || targ.isHulk() || targ.isPhased())
+		    			|| !targ.isAlive() || targ.isHulk() || (targ.isPhased() && targ.getHardFluxLevel() < 0.5f))
 		        		targ = null;
 		    		else {
 		    			Vector2f ray = new Vector2f(
@@ -208,8 +209,8 @@ public class espc_InverseSkimmerPlugin extends BaseEveryFrameCombatPlugin {
         			ShipAPI currShip = (ShipAPI) shipGridIterator.next();
         			if (currShip.isShuttlePod() || currShip == ship || currShip.hasTag(Tags.VARIANT_FX_DRONE)
         				|| currShip.isFighter()
-        				|| (currShip.getHullSize().equals(HullSize.FRIGATE) && !isCapital)
-        				|| currShip.isPhased())
+        				|| (currShip.getHullSize().equals(HullSize.FRIGATE) && isCapital)
+        				|| (currShip.isPhased() && currShip.getHardFluxLevel() < 0.5f))
         				continue;
         			if (CollisionUtils.getCollides(ship.getLocation(), 
         				new Vector2f(ship.getLocation().x + ray.x, ship.getLocation().y + ray.y),
@@ -233,7 +234,7 @@ public class espc_InverseSkimmerPlugin extends BaseEveryFrameCombatPlugin {
 	public void calculatePortals(float time) {
 		// max width: 320
 		int portalCount = 0;
-		LinkedList<Integer> portalIndexes = new LinkedList<Integer>();
+		ArrayList<Integer> portalIndexes = new ArrayList<Integer>();
 		for (SkimmerSummonInstance ally : allies)
 			if (ally.startTime == time)
 				portalCount += ally.weaponIds.size();
@@ -242,7 +243,9 @@ public class espc_InverseSkimmerPlugin extends BaseEveryFrameCombatPlugin {
 			portalIndexes.add(i);
 		
 		for (SkimmerSummonInstance ally : allies)
-			if (ally.startTime == time)
+			if (ally.startTime == time) {
+				ally.portals.clear();
+				ally.portalRots.clear();
 				for (int i = 0; i < ally.weaponIds.size(); i++) {
 					int index = portalIndexes.remove(Misc.random.nextInt(portalIndexes.size()));
 					float x = (index - 
@@ -256,6 +259,8 @@ public class espc_InverseSkimmerPlugin extends BaseEveryFrameCombatPlugin {
 							x));
 					ally.portalRots.add(x * 0.04f);
 				}
+			}
+
 	}
 	
 	public void cancelSystem() {
@@ -263,6 +268,14 @@ public class espc_InverseSkimmerPlugin extends BaseEveryFrameCombatPlugin {
 	    boolean anyRemove = false;
     	for (SkimmerSummonInstance ally : allies) {
     		anyRemove = true;
+    		for (WeaponAPI weapon : ally.weapons) {
+    			if (weapon.isFiring()) {
+    				weapon.stopFiring();
+    				weapon.setForceNoFireOneFrame(true);
+    				if (weapon.getCooldown() > 0f)
+    					weapon.setRemainingCooldownTo(weapon.getCooldownRemaining());
+    			}
+    		}
     		ally.ally.removeCustomData("espc_InverseSkimmer_Ally");
     		for (Vector2f pos : ally.portals) {
 				engine.addHitParticle(
@@ -308,7 +321,7 @@ public class espc_InverseSkimmerPlugin extends BaseEveryFrameCombatPlugin {
     @Override
 	public void advance(float amount, List<InputEventAPI> events) {
     	
-    	if (ship == null || !engine.isInPlay(ship)) {
+    	if (ship == null || !engine.isEntityInPlay(ship)) {
 			engine.removePlugin(this);
 			return;
     	}
@@ -323,7 +336,7 @@ public class espc_InverseSkimmerPlugin extends BaseEveryFrameCombatPlugin {
     	if (fighterDelay > 0f)
     		fighterDelay -= amount;
     	
-    	boolean shouldAutofire = targ != null;
+    	boolean shouldAutofire = targ != null && ship.getSystem().isActive();
     	if (shouldAutofire) {
     		Vector2f ray = Vector2f.sub(targ.getLocation(), ship.getLocation(), new Vector2f());
     		Iterator<Object> shipGridIterator = (Iterator<Object>) (engine.getAiGridShips().getCheckIterator(
@@ -338,10 +351,10 @@ public class espc_InverseSkimmerPlugin extends BaseEveryFrameCombatPlugin {
     			if (currShip.isShuttlePod() || currShip == ship || currShip.hasTag(Tags.VARIANT_FX_DRONE)
     				|| currShip.getOwner() != ship.getOwner()
     				|| currShip.isFighter()
-    				|| (currShip.getHullSize().equals(HullSize.FRIGATE) && !isCapital)
+    				|| (currShip.getHullSize().equals(HullSize.FRIGATE) && isCapital)
     				// we don't really want to waste flux on shooting hulks.  probably.
     				|| currShip.isHulk() || !currShip.isAlive()
-    				|| currShip.isPhased())
+    				|| (currShip.isPhased() && currShip.getHardFluxLevel() < 0.5f))
     				continue;
     			if (CollisionUtils.getCollides(ship.getLocation(), 
         			targ.getLocation(),
@@ -353,11 +366,21 @@ public class espc_InverseSkimmerPlugin extends BaseEveryFrameCombatPlugin {
     	boolean anyRemove = false;
     	Iterator<SkimmerSummonInstance> allyIter = allies.iterator();
     	while (allyIter.hasNext()) {
+    		// TODO: early cancel if ally fails null/alive checks, use an int to store state so you don't remove customdata
+    		// on a null entity/don't have to dupe portal closing fx.  you can also remove later redundant ally null checks.
     		SkimmerSummonInstance ally = allyIter.next();
 
         	if (cancelSystem || engine.getTotalElapsedTime(false) - ally.startTime > 
         	(isCapital ? DURATION_CAPITAL : DURATION)) {
     		    ally.ally.removeCustomData("espc_InverseSkimmer_Ally");
+        		for (WeaponAPI weapon : ally.weapons) {
+        			if (weapon.isFiring()) {
+        				weapon.stopFiring();
+        				weapon.setForceNoFireOneFrame(true);
+        				if (weapon.getCooldown() > 0f)
+        					weapon.setRemainingCooldownTo(weapon.getCooldownRemaining());
+        			}
+        		}
     		    for (Vector2f pos : ally.portals) {
 					engine.addHitParticle(
 						new Vector2f(ship.getLocation().x + 
@@ -404,12 +427,6 @@ public class espc_InverseSkimmerPlugin extends BaseEveryFrameCombatPlugin {
     		if (ally.ally.getFluxTracker().isOverloadedOrVenting() || ally.ally.isPhased())
     			return;
         	
-        	if (ally.shouldUseSystem && engine.getTotalElapsedTime(false) >= ally.startTime + ally.delay &&
-        		ally.ally.getSystem().canBeActivated()) {
-        		ally.ally.useSystem();
-        		ally.shouldUseSystem = false;
-        	}
-        	
         	if (engine.getTotalElapsedTime(false) < ally.startTime + (isCapital ? START_DURATION_CAPITAL : START_DURATION))
         		continue;
         	
@@ -428,6 +445,18 @@ public class espc_InverseSkimmerPlugin extends BaseEveryFrameCombatPlugin {
     					(ship.getShieldRadiusEvenIfNoShield() + 250f) * 
     					(ship.getShieldRadiusEvenIfNoShield() + 250f) &&
     					!fighterIds.contains(checkShip.getId())) {
+    						if (checkShip.getOwner() == ship.getOwner()) {
+    							if (checkShip.getWing() != null &&
+    								checkShip.getWing().getSourceShip() != null &&
+    								checkShip.getWing().getSourceShip().isPullBackFighters())
+    								continue;
+    							fighterIds.addLast(checkShip.getId());
+    							// don't teleport 
+    							if (checkShip.getWing() != null && checkShip.getWing().getRange() <= 0f)
+    								continue;
+    						}
+    						else if (checkShip.getEngineController() != null)
+    								checkShip.getEngineController().forceFlameout();
     						int portalIndex = Misc.random.nextInt(ally.portals.size());
     						Vector2f spawnPos = new Vector2f(ship.getLocation().x + 
         	    				(float) FastTrig.cos(Math.toRadians(ship.getFacing())) * 
@@ -439,6 +468,8 @@ public class espc_InverseSkimmerPlugin extends BaseEveryFrameCombatPlugin {
         	    				ally.portals.get(portalIndex).y +
         	    				(float) FastTrig.sin(Math.toRadians(ship.getFacing())) * 
         	    				ally.portals.get(portalIndex).x);
+        					Global.getSoundPlayer().playSound("system_phase_skimmer", 
+            						1f, 0.45f, checkShip.getLocation(), checkShip.getVelocity());
     						engine.addHitParticle(
     							checkShip.getLocation(),
 								ship.getVelocity(),
@@ -482,13 +513,8 @@ public class espc_InverseSkimmerPlugin extends BaseEveryFrameCombatPlugin {
 
         					Global.getSoundPlayer().playSound("system_phase_skimmer", 
         						1f, 0.25f, checkShip.getLocation(), checkShip.getVelocity());
-        					
-    						if (checkShip.getOwner() == ship.getOwner())
-    							fighterIds.add(checkShip.getId());
-    						else if (checkShip.getEngineController() != null)
-    								checkShip.getEngineController().forceFlameout();
     						
-    						fighterDelay = Misc.random.nextFloat() * FIGHTER_DELAY_INTERVAL - 0.04f;
+    						fighterDelay = Misc.random.nextFloat() * FIGHTER_DELAY_INTERVAL + FIGHTER_DELAY_INTERVAL_MIN;
     					}
     				}
     				continue;
@@ -499,7 +525,7 @@ public class espc_InverseSkimmerPlugin extends BaseEveryFrameCombatPlugin {
     				thisProj.getVelocity().lengthSquared() < 4500 * 4500) ||
     				thisProj.getElapsed() > 0.2f)
     				continue;
-    			if (engine.isInPlay(thisProj) && 
+    			if (engine.isEntityInPlay(thisProj) && 
     				thisProj.getSource().equals(ally.ally) &&
     				!thisProj.didDamage() && !thisProj.isExpired() && thisProj.getWeapon() != null &&
     				!thisProj.getCustomData().containsKey("espc_InverseSkimmer_Proj")) {
@@ -554,9 +580,9 @@ public class espc_InverseSkimmerPlugin extends BaseEveryFrameCombatPlugin {
     							ally.ally, 
     							thisProj.getWeapon(),
     							thisProj.getWeapon().getId(),
-    							spawnPos, 
+    							spawnPos,
     							facing, 
-    							ship.getVelocity());
+    							Misc.ZERO);
     						
     						spawnProj.setDamageAmount(thisProj.getDamageAmount());
     						spawnProj.setHitpoints(thisProj.getHitpoints());
@@ -631,15 +657,30 @@ public class espc_InverseSkimmerPlugin extends BaseEveryFrameCombatPlugin {
     		}
         	
     		// a lot of these autofire checks are already done/implicit to targ != null
-        	if (engine.getTotalElapsedTime(false) >= ally.startTime + (isCapital ? START_DURATION_CAPITAL : START_DURATION) &&
+        	if (engine.getTotalElapsedTime(false) >= ally.startTime + (isCapital ? START_DURATION_CAPITAL : START_DURATION) 
+        		+ ally.delay &&
         		ally.ally.getShipAI() != null && targ != null &&
-        		!targ.isPhased() && targ.isAlive() && !targ.isHulk()) {
+        		!(targ.isPhased() && targ.getHardFluxLevel() < 0.5f) && targ.isAlive() && !targ.isHulk()) {
         		if (ally.ally.getFluxLevel() < ALLY_FLUX_THRESHOLD && 
         		ally.ally.getHardFluxLevel() < ALLY_HARDFLUX_THRESHOLD &&
-        		shouldAutofire)
-	    	    	for (WeaponAPI wep : ally.weapons)
-	    	    		if (MathUtils.isWithinRange(ship, targ, wep.getRange()))
+        		shouldAutofire) {
+            		ally.ally.blockCommandForOneFrame(ShipCommand.VENT_FLUX);
+        			boolean anyFired = false;
+	    	    	for (WeaponAPI wep : ally.weapons) {
+	    	    		if (MathUtils.isWithinRange(ship, targ, wep.getRange() / 1.05f)) {
 	    	    			wep.setForceFireOneFrame(true);
+	    	    			anyFired = true;
+	    	    		} else if (MathUtils.isWithinRange(ship, targ, wep.getRange() / 1.15f)) {
+	    	    			anyFired = true;
+	    	    		} 
+	    	    	}
+
+	    	    	// engine.getTotalElapsedTime(false) >= ally.startTime + ally.delay
+                	if (anyFired && ally.shouldUseSystem && ally.ally.getSystem().canBeActivated()) {
+                		ally.ally.useSystem();
+                		ally.shouldUseSystem = false;
+                	}
+        		}
         		// only consider for missiles it wouldn't bother firing itself, due to being out of range
         		if (targ.getFluxTracker().isOverloadedOrVenting())
 	    	    	for (WeaponAPI wep : ally.missiles)
@@ -652,7 +693,7 @@ public class espc_InverseSkimmerPlugin extends BaseEveryFrameCombatPlugin {
         	}
         	
     	}
-    	if (anyRemove && ship != null && engine.isInPlay(ship))
+    	if (anyRemove && ship != null && engine.isEntityInPlay(ship))
 			Global.getSoundPlayer().playSound("system_phase_skimmer", 1f, 1f, ship.getLocation(), ship.getVelocity());
     	if (toRemove)
 			engine.removePlugin(this);
@@ -661,7 +702,7 @@ public class espc_InverseSkimmerPlugin extends BaseEveryFrameCombatPlugin {
     	
     @Override
     public void renderInWorldCoords(ViewportAPI viewport) {
-        if (ship == null || !engine.isInPlay(ship))
+        if (ship == null || !engine.isEntityInPlay(ship))
         	return;
         
         float time = engine.getTotalElapsedTime(false);
@@ -678,6 +719,8 @@ public class espc_InverseSkimmerPlugin extends BaseEveryFrameCombatPlugin {
 		SpriteAPI sprite2 = Global.getSettings().getSprite("systemMap", "radar_entity");
 		
 		for (SkimmerSummonInstance ally : allies) {
+			if (!engine.getViewport().isNearViewport(ally.ally.getLocation(), 2000f))
+				continue;
 			float duration = (isCapital ? START_DURATION_CAPITAL : START_DURATION);
 			
 			float pTime = time - ally.startTime;

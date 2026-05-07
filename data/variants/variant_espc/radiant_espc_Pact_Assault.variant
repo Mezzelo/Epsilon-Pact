@@ -1,13 +1,14 @@
 {
-  "variantId": "radiant_espc_Pact_Attack",
+  "variantId": "radiant_espc_Pact_Assault",
   "hullId": "radiant_espc",
-  "displayName": "Attack",
+  "displayName": "Assault",
   "goalVariant": false,
-    "fluxCapacitors": 46,
-    "fluxVents": 50,
+    "fluxCapacitors": 30,
+    "fluxVents": 45,
   "quality": 1,
   "permaMods": [],
   "hullMods": [
+		"auxiliarythrusters",
         "targetingunit",
         "stabilizedshieldemitter",
         "hardenedshieldemitter"
@@ -16,42 +17,42 @@
         {
             "autofire": true,
             "mode": "LINKED",
-            "weapons": {"WS 000": "plasma"}
-        },
-        {
-            "autofire": true,
-            "mode": "LINKED",
-            "weapons": {"WS 001": "tachyonlance"}
-        },
-        {
-            "autofire": true,
-            "mode": "LINKED",
-            "weapons": {"WS 003": "espc_riftpike"}
-        },
-        {
-            "autofire": true,
-            "mode": "ALTERNATING",
             "weapons": {
-                "WS 002": "locust",
-                "WS 004": "locust"
-            }
-        },
-        {
-            "autofire": false,
-            "mode": "ALTERNATING",
-            "weapons": {
-                "WS 005": "espc_finnegan",
-                "WS 008": "espc_finnegan"
+                "WS 005": "espc_fission",
+                "WS 006": "espc_fission",
+                "WS 007": "espc_fission",
+                "WS 008": "espc_fission"
             }
         },
         {
             "autofire": true,
             "mode": "LINKED",
             "weapons": {
-                "WS 010": "pdlaser",
+                "WS 000": "autopulse",
+                "WS 001": "autopulse"
+            }
+        },
+        {
+            "autofire": true,
+            "mode": "LINKED",
+            "weapons": {
+                "WS 002": "tachyonlance",
+                "WS 004": "tachyonlance"
+            }
+        },
+        {
+            "autofire": true,
+            "mode": "LINKED",
+            "weapons": {"WS 003": "guardian"}
+        },
+        {
+            "autofire": true,
+            "mode": "LINKED",
+            "weapons": {
+                "WS 010": "pdburst",
                 "WS 012": "ioncannon",
                 "WS 015": "ioncannon",
-                "WS 017": "pdlaser"
+                "WS 017": "pdburst"
             }
         }
     ],

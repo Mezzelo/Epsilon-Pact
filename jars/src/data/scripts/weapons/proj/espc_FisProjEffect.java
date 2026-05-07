@@ -1,12 +1,14 @@
 package data.scripts.weapons.proj;
 
+import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.combat.*;
 import com.fs.starfarer.api.combat.listeners.ApplyDamageResultAPI;
 import com.fs.starfarer.api.loading.DamagingExplosionSpec;
-
+import com.fs.starfarer.api.util.Misc;
 
 import java.awt.Color;
 import org.lwjgl.util.vector.Vector2f;
+import org.magiclib.util.MagicRender;
 import org.lazywizard.lazylib.MathUtils;
 
 import data.scripts.plugin.espc_DamageListener;
@@ -27,7 +29,15 @@ public class espc_FisProjEffect implements OnHitEffectPlugin, OnFireEffectPlugin
 	// (and to get the glViewport setup)
     @Override
     public void onFire(DamagingProjectileAPI proj, WeaponAPI weapon, CombatEngineAPI engine) {
-        engine.addPlugin(new espc_FisProjVFX(proj));
+    	if (weapon.getShip() != null) {
+    		if (!weapon.getShip().getCustomData().containsKey("espc_FisProjPlugin")) {
+    			espc_FisProjVFX plugin = new espc_FisProjVFX(weapon.getShip());
+    	        engine.addPlugin(plugin);
+    	        weapon.getShip().setCustomData("espc_FisProjPlugin", plugin);
+    	        plugin.addProj(proj);
+    		} else
+        		((espc_FisProjVFX) weapon.getShip().getCustomData().get("espc_FisProjPlugin")).addProj(proj);
+    	}
 		
 		if (!weapon.getShip().hasListenerOfClass(espc_DamageListener.class))
 			weapon.getShip().addListener(new espc_DamageListener());
@@ -76,8 +86,8 @@ public class espc_FisProjEffect implements OnHitEffectPlugin, OnFireEffectPlugin
 						FIS_EXPLOSION_RADIUS / 1.5f, // core radius, max -> min falloff
 						dmg * FIS_EXPLOSION_DAMAGE_MULT,
 						dmg * FIS_EXPLOSION_DAMAGE_MULT / 1.5f,
-						clash ? CollisionClass.HITS_SHIPS_AND_ASTEROIDS : CollisionClass.PROJECTILE_FF,
-						clash ? CollisionClass.HITS_SHIPS_AND_ASTEROIDS : CollisionClass.PROJECTILE_FIGHTER,
+						clash ? CollisionClass.PROJECTILE_FF : CollisionClass.PROJECTILE_FF,
+						clash ? CollisionClass.PROJECTILE_FIGHTER : CollisionClass.PROJECTILE_FIGHTER,
 						7f, // min particle size
 						4f, // particle size range
 						2.0f, // particle duration
@@ -97,6 +107,20 @@ public class espc_FisProjEffect implements OnHitEffectPlugin, OnFireEffectPlugin
 						proj.getSource(), MathUtils.getMidpoint(proj.getLocation(), (Vector2f) engine.getCustomData().get(("espc_fisLoc" + i))),
 						clash
 					);
+			        MagicRender.battlespace(
+				    	Global.getSettings().getSprite("fx", "espc_explosionring"),
+				    	point,
+				    	Misc.ZERO,
+				    	new Vector2f(15f, 15f),
+				    	new Vector2f(2600f, 2600f),
+				    	0f,
+				    	0f,
+				    	new Color(150, 100, 255, 80),
+				    	true,
+				    	0.0f,
+				    	0.02f,
+				    	0.14f
+				    );
 					
 					engine.getCustomData().remove("espc_fisTime" + i);
 					engine.getCustomData().remove("espc_fisDmg" + i);

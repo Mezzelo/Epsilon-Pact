@@ -28,10 +28,9 @@ public class espc_ArcFlakEffect implements OnFireEffectPlugin, WeaponEffectPlugi
 	OnHitEffectPlugin{
 	
 	private static final float EXPLOSION_RADIUS = 50f;
-	private static final float EXPLOSION_DAMAGE = 20f;
+	private static final float EXPLOSION_DAMAGE = 25f;
 	private static final float EMP_DAMAGE = 50f;
-	private static final float DAMAGE_DIRECT = 30f;
-	private static final float EMP_DAMAGE_DIRECT = 50f;
+	private static final float EMP_DAMAGE_DIRECT = 25f;
 	
 	public ArrayDeque<ArcFlakProj> shots;
 	
@@ -61,7 +60,7 @@ public class espc_ArcFlakEffect implements OnFireEffectPlugin, WeaponEffectPlugi
         Iterator<ArcFlakProj> iter = shots.iterator();
         while (iter.hasNext()) {
         	ArcFlakProj proj = iter.next();
-        	if (!engine.isInPlay(proj.projectile) && proj.lifetime > 0.05f) {
+        	if (!engine.isEntityInPlay(proj.projectile) && proj.lifetime > 0.05f) {
         		Iterator<Object> empIter = Global.getCombatEngine().getAllObjectGrid().getCheckIterator(
         			proj.lastPos, EXPLOSION_RADIUS * 2f, EXPLOSION_RADIUS * 2f);
         		while (empIter.hasNext()) {
@@ -149,7 +148,7 @@ public class espc_ArcFlakEffect implements OnFireEffectPlugin, WeaponEffectPlugi
     @Override
     public void onFire(DamagingProjectileAPI proj, WeaponAPI weapon, CombatEngineAPI engine) {
     	proj.getVelocity().scale(Misc.random.nextFloat() * 0.2f + 0.9f);
-    	shots.add(new ArcFlakProj(proj, weapon.getRange()));
+    	shots.addLast(new ArcFlakProj(proj, weapon.getRange()));
     }
 
 	@Override
@@ -160,8 +159,8 @@ public class espc_ArcFlakEffect implements OnFireEffectPlugin, WeaponEffectPlugi
 		if (target instanceof MissileAPI || (target instanceof ShipAPI) && ((ShipAPI) target).isFighter())
 			engine.applyDamage(
     		(CombatEntityAPI) target, 
-    		point, target instanceof MissileAPI ? DAMAGE_DIRECT : 0f, DamageType.KINETIC, 
-    		EMP_DAMAGE_DIRECT + (target instanceof MissileAPI ? 20f + EMP_DAMAGE_DIRECT : 0f), 
+    		point, target instanceof MissileAPI ? projectile.getDamageAmount() : 0f, DamageType.KINETIC, 
+    		EMP_DAMAGE_DIRECT + (target instanceof MissileAPI ? projectile.getEmpAmount() + EMP_DAMAGE_DIRECT : 0f), 
     		false, false, projectile.getWeapon());
 		espc_ArcFlakEffect plugin = (espc_ArcFlakEffect) projectile.getWeapon().getEffectPlugin();
         Iterator<ArcFlakProj> iter = plugin.shots.iterator();

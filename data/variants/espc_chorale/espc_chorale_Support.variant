@@ -3,8 +3,8 @@
   "hullId": "espc_chorale",
   "displayName": "Support",
   "goalVariant": false,
-  "fluxCapacitors": 23,
-  "fluxVents": 30,
+  "fluxCapacitors": 20,
+  "fluxVents": 28,
   "quality": 1,
   "permaMods": [],
   "hullMods": [
@@ -38,14 +38,14 @@
       "autofire": true,
       "mode": "LINKED",
       "weapons": {
-        "WS 007": "heavyblaster"
+        "WS 007": "espc_heavyionresonator"
       }
     },
     {
       "autofire": true,
       "mode": "LINKED",
       "weapons": {
-        "WS 008": "heavyburst",
+        "WS 008": "espc_heavyionresonator",
         "WS 010": "vulcan"
       }
     }

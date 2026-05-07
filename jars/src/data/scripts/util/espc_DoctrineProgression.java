@@ -47,9 +47,10 @@ public class espc_DoctrineProgression {
 				"glimmer", "lumen_espc", "fulgent_espc", "scintilla_espc", "brilliant_espc", "apex", "nova_espc", "radiant_espc",
 				"jackalope", "songbird", "flagbearer", "militia", "ember", "pilgrim", "observer", "chorale", "amanuensis", 
 				"anubis", "wolf_espc"}, 
-			new String[] {"hveldriver", "heavymauler", "hil"}, 
+			new String[] {"hveldriver", "heavymauler", "heavyblaster", "hil", "locust"}, 
 			new String[] {"espc_riftspear", "espc_riftpike", "espc_fission", "espc_mkl", "espc_flak",
-				"espc_aa", "espc_remdriver", "espc_remmortar", "espc_minimir", "espc_minimirdual", "espc_gatling"}, 
+				"espc_arcscatter", "espc_ionresonator", "espc_heavyionresonator",
+				"espc_aa", "espc_remdriver", "espc_remmortar", "espc_minimir", "espc_minimirdual", "espc_gatling", "espc_autocannon"}, 
 			new HashMap<String, Float>() { {
 				put("lasher_espc_Strike", 0.0f);
 				put("lasher_espc_Strike_Dated", 8.0f);
@@ -82,18 +83,20 @@ public class espc_DoctrineProgression {
 				put("espc_militia_Support", 0.0f);
 				put("espc_militia_Standard_Common", 5.0f);
 				put("espc_militia_Support_Common", 5.0f);
-				put("espc_jackalope_Escort", 2.0f);
+				put("espc_jackalope_Standard", 3.0f);
+				put("espc_jackalope_Escort", 1.0f);
 				put("espc_jackalope_Escort_Pact", 0.0f);
-				put("espc_jackalope_Anti_Armor", 3.0f);
 				put("espc_jackalope_Anti_Armor_Pact", 0.0f);
+				put("espc_jackalope_Anti_Shield", 3.0f);
 				put("espc_jackalope_Strike", 0.0f);
+				put("espc_jackalope_Support", 0.0f);
 				}
 			}
 		));
 		knowledge.put(12, new DoctrineShift(
 			new String[] {"pilgrim", "chorale", "ember"}, 
 			new String[] {"mule"}, 
-			null,
+			new String[] {"espc_gatling"},
 			null,
 			new HashMap<String, Float>() { {
 				put("espc_pilgrim_Assault_Common", 3.0f);
@@ -105,14 +108,15 @@ public class espc_DoctrineProgression {
 				put("espc_pilgrim_Strike", 0.0f);
 				put("espc_pilgrim_Support", 0.0f);
 				
-				put("espc_chorale_Common", 2.0f);
+				put("espc_chorale_Common", 3.0f);
 				put("espc_chorale_Assault", 0.0f);
 				put("espc_chorale_Elite_Support", 0.0f);
 				put("espc_chorale_Elite", 0.0f);
-				put("espc_chorale_Strike", 1.0f);
+				put("espc_chorale_Strike", 0.0f);
 				put("espc_chorale_Support", 0.0f);
 				put("espc_chorale_Suppressive", 0.0f);
 				put("espc_chorale_Suppressive_Common", 1.0f);
+				put("espc_jackalope_Support", 2.0f);
 				}
 			}
 		));
@@ -120,18 +124,18 @@ public class espc_DoctrineProgression {
 			new String[] {"songbird", "anubis",
 			"espc_picket", "espc_warden"}, 
 			new String[] {"dram"}, 
-			new String[] {"espc_remdriver", "espc_remmortar", "espc_flak"},
+			new String[] {"espc_remdriver", "espc_remmortar", "espc_flak", "espc_ionresonator"},
 			new String[] {"hveldriver", "heavymauler"}, 
 			new HashMap<String, Float>() { {
-				put("espc_picket_Anti_Armor", 0.0f);
-				put("espc_picket_Strike", 10.0f);
 				put("espc_picket_Anti_Armor", 4.0f);
 				put("espc_picket_Strike", 6.0f);
+				put("espc_picket_Suppressive", 0.0f);
 				
 				put("espc_warden_Assault", 0.0f);
-				put("espc_warden_Attack", 2.0f);
-				put("espc_warden_Strike", 2.0f);
-				put("espc_warden_Ranged", 2.0f);
+				put("espc_warden_Attack", 0.0f);
+				put("espc_warden_Strike", 5.0f);
+				put("espc_warden_Support", 0.0f);
+				put("espc_warden_Ranged", 5.0f);
 				
 				put("espc_rondel_Standard", 5.0f);
 				put("espc_rondel_Anti_Shield", 5.0f);
@@ -150,7 +154,6 @@ public class espc_DoctrineProgression {
 				put("espc_pilgrim_Assault", 3.0f);
 				put("espc_pilgrim_Escort", 2.0f);
 				
-				put("espc_chorale_Common", 0.0f);
 				put("espc_chorale_Suppressive", 1.0f);
 				put("espc_chorale_Suppressive_Common", 0.0f);
 				}
@@ -160,25 +163,31 @@ public class espc_DoctrineProgression {
 			new String[] {"flagbearer", "observer", "wolf_espc",
 			"espc_sentry", "espc_bastillon", "espc_berserker", "glimmer", "lumen_espc"}, 
 			new String[] {"wolf", "brawler", "tempest"}, 
-			new String[] {"espc_riftspear", "espc_minimir", "espc_minimirdual", "espc_mkl", "espc_gatling"},
-			null, 
+			new String[] {"espc_riftspear", "espc_minimir", "espc_minimirdual", "espc_mkl", "espc_autocannon"},
+			null,
 			new HashMap<String, Float>() { {
-				put("espc_picket_Anti_Armor", 4.0f);
-				put("espc_picket_Strike", 6.0f);
-				
 				put("lasher_espc_Strike", 8.0f);
 				put("lasher_espc_Strike_Dated", 0.0f);
-				
-				put("espc_warden_Assault", 2.0f);
-				put("espc_warden_Support", 2.0f);
+
+				put("espc_warden_Assault", 3.0f);
+				put("espc_warden_Attack", 0.0f);
+				put("espc_warden_Strike", 2.0f);
+				put("espc_warden_Support", 3.0f);
+				put("espc_warden_Ranged", 2.0f);
+
+				put("espc_bastillon_Attack", 5.0f);
+				put("espc_bastillon_Assault", 2.0f);
+				put("espc_bastillon_Support", 3.0f);
+				put("espc_bastillon_Suppressive", 0.0f);
 				
 				put("espc_rondel_Standard", 0.0f);
 				put("espc_rondel_Assault", 3.0f);
 				put("espc_rondel_Anti_Shield", 7.0f);
 				
-				put("espc_jackalope_Escort_Pact", 1.0f);
-				put("espc_jackalope_Anti_Armor", 1.0f);
+				put("espc_jackalope_Escort_Pact", 2.0f);
+				put("espc_jackalope_Anti_Armor", 0.0f);
 				put("espc_jackalope_Anti_Armor_Pact", 1.0f);
+				put("espc_jackalope_Anti_Shield", 0.0f);
 				put("espc_jackalope_Strike", 2.0f);
 				
 				put("hammerhead_espc_Elite_Common", 0.0f);
@@ -203,26 +212,44 @@ public class espc_DoctrineProgression {
 				put("espc_observer_Assault", 0.0f);
 				put("espc_observer_Strike", 0.0f);
 				put("espc_observer_Suppressive", 0.0f);
-				
-				put("espc_chorale_Support", 1.0f);
+
+				put("espc_chorale_Common", 0.0f);
+				put("espc_chorale_Strike", 3.0f);
 				}
 			}
 		));
 		knowledge.put(30, new DoctrineShift(
-				new String[] {"espc_rampart", "fulgent_espc", "scintilla_espc"}, 
-				new String[] {"shrike", "eradicator", "champion", "apogee"}, 
-				null,
-				null, 
-				new HashMap<String, Float>() { {
-					}
+			new String[] {"espc_rampart", "fulgent_espc", "scintilla_espc"}, 
+			new String[] {"shrike", "eradicator", "champion", "apogee"}, 
+			new String[] {"espc_arcscatter", "espc_heavyionresonator"},
+			new String[] {"locust"}, 
+			new HashMap<String, Float>() { {
+
+				put("espc_warden_Assault", 2.0f);
+				put("espc_warden_Attack", 2.0f);
+				put("espc_warden_Strike", 2.0f);
+				put("espc_warden_Support", 2.0f);
+				put("espc_warden_Ranged", 2.0f);
+
+				put("espc_bastillon_Attack", 5.0f);
+				put("espc_bastillon_Assault", 0.0f);
+				put("espc_bastillon_Support", 0.0f);
+				put("espc_bastillon_Suppressive", 5.0f);
+				
+				put("espc_picket_Anti_Armor", 3.0f);
+				put("espc_picket_Strike", 3.0f);
+				put("espc_picket_Suppressive", 4.0f);
+				
+				put("espc_chorale_Support", 2.0f);
 				}
-			));
+			}
+		));
 		knowledge.put(36, new DoctrineShift(
 			new String[] {"amanuensis", "brilliant_espc",
 			"apex"}, 
 			new String[] {"fury", "aurora"}, 
 			new String[] {"espc_riftpike", "espc_fission"},
-			null, 
+			new String[] {"heavyblaster", "hil"}, 
 			new HashMap<String, Float>() { {
 				put("sunder_espc_Strike_Common", 0.0f);
 				put("sunder_espc_Support_Common", 0.0f);
@@ -234,10 +261,10 @@ public class espc_DoctrineProgression {
 				put("espc_observer_Strike", 4.0f);
 				put("espc_observer_Suppressive", 2.0f);
 				
-				put("espc_chorale_Assault", 3.0f);
+				put("espc_chorale_Assault", 2.0f);
 				put("espc_chorale_Elite", 1.0f);
-				put("espc_chorale_Elite_Support", 3.0f);
-				}
+				put("espc_chorale_Elite_Support", 2.0f);
+				} 
 			}
 		));
 		knowledge.put(48, new DoctrineShift(

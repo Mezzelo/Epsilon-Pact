@@ -3,7 +3,7 @@
   "hullId": "nova_espc",
   "displayName": "Strike",
   "goalVariant": false,
-    "fluxCapacitors": 5,
+    "fluxCapacitors": 45,
     "fluxVents": 50,
   "quality": 1,
   "permaMods": [],

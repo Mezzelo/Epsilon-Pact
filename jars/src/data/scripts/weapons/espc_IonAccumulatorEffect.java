@@ -32,8 +32,8 @@ public class espc_IonAccumulatorEffect implements OnFireEffectPlugin, EveryFrame
 	OnHitEffectPlugin{
 	
 	private ShipAPI ship;
-	private final static int ACCUMULATION_MAX_MEDIUM = 20;
-	private final static int ACCUMULATION_MAX_SMALL = 10;
+	private final static int ACCUMULATION_MAX_MEDIUM = 10;
+	private final static int ACCUMULATION_MAX_SMALL = 5;
 	private final static float FIRE_DELAY_SMALL = 0.4f;
 	private final static float FIRE_DELAY_MED = 0.4f;
 	private final static float PD_MULT = 0.5f;
@@ -42,7 +42,7 @@ public class espc_IonAccumulatorEffect implements OnFireEffectPlugin, EveryFrame
 	private final static float ARC_PORTION = 0.25f;
 
 	private final static float EMP_MED = 400f;
-	private final static float EMP_SMALL = 300f;
+	private final static float EMP_SMALL = 200f;
 	
 	
 	private int wepSize = 0;
@@ -59,9 +59,22 @@ public class espc_IonAccumulatorEffect implements OnFireEffectPlugin, EveryFrame
 	int accumulationCount = 0;
 	
 	DamagingProjectileAPI lastProj = null;
+	WeaponAPI thisWep;
 
 	ArrayDeque<AccumulatedProj> projs;
-	espc_IonAccumulatorRenderPlugin plugin;
+	espc_IonAccumulatorRenderPlugin plugin = null;
+	
+	public espc_IonAccumulatorRenderPlugin getPlugin() {
+		return plugin;
+	}
+	
+	public WeaponAPI getWeapon() {
+		return thisWep;
+	}
+	
+	public int getCharge() {
+		return accumulationCount;
+	}
 	
 	public class AccumulatedProj {
 		private ShipAPI target;
@@ -134,12 +147,23 @@ public class espc_IonAccumulatorEffect implements OnFireEffectPlugin, EveryFrame
 	
 	@Override
 	public void init(WeaponAPI weapon) {
+		thisWep = weapon;
 		ship = weapon.getShip();
 		if (ship == null)
 			return;
 		
-		plugin = new espc_IonAccumulatorRenderPlugin(this);
-		Global.getCombatEngine().addPlugin(plugin);
+		for (WeaponAPI wep : ship.getAllWeapons()) {
+			if (wep.getEffectPlugin() != null && wep.getEffectPlugin() instanceof espc_IonAccumulatorEffect &&
+				((espc_IonAccumulatorEffect) wep.getEffectPlugin()).getPlugin() != null) {
+				plugin = ((espc_IonAccumulatorEffect) wep.getEffectPlugin()).getPlugin();
+				plugin.addPlugin(this);
+				break;
+			}
+		}
+		if (plugin == null) {
+			plugin = new espc_IonAccumulatorRenderPlugin(this);
+			Global.getCombatEngine().addPlugin(plugin);
+		}
 		
 		projs = new ArrayDeque<AccumulatedProj>();
 		if (weapon.getSize().equals(WeaponSize.MEDIUM))
@@ -153,7 +177,7 @@ public class espc_IonAccumulatorEffect implements OnFireEffectPlugin, EveryFrame
         	weapon == null || engine.isPaused() || amount <= 0f) return;
         
         for (AccumulatedProj proj : projs)
-        	if (proj.target != null && engine.isInPlay(proj.target) &&
+        	if (proj.target != null && engine.isEntityInPlay(proj.target) &&
         		proj.target.getFluxTracker() != null && proj.target.getFluxTracker().isOverloaded()) {
         		while (proj.empDamage > 0f) {
         			engine.spawnEmpArcPierceShields(ship, 
@@ -176,7 +200,7 @@ public class espc_IonAccumulatorEffect implements OnFireEffectPlugin, EveryFrame
         projs.clear();
         
         if (fireDelay > 0f)
-        	fireDelay -= amount;
+        	fireDelay -= amount / ship.getMutableStats().getTimeMult().getModifiedValue();
         else
         	return;
         if (fireDelay <= 0f) {
@@ -192,9 +216,19 @@ public class espc_IonAccumulatorEffect implements OnFireEffectPlugin, EveryFrame
 				ship.getVelocity()
 			);
     		proj.setHitpoints(Math.min(Math.max(proj.getHitpoints(), storedDamage), 1000f));
-    		proj.setDamageAmount(storedDamage);
+    		float dmg = storedDamage;
+    		proj.setDamageAmount(dmg);
+    		Global.getSoundPlayer().playSound(
+    			dmg < 100f ? "ion_cannon_fire" :
+    				(dmg < 200f ? "ion_pulser_fire" : "plasma_cannon_fire"),
+    			0.8f + 0.05f * accumulationCount * (wepSize == 1 ? 0.5f : 1f),
+    			1.1f - 0.05f * accumulationCount,
+    			weapon.getLocation(),
+    			weapon.getShip().getVelocity()
+    		);
     		storedEMP -= proj.getEmpAmount();
     		proj.setCustomData("espc_ion_accumulator_emp", storedEMP);
+    		plugin.addProj(proj);
     		storedDamage = 0f;
     		storedEMP = 0f;
     		accumulationCount = 0;
@@ -234,7 +268,16 @@ public class espc_IonAccumulatorEffect implements OnFireEffectPlugin, EveryFrame
     		fireDelay = (wepSize == 1 ? FIRE_DELAY_MED : FIRE_DELAY_SMALL);
     	} else {
     		plugin.addProj(proj);
-    		proj.setDamageAmount(proj.getBaseDamageAmount() + storedDamage);
+    		float dmg = proj.getBaseDamageAmount() + storedDamage;
+    		proj.setDamageAmount(dmg);
+    		Global.getSoundPlayer().playSound(
+    			dmg < 100f ? "ion_cannon_fire" :
+    				(dmg < 200f ? "ion_pulser_fire" : "plasma_cannon_fire"),
+    			0.8f + 0.05f * accumulationCount * (wepSize == 1 ? 0.5f : 1f),
+    			1.1f - 0.05f * accumulationCount,
+    			weapon.getLocation(),
+    			weapon.getShip().getVelocity()
+    		);
     		proj.setCustomData("espc_ion_accumulator_emp", storedEMP);
     		proj.setHitpoints(Math.min(Math.max(proj.getHitpoints(), storedDamage), 1000f));
     		storedDamage = 0f;
@@ -279,11 +322,11 @@ public class espc_IonAccumulatorEffect implements OnFireEffectPlugin, EveryFrame
 					first = false;
 				}
 			}
-		} else if (shieldHit && projectile.getWeapon() != null) {
+		} else if (shieldHit && thisWep != null) {
 			float empDamage = 0f;
 			if (projectile.getCustomData().containsKey("espc_ion_accumulator_emp"))
 				empDamage = (Float) projectile.getCustomData().get("espc_ion_accumulator_emp");
-			((espc_IonAccumulatorEffect) projectile.getWeapon().getEffectPlugin()).projs.add(
+			((espc_IonAccumulatorEffect) thisWep.getEffectPlugin()).projs.addLast(
 				new AccumulatedProj((ShipAPI) target, projectile.getDamageAmount() * ARC_PORTION, empDamage * ARC_PORTION, point));
 		}
 	}

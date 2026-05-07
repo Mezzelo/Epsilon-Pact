@@ -1,0 +1,38 @@
+{
+  "variantId": "espc_bastillon_Attack",
+  "hullId": "espc_bastillon",
+  "displayName": "Attack",
+  "goalVariant": false,
+  "fluxCapacitors": 12,
+  "fluxVents": 12,
+  "quality": 1,
+  "permaMods": [],
+  "hullMods": [
+	"autorepair",
+	"turretgyros"
+  ],
+  "weaponGroups": [
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0001": "espc_aa",
+        "WS0002": "espc_aa"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 001": "espc_ionresonator",
+        "WS 002": "espc_ionresonator",
+        "WS 005": "espc_ionresonator",
+        "WS 006": "espc_ionresonator",
+        "WS 007": "espc_ionresonator",
+        "WS 008": "espc_ionresonator"
+      }
+    }
+  ],
+  "modules": [],
+  "wings": []
+}

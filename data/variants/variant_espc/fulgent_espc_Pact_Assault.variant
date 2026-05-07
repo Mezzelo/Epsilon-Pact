@@ -1,0 +1,48 @@
+{
+	"variantId": "fulgent_espc_Pact_Assault",
+	"displayName": "Assault",
+	"goalVariant": false,
+    "fluxCapacitors": 20,
+    "fluxVents": 17,
+    "hullId": "fulgent_espc",
+    "hullMods": [
+        "targetingunit",
+        "frontemitter",
+        "magazines"
+    ],
+    "permaMods": [],
+    "sMods": [],
+    "weaponGroups": [
+        {
+            "autofire": false,
+            "mode": "LINKED",
+            "weapons": {
+                "WS 003": "ionpulser",
+                "WS 004": "ionpulser"
+            }
+        },
+        {
+            "autofire": true,
+            "mode": "LINKED",
+            "weapons": {"WS 001": "espc_riftspear"}
+        },
+        {
+            "autofire": true,
+            "mode": "LINKED",
+            "weapons": {
+				"WS 000": "irpulse",
+				"WS 002": "irpulse"
+			}
+        },
+        {
+            "autofire": true,
+            "mode": "LINKED",
+            "weapons": {
+                "WS 005": "pdlaser",
+                "WS 006": "pdlaser",
+                "WS 007": "pdburst",
+                "WS 008": "pdburst"
+            }
+        }
+    ]
+}

@@ -43,7 +43,8 @@ public class espc_BattleTempo {
 			float diff = time - lastTime;
 			lastTime = time;
 			// ignore for the first 5 secs of the ship being deployed
-			if (ship.getFullTimeDeployed() > 5f && diff > amount + 0.2f) {
+			if (ship.getFullTimeDeployed() > 5f && ((diff > amount + 0.2f) ||
+				(ship.getShipAI() !=  null && Global.getCombatEngine().getPlayerShip().equals(ship)))) {
 				bonusTime = 0f;
 			} else {
 				if (bonusTime >= UNPAUSE_TIME_MAX)

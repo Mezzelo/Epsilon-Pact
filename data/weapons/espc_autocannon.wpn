@@ -1,0 +1,30 @@
+{
+	"id":"espc_autocannon",  # this id must match what's in the spreadsheet
+	"specClass":"projectile",
+	# "everyFrameEffect":"data.scripts.weapons.espc_MKLEffect",
+	"type":"BALLISTIC",
+	"size":"LARGE",
+	"turretSprite":"graphics/weapons/espc_autocannon_turret_base.png",
+	"turretGunSprite":"graphics/weapons/espc_autocannon_turret_recoil.png",	
+	"hardpointSprite":"graphics/weapons/espc_autocannon_hardpoint_base.png",
+	"hardpointGunSprite":"graphics/weapons/espc_autocannon_hardpoint_recoil.png",	
+	"renderHints":["RENDER_BARREL_BELOW"],
+	"visualRecoil":10.0,
+	"turretOffsets":[36, -1],
+	"turretAngleOffsets":[0],
+	"hardpointOffsets":[48, 0],
+	"hardpointAngleOffsets":[0],
+	"barrelMode":"LINKED", # or LINKED.  whether barrels fire at the same time or alternate.
+	"animationType":"MUZZLE_FLASH",
+	"muzzleFlashSpec":{"length":22.0,   # only used if animationType = MUZZLE_FLASH
+					   "spread":10.0,
+					   "particleSizeMin":25.0,
+					   "particleSizeRange":45.0,
+					   "particleDuration":0.15,
+					   "particleCount":10,
+					   "particleColor":[250,95,0,205]},		
+	"glowColor":[250,225,150,255],
+	"autocharge":true,
+	"projectileSpecId":"espc_autocannon_shot",  # projectile that will be fired
+	"fireSoundTwo":"espc_autocannon_fire",
+}

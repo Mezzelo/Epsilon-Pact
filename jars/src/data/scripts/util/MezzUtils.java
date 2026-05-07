@@ -3,6 +3,7 @@ package data.scripts.util;
 // import com.fs.starfarer.api.util.Misc;
 // import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.opengl.GL11;
+import org.lwjgl.util.vector.Vector2f;
 import org.lazywizard.lazylib.MathUtils;
 import org.lazywizard.lazylib.FastTrig;
 import java.awt.Color;
@@ -37,6 +38,10 @@ public class MezzUtils {
 		GL11.glVertex2f(x + size, y + size);
 		GL11.glTexCoord2f(0, 1);
 		GL11.glVertex2f(x - size, y + size);
+	}
+	
+	public static void glSquare(Vector2f vector, float size) {
+		MezzUtils.glSquare(vector.x, vector.y, size);
 	}
 	
 	// HSV lerp between colours.  avoids the muddying of saturation that occurs normally otherwise,

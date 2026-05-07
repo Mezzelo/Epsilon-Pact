@@ -36,146 +36,162 @@ public class espc_People {
 		return Global.getSector().getImportantPeople().getPerson(id);
 	}
 	        
-	public static void create(boolean isNewGame) {
+	public static void create(boolean isNewGame, boolean isRandomSector) {
 		if (!isNewGame)
-			createInitialPeople();
-		importantFolks();
+			createInitialPeople(isRandomSector);
+		importantFolks(isRandomSector);
 	}
 	
-	private static void importantFolks() {
+	private static void importantFolks(boolean isRandomSector) {
         final ImportantPeopleAPI ip = Global.getSector().getImportantPeople();
         
-        MarketAPI market =  Global.getSector().getEconomy().getMarket("espc_lunron_market");
-        if (market != null) {
-			PersonAPI person = Global.getFactory().createPerson();
-			person.setId("espc_nola");
-			person.setFaction("epsilpac");
-			person.setGender(Gender.FEMALE);
-			person.setRankId(Ranks.FACTION_LEADER);
-			person.setPostId(Ranks.POST_FACTION_LEADER);
-			person.setImportance(PersonImportance.VERY_HIGH);
-			person.getName().setFirst("Nola");
-			person.getName().setLast("Ganymede");
-			// person.setVoice(Voices.SPACER);
-			person.setPortraitSprite(Global.getSettings().getSpriteName("characters", "espc_nola"));
-			
-			EspcOfficerFactory.PopulateSkills(person, new String[]{
-				Skills.HELMSMANSHIP, Skills.FIELD_MODULATION, 
-				Skills.BALLISTIC_MASTERY, Skills.TARGET_ANALYSIS, 
-				Skills.SYSTEMS_EXPERTISE, Skills.GUNNERY_IMPLANTS, 
-				Skills.TACTICAL_DRILLS, Skills.COORDINATED_MANEUVERS, 
-				Skills.WOLFPACK_TACTICS, Skills.CREW_TRAINING,
-				Skills.ORDNANCE_EXPERTISE, Skills.FLUX_REGULATION}, new int[]{
-				2, 2, 2, 
-				2, 2, 2, 
-				1, 1, 1, 1, 2, 1});
-			
-			ip.addPerson(person);
-
+        MarketAPI market = null;
+        MarketAPI gaussMarket = null;
+        if (isRandomSector) {
+        	for (MarketAPI thisMarket : Global.getSector().getEconomy().getMarketsCopy()) {
+        		if (thisMarket.getFactionId().equals("epsilpac")) {
+        			if (gaussMarket == null)
+        				gaussMarket = thisMarket;
+        			else if (gaussMarket.getSize() < thisMarket.getSize())
+        				gaussMarket = thisMarket;
+        			if (market == null)
+        				market = thisMarket;
+        			else if (market.equals(gaussMarket))
+        				market = thisMarket;
+        		}
+        	}
+        } else {
+        	market = Global.getSector().getEconomy().getMarket("espc_lunron_market");
+        	gaussMarket = Global.getSector().getEconomy().getMarket("espc_tocquiera_market");
         }
+        Global.getSector().getMemoryWithoutUpdate().set("$espcGaussMarketId", gaussMarket.getId());
+        Global.getSector().getMemoryWithoutUpdate().set("$espcGaussMarketName", gaussMarket.getName());
         
-        market =  Global.getSector().getEconomy().getMarket("espc_bruniel_market");
-        if (market != null) {
-			PersonAPI person = Global.getFactory().createPerson();
-			person = Global.getFactory().createPerson();
-			person.setId("espc_isabelle");
-			person.setFaction("epsilpac");
-			person.setGender(Gender.FEMALE);
-			person.setRankId(Ranks.AGENT);
-			person.setPostId(Ranks.POST_AGENT);
-			person.setImportance(PersonImportance.VERY_HIGH);
-			person.addTag(Tags.CONTACT_MILITARY);
-			person.addTag(Tags.CONTACT_UNDERWORLD);
-			person.getName().setFirst("Isabelle");
-			person.getName().setLast("de' Medici");
-			// person.setVoice(Voices.BUSINESS);
-			person.setPortraitSprite(Global.getSettings().getSpriteName("characters", "espc_isabelle"));
-			
-			EspcOfficerFactory.PopulateSkills(person, new String[]{
-				Skills.HELMSMANSHIP, Skills.TARGET_ANALYSIS, 
-				Skills.SYSTEMS_EXPERTISE, Skills.ENERGY_WEAPON_MASTERY, 
-				Skills.ORDNANCE_EXPERTISE}, new int[]{
-				2, 2,
-				1, 2, 2});
-			
-        	market.getCommDirectory().addPerson(person);
-        	market.addPerson(person);
-			market.getCommDirectory().getEntryForPerson(person).setHidden(true);
-			ip.addPerson(person);
-        }
+		PersonAPI nola = Global.getFactory().createPerson();
+		nola.setId("espc_nola");
+		nola.setFaction("epsilpac");
+		nola.setGender(Gender.FEMALE);
+		nola.setRankId(Ranks.FACTION_LEADER);
+		nola.setPostId(Ranks.POST_FACTION_LEADER);
+		nola.setImportance(PersonImportance.VERY_HIGH);
+		nola.getName().setFirst("Nola");
+		nola.getName().setLast("Ganymede");
+		// nola.setVoice(Voices.SPACER);
+		nola.setPortraitSprite(Global.getSettings().getSpriteName("characters", "espc_nola"));
+		
+		EspcOfficerFactory.PopulateSkills(nola, new String[]{
+			Skills.HELMSMANSHIP, Skills.FIELD_MODULATION, 
+			Skills.BALLISTIC_MASTERY, Skills.TARGET_ANALYSIS, 
+			Skills.SYSTEMS_EXPERTISE, Skills.GUNNERY_IMPLANTS, 
+			Skills.TACTICAL_DRILLS, Skills.COORDINATED_MANEUVERS, 
+			Skills.WOLFPACK_TACTICS, Skills.CREW_TRAINING,
+			Skills.ORDNANCE_EXPERTISE, Skills.FLUX_REGULATION}, new int[]{
+			2, 2, 2, 
+			2, 2, 2, 
+			1, 1, 1, 1, 2, 1});
+		
+		ip.addPerson(nola);
         
-        market = Global.getSector().getEconomy().getMarket("espc_tocquiera_market");
-        if (market != null) {
-			PersonAPI person = Global.getFactory().createPerson();
-			person = Global.getFactory().createPerson();
-			person.setId("espc_gauss");
-			person.setFaction("epsilpac");
-			person.setGender(Gender.FEMALE);
-			person.setRankId("espc_scientist");
-			person.setPostId("espc_scientist");
-			person.setImportance(PersonImportance.HIGH);
-			person.getName().setFirst("Gauss");
-			person.getName().setLast("");
-			// person.setVoice(Voices.SCIENTIST);
-			person.setPortraitSprite(Global.getSettings().getSpriteName("characters", "espc_gauss"));
-			
-			EspcOfficerFactory.PopulateSkills(person, new String[]{
-					Skills.TARGET_ANALYSIS, Skills.COMBAT_ENDURANCE,
-					Skills.SYSTEMS_EXPERTISE, Skills.ORDNANCE_EXPERTISE}, new int[]{
-					1, 2, 2, 2});
-			
-        	market.getCommDirectory().addPerson(person);
-        	market.addPerson(person);
-			ip.addPerson(person);
-			market.getCommDirectory().getEntryForPerson(person).setHidden(true);
+		PersonAPI isa = Global.getFactory().createPerson();
+		isa.setId("espc_isabelle");
+		isa.setFaction("epsilpac");
+		isa.setGender(Gender.FEMALE);
+		isa.setRankId(Ranks.AGENT);
+		isa.setPostId(Ranks.POST_AGENT);
+		isa.setImportance(PersonImportance.VERY_HIGH);
+		isa.addTag(Tags.CONTACT_MILITARY);
+		isa.addTag(Tags.CONTACT_UNDERWORLD);
+		isa.getName().setFirst("Isabelle");
+		isa.getName().setLast("de' Medici");
+		// isa.setVoice(Voices.BUSINESS);
+		isa.setPortraitSprite(Global.getSettings().getSpriteName("characters", "espc_isabelle"));
+		
+		EspcOfficerFactory.PopulateSkills(isa, new String[]{
+			Skills.HELMSMANSHIP, Skills.TARGET_ANALYSIS, 
+			Skills.SYSTEMS_EXPERTISE, Skills.ENERGY_WEAPON_MASTERY, 
+			Skills.ORDNANCE_EXPERTISE}, new int[]{
+			2, 2,
+			1, 2, 2});
+		
+		if (market != null) {
+	    	market.getCommDirectory().addPerson(isa);
+	    	market.addPerson(isa);
+			market.getCommDirectory().getEntryForPerson(isa).setHidden(true);
+		}
+		ip.addPerson(isa);
+		
+		PersonAPI gauss = Global.getFactory().createPerson();
+		gauss.setId("espc_gauss");
+		gauss.setFaction("epsilpac");
+		gauss.setGender(Gender.FEMALE);
+		gauss.setRankId("espc_scientist");
+		gauss.setPostId("espc_scientist");
+		gauss.setImportance(PersonImportance.HIGH);
+		gauss.getName().setFirst("Gauss");
+		gauss.getName().setLast("");
+		// gauss.setVoice(Voices.SCIENTIST);
+		gauss.setPortraitSprite(Global.getSettings().getSpriteName("characters", "espc_gauss"));
+		
+		EspcOfficerFactory.PopulateSkills(gauss, new String[]{
+				Skills.TARGET_ANALYSIS, Skills.COMBAT_ENDURANCE,
+				Skills.SYSTEMS_EXPERTISE, Skills.ORDNANCE_EXPERTISE}, new int[]{
+				1, 2, 2, 2});
+		
+		PersonAPI anyiwo = Global.getFactory().createPerson();
+		anyiwo.setId("espc_anyiwo");
+		anyiwo.setFaction("epsilpac");
+		anyiwo.setGender(Gender.ANY);
+		anyiwo.setRankId(Ranks.CITIZEN);
+		anyiwo.setPostId(Ranks.POST_SCIENTIST);
+		anyiwo.setImportance(PersonImportance.MEDIUM);
+		anyiwo.addTag(Tags.CONTACT_TRADE);
+		anyiwo.addTag(Tags.CONTACT_SCIENCE);
+		anyiwo.getName().setFirst("Anyiwo");
+		anyiwo.getName().setLast("");
+		anyiwo.setVoice(Voices.SCIENTIST);
+		anyiwo.setPortraitSprite(Global.getSettings().getSpriteName("characters", "espc_anyiwo"));
+		// person2.getStats().setSkillLevel("espc_voice", 1);
+		// person2.getStats().setSkillLevel(Skills.INDUSTRIAL_PLANNING, 1);
+    	// gaussMarket.setAdmin(person2);
 
-			person = Global.getFactory().createPerson();
-			person.setId("espc_anyiwo");
-			person.setFaction("epsilpac");
-			person.setGender(Gender.MALE);
-			person.setRankId(Ranks.CITIZEN);
-			person.setPostId(Ranks.POST_SCIENTIST);
-			person.setImportance(PersonImportance.MEDIUM);
-			person.addTag(Tags.CONTACT_TRADE);
-			person.addTag(Tags.CONTACT_SCIENCE);
-			person.getName().setFirst("Anyiwo");
-			person.getName().setLast("");
-			person.setVoice(Voices.SCIENTIST);
-			person.setPortraitSprite(Global.getSettings().getSpriteName("characters", "espc_anyiwo"));
-			// person2.getStats().setSkillLevel("espc_voice", 1);
-			// person2.getStats().setSkillLevel(Skills.INDUSTRIAL_PLANNING, 1);
-        	// market.setAdmin(person2);
-        	market.getCommDirectory().addPerson(person);
-        	market.addPerson(person);
-			market.getCommDirectory().getEntryForPerson(person).setHidden(true);
-			ip.addPerson(person);
+		PersonAPI anlo = Global.getFactory().createPerson();
+		anlo.setId("espc_anlo");
+		anlo.setFaction("epsilpac");
+		anlo.setGender(Gender.FEMALE);
+		anlo.setRankId("espc_speaker");
+		anlo.setPostId("espc_speaker");
+		anlo.setImportance(PersonImportance.HIGH);
+		anlo.getName().setFirst("Anlo");
+		anlo.getName().setLast("Uisarr");
+		anlo.getStats().setSkillLevel("espc_voice", 1);
+		// anlo.setVoice(Voices.FAITHFUL);
+		anlo.setPortraitSprite(Global.getSettings().getSpriteName("characters", "espc_anlo"));
+		
+        if (gaussMarket != null) {
+			
+			gaussMarket.getCommDirectory().addPerson(gauss);
+			gaussMarket.addPerson(gauss);
+			ip.addPerson(gauss);
+			gaussMarket.getCommDirectory().getEntryForPerson(gauss).setHidden(true);
+	    	gaussMarket.getCommDirectory().addPerson(anyiwo);
+	    	gaussMarket.addPerson(anyiwo);
+			gaussMarket.getCommDirectory().getEntryForPerson(anyiwo).setHidden(true);
+			ip.addPerson(anyiwo);
 
-			person = Global.getFactory().createPerson();
-			person.setId("espc_anlo");
-			person.setFaction("epsilpac");
-			person.setGender(Gender.FEMALE);
-			person.setRankId("espc_speaker");
-			person.setPostId("espc_speaker");
-			person.setImportance(PersonImportance.HIGH);
-			person.getName().setFirst("Anlo");
-			person.getName().setLast("Uisarr");
-			person.getStats().setSkillLevel("espc_voice", 1);
-			// person.setVoice(Voices.FAITHFUL);
-			person.setPortraitSprite(Global.getSettings().getSpriteName("characters", "espc_anlo"));
-			// person.getStats().setSkillLevel("espc_voice", 1);
-			// person.getStats().setSkillLevel(Skills.INDUSTRIAL_PLANNING, 1);
-			market.setAdmin(person);
-        	market.getCommDirectory().addPerson(person, 0);
-        	market.addPerson(person);
-			market.getCommDirectory().getEntryForPerson(person).setHidden(true);
-			ip.addPerson(person);
+			// anlo.getStats().setSkillLevel("espc_voice", 1);
+			// anlo.getStats().setSkillLevel(Skills.INDUSTRIAL_PLANNING, 1);
+			if (!isRandomSector)
+				gaussMarket.setAdmin(anlo);
+        	gaussMarket.getCommDirectory().addPerson(anlo, 0);
+        	gaussMarket.addPerson(anlo);
+			gaussMarket.getCommDirectory().getEntryForPerson(anlo).setHidden(true);
+			ip.addPerson(anlo);
 			// ip.checkOutPerson(person, "permanent_staff");
-
         }
 	}
 	
 	// vanilla boilerplate on mid-game addition: see impl.campaign.CoreLifecyclePluginImpl
-	private static void createInitialPeople() {
+	private static void createInitialPeople(boolean isRandomSector) {
 		ImportantPeopleAPI ip = Global.getSector().getImportantPeople();
 		
 		

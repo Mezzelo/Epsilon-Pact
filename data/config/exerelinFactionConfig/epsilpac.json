@@ -113,9 +113,6 @@
 	
 	#... but not with *these* guys, for one reason or another.
     "maxRelationships":{
-		"lions_guard":-0.25,
-		"sindrian_diktat":-0.25,
-		
 		"diableavionics":-0.25,
 		"draco":-0.25,
 		"fang":-0.25,

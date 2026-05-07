@@ -1,9 +1,7 @@
 package data.scripts.shipsystems;
 
 import java.awt.Color;
-import java.util.ArrayList;
 import java.util.EnumSet;
-import java.util.List;
 
 import com.fs.starfarer.api.GameState;
 import com.fs.starfarer.api.Global;
@@ -33,11 +31,12 @@ public class espc_AlternatorStats extends BaseShipSystemScript {
 	
 	private static final float BONUS_MAX = 2f;
 	
+	// you should fold this stuff into the ai script anyway
 	private static final float AI_HULL_BACK = 0.15f;
 	private static final float AI_HULL_BACK_FRIGATE = 0.35f;
-	private static final float AI_FLUX_BACK = 0.65f;
+	private static final float AI_FLUX_BACK = 0.4f;
 	private static final float AI_FLUX_BACK_FRIGATE = 0.4f;
-	private static final float AI_FLUX_FORCE_ENGAGE = 0.4f;
+	private static final float AI_FLUX_FORCE_ENGAGE = 0.2f;
 	private static final float AI_FLUX_FORCE_ENGAGE_FRIGATE = 0.2f;
 	
 	private ShipAIConfig origConfig = null;

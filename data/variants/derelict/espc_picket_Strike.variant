@@ -3,7 +3,7 @@
   "hullId": "espc_picket",
   "displayName": "Strike",
   "goalVariant": true,
-  "fluxCapacitors": 9,
+  "fluxCapacitors": 10,
   "fluxVents": 0,
   "quality": 1,
   "permaMods": [],
@@ -14,14 +14,16 @@
   ],
     "weaponGroups": [
         {
-            "autofire": true,
-            "mode": "LINKED",
-            "weapons": {"WS 001": "lightdualmg"}
-        },
-        {
             "autofire": false,
             "mode": "LINKED",
-            "weapons": {"WS 003": "lightdualmg"}
+            "weapons": {"WS 002": "lightmg"}
+        },
+        {
+            "autofire": true,
+            "mode": "LINKED",
+            "weapons": {
+				"WS 003": "vulcan"
+			}
         }
     ],
   "modules": [],

@@ -14,6 +14,7 @@ import com.fs.starfarer.api.combat.ShipAPI;
 import com.fs.starfarer.api.combat.ShipAPI.HullSize;
 import com.fs.starfarer.api.combat.listeners.AdvanceableListener;
 import com.fs.starfarer.api.impl.campaign.ids.HullMods;
+import com.fs.starfarer.api.impl.campaign.ids.Tags;
 import com.fs.starfarer.api.impl.campaign.skills.BaseSkillEffectDescription;
 import com.fs.starfarer.api.impl.hullmods.Automated;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
@@ -112,6 +113,32 @@ public class espc_RealHumanBeingBg_Skill {
 		}
 		public void unapply(MutableShipStatsAPI stats, HullSize hullSize, String id)  {
 			stats.getMaxCombatReadiness().unmodify(id);
+		}
+
+		public String getEffectDescription(float level) {
+			return null;
+		}
+		
+		public ScopeDescription getScopeDescription() {
+			return ScopeDescription.PILOTED_SHIP;
+		}
+		public String getEffectPerLevelDescription() {
+			return null;
+		}
+	}
+	
+	public static class Level5 extends BaseSkillEffectDescription implements CharacterStatsSkillEffect {
+
+		public void apply(MutableCharacterStatsAPI stats, String id, float level) {
+			if (stats.isPlayerStats()) {
+				Misc.getAllowedRecoveryTags().add(Tags.AUTOMATED_RECOVERABLE);
+			}
+		}
+
+		public void unapply(MutableCharacterStatsAPI stats, String id) {
+			if (stats.isPlayerStats()) {
+				Misc.getAllowedRecoveryTags().remove(Tags.AUTOMATED_RECOVERABLE);
+			}
 		}
 
 		public String getEffectDescription(float level) {

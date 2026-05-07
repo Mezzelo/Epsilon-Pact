@@ -3,13 +3,18 @@ package data.scripts.weapons.proj;
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.combat.CombatEngineAPI;
 import com.fs.starfarer.api.combat.ViewportAPI;
+import com.fs.starfarer.api.combat.WeaponAPI.WeaponSize;
+import com.fs.starfarer.api.combat.EmpArcEntityAPI.EmpArcParams;
 import com.fs.starfarer.api.combat.BaseEveryFrameCombatPlugin;
 import com.fs.starfarer.api.graphics.SpriteAPI;
 import com.fs.starfarer.api.combat.DamagingProjectileAPI;
+import com.fs.starfarer.api.combat.EmpArcEntityAPI;
+import com.fs.starfarer.api.combat.ShipAPI;
 import com.fs.starfarer.api.input.InputEventAPI;
 
 import java.awt.Color;
 import java.util.ArrayDeque;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 import com.fs.starfarer.api.util.Misc;
@@ -25,20 +30,90 @@ import data.scripts.weapons.espc_IonAccumulatorEffect;
 				
 public class espc_IonAccumulatorRenderPlugin extends BaseEveryFrameCombatPlugin {
 	private ArrayDeque<DamagingProjectileAPI> projs;
-	private final espc_IonAccumulatorEffect plugin;
+	private ArrayDeque <espc_IonAccumulatorEffect> plugins;
+	
+	private EmpArcParams params;
 	
 	public espc_IonAccumulatorRenderPlugin(espc_IonAccumulatorEffect plugin) {
 		projs = new ArrayDeque<DamagingProjectileAPI>();
-		this.plugin = plugin;
+		plugins = new ArrayDeque<espc_IonAccumulatorEffect>();
+		this.plugins.add(plugin);
+		
+
+		params = new EmpArcParams();
+		params.segmentLengthMult = 0.5f;
+		params.zigZagReductionFactor = 0.0f;
+		params.fadeOutDist = 20f;
+		params.minFadeOutMult = 3f;
+		params.flickerRateMult = 0.7f;
+		params.movementDurOverride = 0.3f;
+		
+		
+	}
+	
+	public void addPlugin(espc_IonAccumulatorEffect plugin) {
+		plugins.add(plugin);
 	}
 	
 	public void addProj(DamagingProjectileAPI proj) {
-		projs.add(proj);
+		projs.addLast(proj);
 	}
 	
     @Override
     public void advance(float amount, List<InputEventAPI> events) {
+    	if (Global.getCombatEngine().isPaused())
+    		return;
+		if (projs.size() == 0)
+			return;
 		CombatEngineAPI engine = Global.getCombatEngine();
+		if (engine == null)
+			return;
+		Iterator<DamagingProjectileAPI> iter = projs.iterator();
+		while (iter.hasNext()) {
+			DamagingProjectileAPI proj = iter.next();
+			if (proj == null || !engine.isEntityInPlay(proj)) {
+				iter.remove();
+				continue;
+			}
+			/*
+			if (Misc.random.nextFloat() < 0.01f) {
+				float ang = Misc.random.nextFloat();
+				// radius & other parameter calculatiosn for emp arcs based on damage
+				engine.spawnEmpArcVisual(
+					proj.getLocation(), proj, 
+					new Vector2f(proj.getLocation().x + (float) FastTrig.sin(ang * Math.PI * 2) * 5f,
+					proj.getLocation().y + (float) FastTrig.sin(ang * Math.PI * 2) * 5f),
+					proj,
+					5f, 
+					new Color(255, 255, 215), new Color(255, 255, 255),
+					params
+				);
+			} */
+		}
+
+		Iterator<espc_IonAccumulatorEffect> wepIter = plugins.iterator();
+		while (wepIter.hasNext()) {
+			espc_IonAccumulatorEffect plugin = wepIter.next();
+			if (plugin.getCharge() > 0) {
+				if (Misc.random.nextFloat() < 0.01f) {
+					float ang = Misc.random.nextFloat();
+					// radius & other parameter calculatiosn for emp arcs based on damage
+					engine.spawnEmpArcVisual(
+						plugin.getWeapon().getFirePoint(0), plugin.getWeapon().getShip(), 
+						new Vector2f(plugin.getWeapon().getFirePoint(0).x + (float) FastTrig.sin(ang * Math.PI * 2) * 
+							(5f + plugin.getCharge() * 0.1f),
+							plugin.getWeapon().getFirePoint(0).y + (float) FastTrig.sin(ang * Math.PI * 2) * 
+							(3f + plugin.getCharge() * 0.1f)),
+						plugin.getWeapon().getShip(),
+						4f + plugin.getCharge() * 1f, 
+						new Color(255, 255, 215), new Color(255, 255, 255),
+						params
+					);
+				}
+			}
+
+		}
+		
 		// engine.removePlugin(this);
 	}
 	
@@ -51,9 +126,44 @@ public class espc_IonAccumulatorRenderPlugin extends BaseEveryFrameCombatPlugin 
         GL11.glEnable(GL11.GL_BLEND);
         GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE);
         GL11.glEnable(GL11.GL_TEXTURE_2D);
-		SpriteAPI sprite = Global.getSettings().getSprite("systemMap", "radar_entity");
+		SpriteAPI sprite = Global.getSettings().getSprite("fx", "espc_accumulatorsphere");
 		GL11.glBindTexture(GL11.GL_TEXTURE_2D, sprite.getTextureId());
 		GL11.glBegin(GL11.GL_QUADS);
+
+		Iterator<espc_IonAccumulatorEffect> wepIter = plugins.iterator();
+		while (wepIter.hasNext()) {
+			espc_IonAccumulatorEffect plugin = wepIter.next();
+			if (plugin.getCharge() > 0) {
+				GL11.glColor4ub(
+					(byte) 120, (byte) 215, (byte) 255, (byte) 205);
+				MezzUtils.glSquare(plugin.getWeapon().getFirePoint(0).x, plugin.getWeapon().getFirePoint(0).y, 
+					plugin.getCharge() * (plugin.getWeapon().getSize().equals(WeaponSize.MEDIUM) ? 1.5f : 3f));
+			}
+
+		}
+
+		Iterator<DamagingProjectileAPI> iter = projs.iterator();
+		while (iter.hasNext()) {
+			DamagingProjectileAPI proj = iter.next();
+			if (proj == null || !engine.isEntityInPlay(proj)) {
+				iter.remove();
+				continue;
+			}
+			if (proj.getElapsed() < 0.3f) {
+				
+			}
+			if (proj.isFading()) {
+				continue;
+			}
+			GL11.glColor4ub(
+				(byte) 120, (byte) 215, (byte) 255, (byte) 205);
+			MezzUtils.glSquare(proj.getLocation().x, proj.getLocation().y, 
+				3f + proj.getDamageAmount() * 0.025f * (proj.getWeapon().getSize().equals(WeaponSize.MEDIUM) ? 0.6f : 1f));
+			
+		}
+		GL11.glEnd();
+		
+		
 		/*
 		
 		for (float i = 0f; i < iMax; i += PARTICLE_INTERVAL) {
@@ -129,8 +239,6 @@ public class espc_IonAccumulatorRenderPlugin extends BaseEveryFrameCombatPlugin 
 			}
 		}
 		*/
-		
-		GL11.glEnd();
 		
 	}
 }

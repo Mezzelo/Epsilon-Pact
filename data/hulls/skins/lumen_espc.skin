@@ -7,7 +7,7 @@
 	"addHints":["HIDE_IN_CODEX"],
     "systemId":"espc_InverseSkimmer",
 	"maxSpeed":160,
-	"baseValueMult":5,
+	"baseValueMult":3,
 	# "suppliesToRecover":4,
 	# "suppliesPerMonth":4,
 	"removeWeaponSlots":[], 		# ids

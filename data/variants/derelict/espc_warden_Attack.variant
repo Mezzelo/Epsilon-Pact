@@ -1,12 +1,11 @@
 {
     "displayName": "Attack",
-    "fluxCapacitors": 10,
+    "fluxCapacitors": 8,
     "fluxVents": 8,
     "goalVariant": false,
     "hullId": "espc_warden",
     "hullMods": [
-		"targetingunit",
-		"fluxcoil",
+		"targetingunit"
 	],
     "permaMods": [],
     "sMods": [],
@@ -15,14 +14,14 @@
         {
             "autofire": true,
             "mode": "LINKED",
-            "weapons": {"WS 001": "ionpulser"}
+            "weapons": {"WS 001": "espc_heavyionresonator"}
         },
         {
             "autofire": true,
-            "mode": "ALTERNATING",
+            "mode": "LINKED",
             "weapons": {
-				"WS 002": "lightac",
-				"WS 003": "lightac",
+				"WS 002": "espc_arcscatter",
+				"WS 003": "espc_arcscatter",
 			}
         }
     ]

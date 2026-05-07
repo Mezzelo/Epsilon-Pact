@@ -2,16 +2,15 @@
   "variantId": "espc_amanuensis_Strike",
   "hullId": "espc_amanuensis",
   "displayName": "Strike",
-  "goalVariant": true,
-  "fluxCapacitors": 47,
+  "goalVariant": false,
+  "fluxCapacitors": 35,
   "fluxVents": 50,
   "quality": 1,
   "permaMods": [],
   "hullMods": [
     "targetingunit",
     "stabilizedshieldemitter",
-    "hardenedshieldemitter",
-    "fluxdistributor"
+    "hardenedshieldemitter"
   ],
   "weaponGroups": [
     {
@@ -26,8 +25,8 @@
       "autofire": true,
       "mode": "ALTERNATING",
       "weapons": {
-        "WS0003": "hellbore",
-        "WS0004": "hellbore"
+        "WS0003": "espc_autocannon",
+        "WS0004": "espc_autocannon"
       }
     },
     {
@@ -42,15 +41,15 @@
       "autofire": true,
       "mode": "LINKED",
       "weapons": {
-        "WS0007": "flak",
-        "WS0008": "flak",
+        "WS0007": "espc_heavyionresonator",
+        "WS0008": "espc_heavyionresonator",
         "WS0009": "dualflak",
-        "WS0012": "pdburst",
-        "WS0013": "pdburst",
+        "WS0012": "espc_arcscatter",
+        "WS0013": "espc_arcscatter",
         "WS0014": "irpulse",
         "WS0015": "irpulse",
-        "WS0016": "irpulse",
-        "WS0017": "irpulse"
+        "WS0016": "espc_ionresonator",
+        "WS0017": "espc_ionresonator"
       }
     }
   ],

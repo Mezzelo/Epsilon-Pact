@@ -42,7 +42,7 @@ public class espc_CollapseStats extends BaseShipSystemScript {
 	// additional radius around the given ship's shield bounds (or collision bounds, whichever is more generous as to mod-proof) 
 	private static final float FREEZE_RADIUS = 150f;
 	private static final float FREEZE_RADIUS_MIN = 50f;
-	private static final float DAMAGE_BONUS = 1.5f;
+	private static final float DAMAGE_BONUS = 20f;
 	
 	private ShipAPI target;
 	// 0: initialize, 1: initialized, 2 = projectiles released
@@ -132,16 +132,16 @@ public class espc_CollapseStats extends BaseShipSystemScript {
 				
 			}
 			
-			if (target == null || !combatEngine.isInPlay(target) || target.isHulk() || !target.isAlive()) {
+			if (target == null || !combatEngine.isEntityInPlay(target) || target.isHulk() || !target.isAlive()) {
 				ship.getSystem().forceState(SystemState.OUT, 0f);
 				freezeRenderer.setToRemove(combatEngine);
 				useState = 2;
 				return;
 			}
 			target.setJitterUnder(this, new Color(50, 100, 255, 170), effectLevel, 2, effectLevel * 15f);
-			target.getMutableStats().getArmorDamageTakenMult().modifyPercent(id, 50f);
-			target.getMutableStats().getShieldDamageTakenMult().modifyPercent(id, 50f);
-			target.getMutableStats().getHullDamageTakenMult().modifyPercent(id, 50f);
+			target.getMutableStats().getArmorDamageTakenMult().modifyPercent(id, DAMAGE_BONUS);
+			target.getMutableStats().getShieldDamageTakenMult().modifyPercent(id, DAMAGE_BONUS);
+			target.getMutableStats().getHullDamageTakenMult().modifyPercent(id, DAMAGE_BONUS);
 			
 			Iterator<Object> entityIterator = combatEngine.getAllObjectGrid().getCheckIterator(
 				target.getLocation(), 
@@ -155,7 +155,7 @@ public class espc_CollapseStats extends BaseShipSystemScript {
 				
 				DamagingProjectileAPI thisProj = (DamagingProjectileAPI) entity;
 			// for (DamagingProjectileAPI thisProj : combatEngine.getProjectiles()) {
-				if (combatEngine.isInPlay(thisProj) && 
+				if (combatEngine.isEntityInPlay(thisProj) && 
 					thisProj.getOwner() == ship.getOwner() && 
 					!thisProj.didDamage() && !thisProj.isExpired() && thisProj.getWeapon() != null) {
 					if (MathUtils.isWithinRange(target.getLocation(), thisProj.getLocation(), FREEZE_RADIUS + target.getShieldRadiusEvenIfNoShield())) {
@@ -271,7 +271,9 @@ public class espc_CollapseStats extends BaseShipSystemScript {
 							thisType.wepEffectPlugin.onFire(spawnProj, thisType.weapon, combatEngine);
 						if (thisType.projEffectPlugin != null)
 							thisType.projEffectPlugin.onFire(spawnProj, thisType.weapon, combatEngine);
-						spawnProj.setDamageAmount(thisProj.damage / spawnProj.getDamageAmount() * DAMAGE_BONUS);
+						spawnProj.setDamageAmount(thisProj.damage / spawnProj.getDamageAmount()
+							// * (100f + DAMAGE_BONUS) / 100f
+							);
 						spawnProj.getVelocity().scale(Misc.random.nextFloat(0.8f, 1.1f));
 						
 						if (thisProj.customData != null)

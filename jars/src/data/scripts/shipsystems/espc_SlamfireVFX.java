@@ -12,11 +12,13 @@ import com.fs.starfarer.api.combat.BaseEveryFrameCombatPlugin;
 import com.fs.starfarer.api.input.InputEventAPI;
 import com.fs.starfarer.api.util.Misc;
 
+import data.scripts.util.MezzUtils;
+
 import org.magiclib.plugins.MagicTrailPlugin;
 
 import java.awt.Color;
+import java.util.ArrayDeque;
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
 
 // import org.lazywizard.lazylib.MathUtils;
@@ -26,29 +28,34 @@ import org.lwjgl.util.vector.Vector2f;
 				
 public class espc_SlamfireVFX extends BaseEveryFrameCombatPlugin {
 	
-	private float startTime;
+	private float startTime = -1f;
 	private Vector2f velOffset;
 	private float smokeLast;
 	
 	private static final float TRAIL_DURATION = 0.4f;
-	private static final float SMOKE_DURATION = 2.4f;
+	private static final float SMOKE_DURATION = 8f;
 	private static final float SMOKE_INTERVAL = 0.03f;
 	
 	private ShipAPI ship;
-	private LinkedList<DamagingProjectileAPI> projs;
-	private LinkedList<Float> trailIds;
-	private LinkedList<WeaponAPI> weapons;
+	private boolean isHightech = false;
+	private ArrayDeque<DamagingProjectileAPI> projs;
+	private ArrayDeque<Float> trailIds;
+	private ArrayDeque<WeaponAPI> weapons;
 	
 	// private int barrelCount = 0;
 	
-	public espc_SlamfireVFX(ShipAPI ship, Vector2f velOffset, LinkedList<WeaponAPI> weapons) {
+	public espc_SlamfireVFX(ShipAPI ship, boolean isHightech) {
 		this.ship = ship;
+		this.isHightech = isHightech;
+		projs = new ArrayDeque<DamagingProjectileAPI>();
+		trailIds = new ArrayDeque<Float>();
+	}
+	
+	public void initUse(Vector2f velOffset, ArrayDeque<WeaponAPI> weapons) {
 		this.startTime = Global.getCombatEngine().getTotalElapsedTime(false);
 		this.smokeLast = 0f;
 		this.velOffset = velOffset;
 		this.weapons = weapons;
-		projs = new LinkedList<DamagingProjectileAPI>();
-		trailIds = new LinkedList<Float>();
 		
         Iterator<WeaponAPI> wepIterator = weapons.iterator();
         while (wepIterator.hasNext()) {
@@ -73,34 +80,22 @@ public class espc_SlamfireVFX extends BaseEveryFrameCombatPlugin {
 		if (combatEngine == null || combatEngine.getElapsedInLastFrame() <= 0f || combatEngine.isPaused())
 			return;
 		
+		if (startTime < 0f) {
+			if (ship == null || !combatEngine.isInPlay(ship) || !ship.isAlive() || ship.isHulk())
+				combatEngine.removePlugin(this);
+			return;
+		}
+		
 		float elapsed = combatEngine.getTotalElapsedTime(false) - startTime;
 		if (elapsed >= SMOKE_DURATION) {
-			combatEngine.removePlugin(this);
+			startTime = -1f;
+			if (!isHightech) {
+				projs.clear();
+				trailIds.clear();
+			}
 			return;
 		} else if (elapsed > smokeLast + SMOKE_INTERVAL) {
 			smokeLast += SMOKE_INTERVAL;
-			/*
-	        Iterator<WeaponAPI> wepIterator = weapons.iterator();
-	        
-	        while (wepIterator.hasNext()) {
-	        	WeaponAPI currWep = wepIterator.next();
-	        	for (int i = 0; i < currWep.getSpec().getHardpointAngleOffsets().size(); i++) {
-	        		combatEngine.addSmokeParticle(
-	                	currWep.getFirePoint(i),
-	                	MathUtils.getRandomPointInCircle(null, Misc.random.nextFloat() * 8f + 8f),
-	                	(17f - elapsed / SMOKE_DURATION * 10f + Misc.random.nextFloat() * 8f) 
-	                		/ currWep.getSpec().getHardpointAngleOffsets().size(),
-	                	0.6f - elapsed / SMOKE_DURATION * 0.6f, // does opacity not work w/ smoke lol
-	                	1f,
-	                	new Color(
-	                		100 + (int) (elapsed / SMOKE_DURATION * 40f),
-	                		100 + (int) (elapsed / SMOKE_DURATION * 40f),
-	                		100 + (int) (elapsed / SMOKE_DURATION * 40f),
-	                		160 - (int) (elapsed / SMOKE_DURATION * 160f)
-	                	)
-	        		);
-	        	}
-	        }*/
 		}
         Iterator<Float> idIterator = trailIds.iterator();
         
@@ -108,9 +103,14 @@ public class espc_SlamfireVFX extends BaseEveryFrameCombatPlugin {
         while (wepIterator.hasNext()) {
         	WeaponAPI currWep = wepIterator.next();
         	for (int i = 0; i < currWep.getSpec().getHardpointAngleOffsets().size(); i++) {
+        		if (i == 1 && currWep.getSpec().getHardpointAngleOffsets().get(0).equals(
+        			currWep.getSpec().getHardpointAngleOffsets().get(1)) &&
+        			currWep.getSpec().getHardpointFireOffsets().get(0).equals(
+        			currWep.getSpec().getHardpointFireOffsets().get(1)))
+        			break;
             	float trailId = idIterator.next();
                 MagicTrailPlugin.addTrailMemberAdvanced(
-    				null,
+    				ship,
     				trailId,	
     				Global.getSettings().getSprite("fx", "espc_trail_wispy"),
     				currWep.getFirePoint(i),
@@ -123,14 +123,14 @@ public class espc_SlamfireVFX extends BaseEveryFrameCombatPlugin {
     				64,
                 	new Color(125,125,125),
                 	new Color(85,85,85),
-                	0.8f * (SMOKE_DURATION - elapsed)/SMOKE_DURATION,
+                	0.8f * MezzUtils.halfSineIn((SMOKE_DURATION - elapsed)/SMOKE_DURATION),
     				0.0f,
     				0.3f,
     				0.2f,
     				GL11.GL_SRC_ALPHA,
     				GL11.GL_ONE_MINUS_SRC_ALPHA,
     				128f,
-    				-128f,
+    				-64f - 64f * (SMOKE_DURATION - elapsed)/SMOKE_DURATION,
     				trailId * 128f,
     				Misc.ZERO,
     				null,
@@ -140,7 +140,7 @@ public class espc_SlamfireVFX extends BaseEveryFrameCombatPlugin {
         	}
         }
 		
-		if (elapsed > TRAIL_DURATION)
+		if (elapsed > TRAIL_DURATION || isHightech)
 			return;
 
         Iterator<DamagingProjectileAPI> projIterator = projs.iterator();
@@ -148,7 +148,7 @@ public class espc_SlamfireVFX extends BaseEveryFrameCombatPlugin {
         while (projIterator.hasNext()) {
         	DamagingProjectileAPI proj = (DamagingProjectileAPI) projIterator.next();
         	float trailId = (Float) idIterator.next();
-        	if (proj == null || !combatEngine.isInPlay(proj) || proj.didDamage() || proj.isExpired()) {
+        	if (proj == null || !combatEngine.isEntityInPlay(proj) || proj.didDamage() || proj.isExpired()) {
         		projIterator.remove();
         		idIterator.remove();
         		idIterator.next();

@@ -1,6 +1,6 @@
 {
     "displayName": "Strike",
-    "fluxCapacitors": 7,
+    "fluxCapacitors": 6,
     "fluxVents": 10,
     "goalVariant": true,
     "hullId": "espc_warden",
@@ -27,7 +27,7 @@
             "autofire": true,
             "mode": "LINKED",
             "weapons": {
-				"WS 003": "ioncannon"
+				"WS 003": "espc_ionresonator"
 			}
         }
     ]

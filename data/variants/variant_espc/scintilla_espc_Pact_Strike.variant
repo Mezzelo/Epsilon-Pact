@@ -1,27 +1,25 @@
 {
     "displayName": "Strike",
-    "fluxCapacitors": 4,
-    "fluxVents": 3,
+    "fluxCapacitors": 5,
+    "fluxVents": 2,
     "goalVariant": false,
     "hullId": "scintilla_espc",
-    "hullMods": [
-		"expanded_deck_crew"
-	],
+    "hullMods": ["expanded_deck_crew"],
     "permaMods": [],
-    "quality": 0,
+    "sMods": [],
     "variantId": "scintilla_espc_Pact_Strike",
     "weaponGroups": [
         {
-            "autofire": false,
+            "autofire": true,
             "mode": "LINKED",
-            "weapons": {"WS 006": "espc_finnegan"}
+            "weapons": {"WS 006": "espc_riftspear"}
         },
         {
             "autofire": false,
             "mode": "ALTERNATING",
             "weapons": {
-                "WS 007": "annihilator",
-                "WS 008": "annihilator"
+                "WS 007": "sabot_single",
+                "WS 008": "sabot_single"
             }
         },
         {
@@ -36,7 +34,7 @@
         }
     ],
     "wings": [
-        "lux_wing",
+        "flash_wing",
         "flash_wing"
     ]
 }

@@ -55,7 +55,7 @@ public class espc_InverseSkimmerStats extends BaseShipSystemScript {
 			combatEngine.addPlugin(plugin);
 		}
 		
-		if (ship.getShipAI() == null && ship.getHullSize() != HullSize.CAPITAL_SHIP)
+		if (ship.getShipAI() == null && !ship.getHullSize().equals(HullSize.CAPITAL_SHIP))
 			alliedTargets.add(target);
 		else if (ship.getHullSize().equals(HullSize.CAPITAL_SHIP)) {
 			List<ShipAPI> targetAllies = CombatUtils.getShipsWithinRange(ship.getLocation(), 
@@ -72,8 +72,8 @@ public class espc_InverseSkimmerStats extends BaseShipSystemScript {
 		
 		for (ShipAPI allyShip : alliedTargets) {
 			plugin.addAlly(allyShip);
-		    
 		}
+		
 		plugin.calculatePortals(combatEngine.getTotalElapsedTime(false));
 	    ship.setCustomData("espc_InverseSkimmer_Ally", true);
 		alliedTargets.clear();

@@ -59,7 +59,7 @@ public class espc_SerenadeModBehaviour extends BaseHullMod {
 					asymmetryBonus += ASYM_BONUS_MEDIUM;
 			}
         }
-		ship.getMutableStats().getFluxDissipation().modifyFlat("id", asymmetryBonus);      
+		ship.getMutableStats().getFluxDissipation().modifyFlat(id, asymmetryBonus);      
     }
     
     public String getDescriptionParam(int index, HullSize hullSize) {

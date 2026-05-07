@@ -37,11 +37,6 @@
         "WS 007": "lightac",
         "WS 008": "lightac"
       }
-    },
-    {
-      "autofire": true,
-      "mode": "LINKED",
-      "weapons": {}
     }
   ],
   "modules": [],

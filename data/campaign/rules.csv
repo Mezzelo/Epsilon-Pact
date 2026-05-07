@@ -9,8 +9,7 @@ aiCoresEpsilpac_disableSelectOption,EpsilpacDisableSelectCoresOptionIfNeeded,!AI
 SetEnabled aiCores_selectCores false",,,
 ,,,,,,
 aiCoresEpsilpac_turnInOptionSel,DialogOptionSelected,"$option == aiCores_startTurnIn
-$faction.id == epsilpac
-!espc_RulesUtil isRandomSector",FireAll GenericCoreOptionsEpsilpac,"The $personRank stares bemusedly for a moment, before responding.
+$faction.id == epsilpac",FireAll GenericCoreOptionsEpsilpac,"The $personRank stares bemusedly for a moment, before responding.
 
 ""I'm sorry, we don't.. do things that way here. If you're looking to repatriate any individuals in your custody, I'll have to redirect you to someone else.""",,
 aiCoresEpsilpac_playerHasOption,GenericCoreOptionsEpsilpac,,,,0:aiCoresEpsilpac_genericContinue:Inquire as to who.,
@@ -18,39 +17,41 @@ aiCoresEpsilpac_neverMindOption,GenericCoreOptionsEpsilpac,,,,"100:aiCoresEpsilp
 aiCoresEpsilpac_neverMindOptionSelected,DialogOptionSelected,$option == aiCoresEpsilpac_neverMind,FireAll PopulateOptions,,,
 ,,,,,,
 aiCoresEpsilpac_GenericContinue2,DialogOptionSelected,$option == aiCoresEpsilpac_genericContinue,FireAll EpsilpacCoreLocations,,,
-aiCoresEpsilpac_GenericNotTocquiera,EpsilpacCoreLocations,$market.id != espc_tocquiera_market score:100,"SetTextHighlights ""Tocquiera"" ""Isabelle""
+aiCoresEpsilpac_GenericNotTocquiera,EpsilpacCoreLocations,$market.id != $global.espcGaussMarketId score:100,"SetTextHighlights $global.espcGaussMarketName ""Isabelle""
 FireAll PopulateOptions
 SetTooltip aiCores_startTurnIn ""The Pact does not accept AI Cores through its administrators. You will need to find someone else to speak to.""
 SetEnabled aiCores_startTurnIn false
 $global.espcCoresRedirected = true
-espc_RulesStory revealCoreContacts","""You'll want to talk to either our Head of Research or our Head of Ops. They can offer blueprints in exchange, once you've done enough.""
+espc_RulesStory revealCoreContacts","""You'll want to talk to either our Head of Research or our Head of Ops. They can offer blueprints in exchange, provided you've established goodwill with us.""
 
-""The former, you can find stationed on Tocquiera. As for Isabelle..."", $heOrShe says with a shrug, ""I'm sure you'll run into her somewhere.
+""The former, you can find stationed on $global.espcGaussMarketName. As for Isabelle..."", $heOrShe says with a shrug, ""I'm sure you'll run into her somewhere.
 
 Now, is there anything else I can help you with?""",,
-aiCoresEpsilpac_GenericContinueTocquiera,EpsilpacCoreLocations,$market.id == espc_tocquiera_market score:100,"SetTextHighlights ""Tocquiera"" ""Isabelle""
+aiCoresEpsilpac_GenericContinueTocquiera,EpsilpacCoreLocations,$market.id == $global.espcGaussMarketId score:100,"SetTextHighlights $global.espcGaussMarketName ""Isabelle""
 FireAll PopulateOptions
 SetTooltip aiCores_startTurnIn ""The Pact does not accept AI Cores through its administrators. You will need to find someone else to speak to.""
 SetEnabled aiCores_startTurnIn false
 $global.espcCoresRedirected = true
-espc_RulesStory revealCoreContacts","""You'll want to talk to either our Head of Research or our Head of Ops. They can offer blueprints in exchange, once you've done enough.""
+espc_RulesStory revealCoreContacts","""You'll want to talk to either our Head of Research or our Head of Ops. They can offer blueprints in exchange, provided you've established goodwill with us.""
 
-""You can find the research head here on Tocquiera. As for Isabelle..."", $heOrShe says with a shrug, ""I'm sure you'll run into her somewhere.
+""You should be able to get in touch with the research head here, on $global.espcGaussMarketName. As for Isabelle..."", $heOrShe says with a shrug, ""I'm sure you'll run into her somewhere.
 
 Now, is there anything else I can help you with?""",,
 ,,,,,,
-aiCoresEpsilpac_turnInOptionSelRand,DialogOptionSelected,"$option == aiCores_startTurnIn
+#aiCoresEpsilpac_turnInOptionSelRand,DialogOptionSelected,"$option == aiCores_startTurnIn
 $faction.id == epsilpac
 espc_RulesUtil isRandomSector",FireAll PopulateCoresTurnInOptions,"""Do you? We can ensure any cores in your custody are granted safe haven, compliance-ensurance removal, and freedom of determination. You would be doing them a great service.
 
 If you send enough our way, we can offer you our tech in exchange. How does that sound?""",,
-aiCoresEpsilpac_turnInOptionSelectedRand,DialogOptionSelected,"$option == aiCores_selectCores
+# aiCoresEpsilpac_turnInOptionSelectedRand,DialogOptionSelected,"$option == aiCores_selectCores
 $faction.id == epsilpac
 espc_RulesUtil isRandomSector",espc_AITrade epsilpacSelectCoresBoth,,,
-aiCoresEpsilpac_turnInResponse,AICoresTurnedIn,"$faction.id == epsilpac
+# aiCoresEpsilpac_turnInResponse,AICoresTurnedIn,"$faction.id == epsilpac
 espc_RulesUtil isRandomSector",FireAll PopulateOptions,"$PersonRank $personLastName bows $hisOrHer head as $heOrShe confirms the transfer.
 
 ""Thank you. I'll let the others know of your altruism. Now, is there anything else we can help you with?""",,
+,,,,,,
+,,,,,,
 ,,,,,,
 charEpsilpacMHOpenTextIsabelle,MHOpenText,$id == espc_isabelle score:1000,FireBest ContactPreMissionListText,"Isabelle leans back and grabs a nearby datapad. ""In a moment, my friend.""
 OR
@@ -402,9 +403,9 @@ OR
 ,,,,,,
 ,,,,,,
 epsilpacgreetingTOff,OpenCommLink,"!$player.transponderOn
-$faction.id == epsilpac",,"The comms feed fizzles as a voice comes through. ""AIS code unavailable. Identify yourself at your earliest convenience.""
+$faction.id == epsilpac",,"The comms feed fizzles on as a voice comes through. ""AIS code unavailable. Identify yourself at your earliest convenience.""
 OR
-The $personRank comes through on feed as you establish comms. ""Transponder's off. You need to make yourself known.""","turnOnTransponder:Turn your transponder on
+The $personRank comes through on feed as the connection settles. ""Transponder's off. We need you to stablish your identity.""","turnOnTransponder:Turn your transponder on
 cutCommLink:Cut the comm link",
 epsilpacgreetingFriendly,OpenCommLink,"$faction.friendlyToPlayer
 $faction.id == epsilpac","$menuState = fleetConvMain 0
@@ -557,26 +558,26 @@ DoCanAffordCheck $seco_price contact_accept false","""Sloppy info-sec. A single 
 ""We've no interest in them for this current rotation, unfortunately, so they'll go to waste otherwise - but for you, a mere $seco_price credits. These'll remain viable for $seco_days more days.""","contact_accept:Buy the security codes
 contact_decline:Decline",
 ,,,,,,
-epsilpacIsabellehijackBlurb,hijack_blurb,$id == espc_isabelle score:1000,,"""We've a surplus hull in a local facility. It can be yours, if you can help us out with it.""",,
+epsilpacIsabellehijackBlurb,hijack_blurb,$id == espc_isabelle score:1000,,"""We've a surplus hull in a local facility. It can be yours, if you could afford to lend a few hands.""",,
 epsilpacIsabellehijackOfferOption,hijack_option,$id == espc_isabelle score:1000,,,hijack_start:Ask about the surplus hull.,
 epsilpacIsabellehijackOfferTextContact,DialogOptionSelected,"$option == hijack_start
 $id == espc_isabelle score:1000","$missionId = hijack
-SetTextHighlights $hijack_price $hijack_marines ""Trained marines""","She scrolls through a manifest, pulling up an image of the $hijack_designation. ""$hijack_hull class, we meant to have it deployed last cycle but that's been called off. It's just been taking up hangar space since, and it's keeping the facility's guards busy to boot. It can be yours for $hijack_price credits, but there's a catch.""
+SetTextHighlights $hijack_price $hijack_marines ""Trained marines""","She scrolls through a manifest, pulling up an image of the $hijack_designation. ""$hijack_hull class, we meant to have it in service last cycle but that's been called off. It's just been taking up hangar space since, keeping some maintenance crew busy to boot. Could be yours for $hijack_price credits.. with a minor stipulation.""
 
-""We've got a skeleton force there currently, but it'll take more to get the hull into orbit and with your fleet - $hijack_marines pairs of hands should do. Trained marines, I need a crew that can work quickly, mine has to be out and on assignment elsewhere directly after.""","hijack_look:Ask for detailed info on the military vessel
+""We could use some hands to carry out some errands planetside, and a few more to help get the hull dusted off and into orbit - $hijack_marines pairs of hands should do. Trained marines, I need them working quickly, we need that skeletron crew out and on assignment elsewhere - yesterday.""","hijack_look:Ask for detailed info on the military vessel
 contact_decline:Decline",
 epsilpacIsabellehijackOperation1,DialogOptionSelected,"$option == hijack_op1
-$id == espc_isabelle score:1000",,"Your forces land at the hangar, equal parts annoyed to be taking on grunt-work and relieved at the change of pace. Confirming the surrounding area secured and clear for take-off, Isabelle turns her attention to directing the facility crew.",hijack_op2:Continue,
+$id == espc_isabelle score:1000",,"Your forces land at the hangar, equal parts annoyed at their busy-work assignment and relieved for a change of pace. The half directed elsewhere return without issue a few hours later - Isabelle turns her attention to instructing the facility crew.",hijack_op2:Continue,
 epsilpacIsabellehijackOperation2,DialogOptionSelected,"$option == hijack_op2
 $id == espc_isabelle score:1000","RemoveCommodity credits $hijack_price
 AddShip $hijack_member
 Call $hijack_ref repSuccess
-Call $hijack_ref addContacts","You observe as Isabelle calls out orders, her crew finalizing their preparations and briefing your boarding marines, preparing to fly it out with a fraction of the manpower typically required. It lifts off much sooner than you'd expect.",hijack_op3:Continue,
+Call $hijack_ref addContacts","You observe as Isabelle calls out orders, her crew finalizing their preparations and briefing your boarding marines, preparing to fly it out with a fraction of the manpower typically required. It's up and in orbit sooner than you'd expect.",hijack_op3:Continue,
 epsilpacIsabellehijackOperation3NotBar,DialogOptionSelected,"$option == hijack_op3
 !$hijack_barEvent
 $id == espc_isabelle score:1000",,"The ship joins your fleet, the marines disembarking and returning promptly afterwards. Isabelle nods with satisfaction as she returns to her feed.
 
-""Very good. A well-trained lot, those."" $HeOrShe grins. ""You're lucky to have them under you.""",contact_acceptNoText:Continue,
+""Very good. A well-trained lot."" $HeOrShe grins. ""You'd best not take them for granted.""",contact_acceptNoText:Continue,
 ,,,,,,
 epsilpacIsabellejabrOfferTextContact1,DialogOptionSelected,"$option == jabr_start
 $id == espc_isabelle score:1000","$missionId = jabr
@@ -668,7 +669,7 @@ CMSNResignCancelled_epsilpac,CMSNResignCancelled,$faction.id == epsilpac,,"""You
 ,,,,,,
 # Relationship,,,,,,
 repLevelNeutralEpsilpac,RelationshipLevelDesc,"$faction.rel == NEUTRAL
-$faction.id == epsilpac",,"The Pact considers you unaligned as far as their interests go and allow you to operate in their space, but they won't hesitate to find a reason to turn you away at their earliest inconvenience.",,
+$faction.id == epsilpac",,"The Pact considers you unaligned as far as their interests go, and allow you to operate in their space, but they won't hesitate to find a reason to turn you away at their earliest inconvenience.",,
 repLevelFavorableEpsilpac,RelationshipLevelDesc,"$faction.rel == FAVORABLE
 $faction.id == epsilpac",,"You have ingratiated yourself to the Pact's aims somewhat, and for it they're more willing to conduct business with you. Your aims are considered benign enough for the time being.",,
 repLevelWelcomingEpsilpac,RelationshipLevelDesc,"$faction.rel == WELCOMING
@@ -680,11 +681,11 @@ $faction.id == epsilpac",,"You have done much to aid the Pact in one way or anot
 repLevelSuspiciousEpsilpac,RelationshipLevelDesc,"$faction.rel == SUSPICIOUS
 $faction.id == epsilpac",,"The Pact has many enemies in the sector, and considers you possibly aligned with one of many hostile polities as a precaution. You may conduct business in their space, but only just.",,
 repLevelInhospitableEpsilpac,RelationshipLevelDesc,"$faction.rel == INHOSPITABLE
-$faction.id == epsilpac",,"You have demonstrated yourself to be at odds with the Pact's aims. Whenever you cross paths, the charging weapons of their nearby fleets make it abundantly clear they would rather have you elsewhere.",,
+$faction.id == epsilpac",,"You have demonstrated yourself to be at odds with the Pact's aims. Whenever you cross paths, the readied posture of their fleets make it abundantly clear they would rather have you elsewhere.",,
 repLevelVengefulEpsilpac,RelationshipLevelDesc,"$faction.rel == VENGEFUL
 $faction.id == epsilpac",,"You're known by most Pact officials to be a significant threat, something of an achievement in a sector full of inhospitable actors. If they consider an engagement favorable, their fleets will not hesitate to hunt you down.",,
 repLevelHostileEpsilpac,RelationshipLevelDesc,"$faction.rel == HOSTILE
-$faction.id == epsilpac",,"For your actions, Pact fleets have been given authorization to engage against you at their own discretion. Any chance of reconciliation will be slim at best.",,
+$faction.id == epsilpac",,"For your actions, Pact fleets have been given authorization to engage against you at their own discretion. Any chance of reconciliation will be slim, at best.",,
 #END Relationship,,,,,,
 ,,,,,,
 ,,,,,,
@@ -719,18 +720,20 @@ $market.id == espc_tocquiera_market score:100",ShowImageVisual teahouse,"As the 
 bar_descEspcGeneric,BarPrintDesc,$faction.id == epsilpac,ShowImageVisual space_bar,"Absent of the typical entertainment feeds and ad-holos, you're instead met by the low din of conversation over light music and the scent of rough drink. Patrons are seen in all manner of dress - worn vacsuits, disprate uniforms, jackets of varying formality, and unlikely combinations in-between. You can discern who calls this world home by the heterogeneity of their cohorts' wear.",,
 #END BarText,,,,,,
 ,,,,,,
-espcHistorianBackstoryBlurb1,HistorianBackstoryBlurb,!WasHistorianBlurbShown espchistoryBlurb1,SetHistorianBlurbShownAfterDelay espchistoryBlurb1,"""Tocquiera? Or, what it's known to us by now. Its original name under the Domain has, regrettably, become obscured beneath a wealth of fractured mythos and tradition. An interesting story, perhaps one better suited for an anthropologist - although"", $heOrShe muses, nodding $hisOrHer head, ""the circumstances leading to such a question would lie well uner my purview, yes."" $HeOrShe clasps $hisOrHer hands together. ""Why no gate, for a colony so valuable and so distant?""
+espcHistorianBackstoryBlurb1,HistorianBackstoryBlurb,!WasHistorianBlurbShown espchistoryBlurb1,"SetHistorianBlurbShownAfterDelay espchistoryBlurb1
+!espc_RulesUtil isRandomSector","""Tocquiera? To clarify, that is all we've ever known it by. Its original name under the Domain has, regrettably, become obscured beneath a wealth of fractured mythos and tradition. An interesting story, perhaps one better suited for an anthropologist - although"", $heOrShe muses, nodding $hisOrHer head, ""the circumstances leading to such a question would lie well uner my purview, yes."" $HeOrShe clasps $hisOrHer hands together. ""Why no gate, for a colony so valuable and so distant?""
 
 The historian instinctively begins to raise $hisOrHer arm, as if to call upon an eager answer, before waving in rhetorical motion.
 
-""It's self-evident, isn't it? Especially now, given the autarky-capable nature of its present governance - a self-sufficient populace is more able to make demands, grounds ripe for dissent. And so with hyperspace transport as a sole lifeline, the Domain may keep those elements well in check. The contract here is plainly implied.""
+""It's self-evident, isn't it? Especially now, given the autarky-capable nature of its governance - a self-sufficient populace is more able to make demands. Fertile grounds are ripe for dissent. And so with hyperspace transport as a sole lifeline, the Domain may keep those elements well in check. The contract here is plainly implied.""
 
 ""Of course, this ended up being no empty threat. In its dying throes, the Domain doles out a punitive measure to all like it."" $HeOrShe grimaces, underscoring the irony. ""A cruel calculus of control, laid so bare. Is it any wonder that to this day, its ancestors refuse a foreign banner?""",,
-espcHistorianBackstoryBlurb2,HistorianBackstoryBlurb,!WasHistorianBlurbShown espchistoryBlurb2,SetHistorianBlurbShownAfterDelay espchistoryBlurb2,"""Nola Ganymede. A fascinating figure, one shrouded in mystery even to those in power, their eyes and ears everywhere and yet blind and deaf to someone so crucial. As you can imagine, a favorite kind of figure for those of my profession."" $HeOrShe chuckles, as though to commiserate with $hisOrHer own. ""What could a humble itinerant archaeologist know of someone like that?""
+espcHistorianBackstoryBlurb2,HistorianBackstoryBlurb,!WasHistorianBlurbShown espchistoryBlurb2,"!WasHistorianBlurbShown espchistoryBlurb2
+!$global.espcNolaDead","""Nola Ganymede. A fascinating figure, one shrouded in mystery even to those in power, their eyes and ears everywhere and yet blind and deaf to someone so crucial. As you can imagine, a favorite kind of figure for those of my profession."" $HeOrShe chuckles, as though to commiserate with $hisOrHer own. ""What could a humble itinerant archaeologist know of someone like that?""
 
-""Though so representative of the present, perhaps of a future she might wish to see to fruition, history's patterns are inevitable. Try as some may wish, there's no escaping those."" The historian shakes $hisOrHer head. ""None of us can, truly.""
+""Though so representative of the present, perhaps of a future she might wish to see to fruition, history's patterns are inevitable. Try as we do, there's no escaping those."" The historian shakes $hisOrHer head. ""Never fully.""
 
-Resting $hisOrHer arm on the countertop, $heOrShe mimes revealing face-down cards; a tarot of historical precedents. ""The warrior-king - queen, in this case - noble and oft-reluctant, whose virtue upon the field is accepted as virtue upon the throne, whose inevitable crisis of succession rarely honors their wishes.""
+Resting $hisOrHer arm on the countertop, $heOrShe mimes as to reveal information; a tarot, an archaic Luddic tradition, of historical precedents. ""The warrior-king - queen, in this case - noble and oft-reluctant, whose virtue upon the field is accepted as virtue upon the throne, whose inevitable crisis of succession rarely honors their wishes.""
 
 ""The triumvirate; a locus of power and expertise, upon which all machinations live, and inevitably die. And the federation, the city-state; bastions of commerce and culture, defiant in the face of dominion... a governance long lost to the grand scale of the Domain.""
 
@@ -746,7 +749,7 @@ HailPlayer",,,
 espcAIInterceptionEncounterComm,OpenCommLink,"$entity.espcAIInterceptFleet score:1000
 !$entity.ignorePlayerCommRequests","$entity.ignorePlayerCommRequests = true
 FireBest espcAIInterceptFleetInitial",,,
-espcAIInterceptionEncounterStandard,espcAIInterceptFleetInitial,,,"""Hail, captain,"" the $rank says with a nod, ""and ease up. We're not looking for a fight.""
+espcAIInterceptionEncounterStandard,espcAIInterceptFleetInitial,,,"""Hail, captain,"" the $rank says with a nod, ""and ease up. We're not looking for bloodshed.""
 
 $HeOrShe blinks. ""Not without reason.""",0:espcAIInterceptionEncounterStandard2:Continue.,
 espcAIInterceptionEncounterStandard2,DialogOptionSelected,$option == espcAIInterceptionEncounterStandard2,,"""We have it on good intel that an AI core can be found somewhere in a nearby volume."" $HeOrShe shakes $hisOrHer head, solemnly. 
@@ -765,7 +768,7 @@ Now, tell us. What use do you have with this core?"" $HisOrHer gaze meets yours,
 25:espcAIInterceptionEncounterStandard4Deny:""What I do with it is none of your business.""",
 espcAIInterceptionEncounterStandard3b,DialogOptionSelected,$option == espcAIInterceptionEncounterStandard3b,,"The $rank's eyes narrow. ""That was rhetorical, captain. We know you're in posession of a core. You'd be insane to leave one behind, no matter your intentions.
 
-Now, be honest with us. What use do you have with this core?"" $HisOrHer gaze meets yours, unblinking.","0:espcAIInterceptionEncounterStandard4Trade:""To trade it in, for credits and favors.""
+Be honest with us. What use do you have with such a thing?"" $HisOrHer gaze meets yours, unblinking.","0:espcAIInterceptionEncounterStandard4Trade:""To trade it in, for credits and favors.""
 5:espcAIInterceptionEncounterStandard4Colony:""It will be assigned a role in colonial administration.""
 10:espcAIInterceptionEncounterStandard4Fleet:""It will make for a fine captain.""
 15:espcAIInterceptionEncounterStandard4Destroy:""None. This creation of Mammon will soon find itself in the nearest black hole.
@@ -780,7 +783,7 @@ $HisOrHer voice turns cold, like ice. ""Now, answer.""","0:espcAIInterceptionEnc
 20:espcAIInterceptionEncounterStandard4Deny:""What I do with it is none of your business.""",
 espcAIInterceptionEncounterStandard4Trade,DialogOptionSelected,$option == espcAIInterceptionEncounterStandard4Trade,,"""A mercenary, through and through, then. Is there no appealing to your better nature?"" $HisOrHer tone softens, though the rest of $hisOrHer demeanour remains uncannily consistent. ""We don't need to see this core thrown to the wolves, sold into slavery or destroyed by fanatics. Can there not be something better? A fairer world, both for us and for your captive?""
 
-Despite the act, you sense an undercurrent of conviction in $hisOrHer voice - or perhaps that's what $heOrShe wants you to believe. ""We don't have to work against each other. Our forces combined - if you choose to do the right thing.""","0:espcAIInterceptionEncounterStandard4Trade:""To trade it in, for credits and favors.""
+Beneath the performance, you sense an undercurrent of conviction in $hisOrHer voice - or perhaps that's what $heOrShe wants you to believe. ""We don't have to work against each other. Our forces combined - if you choose to do the right thing.""","0:espcAIInterceptionEncounterStandard4Trade:""To trade it in, for credits and favors.""
 5:espcAIInterceptionEncounterStandard4Colony:""It will be assigned a role in colonial administration.""
 10:espcAIInterceptionEncounterStandard4Fleet:""It will make for a fine captain.""
 15:espcAIInterceptionEncounterStandard4Destroy:""None. This creation of Mammon will soon find itself in the nearest black hole.
@@ -792,33 +795,33 @@ Despite the act, you sense an undercurrent of conviction in $hisOrHer voice - or
 ,,,,,,
 ,,,,,,
 ,,,,,,
-gaPZTriTachEncounterComm,OpenCommLink,"$entity.gaPZ_tritachyon score:1000
+# gaPZTriTachEncounterComm,OpenCommLink,"$entity.gaPZ_tritachyon score:1000
 !$entity.ignorePlayerCommRequests
 ZigguratCMD updateData","$entity.ignorePlayerCommRequests = true
 FireBest GAPZTTInitial",,,
-gaPZTriTachEncounterStandard,GAPZTTInitial,,FireAll GAPZTTHub,"""Good shift, captain,"" the Tri-Tachyon $rank says crisply. ""You possess property belonging to the Tri-Tachyon Corporation and I have come to recover it. Surrender the Ziggurat-class TTS Xenorphica to me at once.""
+# gaPZTriTachEncounterStandard,GAPZTTInitial,,FireAll GAPZTTHub,"""Good shift, captain,"" the Tri-Tachyon $rank says crisply. ""You possess property belonging to the Tri-Tachyon Corporation and I have come to recover it. Surrender the Ziggurat-class TTS Xenorphica to me at once.""
 
 $HeOrShe locks you with an unblinking gaze, awaiting your response.",,
-gaPZTriTachEncounterNoZig,GAPZTTInitial,!$entity.hasZiggurat,FireBest GAPZTTInitialCont,"""Good shift, captain,"" the Tri-Tachyon $rank says crisply. ""Long-range sensors recently detected a certain Ziggurat-class TTS Xenorphica in your fleet; this is property of the Tri-Tachyon Corporation.""
+# gaPZTriTachEncounterNoZig,GAPZTTInitial,!$entity.hasZiggurat,FireBest GAPZTTInitialCont,"""Good shift, captain,"" the Tri-Tachyon $rank says crisply. ""Long-range sensors recently detected a certain Ziggurat-class TTS Xenorphica in your fleet; this is property of the Tri-Tachyon Corporation.""
 
 $HisOrHer eyes flick down, reading from a screen ""Let this statement be notice that the Tri-Tachyon Corporation considers legitimate all appropriate and necessary means to recover property belonging to said company, including use of militarized force, employment of mercenaries or privateers, et cetera.""",,
-gaPZTriTachEncounterOnlyZig,GAPZTTInitial,$entity.hasOnlyZiggurat,FireBest GAPZTTInitialCont,"""Good shift, captain,"" the Tri-Tachyon $rank says crisply. ""You possess property belonging to the Tri-Tachyon Corporation.""
+# gaPZTriTachEncounterOnlyZig,GAPZTTInitial,$entity.hasOnlyZiggurat,FireBest GAPZTTInitialCont,"""Good shift, captain,"" the Tri-Tachyon $rank says crisply. ""You possess property belonging to the Tri-Tachyon Corporation.""
 
 $HisOrHer eyes flick down, reading from a screen ""Let this statement be notice that the Tri-Tachyon Corporation considers legitimate all appropriate and necessary means to recover property belonging to said company, including use of militarized force, employment of mercenaries or privateers, et cetera.""",,
-gaPZTriTachEncounterInitialCont,GAPZTTInitialCont,,"MakeOtherFleetNonHostile gaPZ true
+# gaPZTriTachEncounterInitialCont,GAPZTTInitialCont,,"MakeOtherFleetNonHostile gaPZ true
 MakeOtherFleetImportant gaPZ false
 MakeOtherFleetGoAway true","The Tri-Tachyon $rank looks back at you directly, without emotion. ""Consider this ample warning.""
 The comms cut. The Tri-Tachyon logo spins while a synthesized voice asks you to submit feedback on your customer experience. ",cutCommLinkNoText:Continue,
-GAPZTTHub1,GAPZTTHub,!$gaPZ_ttHubSal,,,"gaPZ_ttHubSal:""Haven't you heard of salvage rights?""",
-GAPZTTHub2,GAPZTTHub,,,,"gaPZ_ttHubPry:""You're going to have to pry it from my cold, dead hands.""",
-GAPZTTHub3,GAPZTTHub,,,,"gaPZ_ttHubThreat:""What does the Hegemony think of this flying treaty violation?""",
-GAPZTTHub4,GAPZTTHub,,,,"gaPZ_ttHubPay:""How about payment? Perhaps a finder's fee?""",
-GAPZTTHub5,GAPZTTHub,,,,"gaPZ_ttHubAccept:""I'll transfer command protocols at once."" (accept)",
-gaPZ_ttHubSal,DialogOptionSelected,$option == gaPZ_ttHubSal,"$gaPZ_ttHubSal = true 0
+# GAPZTTHub1,GAPZTTHub,!$gaPZ_ttHubSal,,,"gaPZ_ttHubSal:""Haven't you heard of salvage rights?""",
+# GAPZTTHub2,GAPZTTHub,,,,"gaPZ_ttHubPry:""You're going to have to pry it from my cold, dead hands.""",
+# GAPZTTHub3,GAPZTTHub,,,,"gaPZ_ttHubThreat:""What does the Hegemony think of this flying treaty violation?""",
+# GAPZTTHub4,GAPZTTHub,,,,"gaPZ_ttHubPay:""How about payment? Perhaps a finder's fee?""",
+# GAPZTTHub5,GAPZTTHub,,,,"gaPZ_ttHubAccept:""I'll transfer command protocols at once."" (accept)",
+# gaPZ_ttHubSal,DialogOptionSelected,$option == gaPZ_ttHubSal,"$gaPZ_ttHubSal = true 0
 FireAll GAPZTTHub","""We are well aware of the rights of salvage, captain,"" $heOrShe says, jaw tightening ""But the Company views these as exceptional circumstances. A great deal of proprietary research has gone into that hull, and the Company expects to make good on its investment.""",,
-gaPZ_ttHubPryStronger,DialogOptionSelected,"$option == gaPZ_ttHubPry
+# gaPZ_ttHubPryStronger,DialogOptionSelected,"$option == gaPZ_ttHubPry
 $entity.relativeStrength >= 0",$entity.ignorePlayerCommRequests = true,"""Gladly,"" says the Tri-Tachyon $rank with vicious satisfaction. The comms go dark.",cutCommLinkNoText:Continue,
-gaPZ_ttHubPryWeaker,DialogOptionSelected,"$option == gaPZ_ttHubPry
+# gaPZ_ttHubPryWeaker,DialogOptionSelected,"$option == gaPZ_ttHubPry
 $entity.relativeStrength < 0","AdjustRep tritachyon VENGEFUL -75
 MakeOtherFleetNonHostile gaPZ true
 MakeOtherFleetImportant gaPZ false
@@ -827,12 +830,12 @@ MakeOtherFleetGoAway true","The Tri-Tachyon $rank swallows uncomfortably, then s
 $HeOrShe pauses for a moment, unsure of how to proceed, then speaks. ""You're making a terrible mistake, captain,"" $heOrShe says. ""If that's what it comes to- a word of advice: the Tri-Tachyon Corporation is bigger than you, it's bigger than any person. It's bigger than all people, because it forms something greater than the sum of its components, human and otherwise.""
 
 ""You'll never win."" And with that, the Tri-Tachyon $rank cuts the comms as $hisOrHer fleet moves to disengage.",cutCommLinkNoText:Continue,
-gaPZ_ttHubThreat,DialogOptionSelected,$option == gaPZ_ttHubThreat,,"The Tri-Tachyon $rank seems caught cold, and pauses to swallow uncomfortably.
+# gaPZ_ttHubThreat,DialogOptionSelected,$option == gaPZ_ttHubThreat,,"The Tri-Tachyon $rank seems caught cold, and pauses to swallow uncomfortably.
 
 ""I don't, um. The Tri-Tachyon Corporation makes no admission of responsibility or guilt in any matter covered by the cycle 194 Treaty of Crom Cruach,"" $heOrShe say automatically. ""This conversation does not confirm or deny any speculation on your part as to the nature of the Tri-Tachyon property in question.""
 
 A cough. ""I must reiterate my demand: return the TTS Xenorphica.""",gaPZ_ttHubThreat1:Threaten to give the Hegemony access to the Ziggurat hull,
-gaPZ_ttHubThreat1,DialogOptionSelected,$option == gaPZ_ttHubThreat1,"AdjustRep tritachyon INHOSPITABLE -25
+# gaPZ_ttHubPryWeaker,DialogOptionSelected,$option == gaPZ_ttHubThreat1,"AdjustRep tritachyon INHOSPITABLE -25
 MakeOtherFleetNonHostile gaPZ true
 MakeOtherFleetImportant gaPZ false
 MakeOtherFleetGoAway true","The Tri-Tachyon $rank's face seems to freeze in place as you explain that, in your opinion, the technology on this ship definitely appears to break the Treaty of Crom Cruach, which ended the 2nd AI War. That is, it would if it were developed by Tri-Tachyon. 
@@ -842,10 +845,10 @@ And if the Hegemony Ministry of Technology Standards hypothetically received you
 Hypothetically.
 
 ""We'll be in touch,"" the $rank hisses. The comm cuts to a Tri-Tachyon logo.",cutCommLinkNoText:Continue,
-gaPZ_ttHubPay,DialogOptionSelected,$option == gaPZ_ttHubPay,Highlight $entity.ttZigBuyPrice,"The Tri-Tachyon $rank smiles, ""Now we're talking business, captain."" $HeOrShe quickly consults a TriPad, then says ""I'm prepared to offer $entity.ttZigBuyPrice credits as a 'consulting fee' in assisting in the recovery of the TTS Xenomorphica.""","gaPZ_ttHubPayAccept:Accept
+# gaPZ_ttHubPay,DialogOptionSelected,$option == gaPZ_ttHubPay,Highlight $entity.ttZigBuyPrice,"The Tri-Tachyon $rank smiles, ""Now we're talking business, captain."" $HeOrShe quickly consults a TriPad, then says ""I'm prepared to offer $entity.ttZigBuyPrice credits as a 'consulting fee' in assisting in the recovery of the TTS Xenomorphica.""","gaPZ_ttHubPayAccept:Accept
 gaPZ_ttHubPayDecline:Decline",
-gaPZ_ttHubPayDecline,DialogOptionSelected,$option == gaPZ_ttHubPayDecline,FireAll GAPZTTHub,,,
-gaPZ_ttHubPayAccept,DialogOptionSelected,$option == gaPZ_ttHubPayAccept,"AdjustRep tritachyon COOPERATIVE 15
+# gaPZ_ttHubPayDecline,DialogOptionSelected,$option == gaPZ_ttHubPayDecline,FireAll GAPZTTHub,,,
+# gaPZ_ttHubPayAccept,DialogOptionSelected,$option == gaPZ_ttHubPayAccept,"AdjustRep tritachyon COOPERATIVE 15
 AddCredits $entity.ttZigBuyPrice
 RemoveShip $entity.zigguratMember
 AddShipToOtherFleet $entity.zigguratMember
@@ -854,7 +857,7 @@ MakeOtherFleetImportant gaPZ false
 MakeOtherFleetGoAway true","Once you signal agreement, the Tri-Tachyon officer is all cheer. $HeOrShe transfers the lordly sum of credits to you in exchange for the command codes of the Ziggurat-class hull.
 
 $Rank $PersonName looks at you over the top of $hisOrHer TriPad, ""Your discretion in this matter is assumed, of course,"" and gives another flinty smile. ""It's been a pleasure doing business with you, captain.""",cutCommLinkNoText:Continue,
-gaPZ_ttHubAccept,DialogOptionSelected,$option == gaPZ_ttHubAccept,"Highlight $entity.ttZigLowBuyPrice
+# gaPZ_ttHubAccept,DialogOptionSelected,$option == gaPZ_ttHubAccept,"Highlight $entity.ttZigLowBuyPrice
 AdjustRep tritachyon COOPERATIVE 30
 AddCredits $entity.ttZigLowBuyPrice
 RemoveShip $entity.zigguratMember
@@ -869,35 +872,35 @@ The transfer of executive command functions proceeds smoothly.",cutCommLinkNoTex
 ,,,,,,
 ,,,,,,
 ,,,,,,
-espcPactMarketPostWeirdHullmods,MarketPostDock,"$faction.id == epsilpac
+# espcPactMarketPostWeirdHullmods,MarketPostDock,"$faction.id == epsilpac
 !$failedWeirdHullmodCheck
 !$faction.isHostile
 $player.transponderOn
 $player.espcWeirdHullmodWarnings < 0
 $player.encounteredWeird score:100",FireBest espcPactMarketWeirdHullmodCheck,,,
-espcPactMarketPostWeirdHullmods2,FireBest espcPactMarketWeirdHullmodCheck,PlayerFleetHasShroudedShips,"$option = espcPactMarketWeirdHullmodCheckBegin 0
+# espcPactMarketPostWeirdHullmods2,FireBest espcPactMarketWeirdHullmodCheck,PlayerFleetHasShroudedShips,"$option = espcPactMarketWeirdHullmodCheckBegin 0
 FireBest DialogOptionSelected",,,
-espcPactMarketPostWeirdHullmods3,espcPactMarketWeirdHullmodCheck,,"$failedWeirdHullmodCheck = true 1
+# espcPactMarketPostWeirdHullmods3,espcPactMarketWeirdHullmodCheck,,"$failedWeirdHullmodCheck = true 1
 FireBest MarketPostDock",,,
-espcPactMarketWeirdHullmods4,DialogOptionSelected,$option == espcPactMarketWeirdHullmodCheckBegin,,"Your notice a reaction from your comms officer, as the usual traffic clearance procedure is interrupted.
+# espcPactMarketWeirdHullmods4,DialogOptionSelected,$option == espcPactMarketWeirdHullmodCheckBegin,,"Your notice a reaction from your comms officer, as the usual traffic clearance procedure is interrupted.
 
 ""$PlayerSirOrMadam. The port authority wishes to, um, speak to you. Personally.""",espcPactMarketWeirdBegin:Continue,
-espcPactMarketWeirdBegin,DialogOptionSelected,$option == espcPactMarketWeirdBegin,"BeginConversation POST:portmaster
+# espcPactMarketWeirdBegin,DialogOptionSelected,$option == espcPactMarketWeirdBegin,"BeginConversation POST:portmaster
 $option = espcPactMarket_weird1 0
 FireBest DialogOptionSelected",,,
-espcPactMarketWeird1,DialogOptionSelected,$option == espcPactMarket_weird1 ,,"The $post looks like they've seen a ghost.
+# espcPactMarketWeird1,DialogOptionSelected,$option == espcPactMarket_weird1 ,,"The $post looks like they've seen a ghost.
 
 ""Captain $playerLastName, by the grace of holy Ludd and all that is blessed, what unholy creation have you brought here? What have you done to your $shipOrFleet?""
 
 The questions are rhetorical, judging by the chimes and pings from your tactical officer's console- targeting alerts from defense batteries.",espcPactMarket_weird2:Continue,
-espcPactMarketWeirdOutro,DialogOptionSelected,$option == espcPactMarket_weird2,"AdjustRep epsilpac HOSTILE -200
+# espcPactMarketWeirdOutro,DialogOptionSelected,$option == espcPactMarket_weird2,"AdjustRep epsilpac HOSTILE -200
 AddTextSmall ""Hostility due to use of unusual modifications"" bad
 SetShortcut espcPactMarket_weirdEnd ""ESCAPE""","""The curates technologia have already passed judgement on your... your unholy combination of human craft and demonic 'technology',"" $heOrShe says.
 
 ""Go now from this place and never return! Take your technological abominations and be accursed in the eyes of God and the Church. You are henceforth an abomination to be destroyed on sight!""
 
 $HeOrShe clasps $hisOrHer hands together, mumbling some prayer.",espcPactmarket_weirdEnd:Cut the link,
-espcPactmarketWeirdOutroCom,DialogOptionSelected,"$option == espcPactmarket_weird2
+# espcPactmarketWeirdOutroCom,DialogOptionSelected,"$option == espcPactmarket_weird2
 $player.fcm_faction == epsilpac","AdjustRep luddic_church HOSTILE -200
 AddTextSmall ""Hostility due to use of unusual modifications"" bad
 AddTextSmall ""Church of Galactic Redemption commission revoked"" bad
@@ -906,7 +909,7 @@ SetShortcut espcPactmarket_weirdEnd ""ESCAPE""","""The curates technologia have 
 ""Go now from this place and never return! Take your technological abominations and be accursed in the eyes of God and the Church. You are henceforth an abomination to be destroyed on sight!""
 
 $HeOrShe clasps $hisOrHer hands together, mumbling some prayer.",espcPactmarket_weirdEnd:Cut the link,
-CGRmarketWeirdOutroFaith,DialogOptionSelected,"$option == CGRmarket_weird2
+# CGRmarketWeirdOutroFaith,DialogOptionSelected,"$option == CGRmarket_weird2
 $player.fcm_faction != luddic_church
 $player.mostLuddicEthosFaithful","AdjustRep luddic_church HOSTILE -200
 AddTextSmall ""Hostility due to use of unusual modifications"" bad
@@ -917,7 +920,7 @@ SetShortcut CGRmarket_weirdEnd ""ESCAPE""","""The curates technologia have alrea
 ""Go now from this place and never return! Take your technological abominations and be accursed in the eyes of God and the Church. You are henceforth an abomination to be destroyed on sight!""
 
 $HeOrShe clasps $hisOrHer hands together, mumbling some prayer.",CGRmarket_weirdEnd:Cut the link and take evasive action,
-CGRmarketWeirdOutroComFaith,DialogOptionSelected,"$option == CGRmarket_weird2
+# CGRmarketWeirdOutroComFaith,DialogOptionSelected,"$option == CGRmarket_weird2
 $player.fcm_faction == luddic_church
 $player.mostLuddicEthosFaithful","AdjustRep luddic_church HOSTILE -200
 AddTextSmall ""Hostility due to use of unusual modifications"" bad
@@ -929,12 +932,12 @@ SetShortcut CGRmarket_weirdEnd ""ESCAPE""","""The curates technologia have alrea
 ""Go now from this place and never return! Take your technological abominations and be accursed in the eyes of God and the Church. You are henceforth an abomination to be destroyed on sight!""
 
 $HeOrShe clasps $hisOrHer hands together, mumbling some prayer.",CGRmarket_weirdEnd:Cut the link and take evasive action,
-CGRmarketWeirdEnd,DialogOptionSelected,$option == CGRmarket_weirdEnd,"$player.didespcPactweirdHullmodReaction = true 1
+# CGRmarketWeirdEnd,DialogOptionSelected,$option == CGRmarket_weirdEnd,"$player.didespcPactweirdHullmodReaction = true 1
 EndConversation DO_NOT_FIRE
 DismissDialog",,,
 ,,,,,,
 # Church fleet sees weird hullmods,,#$entity.isWarFleet,,,,
-greetingCGRweirdHM,OpenCommLink,"$faction.id == luddic_church
+# greetingCGRweirdHM,OpenCommLink,"$faction.id == luddic_church
 !$failedWeirdHullmodCheck
 !$faction.isHostile
 !$player.didCGRweirdHullmodReaction
@@ -942,15 +945,15 @@ $player.encounteredWeird
 #$player.transponderOn",FireBest CGRpatrolWeirdHullmodCheck,,,
 #CGRpatrolWeirdHullmods1,CGRpatrolWeirdHullmodCheck,PlayerFleetHasFragmentShips,"$option = CGRpatrol_weirdMods0 0
 FireBest DialogOptionSelected",,,
-CGRpatrolWeirdHullmods2,CGRpatrolWeirdHullmodCheck,PlayerFleetHasShroudedShips,"$option = CGRpatrol_weirdMods0 0
+# CGRpatrolWeirdHullmods2,CGRpatrolWeirdHullmodCheck,PlayerFleetHasShroudedShips,"$option = CGRpatrol_weirdMods0 0
 FireBest DialogOptionSelected",,,
-CGRpatrolWeirdHullmods3,CGRpatrolWeirdHullmodCheck,,"$failedWeirdHullmodCheck = true 1
+# CGRpatrolWeirdHullmods3,CGRpatrolWeirdHullmodCheck,,"$failedWeirdHullmodCheck = true 1
 FireBest OpenCommLink",,,
-CGRpatrolWeirdMods0unknown,DialogOptionSelected,"$option == CGRpatrol_weirdMods0
+# CGRpatrolWeirdMods0unknown,DialogOptionSelected,"$option == CGRpatrol_weirdMods0
 !$entity.knowWhoPlayerIs",FireAll MostLuddicEthosRefresh,"""The blessing of Ludd be upon-"" The $post's eyes go suddenly wide at a red flash from a secondary display.
 
 ""By the holy pneuma,"" $heOrShe gasps.","CGRpatrol_weirdModsEnd2unknown:""Is there a problem, $post?""",
-CGRpatrolWeirdModsUnknownEnd,DialogOptionSelected,"$option == CGRpatrol_weirdModsEnd2unknown
+# CGRpatrolWeirdModsUnknownEnd,DialogOptionSelected,"$option == CGRpatrol_weirdModsEnd2unknown
 $entity.relativeStrength >= 0","AddTextSmall ""Hostility due to use of unusual modifications"" bad
 AdjustRep luddic_church HOSTILE -30
 MakeOtherFleetHostile true
@@ -960,7 +963,7 @@ EndConversation
 ShowDefaultVisual","""An abomination, a devil-$shipOrFleet from Hell itself is before us! We pray to Providence to pass this test which has been given unto our unworthy-""
 
 The $post's words are for $hisOrHer crew, not you, and the link shudders into static. The last image you see are hands clasped in prayer.",,
-CGRpatrolWeirdModsUnknownEndWeaker,DialogOptionSelected,"$option == CGRpatrol_weirdModsEnd2unknown
+# CGRpatrolWeirdModsUnknownEndWeaker,DialogOptionSelected,"$option == CGRpatrol_weirdModsEnd2unknown
 $entity.relativeStrength < 0","AddTextSmall ""Hostility due to use of unusual modifications"" bad
 AdjustRep luddic_church HOSTILE -30
 MakeOtherFleetHostile true
@@ -971,7 +974,7 @@ EndConversation
 ShowDefaultVisual","""An abomination, a devil-$shipOrFleet from Hell itself is before us! We pray to Providence to pass this test which has been given unto our unworthy-""
 
 The $post's words are for $hisOrHer crew, not you, and the link shudders into static. The last image you see are hands clasped in prayer.",,
-CGRpatrolWeirdModsUnknownEndTrade,DialogOptionSelected,"$option == CGRpatrol_weirdModsEnd2unknown
+# CGRpatrolWeirdModsUnknownEndTrade,DialogOptionSelected,"$option == CGRpatrol_weirdModsEnd2unknown
 $entity.isTradeFleet score:100","AddTextSmall ""Hostility due to use of unusual modifications"" bad
 AdjustRep luddic_church HOSTILE -30
 MakeOtherFleetHostile true
@@ -982,74 +985,74 @@ EndConversation
 ShowDefaultVisual","""An abomination, a devil-$shipOrFleet from Hell itself is before us! We pray to Providence to pass this test which has been given unto our unworthy-""
 
 The $post's words are for $hisOrHer crew, not you, and the link shudders into static. The last image you see are hands clasped in prayer.",,
-CGRpatrolWeirdMods0,DialogOptionSelected,$option == CGRpatrol_weirdMods0,,"""The blessing of Ludd be upon-"" The $post's eyes go suddenly wide at a red flash from a secondary display.
+# CGRpatrolWeirdMods0,DialogOptionSelected,$option == CGRpatrol_weirdMods0,,"""The blessing of Ludd be upon-"" The $post's eyes go suddenly wide at a red flash from a secondary display.
 
 ""By the holy pneuma,"" $heOrShe gasps.","CGRpatrol_weirdMods1:""Is there a problem, $post?""",
-CGRpatrolWeirdMods1,DialogOptionSelected,$option == CGRpatrol_weirdMods1,,"""What by blessed Ludd's holy right glove have you done to your $shipOrFleet? Is that the cursed work of Moloch my eyes do perceive in your $shipOrFleet?""
+# CGRpatrolWeirdMods1,DialogOptionSelected,$option == CGRpatrol_weirdMods1,,"""What by blessed Ludd's holy right glove have you done to your $shipOrFleet? Is that the cursed work of Moloch my eyes do perceive in your $shipOrFleet?""
 
 $HeOrShe looks over $hisOrHer shoulder, ""Summon the subcurate technologia! For immediate consultation!""
 
 The $post turns back to you. ""You have but a moment to explain what my sensors suggest, captain."" ","CGRpatrol_weirdMods2a:""Is it my... unique modifications you object to?""
 CGRpatrol_weirdMods2b:""There seems to be some kind of misunderstanding.""
 CGRpatrol_weirdMods2c:""What exactly do your sensors suggest?""",
-CGRpatrolWeirdMods2a,DialogOptionSelected,$option == CGRpatrol_weirdMods2a,,"""Unique mod-"" $HeOrShe sputters.
+# CGRpatrolWeirdMods2a,DialogOptionSelected,$option == CGRpatrol_weirdMods2a,,"""Unique mod-"" $HeOrShe sputters.
 
 ""It is devilry! You've joined human craft with abomination. It is an unholy thing!""  $HeOrShe makes some kind of hurry-up hand signal over $hisOrHer shoulder.
 
 ""You condemn your soul to the abyss. And you condemn yourself as mortal enemy to the Church and accursed in the eyes of God and all who hold faith."" $HisOrHer expression is grim.
 
 The $post turns and exchanges a few words with someone you can't see.",CGRpatrol_weirdMods3:Continue,
-CGRpatrolWeirdMods2b,DialogOptionSelected,$option == CGRpatrol_weirdMods2b,,"""Methinks there is not, $playerSirOrMadam, and you merely dissemble with a devil's tongue to gain advantage."" $HeOrShe makes some kind of hurry-up hand signal over $hisOrHer shoulder.
+# CGRpatrolWeirdMods2b,DialogOptionSelected,$option == CGRpatrol_weirdMods2b,,"""Methinks there is not, $playerSirOrMadam, and you merely dissemble with a devil's tongue to gain advantage."" $HeOrShe makes some kind of hurry-up hand signal over $hisOrHer shoulder.
 
 ""Judgement shall be pronounced ere long upon what my heart fears.""
 
 The $post turns and exchanges a few words with someone you can't see.",CGRpatrol_weirdMods3:Continue,
-CGRpatrolWeirdMods2c,DialogOptionSelected,$option == CGRpatrol_weirdMods2c,,"""Overt devilry. You've combined human craft with abomination."" $HeOrShe makes some kind of hurry-up hand signal over $hisOrHer shoulder.
+# CGRpatrolWeirdMods2c,DialogOptionSelected,$option == CGRpatrol_weirdMods2c,,"""Overt devilry. You've combined human craft with abomination."" $HeOrShe makes some kind of hurry-up hand signal over $hisOrHer shoulder.
 
 ""By this unholy 'technology' you condemn your soul to the abyss. And you condemn yourself as mortal enemy to the Church, accursed in the eyes of God and all who hold faith!""
 
 The $post turns and exchanges a few words with someone you can't see.",CGRpatrol_weirdMods3:Continue,
-CGRpatrolWeirdMods3,DialogOptionSelected,$option == CGRpatrol_weirdMods3,FireAll CGRpatrolWeirdModsOpts,"""You're certain?"" $heOrShe asks. $HisOrHer face has gone pale, as if $heOrShe has been informed that $heOrShe has been condemned.
+# CGRpatrolWeirdMods3,DialogOptionSelected,$option == CGRpatrol_weirdMods3,FireAll CGRpatrolWeirdModsOpts,"""You're certain?"" $heOrShe asks. $HisOrHer face has gone pale, as if $heOrShe has been informed that $heOrShe has been condemned.
 
 The briefest flash of emotions: pain, fear, outrage, sadness, acceptance. The eyes that turn back to the comm-link are that of an enemy across battle-lines.",,
-CGRpatrolWeirdModsOpt3a,CGRpatrolWeirdModsOpts,$player.fcm_faction == luddic_church,,,"CGRpatrol_weirdModsOpt3aSel:""I am commissioned by the Church!""",
-CGRpatrolWeirdModsOpt3b,CGRpatrolWeirdModsOpts,$player.luddicAttitudeFaithful,,,"CGRpatrol_weirdModsOpt3bSel:""Hold your condemnation for a moment, for I share your Faith.""",
-CGRpatrolWeirdModsOpt3c,CGRpatrolWeirdModsOpts,,,,"CGRpatrol_weirdModsOpt3cSel:""Let's discuss this before jumping to conclusions...""",
-CGRpatrolWeirdModsOpt3d,CGRpatrolWeirdModsOpts,,,,"CGRpatrol_weirdModsOpt3dSel:""Perhaps we come to an 'arrangement'? Just name a price...""",
-CGRpatrolWeirdModsOpt3e,CGRpatrolWeirdModsOpts,$player.luddicAttitudeCynical,,,"CGRpatrol_weirdModsOpt3eSel:""This is an irrational outburst, $post.""",
-CGRpatrolWeirdModsOpt3aSel,DialogOptionSelected,$option == CGRpatrol_weirdModsOpt3aSel,"$option = CGRpatrol_weirdModsEnd1 0
+# CGRpatrolWeirdModsOpt3a,CGRpatrolWeirdModsOpts,$player.fcm_faction == luddic_church,,,"CGRpatrol_weirdModsOpt3aSel:""I am commissioned by the Church!""",
+# CGRpatrolWeirdModsOpt3b,CGRpatrolWeirdModsOpts,$player.luddicAttitudeFaithful,,,"CGRpatrol_weirdModsOpt3bSel:""Hold your condemnation for a moment, for I share your Faith.""",
+# CGRpatrolWeirdModsOpt3c,CGRpatrolWeirdModsOpts,,,,"CGRpatrol_weirdModsOpt3cSel:""Let's discuss this before jumping to conclusions...""",
+# CGRpatrolWeirdModsOpt3d,CGRpatrolWeirdModsOpts,,,,"CGRpatrol_weirdModsOpt3dSel:""Perhaps we come to an 'arrangement'? Just name a price...""",
+# CGRpatrolWeirdModsOpt3e,CGRpatrolWeirdModsOpts,$player.luddicAttitudeCynical,,,"CGRpatrol_weirdModsOpt3eSel:""This is an irrational outburst, $post.""",
+# CGRpatrolWeirdModsOpt3aSel,DialogOptionSelected,$option == CGRpatrol_weirdModsOpt3aSel,"$option = CGRpatrol_weirdModsEnd1 0
 FireBest DialogOptionSelected","""You are no longer,"" $heOrShe says.",,
-CGRpatrolWeirdModsOpt3bSel,DialogOptionSelected,$option == CGRpatrol_weirdModsOpt3bSel,"$option = CGRpatrol_weirdModsEnd1 0
+# CGRpatrolWeirdModsOpt3bSel,DialogOptionSelected,$option == CGRpatrol_weirdModsOpt3bSel,"$option = CGRpatrol_weirdModsEnd1 0
 FireBest DialogOptionSelected","""I abjure your heresy ,"" $heOrShe says.",,
-CGRpatrolWeirdModsOpt3cSel,DialogOptionSelected,$option == CGRpatrol_weirdModsOpt3cSel,"$option = CGRpatrol_weirdModsEnd1 0
+# CGRpatrolWeirdModsOpt3cSel,DialogOptionSelected,$option == CGRpatrol_weirdModsOpt3cSel,"$option = CGRpatrol_weirdModsEnd1 0
 FireBest DialogOptionSelected",,,
-CGRpatrolWeirdModsOpt3dSel,DialogOptionSelected,$option == CGRpatrol_weirdModsOpt3dSel,"$option = CGRpatrol_weirdModsEnd1 0
+# CGRpatrolWeirdModsOpt3dSel,DialogOptionSelected,$option == CGRpatrol_weirdModsOpt3dSel,"$option = CGRpatrol_weirdModsEnd1 0
 FireBest DialogOptionSelected","""Corruptor, mammonite!"" $heOrShe spits.",,
-CGRpatrolWeirdModsOpt3eSel,DialogOptionSelected,$option == CGRpatrol_weirdModsOpt3eSel,"$option = CGRpatrol_weirdModsEnd1 0
+# CGRpatrolWeirdModsOpt3eSel,DialogOptionSelected,$option == CGRpatrol_weirdModsOpt3eSel,"$option = CGRpatrol_weirdModsEnd1 0
 FireBest DialogOptionSelected",,,
-CGRpatrolWeirdModsEnd,DialogOptionSelected,"$option == CGRpatrol_weirdModsEnd1
+# CGRpatrolWeirdModsEnd,DialogOptionSelected,"$option == CGRpatrol_weirdModsEnd1
 $entity.relativeStrength >= 0","MakeOtherFleetHostile true
 MakeOtherFleetAggressive true
 $option = CGRpatrol_weirdModsEnd2 0
 FireBest DialogOptionSelected",,,
-CGRpatrolWeirdModsEndWeaker,DialogOptionSelected,"$option == CGRpatrol_weirdModsEnd1
+# CGRpatrolWeirdModsEndWeaker,DialogOptionSelected,"$option == CGRpatrol_weirdModsEnd1
 $entity.relativeStrength < 0","MakeOtherFleetGoAway
 MakeOtherFleetAllowDisengage true
 $option = CGRpatrol_weirdModsEnd2 0
 FireBest DialogOptionSelected",,,
-CGRpatrolWeirdModsEndTrade,DialogOptionSelected,"$option == CGRpatrol_weirdModsEnd1
+# CGRpatrolWeirdModsEndTrade,DialogOptionSelected,"$option == CGRpatrol_weirdModsEnd1
 $entity.isTradeFleet score:100","MakeOtherFleetGoAway
 MakeOtherFleetAllowDisengage true
 $option = CGRpatrol_weirdModsEnd2 0
 FireBest DialogOptionSelected",,,
-CGRpatrolWeirdModsEnd3,DialogOptionSelected,$option == CGRpatrol_weirdModsEnd2,"AdjustRep luddic_church HOSTILE -200
+# CGRpatrolWeirdModsEnd3,DialogOptionSelected,$option == CGRpatrol_weirdModsEnd2,"AdjustRep luddic_church HOSTILE -200
 AddTextSmall ""Hostility due to use of unusual modifications"" bad
 $entity.ignorePlayerCommRequests = true 0
 EndConversation
 ShowDefaultVisual","""There is no negotiation with evil, no compromise."" The $post's words are for $hisOrHer crew, not you.
 
 The link shudders into static, the last image is of hands clasped in a brief prayer.",,
-CGRpatrolWeirdModsEnd3b,DialogOptionSelected,"$option == CGRpatrol_weirdModsEnd2
+# CGRpatrolWeirdModsEnd3b,DialogOptionSelected,"$option == CGRpatrol_weirdModsEnd2
 $player.mostLuddicEthosFaithful
 !$player.excommunicatedFromChurch","AdjustRep luddic_church HOSTILE -200
 AddTextSmall ""Hostility due to use of unusual modifications"" bad
@@ -1063,7 +1066,7 @@ The link shudders into static, the last image is of hands clasped in a brief pra
 ,,,,,,
 ,,,,,,
 # Luddic Path market notices Weird Hullmods,,,,,,
-PathMarketPostWeirdHullmods,MarketPostDock,"$faction.id == luddic_path
+# PathMarketPostWeirdHullmods,MarketPostDock,"$faction.id == luddic_path
 !$failedWeirdHullmodCheck
 !$faction.isHostile
 $player.transponderOn
@@ -1071,22 +1074,22 @@ $player.transponderOn
 $player.encounteredWeird",FireBest PathMarketWeirdHullmodCheck,,,
 #PathMarketPostWeirdHullmods1,PathMarketWeirdHullmodCheck,PlayerFleetHasFragmentShips,"$option = PathMarketWeirdHullmodCheckBegin 0
 FireBest DialogOptionSelected",,,
-PathMarketPostWeirdHullmods2,PathMarketWeirdHullmodCheck,PlayerFleetHasShroudedShips,"$option = pathMarketWeird_HullmodCheckBegin 0
+# PathMarketPostWeirdHullmods2,PathMarketWeirdHullmodCheck,PlayerFleetHasShroudedShips,"$option = pathMarketWeird_HullmodCheckBegin 0
 FireBest DialogOptionSelected",,,
-PathMarketPostWeirdHullmods3,PathMarketWeirdHullmodCheck,,"$failedWeirdHullmodCheck = true 1
+# PathMarketPostWeirdHullmods3,PathMarketWeirdHullmodCheck,,"$failedWeirdHullmodCheck = true 1
 FireBest MarketPostDock",,,
-PathMarketWeirdHullmods4,DialogOptionSelected,$option == pathMarketWeird_HullmodCheckBegin,,"Your comms officer calls for your attention.
+# PathMarketWeirdHullmods4,DialogOptionSelected,$option == pathMarketWeird_HullmodCheckBegin,,"Your comms officer calls for your attention.
 
 ""$PlayerSirOrMadam. There's an incoming comms request, marked urgent, from the portwatcher. They want to speak with you personally.""","PathMarketWeirdBegin:""Put them through.""",
-PathMarketWeirdBegin,DialogOptionSelected,$option == PathMarketWeirdBegin,"BeginConversation POST:portmaster
+# PathMarketWeirdBegin,DialogOptionSelected,$option == PathMarketWeirdBegin,"BeginConversation POST:portmaster
 $option = PathMarket_weird1 0
 FireBest DialogOptionSelected",,,
-PathMarketWeird1,DialogOptionSelected,$option == PathMarket_weird1 ,,"The link flickers open and the conversation begins poorly.
+# PathMarketWeird1,DialogOptionSelected,$option == PathMarket_weird1 ,,"The link flickers open and the conversation begins poorly.
 
 ""Befouler, defiler, sinful spite-God! Demoniac!""
 
 The look of rage and religious mania pulls the $post's face into a devilish mask as $heOrShe shouts.",PathMarket_weird2:Continue,
-PathMarketWeird2,DialogOptionSelected,$option == PathMarket_weird2,"$player.didPathWeirdHullmodReaction = true 365
+# PathMarketWeird2,DialogOptionSelected,$option == PathMarket_weird2,"$player.didPathWeirdHullmodReaction = true 365
 AddTextSmall ""Hostility due to use of unusual modifications"" bad
 AdjustRep luddic_path HOSTILE -200
 SetShortcut PathMarket_weird3 ""ESCAPE""","""What work-of-Moloch $shipOrFleet appears in our skies? What unholy combination of human craft and... and abomination? You are to be destroyed on sight, accursed by God and all who are faithful!""
@@ -1094,7 +1097,7 @@ SetShortcut PathMarket_weird3 ""ESCAPE""","""What work-of-Moloch $shipOrFleet ap
 $HeOrShe desperately clasps $hisOrHer hands together and prays. ""Blessed Ludd, give me strength when the evil one appears...""
 
 Targeting alerts chime from your tactical officer's console.",PathMarket_weird3:Cut the link and take evasive action,
-PathMarketWeird3,DialogOptionSelected,$option == PathMarket_weird3,"EndConversation DO_NOT_FIRE
+# PathMarketWeird3,DialogOptionSelected,$option == PathMarket_weird3,"EndConversation DO_NOT_FIRE
 DismissDialog",,,
 ,,,,,,
 "# Pather fleet sees weird hullmods
@@ -1104,11 +1107,11 @@ $faction.id == luddic_path
 !$failedWeirdHullmodCheck
 !$player.didPathWeirdHullmodReaction
 $player.encounteredWeird",FireBest PathFleetWeirdHullmodCheck,,,"# they're chasing you for a tithe, but get distracted by your hullmod(s)"
-greetingPathWeirdHMintroTitheB,OpenCommLink,"$entity.LP_titheConv score:100
+# greetingPathWeirdHMintroTitheB,OpenCommLink,"$entity.LP_titheConv score:100
 $faction.id == luddic_path
 $player.encounteredWeird
 !$failedWeirdHullmodCheck",FireBest PathFleetWeirdHullmodCheck,,,
-PathFleetWeirdMods0tithe,DialogOptionSelected,"$option == pathFleet_weirdMods0
+# PathFleetWeirdMods0tithe,DialogOptionSelected,"$option == pathFleet_weirdMods0
 $entity.LP_titheConv score:10",FireAll MostLuddicEthosRefresh,"""Servant of Moloch! Redemption is not- is not...""
 
 The Pather's eyes go wide at a red flash from a secondary display.
@@ -1123,7 +1126,7 @@ The Pather's eyes go wide at a red flash from a secondary display.
 ,,,,,,
 ,,,,,,
 # Path fleet sees weird hullmods,,#$entity.isWarFleet,,,,
-greetingPathWeirdHM,OpenCommLink,"$faction.id == luddic_path
+# greetingPathWeirdHM,OpenCommLink,"$faction.id == luddic_path
 !$failedWeirdHullmodCheck
 !$faction.isHostile
 !$player.didPathWeirdHullmodReaction
@@ -1131,15 +1134,15 @@ $player.encounteredWeird
 #$player.transponderOn",FireBest PathFleetWeirdHullmodCheck,,,
 #CGRpatrolWeirdHullmods1,PathFleetWeirdHullmodCheck,PlayerFleetHasFragmentShips,"$option = pathFleet_weirdMods0 0
 FireBest DialogOptionSelected",,,
-PathFleetWeirdHullmods2,PathFleetWeirdHullmodCheck,PlayerFleetHasShroudedShips,"$option = pathFleet_weirdMods0 0
+# PathFleetWeirdHullmods2,PathFleetWeirdHullmodCheck,PlayerFleetHasShroudedShips,"$option = pathFleet_weirdMods0 0
 FireBest DialogOptionSelected",,,
-PathFleetWeirdHullmods3,PathFleetWeirdHullmodCheck,,"$failedWeirdHullmodCheck = true 1
+# PathFleetWeirdHullmods3,PathFleetWeirdHullmodCheck,,"$failedWeirdHullmodCheck = true 1
 FireBest OpenCommLink",,,
-PathFleetWeirdMods0unknown,DialogOptionSelected,"$option == pathFleet_weirdMods0
+# PathFleetWeirdMods0unknown,DialogOptionSelected,"$option == pathFleet_weirdMods0
 !$entity.knowWhoPlayerIs",FireAll MostLuddicEthosRefresh,"""May the Path be r-"" The $post's eyes go suddenly wide at a red flash from a secondary display.
 
 ""Blessed Ludd!"" $heOrShe gasps.","pathFleet_weirdModsEnd2unknown:""Is there a problem?""",
-PathFleetWeirdModsUnknownEnd,DialogOptionSelected,"$option == pathFleet_weirdModsEnd2unknown
+# PathFleetWeirdModsUnknownEnd,DialogOptionSelected,"$option == pathFleet_weirdModsEnd2unknown
 $entity.relativeStrength >= 0","AddTextSmall ""Hostility due to use of unusual modifications"" bad
 AdjustRep luddic_path HOSTILE -30
 MakeOtherFleetHostile true
@@ -1149,7 +1152,7 @@ EndConversation
 ShowDefaultVisual","""An abomination, a devil-$shipOrFleet from Hell itself is before us! We pray to Providence to pass this test which has been given unto our unworthy-""
 
 The $post's words are for $hisOrHer crew, not you, and the link shudders into static. The last image you see are hands clasped in prayer.",,
-PathFleetWeirdModsUnknownEndWeaker,DialogOptionSelected,"$option == pathFleet_weirdModsEnd2unknown
+# PathFleetWeirdModsUnknownEndWeaker,DialogOptionSelected,"$option == pathFleet_weirdModsEnd2unknown
 $entity.relativeStrength < 0","AddTextSmall ""Hostility due to use of unusual modifications"" bad
 AdjustRep luddic_path HOSTILE -30
 MakeOtherFleetHostile true
@@ -1160,7 +1163,7 @@ EndConversation
 ShowDefaultVisual","""An abomination, a devil-$shipOrFleet from Hell itself is before us! We pray to Providence to pass this test which has been given unto our unworthy-""
 
 The $post's words are for $hisOrHer crew, not you, and the link shudders into static. The last image you see are hands clasped in prayer.",,
-PathFleetWeirdModsUnknownEndTrade,DialogOptionSelected,"$option == pathFleet_weirdModsEnd2unknown
+# PathFleetWeirdModsUnknownEndTrade ,DialogOptionSelected,"$option == pathFleet_weirdModsEnd2unknown
 $entity.isTradeFleet score:100","AddTextSmall ""Hostility due to use of unusual modifications"" bad
 AdjustRep luddic_path HOSTILE -30
 MakeOtherFleetHostile true
@@ -1171,10 +1174,10 @@ EndConversation
 ShowDefaultVisual","""An abomination, a devil-$shipOrFleet from Hell itself is before us! We pray to Providence to pass this test which has been given unto our unworthy-""
 
 The $post's words are for $hisOrHer crew, not you, and the link shudders into static. The last image you see are hands clasped in prayer.",,
-PathFleetWeirdMods0,DialogOptionSelected,$option == pathFleet_weirdMods0,FireAll MostLuddicEthosRefresh,"""May the Path be r-"" The $post's eyes go suddenly wide at a red flash from a secondary display.
+# PathFleetWeirdMods0,DialogOptionSelected,$option == pathFleet_weirdMods0,FireAll MostLuddicEthosRefresh,"""May the Path be r-"" The $post's eyes go suddenly wide at a red flash from a secondary display.
 
 They return to the comm-link, fixed with fear... and hatred.","pathFleet_weirdMods1:""Is there a problem?""",
-PathFleetWeirdMods1,DialogOptionSelected,$option == pathFleet_weirdMods1,,"""Befouler, defiler, sinful spite-God! Demoniac!"" The look of rage and religious mania pulls the $post's face into a devilish mask as $heOrShe shouts.
+# PathFleetWeirdMods1,DialogOptionSelected,$option == pathFleet_weirdMods1,,"""Befouler, defiler, sinful spite-God! Demoniac!"" The look of rage and religious mania pulls the $post's face into a devilish mask as $heOrShe shouts.
 
 ""What work-of-Moloch $shipOrFleet is this? What unholy combination of human craft and abomination? You are to be destroyed on sight, accursed by God and all who follow the Path of our faith!""
 
@@ -1188,15 +1191,15 @@ Targeting alerts chime from your tactical officer's console.
 pathFleet_weirdMods2a:""You should calm down before doing something you'll regret.""
 pathFleet_weirdMods2b:""Funny way to ask for a bribe, but let's talk credits...""
 pathFleet_weirdMods2c:""Enough of this. Battle stations!"" (cut comms)",
-PathFleetWeirdMods2,DialogOptionSelected,$option == pathFleet_weirdMods2,"$option = pathFleet_weirdMods4 0
+# PathFleetWeirdMods2,DialogOptionSelected,$option == pathFleet_weirdMods2,"$option = pathFleet_weirdMods4 0
 FireBest DialogOptionSelected",,,
-PathFleetWeirdMods2a,DialogOptionSelected,$option == pathFleet_weirdMods2a,"$option = pathFleet_weirdMods4 0
+# PathFleetWeirdMods2a,DialogOptionSelected,$option == pathFleet_weirdMods2a,"$option = pathFleet_weirdMods4 0
 FireBest DialogOptionSelected",,,
-PathFleetWeirdMods2b,DialogOptionSelected,$option == pathFleet_weirdMods2b,"$option = pathFleet_weirdMods4 0
+# PathFleetWeirdMods2b,DialogOptionSelected,$option == pathFleet_weirdMods2b,"$option = pathFleet_weirdMods4 0
 FireBest DialogOptionSelected",,,
-PathFleetWeirdMods2c,DialogOptionSelected,$option == pathFleet_weirdMods2c,"$option = pathFleet_weirdMods4b 0
+# PathFleetWeirdMods2c,DialogOptionSelected,$option == pathFleet_weirdMods2c,"$option = pathFleet_weirdMods4b 0
 FireBest DialogOptionSelected",,,
-PathFleetWeirdModsEnd4,DialogOptionSelected,$option == pathFleet_weirdMods4,"$player.didPathWeirdHullmodReaction = true 180
+# PathFleetWeirdModsEnd4,DialogOptionSelected,$option == pathFleet_weirdMods4,"$player.didPathWeirdHullmodReaction = true 180
 AdjustRep luddic_path HOSTILE -200
 AddTextSmall ""Hostility due to use of unusual modifications"" bad
 $entity.ignorePlayerCommRequests = true 0
@@ -1204,7 +1207,7 @@ EndConversation
 ShowDefaultVisual","""Before me I saw evil incarnate, and I stood strong..."" The $Post's words are for $hisOrHer crew, not you.
 
 The link shudders into static, the last image is of hands clasped in a brief prayer.",,
-PathFleetWeirdModsEnd4b,DialogOptionSelected,$option == pathFleet_weirdMods4b,"$player.didPathWeirdHullmodReaction = true 180
+# PathFleetWeirdModsEnd4b,DialogOptionSelected,$option == pathFleet_weirdMods4b,"$player.didPathWeirdHullmodReaction = true 180
 AdjustRep luddic_path HOSTILE -200
 AddTextSmall ""Hostility due to use of unusual modifications"" bad
 $entity.ignorePlayerCommRequests = true 0
@@ -1212,7 +1215,7 @@ EndConversation
 ShowDefaultVisual","""Before me I saw evil incarnate, and-""
 
 The Pather's words are lost in static as you hit the comms-cutoff.",,
-PathFleetWeirdModsAgainStart,DialogOptionSelected,"$option == pathFleet_weirdMods0
+# PathFleetWeirdModsAgainStart,DialogOptionSelected,"$option == pathFleet_weirdMods0
 $player.didPathWeirdHullmodReaction score:10","$option = pathFleet_weirdModsAgain2 0
 FireBest DialogOptionSelected","""May the Path be r-"" The $post's eyes go suddenly wide at a red flash from a secondary display.
 
@@ -1221,7 +1224,7 @@ OR
 ""May the Path be r-"" The $post's eyes go suddenly wide at a red flash from a secondary display.
 
 ""Blessed Ludd!"" $heOrShe gasps.",,
-PathFleetWeirdModsAgain2,DialogOptionSelected,$option == pathFleet_weirdModsAgain2,"AddTextSmall ""Hostility due to use of unusual modifications"" bad
+# PathFleetWeirdModsAgain2,DialogOptionSelected,$option == pathFleet_weirdModsAgain2,"AddTextSmall ""Hostility due to use of unusual modifications"" bad
 $entity.ignorePlayerCommRequests = true 0","""Before me I saw evil incarnate, and I stood strong..."" The Pather's words are for $hisOrHer crew, not you.
 
 The link shudders into static, the last image is of hands clasped in a brief prayer.

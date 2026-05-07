@@ -23,8 +23,8 @@ public class espc_ChoraleModBehaviour extends BaseHullMod {
 	private static final float RECOIL_MULT = 0.5f;
 	
 	private static final float AI_HULL_BACK = 0.3f;
-	private static final float AI_FLUX_BACK = 0.4f;
-	private static final float AI_FLUX_FORCE_ENGAGE = 0.15f;
+	private static final float AI_FLUX_BACK = 0.35f;
+	private static final float AI_FLUX_FORCE_ENGAGE = 0.1f;
 	
 	private ShipAIConfig origConfig = null;
 	private boolean timidOrCautious = false;
@@ -41,7 +41,7 @@ public class espc_ChoraleModBehaviour extends BaseHullMod {
 	@Override
 	public void advanceInCombat(ShipAPI ship, float amount) {
 		super.advanceInCombat(ship, amount);
-    	if (ship == null || ship.isHulk())
+    	if (ship == null || ship.isHulk() || !ship.isAlive())
     		return;
     	
     	if (timidOrCautious)

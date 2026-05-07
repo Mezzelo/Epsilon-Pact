@@ -13,7 +13,10 @@
   "viewOffset": 200,
   "builtInMods": [
     "hbi",
-    "espc_halfslaughtmod"
+    "espc_halfslaughtmod",
+	"comp_structure",
+	"degraded_engines",
+	"faulty_grid"
   ],
   "builtInWeapons": {
     "WS 017": "tpc"

@@ -1,12 +1,15 @@
 package data.scripts.weapons;
 
+import java.awt.Color;
 import java.util.Iterator;
 import java.util.List;
 
 import org.lazywizard.lazylib.CollisionUtils;
 import org.lazywizard.lazylib.FastTrig;
 import org.lwjgl.util.vector.Vector2f;
+import org.magiclib.util.MagicRender;
 
+import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.combat.CombatEngineAPI;
 import com.fs.starfarer.api.combat.CombatEntityAPI;
 import com.fs.starfarer.api.combat.DamagingProjectileAPI;
@@ -16,6 +19,9 @@ import com.fs.starfarer.api.combat.ShipAPI;
 import com.fs.starfarer.api.combat.WeaponAPI;
 import com.fs.starfarer.api.combat.WeaponGroupAPI;
 import com.fs.starfarer.api.combat.listeners.ApplyDamageResultAPI;
+import com.fs.starfarer.api.util.Misc;
+
+import data.scripts.weapons.proj.espc_RemMortarVFX;
 
 // force staggers alternating remise mortars, as the game should but doesn't smile
 // will technically cause undesired behaviour with linked mortars, but wyd
@@ -31,12 +37,24 @@ public class espc_RemMortarEffect implements OnFireEffectPlugin, OnHitEffectPlug
 	private WeaponGroupAPI group;
 	
     public void onFire(DamagingProjectileAPI proj, WeaponAPI weapon, CombatEngineAPI engine) {
-    	if (count == -1 || weapon.getShip() == null)
+    	if (weapon.getShip() == null)
+    		return;
+    	
+		if (!weapon.getShip().getCustomData().containsKey("espc_RemMortarPlugin")) {
+			espc_RemMortarVFX plugin = new espc_RemMortarVFX(weapon.getShip());
+	        engine.addPlugin(plugin);
+	        weapon.getShip().setCustomData("espc_RemMortarPlugin", plugin);
+	        plugin.addProj(proj);
+		} else
+    		((espc_RemMortarVFX) weapon.getShip().getCustomData().get("espc_RemMortarPlugin")).addProj(proj);
+    	
+    	if (count == -1)
     		return;
     	else if (group != null && group.equals(weapon.getShip().getSelectedGroupAPI()))
     		return;
     	else if (count == 0) {
         	ShipAPI ship = weapon.getShip();
+        	
         	for (WeaponGroupAPI currGroup : ship.getWeaponGroupsCopy()) {
         		boolean foundSelf = false;
         		boolean allMortars = true;
@@ -44,8 +62,9 @@ public class espc_RemMortarEffect implements OnFireEffectPlugin, OnHitEffectPlug
         		for (WeaponAPI wep : currGroup.getWeaponsCopy()) {
         			if (!wep.getId().equals("espc_remmortar"))
         				allMortars = false;
-        			else
+        			else {
         				count++;
+        			}
         			if (weapon.equals(wep))
         				foundSelf = true;
         		}
@@ -100,6 +119,8 @@ public class espc_RemMortarEffect implements OnFireEffectPlugin, OnHitEffectPlug
 		if (!hasDriver)
 			return;
 		
+		boolean anyProcced = false;
+		
 		weaponIterator = weapons.iterator();
 		while (weaponIterator.hasNext()) {
 			WeaponAPI currWeapon = (WeaponAPI) weaponIterator.next();
@@ -115,8 +136,24 @@ public class espc_RemMortarEffect implements OnFireEffectPlugin, OnHitEffectPlug
 					Math.max(target.getCollisionRadius() * 1.15f, TARGET_RADIUS_MIN)
 				)) {
 					currWeapon.setRemainingCooldownTo(0f);
+					anyProcced = true;
 				}
 			}
 		}
+		if (anyProcced)
+	        MagicRender.battlespace(
+	    		Global.getSettings().getSprite("fx", "espc_mortarhit"),
+	    		point,
+	    		Misc.ZERO,
+	    		new Vector2f(15f, 15f),
+	    		new Vector2f(800f, 800f),
+	    		0f,
+	    		0f,
+	    		new Color(255, 30, 0, 60),
+	    		true,
+	    		0.0f,
+	    		0.04f,
+	    		0.14f
+	    	);
     }
 }

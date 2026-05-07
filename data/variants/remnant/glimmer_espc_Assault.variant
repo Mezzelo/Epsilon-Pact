@@ -4,7 +4,7 @@
   "displayName": "Assault",
   "goalVariant": false,
   "fluxCapacitors": 10,
-  "fluxVents": 10,
+  "fluxVents": 6,
   "quality": 0,
   "permaMods": [],
   "hullMods": [
@@ -20,10 +20,16 @@
             "autofire": true,
             "mode": "LINKED",
             "weapons": {
-                "WS 002": "irpulse",
-                "WS 003": "irpulse",
                 "WS 004": "irpulse",
                 "WS 005": "irpulse"
+            }
+        },
+        {
+            "autofire": true,
+            "mode": "LINKED",
+            "weapons": {
+                "WS 002": "pdburst",
+                "WS 003": "pdburst"
             }
         }
     ],

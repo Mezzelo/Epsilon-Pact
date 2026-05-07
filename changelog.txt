@@ -1,15 +1,31 @@
 Version 0.6.2
 SiC officer added!  Offers an automation-type expertise, that further enables the Pact's doctrine: constrained fleet sizes, smaller ships, and death to missiles and fighters lol
 More robust graphicslib support: Lighting & distortions, specifically
-New Pact variants of vanilla hulls (mostly remnant), featuring new shipsystems.
+Overhaul of Pact fleet doctrine: Most existing variants reworked, ALL mobility systems have been removed from their finalized doctrine
+	- New Pact versions of vanilla hulls, featuring new shipsystems.
 Pact campaign progression: The Pact's doctrine will develop over the course of a campaign, fully evolving after 4 cycles.  Toggleable with Lunalib.
 AI changes to Pact hull designs which should make them significantly more effective without needing player control/direction.
-
 
 
 New weapons:
 - Arc-Scatter, small ballistic
 - Ion Accumulator & Heavy Ion Accumulator, small & medium energy
+- Rewa Heavy Autocannon, large ballistic
+
+New shipsystems:
+- Remote Burn
+- Nova Strike
+- Inverse Skimmer
+- Wide Inverse Skimmer
+
+New Pact variants:
+- Wolf (EP)
+- Lumen (EP)
+- Fulgent (EP)
+- Scintilla (EP)
+- Brilliant (EP)
+- Nova (EP)
+- Radiant (EP)
 
 
 Jackalope
@@ -25,6 +41,7 @@ Pilgrim
 - Acceleration 20 > 35
 - Decceleration 10 > 25
 - Variants revised
+- Properly removed as a warship from Pact fleet role designations, normalizing (and reducing) their frequency in Pact fleets.
 
 Pilgrim (H)
 - Fixed middle small mount being erroneously composite instead of missile, and right small mount being missile instead of composite
@@ -32,30 +49,39 @@ Pilgrim (H)
 Amanuensis
 - Hull 16000 > 15000
 
+Bastillon (EP)
+- DP 8 > 10
+- FP 7 > 9
+
+
 Scatter Rifle
 - Now ignores flares
 
 AM Flamer
+- Scripted behaviour reworked to reduce inaccuracy & projectiles falling short of maximum range.  halved range or something i haven't worked out the stats yettt
 - Projectile speed 500 > 1200
 - Flux/shot 125 > 80
 - Turn speed 20 > 30
 - Now ignores flares
 
 Solo AM Flamer
+- ditto re: scripted behaviour
 - Projectile speed 500 > 600
 - Now ignores flares
+
 
 Battlecry
 - Now damages and disables the weapons and engines of fighters with overload protection, when it would otherwise cause overloads
 	- yeah let me remove the one major weakness of shielded fighters.  my fighter should be able to shrug off a reaper.  yeah ok.  watch this, idiot.
 	
 Slamfire
+- Weapon compatibility changed: Only works for the largest available mountable weapon size on the hull
 - fixed system not proccing EveryFrame-defined OnFireEffects on projectiles, potentially fixing erroneous modded weapon behaviour
 
 Temporal Collapse
-- Now inflicts targets with a 50% damage taken malus while active.
-	- Disappears before the projectiles hit, so technically it should only affect beams: the main purpose is to make the target more attractive to other ships lol
 - Now slightly staggers the velocity of unfrozen projectiles (-20% to +10% variance) to reduce redundancies against shields
+- Damage bonus to unfrozen projectiles removed, previously %50. turns out staggering projectile velocity is all that was needed to make *that* much nastier
+	- a 20% damage taken malus stilll applies to the target while active and disappears before projectiles unfreeze, to make it more attractive to shoot at
 - fixed system not proccing EveryFrame-defined OnFireEffects on projectiles, potentially fixing erroneous modded weapon behaviour
 
 Remote Salvo
@@ -66,12 +92,21 @@ AM Compressor
 	- Offensive mode: +50% damage, +50% flux generation, +30% range, -30% turn speed, -50% projectile velocity, 
 
 
+
+- Some vital Pact faction NPCs will now additionally spawn in random sector, replacing AI core trades with generic planetary authorities
+- Negative maximum relation between Pact and the Diktat removed, in anticipation of rip bozo
+- Organs are now an illegal commodity for the Pact.
+
+- Several unused hullmods removed from Pact markets, as well as the Heavy Blaster and Locust SRM Launcher from their markets and fits.
 - (fix) System range bonuses now properly affect all shipsystems in this mod.
 - (fix) "AI Core" now properly respawns when playing the Real Human Being Nexerelin start.
+- New firing sounds for the following weapons: Remise Rifle, Heavy Gatling, Scatter Rifle
+- Improved visual effects for the Confluence Emitte, Remise Mortar and Type XII-a Autocannon.
 - Hybrid Alternator shipsystem AI improved, less placeholder now
 - Placeholder art & audio for the Scatter Rifle phased out
 - Placeholder skill icons replaced with more placeholder skill icons
-- Placeholder Amanuensis sprite mamrginally less placeholder
+- Placeholder Amanuensis sprite marginally less placeholder
+- string revisions
 
 Version 0.6.1
 
@@ -183,7 +218,7 @@ Slamfire
 - Isabelle will no longer be offered as a contact while commissioned by another faction, without having given a Beta/Alpha core or if you have committed any atrocities, & will not give missions while worse than favorable with the Pact.
 
 Version 0.5.9
-New hulls: Amanuensis-class battleship & Warden (EP) class frigate
+New hulls: Amanuensis-class battleship & Warden (EP) class frigate, using a new shipsystem (Hybrid Alternator)
 New weapon: Scatter Rifle, large ballistic
 Portraiture: 18/22 existing portraits revised, 14 (21) new portraits
 Major round of balance changes, adjustments & bugfixes.  Minor changes/additions to Pact markets, AI core exchange rebalanced.

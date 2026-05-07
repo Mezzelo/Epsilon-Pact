@@ -1,0 +1,32 @@
+{
+  "variantId": "espc_picket_Suppressive",
+  "hullId": "espc_picket",
+  "displayName": "Suppressive",
+  "goalVariant": false,
+  "fluxCapacitors": 10,
+  "fluxVents": 3,
+  "quality": 1,
+  "permaMods": [],
+  "hullMods": [
+        "fluxbreakers",
+        "fluxcoil"
+  ],
+    "weaponGroups": [
+        {
+            "autofire": false,
+            "mode": "LINKED",
+            "weapons": {
+				"WS 002": "espc_arcscatter"
+			}
+        },
+        {
+            "autofire": true,
+            "mode": "LINKED",
+            "weapons": {
+				"WS 003": "vulcan"
+			}
+        }
+    ],
+  "modules": [],
+  "wings": []
+}

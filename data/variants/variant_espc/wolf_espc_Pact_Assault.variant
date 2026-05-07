@@ -3,8 +3,8 @@
   "hullId": "wolf_espc",
   "displayName": "Assault",
   "goalVariant": false,
-  "fluxCapacitors": 10,
-  "fluxVents": 10,
+  "fluxCapacitors": 8,
+  "fluxVents": 8,
   "quality": 1,
   "permaMods": [],
   "hullMods": [
@@ -15,7 +15,7 @@
       "autofire": false,
       "mode": "LINKED",
       "weapons": {
-        "WS 004": "heavyblaster"
+        "WS 004": "pulselaser"
       }
     },
     {
@@ -31,8 +31,8 @@
       "mode": "LINKED",
       "weapons": {
         "WS 001": "ioncannon",
-        "WS 002": "pdlaser",
-        "WS 003": "pdlaser"
+        "WS 002": "pdburst",
+        "WS 003": "pdburst"
       }
     }
   ],

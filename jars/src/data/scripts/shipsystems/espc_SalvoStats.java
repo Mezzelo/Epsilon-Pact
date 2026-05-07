@@ -22,7 +22,7 @@ import org.lwjgl.util.vector.Vector2f;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.LinkedList;
+import java.util.ArrayDeque;
 
 public class espc_SalvoStats extends BaseShipSystemScript {
 	
@@ -108,7 +108,7 @@ public class espc_SalvoStats extends BaseShipSystemScript {
 	
 	private List<MissileToFire> shipMissiles;
 	private List<ShipAPI> shipFighters;
-	private LinkedList<mFighter> mFighters;
+	private ArrayDeque<mFighter> mFighters;
 	
 	private ShipAPI ship;
 	
@@ -389,7 +389,7 @@ public class espc_SalvoStats extends BaseShipSystemScript {
 			CombatEngineAPI combatEngine = Global.getCombatEngine();
 			
 			if (shipFighters.size() > 0) {
-				mFighters = new LinkedList<mFighter>();
+				mFighters = new ArrayDeque<mFighter>();
 			} else
 				useState = 2;
 			
@@ -425,7 +425,7 @@ public class espc_SalvoStats extends BaseShipSystemScript {
 					false
 				);
 				if (shipMissiles.get(missileIndex).count > 1 || !fired) {
-					mFighters.add(new mFighter(
+					mFighters.addLast(new mFighter(
 						(ShipAPI) shipFighters.get(0),
 						shipMissiles.get(missileIndex).missileWep,
 						shipMissiles.get(missileIndex).count,
@@ -439,7 +439,7 @@ public class espc_SalvoStats extends BaseShipSystemScript {
 				} else { // used to be optimized to run on lowest burst interval & throw out
 					// probably needlessly aggressive.  want to add an entry here anyway to get the visual flash
 					// not really a perf concern
-					mFighters.add(new mFighter((ShipAPI) shipFighters.get(0)));
+					mFighters.addLast(new mFighter((ShipAPI) shipFighters.get(0)));
 					if (SHOULD_RECALL_AFTER &&
 						!((ShipAPI) shipFighters.get(0)).getWing().getRole().equals(WingRole.BOMBER) &&
 						!((ShipAPI) shipFighters.get(0)).getWing().getRole().equals(WingRole.SUPPORT)) {
@@ -466,7 +466,7 @@ public class espc_SalvoStats extends BaseShipSystemScript {
 				if (fighter.fighter == null ||
 					!fighter.fighter.isAlive() ||
 					fighter.fighter.isHulk() ||
-					!combatEngine.isInPlay(fighter.fighter)
+					!combatEngine.isEntityInPlay(fighter.fighter)
 				) {
 					fighters.remove();
 					if (mFighters.size() == 0)
