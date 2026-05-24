@@ -1,7 +1,7 @@
 {
     "displayName": "Ranged",
     "fluxCapacitors": 10,
-    "fluxVents": 3,
+    "fluxVents": 4,
     "goalVariant": false,
     "hullId": "espc_warden",
     "hullMods": [
@@ -27,7 +27,7 @@
             "autofire": true,
             "mode": "LINKED",
             "weapons": {
-				"WS 003": "espc_ionresonator"
+				"WS 003": "ioncannon"
 			}
         }
     ]

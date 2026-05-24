@@ -39,6 +39,7 @@ import data.scripts.campaign.listeners.espc_ColonyInteractionListener;
 import data.scripts.campaign.listeners.espc_EconomyListener;
 import data.scripts.campaign.listeners.espc_PactFleetSpawnListener;
 import data.scripts.campaign.plugins.espc_CampaignPlugin;
+import data.scripts.util.MezzUtils;
 import data.scripts.world.espc_WorldGen;
 import data.scripts.world.espc_People;
 // import com.fs.starfarer.api.PluginPick;
@@ -65,10 +66,12 @@ public class espc_ModPlugin extends BaseModPlugin {
         hasLuna = Global.getSettings().getModManager().isModEnabled("lunalib");
         {
             if (!Global.getSettings().getModManager().isModEnabled("lw_lazylib"))
-                throw new RuntimeException("Epsilon Pact requires LazyLib to run - http://fractalsoftworks.com/forum/index.php?topic=5444");
+                throw new RuntimeException(
+                	MezzUtils.getString("espc_miscui", "lazylibreq"));
             
             if (!Global.getSettings().getModManager().isModEnabled("MagicLib"))
-                throw new RuntimeException("Epsilon Pact requires MagicLib to run - http://fractalsoftworks.com/forum/index.php?topic=13718.0");
+                throw new RuntimeException(
+                		MezzUtils.getString("espc_miscui", "magiclibreq"));
             
             if (Global.getSettings().getModManager().isModEnabled("shaderLib")) {
             	hasGlib = true;
@@ -166,7 +169,7 @@ public class espc_ModPlugin extends BaseModPlugin {
 	
 	@Override
 	public void onGameLoad(boolean isNewGame) {
-		if (!SharedData.getData().getPersonBountyEventData().getParticipatingFactions().contains("epsilpac")) {
+		if (!SharedData.getData().getPersonBountyEventData().getParticipatingFactions().contains(MezzUtils.factionIdPact)) {
 	        new espc_WorldGen().generate(Global.getSector(), isNewGame,
 	        	(hasNex && !SectorManager.getManager().isCorvusMode())
 	        );
@@ -242,8 +245,9 @@ public class espc_ModPlugin extends BaseModPlugin {
         } else if (member != null && Misc.isAutomated(ship) && member.getFleetData() != null && member.getFleetData().getFleet() != null &&
         	member.getFleetData().getFleet().getFaction() != null &&
         	// won't catch nex allied fleets, but whatever.
-        	(member.getFleetData().getFleet().getFaction().getId().equals("epsilpac") ||
-        	(member.getFleetData().getFleet().getFaction().getId().equals(Factions.PIRATES)) && ship.getName().contains("EPS"))
+        	(member.getFleetData().getFleet().getFaction().getId().equals(MezzUtils.factionIdPact) ||
+        	(member.getFleetData().getFleet().getFaction().getId().equals(Factions.PIRATES)) 
+        		&& ship.getName().contains(Global.getSector().getFaction(MezzUtils.factionIdPact).getShipNamePrefix()))
         	&& !ship.getHullSpec().getBaseHullId().equals("espc_rampart")
         	&& !ship.getHullSpec().getBaseHullId().equals("radiant")
         	) {
@@ -252,8 +256,9 @@ public class espc_ModPlugin extends BaseModPlugin {
             return new PluginPick<ShipAIPlugin>(Global.getSettings().createDefaultShipAI(ship, config), PickPriority.MOD_SPECIFIC);
         } else if (Misc.isAutomated(ship) &&
         	ship.getCaptain() != null && ship.getCaptain().getFaction() != null &&
-           	(ship.getCaptain().getFaction().getId().equals("epsilpac") ||
-           	(ship.getCaptain().getFaction().getId().equals(Factions.PIRATES)) && ship.getName().contains("EPS"))
+           	(ship.getCaptain().getFaction().getId().equals(MezzUtils.factionIdPact) ||
+           	(ship.getCaptain().getFaction().getId().equals(Factions.PIRATES)) && 
+           		ship.getName().contains(Global.getSector().getFaction(MezzUtils.factionIdPact).getShipNamePrefix()))
            	&& !ship.getHullSpec().getBaseHullId().equals("espc_rampart")
         	&& !ship.getHullSpec().getBaseHullId().equals("radiant")
            	) {
@@ -264,7 +269,8 @@ public class espc_ModPlugin extends BaseModPlugin {
         // overrides for use in balance testing, to replicate desired campaign behaviour
         //*  
         else if (Misc.isAutomated(ship) &&
-       		ship.getName() != null && ship.getName().contains("EPS") && !ship.hasLaunchBays()
+       		ship.getName() != null && ship.getName().contains(Global.getSector().getFaction(MezzUtils.factionIdPact).getShipNamePrefix()) 
+       		&& !ship.hasLaunchBays()
 	    	&& !ship.getHullSpec().getBaseHullId().equals("espc_rampart")
 	    	&& !ship.getHullSpec().getBaseHullId().equals("radiant") 
         	) {
@@ -273,7 +279,9 @@ public class espc_ModPlugin extends BaseModPlugin {
 	        return new PluginPick<ShipAIPlugin>(Global.getSettings().createDefaultShipAI(ship, config), PickPriority.MOD_SPECIFIC);
 	    }
 	    
-        else if (ship.getName() != null && ship.getName().contains("EPS") && !ship.hasLaunchBays()
+        else if (ship.getName() != null 
+        	&& ship.getName().contains(Global.getSector().getFaction(MezzUtils.factionIdPact).getShipNamePrefix())
+        	&& !ship.hasLaunchBays()
     	    && !ship.getHullSpec().getBaseHullId().equals("espc_rampart")
     	    && !ship.getHullSpec().getBaseHullId().equals("radiant") 
         	) {

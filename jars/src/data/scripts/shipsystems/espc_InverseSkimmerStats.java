@@ -5,6 +5,10 @@ import com.fs.starfarer.api.combat.*;
 import com.fs.starfarer.api.combat.ShipAPI.HullSize;
 import com.fs.starfarer.api.impl.campaign.ids.Tags;
 import com.fs.starfarer.api.impl.combat.BaseShipSystemScript;
+import com.fs.starfarer.api.util.Misc;
+
+import data.scripts.util.MezzUtils;
+
 import com.fs.starfarer.api.combat.ShipSystemAPI.SystemState;
 
 
@@ -22,16 +26,13 @@ public class espc_InverseSkimmerStats extends BaseShipSystemScript {
 	// additional radius around the given ship's shield bounds (or collision bounds, whichever is more generous as to mod-proof) 
 	
 	private ArrayDeque<ShipAPI> alliedTargets = new ArrayDeque<ShipAPI>();
-	private ShipAPI targetOverride = null;
 	private boolean used = false;
 	private espc_InverseSkimmerPlugin plugin = null;
 	
 	public void setAlliedTarget(ShipAPI ally) {
+		// it's spaghetti.
+		alliedTargets.clear();
 		alliedTargets.add(ally);
-	}
-	
-	public void setTarget(ShipAPI target) {
-		targetOverride = target;
 	}
 	
 	public void apply(MutableShipStatsAPI stats, String id, State state, float effectLevel) {
@@ -48,7 +49,6 @@ public class espc_InverseSkimmerStats extends BaseShipSystemScript {
 		used = true;
 		
 		ShipAPI ship = (ShipAPI) stats.getEntity();
-		ShipAPI target = targetOverride != null ? targetOverride : findTarget(ship);
 		
 		if (plugin == null) {
 			plugin = new espc_InverseSkimmerPlugin(ship);
@@ -56,17 +56,17 @@ public class espc_InverseSkimmerStats extends BaseShipSystemScript {
 		}
 		
 		if (ship.getShipAI() == null && !ship.getHullSize().equals(HullSize.CAPITAL_SHIP))
-			alliedTargets.add(target);
+			alliedTargets.add(findTarget(ship));
 		else if (ship.getHullSize().equals(HullSize.CAPITAL_SHIP)) {
 			List<ShipAPI> targetAllies = CombatUtils.getShipsWithinRange(ship.getLocation(), 
 				getMaxRange(ship));
 			for (ShipAPI hoverShip : targetAllies) {
-				if (hoverShip.getOwner() == ship.getOwner() && !hoverShip.isHulk() &&
-					hoverShip != ship &&
-					!hoverShip.isFighter() &&
-					!hoverShip.getCustomData().containsKey("espc_InverseSkimmer_Ally")) {
-					alliedTargets.add(hoverShip);
-				}
+				if (hoverShip.getOwner() != ship.getOwner() || hoverShip.isHulk() ||
+					hoverShip.equals(ship) || hoverShip.isShuttlePod() ||
+					hoverShip.isFighter() || hoverShip.hasTag(Tags.VARIANT_FX_DRONE) ||
+					hoverShip.getCustomData().containsKey("espc_InverseSkimmer_Ally"))
+					continue;
+				alliedTargets.add(hoverShip);
 			}
 		}
 		
@@ -77,7 +77,6 @@ public class espc_InverseSkimmerStats extends BaseShipSystemScript {
 		plugin.calculatePortals(combatEngine.getTotalElapsedTime(false));
 	    ship.setCustomData("espc_InverseSkimmer_Ally", true);
 		alliedTargets.clear();
-		targetOverride = null;
 		/*
 		if (target != null) {
 			Global.getSoundPlayer().playLoop(
@@ -106,12 +105,22 @@ public class espc_InverseSkimmerStats extends BaseShipSystemScript {
 	
 	protected ShipAPI findTarget(ShipAPI ship) {
 		ShipAPI target = ship.getShipTarget();
-		if (target == null)
+		if (target == null || !target.isAlive() || target.isHulk() || target.getOwner() != ship.getOwner() ||
+			target.isPhased() || target.isShuttlePod() || target.isFighter() ||
+			target.getCustomData().containsKey("espc_InverseSkimmer_Ally"))
+			target = null;
+		else
 			return target;
-		if (target.isFighter() ||
-			!target.isAlive() || target.isHulk() || target.getOwner() != ship.getOwner()
-			|| target.getCustomData().containsKey("espc_InverseSkimmer_Ally")) target = null;
 		
+		if (ship.getShipAI() == null) {
+			target = Misc.findClosestShipTo(ship, ship.getMouseTarget(), HullSize.FRIGATE, getMaxRange(ship), true, false, null);
+			if (target == null || !target.isAlive() || target.isHulk() || target.getOwner() != ship.getOwner() ||
+				target.isPhased() || target.isShuttlePod() || target.isFighter() ||
+				target.getCustomData().containsKey("espc_InverseSkimmer_Ally"))
+				return null;
+			else
+				return target;
+		}
 		return target;
 	}
 
@@ -120,30 +129,28 @@ public class espc_InverseSkimmerStats extends BaseShipSystemScript {
 		if (system.getState() != SystemState.IDLE)
 			return null;
 		
-		if (ship.getShipAI() != null)
-			return "READY";
-		
 		if (ship.getHullSize().equals(HullSize.CAPITAL_SHIP)) {
 			int numShips = 0;
     		Iterator<Object> shipGridIterator = (Iterator<Object>) (Global.getCombatEngine().getAiGridShips().getCheckIterator(
         		ship.getLocation(),
-        		ABILITY_RANGE_CAPITAL * 2f,
-        		ABILITY_RANGE_CAPITAL * 2f)
+        		getMaxRange(ship) * 2f,
+        		getMaxRange(ship) * 2f)
         	);
     		while (shipGridIterator.hasNext()) {
     			ShipAPI currShip = (ShipAPI) shipGridIterator.next();
-    			if (!currShip.isShuttlePod() && currShip != ship && !currShip.hasTag(Tags.VARIANT_FX_DRONE)
-    				&& !currShip.isFighter()
-    				&& !currShip.isHulk() && currShip.isAlive()
-    				&& !currShip.isPhased() && currShip.getOwner() == ship.getOwner() &&
-    				currShip.getFluxTracker() != null &&
-    				!currShip.getFluxTracker().isOverloadedOrVenting())
-    				numShips++;
+    			if (currShip.isShuttlePod() || currShip.equals(ship) || currShip.hasTag(Tags.VARIANT_FX_DRONE)
+    				|| currShip.isFighter() || currShip.isHulk() || !currShip.isAlive()
+    				|| currShip.isPhased() || currShip.getOwner() != ship.getOwner() ||
+    				currShip.getCustomData().containsKey("espc_InverseSkimmer_Ally"))
+    				continue;
+    			numShips++;
     		}
 			if (numShips > 0)
-				return ("READY: " + numShips + " TARGETS");
+				return String.format(MezzUtils.getString("espc_shipsystem", 
+					numShips > 1 ? "ready_target_count" : "ready_target_count_single"),
+					numShips + "");
 			else
-				return "NO VALID TARGETS";
+				return MezzUtils.getString("espc_shipsystem", "no_valid_targets");
 		}
 		
 		ShipAPI hasTarget = findTarget(ship);
@@ -151,12 +158,12 @@ public class espc_InverseSkimmerStats extends BaseShipSystemScript {
 		if (hasTarget != null) {
 			float range = getMaxRange(ship);
 			if (MathUtils.getDistanceSquared(ship, hasTarget) > range * range)
-				return "OUT OF RANGE";
-			return "READY";
+				return MezzUtils.getString("espc_shipsystem", "out_of_range");
+			return MezzUtils.getString("espc_shipsystem", "ready");
 		}
 		else if (ship.getShipTarget() != null)
-			return "ALLY TARGET REQUIRED";
-		return "NO TARGET";
+			return MezzUtils.getString("espc_shipsystem", "ally_required");
+		return MezzUtils.getString("espc_shipsystem", "no_target");
 	}
 	
 	
@@ -167,18 +174,18 @@ public class espc_InverseSkimmerStats extends BaseShipSystemScript {
 		if (ship.getHullSize().equals(HullSize.CAPITAL_SHIP)) {
     		Iterator<Object> shipGridIterator = (Iterator<Object>) (Global.getCombatEngine().getAiGridShips().getCheckIterator(
         		ship.getLocation(),
-        		ABILITY_RANGE_CAPITAL * 2f,
-        		ABILITY_RANGE_CAPITAL * 2f)
+        		getMaxRange(ship) * 2f,
+        		getMaxRange(ship) * 2f)
         	);
     		while (shipGridIterator.hasNext()) {
     			ShipAPI currShip = (ShipAPI) shipGridIterator.next();
-    			if (!currShip.isShuttlePod() && currShip != ship && !currShip.hasTag(Tags.VARIANT_FX_DRONE)
-    				&& !currShip.isFighter()
-    				&& !currShip.isHulk() && currShip.isAlive()
-    				&& !currShip.isPhased() && currShip.getOwner() == ship.getOwner() &&
-    				currShip.getFluxTracker() != null &&
-    				!currShip.getFluxTracker().isOverloadedOrVenting())
-    				return true;
+    			if (currShip.isShuttlePod() || currShip.equals(ship) || currShip.hasTag(Tags.VARIANT_FX_DRONE)
+    				|| currShip.isFighter()
+    				|| currShip.isHulk() || !currShip.isAlive()
+    				|| currShip.getOwner() != ship.getOwner() ||
+    				currShip.getCustomData().containsKey("espc_InverseSkimmer_Ally"))
+    				continue;
+    			return true;
     		}
 			return false;
 		}

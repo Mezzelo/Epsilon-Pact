@@ -1,23 +1,26 @@
 package data.scripts.campaign.listeners;
 
-import org.lwjgl.util.vector.Vector2f;
 
 import com.fs.starfarer.api.Global;
-import com.fs.starfarer.api.campaign.CargoStackAPI;
 import com.fs.starfarer.api.campaign.GenericPluginManagerAPI;
 import com.fs.starfarer.api.campaign.GenericPluginManagerAPI.GenericPlugin;
 import com.fs.starfarer.api.campaign.InteractionDialogAPI;
 import com.fs.starfarer.api.campaign.PlayerMarketTransaction;
-import com.fs.starfarer.api.campaign.RepLevel;
 import com.fs.starfarer.api.campaign.SectorEntityToken;
-import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.campaign.econ.SubmarketAPI;
 import com.fs.starfarer.api.campaign.listeners.CargoScreenListener;
+/*
+import org.lwjgl.util.vector.Vector2f;
+import com.fs.starfarer.api.campaign.CargoStackAPI;
+import com.fs.starfarer.api.campaign.RepLevel;
+import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.impl.campaign.ids.Commodities;
 import com.fs.starfarer.api.impl.campaign.ids.Factions;
 import com.fs.starfarer.api.impl.campaign.ids.Items;
 import com.fs.starfarer.api.impl.campaign.tutorial.TutorialMissionIntel;
 import com.fs.starfarer.api.util.Misc;
+import data.scripts.util.MezzUtils;
+*/
 /*
 import java.util.Random;
 import com.fs.starfarer.api.impl.campaign.ids.FleetTypes;
@@ -29,6 +32,7 @@ import com.fs.starfarer.api.impl.campaign.missions.hub.HubMissionWithTriggers.Fl
 import com.fs.starfarer.api.impl.campaign.missions.hub.HubMissionWithTriggers.OfficerNum;
 import com.fs.starfarer.api.impl.campaign.missions.hub.HubMissionWithTriggers.OfficerQuality;
 */
+
 
 public class espc_CargoListener implements GenericPlugin, CargoScreenListener {
 	
@@ -64,16 +68,18 @@ public class espc_CargoListener implements GenericPlugin, CargoScreenListener {
 	}
 	
 	public void reportPlayerNonMarketTransaction(PlayerMarketTransaction transaction, InteractionDialogAPI dialog) {
-
+		// needs writing revisions & comprehensive testing.  don't think this'll make release at the moment.
+		
+		/*
 		if (transaction.getBought().isEmpty() ||
 			TutorialMissionIntel.isTutorialInProgress() ||
-			Global.getSector().getFaction("epsilpac").getRelToPlayer().isAtWorst(RepLevel.WELCOMING) ||
+			Global.getSector().getFaction(MezzUtils.factionIdPact).getRelToPlayer().isAtWorst(RepLevel.WELCOMING) ||
 			Global.getSector().getPlayerFleet().isInHyperspace() ||
 			// ensure we're far enough from the core - or just the absolute center of the map, because the actual core's location
 			// under misc is just busted by mods lol
 			Global.getSector().getPlayerFleet().getLocationInHyperspace().lengthSquared() < 25000 * 25000 ||
 			Misc.isInAbyss(Global.getSector().getPlayerFleet().getLocationInHyperspace()) ||
-			Misc.getFactionMarkets("epsilpac").size() <= 2 ||
+			Misc.getFactionMarkets(MezzUtils.factionIdPact).size() <= 2 ||
 			Global.getSector().getClock().getElapsedDaysSince(
 				Global.getSector().getMemoryWithoutUpdate().getLong("$espcSalvageInterceptTime")) < 100
 			)
@@ -104,7 +110,7 @@ public class espc_CargoListener implements GenericPlugin, CargoScreenListener {
 		if (!hasAICore || AIInterceptCount < 0) {
 			for (CargoStackAPI stack : transaction.getBought().getStacksCopy()) {
 				if (stack.isSpecialStack()) {
-					/*
+					//*
 						String bpOf = stack.getSpecialDataIfSpecial().getData();
 						if (Global.getSettings().getHullSpec(bpOf) != null &&
 							!bpOf.contains("espc") &&
@@ -115,7 +121,7 @@ public class espc_CargoListener implements GenericPlugin, CargoScreenListener {
 							items.add(bpOf);
 						}
 						
-					} else */
+					// } else
 					if (stack.getSpecialItemSpecIfSpecial().getId().equals(Items.PRISTINE_NANOFORGE) ||
 						stack.getSpecialItemSpecIfSpecial().getId().equals(Items.DRONE_REPLICATOR) ||
 						stack.getSpecialItemSpecIfSpecial().getId().equals(Items.CRYOARITHMETIC_ENGINE)) {
@@ -126,6 +132,7 @@ public class espc_CargoListener implements GenericPlugin, CargoScreenListener {
 		}	
 		if (!hasAICore && !hasColonyItem)
 			return;
+		*/
 		/*
 		if (hasAICore && AIInterceptCount >= 0) {
 			AIInterceptCount++;
@@ -144,15 +151,15 @@ public class espc_CargoListener implements GenericPlugin, CargoScreenListener {
 
 				DelayedFleetEncounter e = new DelayedFleetEncounter(new Random(), "espcAIInterceptMission");
 				e.setDelayNone();
-				e.setLocationAnywhere(true, "epsilpac");
+				e.setLocationAnywhere(true, MezzUtils.factionIdPact);
 				e.setEncounterInHyper();
 				e.setDoNotAbortWhenPlayerFleetTooStrong();
 				e.beginCreate();
-				e.triggerCreateFleet(FleetSize.LARGER, FleetQuality.VERY_HIGH, "epsilpac", FleetTypes.PATROL_LARGE, new Vector2f());
+				e.triggerCreateFleet(FleetSize.LARGER, FleetQuality.VERY_HIGH, MezzUtils.factionIdPact, FleetTypes.PATROL_LARGE, new Vector2f());
 				e.triggerSetFleetOfficers(OfficerNum.MORE, OfficerQuality.DEFAULT);
 				e.triggerFleetSetFlagship("espc_flagbearer_Standard");
 				e.triggerFleetAddCommanderSkill(Skills.WOLFPACK_TACTICS, 1);
-				e.triggerFleetSetFaction("epsilpac");
+				e.triggerFleetSetFaction(MezzUtils.factionIdPact);
 				e.triggerSetFleetFlag("$espcAIInterceptFleet");
 				e.triggerMakeLowRepImpact();
 				e.triggerMakeNonHostile();
@@ -175,14 +182,14 @@ public class espc_CargoListener implements GenericPlugin, CargoScreenListener {
 				
 				DelayedFleetEncounter e = new DelayedFleetEncounter(new Random(), "espcBPInterceptMission");
 				e.setDelayNone();
-				e.setLocationAnywhere(true, "epsilpac");
+				e.setLocationAnywhere(true, MezzUtils.factionIdPact);
 				e.setEncounterInHyper();
 				e.setDoNotAbortWhenPlayerFleetTooStrong();
 				e.beginCreate();
-				e.triggerCreateFleet(FleetSize.LARGER, FleetQuality.SMOD_1, "epsilpac", FleetTypes.TASK_FORCE, new Vector2f());
+				e.triggerCreateFleet(FleetSize.LARGER, FleetQuality.SMOD_1, MezzUtils.factionIdPact, FleetTypes.TASK_FORCE, new Vector2f());
 				e.triggerFleetSetFlagship("espc_amanuensis_Assault");
 				e.triggerSetFleetOfficers(OfficerNum.MORE, OfficerQuality.HIGHER);
-				e.triggerFleetSetFaction("epsilpac");
+				e.triggerFleetSetFaction(MezzUtils.factionIdPact);
 				e.triggerSetFleetFlag("$espcBPInterceptFleet");
 				e.triggerMakeLowRepImpact();
 				e.triggerSetStandardAggroInterceptFlags();

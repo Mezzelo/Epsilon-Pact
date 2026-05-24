@@ -5,6 +5,8 @@ import com.fs.starfarer.api.combat.MutableShipStatsAPI;
 import com.fs.starfarer.api.combat.ShipAPI;
 import com.fs.starfarer.api.combat.ShipAPI.HullSize;
 
+import data.scripts.util.MezzUtils;
+
 // import java.util.List;
 // import java.util.ArrayList;
 // import java.util.Iterator;
@@ -37,7 +39,7 @@ public class espc_HalfslaughtModBehaviour extends BaseHullMod {
 
 	public String getDescriptionParam(int index, HullSize hullSize) {
 		if (index == 0)
-			return ("significant performance alterations");
+			return MezzUtils.getString("espc_hullmod", "halfslaught1");
 		return null;
 	}
 }

@@ -3,7 +3,7 @@
   "hullId": "espc_chorale",
   "displayName": "Suppressive",
   "goalVariant": false,
-  "fluxCapacitors": 22,
+  "fluxCapacitors": 20,
   "fluxVents": 30,
   "quality": 1,
   "permaMods": [],
@@ -46,7 +46,7 @@
       "mode": "LINKED",
       "weapons": {
         "WS 008": "heavyburst",
-        "WS 010": "vulcan"
+        "WS 010": "espc_arcscatter"
       }
     }
   ],

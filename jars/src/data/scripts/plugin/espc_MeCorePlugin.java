@@ -14,6 +14,8 @@ import com.fs.starfarer.api.ui.Alignment;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.util.Misc;
 
+import data.scripts.util.MezzUtils;
+
 import java.awt.*;
 import java.util.Random;
 
@@ -51,9 +53,9 @@ public class espc_MeCorePlugin extends BaseAICoreOfficerPluginImpl implements AI
 		float opad = 10f;
 		Color text = person.getFaction().getBaseUIColor();
 		Color bg = person.getFaction().getDarkUIColor();
-		tooltip.addSectionHeading("Personality: You!", text, bg, Alignment.MID, 20);
-		tooltip.addPara("You control this ship in combat when it is deployed, through this interface.\n\n" +
-			"When on auto-pilot (figuratively, of course), you tend to get a little reckless.", opad, Misc.getHighlightColor());
+		tooltip.addSectionHeading(MezzUtils.getString("espc_nexbackgrounds", "mecoreheading"), text, bg, Alignment.MID, 20);
+		tooltip.addPara(MezzUtils.getString("espc_nexbackgrounds", "mecoredesc1") +
+			MezzUtils.getString("espc_nexbackgrounds", "mecoredesc2"), opad, Misc.getHighlightColor());
 	}
 
 }

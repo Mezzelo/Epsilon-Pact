@@ -7,6 +7,8 @@ import com.fs.starfarer.api.combat.ShipAPI;
 import com.fs.starfarer.api.combat.WeaponAPI;
 import com.fs.starfarer.api.combat.WeaponAPI.WeaponSize;
 
+import data.scripts.util.MezzUtils;
+
 
 public class espc_HyperionModBehaviour extends BaseHullMod {
 	
@@ -49,11 +51,11 @@ public class espc_HyperionModBehaviour extends BaseHullMod {
     
     public String getDescriptionParam(int index, HullSize hullSize) {
         if (index == 0)
-            return ("mutually exclusive");
+            return MezzUtils.getString("espc_general", "mutually_exclusive");
         else if (index == 1)
-            return ("both");
+            return MezzUtils.getString("espc_general", "both");
         else if (index == 2)
-            return ("severely hampered");
+            return MezzUtils.getString("espc_general", "severely_hampered");
 
         return null;
     }

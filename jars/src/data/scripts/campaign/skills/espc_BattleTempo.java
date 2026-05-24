@@ -1,7 +1,7 @@
 package data.scripts.campaign.skills;
 
 
-import java.util.List;
+// import java.util.List;
 
 import com.fs.starfarer.api.GameState;
 import com.fs.starfarer.api.Global;
@@ -9,7 +9,7 @@ import com.fs.starfarer.api.characters.AfterShipCreationSkillEffect;
 import com.fs.starfarer.api.combat.MutableShipStatsAPI;
 import com.fs.starfarer.api.combat.ShipAPI;
 import com.fs.starfarer.api.combat.ShipAPI.HullSize;
-import com.fs.starfarer.api.combat.ShipCommand;
+// import com.fs.starfarer.api.combat.ShipCommand;
 import com.fs.starfarer.api.combat.listeners.AdvanceableListener;
 
 public class espc_BattleTempo {
@@ -26,7 +26,7 @@ public class espc_BattleTempo {
 		protected String id;
 		private float bonusTime = UNPAUSE_TIME_MAX;
 		private float lastTime = 0f;
-		private boolean markForReset = false;
+		// private boolean markForReset = false;
 		public BattleTempoMod(ShipAPI ship, String id) {
 			this.ship = ship;
 			this.id = id;

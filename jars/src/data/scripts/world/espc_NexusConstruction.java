@@ -31,12 +31,14 @@ import com.fs.starfarer.api.impl.campaign.procgen.themes.RemnantThemeGenerator.R
 import com.fs.starfarer.api.util.Misc;
 import com.fs.starfarer.api.util.WeightedRandomPicker;
 
+import data.scripts.util.MezzUtils;
+
 public class espc_NexusConstruction {
 	
 	public static void monthlyConstruction() {
 		WeightedRandomPicker<MarketAPI> sourcePicker = new WeightedRandomPicker<MarketAPI>();
 		for (MarketAPI market : Global.getSector().getEconomy().getMarketsCopy()) {
-			if (market.getFactionId().equals("epsilpac")) {
+			if (market.getFactionId().equals(MezzUtils.factionIdPact)) {
 				sourcePicker.add(market);
 			}
 		}

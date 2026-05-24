@@ -29,6 +29,7 @@ import com.fs.starfarer.api.impl.campaign.ids.Ranks;
 import static com.fs.starfarer.api.impl.campaign.CoreLifecyclePluginImpl.dedupePortraits;
 
 import data.scripts.util.EspcOfficerFactory;
+import data.scripts.util.MezzUtils;
 
 public class espc_People {
 	        
@@ -49,7 +50,7 @@ public class espc_People {
         MarketAPI gaussMarket = null;
         if (isRandomSector) {
         	for (MarketAPI thisMarket : Global.getSector().getEconomy().getMarketsCopy()) {
-        		if (thisMarket.getFactionId().equals("epsilpac")) {
+        		if (thisMarket.getFactionId().equals(MezzUtils.factionIdPact)) {
         			if (gaussMarket == null)
         				gaussMarket = thisMarket;
         			else if (gaussMarket.getSize() < thisMarket.getSize())
@@ -69,7 +70,7 @@ public class espc_People {
         
 		PersonAPI nola = Global.getFactory().createPerson();
 		nola.setId("espc_nola");
-		nola.setFaction("epsilpac");
+		nola.setFaction(MezzUtils.factionIdPact);
 		nola.setGender(Gender.FEMALE);
 		nola.setRankId(Ranks.FACTION_LEADER);
 		nola.setPostId(Ranks.POST_FACTION_LEADER);
@@ -94,7 +95,7 @@ public class espc_People {
         
 		PersonAPI isa = Global.getFactory().createPerson();
 		isa.setId("espc_isabelle");
-		isa.setFaction("epsilpac");
+		isa.setFaction(MezzUtils.factionIdPact);
 		isa.setGender(Gender.FEMALE);
 		isa.setRankId(Ranks.AGENT);
 		isa.setPostId(Ranks.POST_AGENT);
@@ -122,7 +123,7 @@ public class espc_People {
 		
 		PersonAPI gauss = Global.getFactory().createPerson();
 		gauss.setId("espc_gauss");
-		gauss.setFaction("epsilpac");
+		gauss.setFaction(MezzUtils.factionIdPact);
 		gauss.setGender(Gender.FEMALE);
 		gauss.setRankId("espc_scientist");
 		gauss.setPostId("espc_scientist");
@@ -139,7 +140,7 @@ public class espc_People {
 		
 		PersonAPI anyiwo = Global.getFactory().createPerson();
 		anyiwo.setId("espc_anyiwo");
-		anyiwo.setFaction("epsilpac");
+		anyiwo.setFaction(MezzUtils.factionIdPact);
 		anyiwo.setGender(Gender.ANY);
 		anyiwo.setRankId(Ranks.CITIZEN);
 		anyiwo.setPostId(Ranks.POST_SCIENTIST);
@@ -156,7 +157,7 @@ public class espc_People {
 
 		PersonAPI anlo = Global.getFactory().createPerson();
 		anlo.setId("espc_anlo");
-		anlo.setFaction("epsilpac");
+		anlo.setFaction(MezzUtils.factionIdPact);
 		anlo.setGender(Gender.FEMALE);
 		anlo.setRankId("espc_speaker");
 		anlo.setPostId("espc_speaker");
@@ -198,7 +199,7 @@ public class espc_People {
 		//List<MarketAPI> withAutoAdmins = new ArrayList<MarketAPI>();
 		for (MarketAPI market : Global.getSector().getEconomy().getMarketsCopy()) {
 			
-            if (!market.getFactionId().equals("epsilpac"))
+            if (!market.getFactionId().equals(MezzUtils.factionIdPact))
                 continue;
 			if (market.getMemoryWithoutUpdate().getBoolean(MemFlags.MARKET_DO_NOT_INIT_COMM_LISTINGS))
 				continue;

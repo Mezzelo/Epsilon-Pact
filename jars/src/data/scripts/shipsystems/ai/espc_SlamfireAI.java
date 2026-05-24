@@ -83,7 +83,7 @@ public class espc_SlamfireAI implements ShipSystemAIScript {
         if (aiInterval.intervalElapsed()) {
         	if (system.isActive() &&
         		(flux.getFluxLevel() > DEACTIVATE_FLUX || 
-        		(MathUtils.getDistance(ship, target) > deactivateDistance && 
+        		(MathUtils.getDistanceSquared(ship, target) > Math.pow(deactivateDistance, 2f) && 
         		!ship.getCustomData().containsKey("espc_InverseSkimmer_Ally"))
         		 || target.isFighter()))
         		ship.useSystem();

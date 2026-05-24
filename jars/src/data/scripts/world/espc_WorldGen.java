@@ -25,6 +25,7 @@ import com.fs.starfarer.api.impl.campaign.shared.SharedData;
 // import data.scripts.world.systems.Diableavionics_outerTerminus;
 // import data.scripts.world.systems.Diableavionics_stagging;
 
+import data.scripts.util.MezzUtils;
 // import data.scripts.espc_ModPlugin;
 import data.scripts.world.systems.espc_GenHalestar;
 import data.scripts.world.systems.espc_GenKhemsala;
@@ -121,9 +122,9 @@ public class espc_WorldGen implements SectorGeneratorPlugin {
     
     @Override
     public void generate(SectorAPI sector) {
-        initRelations(sector, sector.getFaction("epsilpac"));
+        initRelations(sector, sector.getFaction(MezzUtils.factionIdPact));
 
-        SharedData.getData().getPersonBountyEventData().addParticipatingFaction("epsilpac");
+        SharedData.getData().getPersonBountyEventData().addParticipatingFaction(MezzUtils.factionIdPact);
         // Global.getSector().getFaction("epsilrem").setShowInIntelTab(false);
         
         if (!nexRandom){

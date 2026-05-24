@@ -6,6 +6,8 @@ import com.fs.starfarer.api.combat.WeaponAPI;
 import com.fs.starfarer.api.combat.WeaponAPI.WeaponSize;
 import com.fs.starfarer.api.impl.combat.BaseShipSystemScript;
 
+import data.scripts.util.MezzUtils;
+
 public class espc_MissileBoostStats extends BaseShipSystemScript {
 
 	private static final float ROF_BONUS = 0.5f;
@@ -43,11 +45,14 @@ public class espc_MissileBoostStats extends BaseShipSystemScript {
 	
 	public StatusData getStatusData(int index, State state, float effectLevel) {
 		if (index == 2)
-			return new StatusData("missile rate of fire +" + (int) (ROF_BONUS * effectLevel * 100f)  + "%", false);
+			return new StatusData(String.format(MezzUtils.getString("espc_system", "missile_rof"), 
+				(int) (ROF_BONUS * effectLevel * 100f)  + "%"), false);
 		if (index == 1)
-			return new StatusData("missile damage +" + (int) (DAMAGE_BONUS * effectLevel * 100f)  + "%", false);
+			return new StatusData(String.format(MezzUtils.getString("espc_system", "missile_damage"), 
+				(int) (DAMAGE_BONUS * effectLevel * 100f)  + "%"), false);
 		if (index == 0)
-			return new StatusData("missile speed +" + (int) (SPEED_BONUS * effectLevel * 100f)  + "%", false);
+			return new StatusData(String.format(MezzUtils.getString("espc_system", "missile_speed"), 
+				(int) (SPEED_BONUS * effectLevel * 100f)  + "%"), false);
 		return null;
 	}
 }

@@ -2,8 +2,8 @@
 	"variantId": "fulgent_espc_Pact_Assault",
 	"displayName": "Assault",
 	"goalVariant": false,
-    "fluxCapacitors": 20,
-    "fluxVents": 17,
+    "fluxCapacitors": 14,
+    "fluxVents": 14,
     "hullId": "fulgent_espc",
     "hullMods": [
         "targetingunit",
@@ -15,6 +15,14 @@
     "weaponGroups": [
         {
             "autofire": false,
+            "mode": "ALTERNATING",
+            "weapons": {
+				"WS 000": "amblaster",
+				"WS 002": "amblaster"
+			}
+        },
+        {
+            "autofire": true,
             "mode": "LINKED",
             "weapons": {
                 "WS 003": "ionpulser",
@@ -30,18 +38,10 @@
             "autofire": true,
             "mode": "LINKED",
             "weapons": {
-				"WS 000": "irpulse",
-				"WS 002": "irpulse"
-			}
-        },
-        {
-            "autofire": true,
-            "mode": "LINKED",
-            "weapons": {
                 "WS 005": "pdlaser",
                 "WS 006": "pdlaser",
-                "WS 007": "pdburst",
-                "WS 008": "pdburst"
+                "WS 007": "pdlaser",
+                "WS 008": "pdlaser"
             }
         }
     ]

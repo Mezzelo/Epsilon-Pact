@@ -9,6 +9,8 @@ import com.fs.starfarer.api.combat.WeaponAPI;
 import com.fs.starfarer.api.combat.ShipAPI.HullSize;
 import com.fs.starfarer.api.combat.WeaponAPI.WeaponSize;
 
+import data.scripts.util.MezzUtils;
+
 // import java.util.List;
 // import java.util.ArrayList;
 // import java.util.Iterator;
@@ -30,13 +32,13 @@ public class espc_RecoilModBehaviour extends BaseHullMod {
 
 	public String getDescriptionParam(int index, HullSize hullSize) {
 		if (index == 0)
-			return ("large and medium");
+			return MezzUtils.getString("espc_gencombat", "large_and_medium");
 		else if (index == 1)
-			return ("medium");
+			return MezzUtils.getString("espc_gencombat", "medium");
 		else if (index == 2)
 			return ((int) (ROF_BONUS * 100f) + "%");
 		else if (index == 3)
-			return ("Heavy Armor");
+			return MezzUtils.getString("espc_gencombat", "heavy_armor");
 		else if (index == 4)
 			return ("20%");
 		return null;

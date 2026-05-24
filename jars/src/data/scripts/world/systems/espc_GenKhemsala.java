@@ -11,6 +11,7 @@ import com.fs.starfarer.api.impl.campaign.procgen.NebulaEditor;
 import com.fs.starfarer.api.impl.campaign.terrain.HyperspaceTerrainPlugin;
 import com.fs.starfarer.api.util.Misc;
 
+import data.scripts.util.MezzUtils;
 import data.scripts.util.espc_MarketUtil;
 
 public class espc_GenKhemsala implements SectorGeneratorPlugin
@@ -37,7 +38,7 @@ public class espc_GenKhemsala implements SectorGeneratorPlugin
         		210f,
         		3900f,
         		260f);
-        tocquiera.setFaction("epsilpac");
+        tocquiera.setFaction(MezzUtils.factionIdPact);
         tocquiera.setCustomDescriptionId("espc_tocquiera");
         tocquiera.setInteractionImage("illustrations", "espc_tocquiera_illustration");
 
@@ -45,7 +46,7 @@ public class espc_GenKhemsala implements SectorGeneratorPlugin
                 "espc_khemsala_comm",
                 "Khemsala Relay",
                 Entities.COMM_RELAY_MAKESHIFT,
-                "epsilpac"
+                MezzUtils.factionIdPact
         );
         khemsala_commRelay.setCircularOrbit(systemStar, 20f, 4800f, 270f);
 
@@ -86,7 +87,7 @@ public class espc_GenKhemsala implements SectorGeneratorPlugin
         	}
         );
 
-        /*SectorEntityToken tocquieraStation = system.addCustomEntity("espc_tocquiera_station", "Tocquiera Station", "station_hightech3", "epsilpac");
+        /*SectorEntityToken tocquieraStation = system.addCustomEntity("espc_tocquiera_station", "Tocquiera Station", "station_hightech3", MezzUtils.factionIdPact);
         tocquieraStation.setMarket(tocquieraMarket);
         tocquieraStation.setCircularOrbitPointingDown(tocquiera, 30f, 250f, 60f);
         tocquieraStation.setCustomDescriptionId("espc_tocquiera_station_description");

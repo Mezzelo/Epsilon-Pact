@@ -13,6 +13,8 @@ import com.fs.starfarer.api.combat.WeaponAPI.WeaponSize;
 import com.fs.starfarer.api.impl.combat.BaseShipSystemScript;
 import com.fs.starfarer.api.loading.WeaponSlotAPI;
 
+import data.scripts.util.MezzUtils;
+
 public class espc_HarmonizerStats extends BaseShipSystemScript {
 
 	private static final float[] ROF_BONUSES = {0.25f, 0.7f};
@@ -21,7 +23,8 @@ public class espc_HarmonizerStats extends BaseShipSystemScript {
 	// effectiveness of the system as a fraction of the original if the type of largest weapon is mixed.
 	
 	private int ballisticBoost = -1, energyBoost = -1;
-	// while we're not designing ships with only smalls to use this system(basically glorified weapon boost with minimal build considerations),
+	// while we're not designing ships with only smalls to use this system
+		// (basically glorified weapon boost with minimal build considerations),
 	// there's still the annoying edge case of players omitting certain sizes themselves lol
 	// 0 = small, 1 = med, 2 = large
 	private int largestSize = -1;
@@ -125,31 +128,37 @@ public class espc_HarmonizerStats extends BaseShipSystemScript {
 	public StatusData getStatusData(int index, State state, float effectLevel) {
 		if (index == 0) {
 			if (ballisticBoost > -1)
-		return new StatusData("ballistic rate of fire +" + (int) (ROF_BONUSES[ballisticBoost] * 100f * effectLevel) + "%", false);
+				return new StatusData(String.format(MezzUtils.getString("espc_shipsystem", "ballistic_rof"),
+			(int) (ROF_BONUSES[ballisticBoost] * 100f * effectLevel) + "%"), false);
 			else if (energyBoost > -1)
-				return new StatusData("energy rate of fire +" + (int) (ROF_BONUSES[energyBoost] * 100f * effectLevel) + "%", false);
+				return new StatusData(String.format(MezzUtils.getString("espc_shipsystem", "energy_rof"),
+					(int) (ROF_BONUSES[energyBoost] * 100f * effectLevel) + "%"), false);
 		} else if (index == 1) {
 			if (ballisticBoost > -1)
-				return new StatusData("ballistic flux use -" + (int) (FLUX_USE_BONUSES[ballisticBoost] * 100f * effectLevel) + "%", false);
+				return new StatusData(String.format(MezzUtils.getString("espc_shipsystem", "ballistic_flux_discount"),
+					(int) (FLUX_USE_BONUSES[ballisticBoost] * 100f * effectLevel) + "%"), false);
 			else if (energyBoost > -1)
-				return new StatusData("energy flux use -" + (int) (FLUX_USE_BONUSES[energyBoost] * 100f * effectLevel) + "%", false);
+				return new StatusData(String.format(MezzUtils.getString("espc_shipsystem", "energy_flux_discount"),
+					(int) (FLUX_USE_BONUSES[energyBoost] * 100f * effectLevel) + "%"), false);
 		} else if (index == 2 && ballisticBoost > -1 && energyBoost > -1)
-			return new StatusData("energy rate of fire +" + (int) (ROF_BONUSES[energyBoost] * 100f * effectLevel) + "%", false);
+			return new StatusData(String.format(MezzUtils.getString("espc_shipsystem", "energy_rof"),
+				(int) (ROF_BONUSES[energyBoost] * 100f * effectLevel) + "%"), false);
 		else if (index == 3 && ballisticBoost > -1 && energyBoost > -1)
-			return new StatusData("energy flux use -" + (int) (FLUX_USE_BONUSES[energyBoost] * 100f * effectLevel) + "%", false);
+			return new StatusData(String.format(MezzUtils.getString("espc_shipsystem", "energy_flux_discount"),
+				(int) (FLUX_USE_BONUSES[energyBoost] * 100f * effectLevel) + "%"), false);
 		return null;
 	}
 	
 	@Override
 	public String getInfoText(ShipSystemAPI system, ShipAPI ship) {
 		if (usableState == 0)
-			return "INVALID LOADOUT";
+			return MezzUtils.getString("espc_shipsystem", "invalid_loadout");
 		
 		if (system.getState().equals(SystemState.IDLE))
-			return "READY";
+			return MezzUtils.getString("espc_shipsystem", "ready");
 		else if (system.getState().equals(SystemState.ACTIVE) ||
 			system.getState().equals(SystemState.IN))
-			return "ACTIVE";
+			return MezzUtils.getString("espc_shipsystem", "active");
 		else
 			return "";
 	}

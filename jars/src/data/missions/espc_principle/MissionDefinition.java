@@ -16,8 +16,10 @@ import com.fs.starfarer.api.mission.MissionDefinitionAPI;
 import com.fs.starfarer.api.mission.MissionDefinitionPlugin;
 // import com.fs.starfarer.api.util.Misc;
 import com.fs.starfarer.api.fleet.FleetMemberAPI;
+import com.fs.starfarer.api.impl.campaign.ids.Factions;
 import com.fs.starfarer.api.impl.campaign.ids.Personalities;
 import com.fs.starfarer.api.impl.campaign.ids.Skills;
+import com.fs.starfarer.api.Global;
 // import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.characters.FullName;
 import com.fs.starfarer.api.characters.PersonAPI;
@@ -25,32 +27,36 @@ import java.util.ArrayList;
 // import java.util.Iterator;
 
 import data.scripts.util.EspcOfficerFactory;
+import data.scripts.util.MezzUtils;
 
 public class MissionDefinition implements MissionDefinitionPlugin {
 
 	public void defineMission(MissionDefinitionAPI api) {
 
+		String playerPrefix = Global.getSector().getFaction(MezzUtils.factionIdPact).getShipNamePrefix();
+		String ttPrefix = Global.getSector().getFaction(Factions.TRITACHYON).getShipNamePrefix();
+		
+		String flagshipName = playerPrefix + " " + MezzUtils.getString("espc_names", "chorale_isabelle");
 		
 		// Set up the fleets
-		api.initFleet(FleetSide.PLAYER, "EPS", FleetGoal.ATTACK, false, -5);
-		api.initFleet(FleetSide.ENEMY, "TTS", FleetGoal.ATTACK, true, 3);
+		api.initFleet(FleetSide.PLAYER, playerPrefix, FleetGoal.ATTACK, false, -5);
+		api.initFleet(FleetSide.ENEMY, ttPrefix, FleetGoal.ATTACK, true, 3);
 
 		// Set a blurb for each fleet
-		api.setFleetTagline(FleetSide.PLAYER, "EPS Taste for Blood");
-		api.setFleetTagline(FleetSide.ENEMY, "Tri-Tachyon Heavy Pursuit Fleet");
+		api.setFleetTagline(FleetSide.PLAYER, flagshipName);
+		api.setFleetTagline(FleetSide.ENEMY, MezzUtils.getString("espc_missionstrings", "principle_enemyTagline"));
 		
-		// These show up as items in the bulleted list under 
-		// "Tactical Objectives" on the mission detail screen
-		api.addBriefingItem("You have about a minute until the rear of their fleet catches up. Work quickly.");
-		api.addBriefingItem("Your cruiser is vulnerable when flanked, but exceptionally powerful in a close-quarters duel.");
-		api.addBriefingItem("Time your strikes alongside theirs. Let their confidence be their undoing.");
+		api.addBriefingItem(MezzUtils.getString("espc_missionstrings", "principle_brief1"));
+		api.addBriefingItem(MezzUtils.getString("espc_missionstrings", "principle_brief2"));
+		api.addBriefingItem(MezzUtils.getString("espc_missionstrings", "principle_brief3"));
 		// api.addBriefingItem("Do not allow your attackers to disengage freely, lest you end up surrounded.");
-		api.addBriefingItem("You've been through worse.");
+		api.addBriefingItem(MezzUtils.getString("espc_missionstrings", "principle_brief4"));
 		
 		
-		FleetMemberAPI member = api.addToFleet(FleetSide.PLAYER, "espc_chorale_Elite", FleetMemberType.SHIP, "EPS Taste for Blood", true);
+		FleetMemberAPI member = api.addToFleet(FleetSide.PLAYER, "espc_chorale_Elite", FleetMemberType.SHIP, flagshipName, 
+			true);
 		PersonAPI pilot = EspcOfficerFactory.MakePilot("Isabelle", "de' Medici", FullName.Gender.FEMALE, Personalities.AGGRESSIVE, 
-			"graphics/portraits/espc_isabelle.png", "epsilpac", 5);
+			"graphics/portraits/espc_isabelle.png", MezzUtils.factionIdPact, 5);
 		EspcOfficerFactory.PopulateSkills(pilot, new String[]{
 			Skills.HELMSMANSHIP, Skills.TARGET_ANALYSIS, 
 			Skills.ENERGY_WEAPON_MASTERY, Skills.SYSTEMS_EXPERTISE, 

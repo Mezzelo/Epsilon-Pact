@@ -3,7 +3,7 @@
   "hullId": "espc_chorale",
   "displayName": "Elite",
   "goalVariant": false,
-  "fluxCapacitors": 30,
+  "fluxCapacitors": 28,
   "fluxVents": 30,
   "quality": 1,
   "permaMods": [],
@@ -37,7 +37,7 @@
       "autofire": true,
       "mode": "LINKED",
       "weapons": {
-        "WS 004": "espc_heavyionresonator"
+        "WS 004": "espc_ionflail"
       }
     },
     {

@@ -7,6 +7,8 @@ import com.fs.starfarer.api.impl.campaign.population.PopulationComposition;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.util.Misc;
 
+import data.scripts.util.MezzUtils;
+
 public class espc_AI_Population extends BaseMarketConditionPlugin implements MarketImmigrationModifier {
 	
 	public static int STABILITY_PENALTY = 1;
@@ -14,7 +16,7 @@ public class espc_AI_Population extends BaseMarketConditionPlugin implements Mar
 	public void apply(String id) {
 		super.apply(id);
 		
-		market.getStability().modifyFlat(id, -STABILITY_PENALTY, "AI Sub-Population");
+		market.getStability().modifyFlat(id, -STABILITY_PENALTY, MezzUtils.getString("espc_markets", "aisubpop"));
 		market.addTransientImmigrationModifier(this);
 	}
 
@@ -31,7 +33,7 @@ public class espc_AI_Population extends BaseMarketConditionPlugin implements Mar
 	protected void createTooltipAfterDescription(TooltipMakerAPI tooltip, boolean expanded) {
 		super.createTooltipAfterDescription(tooltip, expanded);
 		
-		tooltip.addPara("%s stability", 
+		tooltip.addPara(MezzUtils.getString("espc_markets", "aisubpop_stability"), 
 				10f, Misc.getHighlightColor(),
 				"-" + STABILITY_PENALTY);
 	}

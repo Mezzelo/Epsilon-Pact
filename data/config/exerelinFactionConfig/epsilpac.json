@@ -173,32 +173,32 @@
     "defenceFleetName":"Defense Fleet",	
     
     "startShipsSolo":[
-		["espc_jackalope_Anti_Armor"],
+		["espc_opossum_Strike"],
 		["espc_rondel_Standard"],
-		["espc_songbird_Standard"],
+		# ["espc_songbird_Standard"],
 	],
     "startShipsCombatSmall":[
-		["espc_songbird_Standard","wolf_Assault"],
-		["espc_jackalope_Anti_Armor","espc_rondel_Standard","lasher_Nola_G"],
+		# ["espc_songbird_Standard","wolf_Assault"],
+		["espc_rondel_Standard","espc_opossum_Support","lasher_Nola_G"],
 	],
     "startShipsCombatLarge":[
-		["espc_observer_Strike","espc_ember_Standard"],
-		["espc_chorale_Common","espc_militia_Standard"],
+		# ["espc_observer_Strike","espc_ember_Standard"],
+		["espc_chorale_Common","mule_espc_Standard"],
 	],
     "startShipsTradeSmall":[
-		["espc_songbird_Standard","mule_Standard","espc_ember_Standard"],
+		["espc_opossum_Assault","mule_espc_Standard","dram_espc_Standard"],
 	],
     "startShipsTradeLarge":[
-		["espc_militia_Standard","espc_ember_Standard","mule_Standard"],
+		["apogee_espc_Balanced_Common","dram_espc_Standard","mule_espc_Support",],
 	],
     "startShipsExplorerLarge":[
-		["apogee_Balanced","espc_ember_Standard","espc_jackalope_Anti_Armor","espc_rondel_Standard"],
+		["apogee_espc_Balanced_Common","dram_espc_Standard","espc_rondel_Standard","espc_opossum_Strike"],
 	],
     "startShipsCarrierSmall":[
-		["espc_pilgrim_Standard","espc_jackalope_Anti_Armor"],
+		["espc_pilgrim_Assault_Common","espc_rondel_Standard"],
 	],
     "startShipsCarrierLarge":[
-		["espc_pilgrim_Standard","espc_militia_Standard","lasher_Nola_G","espc_songbird_Standard"],
+		["espc_pilgrim_Assault_Common","mule_espc_Support","lasher_Nola_G","espc_rondel_Standard"],
 	],
     "startShipsSuper":[
 		["espc_flagbearer_Support"],
@@ -209,9 +209,8 @@
         {"ids":["orbitalstation_high", "battlestation_high", "starfortress_high"]},
     ],
 	
-	# a lil buddy :) - this might be fun, if i ever care to get the skills in.
 	"startSpecialItems":[
-		[["espc_bp_package", ""]],
+		# [["espc_bp_package", ""]],
 		#[["GammaCore",""]]
 	],
 	

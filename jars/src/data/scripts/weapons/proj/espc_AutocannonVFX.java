@@ -93,7 +93,9 @@ public class espc_AutocannonVFX extends BaseEveryFrameCombatPlugin {
 	
     @Override
     public void advance(float amount, List<InputEventAPI> events) {
-    	if (amount == 0)
+    	if (amount <= 0f)
+    		return;
+    	if (Global.getCombatEngine().isPaused())
     		return;
 		CombatEngineAPI engine = Global.getCombatEngine();
 		if (projs.size() == 0) {

@@ -2,8 +2,8 @@
   "variantId": "espc_chorale_Strike",
   "hullId": "espc_chorale",
   "displayName": "Strike",
-  "goalVariant": true,
-  "fluxCapacitors": 28,
+  "goalVariant": false,
+  "fluxCapacitors": 27,
   "fluxVents": 30,
   "quality": 1,
   "permaMods": [],
@@ -32,7 +32,7 @@
             "weapons": {
                 "WS 003": "pulselaser",
                 "WS 007": "pulselaser",
-                "WS 004": "ionpulser"
+                "WS 004": "espc_ionflail"
             }
         },
         {

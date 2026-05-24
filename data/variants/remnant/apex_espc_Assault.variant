@@ -3,34 +3,37 @@
   "hullId": "apex",
   "displayName": "Assault",
   "goalVariant": false,
-    "fluxCapacitors": 25,
+    "fluxCapacitors": 11,
     "fluxVents": 30,
   "quality": 0,
   "permaMods": [],
-    "hullMods": ["targetingunit"],
+    "hullMods": [
+		"targetingunit",
+		"defensive_targeting_array"
+	],
     "weaponGroups": [
         {
-            "autofire": false,
+            "autofire": true,
             "mode": "LINKED",
             "weapons": {
-                "WS 005": "espc_fission",
-                "WS 006": "espc_fission"
+                "WS 005": "pulselaser",
+                "WS 006": "pulselaser"
+            }
+        },
+        {
+            "autofire": false,
+            "mode": "ALTERNATING",
+            "weapons": {
+                "WS 004": "espc_finnegan",
+                "WS 007": "espc_finnegan"
             }
         },
         {
             "autofire": true,
             "mode": "ALTERNATING",
             "weapons": {
-                "WS 004": "espc_riftspear",
-                "WS 007": "espc_riftspear"
-            }
-        },
-        {
-            "autofire": true,
-            "mode": "ALTERNATING",
-            "weapons": {
-                "WS 000": "irpulse",
-                "WS 003": "irpulse"
+                "WS 000": "espc_riftspear",
+                "WS 003": "espc_riftspear"
             }
         },
         {

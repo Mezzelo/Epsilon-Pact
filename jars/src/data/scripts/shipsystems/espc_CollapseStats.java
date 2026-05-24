@@ -11,6 +11,7 @@ import com.fs.starfarer.api.Global;
 // import com.fs.starfarer.api.SoundPlayerAPI;
 import com.fs.starfarer.api.combat.*;
 import com.fs.starfarer.api.combat.ShipAPI.HullSize;
+import com.fs.starfarer.api.impl.campaign.ids.Tags;
 import com.fs.starfarer.api.impl.combat.BaseShipSystemScript;
 import com.fs.starfarer.api.loading.MissileSpecAPI;
 // import com.fs.starfarer.api.loading.ProjectileSpecAPI;
@@ -22,6 +23,9 @@ import com.fs.starfarer.api.combat.ShipwideAIFlags.AIFlags;
 // import data.scripts.weapons.proj.espc_FisProjVFX;
 
 import com.fs.starfarer.api.util.Misc;
+
+import data.scripts.util.MezzUtils;
+
 import java.awt.Color;
 // import java.util.List;
 // import java.util.Queue;
@@ -230,6 +234,11 @@ public class espc_CollapseStats extends BaseShipSystemScript {
 		} else if (state == State.OUT && useState == 1) {
 			freezeRenderer.setToRemove(combatEngine);
 			useState = 2;
+			if (target != null) {
+				target.getMutableStats().getArmorDamageTakenMult().unmodify(id);
+				target.getMutableStats().getShieldDamageTakenMult().unmodify(id);
+				target.getMutableStats().getHullDamageTakenMult().unmodify(id);
+			}
 		}
 		if (target != null) {
 			Global.getSoundPlayer().playLoop(
@@ -245,6 +254,11 @@ public class espc_CollapseStats extends BaseShipSystemScript {
 	}
 	
 	public void unapply(MutableShipStatsAPI stats, String id) {
+		if (useState != 2 && target != null) {
+			target.getMutableStats().getArmorDamageTakenMult().unmodify(id);
+			target.getMutableStats().getShieldDamageTakenMult().unmodify(id);
+			target.getMutableStats().getHullDamageTakenMult().unmodify(id);
+		}
 		if (useState > 0) {
 			
 			// ShipAPI ship = (ShipAPI) stats.getEntity();
@@ -272,7 +286,8 @@ public class espc_CollapseStats extends BaseShipSystemScript {
 						if (thisType.projEffectPlugin != null)
 							thisType.projEffectPlugin.onFire(spawnProj, thisType.weapon, combatEngine);
 						spawnProj.setDamageAmount(thisProj.damage / spawnProj.getDamageAmount()
-							// * (100f + DAMAGE_BONUS) / 100f
+							// shh.  look, it just feels better this way.
+							* (100f + DAMAGE_BONUS) / 100f
 							);
 						spawnProj.getVelocity().scale(Misc.random.nextFloat(0.8f, 1.1f));
 						
@@ -318,9 +333,6 @@ public class espc_CollapseStats extends BaseShipSystemScript {
 		freezeTypes = null;
 	}
 	
-	// ripped these from alex's code for entropy amplifier/disruptor, with minor alterations.
-	// would prefer to use my own code, but the stock AI allows it to target fighters without these tweaks.  urgh.
-	
 	public static float getMaxRange(ShipAPI ship) {
 		return ship.getMutableStats().getSystemRangeBonus().computeEffective(ABILITY_RANGE);
 	}
@@ -330,9 +342,8 @@ public class espc_CollapseStats extends BaseShipSystemScript {
 		boolean player = ship == Global.getCombatEngine().getPlayerShip();
 		ShipAPI target = ship.getShipTarget();
 		if (target != null) {
-			float dist = Misc.getDistance(ship.getLocation(), target.getLocation());
-			float radSum = ship.getCollisionRadius() + target.getCollisionRadius();
-			if (dist > range + radSum) target = null;
+			if (MathUtils.getDistanceSquared(ship.getLocation(), target.getLocation())
+				> Math.pow(range + ship.getCollisionRadius() + target.getCollisionRadius(), 2f)) target = null;
 		} else {
 			if (target == null || target.getOwner() == ship.getOwner()) {
 				if (player) {
@@ -341,14 +352,10 @@ public class espc_CollapseStats extends BaseShipSystemScript {
 					Object test = ship.getAIFlags().getCustom(AIFlags.MANEUVER_TARGET);
 					if (test instanceof ShipAPI) {
 						target = (ShipAPI) test;
-						float dist = Misc.getDistance(ship.getLocation(), target.getLocation());
-						float radSum = ship.getCollisionRadius() + target.getCollisionRadius();
-						if (dist > range + radSum) target = null;
+						if (MathUtils.getDistanceSquared(ship.getLocation(), target.getLocation())
+							> Math.pow(range + ship.getCollisionRadius() + target.getCollisionRadius(), 2f)) target = null;
 					}
 				}
-			}
-			if (target == null) {
-				target = Misc.findClosestShipEnemyOf(ship, ship.getLocation(), HullSize.FRIGATE, range, true);
 			}
 		}
 		
@@ -364,18 +371,18 @@ public class espc_CollapseStats extends BaseShipSystemScript {
 
 		if (hasTarget != null && target != ship) {
 			if (!hasTarget.getCustomData().containsKey("espc_collapse"))
-				return "READY";
+				return MezzUtils.getString("espc_shipsystem", "ready");
 			else {
 				if (((Boolean) hasTarget.getCustomData().get("espc_collapse"))) {
-					return "ALREADY INTERCEPTED";
+					return MezzUtils.getString("espc_shipsystem", "collapse_already_intercepted");
 				} else
-					return "READY";
+					return MezzUtils.getString("espc_shipsystem", "ready");
 			}
 		}
 		if ((hasTarget == null) && ship.getShipTarget() != null) {
-			return "OUT OF RANGE";
+			return MezzUtils.getString("espc_shipsystem", "out_of_range");
 		}
-		return "NO TARGET";
+		return MezzUtils.getString("espc_shipsystem", "no_target");
 
 		// return MathUtils.isWithinRange(hasTarget, ship, ABILITY_RANGE) ? "READY" : "OUT OF RANGE";
 	}
@@ -389,6 +396,8 @@ public class espc_CollapseStats extends BaseShipSystemScript {
 		if (hasTarget == ship)
 			return false;
 		if (hasTarget.isFighter())
+			return false;
+		if (hasTarget.hasTag(Tags.VARIANT_FX_DRONE))
 			return false;
 		if (!(hasTarget.getCustomData().containsKey("espc_collapse")))
 			return true;

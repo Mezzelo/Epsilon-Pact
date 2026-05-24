@@ -125,8 +125,8 @@ public class espc_IonAccumulatorEffectOld implements OnFireEffectPlugin, EveryFr
 				continue;
 
 			float radius = Misc.getTargetingRadius(from, other, false);
-			float dist = Misc.getDistance(from, other.getLocation()) - radius;
-			if (dist > range) continue;
+			float dist = MathUtils.getDistanceSquared(from, other.getLocation());
+			if (dist > Math.pow(range + radius, 2f)) continue;
 			
 			if (!Misc.isInArc(ship.getFacing() + weapon.getSlot().getAngle(), 
 				weapon.getArc(), from, other.getLocation())) continue;

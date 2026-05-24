@@ -4,11 +4,44 @@ package data.scripts.util;
 // import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.util.vector.Vector2f;
+
+import com.fs.starfarer.api.Global;
+
+import lunalib.lunaSettings.LunaSettings;
+
 import org.lazywizard.lazylib.MathUtils;
 import org.lazywizard.lazylib.FastTrig;
 import java.awt.Color;
+import java.util.Locale;
 
 public class MezzUtils {
+	
+	public static final String factionIdPact = "epsilpac";
+	public static final String factionIdFragment = "epsilpac";
+	
+	public static final String lowtechString = Global.getSettings().getHullSpec("lasher").getManufacturer();
+	public static final String pactDesignString = Global.getSettings().getHullSpec("espc_chorale").getManufacturer();
+	public static final String pactDerelictString = Global.getSettings().getHullSpec("espc_warden").getManufacturer();
+	public static final String remnantString = Global.getSettings().getHullSpec("glimmer").getManufacturer();
+    
+    public static Locale locale = Locale.ENGLISH;
+    
+    public static boolean getSetting(String setting) {
+    	return LunaSettings.getBoolean("epsilonpact", setting);
+    }
+	
+	public static String getString(String key1, String key2) {
+		String str = "";
+		try {
+			str = Global.getSettings().getString(key1, key2);
+		}
+		catch (Exception ex)
+		{
+			Global.getLogger(MezzUtils.class).warn(ex);
+			return "MISSING STRING: " + key1 + ", " + key2;
+		}
+		return str;
+	}
 	
 	// taking a 0-1 input, uses the first quarter of a sine curve for interp.
 	// creates a smooth ease out without ease in, as opposed to full sine used in i.e. magiclib

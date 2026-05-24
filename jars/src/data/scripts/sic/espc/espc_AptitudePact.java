@@ -6,6 +6,7 @@ import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.util.Misc;
 
+import data.scripts.util.MezzUtils;
 import second_in_command.SCData;
 import second_in_command.specs.SCAptitudeSection;
 import second_in_command.specs.SCBaseAptitudePlugin;
@@ -66,7 +67,7 @@ public class espc_AptitudePact extends SCBaseAptitudePlugin {
     	if (fleet.getFaction() == null)
     		return false;
     	if (fleet.getFaction().getId() != null && 
-        	fleet.getFaction().getId().equals("epsilpac")) // bounty fleet/nex allied fleets
+        	fleet.getFaction().getId().equals(MezzUtils.factionIdPact)) // bounty fleet/nex allied fleets
     		return true;
     	return false;
     }
@@ -79,7 +80,7 @@ public class espc_AptitudePact extends SCBaseAptitudePlugin {
     	if (fleet.getFaction() == null)
     		return 0f;
     	if (fleet.getFaction().getId() != null && 
-    		fleet.getFaction().getId().equals("epsilpac")) // bounty fleet/nex allied fleets
+    		fleet.getFaction().getId().equals(MezzUtils.factionIdPact)) // bounty fleet/nex allied fleets
     		return Float.MAX_VALUE;
     	return 0f;
     }
@@ -89,7 +90,7 @@ public class espc_AptitudePact extends SCBaseAptitudePlugin {
     		return 0f;
     	if (market.getFaction() == null)
     		return 0f;
-    	if (market.getFaction().getId().equals("epsilpac"))
+    	if (market.getFaction().getId().equals(MezzUtils.factionIdPact))
     		return 3.5f;
     	return 0f;
     }

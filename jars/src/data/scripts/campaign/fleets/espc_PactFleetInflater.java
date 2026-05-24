@@ -39,6 +39,7 @@ import com.fs.starfarer.api.util.ListMap;
 import com.fs.starfarer.api.util.Misc;
 
 import data.scripts.plugin.espc_PactAutofitPlugin;
+import data.scripts.util.MezzUtils;
 
 public class espc_PactFleetInflater implements FleetInflater, AutofitPluginDelegate {
 
@@ -295,7 +296,7 @@ public class espc_PactFleetInflater implements FleetInflater, AutofitPluginDeleg
 		boolean forceAutofit = fleet.getMemoryWithoutUpdate().getBoolean(MemFlags.MEMORY_KEY_FORCE_AUTOFIT_ON_NO_AUTOFIT_SHIPS);
 		for (FleetMemberAPI member : fleet.getFleetData().getMembersListCopy()) {
 			// since we're basically no-autofitting off the bit, only enforce no-autofit for nex allied designs
-			if (faction.getId().equals("epsilpac") && !faction.getKnownShips().contains(member.getHullId())) {
+			if (faction.getId().equals(MezzUtils.factionIdPact) && !faction.getKnownShips().contains(member.getHullId())) {
 				if (!forceAutofit && member.getHullSpec().hasTag(Tags.TAG_NO_AUTOFIT)) {
 					continue;
 				}

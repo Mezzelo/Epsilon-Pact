@@ -10,6 +10,8 @@ import com.fs.starfarer.api.combat.ShipSystemAPI;
 import com.fs.starfarer.api.combat.ShipSystemAPI.SystemState;
 import com.fs.starfarer.api.impl.campaign.ids.Personalities;
 import com.fs.starfarer.api.impl.combat.BaseShipSystemScript;
+
+import data.scripts.util.MezzUtils;
 // import com.fs.starfarer.api.plugins.ShipSystemStatsScript.State;
 // import com.fs.starfarer.api.plugins.ShipSystemStatsScript.StatusData;
 
@@ -20,7 +22,7 @@ public class espc_ResonatorShieldStats extends BaseShipSystemScript {
 	private static final float HARDFLUX_DISSIPATE_FRACTION = 0.8f;
 	private static final float AI_HULL_BACK = 0.3f;
 	private static final float AI_FLUX_BACK = 0.45f;
-	private static final float AI_FLUX_FORCE_ENGAGE = 0.2f;
+	// private static final float AI_FLUX_FORCE_ENGAGE = 0.2f;
 	
 	private static final float LOW_PASS_FLUX_MAX = 4000f;
 	
@@ -102,10 +104,11 @@ public class espc_ResonatorShieldStats extends BaseShipSystemScript {
 						ship.getHullLevel() > AI_HULL_BACK) {
 						config.personalityOverride = Personalities.RECKLESS;
 						config.alwaysStrafeOffensively = true;
+						/*
 						if (ship.getFluxLevel() < AI_FLUX_FORCE_ENGAGE)
 							config.backingOffWhileNotVentingAllowed = false;
 						else
-							config.backingOffWhileNotVentingAllowed = true;
+							config.backingOffWhileNotVentingAllowed = true; */
 						config.turnToFaceWithUndamagedArmor = false;
 						config.burnDriveIgnoreEnemies = true;
 					} else {
@@ -133,14 +136,14 @@ public class espc_ResonatorShieldStats extends BaseShipSystemScript {
 		if (usableState == 0)
 			return null;
 		if (index == 0)
-			return new StatusData("dissipating " + 
+			return new StatusData(String.format(MezzUtils.getString("espc_system", "resonator_hardflux_dissipation"), 
 				(int) ((1f - (1f - HARDFLUX_DISSIPATE_FRACTION) / shieldMultOffset) 
-				* effectLevel * 100f) + "% of hard flux received", false);
+				* effectLevel * 100f) + "%"), false);
 		// else if (index == 1)
 		// 	return new StatusData("beam damage received -" + (int) ((1f - BEAM_DAMAGE_RECEIVED_MULT) * effectLevel * 100f) + "%", false);
 		else if (index == 1)
-			return new StatusData("non-beam shield damage received +" + 
-				(int) ((DAMAGE_RECEIVED_MULT * shieldMultOffset - 1f) * effectLevel * 100f) + "%", true);
+			return new StatusData(String.format(MezzUtils.getString("espc_system", "resonator_shield_malus"), 
+				(int) ((DAMAGE_RECEIVED_MULT * shieldMultOffset - 1f) * effectLevel * 100f) + "%"), true);
 		
 		return null;
 	}
@@ -148,10 +151,10 @@ public class espc_ResonatorShieldStats extends BaseShipSystemScript {
 	@Override
 	public String getInfoText(ShipSystemAPI system, ShipAPI ship) {
 		if (usableState == 0)
-			return "NO SHIELD";
+			return MezzUtils.getString("espc_system", "no_shield");
 		
 		if (system.getState() == SystemState.IDLE)
-			return "READY";
+			return MezzUtils.getString("espc_system", "ready");
 		else
 			return "";
 	}

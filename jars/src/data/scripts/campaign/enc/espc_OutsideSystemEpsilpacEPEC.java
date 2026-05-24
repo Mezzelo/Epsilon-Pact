@@ -27,6 +27,7 @@ import com.fs.starfarer.api.util.Misc;
 import com.fs.starfarer.api.util.WeightedRandomPicker;
 
 import data.scripts.campaign.fleets.espc_PactFleetInflater;
+import data.scripts.util.MezzUtils;
 
 public class espc_OutsideSystemEpsilpacEPEC extends BaseEPEncounterCreator {
 	
@@ -36,7 +37,7 @@ public class espc_OutsideSystemEpsilpacEPEC extends BaseEPEncounterCreator {
 
 		WeightedRandomPicker<SectorEntityToken> marketPicker = new WeightedRandomPicker<SectorEntityToken>();
 		for (MarketAPI market : Global.getSector().getEconomy().getMarketsCopy()) {
-			if (market.getFactionId().equals("epsilpac") &&
+			if (market.getFactionId().equals(MezzUtils.factionIdPact) &&
 				market.getStabilityValue() > 4) {
 				marketPicker.add(market.getPrimaryEntity());
 			}
@@ -83,7 +84,7 @@ public class espc_OutsideSystemEpsilpacEPEC extends BaseEPEncounterCreator {
 			type = FleetTypes.PATROL_LARGE;
 		}
 		
-		m.triggerCreateFleet(size, quality, "epsilpac", type, loc);
+		m.triggerCreateFleet(size, quality, MezzUtils.factionIdPact, type, loc);
 		m.triggerSetFleetOfficers(oNum, oQuality);
 		m.triggerMakeLowRepImpact();
 		m.triggerAddAbilities(Abilities.SENSOR_BURST);
@@ -101,12 +102,15 @@ public class espc_OutsideSystemEpsilpacEPEC extends BaseEPEncounterCreator {
 			fleet.setLocation(point.loc.x, point.loc.y);
 			Vector2f spawnLoc = Misc.getPointWithinRadius(point.loc, 1000f);
 			SectorEntityToken e = point.where.createToken(spawnLoc);
-			String actionText = "patrolling";	
+			String actionText = MezzUtils.getString("espc_fleetactions", "patrolling");	
 			fleet.addAssignment(FleetAssignment.PATROL_SYSTEM, e, 5f * random.nextFloat() + 10f, actionText);
-			fleet.addAssignment(FleetAssignment.GO_TO_LOCATION, fm.getSource(), 1000f, "moving to " + fm.getSource().getName());
-			fleet.addAssignment(FleetAssignment.ORBIT_PASSIVE, fm.getSource(), 15f * random.nextFloat() * 10f, "performing maintenance");
+			fleet.addAssignment(FleetAssignment.GO_TO_LOCATION, fm.getSource(), 1000f, 
+				MezzUtils.getString("espc_fleetactions", "loiterAction1") + fm.getSource().getName());
+			fleet.addAssignment(FleetAssignment.ORBIT_PASSIVE, fm.getSource(), 15f * random.nextFloat() * 10f, 
+				MezzUtils.getString("espc_fleetactions", "loiterAction2"));
 			fleet.addAssignment(FleetAssignment.PATROL_SYSTEM, fm.getSource(), 15f * random.nextFloat() + 10f, actionText);
-			fleet.addAssignment(FleetAssignment.GO_TO_LOCATION_AND_DESPAWN, home, 300f, "returning to " + home.getName());
+			fleet.addAssignment(FleetAssignment.GO_TO_LOCATION_AND_DESPAWN, home, 300f, 
+				MezzUtils.getString("espc_fleetactions", "loiterAction3") + home.getName());
 			fleet.addScript(new AutoDespawnScript(fleet));
 		}
 	}
@@ -120,7 +124,7 @@ public class espc_OutsideSystemEpsilpacEPEC extends BaseEPEncounterCreator {
 		float baseFreq = 10f;
 		int marketCount = 0;
 		for (MarketAPI market : Global.getSector().getEconomy().getMarketsCopy()) {
-			if (market.getFactionId().equals("epsilpac") &&
+			if (market.getFactionId().equals(MezzUtils.factionIdPact) &&
 				market.getStabilityValue() > 4) {
 				marketCount++;
 			}

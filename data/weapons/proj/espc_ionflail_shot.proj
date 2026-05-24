@@ -1,0 +1,12 @@
+{
+	"id":"espc_ionflail_shot",
+	"specClass":"projectile",
+	"spawnType":"PLASMA",
+	"onHitEffect":"data.scripts.weapons.espc_IonFlailEffect",
+	"collisionClass":"PROJECTILE_FF",
+	"collisionClassByFighter":"PROJECTILE_FIGHTER",
+	"width":30.0,
+	"fadeTime":0.05,
+	"fringeColor":[25,100,175,255],
+	"coreColor":[225,225,255,200]
+}

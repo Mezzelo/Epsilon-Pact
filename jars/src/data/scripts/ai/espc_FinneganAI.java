@@ -10,7 +10,6 @@ import com.fs.starfarer.api.combat.GuidedMissileAI;
 import com.fs.starfarer.api.combat.MissileAIPlugin;
 import com.fs.starfarer.api.combat.MissileAPI;
 import com.fs.starfarer.api.combat.ShipAPI;
-import com.fs.starfarer.api.combat.ShipAPI.HullSize;
 import com.fs.starfarer.api.loading.DamagingExplosionSpec;
 import com.fs.starfarer.api.util.Misc;
 
@@ -57,11 +56,8 @@ public class espc_FinneganAI implements MissileAIPlugin, GuidedMissileAI {
 			return;
 		
 		CombatEngineAPI combatEngine = Global.getCombatEngine();
-		// Global.getLogger(espc_FinneganAI.class).info("speed: " + missile.getVelocity().length() + ", didBounce: " + debounce);
-		// Global.getLogger(espc_FinneganAI.class).info("vs: " + velocityLast.length() * VEL_CHANGE_THRESHOLD);
 		if (debounce <= 0f && velocityLast.length() > MIN_VEL && 
 			missile.getVelocity().length() < velocityLast.length() * VEL_CHANGE_THRESHOLD) {
-			// Global.getLogger(espc_FinneganAI.class).info("do check");
 			
 			Iterator<Object> entityIterator = combatEngine.getAllObjectGrid().getCheckIterator(
 				missile.getLocation(), 
@@ -73,7 +69,6 @@ public class espc_FinneganAI implements MissileAIPlugin, GuidedMissileAI {
 			float bestDistance = 0f;
 			
 			while (entityIterator.hasNext()) {
-				// Global.getLogger(espc_FinneganAI.class).info("iter");
 				CombatEntityAPI entity = (CombatEntityAPI) entityIterator.next();
 				if (!(entity instanceof DamagingProjectileAPI)) {
 					if (bestTarget == null) {

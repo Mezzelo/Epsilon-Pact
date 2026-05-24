@@ -1,6 +1,6 @@
 {
     "displayName": "Attack",
-    "fluxCapacitors": 8,
+    "fluxCapacitors": 9,
     "fluxVents": 8,
     "goalVariant": false,
     "hullId": "espc_warden",
@@ -14,7 +14,7 @@
         {
             "autofire": true,
             "mode": "LINKED",
-            "weapons": {"WS 001": "espc_heavyionresonator"}
+            "weapons": {"WS 001": "espc_ionflail"}
         },
         {
             "autofire": true,

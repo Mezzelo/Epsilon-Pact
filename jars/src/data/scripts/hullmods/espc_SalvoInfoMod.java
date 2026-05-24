@@ -19,6 +19,7 @@ import com.fs.starfarer.api.util.Misc;
 
 import data.scripts.shipsystems.espc_SalvoStats;
 import data.scripts.shipsystems.espc_SalvoStats.MissileToFire;
+import data.scripts.util.MezzUtils;
 
 public class espc_SalvoInfoMod extends BaseHullMod {
 	
@@ -54,10 +55,8 @@ public class espc_SalvoInfoMod extends BaseHullMod {
 		float opad = 10f;
 		Color h = Misc.getHighlightColor();
 		
-		tooltip.addPara("Retrofitted clamps enable fighters to launch the ship's equipped missiles via the system, "
-				+ "without requiring or expending ammunition.", opad);
-		tooltip.addPara("Each bay gives a budget of %s OP worth of missiles and %s fighters to fire missiles from. "
-				+ "A single fighter cannot launch more than %s equipped missile.", opad,
+		tooltip.addPara(MezzUtils.getString("espc_hullmod", "salvo_desc1"), opad);
+		tooltip.addPara(MezzUtils.getString("espc_hullmod", "salvo_desc2"), opad,
 				h, "" + (int) espc_SalvoStats.OP_PER_WING, "" + (int) espc_SalvoStats.FIGHTERS_PER_WING, "1");
 		
 		boolean hasLimitedMissiles = false;
@@ -129,9 +128,9 @@ public class espc_SalvoInfoMod extends BaseHullMod {
 				tooltip.beginTable(Misc.getBasePlayerColor(), Misc.getDarkPlayerColor(), Misc.getBrightPlayerColor(),
 					20f, true, true, 
 					new Object [] {
-						"Missile", sizeW, 
-						"OP / volley", row2W,
-						"Missiles / fighter", row3W});
+						Misc.ucFirst(MezzUtils.getString("espc_gencombat", "missile")), sizeW, 
+						MezzUtils.getString("espc_hullmod", "OP_per_volley"), row2W,
+						MezzUtils.getString("espc_hullmod", "missiles_per_fighter"), row3W});
 
 				for (SalvoMissileData curr : weapons) {
 					if (curr.OPPerMissile < maxCost)
@@ -148,15 +147,14 @@ public class espc_SalvoInfoMod extends BaseHullMod {
 				tooltip.addSpacer(5f);
 			}
 			if (onlyFragmentMissiles || onlyIneligibleMissiles) {
-				tooltip.addPara("The ship has %s, and will not fire them when the system is used.", 
+				tooltip.addPara(MezzUtils.getString("espc_hullmod", "salvo_nomissiles1"), 
 					opad, Misc.getNegativeHighlightColor(), 
-					"no eligible missiles mounted");
+					MezzUtils.getString("espc_hullmod", "salvo_nomissiles2"));
 			}
 		}
 		
-		tooltip.addSectionHeading("Missile cost calculations", Alignment.MID, opad);
-		tooltip.addPara("Missile cost is based on base maximum ammo divided by base OP cost. "
-				+ "Fighters are limited to %s bursts each.", opad, h,
+		tooltip.addSectionHeading(MezzUtils.getString("espc_hullmod", "salvo_tableheader"), Alignment.MID, opad);
+		tooltip.addPara(MezzUtils.getString("espc_hullmod", "salvo_table1"), opad, h,
 				"" + espc_SalvoStats.BURSTS_PER_FIGHTER);
 		
 		if (Global.CODEX_TOOLTIP_MODE) {
@@ -196,10 +194,10 @@ public class espc_SalvoInfoMod extends BaseHullMod {
 			tooltip.beginTable(Misc.getBasePlayerColor(), Misc.getDarkPlayerColor(), Misc.getBrightPlayerColor(),
 					20f, true, true, 
 					new Object [] {
-						"Missile", sizeW, 
-						"OP Cost", row2W, 
-						"Max ammo", row3W,
-						"OP / burst", row4W});
+						Misc.ucFirst(MezzUtils.getString("espc_gencombat", "missile")), sizeW, 
+						MezzUtils.getString("espc_gencombat", "OP_cost"), row2W, 
+						Misc.ucFirst(MezzUtils.getString("espc_gencombat", "max_ammo")), row3W,
+						MezzUtils.getString("espc_hullmod", "OP_per_burst"), row4W});
 			
 			for (SalvoMissileData curr : weapons) {
 				if (!curr.isLimited)
@@ -218,9 +216,8 @@ public class espc_SalvoInfoMod extends BaseHullMod {
 		}
 		
 		if (hasReloadingMissiles) {
-			tooltip.addPara("Reloading missiles and missiles that do not use ammo factor in their "
-					+ "%s instead.", opad, h,
-					"sustained fire rate");
+			tooltip.addPara(MezzUtils.getString("espc_hullmod", "salvo_table2"), opad, h,
+				MezzUtils.getString("espc_gencombat", "sustained_fire_rate"));
 			
 			row3W = 100f;
 			sizeW = width - row2W - row3W - row4W - 10f;
@@ -228,10 +225,10 @@ public class espc_SalvoInfoMod extends BaseHullMod {
 			tooltip.beginTable(Misc.getBasePlayerColor(), Misc.getDarkPlayerColor(), Misc.getBrightPlayerColor(),
 					20f, true, true, 
 					new Object [] {
-						"Missile", sizeW, 
-						"OP Cost", row2W, 
-						"volleys / min", row3W,
-						"OP / burst", row4W});
+						Misc.ucFirst(MezzUtils.getString("espc_gencombat", "missile")), sizeW, 
+						MezzUtils.getString("espc_gencombat", "OP_cost"), row2W, 
+						MezzUtils.getString("espc_hullmod", "volleys_per_min"), row3W,
+						MezzUtils.getString("espc_hullmod", "OP_per_burst"), row4W});
 			
 			for (SalvoMissileData curr : weapons) {
 				if (curr.isLimited)

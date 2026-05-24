@@ -104,7 +104,7 @@ public class espc_InverseSkimmerPlugin extends BaseEveryFrameCombatPlugin {
 							weaponIds.add(wep.getSpec().getWeaponId());
 					}
 			}
-			if (weapons.size() == 0) {
+			if (weaponIds.size() <= 1 && weapons.size() <= 2) {
 				pdOnly = true;
 				for (WeaponAPI wep : ally.getAllWeapons()) {
 					if (!wep.isDecorative() && !wep.isBeam() && !wep.getSlot().isSystemSlot())
@@ -194,7 +194,7 @@ public class espc_InverseSkimmerPlugin extends BaseEveryFrameCombatPlugin {
 		    		}
 				}
 			} else {
-				float closest = 1800f;
+				float closest = 1800f * 1800f;
 				// find enemy target for acceptable autofire, closest target.  raycast time!!!  wooo!!!
     			Vector2f ray = new Vector2f(
 	    			(float) FastTrig.cos(Math.toRadians(ship.getFacing())),
@@ -215,10 +215,10 @@ public class espc_InverseSkimmerPlugin extends BaseEveryFrameCombatPlugin {
         			if (CollisionUtils.getCollides(ship.getLocation(), 
         				new Vector2f(ship.getLocation().x + ray.x, ship.getLocation().y + ray.y),
                 		currShip.getLocation(), currShip.getShieldRadiusEvenIfNoShield() * 1.1f) &&
-        				MathUtils.getDistanceSquared(ship, currShip) < closest * closest) {
+        				MathUtils.getDistanceSquared(ship, currShip) < closest) {
         				if (currShip.isHulk() || !currShip.isAlive()) {
         					if (!isCapital) {
-                				closest = MathUtils.getDistance(ship, currShip);
+                				closest = MathUtils.getDistanceSquared(ship, currShip);
         						targ = null;
         					}
         					continue;
@@ -664,15 +664,19 @@ public class espc_InverseSkimmerPlugin extends BaseEveryFrameCombatPlugin {
         		if (ally.ally.getFluxLevel() < ALLY_FLUX_THRESHOLD && 
         		ally.ally.getHardFluxLevel() < ALLY_HARDFLUX_THRESHOLD &&
         		shouldAutofire) {
+        			if (ally.ally.equals(engine.getPlayerShip()))
+        				continue;
             		ally.ally.blockCommandForOneFrame(ShipCommand.VENT_FLUX);
         			boolean anyFired = false;
 	    	    	for (WeaponAPI wep : ally.weapons) {
-	    	    		if (MathUtils.isWithinRange(ship, targ, wep.getRange() / 1.05f)) {
+	    	    		if (MathUtils.isWithinRange(ship, targ, wep.getRange())) {
 	    	    			wep.setForceFireOneFrame(true);
 	    	    			anyFired = true;
-	    	    		} else if (MathUtils.isWithinRange(ship, targ, wep.getRange() / 1.15f)) {
+	    	    		} else if (MathUtils.isWithinRange(ship, targ, wep.getRange() * 1.1f)) {
 	    	    			anyFired = true;
-	    	    		} 
+	    	    			wep.setForceNoFireOneFrame(true);
+	    	    		} else
+	    	    			wep.setForceNoFireOneFrame(true);
 	    	    	}
 
 	    	    	// engine.getTotalElapsedTime(false) >= ally.startTime + ally.delay
@@ -685,10 +689,11 @@ public class espc_InverseSkimmerPlugin extends BaseEveryFrameCombatPlugin {
         		if (targ.getFluxTracker().isOverloadedOrVenting())
 	    	    	for (WeaponAPI wep : ally.missiles)
 	    	    		if (!targ.getHullSize().equals(HullSize.FRIGATE) &&
-	    	    			!MathUtils.isWithinRange(ally.ally, targ, wep.getRange()) &&
+	    	    			!MathUtils.isWithinRange(ally.ally, targ, wep.getRange() * 0.9f) &&
 	    	    			(shouldAutofire || wep.getProjectileCollisionClass() != CollisionClass.MISSILE_FF))
 	    	    			wep.setForceFireOneFrame(true);
-	    	    		
+	    	    		else
+	    	    			wep.setForceNoFireOneFrame(true);
         		
         	}
         	

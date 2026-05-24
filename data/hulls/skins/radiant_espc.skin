@@ -2,7 +2,7 @@
 	"baseHullId":"radiant",
 	"skinHullId":"radiant_espc",
 	"hullName":"Radiant",
-	"restoreToBaseHull":true,
+	"restoreToBaseHull":false,
 	"descriptionId":"radiant",
 	"addHints":["HIDE_IN_CODEX"],
     "systemId":"espc_WideInverseSkimmer",

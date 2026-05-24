@@ -8,19 +8,15 @@ import com.fs.starfarer.api.combat.EmpArcEntityAPI.EmpArcParams;
 import com.fs.starfarer.api.combat.BaseEveryFrameCombatPlugin;
 import com.fs.starfarer.api.graphics.SpriteAPI;
 import com.fs.starfarer.api.combat.DamagingProjectileAPI;
-import com.fs.starfarer.api.combat.EmpArcEntityAPI;
-import com.fs.starfarer.api.combat.ShipAPI;
 import com.fs.starfarer.api.input.InputEventAPI;
 
 import java.awt.Color;
 import java.util.ArrayDeque;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Random;
 import com.fs.starfarer.api.util.Misc;
 
 import org.lwjgl.util.vector.Vector2f;
-import org.lazywizard.lazylib.MathUtils;
 import org.lazywizard.lazylib.FastTrig;
 
 import org.lwjgl.opengl.GL11;
@@ -121,7 +117,7 @@ public class espc_IonAccumulatorRenderPlugin extends BaseEveryFrameCombatPlugin 
     public void renderInWorldCoords(ViewportAPI viewport) {
 		
 		CombatEngineAPI engine = Global.getCombatEngine();
-		float cTime = engine.getTotalElapsedTime(false);
+		// float cTime = engine.getTotalElapsedTime(false);
 
         GL11.glEnable(GL11.GL_BLEND);
         GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE);

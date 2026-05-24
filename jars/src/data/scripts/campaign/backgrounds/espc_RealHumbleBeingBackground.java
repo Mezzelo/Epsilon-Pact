@@ -15,6 +15,7 @@ import com.fs.starfarer.api.util.Misc;
 import data.scripts.espc_ModPlugin;
 import data.scripts.campaign.listeners.espc_PactFleetSpawnListener;
 import data.scripts.campaign.skills.espc_HumbleTastesBg_Skill;
+import data.scripts.util.MezzUtils;
 import exerelin.campaign.backgrounds.BaseCharacterBackground;
 import exerelin.utilities.NexFactionConfig;
 import lunalib.lunaSettings.LunaSettings;
@@ -26,7 +27,7 @@ public class espc_RealHumbleBeingBackground extends BaseCharacterBackground {
 			return true;
 		
     	String req = LunaSettings.getString("epsilonpact", "espc_BGScoreRequirements");
-    	return req.equals("Perfect");
+    	return req.equals(MezzUtils.getString("espc_settings", "scorereq_perfect"));
     	
 	}
 
@@ -34,9 +35,9 @@ public class espc_RealHumbleBeingBackground extends BaseCharacterBackground {
     	int scoreReq = 100;
     	if (espc_ModPlugin.hasLuna()) {
     		String req = LunaSettings.getString("epsilonpact", "espc_BGScoreRequirements");
-    		if (req.equals("None"))
+    		if (req.equals(MezzUtils.getString("espc_settings", "scorereq_none")))
     			return true;
-    		else if (req.equals("Complete"))
+    		else if (req.equals(MezzUtils.getString("espc_settings", "scorereq_complete")))
     			scoreReq = 1;
     	}
         return Global.getSettings().getMissionScore("espc_looseends") >= scoreReq &&
@@ -110,12 +111,12 @@ public class espc_RealHumbleBeingBackground extends BaseCharacterBackground {
     @Override
     public void canNotBeSelectedReason(TooltipMakerAPI tooltip, FactionSpecAPI factionSpec, NexFactionConfig factionConfig) {
         tooltip.addPara(
-        	requirePerfectScore() ? "Complete the missions Loose Ends and Remise with perfect scores to unlock this background." :
-        		"Complete the missions Loose Ends and Remise to unlock this background.", 
+            requirePerfectScore() ? MezzUtils.getString("espc_nexbackgrounds", "missionreqperfect") :
+            	MezzUtils.getString("espc_nexbackgrounds", "missionreq"),
         	0f,
         	Misc.getTextColor(), 
         	Misc.getHighlightColor(),
-        	"Loose Ends", "Remise");
+        	MezzUtils.getString("espc_missionnames", "looseends"), MezzUtils.getString("espc_missionnames", "remise"));
     }
     
     @Override
@@ -126,9 +127,9 @@ public class espc_RealHumbleBeingBackground extends BaseCharacterBackground {
     @Override
     public String getLongDescription(FactionSpecAPI factionSpec, NexFactionConfig factionConfig) {
         if (!isUnlocked()) 
-        	return "This background is locked.";
+        	return MezzUtils.getString("espc_nexbackgrounds", "locked");
 
-        return "It's a lot. Expand the tooltip.";
+        return MezzUtils.getString("espc_nexbackgrounds", "realHumbleBeing_shortdesc");
     }
     @Override
     public String getIcon(FactionSpecAPI factionSpec, NexFactionConfig factionConfig) {
@@ -145,11 +146,11 @@ public class espc_RealHumbleBeingBackground extends BaseCharacterBackground {
         if (expanded && isUnlocked()) {
             tooltip.addSpacer(10f);
             tooltip.addPara(
-            	"Start with the following skills. These do not contribute to your spent skill points or lower your level cap.",
+            	MezzUtils.getString("espc_nexbackgrounds", "humbleTastes_desc1-1"),
             	0f,
             	Misc.getTextColor(), 
             	Misc.getHighlightColor(),
-            	"do not");
+            	MezzUtils.getString("espc_nexbackgrounds", "humbleTastes_desc1-2"));
             PersonAPI personForSkills = Global.getFactory().createPerson();
             personForSkills.getStats().setSkillLevel("espc_dancing_steps", 2f);
             personForSkills.getStats().setSkillLevel("espc_running_hot", 2f);
@@ -158,14 +159,13 @@ public class espc_RealHumbleBeingBackground extends BaseCharacterBackground {
             tooltip.addSkillPanel(personForSkills, 0f);
             tooltip.addSpacer(10f);
             tooltip.addPara(
-            	"You can now commandeer automated ships, but %s.",
+            	MezzUtils.getString("espc_nexbackgrounds", "realHumanBeing_desc1-1"),
             	0f,
             	Misc.getTextColor(), 
             	Misc.getNegativeHighlightColor(),
-            	"any non-automated ship you commandeer will be reduced to 0 CR, unless via Neural Interface");
+            	MezzUtils.getString("espc_nexbackgrounds", "realHumanBeing_desc1-3"));
             tooltip.addPara(
-            	"Any ship you pilot loses %s maximum CR for every base DP over %s, " +
-            	"and its CR is capped to its maximum in combat.", 
+            	MezzUtils.getString("espc_nexbackgrounds", "humbleTastes_desc2-1"), 
                 0f,
                 Misc.getTextColor(), 
                 Misc.getNegativeHighlightColor(),
@@ -174,27 +174,25 @@ public class espc_RealHumbleBeingBackground extends BaseCharacterBackground {
             
             tooltip.addSpacer(10f);
             tooltip.addPara(
-                "Your maximum officer level is increased by 1. However, your base maximum officer count is reduced to 0.",
+                MezzUtils.getString("espc_nexbackgrounds", "realHumbleBeing_desc1-1"),
             	0f,
             	Misc.getTextColor(), 
             	Misc.getNegativeHighlightColor(),
-            	"reduced to 0");
+            	MezzUtils.getString("espc_nexbackgrounds", "realHumanBeing_desc1-4"));
             tooltip.addPara(
-            	"Officers are no longer available to recruit from promotion or comms directories, except on %s. " +
-            	"Officers hired this way decrease the initial penalty by 1 each.", 
+                MezzUtils.getString("espc_nexbackgrounds", "realHumbleBeing_desc2-1"), 
             	0f,
             	Misc.getTextColor(), 
             	Misc.getHighlightColor(),
-            	"Pact markets");
+            	MezzUtils.getString("espc_nexbackgrounds", "realHumbleBeing_desc2-2"));
             tooltip.addSpacer(10f);
             tooltip.addPara(
-            	"You start with %s automated ship points and the ability to recover automated ships. "
-            	+ "It is possible to learn the %s skill itself, effectively doubling your maximum automated ship"
-            	+ " points.", 
+                MezzUtils.getString("espc_nexbackgrounds", "realHumbleBeing_desc3-1"), 
             	0f,
             	Misc.getTextColor(), 
             	Misc.getHighlightColor(),
-            	"120", "Automated Ships");
+    			MezzUtils.getString("espc_nexbackgrounds", "realHumbleBeing_desc3-2"), 
+    			MezzUtils.getString("espc_nexbackgrounds", "realHumanBeing_desc2-3"));
         }
     }
     
@@ -203,11 +201,11 @@ public class espc_RealHumbleBeingBackground extends BaseCharacterBackground {
         super.addTooltipForIntel(tooltip, factionSpec, factionConfig);
         tooltip.addSpacer(10f);
         tooltip.addPara(
-        	"Start with the following skills. These do not contribute to your spent skill points or lower your level cap.",
+        	MezzUtils.getString("espc_nexbackgrounds", "humbleTastes_desc1-1"),
         	0f,
         	Misc.getTextColor(), 
         	Misc.getHighlightColor(),
-        	"do not");
+        	MezzUtils.getString("espc_nexbackgrounds", "humbleTastes_desc1-2"));
         PersonAPI personForSkills = Global.getFactory().createPerson();
         personForSkills.getStats().setSkillLevel("espc_dancing_steps", 2f);
         personForSkills.getStats().setSkillLevel("espc_running_hot", 2f);
@@ -216,14 +214,13 @@ public class espc_RealHumbleBeingBackground extends BaseCharacterBackground {
         tooltip.addSkillPanel(personForSkills, 0f);
         tooltip.addSpacer(10f);
         tooltip.addPara(
-        	"You can now commandeer automated ships, but %s.",
+        	MezzUtils.getString("espc_nexbackgrounds", "realHumanBeing_desc1-1"),
         	0f,
         	Misc.getTextColor(), 
         	Misc.getNegativeHighlightColor(),
-        	"any non-automated ship you commandeer will be reduced to 0 CR, unless via Neural Interface");
+        	MezzUtils.getString("espc_nexbackgrounds", "realHumanBeing_desc1-3"));
         tooltip.addPara(
-        	"Any ship you pilot loses %s maximum CR for every base DP over %s, " +
-        	"and its CR is capped to its maximum in combat.", 
+        	MezzUtils.getString("espc_nexbackgrounds", "humbleTastes_desc2-1"), 
             0f,
             Misc.getTextColor(), 
             Misc.getNegativeHighlightColor(),
@@ -232,27 +229,25 @@ public class espc_RealHumbleBeingBackground extends BaseCharacterBackground {
         
         tooltip.addSpacer(10f);
         tooltip.addPara(
-            "Your maximum officer level is increased by 1. However, your base maximum officer count is reduced to 0.",
+        	MezzUtils.getString("espc_nexbackgrounds", "realHumbleBeing_desc1-1"),
         	0f,
         	Misc.getTextColor(), 
         	Misc.getNegativeHighlightColor(),
-        	"reduced to 0");
+        	MezzUtils.getString("espc_nexbackgrounds", "realHumanBeing_desc1-4"));
         tooltip.addPara(
-        	"Officers are no longer available to recruit from promotion or comms directories, except on %s. " +
-        	"Officers hired this way decrease the initial penalty by 1 each.", 
+        	MezzUtils.getString("espc_nexbackgrounds", "realHumbleBeing_desc2-1"), 
         	0f,
         	Misc.getTextColor(), 
         	Misc.getHighlightColor(),
-        	"Pact markets");
+        	MezzUtils.getString("espc_nexbackgrounds", "realHumbleBeing_desc2-2"));
         tooltip.addSpacer(10f);
         tooltip.addPara(
-			"You start with %s automated ship points and the ability to recover automated ships. "
-			+ "It is possible to learn the %s skill itself, effectively doubling your maximum automated ship"
-			+ " points.", 
+        	MezzUtils.getString("espc_nexbackgrounds", "realHumbleBeing_desc3-1"), 
 			0f,
 			Misc.getTextColor(), 
 			Misc.getHighlightColor(),
-			"120", "Automated Ships");
+			MezzUtils.getString("espc_nexbackgrounds", "realHumbleBeing_desc3-2"), 
+			MezzUtils.getString("espc_nexbackgrounds", "realHumanBeing_desc2-3"));
     }
 
 }

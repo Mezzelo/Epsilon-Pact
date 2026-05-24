@@ -31,6 +31,7 @@ public class espc_AMCompressorStats extends BaseShipSystemScript {
 	
 	public StatusData getStatusData(int index, State state, float effectLevel) {
 		
+		/*
 		if (index == 4)
 			return new StatusData("AM Flamer projectile speed " + (int) (-SPEED_MALUS * effectLevel) + "%", false);
 		else if (index == 3)
@@ -41,6 +42,7 @@ public class espc_AMCompressorStats extends BaseShipSystemScript {
 			return new StatusData("AM Flamer damage +" + (int) (DAMAGE_BONUS * effectLevel) + "%", false);
 		else if (index == 0)
 			return new StatusData("AM Flamer range +" + (int) RANGE_BONUS + "%", false);
+		*/
 		
 		return null;
 	}

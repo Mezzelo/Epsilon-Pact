@@ -3,8 +3,8 @@
   "hullId": "glimmer",
   "displayName": "Assault",
   "goalVariant": false,
-  "fluxCapacitors": 10,
-  "fluxVents": 6,
+  "fluxCapacitors": 8,
+  "fluxVents": 8,
   "quality": 0,
   "permaMods": [],
   "hullMods": [
@@ -17,8 +17,8 @@
             "weapons": {"WS 001": "ionpulser"}
         },
         {
-            "autofire": true,
-            "mode": "LINKED",
+            "autofire": false,
+            "mode": "ALTERNATING",
             "weapons": {
                 "WS 004": "irpulse",
                 "WS 005": "irpulse"

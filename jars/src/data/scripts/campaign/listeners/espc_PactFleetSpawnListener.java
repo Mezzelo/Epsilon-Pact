@@ -25,6 +25,7 @@ import com.fs.starfarer.api.impl.campaign.intel.PersonBountyIntel;
 import com.fs.starfarer.api.util.Misc;
 
 import data.scripts.campaign.fleets.espc_PactFleetInflater;
+import data.scripts.util.MezzUtils;
 
 public class espc_PactFleetSpawnListener extends BaseCampaignEventListener {
 
@@ -32,7 +33,7 @@ public class espc_PactFleetSpawnListener extends BaseCampaignEventListener {
 		super(permaRegister);
 	}
 	
-	public static String[] portraitList = {
+	public static final String[] portraitList = {
 		"alma",
 		"lindsay",
 		"nadia",
@@ -48,11 +49,12 @@ public class espc_PactFleetSpawnListener extends BaseCampaignEventListener {
 	public void reportFleetSpawned(CampaignFleetAPI fleet) {
 		if (!(
 			// pact fleets (duh)
-			fleet.getFaction().getId().equals("epsilpac") || 
+			fleet.getFaction().getId().equals(MezzUtils.factionIdPact) || 
 			// pact bounty fleets
-			(fleet.getFaction().getId().equals(Factions.NEUTRAL) && fleet.getNameWithFactionKeepCase().contains("'s Fleet")) ||
+			(fleet.getFaction().getId().equals(Factions.NEUTRAL) && fleet.getNameWithFactionKeepCase().contains(
+				MezzUtils.getString("espc_match", "bounty_fleet_suffix"))) ||
 			// nex pact allied fleets, under a different faction
-			fleet.getNameWithFactionKeepCase().contains("Epsilon Pact")))
+			fleet.getNameWithFactionKeepCase().contains(Global.getSector().getFaction(MezzUtils.factionIdPact).getDisplayNameLong())))
 			return;
 		if (fleet.hasTag("ESPC_TAG_NO_RANDOMIZE"))
 			return;
@@ -64,7 +66,7 @@ public class espc_PactFleetSpawnListener extends BaseCampaignEventListener {
 	        for (FleetEventListener listener : fleet.getEventListeners()) {
 	        	if (listener instanceof PersonBountyIntel) {
 	        		PersonBountyIntel intel = (PersonBountyIntel) listener;
-	        		if (intel.getFactionForUIColors().getId().equals("epsilpac")) {
+	        		if (intel.getFactionForUIColors().getId().equals(MezzUtils.factionIdPact)) {
 	        			found = true;
 	        			break;
 	        		}
@@ -75,8 +77,8 @@ public class espc_PactFleetSpawnListener extends BaseCampaignEventListener {
 	        
 			found = false;
 	        for (FleetMemberAPI fleetMember : fleet.getFleetData().getMembersListCopy()) {
-	        	found = (fleetMember.getHullSpec().getManufacturer().equals("Pact-Explorarium") ||
-	        		fleetMember.getHullSpec().getManufacturer().equals("Epsilon Pact"));
+	        	found = (fleetMember.getHullSpec().getManufacturer().equals(MezzUtils.pactDerelictString) ||
+	        		fleetMember.getHullSpec().getManufacturer().equals(MezzUtils.pactDesignString));
 	        	if (found)
 	        		break;
 	        }
@@ -89,12 +91,14 @@ public class espc_PactFleetSpawnListener extends BaseCampaignEventListener {
 			!fleet.isStationMode())
 			fleet.setInflater(new espc_PactFleetInflater((DefaultFleetInflaterParams) fleet.getInflater().getParams()));
 		
-		boolean isTradeOrAlly = (!fleet.getFaction().getId().equals("epsilpac") || 
+		/* old behaviour that prevented droneships in civ fleets before a certain year.  deprecated by doctrinal progression.
+		boolean isTradeOrAlly = (!fleet.getFaction().getId().equals(MezzUtils.factionIdPact) || 
 				(fleet.getName().toLowerCase().contains("trade") ||
 				fleet.getName().toLowerCase().contains("mercantile") ||
 				fleet.getName().toLowerCase().contains("convoy") ||
 				fleet.getName().toLowerCase().contains("mining")) 
 					&& Global.getSector().getClock().getCycle() < 210);
+		*/
         for (FleetMemberAPI fleetMember : fleet.getFleetData().getMembersListCopy()) {
 			PersonAPI person = fleetMember.getCaptain();
 			if (person != null && !Global.getSector().getImportantPeople().containsPerson(person)) {
@@ -117,12 +121,7 @@ public class espc_PactFleetSpawnListener extends BaseCampaignEventListener {
 				// if (fleetMember.getHullSpec().getHints().contains(ShipTypeHints.UNBOARDABLE)) {
 				if (Misc.isAutomated(fleetMember)) {
 					// for allied nex fleets or civilian fleets before a certain date, prevent them from spawning w/ automated ships
-					if (!isBounty && isTradeOrAlly) {
-						// int fpToReplace = fleetMember.getFleetPointCost();
-						// fleet.getFleetData().removeFleetMember(fleetMember);
-						// a
-						
-					}
+
 					// hasCores = true;
 					
 					int coreType = Misc.random.nextInt(11);
@@ -151,13 +150,13 @@ public class espc_PactFleetSpawnListener extends BaseCampaignEventListener {
 								"characters", "espc_" + portraitList[Misc.random.nextInt(portraitList.length)]));
 						}
 					} else {
-						name.setLast("Core");
+						name.setLast(MezzUtils.getString("espc_general", "Core"));
 						if (coreType == 1)
-							name.setFirst("Gamma");
+							name.setFirst(MezzUtils.getString("espc_general", "Gamma"));
 						else if (coreType == 2)
-							name.setFirst("Alpha");
+							name.setFirst(MezzUtils.getString("espc_general", "Alpha"));
 						else
-							name.setFirst("Beta");
+							name.setFirst(MezzUtils.getString("espc_general", "Beta"));
 					}
 					person.setName(name);
 				} else {
@@ -230,11 +229,14 @@ public class espc_PactFleetSpawnListener extends BaseCampaignEventListener {
 		LinkedList<String> prioritySkills = new LinkedList<String>();
 		skillPool.addLast(Skills.HELMSMANSHIP);
 		skillPool.addLast(Skills.TARGET_ANALYSIS);
+
+
 		
-		if (fleetMember.getHullSpec().getManufacturer().equals("Low Tech") ||
+		// TODO: needs tons of modification for transitional entries
+		if (fleetMember.getHullSpec().getManufacturer().equals(MezzUtils.lowtechString) ||
 			hullId.equals("hammerhead") || hullId.equals("lasher") ||
 			fleetMember.getHullSpec().getTags().contains("espc_ballistic") ||
-			hullId.equals("espc_warden") && 
+			hullId.equals("espc_warden") &&  
 				fleetMember.getVariant().getSlot("WS 001").getWeaponType().equals(WeaponType.BALLISTIC)
 		)
 			skillPool.addLast(Skills.BALLISTIC_MASTERY);
@@ -242,7 +244,7 @@ public class espc_PactFleetSpawnListener extends BaseCampaignEventListener {
 		if (fleetMember.getHullSpec().getHullSize().equals(HullSize.FRIGATE)) {
 			for (String skill : skillsFrigate)
 				skillPool.addLast(skill);
-			if (fleetMember.getHullSpec().getManufacturer().equals("Pact-Derelict")) {
+			if (fleetMember.getHullSpec().getManufacturer().equals(MezzUtils.pactDerelictString)) {
 				skillPool.remove(Skills.COMBAT_ENDURANCE);
 				skillPool.remove(Skills.FIELD_MODULATION);
 				if (hullId.equals("espc_warden"))
@@ -271,8 +273,8 @@ public class espc_PactFleetSpawnListener extends BaseCampaignEventListener {
 			for (String skill : skillsDestroyer)
 				skillPool.addLast(skill);
 			
-			if (fleetMember.getHullSpec().getManufacturer().equals("Pact-Derelict") ||
-				fleetMember.getHullSpec().getManufacturer().equals("Remnant")) {
+			if (fleetMember.getHullSpec().getManufacturer().equals(MezzUtils.pactDerelictString) ||
+				fleetMember.getHullSpec().getManufacturer().equals(MezzUtils.remnantString)) {
 				skillPool.addLast(Skills.GUNNERY_IMPLANTS);
 				skillPool.remove(Skills.COMBAT_ENDURANCE);
 				if (hullId.equals("espc_berserker"))

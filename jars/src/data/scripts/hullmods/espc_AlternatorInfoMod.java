@@ -21,6 +21,9 @@ import com.fs.starfarer.api.ui.Alignment;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.util.Misc;
 
+import data.scripts.shipsystems.espc_AlternatorStats;
+import data.scripts.util.MezzUtils;
+
 public class espc_AlternatorInfoMod extends BaseHullMod {
 
 	public static class AlternatorWeaponData {
@@ -47,12 +50,10 @@ public class espc_AlternatorInfoMod extends BaseHullMod {
 		float opad = 10f;
 		Color h = Misc.getHighlightColor();
 		
-		tooltip.addPara("The ship's grid is engineered to facilitate an increased fire rate of %s and %s weapons, "
-				+ "but only either weapon type can be active at a time.", opad, h, 
-				"ballistic", "energy");
-		tooltip.addPara("The increase in fire rate is %s. "
-				+ "Sustained beam weapons contribute to this calculation, but gain no bonuses themselves.", opad,
-				h, "based on the sustained DPS of the inactive weapon type");
+		tooltip.addPara(MezzUtils.getString("espc_hullmod", "alternator_desc1"), opad, h, 
+				MezzUtils.getString("espc_gencombat", "ballistic"), MezzUtils.getString("espc_gencombat", "energy"));
+		tooltip.addPara(MezzUtils.getString("espc_hullmod", "alternator_desc2a"), opad,
+				h, MezzUtils.getString("espc_hullmod", "alternator_desc2b"));
 
 		float row2W = 100f;
 		float row3W = 85f;
@@ -103,9 +104,13 @@ public class espc_AlternatorInfoMod extends BaseHullMod {
 			if (ballisticDPS + energyDPS == 0f) {
 				
 			} else if (ballisticDPS == 0f || energyDPS == 0f) {
-				tooltip.addPara("As %s, the ship system will have no effect.", 
+				tooltip.addPara(MezzUtils.getString("espc_hullmod", "alternator_inactive1"), 
 					opad, Misc.getNegativeHighlightColor(), 
-					"no " + (ballisticDPS > 0f ? "energy" : "ballistic") + " weapons are currently mounted");
+					String.format(MezzUtils.getString("espc_hullmod", "alternator_inactive1"), 
+						ballisticDPS > 0f ? 
+						MezzUtils.getString("espc_gencombat", "ballistic") : MezzUtils.getString("espc_gencombat", "energy")
+					)
+				);
 			} else {
 				Collections.sort(weapons, new Comparator<AlternatorWeaponData>() {
 					public int compare(AlternatorWeaponData o1, AlternatorWeaponData o2) {
@@ -119,15 +124,20 @@ public class espc_AlternatorInfoMod extends BaseHullMod {
 
 				tooltip.beginTable(Misc.getBasePlayerColor(), Misc.getDarkPlayerColor(), Misc.getBrightPlayerColor(),
 					20f, true, true, 
-					new Object [] {"Weapon type", sizeW, "Total DPS", row2W, "Increase", row3W});
+					new Object [] {
+						Misc.ucFirst(MezzUtils.getString("espc_gencombat", "weapon_type")), sizeW, 
+						Misc.ucFirst(MezzUtils.getString("espc_gencombat", "total_dps")), row2W, 
+						Misc.ucFirst(MezzUtils.getString("espc_general", "increase")), row3W});
 
-				tooltip.addRow(Alignment.MID, Misc.getTextColor(), "Ballistic",
+				tooltip.addRow(Alignment.MID, Misc.getTextColor(), 
+					Misc.ucFirst(MezzUtils.getString("espc_gencombat", "ballistic")),
 					Alignment.MID, Misc.getTextColor(), "" + (int) ballisticDPS,
 					Alignment.MID, energyDPS / ballisticDPS >= 1.5f ? Misc.getHighlightColor() : 
 						(energyDPS / ballisticDPS <= 0.75f ? Misc.getGrayColor() : Misc.getTextColor()), 
 						"" + (int) Math.min(energyDPS / ballisticDPS * 100f, 200f) + "%"
 				);
-				tooltip.addRow(Alignment.MID, Misc.getTextColor(), "Energy",
+				tooltip.addRow(Alignment.MID, Misc.getTextColor(), 
+					Misc.ucFirst(MezzUtils.getString("espc_gencombat", "energy")),
 					Alignment.MID, Misc.getTextColor(), "" + (int) energyDPS,
 					Alignment.MID, ballisticDPS / energyDPS >= 1.5f ? Misc.getHighlightColor() : 
 						(ballisticDPS / energyDPS <= 0.75f ? Misc.getGrayColor() : Misc.getTextColor()), 
@@ -139,12 +149,13 @@ public class espc_AlternatorInfoMod extends BaseHullMod {
 			}
 		}
 		
-		tooltip.addSectionHeading("Fire rate increase calculation", Alignment.MID, opad);
-		tooltip.addPara("Fragmentation and PD weapons count for %s DPS. "
-				+ "Weapons that are both count for %s DPS.", opad, h, 
-				"50%", "25%");
-		tooltip.addPara("Fire rate increase for both types is %s.", opad, h, 
-				"limited to 200%");
+		tooltip.addSectionHeading(MezzUtils.getString("espc_hullmod", "alternator_table1"), Alignment.MID, opad);
+		tooltip.addPara(MezzUtils.getString("espc_hullmod", "alternator_table2"), opad, h, 
+			(int) (espc_AlternatorStats.FRAG_OR_PD_MULT * 100f) + "%", 
+			(int) (espc_AlternatorStats.FRAG_OR_PD_MULT * espc_AlternatorStats.FRAG_OR_PD_MULT * 100f) + "%");
+		tooltip.addPara(MezzUtils.getString("espc_hullmod", "alternator_table3"), opad, h, 
+			String.format(MezzUtils.getString("espc_hullmod", "alternator_table4"), 
+				(int) (espc_AlternatorStats.BONUS_MAX * 100f) + "%"));
 		
 		if (Global.CODEX_TOOLTIP_MODE) {
 			tooltip.addSpacer(5f);
@@ -160,7 +171,10 @@ public class espc_AlternatorInfoMod extends BaseHullMod {
 		
 		tooltip.beginTable(Misc.getBasePlayerColor(), Misc.getDarkPlayerColor(), Misc.getBrightPlayerColor(),
 			20f, true, true, 
-			new Object [] {"Weapon", sizeW, "Total DPS", row2W, "Count", row3W});
+			new Object [] {
+				Misc.ucFirst(MezzUtils.getString("espc_gencombat", "weapon")), sizeW, 
+				Misc.ucFirst(MezzUtils.getString("espc_gencombat", "total_dps")), row2W, 
+				Misc.ucFirst(MezzUtils.getString("espc_general", "count")), row3W});
 		
 		for (AlternatorWeaponData curr : weapons) {
 			tooltip.addRow(Alignment.MID, Misc.getTextColor(), curr.name,

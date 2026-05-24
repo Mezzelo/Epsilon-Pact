@@ -68,7 +68,7 @@ public class espc_ArcFlakEffect implements OnFireEffectPlugin, WeaponEffectPlugi
 	        		if (o instanceof MissileAPI) {
 	        			if (((MissileAPI) o).getOwner() != weapon.getShip().getOwner() &&
 	        				MathUtils.getDistanceSquared(proj.lastPos, ((MissileAPI) o).getLocation()) <
-		        			EXPLOSION_RADIUS * EXPLOSION_RADIUS * 1.5f * 1.5f)
+	        				Math.pow(EXPLOSION_RADIUS * 1.5f, 2f))
 		        			engine.applyDamage(
 		        				(CombatEntityAPI) o, 
 		        				((CombatEntityAPI) o).getLocation(), EXPLOSION_DAMAGE * 2f, DamageType.KINETIC, 
@@ -77,8 +77,8 @@ public class espc_ArcFlakEffect implements OnFireEffectPlugin, WeaponEffectPlugi
         				ShipAPI targ = (ShipAPI) o;
         				if (targ.isPhased())
         					continue;
-        				if (MathUtils.getDistance(proj.lastPos, targ.getLocation()) >
-	        				EXPLOSION_RADIUS + targ.getCollisionRadius())
+        				if (MathUtils.getDistanceSquared(proj.lastPos, targ.getLocation()) >
+	        				Math.pow(EXPLOSION_RADIUS + targ.getCollisionRadius(), 2f))
         					continue;
         				boolean wasHit = false;
         				for (WeaponAPI wep : targ.getAllWeapons())

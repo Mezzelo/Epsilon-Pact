@@ -8,6 +8,7 @@ import com.fs.starfarer.api.util.Misc;
 
 import data.scripts.espc_ModPlugin;
 import data.scripts.campaign.skills.espc_HumbleTastesBg_Skill;
+import data.scripts.util.MezzUtils;
 import lunalib.lunaSettings.LunaSettings;
 
 import exerelin.campaign.backgrounds.BaseCharacterBackground;
@@ -15,13 +16,12 @@ import exerelin.utilities.NexFactionConfig;
 
 public class espc_HumbleTastesBackground extends BaseCharacterBackground {
 	
-	
 	private boolean requirePerfectScore() {
 		if (!espc_ModPlugin.hasLuna())
 			return true;
 		
     	String req = LunaSettings.getString("epsilonpact", "espc_BGScoreRequirements");
-    	return req.equals("Perfect");
+    	return req.equals(MezzUtils.getString("espc_settings", "scorereq_perfect"));
     	
 	}
 
@@ -29,9 +29,9 @@ public class espc_HumbleTastesBackground extends BaseCharacterBackground {
     	int scoreReq = 100;
     	if (espc_ModPlugin.hasLuna()) {
     		String req = LunaSettings.getString("epsilonpact", "espc_BGScoreRequirements");
-    		if (req.equals("None"))
+    		if (req.equals(MezzUtils.getString("espc_settings", "scorereq_none")))
     			return true;
-    		else if (req.equals("Complete"))
+    		else if (req.equals(MezzUtils.getString("espc_settings", "scorereq_complete")))
     			scoreReq = 1;
     	}
         return Global.getSettings().getMissionScore("espc_principle") >= scoreReq;
@@ -66,26 +66,25 @@ public class espc_HumbleTastesBackground extends BaseCharacterBackground {
     @Override
     public void canNotBeSelectedReason(TooltipMakerAPI tooltip, FactionSpecAPI factionSpec, NexFactionConfig factionConfig) {
         tooltip.addPara(
-            requirePerfectScore() ? "Complete the mission Remise with a perfect score to unlock this background." :
-            	"Complete the mission Remise to unlock this background.", 
+            requirePerfectScore() ? MezzUtils.getString("espc_nexbackgrounds", "missionreqperfect") :
+            	MezzUtils.getString("espc_nexbackgrounds", "missionreq"), 
             0f,
         	Misc.getTextColor(), 
         	Misc.getHighlightColor(),
-        	"Remise");
+        	MezzUtils.getString("espc_missionnames", "remise"));
     }
     
     @Override
     public String getTitle(FactionSpecAPI factionSpec, NexFactionConfig factionConfig) {
-        return spec.title + (isUnlocked() ? "" : " [LOCKED]");
+        return spec.title + (isUnlocked() ? "" : " " + MezzUtils.getString("espc_nexbackgrounds", "lockedName"));
     }
 
     @Override
     public String getLongDescription(FactionSpecAPI factionSpec, NexFactionConfig factionConfig) {
         if (!isUnlocked()) 
-        	return "This background is locked.";
+        	return MezzUtils.getString("espc_nexbackgrounds", "locked");
 
-        return "Start with four combat skills that you cannot normally obtain. You are severely penalized for piloting"
-        	+ " anything more formidable than a Wolf.";
+        return MezzUtils.getString("espc_nexbackgrounds", "humbleTastes_shortdesc");
     }
     
     @Override
@@ -102,11 +101,11 @@ public class espc_HumbleTastesBackground extends BaseCharacterBackground {
         if (expanded && isUnlocked()) {
             tooltip.addSpacer(10f);
             tooltip.addPara(
-               	"Start with the following skills. These do not contribute to your spent skill points or lower your level cap.",
+            	MezzUtils.getString("espc_nexbackgrounds", "humbleTastes_desc1-1"),
                	0f,
                	Misc.getTextColor(), 
                	Misc.getHighlightColor(),
-               	"do not");
+               	MezzUtils.getString("espc_nexbackgrounds", "humbleTastes_desc1-2"));
             PersonAPI personForSkills = Global.getFactory().createPerson();
             personForSkills.getStats().setSkillLevel("espc_dancing_steps", 2f);
             personForSkills.getStats().setSkillLevel("espc_running_hot", 2f);
@@ -115,8 +114,7 @@ public class espc_HumbleTastesBackground extends BaseCharacterBackground {
             tooltip.addSkillPanel(personForSkills, 0f);
             tooltip.addSpacer(10f);
             tooltip.addPara(
-            	"Any ship you pilot loses %s maximum CR for every base DP over %s, " +
-            	"and its CR is capped to its maximum in combat.", 
+            	MezzUtils.getString("espc_nexbackgrounds", "humbleTastes_desc2-1"), 
                 0f,
                 Misc.getTextColor(), 
                 Misc.getNegativeHighlightColor(),
@@ -130,11 +128,11 @@ public class espc_HumbleTastesBackground extends BaseCharacterBackground {
         super.addTooltipForIntel(tooltip, factionSpec, factionConfig);
         tooltip.addSpacer(10f);
         tooltip.addPara(
-        	"Start with the following skills. These do not contribute to your spent skill points or lower your level cap.",
+        	MezzUtils.getString("espc_nexbackgrounds", "humbleTastes_desc1-1"),
         	0f,
         	Misc.getTextColor(), 
         	Misc.getHighlightColor(),
-        	"do not");
+        	MezzUtils.getString("espc_nexbackgrounds", "humbleTastes_desc1-2"));
         PersonAPI personForSkills = Global.getFactory().createPerson();
         personForSkills.getStats().setSkillLevel("espc_dancing_steps", 2f);
         personForSkills.getStats().setSkillLevel("espc_running_hot", 2f);
@@ -143,8 +141,7 @@ public class espc_HumbleTastesBackground extends BaseCharacterBackground {
         tooltip.addSkillPanel(personForSkills, 0f);
         tooltip.addSpacer(10f);
         tooltip.addPara(
-        	"Any ship you pilot loses %s maximum CR for every base DP over %s, " +
-        	"and its CR is capped to its maximum in combat.", 
+        	MezzUtils.getString("espc_nexbackgrounds", "humbleTastes_desc2-1"), 
             0f,
             Misc.getTextColor(), 
             Misc.getNegativeHighlightColor(),

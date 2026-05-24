@@ -12,7 +12,7 @@
         {
             "autofire": true,
             "mode": "LINKED",
-            "weapons": {"WS 006": "espc_riftspear"}
+            "weapons": {"WS 006": "espc_ionflail"}
         },
         {
             "autofire": false,

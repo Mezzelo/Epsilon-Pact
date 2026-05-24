@@ -13,6 +13,7 @@ import com.fs.starfarer.api.util.Misc;
 
 import data.scripts.espc_ModPlugin;
 import data.scripts.campaign.listeners.espc_PactFleetSpawnListener;
+import data.scripts.util.MezzUtils;
 import exerelin.campaign.backgrounds.BaseCharacterBackground;
 import exerelin.utilities.NexFactionConfig;
 import lunalib.lunaSettings.LunaSettings;
@@ -24,7 +25,7 @@ public class espc_RealHumanBeingBackground extends BaseCharacterBackground {
 			return true;
 		
     	String req = LunaSettings.getString("epsilonpact", "espc_BGScoreRequirements");
-    	return req.equals("Perfect");
+    	return req.equals(MezzUtils.getString("espc_settings", "scorereq_perfect"));
     	
 	}
 
@@ -32,9 +33,9 @@ public class espc_RealHumanBeingBackground extends BaseCharacterBackground {
     	int scoreReq = 100;
     	if (espc_ModPlugin.hasLuna()) {
     		String req = LunaSettings.getString("epsilonpact", "espc_BGScoreRequirements");
-    		if (req.equals("None"))
+    		if (req.equals(MezzUtils.getString("espc_settings", "scorereq_none")))
     			return true;
-    		else if (req.equals("Complete"))
+    		else if (req.equals(MezzUtils.getString("espc_settings", "scorereq_complete")))
     			scoreReq = 1;
     	}
         return Global.getSettings().getMissionScore("espc_looseends") >= scoreReq;
@@ -99,26 +100,25 @@ public class espc_RealHumanBeingBackground extends BaseCharacterBackground {
     @Override
     public void canNotBeSelectedReason(TooltipMakerAPI tooltip, FactionSpecAPI factionSpec, NexFactionConfig factionConfig) {
         tooltip.addPara(
-        	requirePerfectScore() ? "Complete the mission Loose Ends with a perfect score to unlock this background." :
-        		"Complete the mission Loose Ends to unlock this background.", 
+        	requirePerfectScore() ? MezzUtils.getString("espc_nexbackgrounds", "missionreqperfect") :
+        		MezzUtils.getString("espc_nexbackgrounds", "missionreq"),
         	0f,
         	Misc.getTextColor(), 
         	Misc.getHighlightColor(),
-        	"Loose Ends");
+        	MezzUtils.getString("espc_missionnames", "looseends"));
     }
     
     @Override
     public String getTitle(FactionSpecAPI factionSpec, NexFactionConfig factionConfig) {
-        return spec.title + (isUnlocked() ? "" : " [LOCKED]");
+        return spec.title + (isUnlocked() ? "" : " " + MezzUtils.getString("espc_nexbackgrounds", "lockedName"));
     }
 
     @Override
     public String getLongDescription(FactionSpecAPI factionSpec, NexFactionConfig factionConfig) {
         if (!isUnlocked()) 
-        	return "This background is locked.";
+        	return MezzUtils.getString("espc_nexbackgrounds", "locked");
 
-        return "Start with the bonuses of the Automated Ships skill and the ability to pilot and transfer between automated ships. " + 
-        	"Your ability to recruit officers is severely hampered.";
+        return MezzUtils.getString("espc_nexbackgrounds", "realHumanBeing_shortdesc");
     }
     @Override
     public String getIcon(FactionSpecAPI factionSpec, NexFactionConfig factionConfig) {
@@ -135,20 +135,21 @@ public class espc_RealHumanBeingBackground extends BaseCharacterBackground {
         if (expanded && isUnlocked()) {
             tooltip.addSpacer(10f);
             tooltip.addPara(
-            	"You can now commandeer automated ships, but %s. "
-            	+ "Your base maximum officer count is %s.",
+            	MezzUtils.getString("espc_nexbackgrounds", "realHumanBeing_desc1-1") +
+            	MezzUtils.getString("espc_nexbackgrounds", "realHumanBeing_desc1-2"),
             	0f,
             	Misc.getTextColor(), 
             	Misc.getNegativeHighlightColor(),
-            	"any non-automated ship you commandeer will be reduced to 0 CR, except via Neural Interface", "reduced to 0");
+            	MezzUtils.getString("espc_nexbackgrounds", "realHumanBeing_desc1-3"), 
+            	MezzUtils.getString("espc_nexbackgrounds", "realHumanBeing_desc1-4"));
             tooltip.addSpacer(10f);
             tooltip.addPara(
-            	"You start with %s automated ship points and the ability to recover automated ships. "
-            	+ "It is possible to learn the %s skill itself, gaining an additional 120 points.",
+            	MezzUtils.getString("espc_nexbackgrounds", "realHumanBeing_desc2-1"),
             	0f,
             	Misc.getTextColor(), 
             	Misc.getHighlightColor(),
-            	"360", "Automated Ships");
+            	MezzUtils.getString("espc_nexbackgrounds", "realHumanBeing_desc2-2"), 
+            	MezzUtils.getString("espc_nexbackgrounds", "realHumanBeing_desc2-3"));
         }
     }
     
@@ -157,20 +158,21 @@ public class espc_RealHumanBeingBackground extends BaseCharacterBackground {
         super.addTooltipForIntel(tooltip, factionSpec, factionConfig);
         tooltip.addSpacer(10f);
         tooltip.addPara(
-        	"You can now commandeer automated ships, but %s. "
-        	+ "Your base maximum officer count is %s.",
+        	MezzUtils.getString("espc_nexbackgrounds", "realHumanBeing_desc1-1") +
+        	MezzUtils.getString("espc_nexbackgrounds", "realHumanBeing_desc1-2"),
         	0f,
         	Misc.getTextColor(), 
         	Misc.getNegativeHighlightColor(),
-        	"any non-automated ship you commandeer will be reduced to 0 CR, except via Neural Interface", "reduced to 0");
+        	MezzUtils.getString("espc_nexbackgrounds", "realHumanBeing_desc1-3"),
+        	MezzUtils.getString("espc_nexbackgrounds", "realHumanBeing_desc1-4"));
         tooltip.addSpacer(10f);
         tooltip.addPara(
-        	"You start with %s automated ship points and the ability to recover automated ships. "
-        	+ "It is possible to learn the %s skill itself, gaining an additional 120 points.",
+        	MezzUtils.getString("espc_nexbackgrounds", "realHumanBeing_desc2-1"),
         	0f,
         	Misc.getTextColor(), 
         	Misc.getHighlightColor(),
-        	"360", "Automated Ships");
+        	MezzUtils.getString("espc_nexbackgrounds", "realHumanBeing_desc2-2"),
+        	MezzUtils.getString("espc_nexbackgrounds", "realHumanBeing_desc2-3"));
     }
 
 }

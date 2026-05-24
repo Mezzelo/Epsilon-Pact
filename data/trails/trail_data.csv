@@ -11,14 +11,16 @@ espc_semirift_shot_core,espc_semirift_shot,espc_trail_hard,30,0.02,0.2,0.01,90,1
 espc_semirift_shot_fringe,espc_semirift_shot,espc_trail_hard_inverted,30,0.02,0.2,0.01,150,20,"[191,0,255]","[255,179,81]",1,128,0,TRUE,-20,0,0,2,FALSE,FALSE,TRUE,50,0,0,0,0,0,FALSE,FALSE
 espc_semirift_shot_bloom,espc_semirift_shot,base_trail_smooth,30,0.02,0.2,0.01,300,125,"[191,0,255]","[255,179,81]",0.6,128,0,TRUE,-20,0,0,2,FALSE,FALSE,TRUE,50,0,0,0,0,0,FALSE,FALSE
 # espc_semirift_shot_linger,espc_semirift_shot,espc_trail_wispy,30,0.02,0.8,0.2,40,20,"[255,79,252]","[123,0,255]",1,512,0,TRUE,-20,0,0,2,FALSE,FALSE,TRUE,50,0,0,0,0,0,FALSE,FALSE
+espc_ionflail_shot_core,espc_ionflail_shot,base_trail_mild,10,0,0.1,0.06,36,8,"[255,255,255]","[65,210,255]",1,128,64,TRUE,0,0,0,1,FALSE,FALSE,TRUE,30,0,0,0,0,0,FALSE,FALSE
+espc_ionflail_shot_zap,espc_ionflail_shot,base_trail_zap,10,0,0.1,0.06,48,12,"[0,255,215]","[0,225,155]",1,256,64,TRUE,0,0,0,1,FALSE,FALSE,TRUE,30,0,0,0,0,0,FALSE,FALSE
 ,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 espc_flak_shot_trail,espc_flak_shot,base_trail_smooth,30,0,0.15,0.15,10,10,"[200,255,255,255]","[200,255,255,255]",0.4,128,0,TRUE,40,0,1,2,TRUE,FALSE,TRUE,0,0,0,0,0,0,FALSE,FALSE
 espc_remisemortar_trail,espc_remmortar_shot,espc_trail_hard,10,0.02,0.05,0.05,20,20,"[255,120,50]","[255,70,30]",0.6,128,-128,TRUE,5,20,1,1,FALSE,FALSE,FALSE,2,4,5,0,0,0,FALSE,TRUE
 espc_overpressuretraillarge,espc_overpressuretraillarge,base_trail_fuzzy,30,0.1,0.25,0.3,12,32,"[155,145,135]","[135,135,135]",0.6,128,-128,TRUE,0,4,1,2,FALSE,FALSE,FALSE,0,0,0,0,0,0,FALSE,TRUE
-espc_autocannon_core,espc_autocannon_shot,espc_trail_hard,30,0,0.04,0.005,10,7,"[255,255,255]","[255,255,255]",1,128,-128,TRUE,20,0,1,2,FALSE,FALSE,TRUE,50,0,0,0,0,0,FALSE,FALSE
-espc_autocannon_edges,espc_autocannon_shot,espc_trail_hard_inverted,30,0,0.04,0.005,16,7,"[255,170,0]","[255,90,0]",1,128,-128,TRUE,20,0,1,2,FALSE,FALSE,TRUE,50,0,0,0,0,0,FALSE,FALSE
-espc_autocannon_bloom,espc_autocannon_shot,base_trail_smooth,30,0,0.04,0.005,60,35,"[255,140,0]","[255,60,0]",0.7,128,-128,TRUE,20,0,1,2,FALSE,FALSE,TRUE,50,0,0,0,0,0,FALSE,FALSE
-espc_autocannon_smoke,espc_autocannon_shot,base_trail_fuzzy,30,0,0.08,0.12,15,30,"[170,170,170]","[100,100,100]",0.4,128,0,TRUE,0,40,1,2,FALSE,FALSE,FALSE,10,0,3,0,0,0,FALSE,FALSE
+espc_autocannon_smoke,espc_autocannon_shot,base_trail_fuzzy,30,0,0.07,0.12,12,24,"[170,170,170]","[100,100,100]",0.4,128,0,TRUE,0,40,1,2,FALSE,FALSE,FALSE,10,0,3,0,0,0,FALSE,FALSE
+espc_autocannon_bloom,espc_autocannon_shot,base_trail_smooth,30,0.005,0.03,0.005,48,28,"[255,140,0]","[255,60,0]",0.7,128,0,TRUE,0,0,1,2,FALSE,FALSE,TRUE,50,0,0,0,0,0,FALSE,FALSE
+espc_autocannon_edges,espc_autocannon_shot,espc_trail_hard_inverted,30,0.005,0.03,0.005,13,6,"[255,170,0]","[255,90,0]",1,128,0,TRUE,0,0,1,2,FALSE,FALSE,TRUE,50,0,0,0,0,0,FALSE,FALSE
+espc_autocannon_core,espc_autocannon_shot,espc_trail_hard,30,0.005,0.03,0.001,20,10,"[255,255,255]","[255,255,255]",1,128,0,TRUE,0,0,1,2,FALSE,FALSE,TRUE,50,0,0,0,0,0,FALSE,FALSE
 ,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 #String trail: projectile ID plus a suffix if there are multiple trails for that proj,,,,,,, ,,,,,,,,,,,,,,,,,,,,,,
 #String projectile: projectile ID,,,,,,,,,,,,,,,,,,,,,,,,,,,,,

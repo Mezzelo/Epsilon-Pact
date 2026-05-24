@@ -5,12 +5,13 @@ Overhaul of Pact fleet doctrine: Most existing variants reworked, ALL mobility s
 	- New Pact versions of vanilla hulls, featuring new shipsystems.
 Pact campaign progression: The Pact's doctrine will develop over the course of a campaign, fully evolving after 4 cycles.  Toggleable with Lunalib.
 AI changes to Pact hull designs which should make them significantly more effective without needing player control/direction.
+PORTRAITURE CONTINUES, FOREVER.  ENDLESS PEOPLE, ENDLESS CREATURES.
 
 
 New weapons:
 - Arc-Scatter, small ballistic
-- Ion Accumulator & Heavy Ion Accumulator, small & medium energy
 - Rewa Heavy Autocannon, large ballistic
+Weapons removed from Pact markets/variants: Light Autocannon, Hellbore Cannon
 
 New shipsystems:
 - Remote Burn
@@ -69,12 +70,17 @@ Solo AM Flamer
 - Projectile speed 500 > 600
 - Now ignores flares
 
+- New firing sounds for the following weapons: Remise Rifle, Heavy Gatling, Scatter Rifle
+- Improved visual effects for the Confluence Emitter, Remise Mortar and Type XII-a Autocannon
+- Placeholder art & audio for the Scatter Rifle phased out
+
 
 Battlecry
 - Now damages and disables the weapons and engines of fighters with overload protection, when it would otherwise cause overloads
-	- yeah let me remove the one major weakness of shielded fighters.  my fighter should be able to shrug off a reaper.  yeah ok.  watch this, idiot.
+	- yeah let me remove the one major weakness of shielded fighters.  my fighter should be able to shrug off a reaper.  yeah ok.  here's what i think about that.
 	
 Slamfire
+- Fixed spread increase altered to a minimum spread instead: Weapons with higher spread will now perform more consistently, weapons with low spread remain unaffected.
 - Weapon compatibility changed: Only works for the largest available mountable weapon size on the hull
 - fixed system not proccing EveryFrame-defined OnFireEffects on projectiles, potentially fixing erroneous modded weapon behaviour
 
@@ -91,7 +97,8 @@ AM Compressor
 - System reworked: Now a no-cost toggle, that activates an offensive mode
 	- Offensive mode: +50% damage, +50% flux generation, +30% range, -30% turn speed, -50% projectile velocity, 
 
-
+Underdog
+- Effectiveness now decreases as target faces away from user: Maximum effectiveness within 30 degrees of facing, no effect past 90 degrees.
 
 - Some vital Pact faction NPCs will now additionally spawn in random sector, replacing AI core trades with generic planetary authorities
 - Negative maximum relation between Pact and the Diktat removed, in anticipation of rip bozo
@@ -99,13 +106,12 @@ AM Compressor
 
 - Several unused hullmods removed from Pact markets, as well as the Heavy Blaster and Locust SRM Launcher from their markets and fits.
 - (fix) System range bonuses now properly affect all shipsystems in this mod.
-- (fix) "AI Core" now properly respawns when playing the Real Human Being Nexerelin start.
-- New firing sounds for the following weapons: Remise Rifle, Heavy Gatling, Scatter Rifle
-- Improved visual effects for the Confluence Emitte, Remise Mortar and Type XII-a Autocannon.
-- Hybrid Alternator shipsystem AI improved, less placeholder now
-- Placeholder art & audio for the Scatter Rifle phased out
+- (fix) "You!" now properly respawn when playing the Real Human Being Nexerelin start.
+- Nexerelin faction starting ship configurations have been altered to mostly draw from the front half of the Pact's developed hulls.
 - Placeholder skill icons replaced with more placeholder skill icons
 - Placeholder Amanuensis sprite marginally less placeholder
+- Most ship systems have had icon revisions, both for their codex entries and in-game status UI
+- ALL (released) strings in the code have been externalized, for localization/as responsible practice
 - string revisions
 
 Version 0.6.1

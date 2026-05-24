@@ -13,12 +13,18 @@ import com.fs.starfarer.api.combat.listeners.AdvanceableListener;
 import com.fs.starfarer.api.impl.campaign.skills.BaseSkillEffectDescription;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 
+import data.scripts.util.MezzUtils;
+
 public class espc_SecondWind {
 	
 	public static float SYSTEM_COOLDOWN = 20f;
 	public static float OVERLOAD_COOLDOWN = 90f;
 	public static float DISSIPATION_BONUS_OVERLOAD = 3f;
 	public static float OVERLOAD_DURATION = 0.25f;
+	public static float OVERLOAD_DURATION_MIN = 1.5f;
+	
+	public static Object SYSTEM_REFRESH_STATUS_KEY = new Object();
+	public static Object OVERLOAD_STATUS_KEY = new Object();
 	
 	public static class SecondWindEffectMod implements AdvanceableListener {
 		protected ShipAPI ship;
@@ -54,6 +60,12 @@ public class espc_SecondWind {
 				}
 			} else if (cooldown > 0f)
 				cooldown = Math.max(0f, cooldown - amount);
+			if (Global.getCombatEngine() != null && Global.getCombatEngine().getPlayerShip().equals(ship) && cooldown > 0f) {
+				Global.getCombatEngine().maintainStatusForPlayerShip(SYSTEM_REFRESH_STATUS_KEY,
+					Global.getSettings().getSpriteName("ui", "icon_tactical_venting"),
+					MezzUtils.getString("espc_skills", "secondwind_name"), 
+					MezzUtils.getString("espc_skills", "secondwind_status1") + (int) cooldown, false);
+			}
 		}
 
 	}
@@ -72,7 +84,7 @@ public class espc_SecondWind {
 			if (Global.getCurrentState() != GameState.COMBAT)
 				return;
 			if (ship.getFluxTracker().isOverloaded() && cooldown <= 0f &&
-				ship.getFluxTracker().getOverloadTimeRemaining() > 1.5f) {
+				ship.getFluxTracker().getOverloadTimeRemaining() > OVERLOAD_DURATION_MIN) {
 				wasOverloaded = true;
 				cooldown = OVERLOAD_COOLDOWN;
 	 			ship.getFluxTracker().setOverloadDuration(ship.getFluxTracker().getOverloadTimeRemaining() / 2f);
@@ -82,6 +94,12 @@ public class espc_SecondWind {
 	 			wasOverloaded = false;
 			} else if (cooldown > 0f) {
 				cooldown = Math.max(0f, cooldown - amount);
+			}
+			if (Global.getCombatEngine() != null && Global.getCombatEngine().getPlayerShip().equals(ship) && cooldown > 0f) {
+				Global.getCombatEngine().maintainStatusForPlayerShip(SYSTEM_REFRESH_STATUS_KEY,
+					Global.getSettings().getSpriteName("ui", "icon_tactical_venting"),
+					MezzUtils.getString("espc_skills", "secondwind_name"), 
+					MezzUtils.getString("espc_skills", "secondwind_status2") + (int) cooldown, false);
 			}
 		}
 
@@ -108,10 +126,11 @@ public class espc_SecondWind {
 			TooltipMakerAPI info, float width) {
 
 			init(stats, skill);
-			info.addPara("Once per " + (int)Math.round(SYSTEM_COOLDOWN) + " seconds, instantly refreshes ship system cooldown" + " after it elapses.",
+			info.addPara(MezzUtils.getString("espc_skills", "secondwind1-1a") + 
+				(int)Math.round(SYSTEM_COOLDOWN) + MezzUtils.getString("espc_skills", "secondwind1-1b"),
 				0f, hc, hc
 			);
-			info.addPara(indent + "If the ship's system has charges, activates when depleted, restoring half the system's maximum charges",
+			info.addPara(indent + MezzUtils.getString("espc_skills", "secondwind1-2"),
 				0f, tc, hc
 			);
 		}
@@ -139,19 +158,19 @@ public class espc_SecondWind {
 		public void unapply(MutableShipStatsAPI stats, HullSize hullSize, String id) {}
 		
 		public String getEffectDescription(float level) {
-			return "Once per " + (int)Math.round(OVERLOAD_COOLDOWN) + " seconds on overload, "
-				+ "quarters overload duration and triples flux dissipation while overloaded";
+			return MezzUtils.getString("espc_skills", "secondwind2-1a") + (int)Math.round(OVERLOAD_COOLDOWN) + 
+				MezzUtils.getString("espc_skills", "secondwind2-1b");
 		}
 		public void createCustomDescription(MutableCharacterStatsAPI stats, SkillSpecAPI skill, 
 			TooltipMakerAPI info, float width) {
 
 			init(stats, skill);
-			info.addPara("Once per " + (int)Math.round(OVERLOAD_COOLDOWN) + " seconds on overload, "
-				+ "quarters overload duration and triples flux dissipation while overloaded",
+			info.addPara(MezzUtils.getString("espc_skills", "secondwind2-1a") + (int)Math.round(OVERLOAD_COOLDOWN) + 
+				MezzUtils.getString("espc_skills", "secondwind2-1b"),
 				0f, hc, hc
 			);
-			info.addPara(indent + "Only applies to overloads lasting longer than %s seconds.",
-				0f, tc, hc, "1.5"
+			info.addPara(indent + MezzUtils.getString("espc_skills", "secondwind2-2"),
+				0f, tc, hc, "" + OVERLOAD_DURATION_MIN
 			);
 		}
 			

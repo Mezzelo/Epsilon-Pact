@@ -3,7 +3,7 @@
   "hullId": "espc_chorale",
   "displayName": "Assault",
   "goalVariant": false,
-  "fluxCapacitors": 28,
+  "fluxCapacitors": 29,
   "fluxVents": 30,
   "quality": 1,
   "permaMods": [],
@@ -38,7 +38,7 @@
       "autofire": true,
       "mode": "LINKED",
       "weapons": {
-        "WS 004": "espc_heavyionresonator"
+        "WS 004": "espc_ionflail"
       }
     },
     {

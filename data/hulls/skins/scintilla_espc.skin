@@ -2,7 +2,7 @@
 	"baseHullId":"scintilla",
 	"skinHullId":"scintilla_espc",
 	"hullName":"Scintilla",
-	"restoreToBaseHull":true,
+	"restoreToBaseHull":false,
 	"descriptionId":"scintilla",
 	"addHints":["HIDE_IN_CODEX"],
     "systemId":"espc_Salvo",

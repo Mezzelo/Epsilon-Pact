@@ -16,6 +16,8 @@ import com.fs.starfarer.api.impl.campaign.ids.Tags;
 import com.fs.starfarer.api.impl.campaign.submarkets.OpenMarketPlugin;
 import com.fs.starfarer.api.util.Misc;
 
+import data.scripts.util.MezzUtils;
+
 /*
 import data.scripts.EpsilfacInitialization;
 import exerelin.utilities.NexConfig;*/
@@ -74,10 +76,10 @@ public class espc_PactOpenMarketPlugin extends OpenMarketPlugin {
 		if (fleet != null) {
 
 			fleet.getFleetData().setOnlySyncMemberLists(false);
-			if (market.getFactionId().equals("epsilpac"))
+			if (market.getFactionId().equals(MezzUtils.factionIdPact))
 				for (FleetMemberAPI member : fleet.getFleetData().getMembersListCopy()) {
 					if ((espc_MarketOverrideList.isOverride(member.getHullId()) && Misc.random.nextFloat() > 0.2f) ||
-						(market.getFactionId().equals("epsilpac")
+						(market.getFactionId().equals(MezzUtils.factionIdPact)
 								&& member.getHullSpec().getHints().contains(ShipTypeHints.UNBOARDABLE))) {
 						fleet.getFleetData().removeFleetMember(member);
 						fleet.getFleetData().addFleetMember(espc_MarketOverrideList.getHull() + "_Hull");
@@ -95,7 +97,7 @@ public class espc_PactOpenMarketPlugin extends OpenMarketPlugin {
 				if (itemGenRandom.nextFloat() > p) continue;
 				if (member.getHullSpec().hasTag(Tags.NO_SELL)) continue;
 				if (!isMilitaryMarket() && member.getHullSpec().hasTag(Tags.MILITARY_MARKET_ONLY)) continue;
-				// if (market.getFactionId().equals("epsilpac")
+				// if (market.getFactionId().equals(MezzUtils.factionIdPact)
 				// 	&& member.getHullSpec().getHints().contains(ShipTypeHints.UNBOARDABLE)) continue;
 				String emptyVariantId = member.getHullId() + "_Hull";
 				addShip(emptyVariantId, true, params.qualityOverride);
@@ -106,7 +108,7 @@ public class espc_PactOpenMarketPlugin extends OpenMarketPlugin {
     @Override
     public boolean isHidden()
     {
-        if (!market.getFactionId().equals("epsilpac")) {
+        if (!market.getFactionId().equals(MezzUtils.factionIdPact)) {
             if (!market.hasSubmarket("open_market"))
             	market.addSubmarket("open_market");
             return true;

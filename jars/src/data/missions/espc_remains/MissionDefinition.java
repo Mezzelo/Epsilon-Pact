@@ -4,41 +4,49 @@ import java.util.List;
 
 import org.lwjgl.input.Keyboard;
 
+import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.combat.BaseEveryFrameCombatPlugin;
 import com.fs.starfarer.api.combat.CombatEngineAPI;
 import com.fs.starfarer.api.fleet.FleetGoal;
 import com.fs.starfarer.api.fleet.FleetMemberType;
+import com.fs.starfarer.api.impl.campaign.ids.Factions;
 import com.fs.starfarer.api.mission.FleetSide;
 import com.fs.starfarer.api.mission.MissionDefinitionAPI;
 import com.fs.starfarer.api.mission.MissionDefinitionPlugin;
+
+import data.scripts.util.MezzUtils;
 
 public class MissionDefinition implements MissionDefinitionPlugin {
 
 	public void defineMission(MissionDefinitionAPI api) {
 
+		String playerPrefix = Global.getSector().getFaction(Factions.TRITACHYON).getShipNamePrefix();
+		String remnantPrefix = Global.getSector().getFaction(Factions.REMNANTS).getShipNamePrefix();
+		String pactPrefix = Global.getSector().getFaction(MezzUtils.factionIdPact).getShipNamePrefix() + " ";
 		
 		// Set up the fleets
-		api.initFleet(FleetSide.PLAYER, "TTS", FleetGoal.ATTACK, false, 3);
-		api.initFleet(FleetSide.ENEMY, "TTDS", FleetGoal.ATTACK, true, 10);
+		api.initFleet(FleetSide.PLAYER, playerPrefix, FleetGoal.ATTACK, false, 3);
+		api.initFleet(FleetSide.ENEMY, remnantPrefix, FleetGoal.ATTACK, true, 10);
+		
+		String flagshipName = Global.getSector().getFaction(Factions.TRITACHYON).getShipNamePrefix() + " " +
+			MezzUtils.getString("espc_missionstrings", "remains_flagship");
 
 		// Set a blurb for each fleet
-		api.setFleetTagline(FleetSide.PLAYER, "TTS Horizon and her expedition escort");
-		api.setFleetTagline(FleetSide.ENEMY, "AI Remnants, allied with unknown aggressors");
+		api.setFleetTagline(FleetSide.PLAYER, String.format(
+			MezzUtils.getString("espc_missionstrings", "remains_playerTagline"), 
+			flagshipName));
+		api.setFleetTagline(FleetSide.ENEMY, MezzUtils.getString("espc_missionstrings", "remains_enemyTagline"));
 		
-		// These show up as items in the bulleted list under 
-		// "Tactical Objectives" on the mission detail screen
-		// api.addBriefingItem("Your fleet's strike capability is strong - but so is theirs.");
-		api.addBriefingItem("Use the power differential of your capital to pick apart their fleet.");
-		api.addBriefingItem("You must be aggressive with your flagship to prevail. Be wary of its weak defenses.");
-		// api.addBriefingItem("The opposing capital is swift and powerful, but fragile. Do not allow it to engage on its own terms.");
-		api.addBriefingItem("The TTS Horizon must survive, as it contains invaluable research and intel.");
+		api.addBriefingItem(MezzUtils.getString("espc_missionstrings", "remains_brief1"));
+		api.addBriefingItem(MezzUtils.getString("espc_missionstrings", "remains_brief2"));
+		api.addBriefingItem(String.format(MezzUtils.getString("espc_missionstrings", "remains_brief3"), flagshipName));
 		
 		// Set up the player's fleet
-		api.addToFleet(FleetSide.PLAYER, "odyssey_Balanced", FleetMemberType.SHIP, "TTS Horizon", true);
+		api.addToFleet(FleetSide.PLAYER, "odyssey_Balanced", FleetMemberType.SHIP, flagshipName, true);
 		
 		// Mark player flagship as essential
 		if (!Keyboard.isKeyDown(Keyboard.KEY_LCONTROL) && !Keyboard.isKeyDown(Keyboard.KEY_Q))
-			api.defeatOnShipLoss("TTS Horizon");
+			api.defeatOnShipLoss(flagshipName);
 		
 		// api.addToFleet(FleetSide.PLAYER, "doom_Strike", FleetMemberType.SHIP, false);
 		// api.addToFleet(FleetSide.PLAYER, "aurora_Balanced", FleetMemberType.SHIP, false);
@@ -77,17 +85,26 @@ public class MissionDefinition implements MissionDefinitionPlugin {
 		// atavist
 		// api.addToFleet(FleetSide.ENEMY, "espc_atavist_Strike", FleetMemberType.SHIP, "EPS Senescence", false);
 		
-		api.addToFleet(FleetSide.ENEMY, "espc_observer_Assault", FleetMemberType.SHIP, "EPS Late Shift", false);
-		api.addToFleet(FleetSide.ENEMY, "espc_pilgrim_Assault", FleetMemberType.SHIP, "EPS We Will Not Rest", false);
+		api.addToFleet(FleetSide.ENEMY, "espc_observer_Assault", FleetMemberType.SHIP, pactPrefix + 
+			MezzUtils.getString("espc_missionstrings", "remains_observer"), false);
+		api.addToFleet(FleetSide.ENEMY, "espc_pilgrim_Assault", FleetMemberType.SHIP, pactPrefix + 
+			MezzUtils.getString("espc_missionstrings", "remains_pilgrim"), false);
 		
-		api.addToFleet(FleetSide.ENEMY, "espc_ember_Standard", FleetMemberType.SHIP, "EPS Songs Unsung", false);
+		api.addToFleet(FleetSide.ENEMY, "espc_ember_Standard", FleetMemberType.SHIP, pactPrefix + 
+			MezzUtils.getString("espc_missionstrings", "remains_ember"), false);
 		
-		api.addToFleet(FleetSide.ENEMY, "espc_songbird_Standard", FleetMemberType.SHIP, "EPS Heaven's Sun", false);
-		api.addToFleet(FleetSide.ENEMY, "omen_PD", FleetMemberType.SHIP, "EPS Managan", false);
-		api.addToFleet(FleetSide.ENEMY, "espc_jackalope_Strike", FleetMemberType.SHIP, "EPS Unbreakable Resolve", false);
-		api.addToFleet(FleetSide.ENEMY, "espc_rondel_Standard", FleetMemberType.SHIP, "EPS And We Can Fly", false);
-		api.addToFleet(FleetSide.ENEMY, "espc_opossum_Strike", FleetMemberType.SHIP, "EPS Rapa Squa", false);
-		api.addToFleet(FleetSide.ENEMY, "lasher_espc_Strike", FleetMemberType.SHIP, "EPS Call to Arms", false);
+		api.addToFleet(FleetSide.ENEMY, "espc_songbird_Standard", FleetMemberType.SHIP, pactPrefix + 
+			MezzUtils.getString("espc_missionstrings", "remains_songbird"), false);
+		api.addToFleet(FleetSide.ENEMY, "omen_PD", FleetMemberType.SHIP, pactPrefix + 
+			MezzUtils.getString("espc_missionstrings", "remains_omen"), false);
+		api.addToFleet(FleetSide.ENEMY, "espc_jackalope_Strike", FleetMemberType.SHIP, pactPrefix + 
+			MezzUtils.getString("espc_names", "newmoon_jackalope"), false);
+		api.addToFleet(FleetSide.ENEMY, "espc_rondel_Standard", FleetMemberType.SHIP, pactPrefix + 
+			MezzUtils.getString("espc_missionstrings", "remains_rondel"), false);
+		api.addToFleet(FleetSide.ENEMY, "espc_opossum_Strike", FleetMemberType.SHIP, pactPrefix + 
+			MezzUtils.getString("espc_missionstrings", "remains_opossum"), false);
+		api.addToFleet(FleetSide.ENEMY, "lasher_espc_Strike", FleetMemberType.SHIP, pactPrefix + 
+			MezzUtils.getString("espc_missionstrings", "remains_lasher"), false);
 		
 		
 		

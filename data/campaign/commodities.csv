@@ -1,2 +1,4 @@
-name,id,demand class,base price,export value,price variability,utility,origin,tags,stack size,cargo space,icon,sound id,sound id drop,order,economyTier,econUnit,iconWidthMult,plugin,desc
-You!,espc_meCore,survey_data,,,,1,,hide_in_codex,100,1,graphics/icons/cargo/espc_meCore.png,ai_core_pickup,ui_beta_core_drop,1,,,1,,
+name,id,demand class,base price,export value,price variability,utility,origin,tags,stack size,cargo space,icon,sound id,sound id drop,order,economyTier,econUnitOrigUnused,econUnit,baseRaidDanger,eU * base value,iconWidthMult,plugin,desc,
+Tocquieran Wine,espc_vintage,luxury_goods,100,500,3,1,espc_tocquiera,"exotic, codex_unlockable",1000,1,graphics/icons/cargo/espc_vintage.png,ui_cargo_metals,ui_cargo_raremetals_drop,1.3,2.8,200,500,,50000,1,,,1
+,,,,,,,,,,,,,,,,,,,,,,,
+You!,espc_meCore,survey_data,,,,1,,hide_in_codex,100,1,graphics/icons/cargo/espc_meCore.png,ai_core_pickup,ui_beta_core_drop,1,,,,,,1,,,

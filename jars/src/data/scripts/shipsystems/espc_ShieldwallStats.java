@@ -10,8 +10,13 @@ import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.combat.CombatEngineAPI;
 import com.fs.starfarer.api.combat.MutableShipStatsAPI;
 import com.fs.starfarer.api.combat.ShieldAPI.ShieldType;
+import com.fs.starfarer.api.combat.ShipSystemAPI.SystemState;
 import com.fs.starfarer.api.combat.ShipAPI;
+import com.fs.starfarer.api.combat.ShipSystemAPI;
+import com.fs.starfarer.api.impl.campaign.ids.Tags;
 import com.fs.starfarer.api.impl.combat.BaseShipSystemScript;
+
+import data.scripts.util.MezzUtils;
 
 public class espc_ShieldwallStats extends BaseShipSystemScript {
 
@@ -90,12 +95,14 @@ public class espc_ShieldwallStats extends BaseShipSystemScript {
 				
 				while (shipSearch.hasNext()) {
 					currShip = (ShipAPI) shipSearch.next();
-					if (!currShip.isShuttlePod() && !currShip.isHulk() && !currShip.isFighter() &&
-					MathUtils.isWithinRange(currShip, ship.getLocation(), 
-						ship.getMutableStats().getSystemRangeBonus().computeEffective(EFFECT_RADIUS)
-						) && currShip.getOwner() == ship.getOwner()) {
-						shipTargs.addLast(currShip);
-					}
+					if (currShip.getOwner() != ship.getOwner() ||
+						currShip.isShuttlePod() || currShip.isHulk() || currShip.isFighter() ||
+						!currShip.isAlive() || currShip.hasTag(Tags.VARIANT_FX_DRONE) || currShip.isStationModule() ||
+						!MathUtils.isWithinRange(currShip, ship.getLocation(), 
+							ship.getMutableStats().getSystemRangeBonus().computeEffective(EFFECT_RADIUS)
+					))
+						continue;
+					shipTargs.addLast(currShip);
 				}
 				
 				// effect is contingent on number of ships affected, so we'll have to iterate twice over.
@@ -127,5 +134,36 @@ public class espc_ShieldwallStats extends BaseShipSystemScript {
 			return new StatusData("nearby friendly shield damage taken -" +
 				(int) (shieldEfficiencyBonusMult * effectLevel * 100f) + "%", false);
 		return null;
+	}
+	
+	@Override
+	public String getInfoText(ShipSystemAPI system, ShipAPI ship) {
+		if (system.getState().equals(SystemState.IN) ||
+			system.getState().equals(SystemState.ACTIVE))
+			return MezzUtils.getString("espc_shipsystem", "active");
+
+		if (system.isOutOfAmmo() || system.getState() != SystemState.IDLE)
+			return null;
+		
+		int numShips = 1;
+    	Iterator<Object> shipGridIterator = (Iterator<Object>) (Global.getCombatEngine().getAiGridShips().getCheckIterator(
+        	ship.getLocation(),
+        	ship.getMutableStats().getSystemRangeBonus().computeEffective(EFFECT_RADIUS) * 2f,
+        	ship.getMutableStats().getSystemRangeBonus().computeEffective(EFFECT_RADIUS) * 2f)
+        	);
+    	while (shipGridIterator.hasNext()) {
+    		ShipAPI currShip = (ShipAPI) shipGridIterator.next();
+    		if (currShip.equals(ship) || currShip.getOwner() != ship.getOwner() ||
+    			currShip.isShuttlePod() || currShip.isHulk() || currShip.isFighter() ||
+    			!currShip.isAlive() || currShip.hasTag(Tags.VARIANT_FX_DRONE) || currShip.isStationModule() ||
+    				!MathUtils.isWithinRange(currShip, ship.getLocation(), 
+    					ship.getMutableStats().getSystemRangeBonus().computeEffective(EFFECT_RADIUS)
+    			))
+    			continue;
+    		numShips++;
+    	}
+		return String.format(MezzUtils.getString("espc_shipsystem", 
+			numShips > 1 ? "ready_target_count" : "shieldwall_no_allies"),
+			numShips + "");
 	}
 }

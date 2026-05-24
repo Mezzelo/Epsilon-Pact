@@ -3,10 +3,13 @@ All of the art, code, design, writing, and sound in this mod is made by Mezzelo 
 - Faction music is taken from cuts of Patricia Taxxon's album Aeroplane - specifically, from the songs Scruff and Aeroplane. Consider checking out her discography, my amateur edits do her work no justice.
 https://patriciataxxon.bandcamp.com/album/aeroplane
 
-- Sounds use a mix of my own foley and samples from the following no-attribution sources:
+- Sounds use a mix of my own foley and samples from the following sources, as well as some other non-attribution sources:
 https://creativesounddesign.com/
 https://www.boomlibrary.com/
 https://sonniss.com/gameaudiogdc
+
+A word of acknowledgement goes to Scrin and many other folks in the FDC who finally liberated me from playtesting my work entirely alone, and to Surge for providing many a valuable insight from her streams.
+
 
 This was made with the use of the following community tools and libraries:
 

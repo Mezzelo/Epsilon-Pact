@@ -18,6 +18,8 @@ import com.fs.starfarer.api.combat.WeaponAPI.WeaponType;
 import com.fs.starfarer.api.impl.campaign.ids.Personalities;
 import com.fs.starfarer.api.impl.combat.BaseShipSystemScript;
 
+import data.scripts.util.MezzUtils;
+
 public class espc_AlternatorStats extends BaseShipSystemScript {
 
 	private ShipAPI ship;
@@ -29,12 +31,13 @@ public class espc_AlternatorStats extends BaseShipSystemScript {
 	
 	private int usableState = -1;
 	
-	private static final float BONUS_MAX = 2f;
+	public static final float BONUS_MAX = 2f;
+	public static final float FRAG_OR_PD_MULT = 0.5f;
 	
 	// you should fold this stuff into the ai script anyway
 	private static final float AI_HULL_BACK = 0.15f;
 	private static final float AI_HULL_BACK_FRIGATE = 0.35f;
-	private static final float AI_FLUX_BACK = 0.4f;
+	private static final float AI_FLUX_BACK = 0.3f;
 	private static final float AI_FLUX_BACK_FRIGATE = 0.4f;
 	private static final float AI_FLUX_FORCE_ENGAGE = 0.2f;
 	private static final float AI_FLUX_FORCE_ENGAGE_FRIGATE = 0.2f;
@@ -72,8 +75,8 @@ public class espc_AlternatorStats extends BaseShipSystemScript {
 			for (WeaponAPI weapon : ship.getAllWeapons()) {
 				if (weapon.getType() == WeaponType.BALLISTIC) {
 					ballisticDPS += weapon.getDerivedStats().getSustainedDps() 
-						* (weapon.getDamageType().equals(DamageType.FRAGMENTATION) ? 0.5f : 1f) *
-						(weapon.hasAIHint(AIHints.PD) && !weapon.hasAIHint(AIHints.PD_ALSO) ? 0.5f : 1f);
+						* (weapon.getDamageType().equals(DamageType.FRAGMENTATION) ? FRAG_OR_PD_MULT : 1f) *
+						(weapon.hasAIHint(AIHints.PD) && !weapon.hasAIHint(AIHints.PD_ALSO) ? FRAG_OR_PD_MULT : 1f);
 					/*
 					weapon.getSprite().setColor(new Color(
 						0.8f, 0.8f, 0.8f));
@@ -87,8 +90,8 @@ public class espc_AlternatorStats extends BaseShipSystemScript {
 				}
 				else if (weapon.getType() == WeaponType.ENERGY)
 					energyDPS += weapon.getDerivedStats().getSustainedDps()
-						* (weapon.getDamageType().equals(DamageType.FRAGMENTATION) ? 0.5f : 1f) *
-						(weapon.hasAIHint(AIHints.PD) && !weapon.hasAIHint(AIHints.PD_ALSO) ? 0.5f : 1f);
+						* (weapon.getDamageType().equals(DamageType.FRAGMENTATION) ? FRAG_OR_PD_MULT : 1f) *
+						(weapon.hasAIHint(AIHints.PD) && !weapon.hasAIHint(AIHints.PD_ALSO) ? FRAG_OR_PD_MULT : 1f);
 				
 			}
 			
@@ -110,10 +113,11 @@ public class espc_AlternatorStats extends BaseShipSystemScript {
 					ship.getHullLevel() > AI_HULL_BACK) {
 					config.personalityOverride = Personalities.RECKLESS;
 					config.alwaysStrafeOffensively = true;
+					/*
 					if (ship.getFluxLevel() < AI_FLUX_FORCE_ENGAGE)
 						config.backingOffWhileNotVentingAllowed = false;
 					else
-						config.backingOffWhileNotVentingAllowed = true;
+						config.backingOffWhileNotVentingAllowed = true; */
 					config.turnToFaceWithUndamagedArmor = false;
 					config.burnDriveIgnoreEnemies = true;
 				} else {
@@ -216,19 +220,17 @@ public class espc_AlternatorStats extends BaseShipSystemScript {
 		
 		if (index == 0)  {
 			if (isEnergy)
-				return new StatusData("ballistic weapons disabled", true);
+				return new StatusData(MezzUtils.getString("espc_shipsystem", "alternator_energy"), true);
 			else
-				return new StatusData("energy weapons disabled", true);
+				return new StatusData(MezzUtils.getString("espc_shipsystem", "alternator_ballistic"), true);
 		}
 		else if (index == 1) {
 			if (isEnergy) {
-				return new StatusData("energy rate of fire +" + 
-					(int) (Math.min(ballisticDPS/energyDPS, BONUS_MAX) * (1f - effectLevel) * 100f)
-					 + "%",false);
+				return new StatusData(String.format(MezzUtils.getString("espc_shipsystem", "energy_rof"),
+					(int) (Math.min(ballisticDPS/energyDPS, BONUS_MAX) * (1f - effectLevel) * 100f) + "%"), false);
 			} else {
-				return new StatusData("ballistic rate of fire +" + 
-					(int) (Math.min(energyDPS/ballisticDPS, BONUS_MAX) * (1f - effectLevel) * 100f)
-					 + "%",false);
+				return new StatusData(String.format(MezzUtils.getString("espc_shipsystem", "ballistic_rof"),
+					(int) (Math.min(energyDPS/ballisticDPS, BONUS_MAX) * (1f - effectLevel) * 100f) + "%"), false);
 			}
 		}
 		return null;
@@ -237,13 +239,14 @@ public class espc_AlternatorStats extends BaseShipSystemScript {
 	@Override
 	public String getInfoText(ShipSystemAPI system, ShipAPI ship) {
 		if (usableState == 0)
-			return "INVALID LOADOUT";
+			return MezzUtils.getString("espc_shipsystem", "invalid_loadout");
 		
 		if (system.getState().equals(SystemState.IDLE))
-			return isEnergy ? "ENERGY" : "BALLISTIC";
+			return isEnergy ? MezzUtils.getString("espc_gencombat", "energy").toUpperCase(MezzUtils.locale) : 
+				MezzUtils.getString("espc_gencombat", "ballistic").toUpperCase(MezzUtils.locale);
 		else if (system.getState().equals(SystemState.ACTIVE) ||
 			system.getState().equals(SystemState.OUT))
-			return "SWITCHING";
+			return MezzUtils.getString("espc_shipsystem", "switching");
 		else
 			return "";
 	}

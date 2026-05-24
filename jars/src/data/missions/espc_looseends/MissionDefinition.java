@@ -11,35 +11,45 @@ import com.fs.starfarer.api.mission.MissionDefinitionAPI;
 import com.fs.starfarer.api.mission.MissionDefinitionPlugin;
 
 import com.fs.starfarer.api.fleet.FleetMemberAPI;
+import com.fs.starfarer.api.impl.campaign.ids.Factions;
 import com.fs.starfarer.api.impl.campaign.ids.Personalities;
 import com.fs.starfarer.api.impl.campaign.ids.Skills;
+import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.characters.FullName;
 import com.fs.starfarer.api.characters.PersonAPI;
 
 import data.scripts.util.EspcOfficerFactory;
+import data.scripts.util.MezzUtils;
 
 public class MissionDefinition implements MissionDefinitionPlugin {
 
 	public void defineMission(MissionDefinitionAPI api) {
 
+		String playerPrefix = Global.getSector().getFaction(Factions.INDEPENDENT).getShipNamePrefix();
+		String remnantPrefix = Global.getSector().getFaction(Factions.REMNANTS).getShipNamePrefix();
+		String hegPrefix = Global.getSector().getFaction(Factions.HEGEMONY).getShipNamePrefix();
+		
+		String playerFlagship = playerPrefix + " " + MezzUtils.getString("espc_names", "lasher_nola");
+		String enemyFlagship = hegPrefix + " " + MezzUtils.getString("espc_names", "looseends_onslaught");
 		
 		// Set up the fleets
-		api.initFleet(FleetSide.PLAYER, "TTDS", FleetGoal.ATTACK, false, 0);
-		api.initFleet(FleetSide.ENEMY, "HSS", FleetGoal.ATTACK, true, 3);
+		api.initFleet(FleetSide.PLAYER, remnantPrefix, FleetGoal.ATTACK, false, 0);
+		api.initFleet(FleetSide.ENEMY, hegPrefix, FleetGoal.ATTACK, true, 3);
 
 		// Set a blurb for each fleet
-		api.setFleetTagline(FleetSide.PLAYER, "A wandering spacer and her unlikely allies");
-		api.setFleetTagline(FleetSide.ENEMY, "The HSS Burgundy, with heavy escort");
+		api.setFleetTagline(FleetSide.PLAYER, MezzUtils.getString("espc_missionstrings", "looseends_playerTagline"));
+		api.setFleetTagline(FleetSide.ENEMY, 
+			String.format(MezzUtils.getString("espc_missionstrings", "looseends_enemyTagline"), enemyFlagship));
 		
-		api.addBriefingItem("Your cheap, low-tech frigate is well-equipped and helmed by an exceptional captain.");
-		api.addBriefingItem("Your allies will not stand a chance without your tactical command and field presence.");
-		api.addBriefingItem("Keep the enemy flagship away from your allies as you hunt down her escort.");
-		api.addBriefingItem("The ISS Moonrise must survive");
+		api.addBriefingItem(MezzUtils.getString("espc_missionstrings", "looseends_brief1"));
+		api.addBriefingItem(MezzUtils.getString("espc_missionstrings", "looseends_brief2"));
+		api.addBriefingItem(MezzUtils.getString("espc_missionstrings", "looseends_brief3"));
+		api.addBriefingItem(String.format(MezzUtils.getString("espc_missionstrings", "looseends_brief4"), playerFlagship));
 		
-		FleetMemberAPI member = api.addToFleet(FleetSide.PLAYER, "lasher_espc_Nola", FleetMemberType.SHIP, "ISS Moonrise", true);
+		FleetMemberAPI member = api.addToFleet(FleetSide.PLAYER, "lasher_espc_Nola", FleetMemberType.SHIP, playerFlagship, true);
 		PersonAPI pilot = EspcOfficerFactory.MakePilot("Nola", "Ganymede", FullName.Gender.FEMALE, Personalities.AGGRESSIVE, 
 			"graphics/portraits/espc_nola_young.png", "independent", 11);
-		api.defeatOnShipLoss("ISS Moonrise");
+		api.defeatOnShipLoss(playerFlagship);
 		
 		EspcOfficerFactory.PopulateSkills(pilot, new String[]{
 			Skills.HELMSMANSHIP, "espc_dancing_steps", 
@@ -73,8 +83,8 @@ public class MissionDefinition implements MissionDefinitionPlugin {
 		
 		// Set up the enemy fleet
 
-		member = api.addToFleet(FleetSide.ENEMY, "onslaught_xiv_Elite", FleetMemberType.SHIP, "HSS Burgundy", false);
-		pilot = EspcOfficerFactory.MakePilot("Lanya", "Neil", FullName.Gender.FEMALE, "steady", 
+		member = api.addToFleet(FleetSide.ENEMY, "onslaught_xiv_Elite", FleetMemberType.SHIP, enemyFlagship, false);
+		pilot = EspcOfficerFactory.MakePilot("Lanya", "Neil", FullName.Gender.FEMALE, Personalities.STEADY, 
 			"graphics/portraits/portrait_hegemony04.png", "hegemony", 5);
 		
 		EspcOfficerFactory.PopulateSkills(pilot, new String[]{

@@ -9,6 +9,8 @@ import com.fs.starfarer.api.impl.campaign.population.PopulationComposition;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.util.Misc;
 
+import data.scripts.util.MezzUtils;
+
 public class espc_Enclaves extends BaseIndustry implements MarketImmigrationModifier {
 
 	public static float DEFENSE_BONUS_MILITARY = 7f;
@@ -25,6 +27,7 @@ public class espc_Enclaves extends BaseIndustry implements MarketImmigrationModi
 		demand(Commodities.HAND_WEAPONS, 2);
 		
 		supply(Commodities.LUXURY_GOODS, 4);
+		supply("espc_vintage", 0);
 		supply(Commodities.FOOD, 2);
 		supply(Commodities.DRUGS, 2);
 		supply(Commodities.ORGANS, 1);
@@ -69,8 +72,9 @@ public class espc_Enclaves extends BaseIndustry implements MarketImmigrationModi
 		if (mode != IndustryTooltipMode.NORMAL || isFunctional()) {
 			
 			boolean hasSpeaker = market.getAdmin().getStats().getSkillLevel("espc_voice") > 0;
-			tooltip.addPara("Population growth: %s", 10f, Misc.getHighlightColor(), "+5");
-			tooltip.addPara("Stability penalty: %s", 10f, Misc.getNegativeHighlightColor(), "" + STABILITY_MOD);
+			tooltip.addPara(MezzUtils.getString("espc_markets", "enclaves_popgrowth"), 10f, Misc.getHighlightColor(), "+5");
+			tooltip.addPara(MezzUtils.getString("espc_markets", "enclaves_stability"), 10f, Misc.getNegativeHighlightColor(), 
+				"" + STABILITY_MOD);
 			if (hasSpeaker)
 				addGroundDefensesImpactSection(tooltip, DEFENSE_BONUS_MILITARY, 
 					Commodities.SUPPLIES);

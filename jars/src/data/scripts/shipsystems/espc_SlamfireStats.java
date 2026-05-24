@@ -28,6 +28,8 @@ import com.fs.starfarer.api.loading.ProjectileSpecAPI;
 import com.fs.starfarer.api.loading.WeaponSlotAPI;
 import com.fs.starfarer.api.util.Misc;
 
+import data.scripts.util.MezzUtils;
+
 public class espc_SlamfireStats extends BaseShipSystemScript {
 	
 	private static final float OVERLOAD_DUR = 2.0f;
@@ -151,7 +153,7 @@ public class espc_SlamfireStats extends BaseShipSystemScript {
 			}
 			for (WeaponAPI weapon : wpnGroup.getWeaponsCopy()) {
 				if (!weapon.getType().equals(WeaponType.BALLISTIC) || weapon.isBeam() || weapon.getFluxCostToFire() <= 0f
-					|| !weapon.getSize().equals(largestSize))
+					|| !weapon.getSize().equals(largestSize) || (weapon.usesAmmo() && weapon.getAmmoPerSecond() > 0f))
 					continue;
 				if (weapon.isFiring() && weapon.getCooldownRemaining() <= 0f) {
 					burstState = 2;
@@ -160,11 +162,7 @@ public class espc_SlamfireStats extends BaseShipSystemScript {
 			}
 		}
 		
-		// as there's no way to manually force fire a weapon
-		// (AT THE TIME OF WRITING.  alex added the method
-		// but it probably can't shit out a billion projs like you can here.  can it?  end my misery.)
-		// we'll have to duplicate its projectiles to simulate the equivalent instead.
-		// to modders: sorry lol.
+		// had an angry modding shpiel here but at this point i've done so much more arcane bullshit with projectile spawns lol
 		if (burstState == 2) {
 			CombatEngineAPI combatEngine = Global.getCombatEngine();
 			ArrayList<SlamWeapon> firingWeapons = new ArrayList<SlamWeapon>();
@@ -175,7 +173,8 @@ public class espc_SlamfireStats extends BaseShipSystemScript {
 				wpnGroup = ship.getWeaponGroupsCopy().get(0);
 			for (WeaponAPI weapon : wpnGroup.getWeaponsCopy()) {
 				if (weapon.getType().equals(WeaponType.BALLISTIC) &&
-					!weapon.isBeam() && weapon.getFluxCostToFire() > 0f && weapon.getSize().equals(largestSize)) {
+					!weapon.isBeam() && weapon.getFluxCostToFire() > 0f && weapon.getSize().equals(largestSize) &&
+					(!weapon.usesAmmo() || weapon.getAmmoPerSecond() > 0f)) {
 					SlamWeapon addWep = new SlamWeapon(weapon, ship);
 					weapons.addLast(weapon);
 					groupFluxCost += addWep.fluxPerSecond;
@@ -244,8 +243,8 @@ public class espc_SlamfireStats extends BaseShipSystemScript {
 						currWeapon.weapon.getCurrAngle() +
 							((Float) angleOffsets.get(i % currWeapon.numBarrels)) +
 							(Misc.random.nextFloat() * 1f - 0.5f) *
-							(currWeapon.weapon.getSpec().getMaxSpread() + 3f) *
-							(currWeapon.isHardpoint ? 1f : 2f),
+							Math.max(currWeapon.weapon.getSpec().getMaxSpread(), 3f) *
+							(currWeapon.isHardpoint ? 1f : 1f),
 						ship.getVelocity()
 					);
 					stats.getProjectileSpeedMult().unmodify(id);
@@ -378,12 +377,12 @@ public class espc_SlamfireStats extends BaseShipSystemScript {
 	@Override
 	public String getInfoText(ShipSystemAPI system, ShipAPI ship) {
 		if (usableState == 0)
-			return "NO WEAPON COMPATIBLE";
+			return MezzUtils.getString("espc_system", "no_weapon_compatible");
 		
 		if (system.getState().equals(SystemState.IDLE))
-			return "READY";
+			return MezzUtils.getString("espc_system", "ready");
 		else if (system.getState().equals(SystemState.ACTIVE))
-			return "ARMED";
+			return MezzUtils.getString("espc_system", "armed");
 		else
 			return "";
 	}
@@ -400,7 +399,7 @@ public class espc_SlamfireStats extends BaseShipSystemScript {
 			}
 			for (WeaponAPI wep : ship.getAllWeapons()) {
 				if (!wep.isPermanentlyDisabled() && !wep.isDecorative() && wep.getType().equals(WeaponType.BALLISTIC) &&
-					wep.getSize().equals(largestSize)) {
+					wep.getSize().equals(largestSize) && (!wep.usesAmmo() || wep.getAmmoPerSecond() > 0f)) {
 					usableState = 1;
 					return true;
 				}

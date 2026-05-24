@@ -19,6 +19,8 @@ import com.fs.starfarer.api.combat.listeners.AdvanceableListener;
 import com.fs.starfarer.api.impl.campaign.skills.BaseSkillEffectDescription;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 
+import data.scripts.util.MezzUtils;
+
 public class espc_Unburdened {
 
 	public static float HULL_PERCENT_PER_SECOND = 1.0f;
@@ -120,19 +122,19 @@ public class espc_Unburdened {
 			TooltipMakerAPI info, float width) {
 
 			init(stats, skill);
-			info.addPara("Ship sacrifices hull integrity to repair nearby allies for twice the hull spent.",
+			info.addPara(MezzUtils.getString("espc_skills", "unburdened1-1"),
 				0f, hc, hc
 			);
-			info.addPara("Affects allies below %s hull and within %s, prioritizing allies with the lowest hull remaining",
-				0f, hc, hc, (int) MIN_TARGET_THRESHOLD + "%", (int)HEAL_RANGE + " su"
+			info.addPara(MezzUtils.getString("espc_skills", "unburdened1-2"),
+				0f, hc, hc, (int) MIN_TARGET_THRESHOLD + "%", (int)HEAL_RANGE + " " + MezzUtils.getString("espc_gencombat", "su")
 			);
-			info.addPara(indent + "Uses hull at a rate of %s of ship's or %s of target's max hull per second, whichever is lower.",
+			info.addPara(indent + MezzUtils.getString("espc_skills", "unburdened1-3"),
 				0f, tc, hc, HULL_PERCENT_PER_SECOND + "%", HULL_PERCENT_PER_SECOND_TARGET + "%"
 			);
-			info.addPara(indent + "Up to %s of maximum hull can be used. This effect pauses when below %s of maximum hull",
+			info.addPara(indent + MezzUtils.getString("espc_skills", "unburdened1-4"),
 				0f, tc, hc, (int)MAX_SPEND + "%", (int)MIN_THRESHOLD + "%"
 			);
-			info.addPara(indent + "Does not affect allies while either ship is overloaded or phased",
+			info.addPara(indent + MezzUtils.getString("espc_skills", "unburdened1-5"),
 				0f, tc, hc
 			);
 		}
@@ -153,11 +155,11 @@ public class espc_Unburdened {
 			stats.getHullDamageTakenMult().modifyPercent(id, -HULL_DAMAGE_REDUCTION);
 		}
 		public void unapply(MutableShipStatsAPI stats, HullSize hullSize, String id) {
-			stats.getHullDamageTakenMult().unmodify();
+			stats.getHullDamageTakenMult().unmodify(id);
 		}
 		
 		public String getEffectDescription(float level) {
-			return "-" + (int)HULL_DAMAGE_REDUCTION + "% hull damage taken";
+			return "-" + (int)HULL_DAMAGE_REDUCTION + MezzUtils.getString("espc_skills", "unburdened2-1");
 		}
 		public String getEffectPerLevelDescription() {
 			return null;

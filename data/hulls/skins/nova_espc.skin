@@ -2,7 +2,7 @@
 	"baseHullId":"nova",
 	"skinHullId":"nova_espc",
 	"hullName":"Nova",
-	"restoreToBaseHull":true,
+	"restoreToBaseHull":false,
 	"descriptionId":"nova",
 	"addHints":["HIDE_IN_CODEX"],
     "systemId":"espc_NovaMine",

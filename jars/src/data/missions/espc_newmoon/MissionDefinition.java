@@ -11,12 +11,15 @@ import com.fs.starfarer.api.mission.MissionDefinitionAPI;
 import com.fs.starfarer.api.mission.MissionDefinitionPlugin;
 
 import com.fs.starfarer.api.fleet.FleetMemberAPI;
+import com.fs.starfarer.api.impl.campaign.ids.Factions;
 import com.fs.starfarer.api.impl.campaign.ids.Personalities;
 import com.fs.starfarer.api.impl.campaign.ids.Skills;
+import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.characters.FullName;
 import com.fs.starfarer.api.characters.PersonAPI;
 
 import data.scripts.util.EspcOfficerFactory;
+import data.scripts.util.MezzUtils;
 
 // import org.lwjgl.input.Keyboard;
 
@@ -24,28 +27,34 @@ public class MissionDefinition implements MissionDefinitionPlugin {
 
 	public void defineMission(MissionDefinitionAPI api) {
 
+		String playerPrefix = Global.getSector().getFaction(MezzUtils.factionIdPact).getShipNamePrefix();
+		String leaguePrefix = Global.getSector().getFaction(Factions.PERSEAN).getShipNamePrefix();
 		
 		// Set up the fleets
-		api.initFleet(FleetSide.PLAYER, "EPS", FleetGoal.ATTACK, false, 0);
-		api.initFleet(FleetSide.ENEMY, "PLS", FleetGoal.ATTACK, true, 10);
+		api.initFleet(FleetSide.PLAYER, playerPrefix, FleetGoal.ATTACK, false, 0);
+		api.initFleet(FleetSide.ENEMY, leaguePrefix, FleetGoal.ATTACK, true, 10);
+		
+		playerPrefix += " ";
+		leaguePrefix += " ";
 
 		// Set a blurb for each fleet
-		api.setFleetTagline(FleetSide.PLAYER, "Pact strike fleet");
-		api.setFleetTagline(FleetSide.ENEMY, "Persean League response fleet, from Kazeron and Suddene");
+		api.setFleetTagline(FleetSide.PLAYER, MezzUtils.getString("espc_missionstrings", "newmoon_playerTagline"));
+		api.setFleetTagline(FleetSide.ENEMY, MezzUtils.getString("espc_missionstrings", "newmoon_enemyTagline"));
 		
-		// These show up as items in the bulleted list under 
-		// "Tactical Objectives" on the mission detail screen
-		api.addBriefingItem("Your fleet's designs are slower, but considerably harder-hitting than their midline competition.");
+		api.addBriefingItem(MezzUtils.getString("espc_missionstrings", "newmoon_brief1"));
 		// api.addBriefingItem("Your fleet's designs lack mobility, but punch well above their weight when working together.");
-		api.addBriefingItem("Command aggressively. The opposing fleet is twice as large and will outlast yours otherwise.");
-		api.addBriefingItem("The EPS Moonrise must survive");
+		api.addBriefingItem(MezzUtils.getString("espc_missionstrings", "newmoon_brief2"));
+		api.addBriefingItem(String.format(MezzUtils.getString("espc_missionstrings", "newmoon_brief3"), 
+			playerPrefix + MezzUtils.getString("espc_names", "lasher_nola")));
 		
 		// Set up the player's fleet
 		
 		
-		FleetMemberAPI member = api.addToFleet(FleetSide.PLAYER, "lasher_espc_Nola", FleetMemberType.SHIP, "EPS Moonrise", true);
+		FleetMemberAPI member = api.addToFleet(FleetSide.PLAYER, "lasher_espc_Nola", FleetMemberType.SHIP, 
+			playerPrefix + MezzUtils.getString("espc_names", "lasher_nola"),
+			true);
 		PersonAPI pilot = EspcOfficerFactory.MakePilot("Nola", "Ganymede", FullName.Gender.FEMALE, Personalities.AGGRESSIVE, 
-			"graphics/portraits/espc_nola.png", "epsilpac", 11);
+			"graphics/portraits/espc_nola.png", MezzUtils.factionIdPact, 11);
 		EspcOfficerFactory.PopulateSkills(pilot, new String[]{
 			Skills.HELMSMANSHIP, "espc_dancing_steps", 
 			Skills.BALLISTIC_MASTERY, Skills.TARGET_ANALYSIS, 
@@ -59,11 +68,13 @@ public class MissionDefinition implements MissionDefinitionPlugin {
         member.setCaptain(pilot);
 		api.getDefaultCommander(FleetSide.PLAYER).setStats(pilot.getStats());
 		
-		api.defeatOnShipLoss("EPS Moonrise");
+		api.defeatOnShipLoss(playerPrefix + MezzUtils.getString("espc_names", "lasher_nola"));
 		
-		member = api.addToFleet(FleetSide.PLAYER, "espc_chorale_Elite", FleetMemberType.SHIP, "EPS Taste for Blood", false);
+		member = api.addToFleet(FleetSide.PLAYER, "espc_chorale_Elite", FleetMemberType.SHIP, 
+			playerPrefix + MezzUtils.getString("espc_names", "chorale_isabelle"),
+			false);
 		pilot = EspcOfficerFactory.MakePilot("Isabelle", "de' Medici", FullName.Gender.FEMALE, Personalities.AGGRESSIVE, 
-			"graphics/portraits/espc_isabelle.png", "epsilpac", 6);
+			"graphics/portraits/espc_isabelle.png", MezzUtils.factionIdPact, 6);
 		EspcOfficerFactory.PopulateSkills(pilot, new String[]{
 			Skills.HELMSMANSHIP, Skills.TARGET_ANALYSIS, 
 			"espc_second_wind", "espc_running_hot", 
@@ -72,12 +83,16 @@ public class MissionDefinition implements MissionDefinitionPlugin {
 			1, 1, 2, 2});
         member.setCaptain(pilot);
 
-		api.addToFleet(FleetSide.PLAYER, "espc_observer_Strike", FleetMemberType.SHIP, "EPS Name of God", false);
-		api.addToFleet(FleetSide.PLAYER, "espc_pilgrim_Support", FleetMemberType.SHIP, "EPS Tocquiera", false);
+		api.addToFleet(FleetSide.PLAYER, "espc_observer_Strike", FleetMemberType.SHIP, 
+			playerPrefix + MezzUtils.getString("espc_names", "newmoon_observer"),
+			false);
+		api.addToFleet(FleetSide.PLAYER, "espc_pilgrim_Support", FleetMemberType.SHIP, playerPrefix + "Tocquiera", false);
 
-		member = api.addToFleet(FleetSide.PLAYER, "espc_flagbearer_Standard", FleetMemberType.SHIP, "EPS Then Comes Light", false);
+		member = api.addToFleet(FleetSide.PLAYER, "espc_flagbearer_Standard", FleetMemberType.SHIP, 
+			playerPrefix + MezzUtils.getString("espc_names", "flagbearer_gauss"),
+			false);
 		pilot = EspcOfficerFactory.MakePilot("Gauss", "", FullName.Gender.FEMALE, Personalities.AGGRESSIVE, 
-			"graphics/portraits/espc_gauss.png", "epsilpac", 4);
+			"graphics/portraits/espc_gauss.png", MezzUtils.factionIdPact, 4);
 		EspcOfficerFactory.PopulateSkills(pilot, new String[]{
 			Skills.TARGET_ANALYSIS, Skills.COMBAT_ENDURANCE,
 			Skills.SYSTEMS_EXPERTISE, Skills.ORDNANCE_EXPERTISE}, new int[]{
@@ -89,8 +104,12 @@ public class MissionDefinition implements MissionDefinitionPlugin {
 		api.addToFleet(FleetSide.PLAYER, "espc_militia_Standard", FleetMemberType.SHIP, false);
 
 		api.addToFleet(FleetSide.PLAYER, "espc_songbird_Standard", FleetMemberType.SHIP, false);
-		api.addToFleet(FleetSide.PLAYER, "espc_rondel_Anti_Shield", FleetMemberType.SHIP, "EPS Sucker Punch", false);
-		api.addToFleet(FleetSide.PLAYER, "espc_jackalope_Strike", FleetMemberType.SHIP, "EPS Cottontail", false);
+		api.addToFleet(FleetSide.PLAYER, "espc_rondel_Anti_Shield", FleetMemberType.SHIP, 
+			playerPrefix + MezzUtils.getString("espc_names", "newmoon_rondel"),
+			false);
+		api.addToFleet(FleetSide.PLAYER, "espc_jackalope_Strike", FleetMemberType.SHIP, 
+			playerPrefix + MezzUtils.getString("espc_names", "newmoon_jackalope"),
+			false);
 		
         // member.getRepairTracker().setCR(member.getRepairTracker().getMaxCR());
 

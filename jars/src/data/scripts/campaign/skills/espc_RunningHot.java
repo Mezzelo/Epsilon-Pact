@@ -13,6 +13,8 @@ import com.fs.starfarer.api.combat.listeners.AdvanceableListener;
 import com.fs.starfarer.api.impl.campaign.skills.BaseSkillEffectDescription;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 
+import data.scripts.util.MezzUtils;
+
 public class espc_RunningHot {
 	
 	public static float FIRE_RATE_BONUS = 40f;
@@ -78,13 +80,16 @@ public class espc_RunningHot {
 
 				if ((int)(fluxLevel * frBonus) > 0) {
 					Global.getCombatEngine().maintainStatusForPlayerShip(DISSIPATION_BONUS_STATUS_KEY,
-						Global.getSettings().getSpriteName("ui", "icon_energy"),
-						"Running hot", 
-						"+" + (int)(fluxLevel * dissipationBonus * (hasShield ? 1f : 0.5f)) + "% flux dissipation", false);
+						Global.getSettings().getSpriteName("ui", "icon_tactical_venting"),
+						MezzUtils.getString("espc_skills", "runninghot_name"), 
+						"+" + (int)(fluxLevel * dissipationBonus * (hasShield ? 1f : 0.5f)) + "% " +
+						MezzUtils.getString("espc_gencombat", "flux_dissipation"), false);
 					Global.getCombatEngine().maintainStatusForPlayerShip(DAM_BONUS_STATUS_KEY,
 						Global.getSettings().getSpriteName("ui", "icon_energy"),
-						"Running hot", 
-						"+" + (int)(fluxLevel * frBonus * (hasShield ? 1f : 0.5f)) + "% non-missile fire rate", false);
+						MezzUtils.getString("espc_skills", "runninghot_name"), 
+						"+" + (int)(fluxLevel * frBonus * (hasShield ? 1f : 0.5f)) + "% " +
+						MezzUtils.getString("espc_gencombat", "nonmissile") + " " + 
+						MezzUtils.getString("espc_gencombat", "fire_rate"), false);
 				}
 				
 			}
@@ -126,21 +131,21 @@ public class espc_RunningHot {
 		public void createCustomDescription(MutableCharacterStatsAPI stats, SkillSpecAPI skill, 
 			TooltipMakerAPI info, float width) {
 			init(stats, skill);
-			info.addPara("Up to +%s/%s/%s/%s ballistic and energy fire rate, based on hull size and current flux level",
+			info.addPara(MezzUtils.getString("espc_skills", "runninghot1-1"),
 					0f, hc, hc,
 					(int)Math.round(FIRE_RATE_BONUS) + "%", (int)Math.round(FIRE_RATE_BONUS_DESTROYER) + "%",
 					(int)Math.round(FIRE_RATE_BONUS_CRUISER) + "%", (int)Math.round(FIRE_RATE_BONUS_CAPITAL) + "%"
 				);
-			info.addPara("Up to +%s/%s/%s/%s flux dissipation, based on hull size and current flux level",
+			info.addPara(MezzUtils.getString("espc_skills", "runninghot1-2"),
 				0f, hc, hc,
 				(int)Math.round(DISSIPATION_BONUS) + "%", (int)Math.round(DISSIPATION_BONUS_FLUX_DESTROYER) + "%",
 				(int)Math.round(DISSIPATION_BONUS_FLUX_CRUISER) + "%", (int)Math.round(DISSIPATION_BONUS_FLUX_CAPITAL) + "%"
 			);
-			info.addPara(indent + "Bonuses begin at %s of flux capacity",
+			info.addPara(indent + MezzUtils.getString("espc_skills", "runninghot1-3"),
 					0f, tc, hc, (int)FLUX_MIN_THRESHOLD + "%"
 				);
-			info.addPara(indent + "All bonuses are %s for ships with safety overrides or without shields",
-				0f, tc, hc, "halved"
+			info.addPara(indent + MezzUtils.getString("espc_skills", "runninghot1-4"),
+				0f, tc, hc, MezzUtils.getString("espc_general", "halved")
 			);
 		}
 		public String getEffectPerLevelDescription() {
@@ -164,7 +169,7 @@ public class espc_RunningHot {
 		public void unapply(MutableShipStatsAPI stats, HullSize hullSize, String id) {}
 		
 		public String getEffectDescription(float level) {
-			return "+" + (int)Math.round(DISSIPATION_BONUS_OVERLOAD) + "% flux dissipation while overloaded";
+			return "+" + (int)Math.round(DISSIPATION_BONUS_OVERLOAD) + MezzUtils.getString("espc_skills", "runninghot2-1");
 		}
 		public String getEffectPerLevelDescription() {
 			return null;

@@ -13,7 +13,7 @@ import com.fs.starfarer.api.input.InputEventAPI;
 import java.awt.Color;
 import java.util.List;
 import java.util.Random;
-import com.fs.starfarer.api.util.Misc;
+// import com.fs.starfarer.api.util.Misc;
 
 import org.lwjgl.util.vector.Vector2f;
 import org.lazywizard.lazylib.MathUtils;
@@ -40,12 +40,13 @@ public class espc_SemiRiftTrail extends BaseEveryFrameCombatPlugin {
 	private static final Color COLOR_OUTER = new Color(85, 45, 255);
 	private static final float TRAIL_RADIUS = 5f;
 	
+	/*
 	private float angSin;
 	private float angCos;
 	private float angSinY;
 	private float angCosY;
 	
-	private float rand;
+	private float rand; */
 	
     public espc_SemiRiftTrail(DamagingProjectileAPI proj) {
         this.proj = proj;
@@ -55,11 +56,12 @@ public class espc_SemiRiftTrail extends BaseEveryFrameCombatPlugin {
 		this.startAng = proj.getFacing();
 		this.startVel = new Vector2f();
 		Vector2f.add(proj.getVelocity(), new Vector2f(), this.startVel);
+		/*
 		this.angSin = (float) FastTrig.sin(Math.toRadians(startAng - 90f));
 		this.angCos = (float) FastTrig.cos(Math.toRadians(startAng - 90f));
 		this.angSinY = (float) FastTrig.sin(Math.toRadians(startAng));
 		this.angCosY = (float) FastTrig.cos(Math.toRadians(startAng));
-		this.rand = Misc.random.nextFloat();
+		this.rand = Misc.random.nextFloat(); */
     }
 
 	

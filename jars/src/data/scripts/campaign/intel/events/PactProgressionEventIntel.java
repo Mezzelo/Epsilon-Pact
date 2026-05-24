@@ -77,6 +77,8 @@ import com.fs.starfarer.api.ui.TooltipMakerAPI.TooltipLocation;
 import com.fs.starfarer.api.util.Misc;
 import com.fs.starfarer.api.util.WeightedRandomPicker;
 
+import data.scripts.util.MezzUtils;
+
 public class PactProgressionEventIntel extends BaseEventIntel implements EconomyUpdateListener, FleetEventListener {
 
 	public static enum Stage {
@@ -224,13 +226,13 @@ public class PactProgressionEventIntel extends BaseEventIntel implements Economy
 				info.addPara("The Epsilon Pact is still a recently formed polity - beleaguered from most sides, yet unexpectedly resilient. "
 					+ "Though currently employing a set of ships largely comparable to independent forces, their proclivity for "
 					+ "technological development is no secret: Provided sufficient werewithal, we expect their arsenal of hulls "
-					+ "and weapons to gradually begin incorporating deadlier, more exotic original designs.",
+					+ "and weapons to gradually incorporate deadlier, more exotic original designs.",
 					opad);
 				else if (stageId == Stage.AUTOMATED || stageId == Stage.PHASEOUT || stageId == Stage.CAPITALS)
 				info.addPara("The Epsilon Pact is still a younger polity - beleaguered from most sides, yet unexpectedly resilient. "
 					+ "Initially employing a set of ships largely comparable to independent forces, their proclivity for "
-					+ "technological development is no secret: Provided sufficient werewithal, we expect their arsenal of hulls "
-					+ "and weapons to continue incorporating more exotic and deadly original designs.",
+					+ "technological development has proven dogged: Provided sufficient werewithal, we expect their arsenal of hulls "
+					+ "and weapons to gradually incorporate increasingly deadlier, exotic original designs.",
 					opad);
 				else {
 					info.addPara("Once a fresh arrival to the sector, the Pact has since managed to mature their doctrine to meet their "
@@ -262,7 +264,7 @@ public class PactProgressionEventIntel extends BaseEventIntel implements Economy
 			info.addPara("The Pact is already known for their stance of 'AI personhood', "
 				+ "and is rumored to move unfettered in the sector's furthest reaches. "
 				+ "With sufficient economic and political werewithal, %s "
-				+ "- beginning with rudimentary designs, but progressing quickly afterwards.", initPad,
+				+ "- first with lighter modifications and rudimentary designs, but progressing quickly afterwards.", initPad,
 				Misc.getHighlightColor(),
 				"we expect them to begin openly fielding automated designs");
 		else if (stageId == Stage.PHASEOUT)
@@ -351,7 +353,7 @@ public class PactProgressionEventIntel extends BaseEventIntel implements Economy
 	
 	@Override
 	public Color getBarColor() {
-		Color color = Global.getSector().getFaction("epsilpac").getBaseUIColor();
+		Color color = Global.getSector().getFaction(MezzUtils.factionIdPact).getBaseUIColor();
 		color = Misc.interpolateColor(color, Color.black, 0.25f);
 		return color;
 	}
@@ -376,7 +378,7 @@ public class PactProgressionEventIntel extends BaseEventIntel implements Economy
 	@Override
 	public Set<String> getIntelTags(SectorMapAPI map) {
 		Set<String> tags = super.getIntelTags(map);
-		tags.add("epsilpac");
+		tags.add(MezzUtils.factionIdPact);
 
 		return tags;
 	}

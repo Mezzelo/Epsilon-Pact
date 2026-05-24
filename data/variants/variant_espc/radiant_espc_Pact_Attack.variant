@@ -3,7 +3,7 @@
   "hullId": "radiant_espc",
   "displayName": "Attack",
   "goalVariant": false,
-    "fluxCapacitors": 39,
+    "fluxCapacitors": 47,
     "fluxVents": 50,
   "quality": 1,
   "permaMods": [],
@@ -39,10 +39,10 @@
         },
         {
             "autofire": false,
-            "mode": "ALTERNATING",
+            "mode": "LINKED",
             "weapons": {
-                "WS 005": "espc_finnegan",
-                "WS 008": "espc_finnegan"
+                "WS 005": "espc_ionflail",
+                "WS 008": "espc_ionflail"
             }
         },
         {
@@ -50,8 +50,6 @@
             "mode": "LINKED",
             "weapons": {
                 "WS 010": "pdlaser",
-                "WS 012": "ioncannon",
-                "WS 015": "ioncannon",
                 "WS 017": "pdlaser"
             }
         }

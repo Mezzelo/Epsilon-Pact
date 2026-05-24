@@ -2,6 +2,7 @@ package data.missions.espc_echo;
 
 import java.util.List;
 
+import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.combat.BaseEveryFrameCombatPlugin;
 import com.fs.starfarer.api.combat.CombatEngineAPI;
 import com.fs.starfarer.api.fleet.FleetGoal;
@@ -10,6 +11,9 @@ import com.fs.starfarer.api.mission.FleetSide;
 import com.fs.starfarer.api.mission.MissionDefinitionAPI;
 import com.fs.starfarer.api.mission.MissionDefinitionPlugin;
 
+import data.scripts.util.MezzUtils;
+
+import com.fs.starfarer.api.impl.campaign.ids.Factions;
 import com.fs.starfarer.api.impl.campaign.ids.StarTypes;
 
 import org.lwjgl.input.Keyboard;
@@ -18,10 +22,14 @@ public class MissionDefinition implements MissionDefinitionPlugin {
 
 	public void defineMission(MissionDefinitionAPI api) {
 
+		String playerPrefix = Global.getSector().getFaction(Factions.INDEPENDENT).getShipNamePrefix();
+		String pactPrefix = Global.getSector().getFaction(MezzUtils.factionIdPact).getShipNamePrefix();
 		
 		// Set up the fleets
-		api.initFleet(FleetSide.PLAYER, "ISS", FleetGoal.ATTACK, false, 0);
-		api.initFleet(FleetSide.ENEMY, "EPS", FleetGoal.ATTACK, true, 3);
+		api.initFleet(FleetSide.PLAYER, playerPrefix, FleetGoal.ATTACK, false, 0);
+		api.initFleet(FleetSide.ENEMY, pactPrefix, FleetGoal.ATTACK, true, 3);
+		playerPrefix += " ";
+		pactPrefix += " " ;
 
 		if (Keyboard.isKeyDown(Keyboard.KEY_LCONTROL) && Keyboard.isKeyDown(Keyboard.KEY_Q)) {
 			api.setFleetTagline(FleetSide.PLAYER, "Most of what's in this mod LMAO");
@@ -30,35 +38,40 @@ public class MissionDefinition implements MissionDefinitionPlugin {
 			api.addBriefingItem("Hello, intrepid source-code diver (or accidental key-presser), welcome to my ship tester.");
 			api.addBriefingItem("Spoilers abound, but you knew that.");
 		} else {
-			api.setFleetTagline(FleetSide.PLAYER, "The remains of your modest trade fleet");
-			api.setFleetTagline(FleetSide.ENEMY, "Whatever THOSE are");
-			
-			api.addBriefingItem("Defeat all enemy forces");
-			api.addBriefingItem("Utilize your range and missile firepower to deter their powerful offense.");
-			api.addBriefingItem("Stay close to your allies for support. You'll be quickly overwhelmed otherwise.");
+			api.setFleetTagline(FleetSide.PLAYER, MezzUtils.getString("espc_missionstrings", "echo_playerTagline"));
+			api.setFleetTagline(FleetSide.ENEMY, MezzUtils.getString("espc_missionstrings", "echo_enemyTagline"));
+
+			api.addBriefingItem(MezzUtils.getString("espc_missionstrings", "echo_brief1"));
+			api.addBriefingItem(MezzUtils.getString("espc_missionstrings", "echo_brief2"));
+			api.addBriefingItem(MezzUtils.getString("espc_missionstrings", "echo_brief3"));
 		}
 
-		api.addToFleet(FleetSide.PLAYER, "manticore_Support", FleetMemberType.SHIP, "ISS Blessed Be", true);
-		api.addToFleet(FleetSide.PLAYER, "espc_militia_Standard", FleetMemberType.SHIP, "EPS Homeward Bound", false);
-		// api.addToFleet(FleetSide.PLAYER, "condor_Support", FleetMemberType.SHIP, false);
+		api.addToFleet(FleetSide.PLAYER, "manticore_Support", FleetMemberType.SHIP, 
+			playerPrefix + MezzUtils.getString("espc_missionstrings", "echo_flagship"), true);
+		api.addToFleet(FleetSide.PLAYER, "espc_militia_Standard", FleetMemberType.SHIP, 
+			pactPrefix + MezzUtils.getString("espc_missionstrings", "echo_militia"), false);
 		
-		// api.addToFleet(FleetSide.PLAYER, "mule_Standard", FleetMemberType.SHIP, false);
 		api.addToFleet(FleetSide.PLAYER, "vanguard_Attack", FleetMemberType.SHIP, false);
-		api.addToFleet(FleetSide.PLAYER, "espc_jackalope_Standard", FleetMemberType.SHIP, "EPS Wayward Gaze", false);
-		// api.addToFleet(FleetSide.PLAYER, "espc_songbird_Standard", FleetMemberType.SHIP, "EPS Road Less Traveled", false);
-		api.addToFleet(FleetSide.PLAYER, "kite_pirates_Raider", FleetMemberType.SHIP, "Half-A-Prayer", false);
+		api.addToFleet(FleetSide.PLAYER, "espc_jackalope_Standard", FleetMemberType.SHIP, 
+			pactPrefix + MezzUtils.getString("espc_names", "newmoon_jackalope"), false);
+		api.addToFleet(FleetSide.PLAYER, "kite_pirates_Raider", FleetMemberType.SHIP, 
+			MezzUtils.getString("espc_missionstrings", "echo_kite"), false);
 		api.addToFleet(FleetSide.PLAYER, "buffalo_Standard", FleetMemberType.SHIP, false);
 		
-		// api.addToFleet(FleetSide.ENEMY, "espc_rampart_Support", FleetMemberType.SHIP, "EPS Anywhere Else", false);
-		api.addToFleet(FleetSide.ENEMY, "espc_berserker_Assault", FleetMemberType.SHIP, "EPS Anywhere Else", false);
-		api.addToFleet(FleetSide.ENEMY, "espc_bastillon_Assault", FleetMemberType.SHIP, "EPS I'm Fading", false);
-		api.addToFleet(FleetSide.ENEMY, "espc_picket_Strike", FleetMemberType.SHIP, "EPS Ruthless", false);
-		api.addToFleet(FleetSide.ENEMY, "espc_sentry_Support", FleetMemberType.SHIP, "EPS Ruin of House Isner", false);
-		api.addToFleet(FleetSide.ENEMY, "espc_sentry_Escort", FleetMemberType.SHIP, "EPS Snikaree", false);
+		api.addToFleet(FleetSide.ENEMY, "espc_berserker_Assault", FleetMemberType.SHIP, 
+			pactPrefix + MezzUtils.getString("espc_missionstrings", "echo_berserker"), false);
+		api.addToFleet(FleetSide.ENEMY, "espc_bastillon_Assault", FleetMemberType.SHIP, 
+			pactPrefix + MezzUtils.getString("espc_missionstrings", "echo_bastillon"), false);
+		api.addToFleet(FleetSide.ENEMY, "espc_picket_Strike", FleetMemberType.SHIP, 
+			pactPrefix + MezzUtils.getString("espc_missionstrings", "echo_picket"), false);
+		api.addToFleet(FleetSide.ENEMY, "espc_sentry_Support", FleetMemberType.SHIP, 
+			pactPrefix + MezzUtils.getString("espc_missionstrings", "echo_sentry1"), false);
+		api.addToFleet(FleetSide.ENEMY, "espc_sentry_Escort", FleetMemberType.SHIP, 
+			pactPrefix + MezzUtils.getString("espc_missionstrings", "echo_sentry2"), false);
 		
 		if (Keyboard.isKeyDown(Keyboard.KEY_LCONTROL) && Keyboard.isKeyDown(Keyboard.KEY_Q)) {
 			api.addToFleet(FleetSide.PLAYER, "espc_riftpeak_Rogue", FleetMemberType.SHIP, "EPS Razorleaf", false);
-			api.addToFleet(FleetSide.PLAYER, "espc_halfslaught_Salvaged", FleetMemberType.SHIP,  "HSS Macedon", false);
+			api.addToFleet(FleetSide.PLAYER, "espc_halfslaught_Salvaged", FleetMemberType.SHIP, "HSS Macedon", false);
 			
 			api.addToFleet(FleetSide.PLAYER, "anubis_Standard", FleetMemberType.SHIP, "EPS Homeward Bound", false);
 			// api.addToFleet(FleetSide.PLAYER, "espc_gallant_Standard", FleetMemberType.SHIP, false);
@@ -93,7 +106,6 @@ public class MissionDefinition implements MissionDefinitionPlugin {
 			api.addToFleet(FleetSide.PLAYER, "espc_warden_Strike", FleetMemberType.SHIP, "EPS Then Comes Light", false);
 			api.addToFleet(FleetSide.PLAYER, "espc_defender_Standard", FleetMemberType.SHIP, "EPS Then Comes Light", false);
 			api.addToFleet(FleetSide.PLAYER, "espc_sentry_Support", FleetMemberType.SHIP, "EPS Then Comes Light", false);
-			api.addToFleet(FleetSide.PLAYER, "espc_bastillon_Attack", FleetMemberType.SHIP, "EPS Then Comes Light", false);
 			api.addToFleet(FleetSide.PLAYER, "espc_berserker_Assault", FleetMemberType.SHIP, "EPS Then Comes Light", false);
 			api.addToFleet(FleetSide.PLAYER, "espc_rampart_Strike", FleetMemberType.SHIP, "EPS Then Comes Light", false);
 			

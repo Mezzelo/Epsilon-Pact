@@ -12,6 +12,8 @@ import com.fs.starfarer.api.impl.campaign.ids.Personalities;
 import com.fs.starfarer.api.impl.combat.BaseShipSystemScript;
 //vimport com.fs.starfarer.api.util.Misc;
 
+import data.scripts.util.MezzUtils;
+
 public class espc_OverpressureStats extends BaseShipSystemScript {
 
 	public static final float ROF_BONUS = -0.33f;
@@ -118,18 +120,19 @@ public class espc_OverpressureStats extends BaseShipSystemScript {
 	}
 	
 	public StatusData getStatusData(int index, State state, float effectLevel) {
-		if (index == 3) {
-			return new StatusData("ballistic damage +" + ((int) (effectLevel * DAMAGE_BONUS * 100)) + "%", false);
-		}
-		if (index == 2) {
-			return new StatusData("ballistic projectile speed +" + ((int) (effectLevel * VELOCITY_BONUS * 100)) + "%", false);
-		}
-		if (index == 1) {
-			return new StatusData("ballistic rate of fire -" + ((int) (effectLevel * ROF_BONUS * -100)) + "%", false);
-		}
-		if (index == 0) {
-			return new StatusData("ballistic range +" + ((int) (effectLevel * RANGE_BONUS * 100)) + "%", false);
-		}
+		if (index == 3)
+			return new StatusData(String.format(MezzUtils.getString("espc_shipsystem", "ballistic_damage"),
+				((int) (effectLevel * DAMAGE_BONUS * 100)) + "%"), false);
+		else if (index == 2)
+			return new StatusData(String.format(MezzUtils.getString("espc_shipsystem", "ballistic_speed"),
+				((int) (effectLevel * VELOCITY_BONUS * 100)) + "%"), false);
+		else if (index == 1)
+			return new StatusData(String.format(MezzUtils.getString("espc_shipsystem", "ballistic_range"),
+				((int) (effectLevel * RANGE_BONUS * 100)) + "%"), false);
+		else if (index == 0)
+			return new StatusData(String.format(MezzUtils.getString("espc_shipsystem", "ballistic_rof_malus"),
+				((int) (effectLevel * ROF_BONUS * -100)) + "%"), true);
+		
 		return null;
 	}
 }

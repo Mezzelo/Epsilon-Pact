@@ -30,6 +30,8 @@ import com.fs.starfarer.api.combat.listeners.DamageTakenModifier;
 import com.fs.starfarer.api.impl.campaign.skills.BaseSkillEffectDescription;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 
+import data.scripts.util.MezzUtils;
+
 public class espc_DancingSteps {
 
 	public static float SPEED_BONUS = 50f;
@@ -114,8 +116,9 @@ public class espc_DancingSteps {
 					if (Global.getCombatEngine() != null && Global.getCombatEngine().getPlayerShip() == ship) {
 						Global.getCombatEngine().maintainStatusForPlayerShip(SHIELD_DROP_STATUS_KEY,
 							Global.getSettings().getSpriteName("ui", "icon_tactical_engine_boost"),
-							"Dancing steps", 
-							"+" + (int)(SPEED_BONUS_NO_SHIELD * shieldTimer/SHIELD_DECAY_TIME) + " top speed", false);
+							MezzUtils.getString("espc_skills", "dancingsteps_name"), 
+							"+" + (int)(SPEED_BONUS_NO_SHIELD * shieldTimer/SHIELD_DECAY_TIME) + " " +
+							MezzUtils.getString("espc_gencombat", "top_speed"), false);
 					}
 				} else {
 					ship.getMutableStats().getMaxSpeed().unmodify(id + "noShield");
@@ -252,14 +255,14 @@ public class espc_DancingSteps {
 			TooltipMakerAPI info, float width) {
 		
 			init(stats, skill);
-			info.addPara("Up to +%s top speed and maneuverability, based on nearby incoming fire",
+			info.addPara(MezzUtils.getString("espc_skills", "dancingsteps1-1"),
 				0f, hc, hc, (int)SPEED_BONUS + "%", (int)MANEUVERABILITY_BONUS + "%"
 			);
-			info.addPara(indent + "Speed boost is %s su/second or %s of top speed, whichever is lower",
+			info.addPara(indent + MezzUtils.getString("espc_skills", "dancingsteps1-2"),
 				0f, tc, hc, (int) SPEED_BONUS_NO_SHIELD + "", (int) (SPEED_BONUS_TOP_SPEED_PORTION * 100f) + "%"
 			);
-			info.addPara(indent + "Max effect when there is half of current hull's worth of enemy fire within %s. No effect while phased.",
-				0f, tc, hc, (int)HOSTILE_RANGE + " su"
+			info.addPara(indent + MezzUtils.getString("espc_skills", "dancingsteps1-3"),
+				0f, tc, hc, (int)HOSTILE_RANGE + " " + MezzUtils.getString("espc_gencombat", "su")
 			);
 			/*
 			info.addPara("+%s armor damage taken",
@@ -290,17 +293,18 @@ public class espc_DancingSteps {
 		public void createCustomDescription(MutableCharacterStatsAPI stats, SkillSpecAPI skill, 
 			TooltipMakerAPI info, float width) {
 			init(stats, skill);
-			info.addPara("Up to -%s damage taken by shields, based on current speed and impact angle against shield",
+			info.addPara(MezzUtils.getString("espc_skills", "dancingsteps2-1"),
 				0f, hc, hc,
 				(int) DAMAGE_REDUCTION_SHIELD_MAX + "%"
 			);
-			info.addPara(indent + "Max damage reduction when moving perpendicular to an attack at %s, and it lands parallel to shield",
-				0f, tc, hc, (int) DAMAGE_REDUCTION_SPEED_MAX + " su/second"
+			info.addPara(indent + MezzUtils.getString("espc_skills", "dancingsteps2-2"),
+				0f, tc, hc, (int) DAMAGE_REDUCTION_SPEED_MAX + " " + MezzUtils.getString("espc_gencombat", "su/second")
 			);
-			info.addPara("Up to %s su/second to top speed after dropping shields, decaying over %s",
-				0f, hc, hc, "+" + (int)SPEED_BONUS_NO_SHIELD, (int)SHIELD_DECAY_TIME + " seconds"
+			info.addPara(MezzUtils.getString("espc_skills", "dancingsteps2-3"),
+				0f, hc, hc, "+" + (int)SPEED_BONUS_NO_SHIELD, (int)SHIELD_DECAY_TIME + 
+				" " + MezzUtils.getString("espc_gencombat", "seconds")
 			);
-			info.addPara(indent + "Speed boost is %s su/second or %s of top speed, whichever is lower",
+			info.addPara(indent + MezzUtils.getString("espc_skills", "dancingsteps2-4"),
 				0f, tc, hc, (int) SPEED_BONUS_NO_SHIELD + "", (int) (SPEED_BONUS_TOP_SPEED_PORTION * 100f) + "%"
 			);
 		}
@@ -328,13 +332,13 @@ public class espc_DancingSteps {
 		public void createCustomDescription(MutableCharacterStatsAPI stats, SkillSpecAPI skill, 
 			TooltipMakerAPI info, float width) {
 			init(stats, skill);
-			info.addPara("Up to -%s armor and hull damage taken from fighters",
+			info.addPara(MezzUtils.getString("espc_skills", "dancingsteps3-1"),
 					0f, stats.getSkillLevel(skill.getId()) > 1 ? hc : dhc, stats.getSkillLevel(skill.getId()) > 1? hc : dhc,
 					(int) FIGHTER_DAMAGE_REDUCTION + "%"
 				);
-			info.addPara(indent + "Max effect when moving at %s. Does not apply to missiles",
+			info.addPara(indent + MezzUtils.getString("espc_skills", "dancingsteps3-2"),
 				0f, stats.getSkillLevel(skill.getId()) > 1 ? tc : dtc, stats.getSkillLevel(skill.getId()) > 1? hc : dhc,
-					(int) DAMAGE_REDUCTION_SPEED_MAX + " su/second"
+					(int) DAMAGE_REDUCTION_SPEED_MAX + " " + MezzUtils.getString("espc_gencombat", "su/second")
 			);
 		}
 		

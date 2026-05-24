@@ -49,7 +49,7 @@ public class espc_DoctrineProgression {
 				"anubis", "wolf_espc"}, 
 			new String[] {"hveldriver", "heavymauler", "heavyblaster", "hil", "locust"}, 
 			new String[] {"espc_riftspear", "espc_riftpike", "espc_fission", "espc_mkl", "espc_flak",
-				"espc_arcscatter", "espc_ionresonator", "espc_heavyionresonator",
+				"espc_arcscatter", "espc_ionflail",
 				"espc_aa", "espc_remdriver", "espc_remmortar", "espc_minimir", "espc_minimirdual", "espc_gatling", "espc_autocannon"}, 
 			new HashMap<String, Float>() { {
 				put("lasher_espc_Strike", 0.0f);
@@ -124,7 +124,7 @@ public class espc_DoctrineProgression {
 			new String[] {"songbird", "anubis",
 			"espc_picket", "espc_warden"}, 
 			new String[] {"dram"}, 
-			new String[] {"espc_remdriver", "espc_remmortar", "espc_flak", "espc_ionresonator"},
+			new String[] {"espc_remdriver", "espc_remmortar", "espc_flak"},
 			new String[] {"hveldriver", "heavymauler"}, 
 			new HashMap<String, Float>() { {
 				put("espc_picket_Anti_Armor", 4.0f);
@@ -221,7 +221,7 @@ public class espc_DoctrineProgression {
 		knowledge.put(30, new DoctrineShift(
 			new String[] {"espc_rampart", "fulgent_espc", "scintilla_espc"}, 
 			new String[] {"shrike", "eradicator", "champion", "apogee"}, 
-			new String[] {"espc_arcscatter", "espc_heavyionresonator"},
+			new String[] {"espc_arcscatter", "espc_ionflail"},
 			new String[] {"locust"}, 
 			new HashMap<String, Float>() { {
 
@@ -298,7 +298,7 @@ public class espc_DoctrineProgression {
 	}
 	
 	protected static void scratchpad() {
-		Global.getSector().getFaction("epsilpac").getVariantOverrides().put("wolf_espc_Assault", 2f);
+		Global.getSector().getFaction(MezzUtils.factionIdPact).getVariantOverrides().put("wolf_espc_Assault", 2f);
 	}
 	
 }

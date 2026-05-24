@@ -16,6 +16,7 @@ import com.fs.starfarer.api.mission.MissionDefinitionPlugin;
 import com.fs.starfarer.api.fleet.FleetMemberAPI;
 import com.fs.starfarer.api.impl.campaign.ids.Personalities;
 import com.fs.starfarer.api.impl.campaign.ids.Skills;
+import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.characters.FullName;
 import com.fs.starfarer.api.characters.PersonAPI;
 import org.lwjgl.util.vector.Vector2f;
@@ -24,6 +25,7 @@ import java.util.LinkedList;
 import java.util.Iterator;
 
 import data.scripts.util.EspcOfficerFactory;
+import data.scripts.util.MezzUtils;
 
 // import org.lwjgl.input.Keyboard;
 
@@ -31,24 +33,25 @@ public class MissionDefinition implements MissionDefinitionPlugin {
 
 	public void defineMission(MissionDefinitionAPI api) {
 
-		
+
+		String pactPrefix = Global.getSector().getFaction(MezzUtils.factionIdPact).getShipNamePrefix();
 		// Set up the fleets
-		api.initFleet(FleetSide.PLAYER, "EPS", FleetGoal.ATTACK, false, -4);
+		api.initFleet(FleetSide.PLAYER, pactPrefix, FleetGoal.ATTACK, false, -4);
 		api.initFleet(FleetSide.ENEMY, "", FleetGoal.ATTACK, true, 3);
+		pactPrefix += " ";
 
 		// Set a blurb for each fleet
-		api.setFleetTagline(FleetSide.PLAYER, "Your stolen ship, some unknown rescuers, and a dream");
-		api.setFleetTagline(FleetSide.ENEMY, "The station warlord and his subordinates");
+		api.setFleetTagline(FleetSide.PLAYER, MezzUtils.getString("espc_missionstrings", "gauss_playerTagline"));
+		api.setFleetTagline(FleetSide.ENEMY, MezzUtils.getString("espc_missionstrings", "gauss_enemyTagline"));
 		
-		// These show up as items in the bulleted list under 
-		// "Tactical Objectives" on the mission detail screen
-		api.addBriefingItem("You are not a captain, let alone much of a pilot. Command points will be extremely limited.");
-		api.addBriefingItem("Your allies are heavily outnumbered. Be ready to interdict, but watch your hull.");
-		api.addBriefingItem("Leverage your unique ship system to prevail against an overwhelming enemy force.");
-		api.addBriefingItem("Don't lose your ship. You're borrowing it, after all.");
+		api.addBriefingItem(MezzUtils.getString("espc_missionstrings", "gauss_brief1"));
+		api.addBriefingItem(MezzUtils.getString("espc_missionstrings", "gauss_brief2"));
+		api.addBriefingItem(MezzUtils.getString("espc_missionstrings", "gauss_brief3"));
+		api.addBriefingItem(MezzUtils.getString("espc_missionstrings", "gauss_brief4"));
 		
 		// Set up the player's fleet
-		FleetMemberAPI member = api.addToFleet(FleetSide.PLAYER, "wolf_espc_Gauss_Original", FleetMemberType.SHIP, "That's my ship, you runt!", true);
+		FleetMemberAPI member = api.addToFleet(FleetSide.PLAYER, "wolf_espc_Gauss_Original", FleetMemberType.SHIP, 
+			MezzUtils.getString("espc_names", "wolf_p_gauss"), true);
 		PersonAPI pilot = EspcOfficerFactory.MakePilot("Gauss", "", FullName.Gender.FEMALE, Personalities.RECKLESS, 
 			"graphics/portraits/espc_gauss.png", "pirates", 1);
 		
@@ -58,13 +61,14 @@ public class MissionDefinition implements MissionDefinitionPlugin {
         member.setCaptain(pilot);
 		
 		// Mark player flagship as essential
-		api.defeatOnShipLoss("That's my ship, you runt!");
+		api.defeatOnShipLoss(MezzUtils.getString("espc_names", "wolf_p_gauss"));
 		
 		
 		// chorale
-		member = api.addToFleet(FleetSide.PLAYER, "espc_chorale_Common", FleetMemberType.SHIP, "EPS Taste for Blood", false);
+		member = api.addToFleet(FleetSide.PLAYER, "espc_chorale_Common", FleetMemberType.SHIP, 
+			pactPrefix + MezzUtils.getString("espc_names", "chorale_isabelle"), false);
 		pilot = EspcOfficerFactory.MakePilot("Isabelle", "de' Medici", FullName.Gender.FEMALE, Personalities.AGGRESSIVE, 
-			"graphics/portraits/espc_isabelle.png", "epsilpac", 4);
+			"graphics/portraits/espc_isabelle.png", MezzUtils.factionIdPact, 4);
 		EspcOfficerFactory.PopulateSkills(pilot, new String[]{
 			Skills.HELMSMANSHIP, Skills.TARGET_ANALYSIS, 
 			Skills.ENERGY_WEAPON_MASTERY, Skills.ORDNANCE_EXPERTISE}, new int[]{
@@ -76,18 +80,19 @@ public class MissionDefinition implements MissionDefinitionPlugin {
 		// api.addToFleet(FleetSide.PLAYER, "medusa_Attack", FleetMemberType.SHIP, false);
 		// api.addToFleet(FleetSide.PLAYER, "espc_militia_Standard", FleetMemberType.SHIP, false);
 		
-		api.addToFleet(FleetSide.PLAYER, "cerberus_Shielded", FleetMemberType.SHIP, "EPS Indefatigable", false);
+		api.addToFleet(FleetSide.PLAYER, "cerberus_Shielded", FleetMemberType.SHIP, 
+			pactPrefix + MezzUtils.getString("espc_missionstrings", "gauss_cerberus"), false);
 		api.addToFleet(FleetSide.PLAYER, "wolf_Assault", FleetMemberType.SHIP, "EPS Cinder", false);
 		
-		// rondel
-		api.addToFleet(FleetSide.PLAYER, "espc_rondel_Standard", FleetMemberType.SHIP, "EPS Sucker Punch", false);
+		api.addToFleet(FleetSide.PLAYER, "espc_rondel_Standard", FleetMemberType.SHIP, 
+			pactPrefix + MezzUtils.getString("espc_names", "newmoon_rondel"), false);
+		api.addToFleet(FleetSide.PLAYER, "espc_jackalope_Standard", FleetMemberType.SHIP, 
+			pactPrefix + MezzUtils.getString("espc_names", "newmoon_jackalope"), false);
 		
-		// jackalope
-		api.addToFleet(FleetSide.PLAYER, "espc_jackalope_Standard", FleetMemberType.SHIP, "EPS Cottontail", false);
-		
-		member = api.addToFleet(FleetSide.PLAYER, "lasher_espc_Strike_Dated", FleetMemberType.SHIP, "EPS Retour Près De Toi", false);
+		member = api.addToFleet(FleetSide.PLAYER, "lasher_espc_Strike_Dated", FleetMemberType.SHIP, 
+			pactPrefix + MezzUtils.getString("espc_names", "gauss_lasher"), false);
 		pilot = EspcOfficerFactory.MakePilot("Nola", "Ganymede", FullName.Gender.FEMALE, Personalities.AGGRESSIVE, 
-			"graphics/portraits/espc_nola.png", "epsilpac", 11);
+			"graphics/portraits/espc_nola.png", MezzUtils.factionIdPact, 11);
 		
 		EspcOfficerFactory.PopulateSkills(pilot, new String[]{
 			Skills.HELMSMANSHIP, "espc_dancing_steps", 
@@ -106,8 +111,10 @@ public class MissionDefinition implements MissionDefinitionPlugin {
 		api.addToFleet(FleetSide.PLAYER, "tarsus_espc_conv_G", FleetMemberType.SHIP, false);
 		
 		
-		member = api.addToFleet(FleetSide.ENEMY, "dominator_Outdated", FleetMemberType.SHIP, "His Eminence", false);
-		pilot = EspcOfficerFactory.MakePilot("Marco", "Reyes", FullName.Gender.MALE, "aggressive", 
+		member = api.addToFleet(FleetSide.ENEMY, "dominator_Outdated", FleetMemberType.SHIP, 
+			MezzUtils.getString("espc_missionstrings", "gauss_dominator"), 
+			false);
+		pilot = EspcOfficerFactory.MakePilot("Marco", "Reyes", FullName.Gender.MALE, Personalities.AGGRESSIVE, 
 			"graphics/portraits/portrait_pirate03.png", "pirates", 5);
 		
 		EspcOfficerFactory.PopulateSkills(pilot, new String[]{

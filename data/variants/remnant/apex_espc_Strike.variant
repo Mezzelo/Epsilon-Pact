@@ -7,27 +7,30 @@
     "fluxVents": 30,
   "quality": 0,
   "permaMods": [],
-    "hullMods": ["targetingunit"],
+    "hullMods": [
+		"targetingunit",
+		"defensive_targeting_array"
+	],
     "weaponGroups": [
+        {
+            "autofire": false,
+            "mode": "LINKED",
+            "weapons": {
+                "WS 005": "espc_fission",
+                "WS 006": "espc_fission"
+            }
+        },
+        {
+            "autofire": true,
+            "mode": "ALTERNATING",
+            "weapons": {
+                "WS 004": "ionpulser",
+                "WS 007": "ionpulser"
+            }
+        },
         {
             "autofire": true,
             "mode": "LINKED",
-            "weapons": {
-                "WS 005": "pulselaser",
-                "WS 006": "pulselaser"
-            }
-        },
-        {
-            "autofire": false,
-            "mode": "ALTERNATING",
-            "weapons": {
-                "WS 004": "espc_finnegan",
-                "WS 007": "espc_finnegan"
-            }
-        },
-        {
-            "autofire": true,
-            "mode": "ALTERNATING",
             "weapons": {
                 "WS 000": "espc_riftspear",
                 "WS 003": "espc_riftspear"
@@ -39,10 +42,10 @@
             "weapons": {
                 "WS 008": "pdlaser",
                 "WS 009": "pdlaser",
-                "WS 010": "ioncannon",
-                "WS 011": "ioncannon",
-                "WS 012": "ioncannon",
-                "WS 013": "ioncannon"
+                "WS 010": "pdlaser",
+                "WS 011": "pdlaser",
+                "WS 012": "pdlaser",
+                "WS 013": "pdlaser"
             }
         }
     ],

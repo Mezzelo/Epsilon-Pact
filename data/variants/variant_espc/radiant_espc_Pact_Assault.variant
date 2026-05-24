@@ -3,15 +3,16 @@
   "hullId": "radiant_espc",
   "displayName": "Assault",
   "goalVariant": false,
-    "fluxCapacitors": 30,
-    "fluxVents": 45,
+    "fluxCapacitors": 25,
+    "fluxVents": 50,
   "quality": 1,
   "permaMods": [],
   "hullMods": [
 		"auxiliarythrusters",
         "targetingunit",
         "stabilizedshieldemitter",
-        "hardenedshieldemitter"
+        "hardenedshieldemitter",
+		"frontemitter"
   ],
     "weaponGroups": [
         {
@@ -50,8 +51,6 @@
             "mode": "LINKED",
             "weapons": {
                 "WS 010": "pdburst",
-                "WS 012": "ioncannon",
-                "WS 015": "ioncannon",
                 "WS 017": "pdburst"
             }
         }

@@ -13,6 +13,8 @@ import com.fs.starfarer.api.combat.WeaponAPI.WeaponSize;
 import com.fs.starfarer.api.combat.WeaponAPI.WeaponType;
 import com.fs.starfarer.api.impl.campaign.ids.Stats;
 
+import data.scripts.util.MezzUtils;
+
 public class espc_BastillonModBehaviour extends BaseHullMod {
 	
     // private static final float RANGE_BONUS_MAX = 700f;
@@ -34,8 +36,10 @@ public class espc_BastillonModBehaviour extends BaseHullMod {
 			WeaponAPI weapon = (WeaponAPI)iter.next();
 			boolean sizeMatches = weapon.getSize() == WeaponSize.SMALL;
 			
-			if (sizeMatches && weapon.getType() != WeaponType.MISSILE && !weapon.hasAIHint(AIHints.STRIKE)) {
+			if (sizeMatches && weapon.getType() != WeaponType.MISSILE && !weapon.hasAIHint(AIHints.STRIKE) &&
+				!weapon.hasAIHint(AIHints.PD) && !weapon.hasAIHint(AIHints.PD_ALSO)) {
 				weapon.setPD(true);
+				weapon.setPDAlso(true);
 			}
 		}
         // ship.addListener(new espc_BastillonRangeMod());  
@@ -45,7 +49,7 @@ public class espc_BastillonModBehaviour extends BaseHullMod {
         if (index == 0)
             return ((int) DAMAGE_BONUS + "%");
         else if (index == 1)
-            return ("upgraded by default");
+            return MezzUtils.getString("espc_hullmod", "bastillon1");
 
         return null;
     }

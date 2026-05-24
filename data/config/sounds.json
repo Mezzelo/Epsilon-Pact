@@ -24,10 +24,10 @@
 		{"file":"sounds/weapon/espc_buzzer_fire.ogg","pitch":1.0,"volume":0.85},
 	],
 	 "espc_autocannon_fire":[
-		{"file":"sounds/weapon/espc_autocannon_fire_loud.ogg","pitch":0.96,"volume":1.25},
-		{"file":"sounds/weapon/espc_autocannon_fire_loud.ogg","pitch":0.9,"volume":1.25},
-		{"file":"sounds/weapon/espc_autocannon_fire_loud.ogg","pitch":0.87,"volume":1.25},
-		{"file":"sounds/weapon/espc_autocannon_fire_loud.ogg","pitch":0.93,"volume":1.25}
+		{"file":"sounds/weapon/espc_autocannon_fire_loud.ogg","pitch":0.92,"volume":1.2},
+		{"file":"sounds/weapon/espc_autocannon_fire_loud.ogg","pitch":0.86,"volume":1.2},
+		{"file":"sounds/weapon/espc_autocannon_fire_loud.ogg","pitch":0.83,"volume":1.2},
+		{"file":"sounds/weapon/espc_autocannon_fire_loud.ogg","pitch":0.89,"volume":1.2}
 	],
 	 "espc_aa_fire":[
 		{"file":"sounds/weapon/espc_aa_fire.ogg","pitch":1.0,"volume":1.1},
@@ -91,8 +91,8 @@
 	 "espc_spark":[
 		{"file":"sounds/sfx_systems/termination_sequence_activate.ogg","pitch":1.0,"volume":1.0},
 	],
-	 "espc_plasma_jolt":[
-		{"file":"sounds/system/espc_plasma_jolt.ogg","pitch":1.0,"volume":1.0},
+	 "espc_remote_burn":[
+		{"file":"sounds/system/espc_remote_burn.ogg","pitch":1.1,"volume":0.6},
 	],
 	 "espc_overpressure_fire":[
 		{"file":"sounds/system/espc_overpressure_fire.ogg","pitch":1.0,"volume":1.0},

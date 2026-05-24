@@ -3,7 +3,7 @@
   "hullId": "espc_amanuensis",
   "displayName": "Attack",
   "goalVariant": false,
-  "fluxCapacitors": 43,
+  "fluxCapacitors": 47,
   "fluxVents": 50,
   "quality": 1,
   "permaMods": [],
@@ -41,15 +41,15 @@
       "autofire": true,
       "mode": "LINKED",
       "weapons": {
-        "WS0007": "flak",
-        "WS0008": "flak",
+        "WS0007": "dualflak",
+        "WS0008": "dualflak",
         "WS0009": "dualflak",
-        "WS0012": "espc_ionresonator",
-        "WS0013": "espc_ionresonator",
+        "WS0012": "pdburst",
+        "WS0013": "pdburst",
         "WS0014": "espc_arcscatter",
         "WS0015": "espc_arcscatter",
-        "WS0016": "espc_ionresonator",
-        "WS0017": "espc_ionresonator"
+        "WS0016": "irpulse",
+        "WS0017": "irpulse"
       }
     }
   ],

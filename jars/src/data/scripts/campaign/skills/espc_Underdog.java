@@ -1,5 +1,7 @@
 package data.scripts.campaign.skills;
 
+import org.lazywizard.lazylib.MathUtils;
+import org.lazywizard.lazylib.VectorUtils;
 import org.lwjgl.util.vector.Vector2f;
 
 // import com.fs.starfarer.api.Global;
@@ -19,6 +21,8 @@ import com.fs.starfarer.api.fleet.FleetMemberAPI;
 import com.fs.starfarer.api.impl.campaign.skills.BaseSkillEffectDescription;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 
+import data.scripts.util.MezzUtils;
+
 public class espc_Underdog {
 	
 	public static float DAMAGE_BONUS_PER_DP = 1f;
@@ -26,15 +30,13 @@ public class espc_Underdog {
 	public static float DAMAGE_REDUCTION_SOFT_THRESHOLD = 30f;
 	public static float DAMAGE_REDUCTION_SOFT_MULT = 0.5f;
 	public static float DAMAGE_REDUCTION_CAP = 80f;
+	public static float DAMAGE_REDUCTION_DEG_MAX = 30f;
+	public static float DAMAGE_REDUCTION_DEG_MIN = 90f;
 	public static float DAMAGE_REDUCTION_OTHER_CAP = 40f;
 	public static float DAMAGE_REDUCTION_PER_DP_CARRIER = 0.5f;
 	public static float DAMAGE_REDUCTION_CARRIER_CAP = 50f;
 	public static float DAMAGE_REDUCTION_CARRIER_SOFT_THRESHOLD = 35f;
 	public static float DAMAGE_REDUCTION_CARRIER_SOFT_MULT = 0.5f;
-	
-	
-//	public static float FLAGSHIP_SPEED_BONUS = 25f;
-//	public static float FLAGSHIP_CP_BONUS = 100f;
 	
 	public static boolean isFrigateAndOfficer(MutableShipStatsAPI stats) {
 		if (stats.getEntity() instanceof ShipAPI) {
@@ -84,6 +86,13 @@ public class espc_Underdog {
 			if (diff > DAMAGE_REDUCTION_SOFT_THRESHOLD)
 				diff = DAMAGE_REDUCTION_SOFT_THRESHOLD + (diff - DAMAGE_REDUCTION_SOFT_THRESHOLD) * DAMAGE_REDUCTION_SOFT_MULT;
 			
+			float angleMod = Math.abs(MathUtils.getShortestRotation(VectorUtils.getAngle(targ.getLocation(), ship.getLocation()),
+        		targ.getFacing()));
+			if (angleMod >= DAMAGE_REDUCTION_DEG_MIN)
+				return null;
+			else if (angleMod > DAMAGE_REDUCTION_DEG_MAX)
+				diff *= (1f - (angleMod - DAMAGE_REDUCTION_DEG_MAX)/(DAMAGE_REDUCTION_DEG_MIN - DAMAGE_REDUCTION_DEG_MAX));
+			
 			damage.getModifier().modifyPercent(id + "_given", diff);
 			return id + "_given";
 		}
@@ -123,6 +132,13 @@ public class espc_Underdog {
 			diff *= DAMAGE_REDUCTION_PER_DP;
 			if (diff > DAMAGE_REDUCTION_SOFT_THRESHOLD)
 				diff = DAMAGE_REDUCTION_SOFT_THRESHOLD + (diff - DAMAGE_REDUCTION_SOFT_THRESHOLD) * DAMAGE_REDUCTION_SOFT_MULT;
+			
+			float angleMod = Math.abs(MathUtils.getShortestRotation(VectorUtils.getAngle(source.getLocation(), ship.getLocation()),
+				source.getFacing()));
+			if (angleMod >= DAMAGE_REDUCTION_DEG_MIN)
+				return null;
+			else if (angleMod > DAMAGE_REDUCTION_DEG_MAX)
+				diff *= (1f - (angleMod - DAMAGE_REDUCTION_DEG_MAX)/(DAMAGE_REDUCTION_DEG_MIN - DAMAGE_REDUCTION_DEG_MAX));
 			
 			damage.getModifier().modifyPercent(id + "_taken", Math.max(-diff, -DAMAGE_REDUCTION_CAP));
 			return id + "_taken";
@@ -189,19 +205,22 @@ public class espc_Underdog {
 			TooltipMakerAPI info, float width) {
 		
 			init(stats, skill);
-			info.addPara("+%s damage dealt per DP deficit between ship and target",
+			info.addPara(MezzUtils.getString("espc_skills", "underdog1-1"),
 				0f, hc, hc, (int)DAMAGE_BONUS_PER_DP + "%"
 			);
-			info.addPara("-%s damage taken per DP deficit between ship and attacker, up to %s reduction",
+			info.addPara(MezzUtils.getString("espc_skills", "underdog1-2"),
 				0f, hc, hc, (int)DAMAGE_REDUCTION_PER_DP + "%", (int)DAMAGE_REDUCTION_CAP + "%"
 			);
-			info.addPara(indent + "Based on base or modified DP cost for each ship, whichever is highest.",
+			info.addPara(indent + MezzUtils.getString("espc_skills", "underdog1-3"),
 				0f, tc, hc
 			);
-			info.addPara(indent + "Damage bonus and reduction past %s is half as effective",
+			info.addPara(indent + MezzUtils.getString("espc_skills", "underdog1-4"),
 				0f, tc, hc, (int)DAMAGE_REDUCTION_SOFT_THRESHOLD + "%"
 			);
-			info.addPara(indent + "Does not trigger while the ship has shield, armor or hull damage reduction over %s from another source",
+			info.addPara(indent + MezzUtils.getString("espc_skills", "underdog1-5"),
+				0f, tc, hc, "" + (int) DAMAGE_REDUCTION_DEG_MAX, "" + (int) DAMAGE_REDUCTION_DEG_MIN
+			);
+			info.addPara(indent + MezzUtils.getString("espc_skills", "underdog1-6"),
 				0f, tc, hc, (int)DAMAGE_REDUCTION_OTHER_CAP + "%"
 			);
 		}
@@ -233,20 +252,19 @@ public class espc_Underdog {
 			TooltipMakerAPI info, float width) {
 		
 			init(stats, skill);
-			info.addPara("-" + "%s damage taken from fighters per base DP deficit between ship and carrier,"
-				+ " up to %s reduction",
+			info.addPara(MezzUtils.getString("espc_skills", "underdog2-1"),
 				0f, stats.getSkillLevel(skill.getId()) > 1 ? hc : dhc, stats.getSkillLevel(skill.getId()) > 1? hc : dhc,
 				DAMAGE_REDUCTION_PER_DP_CARRIER + "%",
 				(int)DAMAGE_REDUCTION_CARRIER_CAP + "%"
 			);
-			info.addPara(indent + "Based on base or modified DP cost for each ship, whichever is highest.",
+			info.addPara(indent + MezzUtils.getString("espc_skills", "underdog2-2"),
 				0f, stats.getSkillLevel(skill.getId()) > 1 ? tc : dtc, stats.getSkillLevel(skill.getId()) > 1? hc : dhc
 			);
-			info.addPara(indent + "Damage reduction past %s is half as effective",
+			info.addPara(indent + MezzUtils.getString("espc_skills", "underdog2-3"),
 				0f, stats.getSkillLevel(skill.getId()) > 1 ? tc : dtc, stats.getSkillLevel(skill.getId()) > 1? hc : dhc,
 				(int)DAMAGE_REDUCTION_CARRIER_SOFT_THRESHOLD + "%"
 			);
-			info.addPara(indent + "Does not trigger while the ship has shield, armor or hull damage reduction over %s from another source",
+			info.addPara(indent + MezzUtils.getString("espc_skills", "underdog2-4"),
 				0f, stats.getSkillLevel(skill.getId()) > 1 ? tc : dtc, stats.getSkillLevel(skill.getId()) > 1? hc : dhc,
 				(int)DAMAGE_REDUCTION_OTHER_CAP + "%"
 			);

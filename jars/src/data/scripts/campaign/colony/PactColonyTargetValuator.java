@@ -13,7 +13,6 @@ import com.fs.starfarer.api.util.Misc;
 import exerelin.ExerelinConstants;
 import exerelin.campaign.econ.EconomyInfoHelper;
 import exerelin.utilities.*;
-import org.apache.log4j.Logger;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -57,6 +56,7 @@ public class PactColonyTargetValuator {
 	protected static void loadSettings() throws JSONException, IOException {
 		JSONObject entriesJson = Global.getSettings().getJSONObject("nex_colonyConditionValues");
 		
+		@SuppressWarnings("unchecked")
 		Iterator<String> keys = entriesJson.sortedKeys();
 		while (keys.hasNext()) {
 			String id = keys.next();
@@ -133,10 +133,11 @@ public class PactColonyTargetValuator {
 			score *= 2;
 		}
 		
+		/*
 		if (!silent) {
 			String distStr = String.format("%.1f", distanceLY);
 			String scoreStr = String.format("%.2f", score);
-		}
+		} */
 		
 		
 		return score;

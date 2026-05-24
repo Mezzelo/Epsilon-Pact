@@ -10,8 +10,9 @@
 		"espc_rondel_Assault":3,
 		"espc_rondel_Anti_Shield":7,
 		# "espc_rondel_Balanced":1,
-		"espc_songbird_Standard":4,
-		"espc_songbird_Strike":2,
+		"espc_songbird_Attack":3,
+		"espc_songbird_Standard":2,
+		"espc_songbird_Strike":3,
 		"espc_opossum_Assault":5,
 		"espc_opossum_Strike":5,
 		"wolf_espc_Assault":0,
@@ -42,6 +43,7 @@
 		"espc_warden_Assault_Derelict":0,
 		
 		"glimmer_espc_Assault":0,
+		"glimmer_espc_Attack":0,
 		"lumen_espc_Assault":0,
 		"lumen_espc_Strike":0,
 		"lumen_espc_Pact_Assault":0,
@@ -68,7 +70,8 @@
 		"espc_jackalope_Anti_Armor_Pact":3,
 		"espc_jackalope_Anti_Shield":0,
 		"espc_jackalope_Support":2,
-		"espc_songbird_Standard":6,
+		"espc_songbird_Attack":4,
+		"espc_songbird_Standard":2,
 		"espc_songbird_Strike":4,
 		"espc_opossum_Assault":3,
 		"espc_opossum_Strike":3,
@@ -104,6 +107,7 @@
 		
 		"glimmer_espc_Escort":0,
 		"glimmer_espc_Assault":0,
+		"glimmer_espc_Attack":0,
 		"lumen_espc_Assault":0,
 		"lumen_espc_Escort":0,
 		"lumen_espc_Strike":0,
@@ -141,8 +145,7 @@
 		
 		"espc_berserker_Assault":5,
 		"espc_berserker_Support":5,
-		"espc_bastillon_Attack":3,
-		"espc_bastillon_Assault":2,
+		"espc_bastillon_Assault":5,
 		"espc_bastillon_Support":2,
 		"espc_bastillon_Suppressive":3,
 		
@@ -153,6 +156,9 @@
 		
 		"fulgent_espc_Assault":0,
 		"fulgent_espc_Strike":0,
+		"fulgent_espc_Pact_Assault":0,
+		"fulgent_espc_Pact_Attack":0,
+		"fulgent_espc_Pact_Strike":0,
 		
 		
 	},
@@ -188,6 +194,7 @@
 		"brilliant_espc_Standard":0,
 		"brilliant_espc_Support":0,
 		"apex_espc_Assault":0,
+		"apex_espc_Attack":0,
 		"apex_espc_Strike":0,
 		
 		"espc_observer_tt_Assault":8,
@@ -318,7 +325,9 @@
 	"escortSmall":{
 		"espc_rondel_Anti_Shield":7,
 		"espc_jackalope_Escort_Pact":7,
-		"espc_songbird_Standard":3,
+		"espc_songbird_Standard":1,
+		"espc_songbird_Attack":1,
+		"espc_songbird_Strike":1,
 		"espc_rondel_h_Attack":5,
 	},
  	"escortMedium":{

@@ -36,6 +36,8 @@ import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.util.Misc;
 import com.fs.starfarer.api.util.Misc.Token;
 
+import data.scripts.util.MezzUtils;
+
 /**
  * NotifyEvent $eventHandle <params> 
  * 
@@ -78,16 +80,16 @@ public class espc_AITrade extends BaseCommandPlugin {
     	weaponMap = new HashMap<String, Integer>();
     	weaponMap.put("espc_minimir", 3);
     	weaponMap.put("espc_arcscatter", 3);
-    	weaponMap.put("espc_ionresonator", 3);
     	weaponMap.put("espc_minimirdual", 4);
     	weaponMap.put("espc_remdriver", 4);
     	weaponMap.put("espc_remmortar", 4);
     	weaponMap.put("espc_finnegan", 4);
     	weaponMap.put("espc_mkl", 6);
+    	weaponMap.put("espc_autocannon", 6);
     	weaponMap.put("espc_gatling", 6);
     	weaponMap.put("espc_flak", 6);
 
-    	weaponMap.put("espc_heavyionresonator", 3);
+    	weaponMap.put("espc_ionflail", 4);
     	weaponMap.put("espc_riftspear", 12);
     	weaponMap.put("espc_riftpike", 16);
 	}
@@ -172,14 +174,14 @@ public class espc_AITrade extends BaseCommandPlugin {
 		
 		if ((tradeType == 1 || tradeType == 3)) {
 			for (String item : hullMap.keySet()) {
-				if (Global.getSector().getFaction("epsilpac").getKnownShips().contains(item) &&
+				if (Global.getSector().getFaction(MezzUtils.factionIdPact).getKnownShips().contains(item) &&
 					!Global.getSector().getMemoryWithoutUpdate().contains(("$espcPurchasedBP_" + item)))
 					copy.addSpecial(new SpecialItemData(Items.SHIP_BP, item), 1);
 			}
 		}
 		if ((tradeType == 2 || tradeType == 3)) {
 			for (String item : weaponMap.keySet()) {
-				if (Global.getSector().getFaction("epsilpac").getKnownWeapons().contains(item) &&
+				if (Global.getSector().getFaction(MezzUtils.factionIdPact).getKnownWeapons().contains(item) &&
 					!Global.getSector().getMemoryWithoutUpdate().contains(("$espcPurchasedBP_" + item)))
 					copy.addSpecial(new SpecialItemData(Items.WEAPON_BP, item), 1);
 			}
@@ -188,9 +190,9 @@ public class espc_AITrade extends BaseCommandPlugin {
 		
 		final float width = 310f;
 		dialog.showCargoPickerDialog(
-			"Select AI cores to turn in",
-			"Confirm",
-			"Cancel",
+			MezzUtils.getString("espc_aitrade", "selectcores"),
+			MezzUtils.getString("espc_general", "Confirm"),
+			MezzUtils.getString("espc_general", "Cancel"),
 			true,
 			width,
 			copy,
@@ -248,14 +250,17 @@ public class espc_AITrade extends BaseCommandPlugin {
 							Global.getSector().getPlayerFleet().getFleetData().addFleetMember(ship);
 							text.setFontSmallInsignia();
 							text.addParagraph(
-								"Gained " + ship.getVariant().getFullDesignationWithHullNameForShip(), Misc.getPositiveHighlightColor());
+									Misc.ucFirst(MezzUtils.getString("espc_general", "gained")) +
+								" " + ship.getVariant().getFullDesignationWithHullNameForShip(), Misc.getPositiveHighlightColor());
 							text.highlightInLastPara(
 								Misc.getHighlightColor(), ship.getVariant().getFullDesignationWithHullNameForShip());
 							text.setFontInsignia();
 						} else if (weaponMap.containsKey(stack.getSpecialDataIfSpecial().getData())) {
 							playerCargo.addItems(CargoItemType.WEAPONS, stack.getSpecialDataIfSpecial().getData(), 2);
 							text.setFontSmallInsignia();
-							text.addParagraph("Gained " + 2 + Strings.X + " " + 
+							text.addParagraph(
+									Misc.ucFirst(MezzUtils.getString("espc_general", "gained")) +
+								" " + 2 + Strings.X + " " + 
 								Global.getSettings().getWeaponSpec(stack.getSpecialDataIfSpecial().getData()
 								).getWeaponName() + "", Misc.getPositiveHighlightColor());
 							text.highlightInLastPara(Misc.getHighlightColor(), 2 + Strings.X);
@@ -359,39 +364,37 @@ public class espc_AITrade extends BaseCommandPlugin {
 				*/
 
 				if (tradeType == 0) {
-					panel.addPara("If you turn in the selected AI cores, your standing with "
-						+ faction.getDisplayNameWithArticle() + " will improve by %s points.",
+					panel.addPara(MezzUtils.getString("espc_aitrade", "tradestart1a")
+						+ faction.getDisplayNameWithArticle() + MezzUtils.getString("espc_aitrade", "tradestart1b"),
 						opad * 1f, Misc.getHighlightColor(),
 						"" + (int) repChange);
 					if (coreCredits < 25) {
-						panel.addPara("A reputation of %s is necessary to begin exchanging for blueprints, and you must have"
-							+ " exchanged as much worth of cores.",
+						panel.addPara(MezzUtils.getString("espc_aitrade", "tradestart2"),
 							opad * 1f, Misc.getHighlightColor(),
 							"" + (int) MIN_REP_EXCHANGE);
-						panel.addPara("Your reputation after this exchange will be %s, and you will have exchanged"
-							+ " %s reputation worth of cores.",
+						panel.addPara(MezzUtils.getString("espc_aitrade", "tradestart3"),
 							opad * 1f, Misc.getHighlightColor(),
 							"" + (int) (entityFaction.getRelationship(Factions.PLAYER) * 100f + repChange),
 							"" + (int) (coreCredits + repChange));
 					} else {
-						panel.addPara("A reputation of %s is necessary to begin exchaning for blueprints.",
+						panel.addPara(MezzUtils.getString("espc_aitrade", "tradelowrep1"),
 								opad * 1f, Misc.getHighlightColor(),
 								"" + (int) MIN_REP_EXCHANGE);
-							panel.addPara("Your reputation after this exchange will be %s.",
+							panel.addPara(MezzUtils.getString("espc_aitrade", "tradelowrep2"),
 								opad * 1f, Misc.getHighlightColor(),
 								"" + (int) (entityFaction.getRelationship(Factions.PLAYER) * 100f + repChange));
 					}
 				} else {
-					panel.addPara("The current trade will result in a reputation change with "
-						+ faction.getDisplayNameWithArticle() + " of %s points.",
+					panel.addPara(MezzUtils.getString("espc_aitrade", "tradetext1a")
+						+ faction.getDisplayNameWithArticle() + MezzUtils.getString("espc_aitrade", "tradetext1b"),
 						opad * 1f, Misc.getHighlightColor(),
 						"" + (int) (repChange - worth));
-					panel.addPara("If trading for ship or weapon blueprints, you will also receive the respective ship or two copies of the weapon.",
+					panel.addPara(MezzUtils.getString("espc_aitrade", "tradetext2"),
 							opad * 1f, Misc.getHighlightColor());
-					panel.addPara("Your selected blueprints are worth %s points.",
+					panel.addPara(MezzUtils.getString("espc_aitrade", "tradetext3"),
 						opad * 1f, Misc.getHighlightColor(),
 						"" + (int) worth);
-					panel.addPara("There must be a net exchange of zero or greater to complete this trade.",
+					panel.addPara(MezzUtils.getString("espc_aitrade", "tradetext4"),
 						opad * 1f, Misc.getHighlightColor());
 				}
 				

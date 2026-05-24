@@ -12,6 +12,8 @@ import com.fs.starfarer.api.impl.campaign.intel.contacts.ContactIntel.ContactSta
 import com.fs.starfarer.api.util.Misc;
 import com.fs.starfarer.api.util.WeightedRandomPicker;
 
+import data.scripts.util.MezzUtils;
+
 public class espc_EconomyListener extends BaseCampaignEventListener {
 	
 	private boolean nexRandom = false;
@@ -43,7 +45,7 @@ public class espc_EconomyListener extends BaseCampaignEventListener {
 			if (market.isPlayerOwned() && market.hasIndustry("IndEvo_SupCom"))
 				aiCrimes = market.getName();
 			
-			if (market.getFactionId().equals("epsilpac"))
+			if (market.getFactionId().equals(MezzUtils.factionIdPact))
 				pactMarketCount++;
 			
 			if (nexRandom)
@@ -56,15 +58,15 @@ public class espc_EconomyListener extends BaseCampaignEventListener {
 						tribesGone = true;
 					}
 				}
-				if (market.hasCondition("espc_ai_population") && !market.getFactionId().equals("epsilpac")) {
+				if (market.hasCondition("espc_ai_population") && !market.getFactionId().equals(MezzUtils.factionIdPact)) {
 					market.removeCondition("espc_ai_population");
 					market.addCondition("espc_rogue_ai_population");
-				} else if (market.hasCondition("espc_rogue_ai_population") && market.getFactionId().equals("epsilpac")) {
+				} else if (market.hasCondition("espc_rogue_ai_population") && market.getFactionId().equals(MezzUtils.factionIdPact)) {
 					market.removeCondition("espc_rogue_ai_population");
 					market.addCondition("espc_ai_population");
 				}
 				if (market.getId().equals("espc_tocquiera_market")) {
-					if (!market.getFactionId().equals("epsilpac")) {
+					if (!market.getFactionId().equals(MezzUtils.factionIdPact)) {
 						if (market.getAdmin().getId().equals("espc_anlo"))
 							market.setAdmin(null);
 						if (market.getCommDirectory().getEntryForPerson("espc_gauss") != null &&
@@ -91,11 +93,11 @@ public class espc_EconomyListener extends BaseCampaignEventListener {
 							market.getCommDirectory().getEntryForPerson("espc_gauss").setHidden(false);
 					}
 				} 
-				if (isabelle != null && market.getFactionId().equals("epsilpac") && market != isabelle.getMarket()) {
+				if (isabelle != null && market.getFactionId().equals(MezzUtils.factionIdPact) && market != isabelle.getMarket()) {
 					marketPicker.add(market);
 				}
 			} 
-			/* else if (market.getFactionId().equals("epsilpac")) {
+			/* else if (market.getFactionId().equals(MezzUtils.factionIdPact)) {
 				if (market.hasSubmarket(Submarkets.SUBMARKET_OPEN)) {
 					market.addSubmarket("espc_open_market");
 					market.removeSubmarket(Submarkets.SUBMARKET_OPEN);
@@ -109,37 +111,41 @@ public class espc_EconomyListener extends BaseCampaignEventListener {
 		if (pactMarketCount > 0) {
 			// normally wouldn't care to do this (no transferring ownership in vanilla), but faction is pacifist in nex otherwise
 			if (tribesGone &&
-				Global.getSector().getFaction("epsilpac") != null &&
-				!Global.getSector().getFaction("epsilpac").getRelToPlayer().isAtBest(RepLevel.VENGEFUL)) {
+				Global.getSector().getFaction(MezzUtils.factionIdPact) != null &&
+				!Global.getSector().getFaction(MezzUtils.factionIdPact).getRelToPlayer().isAtBest(RepLevel.VENGEFUL)) {
 				CustomRepImpact impact = new CustomRepImpact();
 				impact.limit = RepLevel.VENGEFUL;
 				impact.delta = -0.7f;
 				Global.getSector().adjustPlayerReputation(
 					new RepActionEnvelope(RepActions.CUSTOM, 
-					impact, null, null, false, true, "Change caused due to destruction of Tribal Enclaves on Tocquiera."),
-					"epsilpac");
+					impact, null, null, false, true, 
+					String.format(MezzUtils.getString("espc_diplomacy", "penalty_enclaves"),
+						MezzUtils.getString("espc_markets", "enclaves"))),
+					MezzUtils.factionIdPact);
 			} else if (!playerPactMarket.equals("") &&
-					Global.getSector().getFaction("epsilpac") != null &&
-					!Global.getSector().getFaction("epsilpac").getRelToPlayer().isAtBest(RepLevel.VENGEFUL)) {
+					Global.getSector().getFaction(MezzUtils.factionIdPact) != null &&
+					!Global.getSector().getFaction(MezzUtils.factionIdPact).getRelToPlayer().isAtBest(RepLevel.VENGEFUL)) {
 					CustomRepImpact impact = new CustomRepImpact();
 					impact.limit = RepLevel.HOSTILE;
 					impact.delta = -0.35f;
 					Global.getSector().adjustPlayerReputation(
 						new RepActionEnvelope(RepActions.CUSTOM, 
-						impact, null, null, false, true, "Change caused due to ownership of a former Pact market, " 
-							+ Global.getSector().getEconomy().getMarket(playerPactMarket).getName() + "."),
-						"epsilpac");
+						impact, null, null, false, true, 
+						String.format(MezzUtils.getString("espc_diplomacy", "penalty_revanchism"), 
+							Global.getSector().getEconomy().getMarket(playerPactMarket).getName())),
+						MezzUtils.factionIdPact);
 				}
 			if (!aiCrimes.equals("") &&
-				Global.getSector().getFaction("epsilpac") != null &&
-				!Global.getSector().getFaction("epsilpac").getRelToPlayer().isAtBest(RepLevel.VENGEFUL)) {
+				Global.getSector().getFaction(MezzUtils.factionIdPact) != null &&
+				!Global.getSector().getFaction(MezzUtils.factionIdPact).getRelToPlayer().isAtBest(RepLevel.VENGEFUL)) {
 				CustomRepImpact impact = new CustomRepImpact();
 				impact.limit = RepLevel.HOSTILE;
 				impact.delta = -0.35f;
 				Global.getSector().adjustPlayerReputation(
 					new RepActionEnvelope(RepActions.CUSTOM, 
-					impact, null, null, false, true, "Change caused due to having a Supercomputer on " + aiCrimes + "."),
-					"epsilpac");
+					impact, null, null, false, true, 
+					String.format(MezzUtils.getString("espc_diplomacy", "penalty_revanchism"), aiCrimes)),
+					MezzUtils.factionIdPact);
 			}
 		}
 

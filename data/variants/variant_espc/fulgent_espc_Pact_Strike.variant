@@ -2,7 +2,7 @@
 	"variantId": "fulgent_espc_Pact_Strike",
 	"displayName": "Strike",
 	"goalVariant": false,
-    "fluxCapacitors": 18,
+    "fluxCapacitors": 19,
     "fluxVents": 20,
     "hullId": "fulgent_espc",
     "hullMods": [
@@ -39,8 +39,8 @@
             "weapons": {
                 "WS 005": "pdlaser",
                 "WS 006": "pdlaser",
-                "WS 007": "pdburst",
-                "WS 008": "pdburst"
+                "WS 007": "pdlaser",
+                "WS 008": "pdlaser"
             }
         }
     ]

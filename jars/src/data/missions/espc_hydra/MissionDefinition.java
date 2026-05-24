@@ -14,9 +14,11 @@ import com.fs.starfarer.api.mission.MissionDefinitionAPI;
 import com.fs.starfarer.api.mission.MissionDefinitionPlugin;
 
 import com.fs.starfarer.api.fleet.FleetMemberAPI;
+import com.fs.starfarer.api.impl.campaign.ids.Factions;
 import com.fs.starfarer.api.impl.campaign.ids.Personalities;
 import com.fs.starfarer.api.impl.campaign.ids.Skills;
 import com.fs.starfarer.api.impl.campaign.ids.StarTypes;
+import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.characters.FullName;
 import com.fs.starfarer.api.characters.PersonAPI;
 import org.lwjgl.util.vector.Vector2f;
@@ -24,64 +26,69 @@ import java.util.LinkedList;
 import java.util.Iterator;
 
 import data.scripts.util.EspcOfficerFactory;
+import data.scripts.util.MezzUtils;
 
 public class MissionDefinition implements MissionDefinitionPlugin {
 
 	public void defineMission(MissionDefinitionAPI api) {
 
-		
-		// Set up the fleets
-		api.initFleet(FleetSide.PLAYER, "HSS", FleetGoal.ATTACK, false, 3);
-		api.initFleet(FleetSide.ENEMY, "ISS", FleetGoal.ATTACK, true, 1);
 
-		// Set a blurb for each fleet
-		api.setFleetTagline(FleetSide.PLAYER, "Joint, cross-faction impromptu task force");
-		api.setFleetTagline(FleetSide.ENEMY, "Rogue mercenary fleet");
+		String enemyPrefix = Global.getSector().getFaction(Factions.INDEPENDENT).getShipNamePrefix();
+		String hegPrefix = Global.getSector().getFaction(Factions.HEGEMONY).getShipNamePrefix();
+		String tritachPrefix = Global.getSector().getFaction(Factions.TRITACHYON).getShipNamePrefix() + " ";
+		String leaguePrefix = Global.getSector().getFaction(Factions.PERSEAN).getShipNamePrefix() + " ";
 		
-		// These show up as items in the bulleted list under 
-		// "Tactical Objectives" on the mission detail screen
-		api.addBriefingItem("Do not allow any enemy forces to escape");
-		
-		// Set up the enemy fleet
+		api.initFleet(FleetSide.PLAYER, hegPrefix, FleetGoal.ATTACK, false, 3);
+		api.initFleet(FleetSide.ENEMY, enemyPrefix, FleetGoal.ATTACK, true, 1);
+		enemyPrefix += " ";
+		hegPrefix += " ";
 
-		api.addToFleet(FleetSide.PLAYER, "onslaught_Standard", FleetMemberType.SHIP, "HSS Macedon", true);
+		api.setFleetTagline(FleetSide.PLAYER, MezzUtils.getString("espc_missionstrings", "hydra_playerTagline"));
+		api.setFleetTagline(FleetSide.ENEMY, MezzUtils.getString("espc_missionstrings", "hydra_enemyTagline"));
 		
-		// api.addToFleet(FleetSide.PLAYER, "legion_Assault", FleetMemberType.SHIP, true);
-		// api.addToFleet(FleetSide.PLAYER, "eagle_xiv_Elite", FleetMemberType.SHIP, false);
+		api.addBriefingItem(MezzUtils.getString("espc_missionstrings", "hydra_brief1"));
+
+		api.addToFleet(FleetSide.PLAYER, "onslaught_Standard", FleetMemberType.SHIP, 
+			hegPrefix + MezzUtils.getString("espc_names", "hydra_onslaught"), true);
+		
 		api.addToFleet(FleetSide.PLAYER, "eradicator_Assault", FleetMemberType.SHIP, false);
-		// api.addToFleet(FleetSide.PLAYER, "falcon_xiv_Escort", FleetMemberType.SHIP, false);
 		api.addToFleet(FleetSide.PLAYER, "condor_Attack", FleetMemberType.SHIP, false);
 		api.addToFleet(FleetSide.PLAYER, "condor_Strike", FleetMemberType.SHIP, false);
 		api.addToFleet(FleetSide.PLAYER, "enforcer_Assault", FleetMemberType.SHIP, false);
 		api.addToFleet(FleetSide.PLAYER, "enforcer_CS", FleetMemberType.SHIP, false);
-		// api.addToFleet(FleetSide.PLAYER, "manticore_Assault", FleetMemberType.SHIP, false);
 		api.addToFleet(FleetSide.PLAYER, "vanguard_Attack", FleetMemberType.SHIP, false);
 		api.addToFleet(FleetSide.PLAYER, "lasher_Standard", FleetMemberType.SHIP, false);
 		api.addToFleet(FleetSide.PLAYER, "lasher_Standard", FleetMemberType.SHIP, false);
 		
-		api.addToFleet(FleetSide.PLAYER, "astral_Strike", FleetMemberType.SHIP, "TTS Crescent", false);
-		// api.addToFleet(FleetSide.PLAYER, "doom_Support", FleetMemberType.SHIP, "TTS Stellar", false);
-		// api.addToFleet(FleetSide.PLAYER, "aurora_Strike", FleetMemberType.SHIP, false);
-		api.addToFleet(FleetSide.PLAYER, "fury_Attack", FleetMemberType.SHIP, false);
-		// api.addToFleet(FleetSide.PLAYER, "harbinger_Strike", FleetMemberType.SHIP, false);
-		api.addToFleet(FleetSide.PLAYER, "medusa_Attack", FleetMemberType.SHIP, "TTS Rutherford", false);
-		api.addToFleet(FleetSide.PLAYER, "afflictor_Strike", FleetMemberType.SHIP, "TTS Fair Trade", false);
-		api.addToFleet(FleetSide.PLAYER, "tempest_Attack", FleetMemberType.SHIP, "TTS Fair Trade", false);
-		api.addToFleet(FleetSide.PLAYER, "wolf_Strike", FleetMemberType.SHIP, "TTS Fair Trade", false);
-		api.addToFleet(FleetSide.PLAYER, "wolf_Strike", FleetMemberType.SHIP, "TTS Bright Future", false);
+		api.addToFleet(FleetSide.PLAYER, "astral_Strike", FleetMemberType.SHIP, 
+			tritachPrefix + MezzUtils.getString("espc_missionstrings", "hydra_astral"), false);
+		api.addToFleet(FleetSide.PLAYER, "fury_Attack", FleetMemberType.SHIP, 
+			tritachPrefix + MezzUtils.getString("espc_missionstrings", "hydra_fury"), false);
+		api.addToFleet(FleetSide.PLAYER, "medusa_Attack", FleetMemberType.SHIP, 
+			tritachPrefix + MezzUtils.getString("espc_missionstrings", "hydra_medusa"), false);
+		api.addToFleet(FleetSide.PLAYER, "afflictor_Strike", FleetMemberType.SHIP, 
+			tritachPrefix + MezzUtils.getString("espc_missionstrings", "hydra_afflictor"), false);
+		api.addToFleet(FleetSide.PLAYER, "tempest_Attack", FleetMemberType.SHIP, 
+			tritachPrefix + MezzUtils.getString("espc_missionstrings", "hydra_tempest"), false);
+		api.addToFleet(FleetSide.PLAYER, "wolf_Strike", FleetMemberType.SHIP, 
+			tritachPrefix + MezzUtils.getString("espc_missionstrings", "hydra_wolf1"), false);
+		api.addToFleet(FleetSide.PLAYER, "wolf_Strike", FleetMemberType.SHIP, 
+			tritachPrefix + MezzUtils.getString("espc_missionstrings", "hydra_wolf2"), false);
 		
-		// api.addToFleet(FleetSide.PLAYER, "conquest_Elite", FleetMemberType.SHIP, "PLS Heart of Kazeron", false);
-		// api.addToFleet(FleetSide.PLAYER, "eagle_Assault", FleetMemberType.SHIP, "PLS Argeius", false);
-		api.addToFleet(FleetSide.PLAYER, "eagle_Assault", FleetMemberType.SHIP, "PLS Metope", false);
-		// api.addToFleet(FleetSide.PLAYER, "heron_Strike", FleetMemberType.SHIP, "PLS Bedivere", false);
-		// api.addToFleet(FleetSide.PLAYER, "gryphon_Standard", FleetMemberType.SHIP, "PLS Antares Bright", false);
-		api.addToFleet(FleetSide.PLAYER, "falcon_Attack", FleetMemberType.SHIP, "PLS Tereshkova", false);
-		api.addToFleet(FleetSide.PLAYER, "drover_Strike", FleetMemberType.SHIP, "PLS Bedivere", false);
-		api.addToFleet(FleetSide.PLAYER, "hammerhead_Elite", FleetMemberType.SHIP, false);
-		// api.addToFleet(FleetSide.PLAYER, "monitor_Escort", FleetMemberType.SHIP, "PLS Downcast Ascension", false);
-		api.addToFleet(FleetSide.PLAYER, "centurion_Assault", FleetMemberType.SHIP, "PLS Downcast Ascension", false);
-		api.addToFleet(FleetSide.PLAYER, "vigilance_Standard", FleetMemberType.SHIP, "PLS Downcast Ascension", false);
-		api.addToFleet(FleetSide.PLAYER, "vigilance_Strike", FleetMemberType.SHIP, "PLS Fern", false);
+		api.addToFleet(FleetSide.PLAYER, "eagle_Assault", FleetMemberType.SHIP, 
+			leaguePrefix + MezzUtils.getString("espc_missionstrings", "hydra_eagle"), false);
+		api.addToFleet(FleetSide.PLAYER, "falcon_Attack", FleetMemberType.SHIP, 
+			leaguePrefix + MezzUtils.getString("espc_missionstrings", "hydra_falcon"), false);
+		api.addToFleet(FleetSide.PLAYER, "drover_Strike", FleetMemberType.SHIP, 
+			leaguePrefix + MezzUtils.getString("espc_missionstrings", "hydra_drover"), false);
+		api.addToFleet(FleetSide.PLAYER, "hammerhead_Elite", FleetMemberType.SHIP, 
+			leaguePrefix + MezzUtils.getString("espc_missionstrings", "hydra_hammerhead"), false);
+		api.addToFleet(FleetSide.PLAYER, "centurion_Assault", FleetMemberType.SHIP, 
+			leaguePrefix + MezzUtils.getString("espc_missionstrings", "hydra_centurion"), false);
+		api.addToFleet(FleetSide.PLAYER, "vigilance_Standard", FleetMemberType.SHIP, 
+			leaguePrefix + MezzUtils.getString("espc_missionstrings", "hydra_vigilance1"), false);
+		api.addToFleet(FleetSide.PLAYER, "vigilance_Strike", FleetMemberType.SHIP, 
+			leaguePrefix + MezzUtils.getString("espc_missionstrings", "hydra_vigilance2"), false);
 
 		FleetMemberAPI member;
 		PersonAPI pilot;
@@ -113,7 +120,8 @@ public class MissionDefinition implements MissionDefinitionPlugin {
         member.setCaptain(pilot);
 		*/
 		
-		member = api.addToFleet(FleetSide.ENEMY, "espc_ashes_champion_Assault", FleetMemberType.SHIP, "PLS Coronis", false);
+		member = api.addToFleet(FleetSide.ENEMY, "espc_ashes_champion_Assault", FleetMemberType.SHIP, 
+			leaguePrefix + MezzUtils.getString("espc_missionstrings", "hydra_champion_nola"), false);
 		pilot = EspcOfficerFactory.MakePilot("Craig", "Hope", FullName.Gender.MALE, Personalities.AGGRESSIVE, 
 			"graphics/portraits/portrait_mercenary03.png", "independent", 5);
 		
@@ -159,7 +167,8 @@ public class MissionDefinition implements MissionDefinitionPlugin {
         member.setCaptain(pilot);
 		
 		
-		member = api.addToFleet(FleetSide.ENEMY, "espc_ashes_hammerhead_Elite", FleetMemberType.SHIP, "ISS Britomaris", false);
+		member = api.addToFleet(FleetSide.ENEMY, "espc_ashes_hammerhead_Elite", FleetMemberType.SHIP, 
+			enemyPrefix + MezzUtils.getString("espc_missionstrings", "hydra_hammerhead_nola"), false);
 		pilot = EspcOfficerFactory.MakePilot("Vacha", "Temujax", FullName.Gender.FEMALE, Personalities.STEADY, 
 			"graphics/portraits/portrait27.png", "independent", 5);
 		
@@ -182,7 +191,8 @@ public class MissionDefinition implements MissionDefinitionPlugin {
 			1, 2, 1, 1, 1});
         member.setCaptain(pilot);
 		
-		member = api.addToFleet(FleetSide.ENEMY, "espc_ashes_afflictor_Strike", FleetMemberType.SHIP, "Cuchulainn", false);
+		member = api.addToFleet(FleetSide.ENEMY, "espc_ashes_afflictor_Strike", FleetMemberType.SHIP, 
+			MezzUtils.getString("espc_missionstrings", "hydra_afflictor_nola"), false);
 		pilot = EspcOfficerFactory.MakePilot("Halcyon", "Oni", FullName.Gender.FEMALE, Personalities.AGGRESSIVE, 
 			"graphics/portraits/portrait_luddic11.png", "independent", 5);
 		
@@ -308,16 +318,20 @@ public class MissionDefinition implements MissionDefinitionPlugin {
 				ttMembers = new LinkedList<FleetMemberAPI>();
 				plMembers = new LinkedList<FleetMemberAPI>();
 				
+				String midline = Global.getSettings().getHullSpec("eagle").getManufacturer();
+				String xiv = Global.getSettings().getHullSpec("onslaught_xiv").getManufacturer();
+				// String hightech = Global.getSettings().getHullSpec("aurora").getManufacturer();
+				
 				for (FleetMemberAPI thisShip : fleetManager.getReservesCopy()) {
-					String hullName = thisShip.getHullSpec().getManufacturer();
-					if (hullName.equals("Low Tech")) {
+					String designType = thisShip.getHullSpec().getManufacturer();
+					if (designType.equals(MezzUtils.lowtechString)) {
 						if (thisShip.getHullSpec().getHullName().equals("Onslaught")) {
 							playerShip = thisShip;
 						} else
 							hgMembers.addLast(thisShip);
-					} else if (hullName.equals("Midline"))
+					} else if (designType.equals(midline))
 						plMembers.addLast(thisShip);
-					else if (hullName.equals("XIV Battlegroup"))
+					else if (designType.equals(xiv))
 						hgMembers.addLast(thisShip);
 					// high tech
 					else

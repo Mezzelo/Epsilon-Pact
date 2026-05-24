@@ -1,39 +1,37 @@
 {
   "variantId": "espc_songbird_Standard",
   "hullId": "espc_songbird",
-  "displayName": "Assault",
-  "goalVariant": false,
+  "displayName": "Standard",
+  "goalVariant": true,
   "fluxCapacitors": 10,
-  "fluxVents": 8,
+  "fluxVents": 9,
   "quality": 1,
   "permaMods": [],
   "hullMods": [
-    "magazines",
+    "fluxdistributor",
     "fluxcoil"
   ],
   "weaponGroups": [
-    {
-      "autofire": false,
-      "mode": "LINKED",
-      "weapons": {
-        "WS 004": "ionpulser"
-      }
-    },
-    {
-      "autofire": true,
-      "mode": "ALTERNATING",
-      "weapons": {
-        "WS 005": "espc_arcscatter",
-        "WS 006": "espc_arcscatter"
-      }
-    },
-    {
-      "autofire": true,
-      "mode": "LINKED",
-      "weapons": {
-        "WS 001": "pdburst"
-      }
-    }
+        {
+            "autofire": false,
+            "mode": "LINKED",
+            "weapons": {"WS 004": "pulselaser"}
+        },
+        {
+            "autofire": true,
+            "mode": "ALTERNATING",
+            "weapons": {
+                "WS 005": "ioncannon",
+                "WS 006": "ioncannon"
+            }
+        },,
+        {
+            "autofire": true,
+            "mode": "LINKED",
+            "weapons": {
+                "WS 001": "pdburst"
+            }
+        }
   ],
   "modules": [],
   "wings": []

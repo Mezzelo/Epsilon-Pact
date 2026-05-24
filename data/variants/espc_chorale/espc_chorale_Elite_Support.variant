@@ -3,7 +3,7 @@
   "hullId": "espc_chorale",
   "displayName": "Elite Support",
   "goalVariant": false,
-  "fluxCapacitors": 29,
+  "fluxCapacitors": 27,
   "fluxVents": 30,
   "quality": 1,
   "permaMods": [],
@@ -45,7 +45,7 @@
       "mode": "LINKED",
       "weapons": {
         "WS 008": "heavyburst",
-        "WS 010": "vulcan"
+        "WS 010": "espc_arcscatter"
       }
     }
   ],

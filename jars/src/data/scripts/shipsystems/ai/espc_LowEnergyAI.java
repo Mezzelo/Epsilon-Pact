@@ -14,9 +14,9 @@ import org.lazywizard.lazylib.MathUtils;
 // import org.lazywizard.lazylib.combat.CombatUtils;
 import org.lwjgl.util.vector.Vector2f;
 
-public class espc_PlasmaJoltAI implements ShipSystemAIScript {
+public class espc_LowEnergyAI implements ShipSystemAIScript {
     
-    private static final float THINK_INTERVAL_NORMAL = 0.15f;
+    private static final float THINK_INTERVAL_NORMAL = 1f;
     
     private static final float ACTIVATION_RANGE_MULT = 1.1f;
     private static final float DEACTIVATION_RANGE_MULT = 1.4f;
@@ -82,7 +82,9 @@ public class espc_PlasmaJoltAI implements ShipSystemAIScript {
 
         if (aiInterval.intervalElapsed()) {
         	if (system.isActive() &&
-        		(flux.getFluxLevel() > DEACTIVATE_FLUX || MathUtils.getDistance(ship, target) > deactivateDistance
+        		(flux.getFluxLevel() > DEACTIVATE_FLUX || 
+        		(MathUtils.getDistance(ship, target) > deactivateDistance && 
+        		!ship.getCustomData().containsKey("espc_InverseSkimmer_Ally"))
         		 || target.isFighter()))
         		ship.useSystem();
         	else if (!system.isActive() && flux.getFluxLevel() < ACTIVATION_FLUX_MAX

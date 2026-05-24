@@ -11,6 +11,7 @@ import com.fs.starfarer.api.impl.campaign.procgen.NebulaEditor;
 import com.fs.starfarer.api.impl.campaign.terrain.HyperspaceTerrainPlugin;
 import com.fs.starfarer.api.util.Misc;
 
+import data.scripts.util.MezzUtils;
 import data.scripts.util.espc_MarketUtil;
 
 import java.awt.*;
@@ -38,7 +39,7 @@ public class espc_GenHalestar implements SectorGeneratorPlugin
         		190f,
         		6000f,
         		390f);
-        lunron.setFaction("epsilpac");
+        lunron.setFaction(MezzUtils.factionIdPact);
         lunron.setCustomDescriptionId("espc_lunron");
         lunron.setInteractionImage("illustrations", "espc_lunron_illustration");
         // lunron.setInteractionImage("illustrations", "espc_lunron_illu");
@@ -53,7 +54,7 @@ public class espc_GenHalestar implements SectorGeneratorPlugin
         		260f,
         		4500f,
         		255f);
-        // giver.setFaction("epsilpac");
+        // giver.setFaction(MezzUtils.factionIdPact);
         giver.setCustomDescriptionId("espc_giver");
         
         PlanetAPI bruniel = system.addPlanet(
@@ -65,7 +66,7 @@ public class espc_GenHalestar implements SectorGeneratorPlugin
         		90f,
         		550f,
         		50f);
-        bruniel.setFaction("epsilpac");
+        bruniel.setFaction(MezzUtils.factionIdPact);
         bruniel.setCustomDescriptionId("espc_bruniel");
         bruniel.setInteractionImage("illustrations", "espc_bruniel_illustration");
         
@@ -78,7 +79,7 @@ public class espc_GenHalestar implements SectorGeneratorPlugin
         		105f,
         		1900f,
         		120f);
-        falris.setFaction("epsilpac");
+        falris.setFaction(MezzUtils.factionIdPact);
         falris.setCustomDescriptionId("espc_falris");
         falris.setInteractionImage("illustrations", "espc_falris_illustration");
 
@@ -86,7 +87,7 @@ public class espc_GenHalestar implements SectorGeneratorPlugin
                 "espc_halestar_comm",
                 "Halestar Relay",
                 Entities.COMM_RELAY_MAKESHIFT,
-                "epsilpac"
+                MezzUtils.factionIdPact
         );
         halestar_commRelay.setCircularOrbit(systemStar, 10f, 7900f, 505f);
 
@@ -203,8 +204,8 @@ public class espc_GenHalestar implements SectorGeneratorPlugin
         );
 
         SectorEntityToken brunielStation = system.addCustomEntity(
-        	"espc_bruniel_station", "Bruniel Station", "espc_station_bruniel", "epsilpac");
-        brunielStation.setFaction("epsilpac");
+        	"espc_bruniel_station", "Bruniel Station", "espc_station_bruniel", MezzUtils.factionIdPact);
+        brunielStation.setFaction(MezzUtils.factionIdPact);
         brunielStation.setMarket(brunielMarket);
         brunielStation.setCircularOrbitPointingDown(bruniel, 70f, 160f, 40f);
         // brunielStation.setCustomDescriptionId("espc_station_bruniel");

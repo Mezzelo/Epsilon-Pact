@@ -12,6 +12,9 @@ import com.fs.starfarer.api.combat.WeaponAPI.AIHints;
 import com.fs.starfarer.api.combat.WeaponAPI.WeaponType;
 // import com.fs.starfarer.api.util.IntervalUtil;
 import com.fs.starfarer.api.util.Misc;
+
+import data.scripts.util.MezzUtils;
+
 import java.util.List;
 
 import org.lazywizard.lazylib.CollisionUtils;
@@ -543,12 +546,12 @@ public class espc_SalvoStats extends BaseShipSystemScript {
 	@Override
 	public String getInfoText(ShipSystemAPI system, ShipAPI ship) {
 		if (usableState == 0)
-			return "INVALID LOADOUT";
+			return MezzUtils.getString("espc_system", "invalid_loadout");
 		
 		if (system.getState().equals(SystemState.IDLE))
-			return "READY";
+			return MezzUtils.getString("espc_system", "ready");
 		else if (system.getState().equals(SystemState.ACTIVE))
-			return "ACTIVE";
+			return MezzUtils.getString("espc_system", "active");
 		else
 			return "";
 	}

@@ -23,8 +23,8 @@ public class espc_ChoraleModBehaviour extends BaseHullMod {
 	private static final float RECOIL_MULT = 0.5f;
 	
 	private static final float AI_HULL_BACK = 0.3f;
-	private static final float AI_FLUX_BACK = 0.35f;
-	private static final float AI_FLUX_FORCE_ENGAGE = 0.1f;
+	private static final float AI_FLUX_BACK = 0.2f;
+	// private static final float AI_FLUX_FORCE_ENGAGE = 0.05f;
 	
 	private ShipAIConfig origConfig = null;
 	private boolean timidOrCautious = false;
@@ -67,10 +67,11 @@ public class espc_ChoraleModBehaviour extends BaseHullMod {
 					ship.getHullLevel() > AI_HULL_BACK) {
 					config.personalityOverride = Personalities.RECKLESS;
 					config.alwaysStrafeOffensively = true;
+					/*
 					if (ship.getFluxLevel() < AI_FLUX_FORCE_ENGAGE)
 						config.backingOffWhileNotVentingAllowed = false;
 					else
-						config.backingOffWhileNotVentingAllowed = true;
+						config.backingOffWhileNotVentingAllowed = true; */
 					config.turnToFaceWithUndamagedArmor = false;
 					config.burnDriveIgnoreEnemies = true;
 				} else {

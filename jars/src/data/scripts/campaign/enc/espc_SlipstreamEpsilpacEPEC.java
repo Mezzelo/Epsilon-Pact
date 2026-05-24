@@ -21,6 +21,7 @@ import com.fs.starfarer.api.impl.campaign.missions.hub.MissionFleetAutoDespawn;
 import com.fs.starfarer.api.util.Misc;
 
 import data.scripts.campaign.fleets.espc_PactFleetInflater;
+import data.scripts.util.MezzUtils;
 
 public class espc_SlipstreamEpsilpacEPEC extends BaseEPEncounterCreator {
 		
@@ -38,10 +39,10 @@ public class espc_SlipstreamEpsilpacEPEC extends BaseEPEncounterCreator {
 			m.beginFleet();
 			
 			Vector2f loc = point.getLocInHyper();
-			m.createQualityFleet(difficulty, "epsilpac", loc);
+			m.createQualityFleet(difficulty, MezzUtils.factionIdPact, loc);
 			m.triggerFleetAllowLongPursuit();
 			m.triggerMakeLowRepImpact();
-			m.triggerSetFleetFaction("epsilpac");
+			m.triggerSetFleetFaction(MezzUtils.factionIdPact);
 			m.triggerFleetSetAllWeapons();
 			
 			CampaignFleetAPI fleet = m.createFleet();
@@ -54,7 +55,8 @@ public class espc_SlipstreamEpsilpacEPEC extends BaseEPEncounterCreator {
 				fleet.setLocation(point.loc.x, point.loc.y);
 				Vector2f spawnLoc = Misc.getPointWithinRadius(point.loc, 1000f);
 				SectorEntityToken e = point.where.createToken(spawnLoc);
-				fleet.addAssignment(FleetAssignment.ORBIT_AGGRESSIVE, e, 20f * random.nextFloat() + 10f, "guarding area");
+				fleet.addAssignment(FleetAssignment.ORBIT_AGGRESSIVE, e, 20f * random.nextFloat() + 10f, 
+					MezzUtils.getString("espc_fleetactions", "slipstreamEpec"));
 				fleet.removeScriptsOfClass(MissionFleetAutoDespawn.class);
 				fleet.addScript(new MissionFleetAutoDespawn(null, fleet));
 			}
@@ -88,7 +90,7 @@ public class espc_SlipstreamEpsilpacEPEC extends BaseEPEncounterCreator {
 				return 0f;
 			int marketCount = 0;
 			for (MarketAPI market : Global.getSector().getEconomy().getMarketsCopy()) {
-				if (market.getFactionId().equals("epsilpac") &&
+				if (market.getFactionId().equals(MezzUtils.factionIdPact) &&
 					market.getStabilityValue() > 4) {
 					marketCount++;
 				}

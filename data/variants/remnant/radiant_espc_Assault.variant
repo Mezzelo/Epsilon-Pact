@@ -17,10 +17,8 @@
             "autofire": true,
             "mode": "LINKED",
             "weapons": {
-                "WS 005": "espc_fission",
                 "WS 006": "espc_fission",
                 "WS 007": "espc_fission",
-                "WS 008": "espc_fission"
             }
         },
         {
@@ -42,6 +40,14 @@
             "weapons": {
                 "WS 002": "locust",
                 "WS 004": "locust"
+            }
+        },
+        {
+            "autofire": true,
+            "mode": "ALTERNATING",
+            "weapons": {
+                "WS 005": "espc_riftspear",
+                "WS 008": "espc_riftspear"
             }
         },
         {

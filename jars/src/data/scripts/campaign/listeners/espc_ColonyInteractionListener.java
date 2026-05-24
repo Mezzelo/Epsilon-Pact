@@ -20,6 +20,7 @@ import com.fs.starfarer.api.util.Misc;
 
 import data.scripts.espc_ModPlugin;
 import data.scripts.campaign.skills.espc_RealHumbleBeingBg_Skill;
+import data.scripts.util.MezzUtils;
 import exerelin.campaign.backgrounds.CharacterBackgroundUtils;
 
 public class espc_ColonyInteractionListener implements ColonyInteractionListener {
@@ -44,10 +45,10 @@ public class espc_ColonyInteractionListener implements ColonyInteractionListener
 			isMeCore = Global.getSector().getPlayerPerson().getStats().getSkillLevel("espc_realHumbleBeingBg_skill") > 0f ||
 				Global.getSector().getPlayerPerson().getStats().getSkillLevel("espc_realHumanBeingBg_skill") > 0f;
 		
-		if (market.getFactionId().equals("epsilpac") || isMeCore) {
+		if (market.getFactionId().equals(MezzUtils.factionIdPact) || isMeCore) {
 			int pactOfficerCount = 0;
 			
-			if (market.getFactionId().equals("epsilpac")) {
+			if (market.getFactionId().equals(MezzUtils.factionIdPact)) {
 				
 				if (market.hasSubmarket(Submarkets.SUBMARKET_OPEN)) {
 		        	market.removeSubmarket(Submarkets.SUBMARKET_OPEN);
@@ -93,7 +94,7 @@ public class espc_ColonyInteractionListener implements ColonyInteractionListener
 		        	if (manager.getOfficer(person.getId()) != null) {
 		        		if (person.getMemoryWithoutUpdate().getBoolean(Misc.IS_MERCENARY) ||
 		        			isMeCore &&
-		        			!market.getFactionId().equals("epsilpac")) {
+		        			!market.getFactionId().equals(MezzUtils.factionIdPact)) {
 		        			manager.removeAvailable(manager.getOfficer(person.getId()));
 		        		} else {
 		        			pactOfficerCount++;
@@ -157,7 +158,7 @@ public class espc_ColonyInteractionListener implements ColonyInteractionListener
 				    );
 				}
 			}
-		} else if (!market.getFactionId().equals("epsilpac")) {
+		} else if (!market.getFactionId().equals(MezzUtils.factionIdPact)) {
 			if (market.hasSubmarket("espc_open_market")) {
 				market.removeSubmarket("espc_open_market");
 	        	market.addSubmarket(Submarkets.SUBMARKET_OPEN);

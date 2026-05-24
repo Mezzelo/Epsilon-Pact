@@ -23,14 +23,14 @@ public class espc_AutocannonEffect implements OnHitEffectPlugin {
         ApplyDamageResultAPI damage, 
         CombatEngineAPI engine
     ) {
-    	if (proj.getWeapon() != null && proj.getWeapon().getShip() != null) {
-    		if  (!proj.getWeapon().getShip().getCustomData().containsKey("espc_AutocannonPlugin")) {
+    	if (proj.getSource() != null) {
+    		if  (!proj.getSource().getCustomData().containsKey("espc_AutocannonPlugin")) {
         		espc_AutocannonVFX plugin = new espc_AutocannonVFX(proj.getWeapon().getShip());
         		engine.addPlugin(plugin);
         		plugin.addProj(point, proj.getFacing());
         		proj.getWeapon().getShip().setCustomData("espc_AutocannonPlugin", plugin);
         	} else
-        		((espc_AutocannonVFX) proj.getWeapon().getShip().getCustomData().get("espc_AutocannonPlugin")).addProj(
+        		((espc_AutocannonVFX) proj.getSource().getCustomData().get("espc_AutocannonPlugin")).addProj(
         			point, proj.getFacing());
     	}
     	float mult = proj.getDamageAmount() / PROJECTILE_DAMAGE_BASE;

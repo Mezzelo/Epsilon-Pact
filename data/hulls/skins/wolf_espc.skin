@@ -2,7 +2,7 @@
 	"baseHullId":"wolf",
 	"skinHullId":"wolf_espc",
 	"hullName":"Wolf",
-	"restoreToBaseHull":true,
+	"restoreToBaseHull":false,
 	"descriptionId":"wolf",
 	"addHints":["HIDE_IN_CODEX"],
 	"maxSpeed":170,

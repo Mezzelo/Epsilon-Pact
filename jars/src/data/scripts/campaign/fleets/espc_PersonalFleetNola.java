@@ -23,6 +23,8 @@ import com.fs.starfarer.api.impl.campaign.missions.hub.MissionFleetAutoDespawn;
 // import com.fs.starfarer.api.impl.campaign.ids.People;
 // import com.fs.starfarer.api.impl.campaign.ids.Factions;
 
+import data.scripts.util.MezzUtils;
+
 
 
 
@@ -96,10 +98,10 @@ public class espc_PersonalFleetNola extends PersonalFleetScript {
 		
 		Vector2f loc = lunron.getLocationInHyperspace();
 		
-		m.triggerCreateFleet(FleetSize.TINY, FleetQuality.DEFAULT, "epsilpac", FleetTypes.TASK_FORCE, loc);
+		m.triggerCreateFleet(FleetSize.TINY, FleetQuality.DEFAULT, MezzUtils.factionIdPact, FleetTypes.TASK_FORCE, loc);
 		m.triggerSetFleetOfficers( OfficerNum.NONE, OfficerQuality.DEFAULT);
 		m.triggerSetFleetCommander(getPerson());
-		m.triggerSetFleetFaction("epsilpac");
+		m.triggerSetFleetFaction(MezzUtils.factionIdPact);
 		m.triggerSetPatrol();
 		m.triggerSetFleetMemoryValue(MemFlags.MEMORY_KEY_SOURCE_MARKET, lunron);
 		m.triggerFleetSetNoFactionInName();
@@ -132,7 +134,7 @@ public class espc_PersonalFleetNola extends PersonalFleetScript {
 	public boolean canSpawnFleetNow() {
 		MarketAPI lunron = Global.getSector().getEconomy().getMarket("espc_lunron");
 		if (lunron == null || lunron.hasCondition(Conditions.DECIVILIZED)) return false;
-		if (!lunron.getFactionId().equals("epsilpac")) return false;
+		if (!lunron.getFactionId().equals(MezzUtils.factionIdPact)) return false;
 		return true;
 	}
 

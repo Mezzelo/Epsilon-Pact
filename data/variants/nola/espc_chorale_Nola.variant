@@ -3,7 +3,7 @@
   "hullId": "espc_chorale",
   "displayName": "Elite",
   "goalVariant": false,
-  "fluxCapacitors": 24,
+  "fluxCapacitors": 22,
   "fluxVents": 34,
   "quality": 1,
   "hullMods": [
@@ -59,7 +59,7 @@
       "autofire": true,
       "mode": "LINKED",
       "weapons": {
-        "WS 010": "vulcan"
+        "WS 010": "espc_arcscatter"
       }
     }
   ],
