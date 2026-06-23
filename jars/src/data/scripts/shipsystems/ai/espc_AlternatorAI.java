@@ -19,21 +19,21 @@ import com.fs.starfarer.api.combat.ShipwideAIFlags.AIFlags;
 import com.fs.starfarer.api.combat.WeaponAPI.AIHints;
 import com.fs.starfarer.api.combat.WeaponAPI.WeaponSize;
 import com.fs.starfarer.api.combat.WeaponAPI.WeaponType;
-import com.fs.starfarer.api.util.IntervalUtil;
 
 import data.scripts.shipsystems.espc_AlternatorStats;
 
 public class espc_AlternatorAI implements ShipSystemAIScript {
     
     private static final float THINK_INTERVAL_NORMAL = 0.35f;
-
-    private IntervalUtil aiInterval = new IntervalUtil(THINK_INTERVAL_NORMAL, THINK_INTERVAL_NORMAL + 0.05f);
+    private static final float THINK_INTERVAL_USED = 2.5f;
 
     private espc_AlternatorStats systemScript = null;
     private ShipSystemAPI system;
     private ShipAPI ship;
     private FluxTrackerAPI flux;
     private ShipwideAIFlags flags;
+    
+    private float aiThinkTime = THINK_INTERVAL_NORMAL;
     
     private boolean hitStrengthIsBallistic = false;
     private boolean pdGroupBallistic = true;
@@ -139,13 +139,15 @@ public class espc_AlternatorAI implements ShipSystemAIScript {
     	if (flux.isOverloadedOrVenting() || system.isCoolingDown())
     		return;
     	
-        aiInterval.advance(amount);
+        aiThinkTime -= amount;
 
-        if (aiInterval.intervalElapsed()) {
+        if (aiThinkTime <= 0f) {
+    		aiThinkTime = THINK_INTERVAL_NORMAL;
         	boolean isEnergy = systemScript.getMode();
         	if (target == null || target.isFighter()) {
         		if (isEnergy && pdGroupBallistic || !isEnergy && !pdGroupBallistic) {
         			ship.useSystem();
+            		aiThinkTime = THINK_INTERVAL_USED;
         		}
         	} else {
         		boolean targetShielded = target.getShield() != null && !target.getShield().getType().equals(ShieldType.PHASE);
@@ -155,14 +157,15 @@ public class espc_AlternatorAI implements ShipSystemAIScript {
         		if (!targetShielded || targetShielded && target.getShield().isOff()) {
         			if (!isEnergy) {
             			ship.useSystem();
+                		aiThinkTime = THINK_INTERVAL_USED;
             		}
         		} else {
         			if (isEnergy) {
             			ship.useSystem();
+                		aiThinkTime = THINK_INTERVAL_USED;
             		}
         		}
         	}
-    		aiInterval.setInterval(THINK_INTERVAL_NORMAL, THINK_INTERVAL_NORMAL + 0.05f);
         }
     }
 }

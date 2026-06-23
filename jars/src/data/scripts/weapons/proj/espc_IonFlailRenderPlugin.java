@@ -25,7 +25,6 @@ import org.magiclib.plugins.MagicTrailPlugin;
 
 import data.scripts.util.MezzUtils;
 import data.scripts.weapons.espc_IonFlailEffect;
-// import org.lazywizard.lazylib.VectorUtils;
 				
 public class espc_IonFlailRenderPlugin extends BaseEveryFrameCombatPlugin {
 	
@@ -34,13 +33,13 @@ public class espc_IonFlailRenderPlugin extends BaseEveryFrameCombatPlugin {
 
 	
 	private static final int PARTICLE_COUNT = 128;
-	private static final float PARTICLE_DUR = 0.7f;
+	private static final float PARTICLE_DUR = 0.9f;
 	private static final float PARTICLE_DUR_MIN = 0.2f;
-	private static final float PARTICLE_DIST_MAX = 250f;
-	private static final float PARTICLE_DIST_MIN = 50f;
-	private static final float DIST_MULT_MIN = 0.6f;
-	private static final float DIST_MULT_MAX = 1.0f;
-	private static final float PARTICLE_WIDTH_MAX = 3f;
+	private static final float PARTICLE_DIST_MAX = 600f;
+	private static final float PARTICLE_DIST_MIN = 100f;
+	private static final float DIST_MULT_MIN = 0.8f;
+	private static final float DIST_MULT_MAX = 1.1f;
+	private static final float PARTICLE_WIDTH_MAX = 4f;
 	private static final float PARTICLE_WIDTH_MIN = 1.5f;
 	private static final float PARTICLE_DIST_FORWARDS = 50f;
 	
@@ -56,7 +55,6 @@ public class espc_IonFlailRenderPlugin extends BaseEveryFrameCombatPlugin {
     	private final float angCosY;
     	private final float distMax;
     	private final float durMax;
-    	private final int particleCount;
     	
     	public IonFlailImpact(Vector2f pos, float angle) {
             effectStart = Global.getCombatEngine().getTotalElapsedTime(false);
@@ -66,7 +64,6 @@ public class espc_IonFlailRenderPlugin extends BaseEveryFrameCombatPlugin {
     		angCosY = (float) FastTrig.cos(Math.toRadians(startAng));
     		distMax = Misc.random.nextFloat() * (DIST_MULT_MAX - DIST_MULT_MIN) * PARTICLE_DIST_MAX + DIST_MULT_MIN;
     		durMax = PARTICLE_DUR;
-    		particleCount = PARTICLE_COUNT;
     		
     	}
     }
@@ -112,7 +109,7 @@ public class espc_IonFlailRenderPlugin extends BaseEveryFrameCombatPlugin {
 					iter.remove();
 					continue;
 				}
-				/*
+				/* used to be coded to blend the cosmetic trail into a real one but that ended up looking worse lol
 				if (!proj.getCustomData().containsKey("espc_ionflailtrailid"))
 					continue;
                 MagicTrailPlugin.addTrailMemberAdvanced(
@@ -192,6 +189,46 @@ public class espc_IonFlailRenderPlugin extends BaseEveryFrameCombatPlugin {
 					continue;
 	            MagicTrailPlugin.addTrailMemberAdvanced(
 					null,
+					wep.trailId + 11f,	
+					Global.getSettings().getSprite("fx", "base_trail_smooth"),
+					new Vector2f(weapon.getFirePoint(0).x + 
+						MezzUtils.halfSineOut(weapon.getChargeLevel()) * FLAIL_RADIUS * (float) FastTrig.cos(
+						Math.toRadians(weapon.getCurrAngle() + FLAIL_DEGS * -wep.arcDirection
+							* (weapon.getSlot().getLocation().y < 0f ? -1f : 1f) *
+						(float) Math.pow(MezzUtils.halfSineIn(weapon.getChargeLevel()), 1.5f))), 
+						weapon.getFirePoint(0).y +
+						MezzUtils.halfSineOut(weapon.getChargeLevel()) * FLAIL_RADIUS * (float) FastTrig.sin(
+						Math.toRadians(weapon.getCurrAngle() + FLAIL_DEGS * -wep.arcDirection
+							* (weapon.getSlot().getLocation().y < 0f ? -1f : 1f) *
+						(float) Math.pow(MezzUtils.halfSineIn(weapon.getChargeLevel()), 1.5f)))),
+					0f,
+					0f,
+					weapon.getCurrAngle() + FLAIL_DEGS * -wep.arcDirection
+						* (weapon.getSlot().getLocation().y < 0f ? -1f : 1f)
+						* (float) Math.pow(MezzUtils.halfSineIn(weapon.getChargeLevel()), 1.5f)
+						+ 90f * -wep.arcDirection * (weapon.getSlot().getLocation().y < 0f ? -1f : 1f),
+					0f,
+					0f,
+					50f * wep.getWeapon().getChargeLevel(),
+					25f * wep.getWeapon().getChargeLevel(),
+	            	new Color(30, 120, 255),
+	            	new Color(30, 120, 255),
+	            	85f,
+					0.06f,
+					0.0f,
+					0.06f,
+					GL11.GL_SRC_ALPHA,
+					GL11.GL_ONE,
+					128f,
+					64f,
+					(wep.trailId + 11f) * 2f,
+					Misc.ZERO,
+					null,
+	            	CombatEngineLayers.ABOVE_SHIPS_LAYER,
+					1f
+	            );
+	            MagicTrailPlugin.addTrailMemberAdvanced(
+					null,
 					wep.trailId + 5f,	
 					Global.getSettings().getSprite("fx", "base_trail_mild"),
 					new Vector2f(weapon.getFirePoint(0).x + 
@@ -212,10 +249,10 @@ public class espc_IonFlailRenderPlugin extends BaseEveryFrameCombatPlugin {
 						+ 90f * -wep.arcDirection * (weapon.getSlot().getLocation().y < 0f ? -1f : 1f),
 					0f,
 					0f,
-					36f * wep.getWeapon().getChargeLevel(),
-					8f * wep.getWeapon().getChargeLevel(),
+					16f * wep.getWeapon().getChargeLevel(),
+					6f * wep.getWeapon().getChargeLevel(),
 	            	new Color(255, 255, 255),
-	            	new Color(60, 210, 255),
+	            	new Color(35, 170, 255),
 	            	255f,
 					0.04f,
 					0.0f,
@@ -252,10 +289,10 @@ public class espc_IonFlailRenderPlugin extends BaseEveryFrameCombatPlugin {
 						+ 90f * -wep.arcDirection * (weapon.getSlot().getLocation().y < 0f ? -1f : 1f),
 					0f,
 					0f,
-					48f * wep.getWeapon().getChargeLevel(),
-					12f * wep.getWeapon().getChargeLevel(),
-	            	new Color(0, 255, 215),
-	            	new Color(0, 225, 155),
+					40f * wep.getWeapon().getChargeLevel(),
+					10f * wep.getWeapon().getChargeLevel(),
+	            	new Color(50, 205, 255),
+	            	new Color(30, 120, 255),
 	            	255f,
 					0.04f,
 					0.0f,
@@ -316,17 +353,17 @@ public class espc_IonFlailRenderPlugin extends BaseEveryFrameCombatPlugin {
 					GL11.glColor4ub(
 						(byte) 255, (byte) 255, (byte) 255, (byte) 255);
 					MezzUtils.glSquare(pos, MezzUtils.halfSineOut(wep.getChargeLevel()) *
-						(20f * jitterRand.nextFloat() + 4f));
+						(3f * jitterRand.nextFloat() + 5f));
 					GL11.glColor4ub(
-						(byte) 0, (byte) 255, (byte) 215, (byte) 205);
+						(byte) 35, (byte) 170, (byte) 255, (byte) 255);
 					MezzUtils.glSquare(pos, MezzUtils.halfSineOut(wep.getChargeLevel()) *
 						MezzUtils.halfSineOut(wep.getChargeLevel()) *
-						(30f * jitterRand.nextFloat() + 6f));
+						(22f * jitterRand.nextFloat() + 4f));
 					GL11.glColor4ub(
-						(byte) 0, (byte) 225, (byte) 155, (byte) 85);
+						(byte) 30, (byte) 120, (byte) 255, (byte) 105);
 					MezzUtils.glSquare(pos, MezzUtils.halfSineOut(wep.getChargeLevel()) *
 						MezzUtils.halfSineOut(wep.getChargeLevel()) *
-						(48f * jitterRand.nextFloat() + 12f));
+						(40f * jitterRand.nextFloat() + 8f));
 				}
 	
 			}
@@ -339,17 +376,17 @@ public class espc_IonFlailRenderPlugin extends BaseEveryFrameCombatPlugin {
 				(byte) 255, (byte) 255, (byte) 255, (byte) 255);
 			MezzUtils.glSquare(proj.getLocation().x, proj.getLocation().y, 
 				Math.min(proj.getDamageAmount() / espc_IonFlailEffect.BASE_DAMAGE, 1f) * 
-				(12f * jitterRand.nextFloat() + 3f));
+				(10f * jitterRand.nextFloat() + 2f));
 			GL11.glColor4ub(
-				(byte) 0, (byte) 255, (byte) 215, (byte) 205);
+				(byte) 65, (byte) 170, (byte) 255, (byte) 205);
 			MezzUtils.glSquare(proj.getLocation().x, proj.getLocation().y, 
 				Math.min(proj.getDamageAmount() / espc_IonFlailEffect.BASE_DAMAGE, 1f) * 
-				(30f * jitterRand.nextFloat() + 6f));
+				(35f * jitterRand.nextFloat() + 7f));
 			GL11.glColor4ub(
-				(byte) 0, (byte) 225, (byte) 155, (byte) 85);
+				(byte) 30, (byte) 120, (byte) 255, (byte) 65);
 				MezzUtils.glSquare(proj.getLocation().x, proj.getLocation().y, 
 				Math.min(proj.getDamageAmount() / espc_IonFlailEffect.BASE_DAMAGE, 1f) * 
-				(60f * jitterRand.nextFloat() + 15f));
+				(70f * jitterRand.nextFloat() + 15f));
 			
 		}
 		
@@ -362,7 +399,7 @@ public class espc_IonFlailRenderPlugin extends BaseEveryFrameCombatPlugin {
 			
 			Random rand = new Random((long) (impact.effectStart + impact.startPos.x * 10f + impact.startPos.y * 10f));
 			
-			for (int i = 0; i < impact.particleCount; i ++) {
+			for (int i = 0; i < PARTICLE_COUNT; i ++) {
 				float dur = MezzUtils.halfSineIn(rand.nextFloat()) * (impact.durMax - PARTICLE_DUR_MIN) + PARTICLE_DUR_MIN;
 				float ang = rand.nextFloat() * 360f;
 				float distRand = rand.nextFloat();
@@ -377,7 +414,7 @@ public class espc_IonFlailRenderPlugin extends BaseEveryFrameCombatPlugin {
 					Math.min(Math.max((cTime - impact.effectStart - dur / 2f) * 2f / dur, 0f), 1f);
 				
 				float width = (PARTICLE_WIDTH_MAX - PARTICLE_WIDTH_MIN) * jitterRand.nextFloat() + PARTICLE_WIDTH_MIN;
-				float opacity = jitterRand.nextFloat();
+				float opacity = Math.max(0.1f, jitterRand.nextFloat() * 2.5f - 0.5f);
 				
 				float x = impact.startPos.x + 
 					MezzUtils.halfSineOut(interp) * randCos * dist * (0.65f + Math.abs(locSin) * 0.35f) +
@@ -390,13 +427,13 @@ public class espc_IonFlailRenderPlugin extends BaseEveryFrameCombatPlugin {
 					(byte) 255, (byte) 255, (byte) 255, (byte) 255);
 				MezzUtils.glSquare(x, y, scale * width * (opacity * 0.5f + 0.5f));
 				MezzUtils.colorHSBLerp4UB(
-					new Color(0, 255, 215), 
-					new Color(0, 205, 255), 
+					new Color(0, 215, 255), 
+					new Color(65, 175, 255), 
 					(int) (205 * opacity), (int) (205 * opacity), MezzUtils.halfSineOut(interp));
 				MezzUtils.glSquare(x, y, scale * width * 2f);
 				MezzUtils.colorHSBLerp4UB(
-					new Color(0, 225, 155), 
-					new Color(0, 165, 255), 
+					new Color(30, 205, 255), 
+					new Color(30, 120, 255), 
 					125, 125, MezzUtils.halfSineOut(interp));
 				MezzUtils.glSquare(x, y, scale * width * 4.5f * (opacity * 0.5f + 0.5f));
 				

@@ -1,10 +1,10 @@
 {
 	"baseHullId":"scintilla",
 	"skinHullId":"scintilla_espc",
-	"hullName":"Scintilla",
+	"hullName":"Scintilla (EP)",
 	"restoreToBaseHull":false,
-	"descriptionId":"scintilla",
-	"addHints":["HIDE_IN_CODEX"],
+	"descriptionId":"scintilla_espc",
+	"tags":["limited_tooltip_if_locked", "codex_unlockable", "auto_rec", "no_dealer"],
     "systemId":"espc_Salvo",
 	"suppliesToRecover":15,
 	"suppliesPerMonth":15,

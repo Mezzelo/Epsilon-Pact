@@ -1,10 +1,10 @@
 {
 	"baseHullId":"radiant",
 	"skinHullId":"radiant_espc",
-	"hullName":"Radiant",
+	"hullName":"Radiant (EP)",
 	"restoreToBaseHull":false,
-	"descriptionId":"radiant",
-	"addHints":["HIDE_IN_CODEX"],
+	"descriptionId":"radiant_espc",
+	"tags":["limited_tooltip_if_locked", "codex_unlockable", "auto_rec", "no_dealer"],
     "systemId":"espc_WideInverseSkimmer",
 	"maxSpeed":55,
 	"ordnancePoints":340,

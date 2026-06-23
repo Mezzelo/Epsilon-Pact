@@ -1,11 +1,3 @@
-// deterministic sim of single frame renders to achieve more complex particle behaviour
-// applying easing curves is instrumental to achieving the specific visuals of this effect,
-// and don't appear to be available in the utilities i've found.  attempting to use as little memory as possible here.
-// direct render calls has this very performant - 50x fire rate with minimal impact on weaker hardware,
-// although lmk if you run into issues.
-
-// you could almost certainly do this faster on the gpu with shaders
-// don't have time to study em rn.  there's worse performance hogs.
 package data.scripts.weapons.proj;
 
 import com.fs.starfarer.api.Global;

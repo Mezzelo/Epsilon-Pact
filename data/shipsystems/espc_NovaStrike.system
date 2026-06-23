@@ -1,0 +1,18 @@
+{
+	"id":"espc_NovaStrike",
+	"type":"STAT_MOD",
+	"aiType":"CUSTOM",
+	
+	"aiScript":"data.scripts.shipsystems.ai.espc_NovaStrikeAI",
+	"statsScript":"data.scripts.shipsystems.espc_NovaStrikeStats",
+
+	#"fadeActivationSoundOnChargedown":true,
+	
+	"useSound":"system_nova_burst_fire",
+	"outOfUsesSound":"gun_out_of_ammo",
+	
+}
+
+
+
+

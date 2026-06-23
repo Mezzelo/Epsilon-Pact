@@ -10,7 +10,6 @@ import com.fs.starfarer.api.combat.ShipAPI.HullSize;
 import com.fs.starfarer.api.combat.ShipSystemAPI.SystemState;
 import com.fs.starfarer.api.combat.WeaponAPI.AIHints;
 import com.fs.starfarer.api.combat.WeaponAPI.WeaponType;
-// import com.fs.starfarer.api.util.IntervalUtil;
 import com.fs.starfarer.api.util.Misc;
 
 import data.scripts.util.MezzUtils;
@@ -546,12 +545,12 @@ public class espc_SalvoStats extends BaseShipSystemScript {
 	@Override
 	public String getInfoText(ShipSystemAPI system, ShipAPI ship) {
 		if (usableState == 0)
-			return MezzUtils.getString("espc_system", "invalid_loadout");
+			return MezzUtils.getString("espc_shipsystem", "invalid_loadout");
 		
 		if (system.getState().equals(SystemState.IDLE))
-			return MezzUtils.getString("espc_system", "ready");
+			return MezzUtils.getString("espc_shipsystem", "ready");
 		else if (system.getState().equals(SystemState.ACTIVE))
-			return MezzUtils.getString("espc_system", "active");
+			return MezzUtils.getString("espc_shipsystem", "active");
 		else
 			return "";
 	}

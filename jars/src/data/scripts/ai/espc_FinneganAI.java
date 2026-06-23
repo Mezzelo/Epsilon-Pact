@@ -46,7 +46,7 @@ public class espc_FinneganAI implements MissileAIPlugin, GuidedMissileAI {
 		// if (ship != null)
 		// 	this.ship = ship;
 		this.missile = missile;
-		velocityLast = Vector2f.add(missile.getVelocity(), Misc.ZERO, velocityLast);
+		velocityLast.set(missile.getVelocity());
 	}
 
 	@Override
@@ -165,8 +165,8 @@ public class espc_FinneganAI implements MissileAIPlugin, GuidedMissileAI {
 			combatEngine.spawnDamagingExplosion(explosion, missile.getSource(), missile.getLocation(), true);
 			combatEngine.removeEntity(missile);
 		}
-		
-		velocityLast = Vector2f.add(missile.getVelocity(), Misc.ZERO, velocityLast);
+
+		velocityLast.set(missile.getVelocity());
 	}
 
 	@Override

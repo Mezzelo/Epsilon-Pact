@@ -16,14 +16,13 @@ public class espc_AptitudePact extends SCBaseAptitudePlugin {
     @Override
     public void addCodexDescription(TooltipMakerAPI tooltip) {
         tooltip.addPara(
-        	"The Pact aptitude is combat-focused, centered around their eccentric doctrine. "
-        	+ "It empowers an irregular, lightweight fleet composition to dictate the terms of engagement and "
-        	+ "strike well above its weight. ",
-            0f, Misc.getTextColor(), Misc.getHighlightColor(), "Pact", "");
+        	MezzUtils.getString("espc_sic", "aptitude_pact1"),
+            0f, Misc.getTextColor(), Misc.getHighlightColor(), MezzUtils.getString("espc_general", "Pact"), "");
         tooltip.addSpacer(10f);
         tooltip.addPara(
-            "As well as enabling the use of Automated ships, this aptitude also grants greater access to their unique skillset.",
-            0f, Misc.getTextColor(), Misc.getHighlightColor(), "automated ships", "");
+        	MezzUtils.getString("espc_sic", "aptitude_pact1"),
+            0f, Misc.getTextColor(), Misc.getHighlightColor(), 
+            Misc.ucFirst(MezzUtils.getString("espc_general", "automated_ships")), "");
     }
 
     @Override
@@ -37,7 +36,7 @@ public class espc_AptitudePact extends SCBaseAptitudePlugin {
     	SCAptitudeSection section = new SCAptitudeSection(true, 0, "combat1");
         section.addSkill("espc_sc_pact_against_the_odds");
         section.addSkill("espc_sc_pact_clear_skies");
-        section.addSkill("espc_sc_pact_something_different");
+        section.addSkill("espc_sc_pact_beyond_the_pale");
         addSection(section);
         
         section = new SCAptitudeSection(true, 2, "combat2");
@@ -50,7 +49,7 @@ public class espc_AptitudePact extends SCBaseAptitudePlugin {
 
         section = new SCAptitudeSection(false, 4, "combat3");
         section.addSkill("espc_sc_pact_aces_high");
-        section.addSkill("espc_sc_pact_beyond_perfection");
+        section.addSkill("espc_sc_pact_souls_among_stars");
         addSection(section);
 
     }
@@ -67,7 +66,7 @@ public class espc_AptitudePact extends SCBaseAptitudePlugin {
     	if (fleet.getFaction() == null)
     		return false;
     	if (fleet.getFaction().getId() != null && 
-        	fleet.getFaction().getId().equals(MezzUtils.factionIdPact)) // bounty fleet/nex allied fleets
+        	fleet.getFaction().getId().equals(MezzUtils.factionIdPact))
     		return true;
     	return false;
     }
@@ -80,7 +79,7 @@ public class espc_AptitudePact extends SCBaseAptitudePlugin {
     	if (fleet.getFaction() == null)
     		return 0f;
     	if (fleet.getFaction().getId() != null && 
-    		fleet.getFaction().getId().equals(MezzUtils.factionIdPact)) // bounty fleet/nex allied fleets
+    		fleet.getFaction().getId().equals(MezzUtils.factionIdPact))
     		return Float.MAX_VALUE;
     	return 0f;
     }

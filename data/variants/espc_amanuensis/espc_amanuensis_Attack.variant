@@ -3,22 +3,23 @@
   "hullId": "espc_amanuensis",
   "displayName": "Attack",
   "goalVariant": false,
-  "fluxCapacitors": 47,
+  "fluxCapacitors": 37,
   "fluxVents": 50,
   "quality": 1,
   "permaMods": [],
   "hullMods": [
     "targetingunit",
     "stabilizedshieldemitter",
-    "hardenedshieldemitter"
+    "hardenedshieldemitter",
+    "fluxdistributor"
   ],
   "weaponGroups": [
     {
       "autofire": true,
       "mode": "LINKED",
       "weapons": {
-        "WS0001": "espc_riftpike",
-        "WS0002": "espc_riftpike"
+        "WS0001": "espc_tachyonbolter",
+        "WS0002": "espc_tachyonbolter"
       }
     },
     {
@@ -31,10 +32,10 @@
     },
     {
       "autofire": true,
-      "mode": "LINKED",
+      "mode": "ALTERNATING",
       "weapons": {
-        "WS0005": "ionbeam",
-        "WS0006": "ionbeam"
+        "WS0005": "espc_riftspear",
+        "WS0006": "espc_riftspear"
       }
     },
     {

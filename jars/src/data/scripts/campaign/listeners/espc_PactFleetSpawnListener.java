@@ -37,12 +37,13 @@ public class espc_PactFleetSpawnListener extends BaseCampaignEventListener {
 		"alma",
 		"lindsay",
 		"nadia",
+		"sien",
 		"tam",
+		"ali",
 		"carl",
+		"ken",
 		"lin",
 		"ross",
-		"sien",
-		"ken",
 	};
 	
 	@Override

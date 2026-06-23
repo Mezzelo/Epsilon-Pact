@@ -44,8 +44,7 @@ public class espc_DancingSteps {
 	public static float HULL_PORTION_MAX = 50f;
 	public static float HOSTILE_RANGE = 350f;
 	public static float SHIELD_RAISE_BONUS = 75f;
-	public static float ARMOR_DAMAGE_PENALTY = 20f;
-	public static float FIGHTER_DAMAGE_REDUCTION = 25f;
+	public static float FIGHTER_DAMAGE_REDUCTION = 40f;
 	
 	public static float DAMAGE_REDUCTION_SHIELD_MAX = 80f;
 	public static float DAMAGE_REDUCTION_SPEED_MAX = 70f;
@@ -259,9 +258,6 @@ public class espc_DancingSteps {
 				0f, hc, hc, (int)SPEED_BONUS + "%", (int)MANEUVERABILITY_BONUS + "%"
 			);
 			info.addPara(indent + MezzUtils.getString("espc_skills", "dancingsteps1-2"),
-				0f, tc, hc, (int) SPEED_BONUS_NO_SHIELD + "", (int) (SPEED_BONUS_TOP_SPEED_PORTION * 100f) + "%"
-			);
-			info.addPara(indent + MezzUtils.getString("espc_skills", "dancingsteps1-3"),
 				0f, tc, hc, (int)HOSTILE_RANGE + " " + MezzUtils.getString("espc_gencombat", "su")
 			);
 			/*

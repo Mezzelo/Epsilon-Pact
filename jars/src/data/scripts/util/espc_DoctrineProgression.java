@@ -47,10 +47,12 @@ public class espc_DoctrineProgression {
 				"glimmer", "lumen_espc", "fulgent_espc", "scintilla_espc", "brilliant_espc", "apex", "nova_espc", "radiant_espc",
 				"jackalope", "songbird", "flagbearer", "militia", "ember", "pilgrim", "observer", "chorale", "amanuensis", 
 				"anubis", "wolf_espc"}, 
-			new String[] {"hveldriver", "heavymauler", "heavyblaster", "hil", "locust"}, 
+			// TODO: reowrk tachyon bolter variant placement.  also you still gotta kill the locusts lmao
+			new String[] {"hveldriver", "heavymauler", "heavyblaster", "hil", "tachyonlance", "locust"}, 
 			new String[] {"espc_riftspear", "espc_riftpike", "espc_fission", "espc_mkl", "espc_flak",
 				"espc_arcscatter", "espc_ionflail",
-				"espc_aa", "espc_remdriver", "espc_remmortar", "espc_minimir", "espc_minimirdual", "espc_gatling", "espc_autocannon"}, 
+				"espc_aa", "espc_remdriver", "espc_remmortar", "espc_minimir", "espc_minimirdual", "espc_gatling", "espc_autocannon",
+				"espc_tachyonbolter"}, 
 			new HashMap<String, Float>() { {
 				put("lasher_espc_Strike", 0.0f);
 				put("lasher_espc_Strike_Dated", 8.0f);
@@ -116,7 +118,7 @@ public class espc_DoctrineProgression {
 				put("espc_chorale_Support", 0.0f);
 				put("espc_chorale_Suppressive", 0.0f);
 				put("espc_chorale_Suppressive_Common", 1.0f);
-				put("espc_jackalope_Support", 2.0f);
+				put("espc_jackalope_Support", 1.0f);
 				}
 			}
 		));
@@ -154,7 +156,8 @@ public class espc_DoctrineProgression {
 				put("espc_pilgrim_Assault", 3.0f);
 				put("espc_pilgrim_Escort", 2.0f);
 				
-				put("espc_chorale_Suppressive", 1.0f);
+				// this needs to be delayed until bolter
+				put("espc_chorale_Suppressive", 2.0f);
 				put("espc_chorale_Suppressive_Common", 0.0f);
 				}
 			}
@@ -184,9 +187,8 @@ public class espc_DoctrineProgression {
 				put("espc_rondel_Assault", 3.0f);
 				put("espc_rondel_Anti_Shield", 7.0f);
 				
-				put("espc_jackalope_Escort_Pact", 2.0f);
 				put("espc_jackalope_Anti_Armor", 0.0f);
-				put("espc_jackalope_Anti_Armor_Pact", 1.0f);
+				put("espc_jackalope_Anti_Armor_Pact", 2.0f);
 				put("espc_jackalope_Anti_Shield", 0.0f);
 				put("espc_jackalope_Strike", 2.0f);
 				
@@ -214,7 +216,7 @@ public class espc_DoctrineProgression {
 				put("espc_observer_Suppressive", 0.0f);
 
 				put("espc_chorale_Common", 0.0f);
-				put("espc_chorale_Strike", 3.0f);
+				put("espc_chorale_Strike", 2.0f);
 				}
 			}
 		));
@@ -274,26 +276,25 @@ public class espc_DoctrineProgression {
 	public static Map<Integer, DoctrineShiftFaction[]> knowledgeForeign = new HashMap<Integer, DoctrineShiftFaction[]>();
 	static {
 		knowledgeForeign.put(6, new DoctrineShiftFaction[] {
-				new DoctrineShiftFaction("derelict", new String[] {"espc_picket", "espc_warden"})
+				new DoctrineShiftFaction("derelict", new String[] {"espc_sentry", "espc_warden"})
 			});
 		knowledgeForeign.put(12, new DoctrineShiftFaction[] {
-			new DoctrineShiftFaction("luddic_path", new String[] {"espc_jackalope_lp"}),
-			new DoctrineShiftFaction("hegemony", new String[] {"espc_rondel_h"}),
-			new DoctrineShiftFaction("independent", new String[] {"espc_ember_c"}),
-			new DoctrineShiftFaction("derelict", new String[] {"espc_sentry", "espc_bastillon", "espc_berserker"}),
+			new DoctrineShiftFaction("derelict", new String[] {"espc_picket", "espc_bastillon"}),
 			new DoctrineShiftFaction("pirates", new String[] {"WEP_espc_as"}),
 		});
 		knowledgeForeign.put(18, new DoctrineShiftFaction[] {
-			new DoctrineShiftFaction("pirates", new String[] {"espc_ember_p", "WEP_espc_amflamersolo"}),
+			new DoctrineShiftFaction("derelict", new String[] {"espc_berserker", "espc_rampart"}),
 			new DoctrineShiftFaction("independent", new String[] {"espc_ember_c"}),
-			new DoctrineShiftFaction("derelict", new String[] {"espc_rampart"})
+			new DoctrineShiftFaction("luddic_path", new String[] {"espc_jackalope_lp"}),
+			new DoctrineShiftFaction("hegemony", new String[] {"espc_rondel_h"}),
 		});
 		knowledgeForeign.put(24, new DoctrineShiftFaction[] {
 			new DoctrineShiftFaction("hegemony", new String[] {"espc_pilgrim_h"}),
-			new DoctrineShiftFaction("luddic_path", new String[] {"WEP_espc_amflamersolo"}),
+			new DoctrineShiftFaction("pirates", new String[] {"espc_ember_p", "WEP_espc_amflamersolo"}),
 		});
 		knowledgeForeign.put(30, new DoctrineShiftFaction[] {
 			new DoctrineShiftFaction("tritachyon", new String[] {"espc_observer_tt"}),
+			new DoctrineShiftFaction("luddic_path", new String[] {"WEP_espc_amflamersolo"}),
 		});
 	}
 	

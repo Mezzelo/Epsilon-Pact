@@ -1,11 +1,56 @@
 {
+	# MOD SETTINGS
+	# if not using LunaLib, you may access and change mod settings here.
+	# these values are overridden if using lunalib.  you should just use lunalib, really.
+		
+	# Enables additional Graphicslib effects for weapons, specifically extra lights and distortions.
+	"espc_Glib":true, # default: TRUE
+	
+	# Force sets the player to use from a random selection of unique portraits when using the Real Human Being Nexerelin start.
+	"espc_AIBGPortraits":false, # default: FALSE
+	
+	
+	# A few hulls added by this mod use custom AI behaviour that will make them significantly more aggressive, causing additional possibility of over-extending.
+	# Without custom AI, the game's default AI will generally use these ships very passively, refusing to engage.
+	# If this option is disabled, this behaviour will be disabled for player-sided ships only. These ships will also adhere to vanilla behaviour regardless if used by a cautious or timid officer.
+	"espc_CustomShipAI":true, # default: TRUE
+	
+	# If enabled, the Pact begins the game with only a minority of their unique hulls and weapons, instead using an Independent-esque arsenal that largely adheres to their doctrine.
+	# The Pact will gradually phase in new hulls and weapons to replace their common arsenal, and variants of their designs will proliferate to other factions in tandem. Newly developed hulls and weapons will not be available by any means beforehand. This progression can be influenced by the player and sector.
+	# When disabled, the Pact will use the equivalent of their final arsenal. If toggled mid-save, will require reloading the save to take effect, and will only affect newly spawned fleets & market inventories after restock.
+	# This feature makes for a more spoiler-friendly experience for players newer to Starsector and better reflects the Pact's status as a recently formed polity, but may not be desireable if you wish to experience the full scope of this mod's content sooner.
+	"espc_DoctrinalProgression": true, # default: TRUE
+	
+	# Adjusts the baseline timespan over which the Pact's doctrine develops, in months. Requires reloading the save to take effect.
+	"espc_DoctrinalProgressionSpeed": 48, # default: 48.  Value value between 6 and 120.
+	
+	# Multiplies the total timespan over which the Pact's doctrine develops in Extended Mode. The total duration as defined by both settings will be limited to 240 months. Requires reloading the save to take effect.
+	"espc_DoctrinalProgressionExtended": 3, # default: 3.  Valid value between 1 and 5.
+	
+	# Adjusts the initial progression the Pact has towards their finalized doctrine, as a percentage. Requires reloading the save to take effect.
+	"espc_DoctrinalProgressionInitial": 0, # default: 0.  Valid value between 0 and 100.
+	
+	
+	# Score requirement for the custom Nexerelin backgrounds added by this mod.
+	"espc_BGScoreRequirements": "Perfect", # default: "Perfect".  Options: "Perfect", "Complete", "None"
+	
+	"espc_MeatlessSalvage": false, # default: FALSE
+	#If using the Real Human Being start, completely removes the crew requirement for salvaging.  Takes effect when save is loaded.
+	# This option exists to help make zero crew runs a little more viable - not an intended stipulation for this start, but one that can exist if you so desire it to.
+	
+	"espc_RealHumbleBeing": false, # default: FALSE
+	# Enables the Real Human Being of Humble Tastes background, which combines the stipulations (and unlock requirements) of an older version of the Real Human Being background with the Humble Tastes background.  It's the whole pilot an AI ship deal, except you can only recruit Pact officers instead of having no officers.
+	# In case you're looking to pilot a Glimmer for the entirety of your playthrough, you absolute psycho and also my kindred spirit.  This is effectively a scrapped prototype feature, so consider this unsupported and for those curious.
+		
+		
    	"plugins":{
 		"espc_CampaignPlugin":"data.scripts.campaign.plugins.espc_CampaignPlugin",
 		"espc_MeCoreCombatPlugin":"data.scripts.plugin.espc_MeCoreCombatPlugin",
 	},
     "designTypeColors":{
         "Epsilon Pact":[10, 119, 158, 255],
-        "Pact-Derelict":[10, 153, 131, 255],
+        "Pact-Derelict":[10, 153, 131, 255]
+        # "Pact-Remnant":[40, 187, 196, 255],
     },
     "graphics":{	
 		"blueprint_packages":{
@@ -18,6 +63,7 @@
             "espc_nola":"graphics/portraits/espc_nola.png",
             "espc_nola_young":"graphics/portraits/espc_nola_young.png",
             "espc_anyiwo":"graphics/portraits/espc_anyiwo.png",
+            "espc_ali":"graphics/portraits/espc_ali.png",
             "espc_alma":"graphics/portraits/espc_alma.png",
             "espc_carl":"graphics/portraits/espc_carl.png",
             "espc_ken":"graphics/portraits/espc_ken.png",

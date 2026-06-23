@@ -91,51 +91,6 @@
       "locations": [37, -52]
     },
     {
-      "id": "WS 009",
-      "size": "SMALL",
-      "type": "SYSTEM",
-      "mount": "HIDDEN",
-      "arc": 20,
-      "angle": 0,
-      "locations": [39, 0]
-    },
-    {
-      "id": "WS 010",
-      "size": "SMALL",
-      "type": "SYSTEM",
-      "mount": "HIDDEN",
-      "arc": 20,
-      "angle": 55,
-      "locations": [9, 45]
-    },
-    {
-      "id": "WS 011",
-      "size": "SMALL",
-      "type": "SYSTEM",
-      "mount": "HIDDEN",
-      "arc": 20,
-      "angle": -55,
-      "locations": [9, -44]
-    },
-    {
-      "id": "WS 012",
-      "size": "SMALL",
-      "type": "SYSTEM",
-      "mount": "HIDDEN",
-      "arc": 20,
-      "angle": 145,
-      "locations": [-44, 49]
-    },
-    {
-      "id": "WS 013",
-      "size": "SMALL",
-      "type": "SYSTEM",
-      "mount": "HIDDEN",
-      "arc": 20,
-      "angle": 215,
-      "locations": [-44, -49]
-    },
-    {
       "id": "WS 014",
       "size": "SMALL",
       "type": "UNIVERSAL",

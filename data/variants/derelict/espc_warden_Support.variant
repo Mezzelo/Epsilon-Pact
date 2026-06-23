@@ -5,7 +5,7 @@
     "goalVariant": false,
     "hullId": "espc_warden",
     "hullMods": [
-		"fluxdistributor"
+		"targetingunit"
 	],
     "permaMods": [],
     "sMods": [],

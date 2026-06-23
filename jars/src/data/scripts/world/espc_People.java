@@ -179,8 +179,6 @@ public class espc_People {
 			gaussMarket.getCommDirectory().getEntryForPerson(anyiwo).setHidden(true);
 			ip.addPerson(anyiwo);
 
-			// anlo.getStats().setSkillLevel("espc_voice", 1);
-			// anlo.getStats().setSkillLevel(Skills.INDUSTRIAL_PLANNING, 1);
 			if (!isRandomSector)
 				gaussMarket.setAdmin(anlo);
         	gaussMarket.getCommDirectory().addPerson(anlo, 0);

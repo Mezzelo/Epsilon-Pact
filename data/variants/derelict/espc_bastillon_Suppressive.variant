@@ -25,12 +25,12 @@
       "weapons": {
         "WS 001": "espc_arcscatter",
         "WS 002": "espc_arcscatter",
+        "WS 003": "espc_arcscatter",
+        "WS 004": "espc_arcscatter",
         "WS 005": "espc_arcscatter",
         "WS 006": "espc_arcscatter",
         "WS 007": "espc_arcscatter",
-        "WS 008": "espc_arcscatter",
-        "WS 009": "espc_arcscatter",
-        "WS 010": "espc_arcscatter"
+        "WS 008": "espc_arcscatter"
       }
     }
   ],

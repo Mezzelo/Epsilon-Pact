@@ -25,6 +25,7 @@ public class espc_RiftPikeEffect implements OnFireEffectPlugin, EveryFrameWeapon
 	private ShipAPI ship;
 	private IntervalUtil sparkInterval, innerInterval;
 	private float chargeJostleX = 0f;
+	private boolean glib = false;
 	// private Vector2f barrelOffset;
 	
 	@Override
@@ -32,13 +33,23 @@ public class espc_RiftPikeEffect implements OnFireEffectPlugin, EveryFrameWeapon
 		sparkInterval = new IntervalUtil(0.6f, 1.0f);
 		innerInterval = new IntervalUtil(0.02f, 0.07f);
 		ship = weapon.getShip();
+		glib = MezzUtils.glibCheck();
 		// barrelOffset = Vector2f.sub(weapon.getFirePoint(0), ship.getLocation(), new Vector2f());
 	}
 	
     @Override
     public void onFire(DamagingProjectileAPI proj, WeaponAPI weapon, CombatEngineAPI engine) {
     	proj.getDamage().setSoftFlux(true);
-		// fluxRemaining.add(weapon.getFluxCostToFire() * thisFluxPercent);
+    	if (glib) {
+    		MezzUtils.addWaveDistortion(false, 
+        		weapon.getFirePoint(0), 
+        		ship == null ? Misc.ZERO : ship.getVelocity(), 
+        		7f, 80f, 0.15f, 0.1f, 0.15f, 0, 1);
+    		MezzUtils.addWaveDistortion(false, 
+        		weapon.getFirePoint(0), 
+        		ship == null ? Misc.ZERO : ship.getVelocity(), 
+        		5f, 100f, 0.35f, 0.2f, 0.35f, 0, 1);
+    	}
     }
 
     @Override
@@ -53,6 +64,7 @@ public class espc_RiftPikeEffect implements OnFireEffectPlugin, EveryFrameWeapon
 			
 			sparkInterval.advance(amount);
 			if (sparkInterval.intervalElapsed()) {
+				
 				Global.getSoundPlayer().playSound(
 					"espc_spark",
 					0.8f + Misc.random.nextFloat() * 0.4f + weapon.getChargeLevel() * 0.2f,
@@ -64,23 +76,26 @@ public class espc_RiftPikeEffect implements OnFireEffectPlugin, EveryFrameWeapon
 				Vector2f sparkOffset = new Vector2f(Misc.random.nextFloat() * 40f - 20f, Misc.random.nextFloat() * 40f - 20f);
 				float sparkAng = VectorUtils.getAngle(Misc.ZERO, sparkOffset);
 				MagicRender.battlespace(
-						Global.getSettings().getSprite("fx", "espc_spark"),
-						Vector2f.add(weapon.getFirePoint(0), sparkOffset, new Vector2f()),
-						ship.getVelocity(),
-						new Vector2f(10f, 20f),
-						new Vector2f(-30f, 100f),
-						(sparkAng + 90f + Misc.random.nextFloat() * 70f - 35f) % 360f,
-						0f,
-						new Color(235, 155, 255),
-						true,
-						0.03f,
-						0.1f,
-						0.04f
+					Global.getSettings().getSprite("fx", "espc_spark"),
+					Vector2f.add(weapon.getFirePoint(0), sparkOffset, new Vector2f()),
+					ship.getVelocity(),
+					new Vector2f(10f, 20f),
+					new Vector2f(-30f, 100f),
+					(sparkAng + 90f + Misc.random.nextFloat() * 70f - 35f) % 360f,
+					0f,
+					new Color(235, 155, 255),
+					true,
+					0.03f,
+					0.1f,
+					0.04f
 				);
-				// if (Misc.random.nextFloat() > 0.5f)
-					chargeJostleX += Misc.random.nextFloat() * 0.25f + 0.2f;
-				// else
-				// 	chargeJostleY += Misc.random.nextFloat() * 0.15f + 0.1f;
+				chargeJostleX += Misc.random.nextFloat() * 0.25f + 0.2f;
+				if (glib)
+		    		MezzUtils.addWaveDistortion(true,
+		    			weapon.getFirePoint(0), 
+		    			ship == null ? Misc.ZERO : ship.getVelocity(), 
+		    			4f, 25f * (1f + chargeJostleX * 2f), 
+		    			chargeJostleX * 0.4f, chargeJostleX * 0.1f, chargeJostleX * 0.4f, 1, 0);
 			}
 			
 			if (weapon.getChargeLevel() <= 0.85f) {
@@ -125,16 +140,7 @@ public class espc_RiftPikeEffect implements OnFireEffectPlugin, EveryFrameWeapon
 					weapon.getCurrAngle(),
 					new Color(93, 0, 255, 70 + (int) chargeJostleX * 180),
 					true
-				);/*
-				MagicRender.singleframe(
-					Global.getSettings().getSprite("fx", "espc_riftcharge1"),
-					weapon.getFirePoint(0),
-					new Vector2f(0f + MezzUtils.halfSineOut(Math.min(weapon.getChargeLevel() * 1.3f, 1f)) * 25f * (1f + chargeJostleX * 2f) / (1f + chargeJostleY * 2f), 
-						0f + MezzUtils.halfSineOut(Math.min(weapon.getChargeLevel() * 1.3f, 1f)) * 25f * (1f + chargeJostleY * 2f) / (1f + chargeJostleX * 2f)),
-					weapon.getCurrAngle(),
-					new Color(153,50,255,200),
-					true
-				);*/
+				);
 			} else {
 				
 				MagicRender.singleframe(
@@ -154,16 +160,7 @@ public class espc_RiftPikeEffect implements OnFireEffectPlugin, EveryFrameWeapon
 					weapon.getCurrAngle(),
 					new Color(93, 0, 255, 70),
 					true
-				);/*
-				MagicRender.singleframe(
-					Global.getSettings().getSprite("fx", "espc_riftcharge1"),
-					weapon.getFirePoint(0),
-					new Vector2f(25f + chargeJostleX * 0f - MezzUtils.halfSineIn(Math.min((weapon.getChargeLevel() - 0.85f) / 0.1f, 1f)) * 15f, 
-						25f + chargeJostleY * 0f - MezzUtils.halfSineIn(Math.min((weapon.getChargeLevel() - 0.85f) / 0.1f, 1f)) * 15f),
-					weapon.getCurrAngle(),
-					new Color(153,50,255,200),
-					true
-				);*/
+				);
 			}
 			if (weapon.getChargeLevel() < 0.7f) {
 				Global.getSoundPlayer().playLoop(

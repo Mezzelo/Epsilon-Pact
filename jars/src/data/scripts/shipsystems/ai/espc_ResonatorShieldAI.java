@@ -1,17 +1,12 @@
 package data.scripts.shipsystems.ai;
 
-// import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.combat.*;
-// import com.fs.starfarer.api.combat.ShipSystemAPI.SystemState;
 import com.fs.starfarer.api.combat.ShipwideAIFlags.AIFlags;
-// import com.fs.starfarer.api.plugins.ShipSystemStatsScript.State;
-import com.fs.starfarer.api.util.IntervalUtil;
+import com.fs.starfarer.api.impl.campaign.ids.Personalities;
 
 import data.scripts.shipsystems.espc_ResonatorShieldStats;
+import data.scripts.util.MezzUtils;
 
-// import org.lazywizard.lazylib.MathUtils;
-// import org.lazywizard.lazylib.combat.AIUtils;
-// import org.lazywizard.lazylib.combat.CombatUtils;
 import org.lwjgl.util.vector.Vector2f;
 
 public class espc_ResonatorShieldAI implements ShipSystemAIScript {
@@ -21,13 +16,20 @@ public class espc_ResonatorShieldAI implements ShipSystemAIScript {
     
     private static final float HF_BURST_PADDING = 1.15f;
     
+	private static final float AI_HULL_BACK = 0.3f;
+	private static final float AI_FLUX_BACK = 0.35f;
+	// private static final float AI_FLUX_FORCE_ENGAGE = 0.2f;
+    
     private static final float FLUX_DISENGAGE_THRESHOLD = 0.1f;
     private static final float FLUX_EMERGENCY_THRESHOLD = 0.9f;
     
-    private static final float THINK_INTERVAL_NORMAL = 0.35f;
-    private static final float THINK_INTERVAL_TOGGLE = 1.5f;
+    private static final float THINK_INTERVAL_NORMAL = 0.2f;
+    // private static final float THINK_INTERVAL_USED = 1f;
 
-    private IntervalUtil aiInterval = new IntervalUtil(THINK_INTERVAL_NORMAL, THINK_INTERVAL_NORMAL + 0.05f);
+	private ShipAIConfig origConfig = null;
+	
+	private int aiStateLast = 0;
+    private float aiThinkTime = THINK_INTERVAL_NORMAL;
 
     private espc_ResonatorShieldStats systemScript = null;
     private ShipSystemAPI system;
@@ -65,12 +67,52 @@ public class espc_ResonatorShieldAI implements ShipSystemAIScript {
     	if (flux.isOverloadedOrVenting())
     		return;
     	
-        aiInterval.advance(amount);
+        aiThinkTime -= amount;
 
-        if (aiInterval.intervalElapsed()) {
+        if (aiThinkTime <= 0f) {
+            aiThinkTime = THINK_INTERVAL_NORMAL;
+
+    		if (aiStateLast == -1) {
+    			
+    		} else if (origConfig == null) {
+        		if (ship.getShipAI().getConfig() != null) {
+    				if ((!MezzUtils.getSetting("CustomShipAI") && ship.getOwner() == 0 && !ship.isAlly()) 
+    					|| Personalities.TIMID.equals(ship.getShipAI().getConfig().personalityOverride) || 
+    					Personalities.CAUTIOUS.equals(ship.getShipAI().getConfig().personalityOverride)) {
+    					aiStateLast = -1;
+    				} else {
+    					ShipAIConfig config = ship.getShipAI().getConfig();
+    					origConfig = config.clone();
+    				}
+    			}
+        	} else {
+        		ShipAIConfig config = ship.getShipAI().getConfig();
+        		if (config != null) {
+        			if (aiStateLast != 1 && ship.getFluxLevel() < AI_FLUX_BACK &&
+        				ship.getHullLevel() > AI_HULL_BACK) {
+        				config.personalityOverride = Personalities.RECKLESS;
+        				config.alwaysStrafeOffensively = true;
+        					/*
+        				if (ship.getFluxLevel() < AI_FLUX_FORCE_ENGAGE)
+        					config.backingOffWhileNotVentingAllowed = false;
+        				else
+        					config.backingOffWhileNotVentingAllowed = true; */
+        				config.turnToFaceWithUndamagedArmor = false;
+        				config.burnDriveIgnoreEnemies = true;
+        				// ship.getShipAI().forceCircumstanceEvaluation();
+        				aiStateLast = 1;
+        			} else if (aiStateLast != 0 && (ship.getFluxLevel() >= AI_FLUX_BACK ||
+    					ship.getHullLevel() <= AI_HULL_BACK)){
+        				config.copyFrom(origConfig);
+        				ship.getShipAI().forceCircumstanceEvaluation();
+        				aiStateLast = 0;
+        			}
+        		}
+        	}
+        	
         	if (toggled) {
         		toggled = false;
-        		aiInterval.setInterval(THINK_INTERVAL_NORMAL, THINK_INTERVAL_NORMAL + 0.05f);
+        		aiThinkTime = THINK_INTERVAL_NORMAL;
         	}
             float useWeight = 0f;
             
@@ -103,7 +145,6 @@ public class espc_ResonatorShieldAI implements ShipSystemAIScript {
             		}
             	}
             }
-            // Global.getLogger(espc_ResonatorShieldAI.class).info("weight: " + useWeight);
             	
             // at this point, just override the AI flag and throw shields down entirely instead of waiting for it to dissipate.
             // better than overloading, though this is tuned quite aggressively.
@@ -128,9 +169,6 @@ public class espc_ResonatorShieldAI implements ShipSystemAIScript {
                     }
                 }
             }
-            
-            if (toggled)
-        		aiInterval.setInterval(THINK_INTERVAL_TOGGLE, THINK_INTERVAL_TOGGLE + 0.05f);
         }
     }
 }

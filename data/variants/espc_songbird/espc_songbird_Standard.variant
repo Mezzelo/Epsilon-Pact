@@ -24,7 +24,7 @@
                 "WS 005": "ioncannon",
                 "WS 006": "ioncannon"
             }
-        },,
+        },
         {
             "autofire": true,
             "mode": "LINKED",

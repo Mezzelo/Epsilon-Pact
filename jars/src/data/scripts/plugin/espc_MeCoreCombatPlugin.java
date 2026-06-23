@@ -29,7 +29,7 @@ public class espc_MeCoreCombatPlugin extends BaseEveryFrameCombatPlugin {
     }
 
     public void advance(float amount, List<InputEventAPI> events) {
-        if (amount == 0f || found || engine == null ||
+        if (engine == null || engine.isPaused() || amount <= 0f || found||
         	engine.isMission() || Global.getCurrentState() != GameState.COMBAT) return;
         interval -= amount;
         if (interval <= 0f)

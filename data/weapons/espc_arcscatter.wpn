@@ -17,5 +17,5 @@
 	"animationType":"GLOW",
 	"autocharge":true,  # whether the weapon will continue charging and fire if the LMB is tapped instead of held
 	"projectileSpecId":"espc_arcscatter_shot",  # projectile that will be fired
-	"fireSoundTwo":"minipulser_fire",
+	"fireSoundTwo":"espc_arcscatter_fire",
 }

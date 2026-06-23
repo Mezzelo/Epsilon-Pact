@@ -23,17 +23,18 @@ public class espc_RiftSpearEffect implements OnFireEffectPlugin, EveryFrameWeapo
 
 	private ShipAPI ship;
 	private IntervalUtil innerInterval;
+	private boolean glib = false;
 	
 	@Override
 	public void init(WeaponAPI weapon) {
 		innerInterval = new IntervalUtil(0.02f, 0.07f);
 		ship = weapon.getShip();
+		glib = MezzUtils.glibCheck();
 	}
 	
     @Override
     public void onFire(DamagingProjectileAPI proj, WeaponAPI weapon, CombatEngineAPI engine) {
     	proj.getDamage().setSoftFlux(true);
-		// fluxRemaining.add(weapon.getFluxCostToFire() * thisFluxPercent);
     }
 
     @Override
@@ -66,17 +67,6 @@ public class espc_RiftSpearEffect implements OnFireEffectPlugin, EveryFrameWeapo
 						0.04f
 					);
 				}
-				/*
-				MagicRender.singleframe(
-					Global.getSettings().getSprite("systemMap", "radar_entity"),
-					weapon.getFirePoint(0),
-					new Vector2f(0f + (MezzUtils.halfSineOut(Math.min(weapon.getChargeLevel() * 1.3f, 1f)) * 15f) * 2f, 
-						0f + (MezzUtils.halfSineOut(Math.min(weapon.getChargeLevel() * 1.3f, 1f)) * 15f) * 2f),
-					weapon.getCurrAngle(),
-					new Color(255, 222, 166, 200),
-					true
-				);
-				*/
 				MagicRender.singleframe(
 					Global.getSettings().getSprite("systemMap", "radar_entity"),
 					weapon.getFirePoint(0),
@@ -85,27 +75,8 @@ public class espc_RiftSpearEffect implements OnFireEffectPlugin, EveryFrameWeapo
 					weapon.getCurrAngle(),
 					new Color(93, 0, 255, 100),
 					true
-				);/*
-				MagicRender.singleframe(
-					Global.getSettings().getSprite("fx", "espc_riftcharge1"),
-					weapon.getFirePoint(0),
-					new Vector2f(0f + MezzUtils.halfSineOut(Math.min(weapon.getChargeLevel() * 1.3f, 1f)) * 15f, 
-						0f + MezzUtils.halfSineOut(Math.min(weapon.getChargeLevel() * 1.3f, 1f)) * 15f),
-					weapon.getCurrAngle(),
-					new Color(153,50,255,200),
-					true
-				);*/
+				);
 			} else {
-				/*
-				MagicRender.singleframe(
-					Global.getSettings().getSprite("systemMap", "radar_entity"),
-					weapon.getFirePoint(0),
-					new Vector2f(15f * 1f - MezzUtils.halfSineIn((weapon.getChargeLevel() - 0.85f) / 0.15f) * 10f * 2f, 
-						15f * 1f - MezzUtils.halfSineIn((weapon.getChargeLevel() - 0.85f) / 0.15f) * 10f * 2f),
-					weapon.getCurrAngle(),
-					new Color(255, 222, 166, 200),
-					true
-				);*/
 				MagicRender.singleframe(
 					Global.getSettings().getSprite("systemMap", "radar_entity"),
 					weapon.getFirePoint(0),
@@ -114,16 +85,7 @@ public class espc_RiftSpearEffect implements OnFireEffectPlugin, EveryFrameWeapo
 					weapon.getCurrAngle(),
 					new Color(93, 0, 255, 100),
 					true
-				);/*
-				MagicRender.singleframe(
-					Global.getSettings().getSprite("fx", "espc_riftcharge1"),
-					weapon.getFirePoint(0),
-					new Vector2f(15f - MezzUtils.halfSineIn((weapon.getChargeLevel() - 0.85f) / 0.15f) * 10f, 
-						15f - MezzUtils.halfSineIn((weapon.getChargeLevel() - 0.85f) / 0.15f) * 10f),
-					weapon.getCurrAngle(),
-					new Color(153,50,255,200),
-					true
-				);*/
+				);
 			}
 			if (weapon.getChargeLevel() < 0.7f) {
 				Global.getSoundPlayer().playLoop(

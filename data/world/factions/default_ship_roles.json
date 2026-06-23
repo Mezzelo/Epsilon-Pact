@@ -74,9 +74,9 @@
 		"espc_songbird_Standard":2,
 		"espc_songbird_Strike":4,
 		"espc_opossum_Assault":3,
-		"espc_opossum_Strike":3,
-		"espc_opossum_Escort":0,
-		"espc_opossum_Support":2,
+		"espc_opossum_Strike":4,
+		"espc_opossum_Escort":3,
+		"espc_opossum_Support":0,
 		"wolf_espc_Assault":0,
 		"wolf_espc_Strike":0,
 		"wolf_espc_Pact_Assault":2,
@@ -273,6 +273,11 @@
 		"espc_pilgrim_h_Assault":4,
 		"espc_pilgrim_h_Strike":3,
 		"espc_pilgrim_h_Support":3,
+		
+		"scintilla_espc_Strike":0,
+		"scintilla_espc_Support":0,
+		"scintilla_espc_Pact_Strike":5,
+		"scintilla_espc_Pact_Support":5,
 	},
 	
 	"freighterMedium":{

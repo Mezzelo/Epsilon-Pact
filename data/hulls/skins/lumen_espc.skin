@@ -1,10 +1,10 @@
 {
 	"baseHullId":"lumen",
 	"skinHullId":"lumen_espc",
-	"hullName":"Lumen",
+	"hullName":"Lumen (EP)",
 	"restoreToBaseHull":false,
-	"descriptionId":"lumen",
-	"addHints":["HIDE_IN_CODEX"],
+	"descriptionId":"lumen_espc",
+	"tags":["limited_tooltip_if_locked", "codex_unlockable", "auto_rec", "no_dealer"],
     "systemId":"espc_InverseSkimmer",
 	"maxSpeed":160,
 	"baseValueMult":4,

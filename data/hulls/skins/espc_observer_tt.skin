@@ -24,7 +24,7 @@
 	   "WS0012":{"type":ENERGY},
     },
 	"maxSpeed":60,
-    "ordnancePoints":155,
+    "ordnancePoints":150,
 	"removeWeaponSlots":[], 		# ids
 	"removeEngineSlots":[], 		# indices, as engine slots have no id in the .ship file
 	"removeBuiltInMods":[], 		# hullmod ids

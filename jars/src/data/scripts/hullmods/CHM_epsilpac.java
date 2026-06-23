@@ -9,6 +9,8 @@ import com.fs.starfarer.api.combat.ShipAPI.HullSize;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.util.Misc;
 
+import data.scripts.util.MezzUtils;
+
 public class CHM_epsilpac extends BaseHullMod {
     
 	@Override
@@ -35,7 +37,7 @@ public class CHM_epsilpac extends BaseHullMod {
     
     @Override
     public void addPostDescriptionSection(final TooltipMakerAPI tooltip, final ShipAPI.HullSize hullSize, final ShipAPI ship, final float width, final boolean isForModSpec) {
-        tooltip.addPara("%s", 6f, Misc.getGrayColor(), "At the end of everything, hold onto anything.");
+        tooltip.addPara("%s", 6f, Misc.getGrayColor(), MezzUtils.getString("espc_hullmod", "CHM_quote"));
     }
     
     @Override

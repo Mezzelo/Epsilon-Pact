@@ -1,9 +1,10 @@
 {
 	"id":"espc_AMCompressor",
 	"type":"STAT_MOD",
-	"aiType":"WEAPON_BOOST",
+	"aiType":"CUSTOM",
 	
 	"statsScript":"data.scripts.shipsystems.espc_AMCompressorStats",
+	"aiScript":"data.scripts.shipsystems.ai.espc_AMCompressorAI",
 	
 	"weaponGlowColor":[255,50,0,155],
 	"weaponTypes":[BALLISTIC,ENERGY],

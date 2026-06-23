@@ -1,14 +1,10 @@
 package data.scripts;
 
-// import java.io.IOException;
-
-// import org.json.JSONException;
-// import org.json.JSONObject;
-
 import com.fs.starfarer.api.BaseModPlugin;
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.PluginPick;
 import com.fs.starfarer.api.campaign.CampaignPlugin.PickPriority;
+import com.fs.starfarer.api.campaign.econ.CommoditySpecAPI;
 import com.fs.starfarer.api.combat.MissileAIPlugin;
 import com.fs.starfarer.api.combat.MissileAPI;
 import com.fs.starfarer.api.combat.ShipAIConfig;
@@ -16,6 +12,7 @@ import com.fs.starfarer.api.combat.ShipAIPlugin;
 import com.fs.starfarer.api.combat.ShipAPI;
 import com.fs.starfarer.api.fleet.FleetMemberAPI;
 import com.fs.starfarer.api.impl.campaign.enc.EncounterManager;
+import com.fs.starfarer.api.impl.campaign.ids.Commodities;
 import com.fs.starfarer.api.impl.campaign.ids.Factions;
 import com.fs.starfarer.api.impl.campaign.ids.Personalities;
 import com.fs.starfarer.api.impl.campaign.rulecmd.salvage.SalvageEntity;
@@ -23,6 +20,8 @@ import com.fs.starfarer.api.impl.campaign.shared.SharedData;
 import com.fs.starfarer.api.impl.codex.CodexDataV2;
 import com.fs.starfarer.api.util.Misc;
 import com.thoughtworks.xstream.XStream;
+
+import java.util.Set;
 
 // import com.fs.starfarer.api.impl.campaign.shared.SharedData;
 import org.dark.shaders.light.LightData;
@@ -47,15 +46,15 @@ import data.scripts.world.espc_People;
 // import data.scripts.world.systems.espc_GenKhemsala;
 import exerelin.campaign.SectorManager;
 import exerelin.campaign.backgrounds.CharacterBackgroundUtils;
-import lunalib.lunaSettings.LunaSettings;
 
 public class espc_ModPlugin extends BaseModPlugin {
 
     private static boolean hasNex = false;
     private static boolean hasGlib = false;
     private static boolean hasLuna = false;
-    // private static boolean espc_generateDerelicts = false;
-    // private static boolean espc_modifyExplorarium = true;
+    
+    // for code divers: this is just for mission ai selection in testing, see pickShipAI
+    private static boolean testMode = false;
 
     @Override
     public void onApplicationLoad() {
@@ -64,6 +63,7 @@ public class espc_ModPlugin extends BaseModPlugin {
 
         hasNex = Global.getSettings().getModManager().isModEnabled("nexerelin");
         hasLuna = Global.getSettings().getModManager().isModEnabled("lunalib");
+        testMode = testMode && Global.getSettings().getModManager().isModEnabled("espcdev");
         {
             if (!Global.getSettings().getModManager().isModEnabled("lw_lazylib"))
                 throw new RuntimeException(
@@ -127,6 +127,48 @@ public class espc_ModPlugin extends BaseModPlugin {
         		CodexDataV2.getHullmodEntryId("espc_alternatorinfomod"));
     	CodexDataV2.makeRelated(CodexDataV2.getShipSystemEntryId("espc_Salvo"),
         		CodexDataV2.getHullmodEntryId("espc_salvoinfomod"));
+
+    	CodexDataV2.makeRelated(CodexDataV2.getShipSystemEntryId("espc_InverseSkimmer"),
+    		CodexDataV2.getShipSystemEntryId("displacer"));
+    	CodexDataV2.makeRelated(CodexDataV2.getShipSystemEntryId("espc_WideInverseSkimmer"),
+        	CodexDataV2.getShipSystemEntryId("displacer"));
+    	CodexDataV2.makeRelated(CodexDataV2.getShipSystemEntryId("espc_InverseSkimmer"),
+            CodexDataV2.getShipSystemEntryId("espc_WideInverseSkimmer"));
+    	CodexDataV2.makeRelated(CodexDataV2.getShipSystemEntryId("espc_RemoteBurn"),
+                CodexDataV2.getShipSystemEntryId("microburn"));
+    	CodexDataV2.makeRelated(CodexDataV2.getShipSystemEntryId("espc_NovaStrike"),
+            CodexDataV2.getShipSystemEntryId("nova_burst"));
+    	
+    	CodexDataV2.makeRelated(CodexDataV2.getShipSystemEntryId("espc_InverseSkimmer"),
+        	CodexDataV2.getHullmodEntryId("espc_pactskin"));
+        CodexDataV2.makeRelated(CodexDataV2.getShipSystemEntryId("espc_WideInverseSkimmer"),
+            CodexDataV2.getHullmodEntryId("espc_pactskin"));
+        CodexDataV2.makeRelated(CodexDataV2.getShipSystemEntryId("espc_RemoteBurn"),
+        	CodexDataV2.getHullmodEntryId("espc_pactskin"));
+        CodexDataV2.makeRelated(CodexDataV2.getShipSystemEntryId("espc_NovaStrike"),
+        	CodexDataV2.getHullmodEntryId("espc_pactskin"));
+    	
+	}
+
+	@Override
+	public void onCodexDataGenerated() {
+		
+		Set<String> entryIds = CodexDataV2.getEntry(CodexDataV2.getCommodityEntryId(Commodities.DOMESTIC_GOODS)).getRelatedEntryIds();
+		for (String entry : entryIds)
+			CodexDataV2.makeUnrelated(CodexDataV2.getCommodityEntryId("espc_vintage"), entry);
+		
+		entryIds = CodexDataV2.getEntry(CodexDataV2.getCommodityEntryId(Commodities.LUXURY_GOODS)).getRelatedEntryIds();
+		for (String entry : entryIds)
+			if (CodexDataV2.getEntry(entry).getParam() instanceof CommoditySpecAPI)
+				CodexDataV2.makeRelated(CodexDataV2.getCommodityEntryId("espc_vintage"), entry);
+
+		CodexDataV2.makeUnrelated(CodexDataV2.getCommodityEntryId("espc_vintage"), 
+			CodexDataV2.getCommodityEntryId(Commodities.DOMESTIC_GOODS));
+		CodexDataV2.makeRelated(CodexDataV2.getCommodityEntryId("espc_vintage"), 
+			CodexDataV2.getCommodityEntryId(Commodities.LUXURY_GOODS));
+		CodexDataV2.makeRelated(CodexDataV2.getCommodityEntryId("espc_vintage"), 
+			CodexDataV2.getIndustryEntryId("espc_enclaves"));
+		
     	
 	}
 	
@@ -153,8 +195,10 @@ public class espc_ModPlugin extends BaseModPlugin {
         new espc_WorldGen().generate(Global.getSector(), true,
         	(hasNex && !SectorManager.getManager().isCorvusMode())
         );
-        PactProgressionEventIntel intel = new PactProgressionEventIntel();
-        Global.getSector().getIntelManager().addIntel(intel);
+        if (MezzUtils.getSetting("DoctrinalProgression")) {
+            // PactProgressionEventIntel intel = new PactProgressionEventIntel();
+            // Global.getSector().getIntelManager().addIntel(intel);
+        }
     }
     
 	@Override
@@ -164,7 +208,7 @@ public class espc_ModPlugin extends BaseModPlugin {
 	
 	@Override
 	public void onNewGameAfterEconomyLoad() {
-		espc_People.create(true, hasNex && SectorManager.getManager().isCorvusMode());
+		espc_People.create(true, hasNex && !SectorManager.getManager().isCorvusMode());
 	}
 	
 	@Override
@@ -174,7 +218,7 @@ public class espc_ModPlugin extends BaseModPlugin {
 	        	(hasNex && !SectorManager.getManager().isCorvusMode())
 	        );
 	        if (!isNewGame)
-	        	espc_People.create(false, hasNex && SectorManager.getManager().isCorvusMode());
+	        	espc_People.create(false, hasNex && !SectorManager.getManager().isCorvusMode());
 		}
 		Global.getSector().addTransientListener(
 			new espc_PactFleetSpawnListener(false)
@@ -194,11 +238,10 @@ public class espc_ModPlugin extends BaseModPlugin {
 			CharacterBackgroundUtils.isBackgroundActive("espc_realHumbleBeing"))) {
 				Global.getSector().registerPlugin(new espc_CampaignPlugin());
 			}
-			if ((CharacterBackgroundUtils.isBackgroundActive("espc_realHumanBeing") ||
-				CharacterBackgroundUtils.isBackgroundActive("espc_realHumbleBeing")) &&
-				espc_ModPlugin.hasLuna()) {
+			if (CharacterBackgroundUtils.isBackgroundActive("espc_realHumanBeing") ||
+				CharacterBackgroundUtils.isBackgroundActive("espc_realHumbleBeing")) {
 				// not the nicest solution, but one i've come to learn exists.  this is a silly feature anyways.
-				if (LunaSettings.getBoolean("epsilonpact", "espc_MeatlessSalvage")) {
+				if (MezzUtils.getSetting("MeatlessSalvage")) {
 					SalvageEntity.BASE_CREW = 0;
 				} else if (SalvageEntity.BASE_CREW == 0)
 					SalvageEntity.BASE_CREW = 30;
@@ -222,76 +265,89 @@ public class espc_ModPlugin extends BaseModPlugin {
 	
     @Override
     public PluginPick<ShipAIPlugin> pickShipAI(FleetMemberAPI member, ShipAPI ship) {
-        if (ship.getHullSpec().getBaseHullId().equals("espc_chorale")) {
+    	if (!MezzUtils.getSetting("CustomShipAI") && ship.getOwner() == 0 && !ship.isAlly())
+    		return null;
+        if (ship.getHullSpec().getHullId().contains("espc_chorale")) {
             ShipAIConfig config = new ShipAIConfig();
-            // i am so tired of fiddling with this game's wonky ass black box ai.
             if (ship.getCaptain() == null || ship.getCaptain() != null && ship.getCaptain().isDefault()) {
             	config.personalityOverride = Personalities.AGGRESSIVE;
             }
             config.turnToFaceWithUndamagedArmor = false;
             config.alwaysStrafeOffensively = true;
             return new PluginPick<ShipAIPlugin>(Global.getSettings().createDefaultShipAI(ship, config), PickPriority.MOD_SET);
-        } else if (ship.getHullSpec().getBaseHullId().equals("espc_observer") ||
+        } else if (ship.getHullSpec().getHullId().contains("wolf_espc")) {
+        	ShipAIConfig config = new ShipAIConfig();
+        	config.turnToFaceWithUndamagedArmor = false;
+        } else if (ship.getHullSpec().getHullId().contains("espc_observer") &&
+        	!ship.getHullSpec().getHullId().contains("espc_observer_tt") ||
             ship.getHullSpec().getBaseHullId().equals("espc_amanuensis") ||
         	ship.getHullSpec().getBaseHullId().equals("espc_flagbearer") ||
-        	ship.getHullSpec().getBaseHullId().equals("espc_jackalope")) {
+        	ship.getHullSpec().getHullId().contains("espc_jackalope")) {
         	if (ship.getCaptain() != null && !ship.getCaptain().isDefault()) {
             	return null;
         	}
             ShipAIConfig config = new ShipAIConfig();
             config.personalityOverride = Personalities.AGGRESSIVE;
-			config.turnToFaceWithUndamagedArmor = !ship.getHullSpec().getBaseHullId().equals("espc_jackalope");
+			config.turnToFaceWithUndamagedArmor = !ship.getHullSpec().getHullId().contains("espc_jackalope");
             return new PluginPick<ShipAIPlugin>(Global.getSettings().createDefaultShipAI(ship, config), PickPriority.MOD_SET);
         } else if (member != null && Misc.isAutomated(ship) && member.getFleetData() != null && member.getFleetData().getFleet() != null &&
         	member.getFleetData().getFleet().getFaction() != null &&
         	// won't catch nex allied fleets, but whatever.
-        	(member.getFleetData().getFleet().getFaction().getId().equals(MezzUtils.factionIdPact) ||
-        	(member.getFleetData().getFleet().getFaction().getId().equals(Factions.PIRATES)) 
+        	(member.getFleetData().getFleet().getFaction().getId().contains(MezzUtils.factionIdPact) ||
+        	(member.getFleetData().getFleet().getFaction().getId().contains(Factions.PIRATES)) 
         		&& ship.getName().contains(Global.getSector().getFaction(MezzUtils.factionIdPact).getShipNamePrefix()))
         	&& !ship.getHullSpec().getBaseHullId().equals("espc_rampart")
-        	&& !ship.getHullSpec().getBaseHullId().equals("radiant")
+        	// && !ship.getHullSpec().getHullId().contains("radiant")
         	) {
             ShipAIConfig config = new ShipAIConfig();
             config.personalityOverride = ship.hasLaunchBays() ? Personalities.STEADY : Personalities.AGGRESSIVE;
+            if (ship.getHullSpec().getHullId().contains("lumen_espc") ||
+                ship.getHullSpec().getHullId().contains("radiant_espc"))
+                config.turnToFaceWithUndamagedArmor = false;
             return new PluginPick<ShipAIPlugin>(Global.getSettings().createDefaultShipAI(ship, config), PickPriority.MOD_SPECIFIC);
         } else if (Misc.isAutomated(ship) &&
         	ship.getCaptain() != null && ship.getCaptain().getFaction() != null &&
-           	(ship.getCaptain().getFaction().getId().equals(MezzUtils.factionIdPact) ||
-           	(ship.getCaptain().getFaction().getId().equals(Factions.PIRATES)) && 
-           		ship.getName().contains(Global.getSector().getFaction(MezzUtils.factionIdPact).getShipNamePrefix()))
+           	(ship.getCaptain().getFaction().getId().contains(MezzUtils.factionIdPact) ||
+           	(ship.getCaptain().getFaction().getId().contains(Factions.PIRATES)) && 
+           	ship.getName().contains(Global.getSector().getFaction(MezzUtils.factionIdPact).getShipNamePrefix()))
            	&& !ship.getHullSpec().getBaseHullId().equals("espc_rampart")
-        	&& !ship.getHullSpec().getBaseHullId().equals("radiant")
+        	// && !ship.getHullSpec().getHullId().contains("radiant")
            	) {
             ShipAIConfig config = new ShipAIConfig();
-            config.personalityOverride = ship.getCaptain().getPersonalityAPI().getId();
+            // config.personalityOverride = ship.getCaptain().getPersonalityAPI().getId();
+            config.personalityOverride = Personalities.AGGRESSIVE;
+            if (ship.getHullSpec().getHullId().contains("lumen_espc") ||
+            	ship.getHullSpec().getHullId().contains("radiant_espc"))
+            	config.turnToFaceWithUndamagedArmor = false;
             return new PluginPick<ShipAIPlugin>(Global.getSettings().createDefaultShipAI(ship, config), PickPriority.MOD_SPECIFIC);
         }
-        // overrides for use in balance testing, to replicate desired campaign behaviour
-        //*  
-        else if (Misc.isAutomated(ship) &&
+        if (!testMode)
+        	return null;
+        // overrides for use in mission balance testing, to replicate desired campaign behaviour
+        if (Misc.isAutomated(ship) &&
        		ship.getName() != null && ship.getName().contains(Global.getSector().getFaction(MezzUtils.factionIdPact).getShipNamePrefix()) 
        		&& !ship.hasLaunchBays()
 	    	&& !ship.getHullSpec().getBaseHullId().equals("espc_rampart")
-	    	&& !ship.getHullSpec().getBaseHullId().equals("radiant") 
+	    	// && !ship.getHullSpec().getHullId().contains("radiant") 
         	) {
 	        ShipAIConfig config = new ShipAIConfig();
 	        config.personalityOverride = Personalities.AGGRESSIVE;
+            if (ship.getHullSpec().getHullId().contains("lumen_espc") ||
+                ship.getHullSpec().getHullId().contains("radiant_espc"))
+                config.turnToFaceWithUndamagedArmor = false;
 	        return new PluginPick<ShipAIPlugin>(Global.getSettings().createDefaultShipAI(ship, config), PickPriority.MOD_SPECIFIC);
 	    }
-	    
         else if (ship.getName() != null 
         	&& ship.getName().contains(Global.getSector().getFaction(MezzUtils.factionIdPact).getShipNamePrefix())
         	&& !ship.hasLaunchBays()
-    	    && !ship.getHullSpec().getBaseHullId().equals("espc_rampart")
-    	    && !ship.getHullSpec().getBaseHullId().equals("radiant") 
+    	    // && !ship.getHullSpec().getHullId().contains("radiant") 
         	) {
 	    	ShipAIConfig config = new ShipAIConfig();
 	        config.personalityOverride = Personalities.AGGRESSIVE;
 	        return new PluginPick<ShipAIPlugin>(Global.getSettings().createDefaultShipAI(ship, config), PickPriority.MOD_SET);
 	    }
-	    //*/
         
-        /* else if (ship.getHullSpec().getBaseHullId().equals("espc_serenade")) {
+        /* else if (ship.getHullSpec().getHullId().contains("espc_serenade")) {
             ShipAIConfig config = new ShipAIConfig();
             // config.alwaysStrafeOffensively = false;
             // config.backingOffWhileNotVentingAllowed = false;

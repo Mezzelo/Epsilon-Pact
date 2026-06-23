@@ -37,11 +37,16 @@ public class espc_AlternatorStats extends BaseShipSystemScript {
 	// you should fold this stuff into the ai script anyway
 	private static final float AI_HULL_BACK = 0.15f;
 	private static final float AI_HULL_BACK_FRIGATE = 0.35f;
-	private static final float AI_FLUX_BACK = 0.3f;
+	private static final float AI_HARDFLUX_BACK = 0.2f;
+	private static final float AI_FLUX_BACK = 0.4f;
 	private static final float AI_FLUX_BACK_FRIGATE = 0.4f;
 	private static final float AI_FLUX_FORCE_ENGAGE = 0.2f;
 	private static final float AI_FLUX_FORCE_ENGAGE_FRIGATE = 0.2f;
-	
+
+	private static final float THINK_INTERVAL = 0.2f;
+	private int aiStateLast = 0;
+	private float aiThinkTime = THINK_INTERVAL;
+			
 	private ShipAIConfig origConfig = null;
 	
 	public float getBallisticDPS() {
@@ -65,7 +70,7 @@ public class espc_AlternatorStats extends BaseShipSystemScript {
 
 		CombatEngineAPI combatEngine = Global.getCombatEngine();
 		float amount = combatEngine.getElapsedInLastFrame();
-		if (amount == 0f)
+		if (amount <= 0f || combatEngine.isPaused())
 			return;
 		
 		if (!initialized) {
@@ -94,37 +99,54 @@ public class espc_AlternatorStats extends BaseShipSystemScript {
 						(weapon.hasAIHint(AIHints.PD) && !weapon.hasAIHint(AIHints.PD_ALSO) ? FRAG_OR_PD_MULT : 1f);
 				
 			}
-			
-			if (origConfig == null && ship.getShipAI() != null)
-				if (ship.getShipAI().getConfig() != null &&
-					ship.getShipAI().getConfig().personalityOverride != null &&
-					(!ship.getShipAI().getConfig().personalityOverride.equals(Personalities.TIMID) || 
-					!ship.getShipAI().getConfig().personalityOverride.equals(Personalities.CAUTIOUS))) {
-					ShipAIConfig config = ship.getShipAI().getConfig();
-					origConfig = config.clone();
-			}
 		}
 		
-		if (origConfig != null &&
-			ship.getShipAI() != null) {
-			ShipAIConfig config = ship.getShipAI().getConfig();
-			if (config != null) {
-				if (ship.getFluxLevel() < AI_FLUX_BACK &&
-					ship.getHullLevel() > AI_HULL_BACK) {
-					config.personalityOverride = Personalities.RECKLESS;
-					config.alwaysStrafeOffensively = true;
-					/*
-					if (ship.getFluxLevel() < AI_FLUX_FORCE_ENGAGE)
-						config.backingOffWhileNotVentingAllowed = false;
-					else
-						config.backingOffWhileNotVentingAllowed = true; */
-					config.turnToFaceWithUndamagedArmor = false;
-					config.burnDriveIgnoreEnemies = true;
+		if (aiStateLast == -2) {
+			
+		} else if (ship.getAI() == null) {
+    		aiStateLast = -1;
+    	} else if (origConfig == null) {
+    		if (ship.getShipAI().getConfig() != null) {
+				if ((!MezzUtils.getSetting("CustomShipAI") && ship.getOwner() == 0 && !ship.isAlly()) 
+					|| Personalities.TIMID.equals(ship.getShipAI().getConfig().personalityOverride) || 
+					Personalities.CAUTIOUS.equals(ship.getShipAI().getConfig().personalityOverride)) {
+					aiStateLast = -2;
 				} else {
-					config.copyFrom(origConfig);
+					ShipAIConfig config = ship.getShipAI().getConfig();
+					origConfig = config.clone();
 				}
 			}
-		}
+    	} else {
+    		aiThinkTime -= amount;
+    		if (aiStateLast == -1 || aiThinkTime <= 0f) {
+    			aiThinkTime = THINK_INTERVAL;
+    			ShipAIConfig config = ship.getShipAI().getConfig();
+    			if (config != null) {
+    				if (aiStateLast != 1 && ship.getHardFluxLevel() < AI_HARDFLUX_BACK &&
+    					ship.getFluxLevel() < AI_FLUX_BACK &&
+    					ship.getHullLevel() > AI_HULL_BACK &&
+    					ship.getMutableStats().getShieldDamageTakenMult().computeMultMod() < 1.25f) {
+    					config.personalityOverride = Personalities.RECKLESS;
+    					config.alwaysStrafeOffensively = true;
+    					/*
+    					if (ship.getFluxLevel() < AI_FLUX_FORCE_ENGAGE)
+    						config.backingOffWhileNotVentingAllowed = false;
+    					else
+    						config.backingOffWhileNotVentingAllowed = true; */
+    					config.turnToFaceWithUndamagedArmor = false;
+    					config.burnDriveIgnoreEnemies = true;
+    					// if (aiStateLast != -1)
+    					// 	ship.getShipAI().forceCircumstanceEvaluation();
+    					aiStateLast = 1;
+    				} else if (aiStateLast != 0) {
+    					config.copyFrom(origConfig);
+    					if (aiStateLast != -1)
+    						ship.getShipAI().forceCircumstanceEvaluation();
+    					aiStateLast = 0;
+    				}
+    			}
+    		}
+    	}
 		
 		if (state == State.OUT && lastIdle) {
 			lastIdle = false;

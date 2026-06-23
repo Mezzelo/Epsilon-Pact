@@ -1,10 +1,10 @@
 {
 	"baseHullId":"fulgent",
 	"skinHullId":"fulgent_espc",
-	"hullName":"Fulgent",
+	"hullName":"Fulgent (EP)",
 	"restoreToBaseHull":false,
-	"descriptionId":"fulgent",
-	"addHints":["HIDE_IN_CODEX"],
+	"descriptionId":"fulgent_espc",
+	"tags":["codex_unlockable", "auto_rec", "no_dealer"],
 	# "suppliesToRecover":4,
 	# "suppliesPerMonth":4,
 	"removeWeaponSlots":["WS 009", "WS 010"], 		# ids
@@ -12,7 +12,7 @@
 	"removeBuiltInMods":[], 		# hullmod ids
 	"removeBuiltInWeapons":[], 		# weapon slot ids
 	"builtInMods":["espc_pactskin"],
-	"ordnancePoints":110,
+	"ordnancePoints":115,
     "weaponSlotChanges":{
 	   "WS 001":{"type": SYNERGY},
 	   "WS 003":{"angle": 0, "arc": 5, "mount": HARDPOINT, "type": ENERGY},

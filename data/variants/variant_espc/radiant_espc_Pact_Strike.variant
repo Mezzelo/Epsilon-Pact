@@ -35,8 +35,8 @@
       "autofire": true,
       "mode": "LINKED",
       "weapons": {
-        "WS 002": "tachyonlance",
-        "WS 004": "tachyonlance"
+        "WS 002": "espc_tachyonbolter",
+        "WS 004": "espc_tachyonbolter"
       }
     },
     {

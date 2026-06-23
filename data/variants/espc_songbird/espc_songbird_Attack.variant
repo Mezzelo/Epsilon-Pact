@@ -24,7 +24,7 @@
                 "WS 005": "espc_minimir",
                 "WS 006": "espc_minimir"
             }
-        },,
+        },
         {
             "autofire": true,
             "mode": "LINKED",

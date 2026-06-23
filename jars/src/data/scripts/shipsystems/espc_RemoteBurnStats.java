@@ -21,9 +21,10 @@ import data.scripts.util.MezzUtils;
 
 public class espc_RemoteBurnStats extends BaseShipSystemScript {
 
+	private static final float ABILITY_RANGE = 1750f;
+	
 	private static final Color ENGINE_COLOR = new Color(100,255,100,255);
 	private static final Color JITTER_COLOR = new Color(0,255,200,255);
-	private static final float ABILITY_RANGE = 1750f;
 	private static final float BURN_SPEED = 600f;
 	private static final float BURN_ACCEL = 1200f;
 	private static final float USE_DELAY = 0.1f;
@@ -32,12 +33,13 @@ public class espc_RemoteBurnStats extends BaseShipSystemScript {
 	private ShipAPI targ = null;
 	
 	public static float getMaxRange(ShipAPI ship) {
+		if (ship == null)
+			return ABILITY_RANGE;
 		return ship.getMutableStats().getSystemRangeBonus().computeEffective(ABILITY_RANGE);
 	}
 	
 	public void setTarget(ShipAPI targ) {
-		if (this.targ == null)
-			this.targ = targ;
+		this.targ = targ;
 	}
 	
 	protected ShipAPI findTarget(ShipAPI ship) {
@@ -46,7 +48,7 @@ public class espc_RemoteBurnStats extends BaseShipSystemScript {
 		ShipAPI target = ship.getShipTarget();
 		if (target != null) {
 			if (target.isStationModule() || target.getMaxSpeedWithoutBoost() <= 0f || target.isStation() ||
-				target.isShuttlePod() || target.hasTag(Tags.VARIANT_FX_DRONE) ||
+				target.isShuttlePod() || target.hasTag(Tags.VARIANT_FX_DRONE) || !target.isTargetable() ||
 				MathUtils.getDistanceSquared(ship.getLocation(), target.getLocation())
 				> Math.pow(range + ship.getCollisionRadius() + target.getCollisionRadius(), 2f)) target = null;
 		} else {
@@ -56,7 +58,7 @@ public class espc_RemoteBurnStats extends BaseShipSystemScript {
 					if (target == null)
 						return target;
 					if (target.isStationModule() || target.getMaxSpeedWithoutBoost() <= 0f || target.isStation()
-						|| target.isShuttlePod() || target.hasTag(Tags.VARIANT_FX_DRONE))
+						|| target.isShuttlePod() || target.hasTag(Tags.VARIANT_FX_DRONE) || !target.isTargetable())
 						target = null;
 				} else {
 					Object test = ship.getAIFlags().getCustom(AIFlags.MANEUVER_TARGET);
@@ -129,8 +131,8 @@ public class espc_RemoteBurnStats extends BaseShipSystemScript {
 			targ.getFluxTracker().increaseFlux(2f, false);
 		}
 		
-		float level = Math.max(0f, effectLevel - (state.equals(State.IN) ? USE_DELAY : 0f)
-			/ (state.equals(State.IN) ? IN_DURATION : 1f));
+		float level = Math.max(0f, effectLevel - (state.equals(State.IN) ? USE_DELAY / (USE_DELAY + IN_DURATION) : 0f))
+			/ (state.equals(State.IN) ? IN_DURATION / (USE_DELAY + IN_DURATION) : 1f);
 		if (state.equals(State.OUT))
 			targ.getMutableStats().getMaxSpeed().unmodify(id);
 		else {
@@ -147,11 +149,11 @@ public class espc_RemoteBurnStats extends BaseShipSystemScript {
 			"system_plasma_burn_loop",
 			targ,
 			1.0f,
-			1.0f * level,
+			1.15f * level,
 			targ.getLocation(),
 			targ.getVelocity()
 		);
-		targ.getEngineController().fadeToOtherColor(this, ENGINE_COLOR, new Color(0,0,0,0), level, 0.67f);
+		targ.getEngineController().fadeToOtherColor(this, ENGINE_COLOR, new Color(0,0,0,0), level, 1.0f);
 		targ.getEngineController().extendFlame(this, 3f * level, 1.5f * level, 3f * level);
 
 		
@@ -163,14 +165,15 @@ public class espc_RemoteBurnStats extends BaseShipSystemScript {
 			targ.getMutableStats().getAcceleration().unmodify(id);
 			targ = null;
 		}
-		if (stats.getEntity() == null)
-			return;
 	}
 	
 	@Override
 	public String getInfoText(ShipSystemAPI system, ShipAPI ship) {
 		if (system.getState() != SystemState.IDLE || system.isOutOfAmmo())
 			return null;
+		
+		if (ship.getShipAI() != null)
+			return MezzUtils.getString("espc_shipsystem", "ready");
 		
 		ShipAPI hasTarget = findTarget(ship);
 
@@ -199,6 +202,8 @@ public class espc_RemoteBurnStats extends BaseShipSystemScript {
 	
 	@Override
 	public boolean isUsable(ShipSystemAPI system, ShipAPI ship) {
+		if (ship.getShipAI() != null)
+			return true;
 		ShipAPI hasTarget = findTarget(ship);
 		if (hasTarget == null)
 			return false;

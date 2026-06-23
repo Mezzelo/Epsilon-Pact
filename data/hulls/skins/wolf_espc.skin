@@ -1,10 +1,10 @@
 {
 	"baseHullId":"wolf",
 	"skinHullId":"wolf_espc",
-	"hullName":"Wolf",
+	"hullName":"Wolf (EP)",
 	"restoreToBaseHull":false,
-	"descriptionId":"wolf",
-	"addHints":["HIDE_IN_CODEX"],
+	"descriptionId":"wolf_espc",
+	"tags":["limited_tooltip_if_locked", "codex_unlockable"],
 	"maxSpeed":170,
 	"baseValueMult":5,
     "systemId":"espc_InverseSkimmer",

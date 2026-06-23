@@ -6,10 +6,16 @@ import org.lwjgl.opengl.GL11;
 import org.lwjgl.util.vector.Vector2f;
 
 import com.fs.starfarer.api.Global;
+import com.fs.starfarer.api.util.Misc;
 
+import data.scripts.espc_ModPlugin;
 import lunalib.lunaSettings.LunaSettings;
 
 import org.lazywizard.lazylib.MathUtils;
+import org.dark.shaders.distortion.DistortionShader;
+import org.dark.shaders.distortion.WaveDistortion;
+import org.dark.shaders.light.LightShader;
+import org.dark.shaders.light.StandardLight;
 import org.lazywizard.lazylib.FastTrig;
 import java.awt.Color;
 import java.util.Locale;
@@ -26,8 +32,24 @@ public class MezzUtils {
     
     public static Locale locale = Locale.ENGLISH;
     
+    public static boolean glibCheck() {
+    	return espc_ModPlugin.hasGlib() && MezzUtils.getSetting("Glib");
+    }
+    
     public static boolean getSetting(String setting) {
-    	return LunaSettings.getBoolean("epsilonpact", setting);
+    	if (!espc_ModPlugin.hasLuna())
+    		return Global.getSettings().getBoolean("espc_" + setting);
+    	return LunaSettings.getBoolean("epsilonpact", "espc_" + setting);
+    }
+    public static int getSettingInt(String setting) {
+    	if (!espc_ModPlugin.hasLuna())
+    		return Global.getSettings().getInt("espc_" + setting);
+    	return LunaSettings.getInt("epsilonpact", "espc_" + setting);
+    }
+    public static String getSettingString(String setting) {
+    	if (!espc_ModPlugin.hasLuna())
+    		return Global.getSettings().getString("espc_" + setting);
+    	return LunaSettings.getString("epsilonpact", "espc_" + setting);
     }
 	
 	public static String getString(String key1, String key2) {
@@ -52,14 +74,63 @@ public class MezzUtils {
 	// ditto, but with the fourth quarter.
 	public static float halfSineIn(float interp) {
 		return (float) FastTrig.sin(interp * MathUtils.FPI / 2f + MathUtils.FPI * 3f / 2f) + 1f;
-		
+	}
+	
+	// half to full interp.
+	public static float fullSine(float interp) {
+		return (float) FastTrig.sin(interp * MathUtils.FPI - MathUtils.FPI/ 2f) / 2f + 0.5f;
 	}
 	
 	// debug, for A/B testing without changing the syntax lmao
 	public static float dummyTween(float interp) {
 		return interp;
-		
 	}
+	
+	// 0: fade size
+	// 1: fade intensity
+	// 2: both
+    public static void addWaveDistortion(boolean flipped,
+    	Vector2f loc, Vector2f vel, float intensity, float size, float dur, float in, float out, int inMode, int outMode)
+    {
+        WaveDistortion wave = new WaveDistortion(loc, vel == null ? Misc.ZERO : vel);
+        if (flipped)
+        	wave.flip(flipped);
+        wave.setIntensity(intensity);
+        wave.setSize(size);
+        wave.setLifetime(dur);
+        if (inMode >= 0) {
+        	if (in > 0f) {
+            	if (inMode == 0 || inMode == 2)
+            		wave.fadeInSize(in);
+            	else if (inMode == 1 || inMode == 2)
+            		wave.fadeInIntensity(in);
+        	}
+        }
+        if (outMode >= 0) {
+            if (outMode == 0 || outMode == 2)
+            	wave.fadeOutSize(out);
+            else if (outMode == 1 || outMode == 2)
+            	wave.fadeOutIntensity(out);
+        }
+        DistortionShader.addDistortion(wave);
+    }
+
+    public static void addLight(
+    	Vector2f loc, Vector2f vel, float intensity, float size, Color color, float dur, float in, float out)
+    {
+        StandardLight light = new StandardLight(intensity, size);
+        light.setLocation(loc);
+        if (vel != null)
+        	light.setVelocity(vel);
+        if (dur > 0f)
+        	light.setLifetime(dur);
+        light.setColor(color);
+        if (in > 0f)
+        	light.fadeIn(in);
+        if (out > 0f)
+        	light.fadeOut(out);
+        LightShader.addLight(light);
+    }
 	
 	// quad call shorthand.  size should be halved as parameter.
 	public static void glSquare(float x, float y, float size) {

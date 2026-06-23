@@ -1,7 +1,7 @@
 {
     "displayName": "Attack",
     "fluxCapacitors": 9,
-    "fluxVents": 8,
+    "fluxVents": 10,
     "goalVariant": false,
     "hullId": "espc_warden",
     "hullMods": [
@@ -20,8 +20,8 @@
             "autofire": true,
             "mode": "LINKED",
             "weapons": {
-				"WS 002": "espc_arcscatter",
-				"WS 003": "espc_arcscatter",
+				"WS 002": "lightdualac",
+				"WS 003": "lightdualac"
 			}
         }
     ]

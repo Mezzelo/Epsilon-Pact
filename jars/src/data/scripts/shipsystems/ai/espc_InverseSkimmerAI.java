@@ -1,17 +1,14 @@
 package data.scripts.shipsystems.ai;
 
 import com.fs.starfarer.api.Global;
-// import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.combat.*;
 import com.fs.starfarer.api.combat.ShipAPI.HullSize;
 import com.fs.starfarer.api.combat.ShipHullSpecAPI.ShipTypeHints;
-// import com.fs.starfarer.api.combat.ShipSystemAPI.SystemState;
 import com.fs.starfarer.api.combat.ShipwideAIFlags.AIFlags;
 import com.fs.starfarer.api.combat.WeaponAPI.AIHints;
 import com.fs.starfarer.api.combat.WeaponAPI.WeaponType;
 import com.fs.starfarer.api.impl.campaign.ids.Tags;
-// import com.fs.starfarer.api.plugins.ShipSystemStatsScript.State;
-import com.fs.starfarer.api.util.IntervalUtil;
+import com.fs.starfarer.api.util.Misc;
 
 import data.scripts.shipsystems.espc_InverseSkimmerStats;
 
@@ -22,9 +19,6 @@ import org.json.JSONException;
 import org.lazywizard.lazylib.CollisionUtils;
 import org.lazywizard.lazylib.MathUtils;
 import org.lazywizard.lazylib.VectorUtils;
-// import org.lazywizard.lazylib.MathUtils;
-// import org.lazywizard.lazylib.combat.AIUtils;
-// import org.lazywizard.lazylib.combat.CombatUtils;
 import org.lwjgl.util.vector.Vector2f;
 
 public class espc_InverseSkimmerAI implements ShipSystemAIScript {
@@ -44,10 +38,10 @@ public class espc_InverseSkimmerAI implements ShipSystemAIScript {
     private static final float TARGET_HULL_MIN_CAPITAL = 4000f;
     
     
-    private static final float THINK_INTERVAL_NORMAL = 1.5f;
+    private static final float THINK_INTERVAL_NORMAL = 1.0f;
     // private static final float THINK_INTERVAL_ACTIVE = 0.25f;
 
-    private IntervalUtil aiInterval = new IntervalUtil(THINK_INTERVAL_NORMAL, THINK_INTERVAL_NORMAL + 0.05f);
+    private float aiThinkTime = THINK_INTERVAL_NORMAL;
 
     private espc_InverseSkimmerStats systemScript = null;
     private ShipAPI ship;
@@ -73,6 +67,9 @@ public class espc_InverseSkimmerAI implements ShipSystemAIScript {
     	if (ship.getFluxTracker().isOverloadedOrVenting())
     		return;
     	
+    	if (ship.getEngineController().computeDisabledFraction() > 0f)
+    		return;
+    	
     	if (ship.getSystem().isCoolingDown())
     		return;
 
@@ -82,28 +79,25 @@ public class espc_InverseSkimmerAI implements ShipSystemAIScript {
     	if (ship.getCustomData().containsKey("espc_InverseSkimmer_Ally"))
     		return;
     	
-        aiInterval.advance(amount);
+        aiThinkTime -= amount;
 
-        if (aiInterval.intervalElapsed()) {
-    		aiInterval.setInterval(THINK_INTERVAL_NORMAL, THINK_INTERVAL_NORMAL + 0.05f);
+        if (aiThinkTime <= 0f) {
+    		aiThinkTime = THINK_INTERVAL_NORMAL + Misc.random.nextFloat() * 0.2f;
     		ShipAPI targ = ship.getShipTarget();
     		if (targ != null)
 	    		if (ship.getOwner() == targ.getOwner() || targ.isFighter() ||
-	    			targ.isHulk() || !targ.isAlive() ||
+	    			targ.isHulk() || !targ.isAlive() || targ.hasTag(Tags.VARIANT_FX_DRONE) || !targ.isTargetable() ||
 	    			(isCapital && 
-	    				(targ.getMaxSpeed() > 90f || targ.getHullSize().equals(HullSize.FRIGATE) ||
+	    				(targ.getMaxSpeed() > 85f && 
+	    					(targ.getEngineController() != null && targ.getEngineController().computeDisabledFraction() <= 0f)
+	    				|| targ.getHullSize().equals(HullSize.FRIGATE) ||
 	    				(targ.getHullLevel() < TARGET_HULL_PERCENT_MIN && !target.getHullSize().equals(HullSize.CAPITAL_SHIP))
 	    				|| targ.getHullLevel() * targ.getMaxHitpoints() <
 	    					(target.getHullSize().equals(HullSize.CAPITAL_SHIP) ? TARGET_HULL_MIN_CAPITAL : TARGET_HULL_MIN)
 	    				)
 	    			) || 
 	    			MathUtils.getShortestRotation(VectorUtils.getAngle(ship.getLocation(), targ.getLocation()),
-		        		ship.getFacing()) > 30f ||
-	        		!MathUtils.isWithinRange(
-	        			targ, ship.getLocation(), 
-	        	  	ship.getMutableStats().getSystemRangeBonus().computeEffective(
-	        	  		isCapital ? TARGET_DISTANCE_MAX_CAPITAL : TARGET_DISTANCE_MAX
-	        	  	)))
+		        		ship.getFacing()) > 30f)
 	    			targ = null;
     		
     		if (targ == null) {
@@ -111,21 +105,18 @@ public class espc_InverseSkimmerAI implements ShipSystemAIScript {
 				if (test instanceof ShipAPI) {
 					targ = (ShipAPI) test;
 		    		if (ship.getOwner() == targ.getOwner() && targ.isFighter() ||
-		    			targ.isHulk() || !targ.isAlive() ||
+		    			targ.isHulk() || !targ.isAlive() || targ.hasTag(Tags.VARIANT_FX_DRONE) || !targ.isTargetable() ||
 		    			(isCapital && 
-			    			(targ.getMaxSpeed() > 90f || targ.getHullSize().equals(HullSize.FRIGATE) ||
+			    			(targ.getMaxSpeed() > 85f && 
+				    			(targ.getEngineController() != null && targ.getEngineController().computeDisabledFraction() <= 0f)
+			    			|| targ.getHullSize().equals(HullSize.FRIGATE) ||
 			    			(targ.getHullLevel() < TARGET_HULL_PERCENT_MIN && !target.getHullSize().equals(HullSize.CAPITAL_SHIP))
 			    			|| targ.getHullLevel() * targ.getMaxHitpoints() <
 			    				(target.getHullSize().equals(HullSize.CAPITAL_SHIP) ? TARGET_HULL_MIN_CAPITAL : TARGET_HULL_MIN)
 			    			)
 			    		) || 
 		    			MathUtils.getShortestRotation(VectorUtils.getAngle(ship.getLocation(), targ.getLocation()),
-		    	        	ship.getFacing()) > 30f ||
-		            	!MathUtils.isWithinRange(
-		            		targ, ship.getLocation(), 
-		             	ship.getMutableStats().getSystemRangeBonus().computeEffective(
-		             		isCapital ? TARGET_DISTANCE_MAX_CAPITAL : TARGET_DISTANCE_MAX
-		             	)))
+		    	        	ship.getFacing()) > 30f)
 		        		targ = null;
 				}
     		}
@@ -164,10 +155,12 @@ public class espc_InverseSkimmerAI implements ShipSystemAIScript {
     				continue;
     			
     			if (currShip.isShuttlePod() || currShip == ship || currShip.hasTag(Tags.VARIANT_FX_DRONE)
+    				|| !currShip.isTargetable()
     				|| currShip.getOwner() != ship.getOwner()
     				|| currShip.isFighter()
     				|| currShip.getMutableStats().getHullDamageTakenMult().getMult() <= 0f
-    				|| currShip.isHulk() || !currShip.isAlive() || currShip.getMaxFlux() <= 0f
+    				// || currShip.isHulk() || !currShip.isAlive()
+    				|| currShip.getMaxFlux() <= 0f
     				|| !MathUtils.isWithinRange(currShip, ship.getLocation(), 
     					ship.getMutableStats().getSystemRangeBonus().computeEffective(
     					isCapital ? TARGET_DISTANCE_MAX_CAPITAL : TARGET_DISTANCE_MAX
@@ -181,7 +174,7 @@ public class espc_InverseSkimmerAI implements ShipSystemAIScript {
 					ship.getLocation(), 
 					targ.getLocation(),
 					currShip.getLocation(),
-					currShip.getShieldRadiusEvenIfNoShield() * 0.9f
+					currShip.getShieldRadiusEvenIfNoShield() * (currShip.isHulk() || !currShip.isAlive() ? 0.9f : 1.2f)
 					)) {
     				ally = null;
     				return;
@@ -208,7 +201,7 @@ public class espc_InverseSkimmerAI implements ShipSystemAIScript {
     				if (range < 0f)
     					continue;
     			}
-    			if (MathUtils.isWithinRange(currShip, targ, ranges.get(currShip.getId()) * RANGE_MULT) ||
+    			if (MathUtils.isWithinRange(currShip, targ, ranges.get(currShip.getId())) ||
     				!MathUtils.isWithinRange(ship, targ, ranges.get(currShip.getId()) * RANGE_MULT))
     				continue;
     			float score = 1f;
@@ -219,9 +212,9 @@ public class espc_InverseSkimmerAI implements ShipSystemAIScript {
     				currShip.getShipTarget().getOwner() == currShip.getOwner()))
     				hasTarget = false;
     			if (hasTarget && 
-    				MathUtils.isWithinRange(currShip, currShip.getShipTarget(), ranges.get(currShip.getId()) * RANGE_MULT) &&
-    				MathUtils.getShortestRotation(VectorUtils.getAngle(currShip.getLocation(), currShip.getShipTarget().getLocation()),
-    					currShip.getFacing()) < 30f)
+    				MathUtils.isWithinRange(currShip, currShip.getShipTarget(), ranges.get(currShip.getId()) * 1.25f) &&
+    				(MathUtils.getShortestRotation(VectorUtils.getAngle(currShip.getLocation(), currShip.getShipTarget().getLocation()),
+    					currShip.getFacing()) < 90f || currShip.getTurnAcceleration() >= 45f))
     				continue;
     			if (currShip.getShipAI() != null && !danger) {
         			Object test = currShip.getAIFlags().getCustom(AIFlags.MANEUVER_TARGET);
@@ -229,10 +222,10 @@ public class espc_InverseSkimmerAI implements ShipSystemAIScript {
     					ShipAPI currTarg = (ShipAPI) test;
     					if (!currTarg.isFighter() &&
     						currTarg.getOwner() != currShip.getOwner() &&
-    						MathUtils.isWithinRange(currShip, currTarg, ranges.get(currShip.getId()) * RANGE_MULT) &&
-        					MathUtils.getShortestRotation(VectorUtils.getAngle(
+    						MathUtils.isWithinRange(currShip, currTarg, ranges.get(currShip.getId()) * 1.25f) &&
+        					(MathUtils.getShortestRotation(VectorUtils.getAngle(
         						currShip.getLocation(), currTarg.getLocation()),
-        						currShip.getFacing()) < 30f)
+        						currShip.getFacing()) < 90f || currShip.getTurnAcceleration() >= 45f))
     						continue;
     				}
     			}
@@ -249,7 +242,7 @@ public class espc_InverseSkimmerAI implements ShipSystemAIScript {
 					} catch (JSONException e) {
 						systemAI = "null";
 						}
-    			if (systemAI.equals("WEAPON_BOOST") && !currShip.getSystem().getDisplayName().equals("Shieldwall"))
+    			if (systemAI.equals("WEAPON_BOOST") && !currShip.getSystem().getId().equals("espc_Shieldwall"))
     				score += 1.5f;
     			}
     			if (currShip.getHullSpec().getHints().contains(ShipTypeHints.CARRIER) && !
@@ -265,7 +258,7 @@ public class espc_InverseSkimmerAI implements ShipSystemAIScript {
    			if (ally != null) {
    				if (!isCapital) {
    					systemScript.setAlliedTarget(ally);
-   	   				aiInterval.setInterval(THINK_INTERVAL_NORMAL * 0.1f, THINK_INTERVAL_NORMAL * 0.1f + 0.05f);
+   	   				aiThinkTime *= 0.1f;
    				}
    				else if (isCapital && targ.getHullSize().equals(HullSize.CAPITAL_SHIP) &&
    					scoreTotal <= 1f) {

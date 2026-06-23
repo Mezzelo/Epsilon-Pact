@@ -13,34 +13,30 @@ import org.lazywizard.lazylib.MathUtils;
 public class espc_AAEffect implements OnFireEffectPlugin {
 
 	public static final float burstSpread = 8f;
+	private static final int PROJECTILES_PER_SHOT = 4;
 	
 	private float shotTime = 0f;
 	private float spreadFacing = 0f;
-	// private Vector2f spreadLocation;
 	private float spreadVel;
-	private static final int PROJECTILES_PER_SHOT = 4;
 	private int projs = 0;
 	
-	private Vector2f shipVel;
-	
     public void onFire(DamagingProjectileAPI proj, WeaponAPI weapon, CombatEngineAPI engine) {
-    	if (MathUtils.getDistanceSquared(proj, weapon.getFirePoint(0)) > 1f || weapon.getShip() == null)
+    	if (MathUtils.getDistanceSquared(proj, weapon.getFirePoint(0)) > 1f || weapon.getShip() == null) {
+    		proj.getVelocity().scale(Misc.random.nextFloat() * 0.15f + 0.95f);
     		return;
+    	}
     	if (engine.getTotalElapsedTime(false) - shotTime > 0.02f || projs >= PROJECTILES_PER_SHOT) {
 			projs = 1;
         	shotTime = engine.getTotalElapsedTime(false);
-			// spreadLocation = proj.getLocation();
 			spreadFacing = proj.getFacing();
-			shipVel = weapon.getShip().getVelocity();
-			// spreadVel = (float) Math.hypot(proj.getVelocity().x - shipVel.x, proj.getVelocity().y - shipVel.y);
 			spreadVel = weapon.getProjectileSpeed();
 		} else {
 			projs++;
-			// Vector2f.add(spreadLocation, new Vector2f(), proj.getLocation());
 			proj.setFacing(spreadFacing + Misc.random.nextFloat() * burstSpread - (burstSpread / 2.0f));
 			float speedMod = Misc.random.nextFloat();
-			Vector2f.add(new Vector2f((float) FastTrig.cos(Math.toRadians(proj.getFacing())) * spreadVel * (0.95f + speedMod * 0.15f) + shipVel.x, 
-				(float) FastTrig.sin(Math.toRadians(proj.getFacing())) * spreadVel * (0.95f + speedMod * 0.15f) + shipVel.y), new Vector2f(), proj.getVelocity());
+			Vector2f.add(new Vector2f((float) FastTrig.cos(Math.toRadians(proj.getFacing())) * spreadVel * (0.95f + speedMod * 0.15f), 
+				(float) FastTrig.sin(Math.toRadians(proj.getFacing())) * spreadVel * (0.95f + speedMod * 0.15f)), 
+				weapon.getShip().getVelocity(), proj.getVelocity());
 			
 		}
     }

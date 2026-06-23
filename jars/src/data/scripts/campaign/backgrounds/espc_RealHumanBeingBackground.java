@@ -11,33 +11,26 @@ import com.fs.starfarer.api.impl.campaign.ids.Factions;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.util.Misc;
 
-import data.scripts.espc_ModPlugin;
 import data.scripts.campaign.listeners.espc_PactFleetSpawnListener;
 import data.scripts.util.MezzUtils;
 import exerelin.campaign.backgrounds.BaseCharacterBackground;
 import exerelin.utilities.NexFactionConfig;
-import lunalib.lunaSettings.LunaSettings;
 
 public class espc_RealHumanBeingBackground extends BaseCharacterBackground {
 
 	private boolean requirePerfectScore() {
-		if (!espc_ModPlugin.hasLuna())
-			return true;
-		
-    	String req = LunaSettings.getString("epsilonpact", "espc_BGScoreRequirements");
+    	String req = MezzUtils.getSettingString("BGScoreRequirements");
     	return req.equals(MezzUtils.getString("espc_settings", "scorereq_perfect"));
     	
 	}
 
 	private boolean isUnlocked() {
     	int scoreReq = 100;
-    	if (espc_ModPlugin.hasLuna()) {
-    		String req = LunaSettings.getString("epsilonpact", "espc_BGScoreRequirements");
-    		if (req.equals(MezzUtils.getString("espc_settings", "scorereq_none")))
-    			return true;
-    		else if (req.equals(MezzUtils.getString("espc_settings", "scorereq_complete")))
-    			scoreReq = 1;
-    	}
+    	String req = MezzUtils.getSettingString("BGScoreRequirements");
+    	if (req.equals(MezzUtils.getString("espc_settings", "scorereq_none")))
+    		return true;
+    	else if (req.equals(MezzUtils.getString("espc_settings", "scorereq_complete")))
+    		scoreReq = 1;
         return Global.getSettings().getMissionScore("espc_looseends") >= scoreReq;
         
 	}
@@ -74,21 +67,21 @@ public class espc_RealHumanBeingBackground extends BaseCharacterBackground {
 		Global.getSector().getPlayerFleet().getFlagship().getRepairTracker().setCR(0.7f);
 		Global.getSector().getPlayerFleet().getFleetData().addFleetMember(ship);
         
-        if (espc_ModPlugin.hasLuna() && !LunaSettings.getBoolean("epsilonpact", "espc_AIBGPortraits")) {
+        if (!MezzUtils.getSetting("AIBGPortraits"))
         	return;
-        }
+        
         if (Global.getSector().getPlayerPerson().getGender() == Gender.FEMALE)
 	        Global.getSector().getPlayerPerson().setPortraitSprite(Global.getSettings().getSpriteName(
 				"characters", "espc_" + espc_PactFleetSpawnListener.portraitList[Misc.random.nextInt(
-					4)]));
+					5)]));
         else if (Global.getSector().getPlayerPerson().getGender() == Gender.MALE)
 	        Global.getSector().getPlayerPerson().setPortraitSprite(Global.getSettings().getSpriteName(
 				"characters", "espc_" + espc_PactFleetSpawnListener.portraitList[Misc.random.nextInt(
-					3) + 4]));
+					5) + 5]));
         else
 	        Global.getSector().getPlayerPerson().setPortraitSprite(Global.getSettings().getSpriteName(
 				"characters", "espc_" + espc_PactFleetSpawnListener.portraitList[Misc.random.nextInt(
-					espc_PactFleetSpawnListener.portraitList.length - 2)]));
+					espc_PactFleetSpawnListener.portraitList.length - 1)]));
         Global.getSector().getCharacterData().setPortraitName(Global.getSector().getPlayerPerson().getPortraitSprite());
     }
     

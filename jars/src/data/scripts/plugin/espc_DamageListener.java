@@ -19,11 +19,12 @@ public class espc_DamageListener implements DamageDealtModifier {
 	private static final float MINIMIR_ARMOR_PERCENT_MED = 1.0f;
 	
     public static final float FIS_PROJ_DAMAGE_FRACTION = 3f;
+    private static final float TACHYON_BOLTER_DAMAGE_BONUS = 3f;
 
     @Override
     public String modifyDamageDealt(Object proj, CombatEntityAPI targ, DamageAPI damage, Vector2f point, boolean shieldHit) {
 
-		if (damage.getDamage() <= 50) // helps filter out frequent checks from weapons like PD.
+		if (damage.getBaseDamage() <= 50) // helps filter out frequent checks from weapons like PD.
 			return null;
 		// if the base damage is reduced to this amount from what this listener is checking for (100+ dmg)
 		// the change in effects for dam values this low will probably be negligible. /cope 
@@ -149,7 +150,9 @@ public class espc_DamageListener implements DamageDealtModifier {
 				);
 			}
 			return null;
-		}
+		} else if (dProj.getProjectileSpecId().equals("espc_tachyonbolter_shot") &&
+			damage.getStats() != null)
+			damage.getStats().getHitStrengthBonus().modifyMult("espc_tachyonbolter_strengthbonus", TACHYON_BOLTER_DAMAGE_BONUS);
 		
         return null;
     }

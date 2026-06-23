@@ -129,8 +129,8 @@ public class espc_SalvoInfoMod extends BaseHullMod {
 					20f, true, true, 
 					new Object [] {
 						Misc.ucFirst(MezzUtils.getString("espc_gencombat", "missile")), sizeW, 
-						MezzUtils.getString("espc_hullmod", "OP_per_volley"), row2W,
-						MezzUtils.getString("espc_hullmod", "missiles_per_fighter"), row3W});
+						MezzUtils.getString("espc_hullmod", "salvo_op_per_volley"), row2W,
+						MezzUtils.getString("espc_hullmod", "salvo_missiles_per_fighter"), row3W});
 
 				for (SalvoMissileData curr : weapons) {
 					if (curr.OPPerMissile < maxCost)
@@ -195,9 +195,9 @@ public class espc_SalvoInfoMod extends BaseHullMod {
 					20f, true, true, 
 					new Object [] {
 						Misc.ucFirst(MezzUtils.getString("espc_gencombat", "missile")), sizeW, 
-						MezzUtils.getString("espc_gencombat", "OP_cost"), row2W, 
+						MezzUtils.getString("espc_gencombat", "op_cost"), row2W, 
 						Misc.ucFirst(MezzUtils.getString("espc_gencombat", "max_ammo")), row3W,
-						MezzUtils.getString("espc_hullmod", "OP_per_burst"), row4W});
+						MezzUtils.getString("espc_hullmod", "salvo_op_per_burst"), row4W});
 			
 			for (SalvoMissileData curr : weapons) {
 				if (!curr.isLimited)
@@ -226,9 +226,9 @@ public class espc_SalvoInfoMod extends BaseHullMod {
 					20f, true, true, 
 					new Object [] {
 						Misc.ucFirst(MezzUtils.getString("espc_gencombat", "missile")), sizeW, 
-						MezzUtils.getString("espc_gencombat", "OP_cost"), row2W, 
-						MezzUtils.getString("espc_hullmod", "volleys_per_min"), row3W,
-						MezzUtils.getString("espc_hullmod", "OP_per_burst"), row4W});
+						MezzUtils.getString("espc_gencombat", "op_cost"), row2W, 
+						MezzUtils.getString("espc_hullmod", "salvo_volleys_per_min"), row3W,
+						MezzUtils.getString("espc_hullmod", "salvo_op_per_burst"), row4W});
 			
 			for (SalvoMissileData curr : weapons) {
 				if (curr.isLimited)

@@ -3,7 +3,7 @@
   "hullId": "apex",
   "displayName": "Strike",
   "goalVariant": false,
-    "fluxCapacitors": 11,
+    "fluxCapacitors": 13,
     "fluxVents": 30,
   "quality": 0,
   "permaMods": [],
@@ -24,8 +24,8 @@
             "autofire": true,
             "mode": "ALTERNATING",
             "weapons": {
-                "WS 004": "ionpulser",
-                "WS 007": "ionpulser"
+                "WS 004": "espc_finnegan",
+                "WS 007": "espc_finnegan"
             }
         },
         {

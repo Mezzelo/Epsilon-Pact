@@ -6,16 +6,12 @@ import java.util.LinkedList;
 
 import org.lazywizard.lazylib.FastTrig;
 import org.lazywizard.lazylib.MathUtils;
-import org.lazywizard.lazylib.VectorUtils;
-import org.lwjgl.opengl.GL11;
 // import org.lazywizard.lazylib.VectorUtils;
 import org.lwjgl.util.vector.Vector2f;
-import org.magiclib.plugins.MagicTrailPlugin;
 
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.combat.CollisionClass;
 import com.fs.starfarer.api.combat.CombatEngineAPI;
-import com.fs.starfarer.api.combat.CombatEngineLayers;
 import com.fs.starfarer.api.combat.CombatEntityAPI;
 import com.fs.starfarer.api.combat.DamageType;
 import com.fs.starfarer.api.combat.DamagingProjectileAPI;
@@ -29,7 +25,6 @@ import com.fs.starfarer.api.combat.listeners.ApplyDamageResultAPI;
 import com.fs.starfarer.api.loading.DamagingExplosionSpec;
 import com.fs.starfarer.api.util.Misc;
 
-import data.scripts.util.MezzUtils;
 
 import com.fs.starfarer.api.combat.ShipAPI;
 
@@ -42,9 +37,10 @@ public class espc_AMFlamerEffect implements OnFireEffectPlugin, OnHitEffectPlugi
 	private static final float BURST_HALT_TIME_THRESHOLD = 0.1f;
 	private static final float BURST_HALT_COOLDOWN_FLUX = 3f;
 	private static final float BURST_HALT_COOLDOWN_TIME = 1f;
-	
+
+	private static final float LAST_FIRED_TIME_MAX = 0.15f;
 	private static final float SHOT_DELAY_MAX = 0.075f;
-	// private static final float SHOT_DISTANCE_MAX = 35f;
+	private static final float SHOT_DISTANCE_MAX = 35f;
 	
 	private static final float PROXIMITY_DAMAGE = 150f;
 	private static final float PROXIMITY_RADIUS = 120f;
@@ -67,15 +63,11 @@ public class espc_AMFlamerEffect implements OnFireEffectPlugin, OnHitEffectPlugi
 	
 	private LinkedList<DamagingProjectileAPI> projs;
 	
-	private float projLast;
-	private Float trailId;
-	
 
 	@Override
 	public void init(WeaponAPI weapon) {
 		ship = weapon.getShip();
 		projs = new LinkedList<DamagingProjectileAPI>();
-		projLast = 0f;
 		
 		isSolo = weapon.getSpec().getWeaponId().equals("espc_amflamersolo");
 		if (!isSolo)
@@ -90,178 +82,155 @@ public class espc_AMFlamerEffect implements OnFireEffectPlugin, OnHitEffectPlugi
     public void onFire(DamagingProjectileAPI proj, WeaponAPI weapon, CombatEngineAPI engine) {
     	if (weapon == null || ship == null || !engine.isInPlay(ship) || ship.isHulk() || !ship.isAlive())
     		return;
-
-    	float systemLevel = !isSolo ? ship.getSystem().getEffectLevel() : 0f;
     	
-        engine.addNebulaParticle(
-            proj.getSpawnLocation(),
-            Vector2f.add(proj.getVelocity(), ship.getVelocity(), new Vector2f()),
-            12f, 
-            25f + 10f * systemLevel, 0f, 0f, weapon.getRange() / weapon.getProjectileSpeed() / 2f,
-            new Color(255, 25, 10 + (int)(30f * systemLevel), 80 + (int)(40f * systemLevel))
-        );
-        if (!isSolo) {
-        	// muzzleVel.scale(0.7f + systemLevel * 0.2f);
-        	engine.addNebulaParticle(
-        	proj.getSpawnLocation(),
-        	Vector2f.add(proj.getVelocity(), ship.getVelocity(), new Vector2f()),
-        	12f, 
-        	12f + 12f * systemLevel, 0f, 0f, 0.5f + systemLevel * 0.15f,
-        	new Color(85, 25, 255, 180)
-        	);	
-        }
-		
-		if (engine.getTotalElapsedTime(false) - projLast > SHOT_DELAY_MAX)
-			trailId = MagicTrailPlugin.getUniqueID();
-		projLast = engine.getTotalElapsedTime(false);
-		
-        MagicTrailPlugin.addTrailMemberAdvanced(
-			null,
-			trailId,	
-			Global.getSettings().getSprite("fx", "espc_trail_wispy"),
-			proj.getLocation(),
-			weapon.getProjectileSpeed(), // start speed
-			weapon.getProjectileSpeed(), // end speed
-			proj.getFacing(),
-			0f, // ang vel start
-			0f, // and vel end
-			70 + (int) (isSolo ? 0f : systemLevel * 50f), // size start
-			150 + (int) (isSolo ? 0f : systemLevel * 90f), //size end
-			MezzUtils.colorHSBLerp(
-				new Color(255, 125, 50), 
-				new Color(85, 25, 255), isSolo ? 0f : systemLevel),
-			MezzUtils.colorHSBLerp(
-				new Color(255, 25, 10), 
-				new Color(255, 15, 35), isSolo ? 0f : systemLevel),
-        	0.7f + (isSolo ? 0f : systemLevel * 0.2f), // opacity
-			0.05f * weapon.getRange() / weapon.getProjectileSpeed(), // in duration
-			0.75f * weapon.getRange() / weapon.getProjectileSpeed(), // main duration
-			0.2f * weapon.getRange() / weapon.getProjectileSpeed(), // out duration
-			GL11.GL_SRC_ALPHA, // blend mode source
-			GL11.GL_ONE, // blend mode dest.  try GL_DST_ALPHA ?
-			128f, // texture loop length
-			-32f - (isSolo ? 0f : systemLevel * 32f), // texture scroll speed
-			trailId * 128f, // texture offset
-			Misc.ZERO,
-			// ship.getVelocity(), // offset velocity
-			null,
-        	CombatEngineLayers.ABOVE_SHIPS_LAYER,
-			1f
-        );
+    	boolean isLocal = MathUtils.getDistanceSquared(proj.getSpawnLocation(), weapon.getFirePoint(0)) <
+    		SHOT_DISTANCE_MAX * SHOT_DISTANCE_MAX;
     	
-    	// if (MathUtils.getDistanceSquared(proj.getLocation(), weapon.getFirePoint(0)) > 300f)
-    	// 	return;
-    	
-		if (systemLevel > 0f)
-			spurt(engine, weapon.getFirePoint(0), weapon.getCurrAngle(), 400f, 5, 95f, 2.3f);
-		else
-			spurt(engine, weapon.getFirePoint(0), weapon.getCurrAngle(), 250f, 3, 75f, 1.5f);
-		
-		Global.getSoundPlayer().playLoop(
-				"espc_amflamer_loop",
-				weapon,
-				1.0f,
-				0.7f,
-				weapon.getLocation(),
-				weapon.getShip().getVelocity()
-		);
-    	
-    	if (!isSolo) {
-    		/*
-    		ship.setCurrentCR(ship.getCurrentCR() - finalDecay);
-    		if (ship.getCurrentCR() <= 0f)
-    			weapon.disable(true); */
-    	} else if (weapon.getAmmo() < weapon.getMaxAmmo() * AMMO_MALFUNCTION_THRESHOLD) {
-			if (Misc.random.nextFloat() < MALFUNCTION_CHANCE_BASE) {
-				weapon.disable(false);
-				spurt(engine, weapon.getFirePoint(0), weapon.getCurrAngle(), 300f, 35, 30f, 2f);
-				/*
-				Global.getSoundPlayer().playSound(
-					"espc_amflamer_burst", 
-					1.1f,
+    	if (isLocal) {
+        	float systemLevel = !isSolo ? ship.getSystem().getEffectLevel() : 0f;
+    		Vector2f muzzleVel = new Vector2f(
+    			(float) FastTrig.cos(Math.toRadians(proj.getFacing())),
+    			(float) FastTrig.sin(Math.toRadians(proj.getFacing()))
+    		);
+    		
+    		muzzleVel.scale(weapon.getProjectileSpeed() * 0.8f);
+    		
+	        engine.addNebulaParticle(
+	            proj.getSpawnLocation(),
+	            Vector2f.add(muzzleVel, ship.getVelocity(), new Vector2f()),
+	            12f, 
+	            25f + 10f * systemLevel, 0f, 0f, weapon.getRange() / weapon.getProjectileSpeed() / 2f,
+	            new Color(255, 25, 10 + (int)(30f * systemLevel), 80 + (int)(40f * systemLevel))
+	        );
+	        if (!isSolo) {
+	    		muzzleVel.scale(0.7f + systemLevel * 0.2f);
+	        	engine.addNebulaParticle(
+	        	proj.getSpawnLocation(),
+	        	Vector2f.add(muzzleVel, ship.getVelocity(), new Vector2f()),
+	        	12f, 
+	        	12f + 12f * systemLevel, 0f, 0f, 0.5f + systemLevel * 0.15f,
+	        	new Color(85, 25, 255, 180)
+	        	);	
+	        }
+	    	
+			if (systemLevel > 0f)
+				spurt(engine, weapon.getFirePoint(0), weapon.getCurrAngle(), 400f, 5, 95f, 2.3f);
+			else
+				spurt(engine, weapon.getFirePoint(0), weapon.getCurrAngle(), 250f, 3, 75f, 1.5f);
+			
+			Global.getSoundPlayer().playLoop(
+					"espc_amflamer_loop",
+					weapon,
+					1.0f,
 					0.7f,
 					weapon.getLocation(),
-					ship.getVelocity()
-				);*/
-				if (Misc.random.nextFloat() < MALFUNCTION_EXPLOSION_CHANCE) {
-					DamagingExplosionSpec explosion = new DamagingExplosionSpec(
-							0.5f, // duration
-							150f,
-							50f, // core radius, max -> min falloff
-							350f,
-							150f,
-							CollisionClass.HITS_SHIPS_AND_ASTEROIDS,
-							CollisionClass.HITS_SHIPS_AND_ASTEROIDS,
-							7f, // min particle size
-							4f, // particle size range
-							2.0f, // particle duration
-							12, // particleCount
-							new Color(255,130,25,100), // particleColor
-							new Color(255,100,15,100)  // explosionColor
-					);
-					
-					explosion.setDamageType(DamageType.HIGH_EXPLOSIVE);
-					explosion.setUseDetailedExplosion(true);
-					explosion.setSoundSetId("explosion_from_damage");
-					engine.spawnDamagingExplosion(
-						explosion, 
-						ship, weapon.getFirePoint(0),
-						true
-					);
+					weapon.getShip().getVelocity()
+			);
+	    	
+	    	if (isSolo && weapon.getAmmo() < weapon.getMaxAmmo() * AMMO_MALFUNCTION_THRESHOLD) {
+				if (Misc.random.nextFloat() < MALFUNCTION_CHANCE_BASE) {
+					weapon.disable(false);
+					spurt(engine, weapon.getFirePoint(0), weapon.getCurrAngle(), 300f, 35, 30f, 2f);
+					if (Misc.random.nextFloat() < MALFUNCTION_EXPLOSION_CHANCE) {
+						DamagingExplosionSpec explosion = new DamagingExplosionSpec(
+								0.5f, // duration
+								150f,
+								50f, // core radius, max -> min falloff
+								350f,
+								150f,
+								CollisionClass.HITS_SHIPS_AND_ASTEROIDS,
+								CollisionClass.HITS_SHIPS_AND_ASTEROIDS,
+								7f, // min particle size
+								4f, // particle size range
+								2.0f, // particle duration
+								12, // particleCount
+								new Color(255,130,25,100), // particleColor
+								new Color(255,100,15,100)  // explosionColor
+						);
+						
+						explosion.setDamageType(DamageType.HIGH_EXPLOSIVE);
+						explosion.setUseDetailedExplosion(true);
+						explosion.setSoundSetId("explosion_from_damage");
+						engine.spawnDamagingExplosion(
+							explosion, 
+							ship, weapon.getFirePoint(0),
+							true
+						);
+					}
 				}
 			}
-		}
-		if (ship.getFluxTracker().getCurrFlux()/ship.getFluxTracker().getMaxFlux() > BURST_HALT_FLUX_THRESHOLD &&
-				delayTime <= 0f) {
-			delayTime = BURST_HALT_COOLDOWN_FLUX;
-			/*
-			Global.getSoundPlayer().playSound(
-				"espc_amflamer_burst", 
-				1.1f,
-				0.7f,
-				weapon.getLocation(),
-				ship.getVelocity()
-			);*/
-			spurt(engine, weapon.getFirePoint(0), weapon.getCurrAngle(), 300f, 30, 30f, 2f);
-			weapon.setRemainingCooldownTo(weapon.getCooldown());
-		}
-		
-		if (projs.size() > 0) {
-			/*
-			DamagingProjectileAPI lastProj = (DamagingProjectileAPI) projs.getLast();
-			if (lastProj.getElapsed() < SHOT_DELAY_MAX &&
-				MathUtils.getDistanceSquared(proj.getLocation(), lastProj.getLocation()) > SHOT_DISTANCE_MAX * SHOT_DISTANCE_MAX) {
-				Vector2f diff = new Vector2f();
-				Vector2f.sub(lastProj.getLocation(), proj.getLocation(), diff);
-				diff.normalise();
-				float diffAng = Vector2f.angle(
-						new Vector2f(
-							(float) FastTrig.cos(Math.toRadians(lastProj.getFacing())), 
-							(float) FastTrig.sin(Math.toRadians(lastProj.getFacing()))
-						), 
-						diff
-					);
-				if (diffAng > 1.3f)
-					diffAng = MathUtils.FPI - diffAng;
-    			// Global.getLogger(espc_AMFlamerEffect.class).info(diffAng);
-				diff.scale(SHOT_DISTANCE_MAX 
-					+ 10f
-					* (1f - diffAng)/1f
-				);
-				Vector2f.sub(lastProj.getLocation(), diff, proj.getLocation());
+			if (ship.getFluxTracker().getCurrFlux()/ship.getFluxTracker().getMaxFlux() > BURST_HALT_FLUX_THRESHOLD &&
+					delayTime <= 0f) {
+				delayTime = BURST_HALT_COOLDOWN_FLUX;
+				spurt(engine, weapon.getFirePoint(0), weapon.getCurrAngle(), 300f, 30, 30f, 2f);
+				weapon.setRemainingCooldownTo(weapon.getCooldown());
 			}
-			*/
-		} else if (lastFiredTime <= 0f) {
-			Global.getSoundPlayer().playSound(
-				"espc_amflamer_burst", 
-				1.0f,
-				0.8f,
-				weapon.getLocation(),
-				ship.getVelocity()
-			);
-		}
+			
+			if (projs.size() > 0) {
+	    		DamagingProjectileAPI projLast = projs.getLast();
+	    		if (LAST_FIRED_TIME_MAX > LAST_FIRED_TIME_MAX - SHOT_DELAY_MAX &&
+	    			MathUtils.getDistanceSquared(projLast.getSpawnLocation(), weapon.getFirePoint(0)) <
+	    			SHOT_DISTANCE_MAX * SHOT_DISTANCE_MAX) {
+	    			int iterations = 4;
+	    			Vector2f diff = Vector2f.sub(projLast.getLocation(), proj.getLocation(), new Vector2f());
+	    			diff.scale(1f / (iterations + 1f));
+	    			for (int i = 0; i < iterations; i++) {
+		    			diff.scale(i + 1f);
+		    			DamagingProjectileAPI lerpProj = (DamagingProjectileAPI) engine.spawnProjectile(
+							ship,
+							weapon,
+							weapon.getId(),
+							proj.getSpawnLocation(),
+							(Misc.normalizeAngle(projLast.getFacing()) * 
+								((i + 1f) / (iterations + 1f)) + 
+								Misc.normalizeAngle(proj.getFacing()) * 
+								(1f - (i + 1f) / (iterations + 1f))),
+							ship.getVelocity()
+						);
+		    			Vector2f.add(proj.getLocation(), diff, lerpProj.getLocation());
+		    			lerpProj.setDamageAmount(0f);
+		    			diff.scale(1f / (i + 1f));
+	    			}
+	    		}
+	    		
+				/* antiquated cryoflamer-esque code that shifted projectiles for a smooth unified trail
+				doesn't work well with a combination of sufficiently high fire/turn rate and projectile velocity: limits range
+				
+				DamagingProjectileAPI lastProj = (DamagingProjectileAPI) projs.getLast();
+				if (lastProj.getElapsed() < SHOT_DELAY_MAX &&
+					MathUtils.getDistanceSquared(proj.getLocation(), lastProj.getLocation()) > SHOT_DISTANCE_MAX * SHOT_DISTANCE_MAX) {
+					Vector2f diff = new Vector2f();
+					Vector2f.sub(lastProj.getLocation(), proj.getLocation(), diff);
+					diff.normalise();
+					float diffAng = Vector2f.angle(
+							new Vector2f(
+								(float) FastTrig.cos(Math.toRadians(lastProj.getFacing())), 
+								(float) FastTrig.sin(Math.toRadians(lastProj.getFacing()))
+							), 
+							diff
+						);
+					if (diffAng > 1.3f)
+						diffAng = MathUtils.FPI - diffAng;
+	    			// Global.getLogger(espc_AMFlamerEffect.class).info(diffAng);
+					diff.scale(SHOT_DISTANCE_MAX 
+						+ 10f
+						* (1f - diffAng)/1f
+					);
+					Vector2f.sub(lastProj.getLocation(), diff, proj.getLocation());
+				}
+				*/
+			} else if (lastFiredTime <= 0f) {
+				Global.getSoundPlayer().playSound(
+					"espc_amflamer_burst", 
+					1.0f,
+					0.8f,
+					weapon.getLocation(),
+					ship.getVelocity()
+				);
+			}
+	    	lastFiredTime = LAST_FIRED_TIME_MAX;
+    	}
 		projs.addLast(proj);
-    	lastFiredTime = 0.15f;
     }
 
     @Override
@@ -328,7 +297,10 @@ public class espc_AMFlamerEffect implements OnFireEffectPlugin, OnHitEffectPlugi
 					projIterator.remove();
 				} else {
 					
-					/*
+					
+					
+					/* see earlier cryoflamer note
+					
 					if (proj.getElapsed() < 0.33f) {
 						// Vector2f velocity = proj.getVelocity();
 						Vector2f.add(new Vector2f(), weapon.getFirePoint(0), proj.getTailEnd());
@@ -421,6 +393,9 @@ public class espc_AMFlamerEffect implements OnFireEffectPlugin, OnHitEffectPlugi
     }
     
 	public void onHit(DamagingProjectileAPI projectile, CombatEntityAPI target, Vector2f point, boolean shieldHit, ApplyDamageResultAPI damageResult, CombatEngineAPI engine) {
+		if (projectile.getDamageAmount() < 0f)
+			return;
+		
 		Color color = projectile.getProjectileSpec().getFringeColor();
 		
 		Vector2f vel = new Vector2f();
@@ -438,17 +413,6 @@ public class espc_AMFlamerEffect implements OnFireEffectPlugin, OnHitEffectPlugi
 			0.7f,
 			Misc.scaleAlpha(color, projectile.getBrightness())
 		);
-		
-		// most of this is my own code, but this *is* just ripped from cryoflamer lol.  i'm so tired, need to release this.
-		/*
-		Misc.playSound(damageResult, point, vel,
-				"cryoflamer_hit_shield_light",
-				"cryoflamer_hit_shield_solid",
-				"cryoflamer_hit_shield_heavy",
-				"cryoflamer_hit_light",
-				"cryoflamer_hit_solid",
-				"cryoflamer_hit_heavy");
-		*/
 	}
     
     private DamagingExplosionSpec proxExplosion(float damageMult) {

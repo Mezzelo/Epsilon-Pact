@@ -1,22 +1,17 @@
 package data.scripts.shipsystems.ai;
 
-// import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.combat.*;
-// import com.fs.starfarer.api.combat.ShipSystemAPI.SystemState;
-// import com.fs.starfarer.api.combat.ShipwideAIFlags.AIFlags;
 import com.fs.starfarer.api.combat.WeaponAPI.AIHints;
 import com.fs.starfarer.api.combat.WeaponAPI.WeaponType;
-// import com.fs.starfarer.api.plugins.ShipSystemStatsScript.State;
-import com.fs.starfarer.api.util.IntervalUtil;
+import com.fs.starfarer.api.util.Misc;
 
 import org.lazywizard.lazylib.MathUtils;
-// import org.lazywizard.lazylib.combat.AIUtils;
-// import org.lazywizard.lazylib.combat.CombatUtils;
 import org.lwjgl.util.vector.Vector2f;
 
 public class espc_SlamfireAI implements ShipSystemAIScript {
     
     private static final float THINK_INTERVAL_NORMAL = 0.15f;
+    private static final float THINK_INTERVAL_USED = 2f;
     
     private static final float ACTIVATION_RANGE_MULT = 1.1f;
     private static final float DEACTIVATION_RANGE_MULT = 1.4f;
@@ -27,14 +22,13 @@ public class espc_SlamfireAI implements ShipSystemAIScript {
     private static final float AI_RANGE_MIN_CUTOFF = 400f;
     private static final float AI_RANGE_MAX_CUTOFF = 800f;
 
-    private IntervalUtil aiInterval = new IntervalUtil(THINK_INTERVAL_NORMAL, THINK_INTERVAL_NORMAL + 0.05f);
-
     private ShipSystemAPI system;
     private ShipAPI ship;
     private FluxTrackerAPI flux;
     
     private float useDistance = AI_RANGE_MIN_CUTOFF;
     private float deactivateDistance;
+    private float aiThinkTime = THINK_INTERVAL_NORMAL;
 
     @Override
     public void init(ShipAPI ship, ShipSystemAPI system, ShipwideAIFlags flags, CombatEngineAPI engine) {
@@ -74,22 +68,26 @@ public class espc_SlamfireAI implements ShipSystemAIScript {
     public void advance(float amount, Vector2f missileDangerDir, Vector2f collisionDangerDir, ShipAPI target) {
     	
     	if (amount <= 0f || target == null ||
-    		flux.isOverloadedOrVenting() || system.isCoolingDown()
-    		)
+    		flux.isOverloadedOrVenting() || system.isCoolingDown())
     		return;
     	
-        aiInterval.advance(amount);
+    	aiThinkTime -= amount;
 
-        if (aiInterval.intervalElapsed()) {
+        if (aiThinkTime <= 0f) {
         	if (system.isActive() &&
-        		(flux.getFluxLevel() > DEACTIVATE_FLUX || 
+        		(flux.getFluxLevel() > DEACTIVATE_FLUX || target.isFighter() || target.isPhased() ||
         		(MathUtils.getDistanceSquared(ship, target) > Math.pow(deactivateDistance, 2f) && 
         		!ship.getCustomData().containsKey("espc_InverseSkimmer_Ally"))
-        		 || target.isFighter()))
+        		)) {
+            	aiThinkTime = THINK_INTERVAL_USED;
         		ship.useSystem();
+        	}
         	else if (!system.isActive() && flux.getFluxLevel() < ACTIVATION_FLUX_MAX
-        			&& MathUtils.isWithinRange(ship, target, useDistance) && !target.isFighter())
+        		&& MathUtils.isWithinRange(ship, target, useDistance) && !target.isFighter() && !target.isPhased()) {
+            	aiThinkTime = THINK_INTERVAL_USED;
         		ship.useSystem();
+        	} else
+            	aiThinkTime = THINK_INTERVAL_NORMAL + 0.1f * Misc.random.nextFloat();
         }
     }
 }

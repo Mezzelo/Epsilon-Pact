@@ -117,18 +117,15 @@ public class espc_SecondWind {
 		public void unapply(MutableShipStatsAPI stats, HullSize hullSize, String id)  {}
 		
 		public String getEffectDescription(float level) {
-			return null;
+			return String.format(MezzUtils.getString("espc_skills", "secondwind1-1"), (int)Math.round(SYSTEM_COOLDOWN));
 		}
-		
-		// return "";
 		
 		public void createCustomDescription(MutableCharacterStatsAPI stats, SkillSpecAPI skill, 
 			TooltipMakerAPI info, float width) {
 
 			init(stats, skill);
-			info.addPara(MezzUtils.getString("espc_skills", "secondwind1-1a") + 
-				(int)Math.round(SYSTEM_COOLDOWN) + MezzUtils.getString("espc_skills", "secondwind1-1b"),
-				0f, hc, hc
+			info.addPara(MezzUtils.getString("espc_skills", "secondwind1-1"),
+				0f, hc, hc, "" + (int)Math.round(SYSTEM_COOLDOWN)
 			);
 			info.addPara(indent + MezzUtils.getString("espc_skills", "secondwind1-2"),
 				0f, tc, hc
@@ -158,16 +155,14 @@ public class espc_SecondWind {
 		public void unapply(MutableShipStatsAPI stats, HullSize hullSize, String id) {}
 		
 		public String getEffectDescription(float level) {
-			return MezzUtils.getString("espc_skills", "secondwind2-1a") + (int)Math.round(OVERLOAD_COOLDOWN) + 
-				MezzUtils.getString("espc_skills", "secondwind2-1b");
+			return String.format(MezzUtils.getString("espc_skills", "secondwind2-1"), (int)Math.round(OVERLOAD_COOLDOWN));
 		}
 		public void createCustomDescription(MutableCharacterStatsAPI stats, SkillSpecAPI skill, 
 			TooltipMakerAPI info, float width) {
 
 			init(stats, skill);
-			info.addPara(MezzUtils.getString("espc_skills", "secondwind2-1a") + (int)Math.round(OVERLOAD_COOLDOWN) + 
-				MezzUtils.getString("espc_skills", "secondwind2-1b"),
-				0f, hc, hc
+			info.addPara(MezzUtils.getString("espc_skills", "secondwind2-1"),
+				0f, hc, hc, "" + (int)Math.round(OVERLOAD_COOLDOWN)
 			);
 			info.addPara(indent + MezzUtils.getString("espc_skills", "secondwind2-2"),
 				0f, tc, hc, "" + OVERLOAD_DURATION_MIN

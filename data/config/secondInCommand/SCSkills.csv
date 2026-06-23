@@ -6,9 +6,9 @@ espc_sc_pact_against_the_odds,Against the Odds,graphics/icons/skills/secondInCom
 espc_sc_pact_travel_light,Travel Light,graphics/icons/skills/secondInCommand/espc_sic_travel_light.png,0.5,data.scripts.sic.espc.espc_TravelLight
 espc_sc_pact_strike_twice,Strike Twice,graphics/icons/skills/secondInCommand/espc_sic_strike_twice.png,1,data.scripts.sic.espc.espc_StrikeTwice
 espc_sc_pact_all_walks,All Walks,graphics/icons/skills/secondInCommand/espc_sic_all_walks.png,1,data.scripts.sic.espc.espc_AllWalks
-espc_sc_pact_something_different,Something Different,graphics/icons/skills/secondInCommand/espc_sic_something_different.png,0,data.scripts.sic.espc.espc_SomethingDifferent
+espc_sc_pact_beyond_the_pale,Beyond the Pale,graphics/icons/skills/secondInCommand/espc_sic_beyond_the_pale.png,0,data.scripts.sic.espc.espc_BeyondThePale
 ,,,,
 espc_sc_pact_aces_high,Aces High,graphics/icons/skills/secondInCommand/espc_sic_aces_high.png,0,data.scripts.sic.espc.espc_AcesHigh
-espc_sc_pact_beyond_perfection,Beyond Perfection,graphics/icons/skills/secondInCommand/espc_sic_beyond_perfection.png,0,data.scripts.sic.espc.espc_BeyondPerfection
+espc_sc_pact_souls_among_stars,Souls Among Stars,graphics/icons/skills/secondInCommand/espc_sic_souls_among_stars.png,0,data.scripts.sic.espc.espc_SoulsAmongStars
 ,,,,
 # espc_sc_pact_from_the_dark,From the Dark,graphics/icons/skills/secondInCommand/espc_sic_from_the_dark.png,0.5,data.scripts.sic.espc.espc_FromTheDark

@@ -27,6 +27,7 @@ import org.lwjgl.util.vector.Vector2f;
 public class espc_ArcFlakEffect implements OnFireEffectPlugin, WeaponEffectPluginWithInit, EveryFrameWeaponEffectPlugin,
 	OnHitEffectPlugin{
 	
+	private static final float PROJ_BASE_DAMAGE = 25f;
 	private static final float EXPLOSION_RADIUS = 50f;
 	private static final float EXPLOSION_DAMAGE = 25f;
 	private static final float EMP_DAMAGE = 50f;
@@ -71,8 +72,11 @@ public class espc_ArcFlakEffect implements OnFireEffectPlugin, WeaponEffectPlugi
 	        				Math.pow(EXPLOSION_RADIUS * 1.5f, 2f))
 		        			engine.applyDamage(
 		        				(CombatEntityAPI) o, 
-		        				((CombatEntityAPI) o).getLocation(), EXPLOSION_DAMAGE * 2f, DamageType.KINETIC, 
-		        				EMP_DAMAGE * 2f, false, false, weapon);
+		        				((CombatEntityAPI) o).getLocation(), 
+		        				EXPLOSION_DAMAGE * 2f * proj.projectile.getDamageAmount() / PROJ_BASE_DAMAGE, 
+		        				DamageType.KINETIC, 
+		        				EMP_DAMAGE * 2f * proj.projectile.getDamageAmount() / PROJ_BASE_DAMAGE, 
+		        				false, false, weapon);
 	        		} else if (o instanceof ShipAPI) {
         				ShipAPI targ = (ShipAPI) o;
         				if (targ.isPhased())
@@ -87,9 +91,10 @@ public class espc_ArcFlakEffect implements OnFireEffectPlugin, WeaponEffectPlugi
         	        			engine.applyDamage(
             		       			targ, 
             		       			wep.getLocation(), 
-            		       			EXPLOSION_DAMAGE * (wasHit ? 0f : 1f)
+            		       			EXPLOSION_DAMAGE * (wasHit ? 0f : 1f) * proj.projectile.getDamageAmount() / PROJ_BASE_DAMAGE
             		       			, DamageType.KINETIC, 
-            		       			EMP_DAMAGE, false, false, weapon);
+            		       			EMP_DAMAGE * proj.projectile.getDamageAmount() / PROJ_BASE_DAMAGE,
+            		       			false, false, weapon);
         	        			wasHit = true;
         					}
         				for (ShipEngineAPI shipEngine : targ.getEngineController().getShipEngines()) {
@@ -99,9 +104,10 @@ public class espc_ArcFlakEffect implements OnFireEffectPlugin, WeaponEffectPlugi
             	       			engine.applyDamage(
             		       			targ, 
             		       			shipEngine.getLocation(), 
-            		       			EXPLOSION_DAMAGE * (wasHit ? 0f : 1f), 
+            		       			EXPLOSION_DAMAGE * (wasHit ? 0f : 1f) * proj.projectile.getDamageAmount() / PROJ_BASE_DAMAGE, 
             		       			DamageType.KINETIC, 
-            		       			EMP_DAMAGE, false, false, weapon);
+            		       			EMP_DAMAGE * proj.projectile.getDamageAmount() / PROJ_BASE_DAMAGE,
+            		       			false, false, weapon);
             	       			wasHit = true;
         					}
         				}
@@ -112,9 +118,10 @@ public class espc_ArcFlakEffect implements OnFireEffectPlugin, WeaponEffectPlugi
         	        		engine.applyDamage(
         	        			targ, 
         		       			Vector2f.sub(targ.getLocation(), adj, new Vector2f()), 
-        		       			EXPLOSION_DAMAGE, 
+        		       			EXPLOSION_DAMAGE * proj.projectile.getDamageAmount() / PROJ_BASE_DAMAGE, 
         	        			DamageType.KINETIC, 
-       		        			EMP_DAMAGE, false, false, weapon);
+       		        			EMP_DAMAGE * proj.projectile.getDamageAmount() / PROJ_BASE_DAMAGE,
+       		        			false, false, weapon);
        					}
        					
        				}
@@ -160,7 +167,8 @@ public class espc_ArcFlakEffect implements OnFireEffectPlugin, WeaponEffectPlugi
 			engine.applyDamage(
     		(CombatEntityAPI) target, 
     		point, target instanceof MissileAPI ? projectile.getDamageAmount() : 0f, DamageType.KINETIC, 
-    		EMP_DAMAGE_DIRECT + (target instanceof MissileAPI ? projectile.getEmpAmount() + EMP_DAMAGE_DIRECT : 0f), 
+    		(EMP_DAMAGE_DIRECT + (target instanceof MissileAPI ? projectile.getEmpAmount() + EMP_DAMAGE_DIRECT : 0f))
+    			* projectile.getDamageAmount() / PROJ_BASE_DAMAGE, 
     		false, false, projectile.getWeapon());
 		espc_ArcFlakEffect plugin = (espc_ArcFlakEffect) projectile.getWeapon().getEffectPlugin();
         Iterator<ArcFlakProj> iter = plugin.shots.iterator();

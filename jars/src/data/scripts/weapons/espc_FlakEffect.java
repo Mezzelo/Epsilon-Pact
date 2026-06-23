@@ -10,9 +10,11 @@ import com.fs.starfarer.api.combat.MissileAPI;
 import com.fs.starfarer.api.combat.OnFireEffectPlugin;
 import com.fs.starfarer.api.combat.OnHitEffectPlugin;
 import com.fs.starfarer.api.combat.WeaponAPI;
+import com.fs.starfarer.api.combat.WeaponEffectPluginWithInit;
 import com.fs.starfarer.api.combat.listeners.ApplyDamageResultAPI;
 import com.fs.starfarer.api.combat.ShipAPI;
 import com.fs.starfarer.api.util.Misc;
+
 
 import org.lwjgl.util.vector.Vector2f;
 
@@ -22,17 +24,20 @@ import java.util.Iterator;
 import org.lazywizard.lazylib.FastTrig;
 import org.lazywizard.lazylib.MathUtils;
 
-public class espc_FlakEffect implements OnFireEffectPlugin, EveryFrameWeaponEffectPlugin, OnHitEffectPlugin {
+public class espc_FlakEffect implements OnFireEffectPlugin, EveryFrameWeaponEffectPlugin, OnHitEffectPlugin, 
+	WeaponEffectPluginWithInit {
 
 	public static final int shotsPerBurst = 5;
 	public static final float burstSpread = 24f;
 	public static final float minDamageForTarget = 250f;
-	
+
+    public static final float FLAK_BASE_DAMAGE = 180f;
     public static final float FLAK_BONUS_DAMAGE = 120f;
 	
 	private int currentShot = 0;
 	// private Vector2f spreadLocation;
 	private float spreadVel;
+	
 	
 	private ShipAPI thisShip;
 	private Vector2f shipVel;
@@ -50,19 +55,24 @@ public class espc_FlakEffect implements OnFireEffectPlugin, EveryFrameWeaponEffe
 		float distSquared;
 	}
 	
-	private ArrayList<PDThr> pdThreats;
+	private ArrayList<PDThr> pdThreats = null;
 	private float longestDist = 0f;
+
+	@Override
+	public void init(WeaponAPI weapon) {
+		pdThreats = new ArrayList<PDThr>();
+	}
 	
     @Override
     public void onFire(DamagingProjectileAPI proj, WeaponAPI weapon, CombatEngineAPI engine) {
-    	if (MathUtils.getDistanceSquared(proj, weapon.getFirePoint(0)) > 1f)
+    	if (MathUtils.getDistanceSquared(proj, weapon.getFirePoint(0)) > 10f)
     		return;
         if (currentShot == 0) {
 			shipVel = thisShip.getVelocity();
 			spreadVel = weapon.getProjectileSpeed();
 			
 			longestDist = 0f;
-			pdThreats = new ArrayList<PDThr>();
+			pdThreats.clear();
 			CombatEngineAPI combatEngine = Global.getCombatEngine();
             
 			Iterator<Object> entityIterator = combatEngine.getAiGridShips().getCheckIterator(
@@ -119,6 +129,9 @@ public class espc_FlakEffect implements OnFireEffectPlugin, EveryFrameWeaponEffe
 				while (entityIterator.hasNext()) {
 					CombatEntityAPI entity = (CombatEntityAPI) entityIterator.next();
 					if (entity.getOwner() == thisShip.getOwner())
+						continue;
+					if (entity instanceof MissileAPI && 
+						((MissileAPI) entity).isFlare() || ((MissileAPI) entity).isDecoyFlare())
 						continue;
 					if (Math.abs(MathUtils.getShortestRotation(
 						(float) Math.toDegrees(FastTrig.atan2(entity.getLocation().y - proj.getLocation().y, 
@@ -202,6 +215,7 @@ public class espc_FlakEffect implements OnFireEffectPlugin, EveryFrameWeaponEffe
     public void advance(float amount, CombatEngineAPI engine, WeaponAPI weapon) {
 		if (thisShip == null)
 			thisShip = weapon.getShip();
+		
 		if (pdThreats != null && pdThreats.size() > 0) {
 			CombatEngineAPI combatEngine = Global.getCombatEngine();
 			if (combatEngine.getElapsedInLastFrame() <= 0f)
@@ -240,7 +254,9 @@ public class espc_FlakEffect implements OnFireEffectPlugin, EveryFrameWeaponEffe
 		ApplyDamageResultAPI damageResult, CombatEngineAPI engine) {
 		if (targ instanceof MissileAPI || targ instanceof ShipAPI && ((ShipAPI) targ).isFighter()) {
 			Global.getCombatEngine().applyDamage(
-				targ, point, FLAK_BONUS_DAMAGE, DamageType.FRAGMENTATION, 0f, false, false, dProj.getSource() != null ?
+				targ, point, 
+					FLAK_BONUS_DAMAGE * dProj.getDamageAmount() / FLAK_BASE_DAMAGE, 
+					DamageType.FRAGMENTATION, 0f, false, false, dProj.getSource() != null ?
 					dProj.getSource() : Global.getCombatEngine());
 		}
 	}

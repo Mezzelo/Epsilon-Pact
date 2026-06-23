@@ -5,10 +5,10 @@
 	"type":"BALLISTIC",
 	"size":"LARGE",
 	"turretSprite":"graphics/weapons/espc_flak_turret_base.png",
-	"turretGunSprite":"graphics/weapons/espc_flak_turret_recoil.png",	
+	"turretGunSprite":"graphics/weapons/espc_flak_turret_recoil.png",
 	"hardpointSprite":"graphics/weapons/espc_flak_hardpoint_base.png",
 	"hardpointGunSprite":"graphics/weapons/espc_flak_hardpoint_recoil.png",	
-	"visualRecoil":3.0,  # the gun sprites are only used if this is non-0
+	"visualRecoil":8.0,  # the gun sprites are only used if this is non-0
 	"renderHints":["RENDER_BARREL_BELOW"],
 	"turretOffsets":[36, -1, 36, -1, 36, -1, 36, -1, 36, -1],
 	"turretAngleOffsets":[0],
@@ -17,7 +17,6 @@
 	"specialWeaponGlowWidth":10,
 	"specialWeaponGlowHeight":30,
 	"barrelMode":"LINKED", # or LINKED.  whether barrels fire at the same time or alternate.
-	#"separateRecoilForLinkedBarrels":false,
 	"animationType":"MUZZLE_FLASH",
 	"muzzleFlashSpec":{"length":35.0,   # only used if animationType = MUZZLE_FLASH
 		"spread":0.0,

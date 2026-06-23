@@ -19,6 +19,7 @@ import com.fs.starfarer.api.combat.WeaponAPI.AIHints;
 import com.fs.starfarer.api.combat.WeaponAPI.WeaponSize;
 import com.fs.starfarer.api.combat.WeaponAPI.WeaponType;
 import com.fs.starfarer.api.graphics.SpriteAPI;
+import com.fs.starfarer.api.impl.campaign.ids.Personalities;
 import com.fs.starfarer.api.impl.campaign.ids.Tags;
 import com.fs.starfarer.api.input.InputEventAPI;
 import com.fs.starfarer.api.loading.MissileSpecAPI;
@@ -50,6 +51,7 @@ public class espc_InverseSkimmerPlugin extends BaseEveryFrameCombatPlugin {
 
     private static final float ALLY_FLUX_THRESHOLD = 0.8f;
     private static final float ALLY_HARDFLUX_THRESHOLD = 0.5f;
+    private static final float TARGET_OVERLOAD_REMAINING_MIN = 2.5f;
 
 	private static final float PORTAL_LENGTH = 25f;
 	private static final float PORTAL_HEIGHT = 35f;
@@ -93,7 +95,8 @@ public class espc_InverseSkimmerPlugin extends BaseEveryFrameCombatPlugin {
 			
 			for (WeaponAPI wep : ally.getAllWeapons()) {
 				if (!wep.isDecorative() && !wep.isBeam() && !wep.getSlot().isSystemSlot())
-					if (wep.getType().equals(WeaponType.MISSILE) && wep.getDamageType() != DamageType.KINETIC
+					if (wep.getType().equals(WeaponType.MISSILE) && wep.getAmmoPerSecond() <= 0f
+						&& wep.getDamageType() != DamageType.KINETIC
 						&& wep.getDamageType() != DamageType.OTHER)
 						missiles.addLast(wep);
 					else if (!(wep.hasAIHint(AIHints.PD) && !wep.hasAIHint(AIHints.PD_ALSO))) {
@@ -108,11 +111,12 @@ public class espc_InverseSkimmerPlugin extends BaseEveryFrameCombatPlugin {
 				pdOnly = true;
 				for (WeaponAPI wep : ally.getAllWeapons()) {
 					if (!wep.isDecorative() && !wep.isBeam() && !wep.getSlot().isSystemSlot())
-						if (wep.getType().equals(WeaponType.MISSILE) && !missiles.contains(wep)
+						if (wep.getType().equals(WeaponType.MISSILE) && wep.getAmmoPerSecond() <= 0f && !missiles.contains(wep)
 							&& wep.getDamageType() != DamageType.KINETIC
 							&& wep.getDamageType() != DamageType.OTHER)
 							missiles.addLast(wep);
-						else if (!wep.getType().equals(WeaponType.MISSILE)) {
+						else if ((!wep.getType().equals(WeaponType.MISSILE) || wep.getAmmoPerSecond() > 0f) &&
+							!weapons.contains(wep)) {
 							weapons.addLast(wep);
 							if (wep.getSize().equals(WeaponSize.LARGE))
 								weaponIds.add(wep.getId());
@@ -129,8 +133,8 @@ public class espc_InverseSkimmerPlugin extends BaseEveryFrameCombatPlugin {
 				} catch (JSONException e) {
 					systemAI = "null";
 				}
-				if ((systemAI.equals("WEAPON_BOOST") && !ship.getSystem().getDisplayName().equals("Shieldwall")) ||
-					ship.getSystem().getDisplayName().equals("Slamfire")) {
+				if ((systemAI.equals("WEAPON_BOOST") && !ship.getSystem().getId().equals("espc_Shieldwall")) ||
+					ship.getSystem().getId().equals("espc_Slamfire") || ship.getSystem().getId().equals("espc_AMCompressor")) {
 					shouldUseSystem = true;
 				}
 			}	
@@ -269,14 +273,15 @@ public class espc_InverseSkimmerPlugin extends BaseEveryFrameCombatPlugin {
     	for (SkimmerSummonInstance ally : allies) {
     		anyRemove = true;
     		for (WeaponAPI weapon : ally.weapons) {
-    			if (weapon.isFiring()) {
+    			if (weapon != null && weapon.isFiring()) {
     				weapon.stopFiring();
     				weapon.setForceNoFireOneFrame(true);
     				if (weapon.getCooldown() > 0f)
     					weapon.setRemainingCooldownTo(weapon.getCooldownRemaining());
     			}
     		}
-    		ally.ally.removeCustomData("espc_InverseSkimmer_Ally");
+    		if (ally.ally != null && engine.isInPlay(ally.ally))
+    			ally.ally.removeCustomData("espc_InverseSkimmer_Ally");
     		for (Vector2f pos : ally.portals) {
 				engine.addHitParticle(
 					new Vector2f(ship.getLocation().x + 
@@ -328,21 +333,28 @@ public class espc_InverseSkimmerPlugin extends BaseEveryFrameCombatPlugin {
     	if (ship.isHulk() || !ship.isAlive())
     		toRemove = true;
 
+    	
+    	if (fighterDelay > 0f)
+    		fighterDelay -= amount;
+
+    	if (allies.size() == 0) {
+        	if (toRemove)
+    			engine.removePlugin(this);
+			return;
+    	}
+    	
     	boolean cancelSystem = toRemove ||
     		ship.getFluxTracker().isOverloadedOrVenting();
     	
     	ShipAPI targ = getBestTarget();
-    	
-    	if (fighterDelay > 0f)
-    		fighterDelay -= amount;
     	
     	boolean shouldAutofire = targ != null && ship.getSystem().isActive();
     	if (shouldAutofire) {
     		Vector2f ray = Vector2f.sub(targ.getLocation(), ship.getLocation(), new Vector2f());
     		Iterator<Object> shipGridIterator = (Iterator<Object>) (engine.getAiGridShips().getCheckIterator(
         		new Vector2f(ship.getLocation().x + ray.x/2f, ship.getLocation().y + ray.y/2f),
-        		Math.abs(ray.x),
-        		Math.abs(ray.y))
+        		Math.abs(ray.x) + 350f,
+        		Math.abs(ray.y) + 350f)
         	);
 
     		while (shipGridIterator.hasNext() && shouldAutofire) {
@@ -351,6 +363,7 @@ public class espc_InverseSkimmerPlugin extends BaseEveryFrameCombatPlugin {
     			if (currShip.isShuttlePod() || currShip == ship || currShip.hasTag(Tags.VARIANT_FX_DRONE)
     				|| currShip.getOwner() != ship.getOwner()
     				|| currShip.isFighter()
+    				// move lmao
     				|| (currShip.getHullSize().equals(HullSize.FRIGATE) && isCapital)
     				// we don't really want to waste flux on shooting hulks.  probably.
     				|| currShip.isHulk() || !currShip.isAlive()
@@ -358,7 +371,7 @@ public class espc_InverseSkimmerPlugin extends BaseEveryFrameCombatPlugin {
     				continue;
     			if (CollisionUtils.getCollides(ship.getLocation(), 
         			targ.getLocation(),
-            		currShip.getLocation(), currShip.getShieldRadiusEvenIfNoShield() * 1.1f))
+            		currShip.getLocation(), currShip.getShieldRadiusEvenIfNoShield() * 1.2f))
     				shouldAutofire = false;
     		}
     	}
@@ -372,9 +385,10 @@ public class espc_InverseSkimmerPlugin extends BaseEveryFrameCombatPlugin {
 
         	if (cancelSystem || engine.getTotalElapsedTime(false) - ally.startTime > 
         	(isCapital ? DURATION_CAPITAL : DURATION)) {
-    		    ally.ally.removeCustomData("espc_InverseSkimmer_Ally");
+        		if (ally.ally != null && engine.isInPlay(ally.ally))
+        			ally.ally.removeCustomData("espc_InverseSkimmer_Ally");
         		for (WeaponAPI weapon : ally.weapons) {
-        			if (weapon.isFiring()) {
+        			if (weapon != null && weapon.isFiring()) {
         				weapon.stopFiring();
         				weapon.setForceNoFireOneFrame(true);
         				if (weapon.getCooldown() > 0f)
@@ -422,10 +436,13 @@ public class espc_InverseSkimmerPlugin extends BaseEveryFrameCombatPlugin {
     		    continue;
         	}
         	
-    		ally.ally.setJitterUnder(this, new Color(50, 100, 255, 170), 1f, 2, 20f);
+    		ally.ally.setJitterUnder(this, new Color(50, 100, 255, 170),
+    			MezzUtils.fullSine(Math.min((engine.getTotalElapsedTime(false) - ally.startTime) / 
+    				(isCapital ? START_DURATION_CAPITAL : START_DURATION), 1f)),
+    			2, 20f);
     		
-    		if (ally.ally.getFluxTracker().isOverloadedOrVenting() || ally.ally.isPhased())
-    			return;
+    		if ((ally.ally.getFluxTracker() != null && ally.ally.getFluxTracker().isOverloadedOrVenting()) || ally.ally.isPhased())
+    			continue;
         	
         	if (engine.getTotalElapsedTime(false) < ally.startTime + (isCapital ? START_DURATION_CAPITAL : START_DURATION))
         		continue;
@@ -535,6 +552,8 @@ public class espc_InverseSkimmerPlugin extends BaseEveryFrameCombatPlugin {
     						thisProj.getWeapon().hasAIHint(AIHints.PD_ALSO) || !thisProj.getWeapon().hasAIHint(AIHints.PD)) {
     						boolean isMissile = false;
     						if (thisProj instanceof MissileAPI) {
+    							if (thisProj.getProjectileSpecId().equals("terminator_missile_proj"))
+    								continue;
     							isMissile = true;
     							if (!(thisProj.getWeapon().getSpec().getProjectileSpec() instanceof MissileSpecAPI)) {
     								continue;
@@ -554,6 +573,10 @@ public class espc_InverseSkimmerPlugin extends BaseEveryFrameCombatPlugin {
     							(thisProj.getWeapon().getSize().equals(WeaponSize.LARGE) ? 
     								ally.weaponIds.indexOf(thisProj.getWeapon().getSlot().getId()) :
     								ally.weaponIds.indexOf(thisProj.getWeapon().getSpec().getWeaponId()));
+    						
+    						// modded weapon buffoonery
+    						if (portalIndex < 0)
+    							portalIndex = Misc.random.nextInt(ally.portals.size());
     							
     						Vector2f spawnPos = new Vector2f(ship.getLocation().x + 
     							(float) FastTrig.cos(Math.toRadians(ship.getFacing())) * (ship.getCollisionRadius() + 1f),
@@ -588,6 +611,10 @@ public class espc_InverseSkimmerPlugin extends BaseEveryFrameCombatPlugin {
     						spawnProj.setHitpoints(thisProj.getHitpoints());
     						spawnProj.setCustomData("espc_InverseSkimmer_Proj", true);
     						
+    						if (thisProj.getCustomData().size() > 0)
+    							for (String key : thisProj.getCustomData().keySet())
+    								spawnProj.setCustomData(key, thisProj.getCustomData().get(key));
+    						
     						if (thisProj.getWeapon().getEffectPlugin() != null &&
     							thisProj.getWeapon().getEffectPlugin() instanceof OnFireEffectPlugin)
     							((OnFireEffectPlugin) thisProj.getWeapon().getEffectPlugin()).onFire(
@@ -603,9 +630,6 @@ public class espc_InverseSkimmerPlugin extends BaseEveryFrameCombatPlugin {
     									spawnProj, thisProj.getWeapon(), engine);
     						}
     						
-    						if (thisProj.getCustomData().size() > 0)
-    							for (String key : thisProj.getCustomData().keySet())
-    								spawnProj.setCustomData(key, thisProj.getCustomData().get(key));
     						
     						
     						projDamage = Math.min(projDamage, 2000f);
@@ -655,15 +679,14 @@ public class espc_InverseSkimmerPlugin extends BaseEveryFrameCombatPlugin {
     				}
     			}
     		}
-        	
-    		// a lot of these autofire checks are already done/implicit to targ != null
+    		
         	if (engine.getTotalElapsedTime(false) >= ally.startTime + (isCapital ? START_DURATION_CAPITAL : START_DURATION) 
-        		+ ally.delay &&
-        		ally.ally.getShipAI() != null && targ != null &&
-        		!(targ.isPhased() && targ.getHardFluxLevel() < 0.5f) && targ.isAlive() && !targ.isHulk()) {
-        		if (ally.ally.getFluxLevel() < ALLY_FLUX_THRESHOLD && 
-        		ally.ally.getHardFluxLevel() < ALLY_HARDFLUX_THRESHOLD &&
-        		shouldAutofire) {
+        			+ ally.delay &&
+        		ally.ally.getShipAI() != null) {
+        		if (shouldAutofire && (ally.ally.getShipAI().getConfig() != null &&
+        		Personalities.RECKLESS.equals(ally.ally.getShipAI().getConfig().personalityOverride) ||
+        		ally.ally.getFluxLevel() < ALLY_FLUX_THRESHOLD && 
+        		ally.ally.getHardFluxLevel() < ALLY_HARDFLUX_THRESHOLD)) {
         			if (ally.ally.equals(engine.getPlayerShip()))
         				continue;
             		ally.ally.blockCommandForOneFrame(ShipCommand.VENT_FLUX);
@@ -672,31 +695,40 @@ public class espc_InverseSkimmerPlugin extends BaseEveryFrameCombatPlugin {
 	    	    		if (MathUtils.isWithinRange(ship, targ, wep.getRange())) {
 	    	    			wep.setForceFireOneFrame(true);
 	    	    			anyFired = true;
-	    	    		} else if (MathUtils.isWithinRange(ship, targ, wep.getRange() * 1.1f)) {
+	    	    		} else if (MathUtils.isWithinRange(ship, targ, wep.getRange() * 1.2f)) {
 	    	    			anyFired = true;
-	    	    			wep.setForceNoFireOneFrame(true);
-	    	    		} else
+	    	    			if (!wep.isFiring())
+	    	    				wep.setForceNoFireOneFrame(true);
+	    	    		} else if (!wep.isFiring())
 	    	    			wep.setForceNoFireOneFrame(true);
 	    	    	}
 
 	    	    	// engine.getTotalElapsedTime(false) >= ally.startTime + ally.delay
-                	if (anyFired && ally.shouldUseSystem && ally.ally.getSystem().canBeActivated()) {
+                	if (anyFired && ally.shouldUseSystem && ally.ally.getSystem().canBeActivated() &&
+                		!ally.ally.getSystem().isActive()) {
                 		ally.ally.useSystem();
                 		ally.shouldUseSystem = false;
                 	}
-        		}
+        		} else
+        			for (WeaponAPI wep : ally.weapons)
+	    	    		if (!wep.isFiring())
+	    	    			wep.setForceNoFireOneFrame(true);
+        		
         		// only consider for missiles it wouldn't bother firing itself, due to being out of range
-        		if (targ.getFluxTracker().isOverloadedOrVenting())
+        		if (targ != null && targ.getFluxTracker() != null && 
+        			(targ.getFluxTracker().isOverloaded() &&
+        			    (targ.getFluxTracker().getOverloadTimeRemaining() > TARGET_OVERLOAD_REMAINING_MIN ||
+        			    targ.getFluxTracker().isVenting() && 
+        			    targ.getFluxTracker().getTimeToVent() > TARGET_OVERLOAD_REMAINING_MIN)))
 	    	    	for (WeaponAPI wep : ally.missiles)
 	    	    		if (!targ.getHullSize().equals(HullSize.FRIGATE) &&
 	    	    			!MathUtils.isWithinRange(ally.ally, targ, wep.getRange() * 0.9f) &&
 	    	    			(shouldAutofire || wep.getProjectileCollisionClass() != CollisionClass.MISSILE_FF))
 	    	    			wep.setForceFireOneFrame(true);
-	    	    		else
+	    	    		else if (!wep.isFiring())
 	    	    			wep.setForceNoFireOneFrame(true);
         		
         	}
-        	
     	}
     	if (anyRemove && ship != null && engine.isEntityInPlay(ship))
 			Global.getSoundPlayer().playSound("system_phase_skimmer", 1f, 1f, ship.getLocation(), ship.getVelocity());

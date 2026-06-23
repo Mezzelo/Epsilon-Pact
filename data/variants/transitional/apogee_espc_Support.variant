@@ -1,7 +1,7 @@
 {
     "displayName": "Support",
-    "fluxCapacitors": 10,
-    "fluxVents": 14,
+    "fluxCapacitors": 20,
+    "fluxVents": 22,
     "goalVariant": false,
     "hullId": "apogee",
     "hullMods": [
@@ -21,11 +21,6 @@
             "autofire": true,
             "mode": "LINKED",
             "weapons": {"WS 006": "heavyblaster"}
-        },
-        {
-            "autofire": false,
-            "mode": "LINKED",
-            "weapons": {"WS 009": "locust"}
         },
         {
             "autofire": false,

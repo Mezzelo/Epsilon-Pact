@@ -1,12 +1,15 @@
 {
 	"baseHullId":"brilliant",
 	"skinHullId":"brilliant_espc",
-	"hullName":"Brilliant",
+	"hullName":"Brilliant (EP)",
 	"restoreToBaseHull":false,
-	"descriptionId":"brilliant",
-	"addHints":["HIDE_IN_CODEX"],
+	"descriptionId":"brilliant_espc",
+	"tags":["limited_tooltip_if_locked", "codex_unlockable", "auto_rec", "no_dealer"],
     "systemId":"espc_RemoteBurn",
-	"maxSpeed":65,
+	"fleetPoints":17,
+	"suppliesToRecover":25,
+	"suppliesPerMonth":25,
+	# "maxSpeed":65,
 	# "suppliesToRecover":25,
 	# "suppliesPerMonth":25,
 	# "removeWeaponSlots":[], 		# ids
@@ -14,4 +17,7 @@
 	# "removeBuiltInMods":[], 		# hullmod ids
 	# "removeBuiltInWeapons":[], 		# weapon slot ids
 	"builtInMods":["espc_pactskin"],
+    "weaponSlotChanges":{
+	   "WS 004":{"type": ENERGY}
+    }
 }

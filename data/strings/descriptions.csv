@@ -103,14 +103,74 @@ espc_rampart,SHIP,"Formerly an automated war droneship of the Domain Explorarium
 
 The Pact Rampart is the only Explorarium revision to lack an added shield generator, instead endowed with capital-grade plating and revised underlying circuitry. The latter allows it to drain its capacitors in an instant, quickly overwhelming targets with lethal opening strikes.","Formerly an automated war droneship of the Domain Explorarium, this ship has ended up serving with the Epsilon Pact through means unknown and for reasons unknowable. Fitted with improved combat capabilities, the tendency of these hulls to sometimes depart from the Pact and rejoin their original fleets has become a point of diplomatic tension with the rest of the sector.",,,,
 ,,,,,,,
+wolf_espc,SHIP,"This hull appears no different from any other Wolf at first glance, but even cursory scans betray deeper peculiarities. An incorrectly configured phase skimmer normally precludes use, for fear of explosively de-materializing the hull (and the crew inside) - the passive signature emitted from this one evokes a deep apprehension among certain members of your crew.
+
+A technologically advanced frigate with an efficient shield generator and an impressive weapons package that allows it to punch far above its weight. These same characteristics mean its frigate-grade power core struggles to keep up, making careful flux management a priority.",Wolf-class Attack Frigate,"A technologically advanced frigate with an efficient shield generator and an impressive weapons package that allows it to punch far above its weight. These same characteristics mean its frigate-grade power core struggles to keep up, mak-
+IDENTIFICATION ERROR: Target mismatch with database reference. (closest match: Wolf) Submit data for temporary entry? Processing. ERROR // 
+// datastream resetting... 
+
+Please update your Tri-Tachyon datapad to receive the latest news and updates.ing careful flux management a priority.",,,
+,,,,,,,
+lumen_espc,SHIP,"An already obscure, automated Remnant hull pattern, unusual mounting choices betray a series of exotic modifications to the hull - let alone the passive signatures emitted from its phase skimmer, which send an instinctual alarm through certain elements of your crew.
+
+The Lumen is a fast, multi-purpose frigate best suited to harassment of opposing targets using whichever of its many tools is most appropriate. The Lumen's AI core was noted for its ability to create a debilitating frustration effect in human captains beyond what its combat specifications would suggest possible.",Lumen-class Escort Droneship Frigate,"A remnant of the autonomous AI fleets developed by the Tri-Tachyon Corporation. Illegal under Domain (and Hegemony) law, and an abomination to the Church of Galactic Redemption, the First AI War saw these creations purged from the Sector. S-
+IDENTIFICATION ERROR: Target mismatch with database reference. (closest match: Lumen) Submit data for temporary entry? Processing. ERROR // 
+// datastream resetting... 
+
+Please update your Tri-Tachyon datapad to receive the latest news and updates.",,,
+fulgent_espc,SHIP,"An already obscure, automated Remnant hull pattern, unusual mounting choices betray a set of odd, but otherwise subdued modifications to this Fulgent.
+
+The Fulgent is a heavily armed destroyer which earns its place in the line of battle, for when the Fulgent AI identifies a weakness, it uses exceptional maneuverability to strike with inhuman mercilessness.",Fulgent-class Attack Droneship Destroyer,"A remnant of the autonomous AI fleets developed by the Tri-Tachyon Corporation. Illegal under Domain (and Hegemony) law, and an abomination to the Church of Galactic Redemption, the First AI War saw these creations purged from the Sector. So the official histories s-
+IDENTIFICATION ERROR: Target mismatch with database reference. (closest match: Fulgent) Submit data for temporary entry? Processing. ERROR // 
+// datastream resetting... 
+
+Please update your Tri-Tachyon datapad to receive the latest news and updates.",,,
+scintilla_espc,SHIP,"An already obscure, automated Remnant hull pattern, this Scintilla bears an absence of the passive phase signature a recall device regularly emits. This, and its altered mounts, suggests internal space utilized for a purpose yet more exotic.
+
+The Scintilla light carrier is able to deploy two wings of drone fighters in combat. Although only able to mount light beam weapons, the Scintilla may bear a formidable missile loadout. ",Scintilla-class Strike Droneship Carrier,"A remnant of the autonomous AI fleets developed by the Tri-Tachyon Corporation. Illegal under Domain (and Hegemony) law, and an abomination to the Church of Galactic Rede-
+IDENTIFICATION ERROR: Target mismatch with database reference. (closest match: Scintilla) Submit data for temporary entry? Processing. ERROR // 
+// datastream resetting... 
+
+Please update your Tri-Tachyon datapad to receive the latest news and updates.",,,
+,,,,,,,
+brilliant_espc,SHIP,"An already obscure, automated Remnant hull pattern, this Brilliant initially appears no different than any other. Some form of inteference appears to throw off sensor calibration, placing the tell-tale signatures of its boosted engine onto nearby contacts instead.
+
+Typical of high-end TriTachyon products, the Brilliant-class cruiser spares no excess in mounting the most advanced suite of energy weaponry possible. Typical of autonomous ships, there are no concessions made for human life support or even bodily access. Repairs are carried out by a swarm semi-intelligent utility drones which travel via zero-atmosphere conduits wormed through the ship's mass.",Brilliant-class Assault Droneship Cruiser,"A remnant of the autonomous AI fleets developed by the Tri-Tachyon Corporation. Illegal under Domain (and Hegemony) law, and an abomination to the Church of Galactic Redemption, the First AI War saw these creations purged from the Sector. So th-
+IDENTIFICATION ERROR: Target mismatch with database reference. (closest match: Brilliant) Submit data for temporary entry? Processing. ERROR // 
+// datastream resetting... 
+
+Please update your Tri-Tachyon datapad to receive the latest news and updates.",,,
+nova_espc,SHIP,"An already obscure, automated Remnant hull pattern, this Nova immediately visually registers as deeply atypical. In the absence of its entire set of missile mounts, your engineers instead note readings consistent with the use of phase technology; otherwise attributable to sensor interference caused by its advanced Orion Drive, were it not also missing the push-plate necessary for its operation.
+
+Although operationalized in the Retribution design, the Orion Drive was never popular with crew or naval architects due to the great strain each jolt the propulsion system inflicted upon flesh and hardware. The Nova overcomes such limitations by dispensing with human crew altogether. The Orion Drive design thus freed from most burdensome constraints, every aspect could be upgraded to higher power levels using cutting-edge weapons technology and advanced solid-state Tri-Tachyon-designed components. The result is an AI-operated battlecruiser capable of fearsome speed and firepower.",Doom-class Strike Phase Cruiser,"A remnant of the autonomous AI fleets developed by the T-
+IDENTIFICATION ERROR: Target mismatch with database reference. (closest match: Nova? ERROR //) Submit data
+// retry?  Processing.
+IDENTIFICATION ERROR: Target mismatch with database reference. (closest match: Odyssey? ERROR //
+// retry?  Processing.
+// process failed.
+// retry?  Processing.
+
+Designed when phase technology was generally unknown and phase detectors were not a standard of every sensor package, this cruiser has lost the advantage of surprise - but retains a dangerous and flexible weapons loadout.",,,
+radiant_espc,SHIP,"As with the majority of the Pact's fielded Remnant hulls, the only immediately apparent irregularity with this ship is its choice of mountings - and the speed at which it moves - and the passive signature emitted by its capital-scale phase skimmer, not dissimilar to that of its smaller, unlikely cousins.
+
+What this could mean for a Radiant is not a prospect that inspires confidence among your bridge.",Paragon-class Elite Battleship,"A remnant of the autonomous AI fleets developed by the T-
+IDENTIFICATION ERROR: Target mismatch with database reference. (closest match: Radiant? ERROR //) Submit data
+// retry?  Processing.
+IDENTIFICATION ERROR: Target mismatch with database reference. (closest match: Paragon ERROR
+// retry?  Processing.
+// retry?  Processing.
+// datastream resetting... 
+
+A technologically advanced frigate with an efficient shield generator and an impressive weapons package that allows it to punch far above its weight. These same characteristics mean its frigate-grade power core struggles to keep up, making careful flux management a priority.",,,
+,,,,,,,
 espc_venture,SHIP,"A strange offshoot of the Venture unknown to any databases, this hull has almost completely substituted the missile firepower it was once dependent on for weaponry it cannot support. Its mining pods have been melded into crude approximations of escort fighters. An altogether uncanny result, that your engineers prefer not to dwell on.
 
 Tough, dependable and not overly expensive, Venture-class cruisers are usually constructed by private corporations for escort duty or by small non-aligned worlds for system defense.
 
 The Venture-class ships are perhaps the most widely used civilian cruisers in the Sector. The blueprints for the Venture are widely available and can often be secured without too much trouble. 
 
-When used by small corporations, the ship is usually the pride of the fleet and is used to underpin vital operations. Due to its ubiquity, the vessel also serves with quite a few pirate outfits, where it sometimes fills the role of command ship.",Please register your Tri-Tachyon datapad to receive the latest news and updates.,,,,
-espc_riftpeak,SHIP,A prototype destroyer built around its main armament. Highly unstable in nature.,A prototype destroyer built around its main armament. Highly unstable in nature.,"UNKNOWN ENTRY
+When used by small corporations, the ship is usually the pride of the fleet and is used to underpin vital operations. Due to its ubiquity, the vessel also serves with quite a few pirate outfits, where it sometimes fills the role of command ship.",Venture,,,,
+espc_riftpeak,SHIP,A prototype destroyer built around its main armament. Highly unstable in nature.,Unidentified Vessel,"UNKNOWN ENTRY
 
 Please register your Tri-Tachyon datapad to receive the latest news and updates.",,,
 espc_halfslaught,SHIP,"""Shouldn't be different from any other salvage. The damage on the right half looks to be largely superficial in comparison - that'll net us a month's worth of supplies, at least.""
@@ -132,9 +192,9 @@ espc_railflet,WEAPON,"Fires bursts of small kinetic flechettes. Exceptionally ef
 This weapon shoots a tight spread of flechettes, utilizing the increased pressure and ow mass of its contents to fire at higher velocities than most weapons of its scale. The usage of flechette rounds limits the effective range and penetrative power of shots, dealing minimal armor damage compared to an equivalent sized singular payload.",,,,,
 espc_arcscatter,WEAPON,"Fires irregular projectiles with destabilizing trajectories, that fragment into particle clouds if left unimpacted. Highly inaccurate at range. Most effective when massed against clustered PD threats.
 
-The Arc-Scrap Scatterer is, in a technical sense, quite rudimentary - generally loaded with manufacturing refuse, and launched with distressingly loose tolerances. Remaining imbued charge is significant enough to disrupt systems, although this is more easily dispersed by larger targets. The reconstituted projectiles are otherwise prone to splintering apart mid-flight, but the resulting debris is disruptive even to the equipment of larger ships.
+The Arc-Scrap Scatterer is, in a technical sense, quite rudimentary - generally loaded with manufacturing refuse, and launched with distressingly loose tolerances. Remaining imbued charge is significant enough to disrupt systems, although this is more easily dispersed by larger targets. While its reconstituted projectiles are otherwise prone to splintering apart mid-flight, the resulting debris clouds are disruptive even to the equipment of larger ships.
 
-The nature of both halves of the weapon result in a surprisingly efficient process, with respectable anti-shield performance and the capacity to disrupt unarmored threats. Although it lacks the ranged performance of dedicated anti-shield weaponry, it is still generally more suitable in that role than most PD solutions.",,,,,
+The nature of both halves of the weapon result in a surprisingly efficient process, with respectable anti-shield performance and the capacity to disrupt unarmored threats. Although lacking the ranged performance of dedicated anti-shield weaponry, it is still generally more suitable in an anti-ship role than most PD solutions.",,,,,
 espc_minimir,WEAPON,"This weapon's specialized energy projectiles are inefficient, but mitigate damage-reducing effects - making it especially potent against ships reliant on hardened armor or shielding.
 
 A miniaturization of the Mjolnir Cannon, the aptly named ""Minimir"" carries over its predecessor's disadvantages. Heavy flux consumption and lackluster generalist performance render this weapon's efficacy questionable at face value. The smaller platform is unable to replicate the Mjolnir's gravitic lenses, losing the associated and highly valued EMP effect.
@@ -163,25 +223,16 @@ The Remise Rifle operates on common coilgun principles, albeit unusally skewed: 
 Soon after testing began, the Remise Mortar was designed as a way to circumvent the Rifle's strict operational shortcomings. Its high-explosive charges not only offer potent anti-armor capability once shields are suppressed, but also generate precise, long-range IR signatures on detonation: The Remise Rifle can track these through its own field, using pre-existing charge to fire additional rounds with insignificant power draw.",,,,,
 espc_remmortar,WEAPON,"Fires slow and heavy explosive rounds with strong anti-armor performance, but poor efficiency. Serves as targeting assistance for its companion weapon, the Remise Rifle.
 
-Charges from the Remise Mortar are surprisingly delicate, requiring unusually strict engineering tolerances. A relatively slow travel velocity ensures a consistent impact vector, allowing for strong anti-armor performance.
+Charges from the Remise Mortar are surprisingly delicate, requiring unusually strict engineering tolerances. A relatively slow travel velocity ensures a consistent impact vecto for consistently strong anti-armor performance.
 
 When fired, rounds are imbued with precise levels of short-lived ionic charge through the barrel - too small to affect targets, but precise and significant enough to leave a recognizable imprint. The resulting signature of detonated rounds can then be tracked from the original firing position, utilized by Remise Rifles to overcome the intense EM interference generated by their operation.",,,,,
 ,,,,,,,
-# espc_ionresonator,WEAPON,"An EMP pulse cannon with modest throughput. When operated past regular capacity, gains the ability to simultaneously strike at PD threats and charge devastating strikes over time.
+# espc_ionresonator,WEAPON,"An EMP pulse cannon with modest throughput. When operated past regular capacity, gains the ability to simultaneously strike at PD threats and charge devastating strikes over time.",,,,,
+# espc_heavyionresonator,WEAPON,"A heavier rendition of the Ion Accumulator. When operated past regular capacity, gains the ability to simultaneously strike at PD threats and charge devastating strikes over time.",,,,,
+espc_ionflail,WEAPON,"Curves heavy EMP projectiles towards targets in atypical arcing trajectories, at a slow but steady pace. Particularly threatening against thin or nascent shield arcs.
 
-Ignoring standard protocol for ionized baryonic matter projection, the Heavy Ion Accumulator instead intensifies energy through the medium in such excess that projectiles are better described as """"chaotic masses"""" rather than bolts or balls.
-
-Whilst much ionic energy is lost prior to firing due to instability, the excess projection may be harnessed if the system is operated over regular capacity - extra energy can be harnessed back into the system, with the side effect of it striking at nearby threats.",,,,,
-# espc_heavyionresonator,WEAPON,"A heavier rendition of the Ion Accumulator. When operated past regular capacity, gains the ability to simultaneously strike at PD threats and charge devastating strikes over time.
-
-Ignoring standard protocol for ionized baryonic matter projection, the Heavy Ion Accumulator instead intensifies energy through the medium in such excess that projectiles are better described as """"chaotic masses"""" rather than bolts or balls.
-
-Whilst much ionic energy is lost prior to firing due to instability, the excess projection may be harnessed if the system is operated over regular capacity - extra energy can be harnessed back into the system, with the side effect of it striking at nearby threats.",,,,,
-espc_ionflail,WEAPON,"The Ion Flail is unusual for the arcing trajectories of its exotic projectiles. Electromagnetic pulses curve perpendicularly, aiming to circumvent front-facing shields and disable systems from more vulnerable angles.
-
-Ignoring standard protocol for ionized baryonic matter projection, the ion flail instead intensifies energy through the medium in such excess that projectiles are better described as """"chaotic masses"""" rather than bolts or balls.
-
-Whilst much ionic energy is lost prior to impact due to instability, the excess projection creates a localized axis ahead of the medium that the projectile is inclined to orbit around. This creates two notable side-effects: the titular flail-like trajectory created by angling the shot, and an intense gravimetric shockwave on impact. Gravitrons only have an observable effect on persistent matter, thus the latter phenomena does not affect shields.",,,,,
+[pending rewrite lmao]
+Whilst much ionic energy is lost prior to impact due to instability, the excess projection creates a forward axis that the projectile is drawn to orbit around. This creates two notable side-effects: the titular flail-like trajectory, and an intense gravimetric shockwave on impact.",,,,,
 espc_fission,WEAPON,"""Bear witness to our fleet in blessed choir...
 whose racuous din reports soliloquies
 for floating coffins bathed in cannon fire,
@@ -200,7 +251,7 @@ With a direct link to the hull's fuel reserves, the Solo variant of the AM Flame
 ,,,,,,,
 espc_finnegan,WEAPON,"Launches massive, armored warheads with no on-board propulsion. Their sheer mass tanks defensive fire and strains shields on impact, but the payload itself is relatively undersized.
 
-The unusual nature of the Finnegan's operation owes itself to its use of a dense, depleted-uranium outer shell. Designed primarily to protect its payload, their simple nature also allows for an equally simplistic firing mechanism that enables impressive launch velocity.
+The unusual nature of the Finnegan's operation owes itself to its use of a dense, depleted-uranium outer shell. Designed primarily to protect its payload, their simple construction also allows for an equally simplistic firing mechanism that enables impressive launch velocity.
 
 Being thick enough to shrug off a considerable amount of fire, the armored shell precludes the use of contact fuses - thus, the Finnegan's bombs operate on a timer. Although bombs often end up bouncing away from their target before detonation, the force of the impact itself isn't easily ignored either.",,,,,
 ,,,,,,,
@@ -219,11 +270,9 @@ espc_flak,WEAPON,"Fires a highly inaccurate spread of fast-travelling oversized 
 The Scatter Rifle is eccentric on its barest principles, combining a long functional range with terrible accuracy and mediocre hit strength. Inaccuracy is severe to the point of shooting wide of even cruisers. Paradoxically, however, it is developed for effectiveness specifically against the smallest of targets.
 
 With minute mechanical adjustments to its rifling, the Scatter Rifle can precisely and instantaneously divert its flechette rounds towards incoming fighters and missiles. A single shot is capable of disabling an entire fighter wing from further than most point defense, often before bombers can even launch their payloads. Spalling inflicted on fighter-grade plating makes it particularly devastating against wings, although performance remains limited against larger targets.",,,,,
-espc_autocannon,WEAPON,"Fires rapid bursts of exceptionally fast-travelling, hard-hitting shells. Highly effective against armor and hull, but slightly deficient in range.
+espc_autocannon,WEAPON,"Fires rapid bursts of fast-travelling, hard-hitting explosive shells. Highly effective against armor and hull, but slightly deficient in range.
 
-A prime example of the Pact's proclivity for executing venerable principles with modern practice, the Rapid Explosive Heavyweight Autocannon is, for the most part, operated in the same manner as any other. Rather, its otherwise lightweight shells are imbued with disproportionate levels of charge for their mass, sending them rocketing out faster than possible with any amount of explosive primer.
-
-In addition to the plasma charges held within shells, the sheer force of impact creates severe spalling that rends exposed surfaces. Naturally, this mode of operation gives the Rewa high relative power requirements, often rendering it difficult to fit.",,,,,
+[pending rewrite lmao]",,,,,
 ,,,,,,,
 espc_montante,WEAPON,"This novel, versatile weapon varies in behaviour depending on its mount type: Either slashing defensively as PD, or concentrated in vicious piercing offense.
 
@@ -240,6 +289,11 @@ espc_riftpike,WEAPON,"""Awash with crimson rivulets...
 in trembling arms I lay
 You could've left me so much less
 than friends for just a day!""","- Physicist Bezel Oni, wide-range hyperwave broadcast from Kapetyn Starworks c+203",,,,
+espc_tachyonbolter,WEAPON,"An exotic derivative of the Tachyon Lance with near-identical performance, but lacking shield-penetrating capabilities. Fires a spread of soft-flux bolts that converge at maximum range.
+
+The Tachyon Bolter creates a self-catalyzed reaction in a similar manner to a Tachyon Lance, but it instead introduces a forward-positioned n-brane pocket rather than a simple concentrated point. Anti-plasma easily colasces into the space, channeled in such a manner that its pockets self-perpetuate forwards.
+
+Bolts are highly deleterious to all nearby matter, but are otherwise relatively focused upon impact: Energy shielding readily disperses the effect without generating additional instability, and the wider impact is unable to penetrate diffusion cycles in the manner that a concentrated tachyon stream does.",,,,,
 ,,,,,,,
 espc_amflamer,WEAPON,"Draws trace quantities from the ship's AM fuel reserves to fire a stream of superheated plasma, scorching targets and melting nearby fighters and missiles.
 
@@ -266,19 +320,19 @@ espc_ResonatorShield,SHIP_SYSTEM,"Induces resonance into the ship's shield emitt
 While the system is active, additional shield efficiency past the hull's base efficiency only affects final hard-flux received.",
 espc_Momentum,SHIP_SYSTEM,,Offensive,Prevents the targeted ship from maneuvering or accelerating while in range.,,,
 espc_Hook,SHIP_SYSTEM,,Special,"Pulls the targeted ship towards the user's average maximum weapon range, and orients both ships towards each other.",,,
-espc_Shieldwall,SHIP_SYSTEM,"Temporarily overcharges the ship's shield emitter based on its signature, resulting in increased size and damage absorption. The flux signatures of nearby allies amplifies this effect, and cascades onto their own emitters as well.",Defensive,"Increases shield arc and reduces shield damage taken for this ship and nearby allies, based on the number of nearby allied ships.",,"Shield arc and shield efficiency are increased by {{10%}} for all allied ships, including the user, within {{1250}} su. The increase in shield efficiency is limited to {{50%}}.",
+espc_Shieldwall,SHIP_SYSTEM,"Temporarily overcharges the ship's shield emitter, resulting in increased size and damage absorption. The resonance of shield diffusion cycles from nearby allies amplifies this effect, and cascades onto their own emitters as well.",Defensive,"Increases shield arc and reduces shield damage taken for this ship and nearby allies, based on the number of nearby allied ships.",,"Shield arc and shield efficiency are increased by {{10%}} per each ally within range for all allies, including the user, within {{1250}} su. The increase in shield efficiency is limited to {{50%}}.",
 espc_Collapse,SHIP_SYSTEM,"Suspends projectiles in the targeted ship's vicinity into a causality-independent frame of reference - effectively freezing them and preventing collisions, until the system elapses and releases them back into normal space. This reference frame is based on the initial signatures generated by weapons fire, and thus cannot be applied to projectiles that alter after firing.",Special,Freezes all friendly projectiles around the targeted ship while active.,,"Suspends friendly projectiles around the targeted ship for the system's duration. Unable to intercept beams, projectiles with extreme velocity, and projectiles that alter after firing, such as MIRVs and some flechettes.",
-espc_AMCompressor,SHIP_SYSTEM,"Toggles between higher-pressure AM fuel emission for more precise targeting, and higher-temperature catalyzation for greater damage.",Offensive,"Toggles the AM Flamer between higher higher turn speed, projectile speed and reduced flux consumption, or increased damage and range.",,"While active, turn speed is reduced by {{30%}}, projectile speed is {{halved}}, and flux use is increased by {{50%}}, but damage dealt by the AM Flamer is increased by {{50%}} and range is increased by {{30%}}. The damage increase also applies to residual damage dealt to nearby targets.",
+espc_AMCompressor,SHIP_SYSTEM,"Toggles between higher-pressure AM fuel emission for faster target acquisition, and higher-temperature catalyzation for greater damage.",Offensive,"Reduces turn rate, but increases weapon damage, weapon range, projectile speed and flux consumption while toggled on.",,"While active, reduces weapon turn speed by {{50%}}, but increases projectile speed by {{100%}}, weapon range by {{30%}}, and weapon damage and flux by {{50%}}.",
 espc_Trance,SHIP_SYSTEM,,Special,Doubles fire rate and slows timeflow by half for both the targeted ship and the user.,,,
 espc_Mimic,SHIP_SYSTEM,,Special,Replicates all of the targeted ship's offensive and defensive buffs.,,,
 espc_Overpressure,SHIP_SYSTEM,"Loads the ship's ballistic weaponry with overloaded, ""plus"" type ammunition, empowering their shots significantly. The recoil generated lowers reciprocation rate, either intrinsically mechanically or in order to ensure reliable operation.",Offensive,"Reduces ballistic fire rate, but significantly boosts ballistic damage and increases range and projectile speed.",,"Ballistic fire rate is reduced by {{33%}}. Damage is increased by {{150%}}, projectile speed is increased by {{33%}}, and range is increased by {{15%}}.",
 espc_Feint,SHIP_SYSTEM,"Taking advantage of the strained entropic transmission patterns of flux capacitors near full charge, a feint-overload briefly but violently amplifies the effect, massively increasing dissipation. The discharge temporarily haywires all on-board electronics, resulting in an extremely short, but still disruptive overload.",Special,"Induces a self-overload, massively increasing dissipation while overloaded.",,Flux dissipation is multiplied by {{32}} for the duration of a {{0.5}} second overload.,
 espc_Split,SHIP_SYSTEM,"Using specialized ammunition for ballistic weapons and charged lense caps for energy weapons, the Split Feed system allows for a substantial increase in effective firepower at the cost of hit-strength.",Offensive,"Splits all non-missile projectiles fired into smaller, weaker shots with spread. Does not affect projectiles that alter after firing, such as some flechettes.",,Projectiles are split into {{four}} shots that deal {{60%}} damage.,
 espc_Alternator,SHIP_SYSTEM,"Selectively disables either the ship's ballistic or energy weaponry, overcharging the other weapon type with the power generation alloted for the disabled one. Capable of drastically improving firepower via bypassing the built-in operational standards of modular weaponry, but niche and sometimes awkward in application, given overall fire throughput remains similar.",Offensive,"Toggles between disabling ballistic and energy weapons, raising the fire rate of the active type based on the sustained damage / second of the inactive type.",,Fire rate increase is limited to {{200%}} per weapon type. See the related hullmod for further details and calculations.,
-espc_InverseSkimmer,SHIP_SYSTEM,"An inversion of regular Phase Skimmer operation, the Inverse Skimmer is able to operate over a period of time by teleporting a ship's fire rather than its actual tonnage. This exotic application has a surprisingly modest footprint, although its tactical use is less straightforward, and its implementation remains highly novel.",Offensive,"Induces a causual transference field around an allied ship, teleporting its projectiles to this ship. The system slowly builds up to three charges, which can then be expended sequentially.",,"Cannot teleport projectiles that have immediately altered after firing, such as MIRVs and some flechettes. Ignores projectiles fired by weapons configured to prioritize PD threats.",
-espc_WideInverseSkimmer,SHIP_SYSTEM,"An inversion of regular Phase Skimmer operation, the Inverse Skimmer is able to operate over a period of time by teleporting a ship's fire rather than its actual tonnage. A larger-scale skimmer dedicated to teleporting a capital-sized ship has been repurposed to instead draw in projectiles from a massive range.",Offensive,"Induces a causual transference field around all allies in a large radius, teleporting their projectiles to this ship.",,"Cannot teleport projectiles that have immediately altered after firing, such as MIRVs and some flechettes. Ignores projectiles fired by weapons configured to prioritize PD threats.",
-espc_RemoteBurn,SHIP_SYSTEM,"Alters a target's engines to consume obscure, volatile AM fuel compounds, forcing it to burn forwards at extreme speed in a similar manner to a regular Plasm Burn. The involuntary nature of this remote execution results in affected engines quickly resetting their burn profile, returning a brief uptime.",Special,"Briefly boosts the target's engines, forcefully propelling them forwards at an extreme velocity",,"The target's top speed is briefly increased by approximately {{600}} su/second. While active, the targeted ship is forced to accelerate forwards.",
-espc_NovaMine,SHIP_SYSTEM,"Teleports the impulse of a heavy antimatter charge to the target area. Originally designed for use in an Orion Device, the teleported kinetic reverberation only affects shields, but delivers a heavy impulse to nearby ships.",Offensive,"Teleports an antimatter charge to the target area. Charges create a heavy impulse that knocks away nearby ships and missiles, additionally dealing 1000 kinetic damage to impacted shields.",,"Each charge deals {{1000 Kinetic}} damage to any shields within its radius, and can be deployed from a range of approximately {{1000}} su. The impulse also causes impacted fighters to flame out.",
+espc_InverseSkimmer,SHIP_SYSTEM,"An inversion of regular Phase Skimmer operation, the Inverse Skimmer is able to operate over a period of time by teleporting a ship's fire rather than its actual tonnage. This exotic application has a surprisingly modest footprint, although its tactical use is less straightforward, and its implementation remains highly novel.",Offensive,"Induces a sustained phase-skimming field around an allied ship, teleporting its projectiles to this ship. The system slowly builds up to three charges, which can then be expended sequentially.",,"Cannot teleport projectiles that have immediately altered after firing, such as MIRVs and some flechettes. Ignores projectiles fired by weapons configured to prioritize PD threats.",
+espc_WideInverseSkimmer,SHIP_SYSTEM,"An inversion of regular Phase Skimmer operation, the Inverse Skimmer is able to operate over a period of time by teleporting a ship's fire rather than its actual tonnage. A larger-scale skimmer dedicated to teleporting a capital-sized ship has been repurposed to instead draw in projectiles from a massive range.",Offensive,"Induces a sustained phase-skimming field around all allies in a large radius, phasing their projectiles to this ship.",,"Cannot teleport projectiles that have immediately altered after firing, such as MIRVs and some flechettes. Ignores projectiles fired by weapons configured to prioritize PD threats.",
+espc_RemoteBurn,SHIP_SYSTEM,"Alters a target's engines to consume obscure, volatile AM fuel compounds, forcing it to burn forwards at extreme speed in a similar manner to a regular Plasm Burn. The involuntary nature of this remote execution results in affected engines quickly resetting their burn profile, returning a brief uptime.",Special,"Briefly boosts the target's engines, forcefully propelling them forwards at an extreme velocity.",,"The target's top speed is briefly increased by approximately {{600}} su/second. While active, the targeted ship is forced to accelerate forwards.",
+espc_NovaStrike,SHIP_SYSTEM,"Teleports the impulse of a heavy antimatter charge to a targeted location. Originally designed for use in an advanced rendition of the Orion Device, the teleported charge is also potent enough to directly damage its targets.",Offensive,"Teleports an antimatter charge to a target point. Charges create a heavy impulse that knocks away nearby ships and missiles, additionally dealing 500 energy damage to impacted targets.",,"Each charge deals {{500 Energy}} damage to targets within its radius, and can be deployed from a range of approximately {{1500}} su. The impulse also causes impacted fighters to flame out.",
 # espc_LowEnergy,SHIP_SYSTEM,"Selectively disables the ship's smaller energy weapons, instead channeling their collective power into its larger energy weapons.",Offensive,"Disables all but the larest mounted energy weapons, generating their flux/sec and proportionately increasing non-beam energy damage.",,"The increase in energy damage is calculated by the the proportion of sustained DPS of all disabled energy weapons, compared to the largest mounted energy weapons. Fragmentation damage counts as {{half}} DPS for calculations.",
 espc_MissileBoost,SHIP_SYSTEM,"An adjustment of the Jackalope's specialized loaders, made to augment the effectiveness of a rack of Hammer torpedoes instead. While not strictly as effective, this system still makes the main armament considerably more threatening, and its infrastructure allows for on-demand repairs.",Offensive,"Boosts missile damage, rate of fire and speed. Repairs the built-in Hammer Barrage if temporarily disabled.",,"Increases missile damage, fire rate, and top speed by {{50%}}.",
 ,,,,,,,

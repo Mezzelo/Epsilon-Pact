@@ -6,11 +6,14 @@ package data.scripts.campaign.skills;
 import com.fs.starfarer.api.GameState;
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.characters.AfterShipCreationSkillEffect;
+import com.fs.starfarer.api.characters.PersonAPI;
+import com.fs.starfarer.api.combat.DeployedFleetMemberAPI;
 import com.fs.starfarer.api.combat.MutableShipStatsAPI;
 import com.fs.starfarer.api.combat.ShipAPI;
 import com.fs.starfarer.api.combat.ShipAPI.HullSize;
 // import com.fs.starfarer.api.combat.ShipCommand;
 import com.fs.starfarer.api.combat.listeners.AdvanceableListener;
+import com.fs.starfarer.api.impl.campaign.ids.Stats;
 
 public class espc_BattleTempo {
 
@@ -18,13 +21,14 @@ public class espc_BattleTempo {
 	public static float MANEUVERABILITY_BONUS = 20f;
 	public static float FIRE_RATE_BONUS = 10f;
 	public static float FLUX_DISSIPATION_BONUS = 10f;
+	public static float COMMAND_BONUS = 100f;
 	public static float DAMAGE_TAKEN_REDUCTION = 10f;
-	public static float UNPAUSE_TIME_MAX = 20f;
+	public static float DECAY_DURATION_MAX = 20f;
 	
 	public static class BattleTempoMod implements AdvanceableListener {
 		protected ShipAPI ship;
 		protected String id;
-		private float bonusTime = UNPAUSE_TIME_MAX;
+		private float bonusTime = DECAY_DURATION_MAX;
 		private float lastTime = 0f;
 		// private boolean markForReset = false;
 		public BattleTempoMod(ShipAPI ship, String id) {
@@ -47,12 +51,12 @@ public class espc_BattleTempo {
 				(ship.getShipAI() !=  null && Global.getCombatEngine().getPlayerShip().equals(ship)))) {
 				bonusTime = 0f;
 			} else {
-				if (bonusTime >= UNPAUSE_TIME_MAX)
+				if (bonusTime >= DECAY_DURATION_MAX)
 					return;
-				bonusTime = Math.min(bonusTime + amount, UNPAUSE_TIME_MAX);
+				bonusTime = Math.min(bonusTime + amount, DECAY_DURATION_MAX);
 			}
 
-			float mult = bonusTime / UNPAUSE_TIME_MAX;
+			float mult = bonusTime / DECAY_DURATION_MAX;
 			MutableShipStatsAPI stats = ship.getMutableStats();
 			stats.getFluxDissipation().modifyPercent(id, FLUX_DISSIPATION_BONUS * mult);
 			stats.getBallisticRoFMult().modifyPercent(id, FIRE_RATE_BONUS * mult);
@@ -63,11 +67,35 @@ public class espc_BattleTempo {
 			stats.getTurnAcceleration().modifyPercent(id, MANEUVERABILITY_BONUS * 2f * mult);
 			stats.getMaxTurnRate().modifyPercent(id, MANEUVERABILITY_BONUS * mult);
 			stats.getArmorDamageTakenMult().modifyMult(
-					id, 1f - DAMAGE_TAKEN_REDUCTION / 100f * mult);
+				id, 1f - DAMAGE_TAKEN_REDUCTION / 100f * mult);
 			stats.getHullDamageTakenMult().modifyMult(
-					id, 1f - DAMAGE_TAKEN_REDUCTION / 100f * mult);
+				id, 1f - DAMAGE_TAKEN_REDUCTION / 100f * mult);
 			stats.getShieldDamageTakenMult().modifyMult(
 				id, 1f - DAMAGE_TAKEN_REDUCTION / 100f * mult);
+			
+
+			if (Global.getCombatEngine().getFleetManager(ship.getOriginalOwner()) == null)
+				return;
+			
+			DeployedFleetMemberAPI member = 
+				Global.getCombatEngine().getFleetManager(ship.getOriginalOwner()).getDeployedFleetMember(ship);
+			if (member == null) return; // happens in refit screen etc
+			
+			boolean apply = ship == Global.getCombatEngine().getPlayerShip();
+			PersonAPI commander = null;
+			if (member.getMember() != null) {
+				commander = member.getMember().getFleetCommander();
+				if (member.getMember().getFleetCommanderForStats() != null) {
+					commander = member.getMember().getFleetCommanderForStats();
+				}
+			}
+			apply |= commander != null && ship.getCaptain() == commander;
+			
+			if (apply) {
+				stats.getDynamic().getMod(Stats.COMMAND_POINT_RATE_FLAT).modifyFlat(id, COMMAND_BONUS * 0.01f);
+			} else {
+				stats.getDynamic().getMod(Stats.COMMAND_POINT_RATE_FLAT).unmodify(id);
+			}
 		}
 
 	}

@@ -1,11 +1,10 @@
 {
     "displayName": "Strike",
-    "fluxCapacitors": 7,
+    "fluxCapacitors": 10,
     "fluxVents": 10,
     "goalVariant": false,
     "hullId": "espc_warden",
     "hullMods": [
-		"magazines"
 	],
     "permaMods": [],
     "sMods": [],

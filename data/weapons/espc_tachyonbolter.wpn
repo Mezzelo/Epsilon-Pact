@@ -1,0 +1,29 @@
+{
+	"id":"espc_tachyonbolter",
+	"specClass":"projectile",
+	"type":"ENERGY",
+	"size":"LARGE",
+	"everyFrameEffect":"data.scripts.weapons.espc_TachyonBolterEffect",
+	"turretSprite":"graphics/weapons/espc_tachyonbolter_turret_base.png",
+	"turretGlowSprite":"graphics/weapons/espc_tachyonbolter_turret_glow.png",
+	"hardpointSprite":"graphics/weapons/espc_tachyonbolter_hardpoint_base.png",
+	"hardpointGlowSprite":"graphics/weapons/espc_tachyonbolter_hardpoint_glow.png",
+	"glowColor":[165,100,255,235],
+	"turretOffsets":[-3, 0],
+	"turretAngleOffsets":[0],
+	"hardpointOffsets":[5, 0],
+	"hardpointAngleOffsets":[0],
+	"barrelMode":"ALTERNATING", # or LINKED.  whether barrels fire at the same time or alternate.
+	"animationType":"GLOW",
+	"muzzleFlashSpec":{"length":-34.0,   # only used if animationType = MUZZLE_FLASH
+		"spread":15.0,
+		"particleSizeMin":15.0,
+		"particleSizeRange":15.0,
+		"particleDuration":0.15,
+		"particleCount":30,
+		"particleColor":[255,100,150,255]
+	},
+	"autocharge":true,  # whether the weapon will continue charging and fire if the LMB is tapped instead of held
+	"projectileSpecId":"espc_tachyonbolter_shot",  # projectile that will be fired
+	"fireSoundTwo":"espc_tachyonbolter_fire",
+}

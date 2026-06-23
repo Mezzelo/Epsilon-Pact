@@ -66,7 +66,7 @@ public class espc_AITrade extends BaseCommandPlugin {
     	hullMap.put("espc_opossum", 6);
     	
     	hullMap.put("espc_militia", 5);
-    	hullMap.put("espc_ember", 5);
+    	hullMap.put("espc_ember", 5); 
     	
     	hullMap.put("espc_pilgrim", 12);
     	hullMap.put("espc_observer", 12);
@@ -85,12 +85,13 @@ public class espc_AITrade extends BaseCommandPlugin {
     	weaponMap.put("espc_remmortar", 4);
     	weaponMap.put("espc_finnegan", 4);
     	weaponMap.put("espc_mkl", 6);
-    	weaponMap.put("espc_autocannon", 6);
     	weaponMap.put("espc_gatling", 6);
-    	weaponMap.put("espc_flak", 6);
+    	weaponMap.put("espc_autocannon", 8);
+    	weaponMap.put("espc_flak", 8);
 
     	weaponMap.put("espc_ionflail", 4);
-    	weaponMap.put("espc_riftspear", 12);
+    	weaponMap.put("espc_riftspear", 8);
+    	weaponMap.put("espc_tachyonbolter", 12);
     	weaponMap.put("espc_riftpike", 16);
 	}
 	

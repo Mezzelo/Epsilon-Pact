@@ -149,8 +149,8 @@ public class espc_CollapseStats extends BaseShipSystemScript {
 			
 			Iterator<Object> entityIterator = combatEngine.getAllObjectGrid().getCheckIterator(
 				target.getLocation(), 
-				(FREEZE_RADIUS + target.getShieldRadiusEvenIfNoShield()) * 2f,
-				(FREEZE_RADIUS + target.getShieldRadiusEvenIfNoShield()) * 2f
+				(FREEZE_RADIUS + target.getCollisionRadius()) * 2f,
+				(FREEZE_RADIUS + target.getCollisionRadius()) * 2f
 			);
 			while (entityIterator.hasNext()) {
 				CombatEntityAPI entity = (CombatEntityAPI) entityIterator.next();
@@ -162,11 +162,13 @@ public class espc_CollapseStats extends BaseShipSystemScript {
 				if (combatEngine.isEntityInPlay(thisProj) && 
 					thisProj.getOwner() == ship.getOwner() && 
 					!thisProj.didDamage() && !thisProj.isExpired() && thisProj.getWeapon() != null) {
-					if (MathUtils.isWithinRange(target.getLocation(), thisProj.getLocation(), FREEZE_RADIUS + target.getShieldRadiusEvenIfNoShield())) {
-						if (!MathUtils.isWithinRange(target.getLocation(), thisProj.getLocation(), FREEZE_RADIUS_MIN + target.getShieldRadiusEvenIfNoShield())
+					if (MathUtils.isWithinRange(target.getLocation(), thisProj.getLocation(), FREEZE_RADIUS + target.getCollisionRadius())) {
+						if (!MathUtils.isWithinRange(target.getLocation(), thisProj.getLocation(), FREEZE_RADIUS_MIN + target.getCollisionRadius())
 							) {
 							boolean isMissile = false;
 							if (thisProj instanceof MissileAPI) {
+    							if (thisProj.getProjectileSpecId().equals("terminator_missile_proj"))
+    								continue;
 								isMissile = true;
 								if (!(thisProj.getWeapon().getSpec().getProjectileSpec() instanceof MissileSpecAPI)) {
 									continue;

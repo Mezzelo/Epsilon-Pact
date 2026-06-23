@@ -27,7 +27,7 @@ public class espc_Enclaves extends BaseIndustry implements MarketImmigrationModi
 		demand(Commodities.HAND_WEAPONS, 2);
 		
 		supply(Commodities.LUXURY_GOODS, 4);
-		supply("espc_vintage", 0);
+		supply("espc_vintage", 1);
 		supply(Commodities.FOOD, 2);
 		supply(Commodities.DRUGS, 2);
 		supply(Commodities.ORGANS, 1);

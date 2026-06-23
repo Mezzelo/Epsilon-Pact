@@ -6,10 +6,8 @@ import com.fs.starfarer.api.characters.PersonAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.util.Misc;
 
-import data.scripts.espc_ModPlugin;
 import data.scripts.campaign.skills.espc_HumbleTastesBg_Skill;
 import data.scripts.util.MezzUtils;
-import lunalib.lunaSettings.LunaSettings;
 
 import exerelin.campaign.backgrounds.BaseCharacterBackground;
 import exerelin.utilities.NexFactionConfig;
@@ -17,23 +15,18 @@ import exerelin.utilities.NexFactionConfig;
 public class espc_HumbleTastesBackground extends BaseCharacterBackground {
 	
 	private boolean requirePerfectScore() {
-		if (!espc_ModPlugin.hasLuna())
-			return true;
-		
-    	String req = LunaSettings.getString("epsilonpact", "espc_BGScoreRequirements");
+    	String req = MezzUtils.getSettingString("BGScoreRequirements");
     	return req.equals(MezzUtils.getString("espc_settings", "scorereq_perfect"));
     	
 	}
 
 	private boolean isUnlocked() {
     	int scoreReq = 100;
-    	if (espc_ModPlugin.hasLuna()) {
-    		String req = LunaSettings.getString("epsilonpact", "espc_BGScoreRequirements");
-    		if (req.equals(MezzUtils.getString("espc_settings", "scorereq_none")))
-    			return true;
-    		else if (req.equals(MezzUtils.getString("espc_settings", "scorereq_complete")))
-    			scoreReq = 1;
-    	}
+    	String req = MezzUtils.getSettingString("BGScoreRequirements");
+    	if (req.equals(MezzUtils.getString("espc_settings", "scorereq_none")))
+    		return true;
+    	else if (req.equals(MezzUtils.getString("espc_settings", "scorereq_complete")))
+    		scoreReq = 1;
         return Global.getSettings().getMissionScore("espc_principle") >= scoreReq;
         
 	}

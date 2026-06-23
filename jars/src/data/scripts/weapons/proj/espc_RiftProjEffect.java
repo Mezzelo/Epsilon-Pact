@@ -7,6 +7,8 @@ import com.fs.starfarer.api.combat.listeners.ApplyDamageResultAPI;
 import java.awt.Color;
 import com.fs.starfarer.api.util.Misc;
 
+import data.scripts.util.MezzUtils;
+
 import org.lwjgl.util.vector.Vector2f;
 				
 public class espc_RiftProjEffect implements OnHitEffectPlugin {
@@ -28,24 +30,39 @@ public class espc_RiftProjEffect implements OnHitEffectPlugin {
 			return;
 		
 		if (((DamagingProjectileAPI) proj).getProjectileSpecId().equals("espc_riftpike_shot")) {
+			if (MezzUtils.glibCheck())
+	    		MezzUtils.addWaveDistortion(true, 
+	    			point, 
+	    			Misc.ZERO, 
+	    			7f, 70f, 0.4f, 0.2f, 0.4f, 0, 1);
 			engine.addSwirlyNebulaParticle(point, Misc.ZERO, 60f, 3f, 0.5f, 0.8f, 0.7f, new Color(163,0,255), true);
 			engine.spawnExplosion(point, Misc.ZERO, new Color(255,180,250), 105f, 0.7f);
 			Global.getSoundPlayer().playSound(
-				"rifttorpedo_explosion",
+				"espc_rift_impact",
 				//"riftcascade_rift",
 				1.5f, 1f, point, Misc.ZERO);
 		} else if (((DamagingProjectileAPI) proj).getProjectileSpecId().equals("espc_semirift_shot")) {
+			if (MezzUtils.glibCheck())
+	    		MezzUtils.addWaveDistortion(true, 
+	    			point, 
+	    			Misc.ZERO, 
+	    			7f, 80f, 0.4f, 0.2f, 0.4f, 0, 1);
 			engine.addSwirlyNebulaParticle(point, Misc.ZERO, 30f, 2.5f, 0.5f, 0.8f, 0.5f, new Color(163,0,255), true);
 			engine.spawnExplosion(point, Misc.ZERO, new Color(255,180,250), 45f, 0.4f);
 			Global.getSoundPlayer().playSound(
-				"rifttorpedo_explosion",
+				"espc_rift_impact",
 				//"riftcascade_rift",
 				1.5f, 0.9f, point, Misc.ZERO);
 		} else {
+			if (MezzUtils.glibCheck())
+	    		MezzUtils.addWaveDistortion(true, 
+	    			point, 
+	    			Misc.ZERO, 
+	    			3.5f, 30f, 0.25f, 0.15f, 0.25f, 0, 1);
 			engine.addSwirlyNebulaParticle(point, Misc.ZERO, 30f, 2.5f, 0.5f, 0.8f, 0.5f, new Color(163,0,255), true);
 			engine.spawnExplosion(point, Misc.ZERO, new Color(255,180,250), 45f, 0.4f);
 			Global.getSoundPlayer().playSound(
-				"rifttorpedo_explosion",
+				"espc_rift_impact",
 				//"riftcascade_rift",
 				1.7f, 0.4f, point, Misc.ZERO);
 		}

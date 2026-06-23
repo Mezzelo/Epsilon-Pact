@@ -14,6 +14,8 @@ import java.util.List;
 import java.awt.Color;
 import com.fs.starfarer.api.util.Misc;
 
+import data.scripts.util.MezzUtils;
+
 import org.lazywizard.lazylib.MathUtils;
 
 public class espc_BattlecryStats extends BaseShipSystemScript {
@@ -27,11 +29,13 @@ public class espc_BattlecryStats extends BaseShipSystemScript {
 	private static final float ARC_FIGHTER_CHANCE = 0.4f;
 	
 	private static final float AI_HULL_BACK = 0.4f;
-	private static final float AI_FLUX_BACK = 0.4f;
-	private static final float AI_FLUX_FORCE_ENGAGE = 0.1f;
+	private static final float AI_FLUX_BACK = 0.2f;
+	// private static final float AI_FLUX_FORCE_ENGAGE = 0.1f;
 	
 	private ShipAIConfig origConfig = null;
-	private boolean timidOrCautious = false;
+	private int aiStateLast = 0;
+	private static final float THINK_INTERVAL = 0.1f;
+	private float aiThinkTime = THINK_INTERVAL;
 	
 	private float fluxLast = -100f;
 	private float hardFluxLast = 0f;
@@ -53,7 +57,7 @@ public class espc_BattlecryStats extends BaseShipSystemScript {
 
 		CombatEngineAPI combatEngine = Global.getCombatEngine();
 		float amount = combatEngine.getElapsedInLastFrame();
-		if (amount == 0f)
+		if (amount <= 0f || combatEngine.isPaused())
 			return;
 
 		stats.getFluxDissipation().modifyMult(id, FLUX_DISSIPATION_MULT * effectLevel);
@@ -212,8 +216,7 @@ public class espc_BattlecryStats extends BaseShipSystemScript {
 			}
 			
 			if (fluxPulseInterval.intervalElapsed()) {
-				fluxPulseInterval.setInterval(0.2f, 0.4f);
-				fluxPulseInterval.setElapsed(0.0f);
+				fluxPulseInterval.nextInterval();
 				arcFlux = 0f;
 			}
 		} else {
@@ -225,37 +228,52 @@ public class espc_BattlecryStats extends BaseShipSystemScript {
 //		ship.blockCommandForOneFrame(ShipCommand.FIRE);
 //		ship.setHoldFireOneFrame(true);
 		
-		if (timidOrCautious)
-			return;
-		if (origConfig == null && ship.getShipAI() != null && ship.getShipAI().getConfig() != null) {
-			if (ship.getShipAI().getConfig().personalityOverride != null &&
-				(ship.getShipAI().getConfig().personalityOverride.equals(Personalities.TIMID) || 
-				ship.getShipAI().getConfig().personalityOverride.equals(Personalities.CAUTIOUS)))
-				timidOrCautious = true;
-			else {
-				ShipAIConfig config = ship.getShipAI().getConfig();
-				origConfig = config.clone();
-			}
-		}
 		
-		if (origConfig != null && ship.getShipAI() != null) {
-			ShipAIConfig config = ship.getShipAI().getConfig();
-			if (config != null) {
-				if (effectLevel > 0 && ship.getFluxLevel() < AI_FLUX_BACK &&
-					ship.getHullLevel() > AI_HULL_BACK) {
-					config.personalityOverride = Personalities.RECKLESS;
-					config.alwaysStrafeOffensively = true;
-					if (ship.getFluxLevel() < AI_FLUX_FORCE_ENGAGE)
-						config.backingOffWhileNotVentingAllowed = false;
-					else
-						config.backingOffWhileNotVentingAllowed = true;
-					config.turnToFaceWithUndamagedArmor = false;
-					config.burnDriveIgnoreEnemies = true;
+		if (aiStateLast == -2) {
+			
+		} else if (ship.getAI() == null) {
+    		aiStateLast = -1;
+    	} else if (origConfig == null) {
+    		if (ship.getShipAI().getConfig() != null) {
+				if ((!MezzUtils.getSetting("CustomShipAI") && ship.getOwner() == 0 && !ship.isAlly()) 
+					|| Personalities.TIMID.equals(ship.getShipAI().getConfig().personalityOverride) || 
+					Personalities.CAUTIOUS.equals(ship.getShipAI().getConfig().personalityOverride)) {
+					aiStateLast = -2;
 				} else {
-					config.copyFrom(origConfig);
+					ShipAIConfig config = ship.getShipAI().getConfig();
+					origConfig = config.clone();
 				}
 			}
-		}
+    	} else {
+    		aiThinkTime -= amount;
+    		if (aiStateLast == -1 || aiThinkTime <= 0f) {
+    			aiThinkTime = THINK_INTERVAL;
+    			ShipAIConfig config = ship.getShipAI().getConfig();
+    			if (config != null) {
+    				if (aiStateLast != 1 && ship.getFluxLevel() < AI_FLUX_BACK &&
+    					ship.getHullLevel() > AI_HULL_BACK) {
+    					/*
+    					if (ship.getFluxLevel() < AI_FLUX_FORCE_ENGAGE)
+    						config.backingOffWhileNotVentingAllowed = false;
+    					else
+    						config.backingOffWhileNotVentingAllowed = true; */
+    					// config.turnToFaceWithUndamagedArmor = false;
+    					// config.burnDriveIgnoreEnemies = true;
+    					config.personalityOverride = Personalities.RECKLESS;
+    					config.alwaysStrafeOffensively = true;
+    					// if (aiStateLast != -1)
+    					// 	ship.getShipAI().forceCircumstanceEvaluation();
+    					aiStateLast = 1;
+    				} else if (aiStateLast != 0 && (ship.getFluxLevel() >= AI_FLUX_BACK ||
+    					ship.getHullLevel() <= AI_HULL_BACK)){
+    					config.copyFrom(origConfig);
+    					if (aiStateLast != -1)
+    						ship.getShipAI().forceCircumstanceEvaluation();
+    					aiStateLast = 0;
+    				}
+    			}
+    		}
+    	}
 		
 	}
 	public void unapply(MutableShipStatsAPI stats, String id) {
@@ -265,13 +283,13 @@ public class espc_BattlecryStats extends BaseShipSystemScript {
 		fluxPulseInterval.setInterval(0.2f, 0.4f);
 		fluxPulseInterval.setElapsed(0.0f);
 		stats.getFluxDissipation().unmodify(id);
-		if (timidOrCautious)
+		if (aiStateLast < 1)
 			return;
-		if (origConfig != null && ((ShipAPI) stats.getEntity()).getShipAI() != null) {
-			ShipAIConfig config = ((ShipAPI) stats.getEntity()).getShipAI().getConfig();
-			if (config != null) {
-				config.copyFrom(origConfig);
-			}
+		if (((ShipAPI) stats.getEntity()).getShipAI() != null) {
+			((ShipAPI) stats.getEntity()).getShipAI().getConfig().copyFrom(origConfig);
+			aiStateLast = 0;
+			aiThinkTime = THINK_INTERVAL;
+			((ShipAPI) stats.getEntity()).getShipAI().forceCircumstanceEvaluation();
 		}
 	}
 	

@@ -45,13 +45,13 @@ public class espc_MissileBoostStats extends BaseShipSystemScript {
 	
 	public StatusData getStatusData(int index, State state, float effectLevel) {
 		if (index == 2)
-			return new StatusData(String.format(MezzUtils.getString("espc_system", "missile_rof"), 
+			return new StatusData(String.format(MezzUtils.getString("espc_shipsystem", "missile_rof"), 
 				(int) (ROF_BONUS * effectLevel * 100f)  + "%"), false);
 		if (index == 1)
-			return new StatusData(String.format(MezzUtils.getString("espc_system", "missile_damage"), 
+			return new StatusData(String.format(MezzUtils.getString("espc_shipsystem", "missile_damage"), 
 				(int) (DAMAGE_BONUS * effectLevel * 100f)  + "%"), false);
 		if (index == 0)
-			return new StatusData(String.format(MezzUtils.getString("espc_system", "missile_speed"), 
+			return new StatusData(String.format(MezzUtils.getString("espc_shipsystem", "missile_speed"), 
 				(int) (SPEED_BONUS * effectLevel * 100f)  + "%"), false);
 		return null;
 	}

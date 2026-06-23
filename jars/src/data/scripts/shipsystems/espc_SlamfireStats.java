@@ -40,7 +40,7 @@ public class espc_SlamfireStats extends BaseShipSystemScript {
 	private static final float MIN_FLUX_COST = 20f;
 	private static final float MAX_DAMAGE_MULT = 3f;
 	
-	private static final float CANCEL_COOLDOWN_FRACTION = 0.15f;
+	public static final float CANCEL_COOLDOWN_FRACTION = 0.15f;
 	private espc_SlamfireVFX plugin = null;
 	
 	// state machine
@@ -377,12 +377,12 @@ public class espc_SlamfireStats extends BaseShipSystemScript {
 	@Override
 	public String getInfoText(ShipSystemAPI system, ShipAPI ship) {
 		if (usableState == 0)
-			return MezzUtils.getString("espc_system", "no_weapon_compatible");
+			return MezzUtils.getString("espc_shipsystem", "no_weapon_compatible");
 		
 		if (system.getState().equals(SystemState.IDLE))
-			return MezzUtils.getString("espc_system", "ready");
+			return MezzUtils.getString("espc_shipsystem", "ready");
 		else if (system.getState().equals(SystemState.ACTIVE))
-			return MezzUtils.getString("espc_system", "armed");
+			return MezzUtils.getString("espc_shipsystem", "armed");
 		else
 			return "";
 	}

@@ -1,8 +1,8 @@
 {
 	"variantId": "fulgent_espc_Pact_Attack",
-	"displayName": "Strike",
+	"displayName": "Attack",
 	"goalVariant": false,
-    "fluxCapacitors": 15,
+    "fluxCapacitors": 20,
     "fluxVents": 20,
     "hullId": "fulgent_espc",
     "hullMods": [

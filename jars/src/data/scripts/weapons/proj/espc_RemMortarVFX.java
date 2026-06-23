@@ -37,9 +37,11 @@ public class espc_RemMortarVFX extends BaseEveryFrameCombatPlugin {
 	
     @Override
     public void advance(float amount, List<InputEventAPI> events) {
-    	if (amount == 0f)
+    	if (amount <= 0f)
     		return;
 		CombatEngineAPI engine = Global.getCombatEngine();
+		if (engine.isPaused())
+			return;
 		if (projs.size() == 0) {
 			if (ship == null || !engine.isInPlay(ship) || ship.isHulk() || !ship.isAlive()) {
 				if (ship != null)

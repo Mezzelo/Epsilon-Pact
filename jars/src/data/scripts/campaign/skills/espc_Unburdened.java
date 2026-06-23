@@ -49,7 +49,7 @@ public class espc_Unburdened {
 				ship.isPhased() || ship.getFluxTracker().isOverloaded())
 				return;
 			CombatEngineAPI combatEngine = Global.getCombatEngine();
-			if (combatEngine == null)
+			if (combatEngine == null || combatEngine.isPaused())
 				return;
 			Iterator<Object> entityIterator = combatEngine.getAiGridShips().getCheckIterator(
 				ship.getLocation(), 
@@ -129,7 +129,7 @@ public class espc_Unburdened {
 				0f, hc, hc, (int) MIN_TARGET_THRESHOLD + "%", (int)HEAL_RANGE + " " + MezzUtils.getString("espc_gencombat", "su")
 			);
 			info.addPara(indent + MezzUtils.getString("espc_skills", "unburdened1-3"),
-				0f, tc, hc, HULL_PERCENT_PER_SECOND + "%", HULL_PERCENT_PER_SECOND_TARGET + "%"
+				0f, tc, hc, (int) HULL_PERCENT_PER_SECOND + "%", (int) HULL_PERCENT_PER_SECOND_TARGET + "%"
 			);
 			info.addPara(indent + MezzUtils.getString("espc_skills", "unburdened1-4"),
 				0f, tc, hc, (int)MAX_SPEND + "%", (int)MIN_THRESHOLD + "%"

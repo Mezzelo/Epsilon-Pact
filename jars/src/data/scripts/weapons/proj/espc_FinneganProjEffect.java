@@ -33,7 +33,11 @@ public class espc_FinneganProjEffect implements OnHitEffectPlugin {
 		// Global.getLogger(espc_FinneganProjEffect.class).info("speed finonHit: " + speed);
 		if (speed < MIN_VEL)
 			return;
-		
+		float dmg = speed / BASE_VEL * BASE_DAMAGE;
+		if (proj.getSource() != null) {
+			ShipAPI ship = (ShipAPI) proj.getSource();
+			dmg = dmg * ship.getMutableStats().getMissileWeaponDamageMult().computeMultMod();
+		}
 		engine.applyDamage(
 			target,
 			point,

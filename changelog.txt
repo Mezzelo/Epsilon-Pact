@@ -1,17 +1,19 @@
-Version 0.6.2
+Version 0.6.3 (TENTATIVE NOTES, if you'r reading this a good amount of this ain't in yet!)
 SiC officer added!  Offers an automation-type expertise, that further enables the Pact's doctrine: constrained fleet sizes, smaller ships, and death to missiles and fighters lol
 More robust graphicslib support: Lighting & distortions, specifically
 Overhaul of Pact fleet doctrine: Most existing variants reworked, ALL mobility systems have been removed from their finalized doctrine
 	- New Pact versions of vanilla hulls, featuring new shipsystems.
-Pact campaign progression: The Pact's doctrine will develop over the course of a campaign, fully evolving after 4 cycles.  Toggleable with Lunalib.
-AI changes to Pact hull designs which should make them significantly more effective without needing player control/direction.
+Pact campaign progression: The Pact's doctrine will develop over the course of a campaign, fully maturing after 4 cycles.  Toggleable & adjustable with Lunalib.
+AI changes to Pact hull designs which should make them significantly more effective without needing player control/direction.  Toggleable with Lunalib.
 PORTRAITURE CONTINUES, FOREVER.  ENDLESS PEOPLE, ENDLESS CREATURES.
 
 
 New weapons:
-- Arc-Scatter, small ballistic
+- Arc-Scatterer, small ballistic
 - Rewa Heavy Autocannon, large ballistic
-Weapons removed from Pact markets/variants: Light Autocannon, Hellbore Cannon
+- Ion Flail, medium energy
+- Tachyon Bolter, heavy energy
+Weapons removed from (finalized) Pact markets & variants: Light Autocannon, Hellbore Cannon, Heavy Blaster, Ion Beam, Tachyon Lance, Locust SRM Launcher
 
 New shipsystems:
 - Remote Burn
@@ -47,6 +49,16 @@ Pilgrim
 Pilgrim (H)
 - Fixed middle small mount being erroneously composite instead of missile, and right small mount being missile instead of composite
 
+Observer
+- Flux Capacity 10000 > 12000
+- Dissipation 700 > 750
+
+Observer (TT)
+- Ordnance Points 155 > 150
+
+Chorale
+- Flux Capacity 10000 > 11000
+
 Amanuensis
 - Hull 16000 > 15000
 
@@ -58,16 +70,15 @@ Bastillon (EP)
 Scatter Rifle
 - Now ignores flares
 
+Confluence Emitter
+- Visuals adjusted: Fancier explosions, reworked to no longer cut off VFX when velocity is altered
+
 AM Flamer
-- Scripted behaviour reworked to reduce inaccuracy & projectiles falling short of maximum range.  halved range or something i haven't worked out the stats yettt
-- Projectile speed 500 > 1200
-- Flux/shot 125 > 80
-- Turn speed 20 > 30
+- Scripted behaviour reworked to reduce inaccuracy & projectiles falling short of maximum range.  also changed all the stats there's too much tbh
 - Now ignores flares
 
 Solo AM Flamer
 - ditto re: scripted behaviour
-- Projectile speed 500 > 600
 - Now ignores flares
 
 - New firing sounds for the following weapons: Remise Rifle, Heavy Gatling, Scatter Rifle
@@ -104,7 +115,7 @@ Underdog
 - Negative maximum relation between Pact and the Diktat removed, in anticipation of rip bozo
 - Organs are now an illegal commodity for the Pact.
 
-- Several unused hullmods removed from Pact markets, as well as the Heavy Blaster and Locust SRM Launcher from their markets and fits.
+- Several unused hullmods removed from Pact markets.
 - (fix) System range bonuses now properly affect all shipsystems in this mod.
 - (fix) "You!" now properly respawn when playing the Real Human Being Nexerelin start.
 - Nexerelin faction starting ship configurations have been altered to mostly draw from the front half of the Pact's developed hulls.

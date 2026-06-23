@@ -12,6 +12,7 @@ import org.magiclib.util.MagicRender;
 import org.lazywizard.lazylib.MathUtils;
 
 import data.scripts.plugin.espc_DamageListener;
+import data.scripts.util.MezzUtils;
 				
 public class espc_FisProjEffect implements OnHitEffectPlugin, OnFireEffectPlugin {
 	
@@ -25,8 +26,6 @@ public class espc_FisProjEffect implements OnHitEffectPlugin, OnFireEffectPlugin
 	
 	public boolean didEntry = false;
 
-	// particles handled via plugin, as we wish for the effects to persist past the projectile itself
-	// (and to get the glViewport setup)
     @Override
     public void onFire(DamagingProjectileAPI proj, WeaponAPI weapon, CombatEngineAPI engine) {
     	if (weapon.getShip() != null) {
@@ -75,6 +74,17 @@ public class espc_FisProjEffect implements OnHitEffectPlugin, OnFireEffectPlugin
 						
 					didFission = true;
 					didEntry = true;
+					
+					if (MezzUtils.glibCheck()) {
+			    		MezzUtils.addWaveDistortion(false, 
+			    			point, 
+			    			Misc.ZERO, 
+			    			5f, 85f, 0.5f, 0.35f, 0.5f, 0, 1);
+
+			    		MezzUtils.addLight(point, 
+			    			Misc.ZERO, 
+			    			0.5f, 105f, new Color(150, 100, 255, 255), 1f, -1f, 1f);
+					}
 					
 					// if opposite sides both contribute to the explosion, it friendly fires everyone, including the shooters :)
 					boolean clash = (Float) engine.getCustomData().get("espc_fisTime" + i) * (-0.5 + proj.getOwner()) < 0f;

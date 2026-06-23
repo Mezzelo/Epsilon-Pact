@@ -67,7 +67,7 @@ public class espc_CollapseVFX extends BaseEveryFrameCombatPlugin {
 
     	// max radius: paragon, 270
     	// min: xyphos, 30
-    	thisInterval = PARTICLE_INTERVAL / target.getShieldRadiusEvenIfNoShield() * 250f;
+    	thisInterval = PARTICLE_INTERVAL / target.getCollisionRadius() * 250f;
     }
 	
 	private class StaticProjSprite {
@@ -273,11 +273,11 @@ public class espc_CollapseVFX extends BaseEveryFrameCombatPlugin {
 			);
 			
 			float particleX = loc.x + (float) FastTrig.cos(Math.toRadians(ang)) * distMult * (
-				SPAWN_RADIUS + target.getShieldRadiusEvenIfNoShield() +
+				SPAWN_RADIUS + target.getCollisionRadius() +
 				PARTICLE_TRAVEL * MezzUtils.halfSineOut(MezzUtils.halfSineOut(lifetime/PARTICLE_DURATION))
 			);
 			float particleY = loc.y + (float) FastTrig.sin(Math.toRadians(ang)) * distMult * (
-				SPAWN_RADIUS + target.getShieldRadiusEvenIfNoShield() +
+				SPAWN_RADIUS + target.getCollisionRadius() +
 				PARTICLE_TRAVEL * MezzUtils.halfSineOut(MezzUtils.halfSineOut(lifetime/PARTICLE_DURATION))
 			);
 			

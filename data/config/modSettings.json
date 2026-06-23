@@ -1,12 +1,17 @@
 {
 	"epsilonpact":{
-		"espc_AIBGPortraits": true,
-		"espc_BGScoreRequirements": "Perfect",
-	},
+		
+	"espc_Glib":true,
 	
-	"TakeNoPrisoners": {
-		"factionsWithConfigs": [
-			"epsilpac",
-		]
-	},
+	"espc_AIBGPortraits":false,
+	"espc_CustomShipAI":true,
+	"espc_DoctrinalProgression": true,
+	"espc_DoctrinalProgressionExtended": 48,
+	"espc_DoctrinalProgressionSpeed": 48,
+	"espc_DoctrinalProgressionInitial": 0,
+	
+	"espc_BGScoreRequirements": "Perfect",
+	"espc_MeatlessSalvage": false,
+	"espc_RealHumbleBeing": false
+	}
 }

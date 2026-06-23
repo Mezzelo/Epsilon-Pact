@@ -3,8 +3,8 @@
   "hullId": "sunder",
   "displayName": "Support",
   "goalVariant": false,
-  "fluxCapacitors": 15,
-  "fluxVents": 14,
+  "fluxCapacitors": 13,
+  "fluxVents": 12,
   "quality": 1,
   "permaMods": [],
   "hullMods": [
@@ -20,10 +20,10 @@
     },
     {
       "autofire": true,
-      "mode": "ALTERNATING",
+      "mode": "LINKED",
       "weapons": {
-        "WS 002": "pulselaser",
-        "WS 004": "pulselaser"
+        "WS 002": "espc_ionflail",
+        "WS 004": "espc_ionflail"
       }
     },
     {

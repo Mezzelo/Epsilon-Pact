@@ -1,0 +1,15 @@
+{
+	"id":"espc_tachyonbolter_shot",
+	"specClass":"projectile",
+	"spawnType":"PLASMA",
+	"onHitEffect":"data.scripts.weapons.espc_TachyonBolterEffect",
+	"collisionClass":"PROJECTILE_FF",
+	"collisionClassByFighter":"PROJECTILE_FIGHTER",
+	"width":20.0,
+	"hitGlowRadius":0.1,
+	"fadeTime":0.15,
+	"fringeColor":[85,25,215,255],
+	"glowColor":[165,100,255,235],
+	"passThroughMissiles":true,	
+	"passThroughFighters":false,	
+}
