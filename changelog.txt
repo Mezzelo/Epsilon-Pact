@@ -1,9 +1,7 @@
-Version 0.6.3 (TENTATIVE NOTES, if you'r reading this a good amount of this ain't in yet!)
-SiC officer added!  Offers an automation-type expertise, that further enables the Pact's doctrine: constrained fleet sizes, smaller ships, and death to missiles and fighters lol
+Version 0.6.3 (TENTATIVE NOTES - some WIP additions in last changelog version removed for prerelease)
 More robust graphicslib support: Lighting & distortions, specifically
 Overhaul of Pact fleet doctrine: Most existing variants reworked, ALL mobility systems have been removed from their finalized doctrine
 	- New Pact versions of vanilla hulls, featuring new shipsystems.
-Pact campaign progression: The Pact's doctrine will develop over the course of a campaign, fully maturing after 4 cycles.  Toggleable & adjustable with Lunalib.
 AI changes to Pact hull designs which should make them significantly more effective without needing player control/direction.  Toggleable with Lunalib.
 PORTRAITURE CONTINUES, FOREVER.  ENDLESS PEOPLE, ENDLESS CREATURES.
 
@@ -17,7 +15,6 @@ Weapons removed from (finalized) Pact markets & variants: Light Autocannon, Hell
 
 New shipsystems:
 - Remote Burn
-- Nova Strike
 - Inverse Skimmer
 - Wide Inverse Skimmer
 
@@ -27,7 +24,6 @@ New Pact variants:
 - Fulgent (EP)
 - Scintilla (EP)
 - Brilliant (EP)
-- Nova (EP)
 - Radiant (EP)
 
 
