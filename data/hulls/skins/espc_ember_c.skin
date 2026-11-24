@@ -5,7 +5,7 @@
 	"descriptionId":"espc_ember",  # optional
 	"hullDesignation":"Demilitarized Tanker",
 	"descriptionPrefix":"An unusual foreign-demilitarized variant of the Ember, this version has been streamlined for easier maintenance with common tanker fittings. Though outwardly low-tech and typically only fielded for its high thrust-to-capacity ratio, its relative agility and intact military-grade power core grant surprising staying power in combat situations.",
-	"tags":["rare_bp", "merc"],
+	"tags":["codex_unlockable", "merc"],
 	"tech":"High Tech",
     "systemId":"plasmajets",
     "spriteName": "graphics/ships/espc_ember_civilian.png",

@@ -4,7 +4,7 @@
 	"hullName":"Observer (TT)",
 	"descriptionId":"espc_observer",
 	"descriptionPrefix":"Tri-Tachyon engineers have fitted this Observer with a more offensively-oriented set of mounts. Reconfiguring the original, highly esoteric power routing has resulted in the loss of its unique shield emitter, as well as elevated maintenance costs.",
-	"tags":["rare_bp", "merc"],
+	"tags":["codex_unlockable", "merc"],
     "systemId":"fortressshield",
 	"tech":"Tri-Tachyon",
     "spriteName": "graphics/ships/espc_observer_tt.png",

@@ -4,7 +4,7 @@
 	"hullName":"Wolf (EP)",
 	"restoreToBaseHull":false,
 	"descriptionId":"wolf_espc",
-	"tags":["limited_tooltip_if_locked", "codex_unlockable"],
+	"tags":["codex_unlockable"],
 	"maxSpeed":170,
 	"baseValueMult":5,
     "systemId":"espc_InverseSkimmer",

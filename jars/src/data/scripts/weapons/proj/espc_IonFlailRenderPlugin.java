@@ -95,11 +95,6 @@ public class espc_IonFlailRenderPlugin extends BaseEveryFrameCombatPlugin {
 		CombatEngineAPI engine = Global.getCombatEngine();
 		if (engine == null)
 			return;
-		if (projs.size() == 0 && weps.size() == 0 && impacts.size() == 0) {
-			engine.removePlugin(this);
-			return;
-		}
-		
 		
 		if (projs.size() > 0) {
 			Iterator<DamagingProjectileAPI> iter = projs.iterator();
@@ -185,7 +180,7 @@ public class espc_IonFlailRenderPlugin extends BaseEveryFrameCombatPlugin {
 					continue;
 				}
 				WeaponAPI weapon = wep.getWeapon();
-				if (weapon.getChargeLevel() <= 0f || !weapon.isFiring() || wep.isCd)
+				if (!weapon.isFiring() || wep.isCd)
 					continue;
 	            MagicTrailPlugin.addTrailMemberAdvanced(
 					null,
@@ -338,7 +333,7 @@ public class espc_IonFlailRenderPlugin extends BaseEveryFrameCombatPlugin {
 			while (wepIter.hasNext()) {
 				espc_IonFlailEffect plugin = wepIter.next();
 				WeaponAPI wep = plugin.getWeapon();
-				if (wep.getChargeLevel() > 0f && wep.isFiring() && !plugin.isCd) {
+				if (wep.isFiring() && !plugin.isCd) {
 					Vector2f pos = new Vector2f(wep.getFirePoint(0).x + 
 						MezzUtils.halfSineOut(wep.getChargeLevel()) * FLAIL_RADIUS * (float) FastTrig.cos(
 						Math.toRadians(wep.getCurrAngle() + FLAIL_DEGS * -plugin.arcDirection

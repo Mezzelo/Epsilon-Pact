@@ -4,7 +4,7 @@
 	"hullName":"Pilgrim (H)",
 	"descriptionId":"espc_pilgrim",
 	"descriptionPrefix":"Hegemony doctrine has seen this Pilgrim redesigned into a more traditional missile boat, replacing facilities dedicated to rapid and awkward missile retrofits with streamlined on-board replenishment. This also frees up enough room to operate an additional hangar's worth of fighters.",
-	# "tags":["heg_aux_bp"],
+	"tags":["codex_unlockable"],
 	"tech":"Hegemony",
     "systemId":"forgevats",
     "weaponSlotChanges":{

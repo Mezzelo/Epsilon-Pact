@@ -28,18 +28,13 @@ public class espc_FisProjEffect implements OnHitEffectPlugin, OnFireEffectPlugin
 
     @Override
     public void onFire(DamagingProjectileAPI proj, WeaponAPI weapon, CombatEngineAPI engine) {
-    	if (weapon.getShip() != null) {
-    		if (!weapon.getShip().getCustomData().containsKey("espc_FisProjPlugin")) {
-    			espc_FisProjVFX plugin = new espc_FisProjVFX(weapon.getShip());
-    	        engine.addPlugin(plugin);
-    	        weapon.getShip().setCustomData("espc_FisProjPlugin", plugin);
-    	        plugin.addProj(proj);
-    		} else
-        		((espc_FisProjVFX) weapon.getShip().getCustomData().get("espc_FisProjPlugin")).addProj(proj);
-    	}
+    	if (!engine.hasPluginOfClass(espc_FisProjVFX.class)) 
+	        engine.addPlugin(new espc_FisProjVFX());
 		
 		if (!weapon.getShip().hasListenerOfClass(espc_DamageListener.class))
 			weapon.getShip().addListener(new espc_DamageListener());
+		
+    	((espc_FisProjVFX) engine.getPluginOfClass(espc_FisProjVFX.class)).addProj(proj);
     }
 	
     @Override

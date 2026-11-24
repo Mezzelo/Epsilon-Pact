@@ -10,12 +10,13 @@ import com.fs.starfarer.api.combat.EveryFrameWeaponEffectPlugin;
 import com.fs.starfarer.api.combat.OnFireEffectPlugin;
 import com.fs.starfarer.api.combat.WeaponEffectPluginWithInit;
 import com.fs.starfarer.api.combat.listeners.ApplyDamageResultAPI;
+import com.fs.starfarer.api.impl.campaign.ids.Stats;
 import com.fs.starfarer.api.combat.OnHitEffectPlugin;
 import com.fs.starfarer.api.combat.WeaponAPI;
 import com.fs.starfarer.api.util.Misc;
 
 import data.scripts.plugin.espc_DamageListener;
-import data.scripts.util.MezzUtils;
+// import data.scripts.util.MezzUtils;
 import data.scripts.weapons.proj.espc_TachyonBolterRenderPlugin;
 
 import com.fs.starfarer.api.combat.ShipAPI;
@@ -27,7 +28,7 @@ import java.util.Iterator;
 import org.lazywizard.lazylib.FastTrig;
 import org.lazywizard.lazylib.VectorUtils;
 import org.lwjgl.util.vector.Vector2f;
-import org.magiclib.plugins.MagicTrailPlugin;
+// import org.magiclib.plugins.MagicTrailPlugin;
 
 import com.fs.starfarer.api.combat.MissileAPI;
 /*
@@ -42,20 +43,23 @@ public class espc_TachyonBolterEffect implements OnFireEffectPlugin, EveryFrameW
 	private ShipAPI ship;
 	public final static float BASE_DAMAGE = 150f;
 	private final static float ARC_DAMAGE_MULT = 1.5f;
-	private final static float ARC_CHANCE = 1f / 3f;
 	private final static float ARC_VEL_HORIZONTAL_MAX = 350f;
 	public final static float BASE_VELOCITY = 1000f;
 	private final static float VEL_CURVE_MAGNITUDE = 250f;
+	private static int BURST_SIZE = 9;
+	private final static int ARCS_PER_BURST = 3;
+	private final static float MAX_SHOT_DELAY = 0.3f;
 	
 	private ArrayDeque<DamagingProjectileAPI> projs = null;
 	private WeaponAPI thisWep;
-	private boolean glib = false;
+	private float firedLast = 0f;
+	private int burstRemaining = 0;
+	private int arcsRemaining = 0;
+	
+	// private boolean glib = false;
+	
 
 	espc_TachyonBolterRenderPlugin plugin = null;
-	
-	public espc_TachyonBolterRenderPlugin getPlugin() {
-		return plugin;
-	}
 	
 	public WeaponAPI getWeapon() {
 		return thisWep;
@@ -64,28 +68,24 @@ public class espc_TachyonBolterEffect implements OnFireEffectPlugin, EveryFrameW
 	// TODO: among other things, make sure you add a damage listener
 	@Override
 	public void init(WeaponAPI weapon) {
+		BURST_SIZE = weapon.getSpec().getBurstSize();
 		thisWep = weapon;
 		ship = weapon.getShip();
-		glib = MezzUtils.glibCheck();
+		// glib = MezzUtils.glibCheck();
 		if (ship == null)
 			return;
 		
 		if (!weapon.getShip().hasListenerOfClass(espc_DamageListener.class))
 			weapon.getShip().addListener(new espc_DamageListener());
 		
-		for (WeaponAPI wep : ship.getAllWeapons()) {
-			if (wep.getEffectPlugin() != null && wep.getEffectPlugin() instanceof espc_TachyonBolterEffect &&
-				((espc_TachyonBolterEffect) wep.getEffectPlugin()).getPlugin() != null) {
-				plugin = ((espc_TachyonBolterEffect) wep.getEffectPlugin()).getPlugin();
-				plugin.addWeapon(weapon);
-				break;
-			}
-		}
-		if (plugin == null) {
+		if (Global.getCombatEngine().hasPluginOfClass(espc_TachyonBolterRenderPlugin.class))
+			plugin = (espc_TachyonBolterRenderPlugin) 
+				Global.getCombatEngine().getPluginOfClass(espc_TachyonBolterRenderPlugin.class);
+		else {
 			plugin = new espc_TachyonBolterRenderPlugin(this);
 			Global.getCombatEngine().addPlugin(plugin);
-			plugin.addWeapon(weapon);
 		}
+		plugin.addWeapon(weapon);
 		
 		projs = new ArrayDeque<DamagingProjectileAPI>();
 		
@@ -156,6 +156,17 @@ public class espc_TachyonBolterEffect implements OnFireEffectPlugin, EveryFrameW
     		proj.getVelocity().scale(BASE_VELOCITY / proj.getVelocity().length());
    		plugin.addProj(proj);
     	if (naturalSpawn) {
+    		if (engine.getTotalElapsedTime(false) - firedLast > MAX_SHOT_DELAY) {
+    			burstRemaining = BURST_SIZE;
+    			arcsRemaining = ARCS_PER_BURST;
+    		}
+    		if (burstRemaining > 0) {
+        		if (arcsRemaining > 0 && Misc.random.nextFloat() < ((float) arcsRemaining) / burstRemaining) {
+        			arcsRemaining--;
+        			proj.setCustomData("espc_tachyonboltarc", true);
+        		}
+        		burstRemaining--;
+    		}
 	       	projs.add(proj);
 	   		Vector2f.add(proj.getVelocity(), new Vector2f(
 	   			(float) FastTrig.cos(Math.toRadians(proj.getFacing() - 90f))
@@ -170,12 +181,12 @@ public class espc_TachyonBolterEffect implements OnFireEffectPlugin, EveryFrameW
 	@Override
 	public void onHit(DamagingProjectileAPI projectile, CombatEntityAPI target, Vector2f point, boolean shieldHit,
 		ApplyDamageResultAPI damageResult, CombatEngineAPI engine) {
-        if (projectile.getWeapon() != null) {
-        	((espc_TachyonBolterEffect) projectile.getWeapon().getEffectPlugin()).getPlugin().addImpact(
-    			point, VectorUtils.getAngle(new Vector2f(1f, 0f), projectile.getVelocity()));
-        }
-        if (Misc.random.nextFloat() > ARC_CHANCE)
+		((espc_TachyonBolterRenderPlugin) 
+			Global.getCombatEngine().getPluginOfClass(espc_TachyonBolterRenderPlugin.class)).addImpact(
+	    	point, VectorUtils.getAngle(new Vector2f(1f, 0f), projectile.getVelocity()));
+        if (!projectile.getCustomData().containsKey("espc_tachyonboltarc"))
         	return;
+        
 		if (target instanceof MissileAPI) {
 			engine.applyDamage(target, target.getLocation(), 
 				projectile.getDamageAmount() * ARC_DAMAGE_MULT, 
@@ -185,8 +196,21 @@ public class espc_TachyonBolterEffect implements OnFireEffectPlugin, EveryFrameW
 		}
 		if (!(target instanceof ShipAPI))
 			return;
+		
 		if (!shieldHit)
 			engine.spawnEmpArc(projectile.getSource(), point, target, target,
+				DamageType.ENERGY, 
+				projectile.getDamageAmount() * ARC_DAMAGE_MULT,
+				projectile.getEmpAmount() * ARC_DAMAGE_MULT,
+				100000f, // max range 
+				"tachyon_lance_emp_impact",
+				20f, // thickness
+				new Color(85,25,215,255),
+				new Color(255,255,255,255)
+			);
+		else if (Misc.random.nextFloat() < ((ShipAPI) target).getHardFluxLevel() *
+			((ShipAPI) target).getMutableStats().getDynamic().getValue(Stats.SHIELD_PIERCED_MULT))
+			engine.spawnEmpArcPierceShields(projectile.getSource(), point, target, target,
 				DamageType.ENERGY, 
 				projectile.getDamageAmount() * ARC_DAMAGE_MULT,
 				projectile.getEmpAmount() * ARC_DAMAGE_MULT,

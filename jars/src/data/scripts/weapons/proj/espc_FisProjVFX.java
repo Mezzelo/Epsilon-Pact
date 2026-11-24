@@ -17,7 +17,6 @@ import com.fs.starfarer.api.combat.ViewportAPI;
 import com.fs.starfarer.api.combat.BaseEveryFrameCombatPlugin;
 import com.fs.starfarer.api.graphics.SpriteAPI;
 import com.fs.starfarer.api.combat.DamagingProjectileAPI;
-import com.fs.starfarer.api.combat.ShipAPI;
 import com.fs.starfarer.api.input.InputEventAPI;
 
 import java.awt.Color;
@@ -46,10 +45,8 @@ public class espc_FisProjVFX extends BaseEveryFrameCombatPlugin {
 	private static final Color COLOR_OUTER = new Color(85, 45, 255);
 	
 	private ArrayDeque<FisProj> projs;
-	private ShipAPI ship;
 	
-    public espc_FisProjVFX(ShipAPI ship) {
-    	this.ship = ship;
+    public espc_FisProjVFX() {
     	projs = new ArrayDeque<FisProj>();
     }
     
@@ -98,19 +95,11 @@ public class espc_FisProjVFX extends BaseEveryFrameCombatPlugin {
 	
     @Override
     public void advance(float amount, List<InputEventAPI> events) {
-    	if (amount <= 0f)
+    	if (amount <= 0f || projs.size() == 0)
     		return;
 		CombatEngineAPI engine = Global.getCombatEngine();
 		if (engine.isPaused())
 			return;
-		if (projs.size() == 0) {
-			if (ship == null || !engine.isInPlay(ship) || ship.isHulk() || !ship.isAlive()) {
-				if (ship != null)
-					ship.removeCustomData("espc_FisProjPlugin");
-				engine.removePlugin(this);
-			}
-			return;
-		}
 		Iterator<FisProj> projIter = projs.iterator();
 		while (projIter.hasNext()) {
 			FisProj proj = projIter.next();

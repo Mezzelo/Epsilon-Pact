@@ -4,7 +4,7 @@
 	"hullName":"Rondel (H)",
 	"descriptionId":"espc_rondel",
 	"descriptionPrefix":"Deemed too risky to field, the Hegemony has seen fit to re-engineer the Rondel's inner workings in favor of safer doctrinal practice. The resulting design performs more consistently, but is otherwise considerably under-gunned compared to the original.",
-	"tags":["heg_aux_bp"],
+	"tags":["codex_unlockable", "heg_aux_bp"],
 	"tech":"Hegemony",
     "systemId":"ammofeed",
 	"fleetPoints":4,

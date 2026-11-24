@@ -4,7 +4,7 @@
 	"hullName":"Songbird (TT)",
 	"descriptionId":"espc_songbird",
 	"descriptionPrefix":"A Tri-Tachyon overhaul has replaced this Songbird's temporal capacitor with the similarly exotic, proprietary entropy amplifier. Though deadly, the ship's armament remains relatively underwhelming.",
-	"tags":["rare_bp", "merc"],
+	"tags":["codex_unlockable", "rare_bp", "merc"],
 	"tech":"Tri-Tachyon",
     "systemId":"entropyamplifier",
 	"fleetPoints":11,

@@ -23,13 +23,13 @@ public class espc_RiftSpearEffect implements OnFireEffectPlugin, EveryFrameWeapo
 
 	private ShipAPI ship;
 	private IntervalUtil innerInterval;
-	private boolean glib = false;
+	// private boolean glib = false;
 	
 	@Override
 	public void init(WeaponAPI weapon) {
 		innerInterval = new IntervalUtil(0.02f, 0.07f);
 		ship = weapon.getShip();
-		glib = MezzUtils.glibCheck();
+		// glib = MezzUtils.glibCheck();
 	}
 	
     @Override

@@ -76,10 +76,6 @@ public class espc_IonFlailEffect implements OnFireEffectPlugin, EveryFrameWeapon
 
 	espc_IonFlailRenderPlugin plugin = null;
 	
-	public espc_IonFlailRenderPlugin getPlugin() {
-		return plugin;
-	}
-	
 	public WeaponAPI getWeapon() {
 		return thisWep;
 	}
@@ -95,19 +91,13 @@ public class espc_IonFlailEffect implements OnFireEffectPlugin, EveryFrameWeapon
 		if (ship == null)
 			return;
 		
-		for (WeaponAPI wep : ship.getAllWeapons()) {
-			if (wep.getEffectPlugin() != null && wep.getEffectPlugin() instanceof espc_IonFlailEffect &&
-				((espc_IonFlailEffect) wep.getEffectPlugin()).getPlugin() != null) {
-				plugin = ((espc_IonFlailEffect) wep.getEffectPlugin()).getPlugin();
-				plugin.addWeapon(this);
-				break;
-			}
-		}
-		if (plugin == null) {
+		if (Global.getCombatEngine().hasPluginOfClass(espc_IonFlailRenderPlugin.class))
+			plugin = (espc_IonFlailRenderPlugin) Global.getCombatEngine().getPluginOfClass(espc_IonFlailRenderPlugin.class);
+		else {
 			plugin = new espc_IonFlailRenderPlugin(this);
 			Global.getCombatEngine().addPlugin(plugin);
-			plugin.addWeapon(this);
 		}
+		plugin.addWeapon(this);
 		
 		projs = new ArrayDeque<DamagingProjectileAPI>();
 		
@@ -124,7 +114,7 @@ public class espc_IonFlailEffect implements OnFireEffectPlugin, EveryFrameWeapon
     		arcDirection *= -1;
     		trailId = MagicTrailPlugin.getUniqueID();
 		} else
-	        isCd = weapon.getChargeLevel() < chargeLast;
+	        isCd = weapon.getChargeLevel() <= chargeLast;
 		chargeLast = weapon.getChargeLevel();
 		
 		if (weapon.getChargeLevel() > 0f && !isCd) {
@@ -216,27 +206,25 @@ public class espc_IonFlailEffect implements OnFireEffectPlugin, EveryFrameWeapon
     		Object next = iter.next();
     		if (next.equals(ship))
     			continue;
-    		if (next instanceof ShipAPI) {
-    			ShipAPI targ = (ShipAPI) next;
-    			if (!targ.isAlive() || targ.isHulk() || targ.hasTag(Tags.VARIANT_FX_DRONE) || !targ.isTargetable())
-    				continue;
-    			if (CollisionUtils.getCollides(proj.getLocation(), 
-    				new Vector2f(proj.getLocation().x + (float) FastTrig.cos(Math.toRadians(proj.getFacing())) * weapon.getRange(),
-    				proj.getLocation().y + (float) FastTrig.sin(Math.toRadians(proj.getFacing())) * weapon.getRange()), 
-    				targ.getLocation(), targ.getShieldRadiusEvenIfNoShield()) && 
-    				(!targ.isFighter() || targIsFighter) &&
-    				(MathUtils.getDistanceSquared(proj, targ.getLocation()) < bestRange * bestRange
-    					|| (proj.getSource() != null && proj.getSource().getShipTarget() != null &&
-    					proj.getSource().getShipTarget().equals(targ) && proj.getOwner() != targ.getOwner()))
-    				) {
-    				targIsFighter = targ.isFighter();
-    				bestTarget = proj.getOwner() == targ.getOwner() ? null : targ;
-    				bestRange = (MathUtils.getDistance(proj,  targ.getLocation()) + 
-    					targ.getShieldRadiusEvenIfNoShield() * (targ.getVelocity().length() > 100f ? 0f : 0.5f));
-    				if (proj.getSource() != null && proj.getSource().getShipTarget() != null &&
-    					proj.getSource().getShipTarget().equals(targ) && proj.getOwner() != targ.getOwner())
-    					break;
-    			}
+    		ShipAPI targ = (ShipAPI) next;
+    		if (!targ.isAlive() || targ.isHulk() || targ.hasTag(Tags.VARIANT_FX_DRONE) || !targ.isTargetable())
+    			continue;
+    		if (CollisionUtils.getCollides(proj.getLocation(), 
+    			new Vector2f(proj.getLocation().x + (float) FastTrig.cos(Math.toRadians(proj.getFacing())) * weapon.getRange(),
+    			proj.getLocation().y + (float) FastTrig.sin(Math.toRadians(proj.getFacing())) * weapon.getRange()), 
+    			targ.getLocation(), targ.getShieldRadiusEvenIfNoShield()) && 
+    			(!targ.isFighter() || targIsFighter) &&
+    			(MathUtils.getDistanceSquared(proj, targ.getLocation()) < bestRange * bestRange
+    				|| (proj.getSource() != null && proj.getSource().getShipTarget() != null &&
+    				proj.getSource().getShipTarget().equals(targ) && proj.getOwner() != targ.getOwner()))
+    			) {
+    			targIsFighter = targ.isFighter();
+    			bestTarget = proj.getOwner() == targ.getOwner() ? null : targ;
+    			bestRange = (MathUtils.getDistance(proj,  targ.getLocation()) + 
+    				targ.getShieldRadiusEvenIfNoShield() * (targ.getVelocity().length() > 100f ? 0f : 0.5f));
+    			if (proj.getSource() != null && proj.getSource().getShipTarget() != null &&
+    				proj.getSource().getShipTarget().equals(targ) && proj.getOwner() != targ.getOwner())
+    				break;
     		}
     	}
     	if (bestTarget != null) {
@@ -269,10 +257,9 @@ public class espc_IonFlailEffect implements OnFireEffectPlugin, EveryFrameWeapon
 	@Override
 	public void onHit(DamagingProjectileAPI projectile, CombatEntityAPI target, Vector2f point, boolean shieldHit,
 		ApplyDamageResultAPI damageResult, CombatEngineAPI engine) {
-        if (projectile.getWeapon() != null) {
-        	((espc_IonFlailEffect) projectile.getWeapon().getEffectPlugin()).getPlugin().addImpact(
-    			point, VectorUtils.getAngle(new Vector2f(1f, 0f), projectile.getVelocity()));
-        }
+		((espc_IonFlailRenderPlugin) 
+			Global.getCombatEngine().getPluginOfClass(espc_IonFlailRenderPlugin.class)).addImpact(
+	    	point, VectorUtils.getAngle(new Vector2f(1f, 0f), projectile.getVelocity()));
         float dot = Vector2f.dot(projectile.getVelocity().normalise(new Vector2f()), 
         	new Vector2f(target.getLocation().x - point.x, target.getLocation().y - point.y).normalise(new Vector2f()));
         float impulseMult = 1f;

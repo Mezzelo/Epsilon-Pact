@@ -280,7 +280,7 @@
 			"scintilla_espc",
 			"brilliant_espc",
 			"apex",
-			"nova_espc",
+			# "nova_espc",
 			"radiant_espc",
 		],
 	},
@@ -324,7 +324,7 @@
 			"scintilla_espc",
 			"brilliant_espc",
 			"apex",
-			"nova_espc",
+			# "nova_espc",
 			"radiant_espc",
         ],
     },
@@ -389,45 +389,40 @@
 			# "ionbeam",
 			# "gravitonbeam",
 			
-			"autopulse",
 			"plasma",
-			# "tachyonlance",
 			"guardian",
 			
 			"swarmer",
-			"hammer",
 			"annihilator",
 			"sabot_single",
-			"atropos_single",
 			"hammer_single",
 			
-			# "sabotpod",
-			# "breachpod",
-			# "phasecl",
-			# "typhoon",
-			# "pilum",
-			
-			# "cyclone",
-			# "hammerrack",
-			# "locust",
-
-			"espc_finnegan",
 			"espc_arcscatter",
 			"espc_minimir",
+			
 			"espc_minimirdual",
 			"espc_remdriver",
 			"espc_remmortar",
 			"espc_aa",
+			# "espc_arccaster",
+			
 			"espc_mkl",
 			"espc_flak",
 			"espc_gatling",
 			"espc_autocannon",
+			
 			"espc_ionflail",
 			"espc_fission",
-			"espc_riftspear",	
-			# "espc_hcl",
+			"espc_riftspear",
+			
+			# "espc_lasercannon",
 			"espc_riftpike",
 			"espc_tachyonbolter",
+
+			# "espc_sandman_small",
+			
+			# "espc_sandman_pod",
+			"espc_finnegan",
 		],
 	},
 	"priorityWeapons":{
@@ -503,7 +498,6 @@
 	"weaponSellFrequency":{
 		"vulcan":3,
 		"lightmg":1,
-		# "lightdualmg":3,
 		"pdlaser":3,
 		"pdburst":3,
 		"flak":3,
@@ -511,64 +505,56 @@
 		"heavyburst":3,
 		
 		"lightag":3,
-		# "lightac":3,
 		"lightdualac":3,
-		# "lightneedler":3,
-		# "railgun":3,
 		
 		"heavyac":3,
-		# "hveldriver":3,
 		"shredder":3,
-		# "heavyneedler":3,
 		
 		"mjolnir":3,
 		"mark9":3,
-		# "hellbore":3,
 		"devastator":3,
 		
 		"amblaster":3,
 		"irpulse":3,
-		# "taclaser":3,
 		"ioncannon":3,
 		
 		"pulselaser":3,
-		# "heavyblaster":3,
 		"ionpulser":3,
-		# "ionbeam":3,
 		"plasma":3,
-		# "tachyonlance":3,
 		"guardian":3,
 		
-		# "breach":3,
 		"swarmer":3,
-		"hammer":3,
 		"hammer_single":2,
 		"sabot_single":2,
-		"atropos_single":2,
 		"annihilator":3,
-		
-		# "sabotpod":2,
-		# "breachpod":3,
-		# "phasecl":3,
-		# "locust":1,
 	
-		"espc_finnegan":10,
 		"espc_arcscatter":10,
 		"espc_minimir":10,
+		
 		"espc_minimirdual":10,
 		"espc_remdriver":10,
 		"espc_remmortar":10,
 		"espc_aa":10,
+		# "espc_arccaster":10,
+		
 		"espc_mkl":10,
 		"espc_flak":10,
 		"espc_gatling":10,
 		"espc_autocannon":10,
+		
 		"espc_ionflail":6,
 		"espc_fission":3,
 		"espc_riftspear":3,	
-		# "espc_hcl":10,
+		
+		# "espc_lasercannon":6,
 		"espc_riftpike":3,
 		"espc_tachyonbolter":6,
+		
+		
+		# "espc_sandman_small":5,
+		"espc_finnegan":5,
+		
+		# "espc_sandman_pod":5,
 	},
 	"fighterSellFrequency":{
 		"wasp_wing":3,
@@ -631,6 +617,7 @@
             "graphics/portraits/espc_anne.png",
             "graphics/portraits/espc_beth.png",
             "graphics/portraits/espc_blanca.png",
+            "graphics/portraits/espc_caiomhe.png",
 			"graphics/portraits/espc_carla.png",
             "graphics/portraits/espc_clint.png",
             "graphics/portraits/espc_dominic.png",
@@ -658,7 +645,6 @@
             "graphics/portraits/espc_sonny.png",
             "graphics/portraits/espc_tomi.png",
             "graphics/portraits/espc_tony.png",
-            "graphics/portraits/espc_viviana.png",
             "graphics/portraits/espc_yina.png",
             "graphics/portraits/espc_zhen.png",
         ],
@@ -671,6 +657,7 @@
             "graphics/portraits/espc_beth.png",
             "graphics/portraits/espc_bianca.png",
             "graphics/portraits/espc_brie.png",
+            "graphics/portraits/espc_caiomhe.png",
             "graphics/portraits/espc_cait.png",
 			"graphics/portraits/espc_carla.png",
             "graphics/portraits/espc_clint.png",
@@ -678,6 +665,7 @@
             "graphics/portraits/espc_gun.png",
             "graphics/portraits/espc_helena.png",
             "graphics/portraits/espc_henrik.png",
+            "graphics/portraits/espc_julia.png",
             "graphics/portraits/espc_kay.png",
             "graphics/portraits/espc_kieran.png",
             "graphics/portraits/espc_lionel.png",

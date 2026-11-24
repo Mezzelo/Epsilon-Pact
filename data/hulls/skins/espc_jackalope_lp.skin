@@ -4,7 +4,7 @@
 	"hullName":"Jackalope (LP)",
 	"descriptionId":"espc_jackalope",
 	"descriptionPrefix":"Luddic Pathers have turned Mammon's blasphemed technology against its creators, resulting in a hull arguably more mercurial than the original. Armed with an oversized rack of Hammer torpedoes, this rendition of the Jackalope is feared and ridiculed in equal measure.",
-	"tags":["LP_bp"],
+	"tags":["codex_unlockable", "LP_bp"],
     "systemId":"espc_MissileBoost",
 	"tech":"Luddic Path",
 	"spriteName": "graphics/ships/espc_jackalope_lp.png",

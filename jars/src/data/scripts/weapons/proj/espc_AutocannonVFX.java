@@ -2,7 +2,6 @@ package data.scripts.weapons.proj;
 
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.combat.CombatEngineAPI;
-import com.fs.starfarer.api.combat.ShipAPI;
 import com.fs.starfarer.api.combat.ViewportAPI;
 import com.fs.starfarer.api.combat.BaseEveryFrameCombatPlugin;
 import com.fs.starfarer.api.graphics.SpriteAPI;
@@ -44,12 +43,9 @@ public class espc_AutocannonVFX extends BaseEveryFrameCombatPlugin {
 	private static final Color COLOR_END = new Color(255, 85, 10);
 	private static final float BIG_CHANCE = 0.1f;
 	
-	private final ShipAPI ship;
-	
 	private ArrayDeque<AutocannonProj> projs;
 	
-    public espc_AutocannonVFX(ShipAPI ship) {
-    	this.ship = ship;
+    public espc_AutocannonVFX() {
     	projs = new ArrayDeque<AutocannonProj>();
     }
     
@@ -85,19 +81,11 @@ public class espc_AutocannonVFX extends BaseEveryFrameCombatPlugin {
 	
     @Override
     public void advance(float amount, List<InputEventAPI> events) {
-    	if (amount <= 0f)
+    	if (amount <= 0f || projs.size() == 0)
     		return;
     	if (Global.getCombatEngine().isPaused())
     		return;
 		CombatEngineAPI engine = Global.getCombatEngine();
-		if (projs.size() == 0) {
-			if (ship == null || !engine.isInPlay(ship) || ship.isHulk() || !ship.isAlive()) {
-				if (ship != null)
-					ship.removeCustomData("espc_AutocannonPlugin");
-				engine.removePlugin(this);
-			}
-			return;
-		}
 		Iterator<AutocannonProj> projIter = projs.iterator();
 		while (projIter.hasNext()) {
 			AutocannonProj proj = projIter.next();

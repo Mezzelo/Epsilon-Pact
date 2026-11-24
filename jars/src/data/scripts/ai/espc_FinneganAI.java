@@ -1,11 +1,13 @@
 package data.scripts.ai;
 
 import com.fs.starfarer.api.Global;
+import com.fs.starfarer.api.combat.BattleObjectiveAPI;
 import com.fs.starfarer.api.combat.CollisionClass;
 import com.fs.starfarer.api.combat.CombatEngineAPI;
 import com.fs.starfarer.api.combat.CombatEntityAPI;
 import com.fs.starfarer.api.combat.DamageType;
 import com.fs.starfarer.api.combat.DamagingProjectileAPI;
+import com.fs.starfarer.api.combat.EmpArcEntityAPI;
 import com.fs.starfarer.api.combat.GuidedMissileAI;
 import com.fs.starfarer.api.combat.MissileAIPlugin;
 import com.fs.starfarer.api.combat.MissileAPI;
@@ -56,8 +58,8 @@ public class espc_FinneganAI implements MissileAIPlugin, GuidedMissileAI {
 			return;
 		
 		CombatEngineAPI combatEngine = Global.getCombatEngine();
-		if (debounce <= 0f && velocityLast.length() > MIN_VEL && 
-			missile.getVelocity().length() < velocityLast.length() * VEL_CHANGE_THRESHOLD) {
+		if (debounce <= 0f && velocityLast.lengthSquared() > MIN_VEL * MIN_VEL && 
+			missile.getVelocity().lengthSquared() < velocityLast.lengthSquared() * VEL_CHANGE_THRESHOLD * VEL_CHANGE_THRESHOLD) {
 			
 			Iterator<Object> entityIterator = combatEngine.getAllObjectGrid().getCheckIterator(
 				missile.getLocation(), 
@@ -70,7 +72,8 @@ public class espc_FinneganAI implements MissileAIPlugin, GuidedMissileAI {
 			
 			while (entityIterator.hasNext()) {
 				CombatEntityAPI entity = (CombatEntityAPI) entityIterator.next();
-				if (!(entity instanceof DamagingProjectileAPI)) {
+				if (!(entity instanceof DamagingProjectileAPI || entity instanceof BattleObjectiveAPI ||
+					entity instanceof EmpArcEntityAPI)) {
 					if (bestTarget == null) {
 						bestTarget = entity;
 						bestDistance = MathUtils.getDistanceSquared(missile, entity);

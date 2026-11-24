@@ -54,9 +54,10 @@ public class espc_RemoteBurnAI implements ShipSystemAIScript {
     private static final float SEARCH_RANGE_DEST = 3000f;
 
     private float aiThinkTime = THINK_INTERVAL_NORMAL;
-    private int isReckless = -1;
-    // TODO: checks don't seem to be triggering, please make sure reckless is set properly and searches are working
-    // vary search range based on target size?
+    private int isReckless = 0;
+    // reckless shipsystem AI behaviour currently disabled.  normally, ships using it disregard friendly collision & flux checks
+    // this was funny but it mostly just made it look like i didn't have proper shipsystem AI at all lol
+    // may make a return w/ colony crisis or SiC tree
 
     private ShipSystemAPI system;
     private ShipAPI ship;
@@ -191,7 +192,7 @@ public class espc_RemoteBurnAI implements ShipSystemAIScript {
         this.system = system;
         this.flux = ship.getFluxTracker();
         
-        if (ship.getShipAI() != null && ship.getShipAI().getConfig() != null &&
+        if (isReckless == -1 && ship.getShipAI() != null && ship.getShipAI().getConfig() != null &&
         	Personalities.RECKLESS.equals(ship.getShipAI().getConfig().personalityOverride))
         	isReckless = 1;
         
@@ -272,7 +273,9 @@ public class espc_RemoteBurnAI implements ShipSystemAIScript {
         			|| targ.getEngineController() != null && targ.getEngineController().isFlamedOut())
         			continue;
         		
-        		if (targ.getOwner() == ship.getOwner()) {
+        		if (targ.getOwner() == ship.getOwner() 
+        			// reserve last charge for offensive use
+        			&& system.getAmmo() > 1) {
         			if (isReckless < 1 && targ.isAlive() && !targ.isHulk() &&
         				(targ.getHullLevel() < ALLY_LOW_HULL ||
         	        	targ.getEngineController() != null && targ.getEngineController().computeDisabledFraction() > 0f ||

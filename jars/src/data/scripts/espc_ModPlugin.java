@@ -30,6 +30,7 @@ import org.dark.shaders.util.TextureData;
 
 // import data.campaign.ids.espc_People;
 import data.scripts.ai.espc_FinneganAI;
+import data.scripts.ai.espc_SandmanAI;
 import data.scripts.campaign.enc.espc_OutsideSystemEpsilpacEPEC;
 import data.scripts.campaign.enc.espc_SlipstreamEpsilpacEPEC;
 import data.scripts.campaign.intel.events.PactProgressionEventIntel;
@@ -128,6 +129,7 @@ public class espc_ModPlugin extends BaseModPlugin {
     	CodexDataV2.makeRelated(CodexDataV2.getShipSystemEntryId("espc_Salvo"),
         		CodexDataV2.getHullmodEntryId("espc_salvoinfomod"));
 
+    	/*
     	CodexDataV2.makeRelated(CodexDataV2.getShipSystemEntryId("espc_InverseSkimmer"),
     		CodexDataV2.getShipSystemEntryId("displacer"));
     	CodexDataV2.makeRelated(CodexDataV2.getShipSystemEntryId("espc_WideInverseSkimmer"),
@@ -138,15 +140,7 @@ public class espc_ModPlugin extends BaseModPlugin {
                 CodexDataV2.getShipSystemEntryId("microburn"));
     	CodexDataV2.makeRelated(CodexDataV2.getShipSystemEntryId("espc_NovaStrike"),
             CodexDataV2.getShipSystemEntryId("nova_burst"));
-    	
-    	CodexDataV2.makeRelated(CodexDataV2.getShipSystemEntryId("espc_InverseSkimmer"),
-        	CodexDataV2.getHullmodEntryId("espc_pactskin"));
-        CodexDataV2.makeRelated(CodexDataV2.getShipSystemEntryId("espc_WideInverseSkimmer"),
-            CodexDataV2.getHullmodEntryId("espc_pactskin"));
-        CodexDataV2.makeRelated(CodexDataV2.getShipSystemEntryId("espc_RemoteBurn"),
-        	CodexDataV2.getHullmodEntryId("espc_pactskin"));
-        CodexDataV2.makeRelated(CodexDataV2.getShipSystemEntryId("espc_NovaStrike"),
-        	CodexDataV2.getHullmodEntryId("espc_pactskin"));
+        */
     	
 	}
 
@@ -253,6 +247,10 @@ public class espc_ModPlugin extends BaseModPlugin {
 	public PluginPick<MissileAIPlugin> pickMissileAI (MissileAPI missile, ShipAPI ship) {
 		if (missile.getProjectileSpecId().equals("espc_procession_missile"))
 			return null;
+		else if (missile.getProjectileSpecId().equals("espc_sandman_rocket"))
+			return new PluginPick<MissileAIPlugin>(
+				new espc_SandmanAI(missile, ship), PickPriority.MOD_SPECIFIC
+			);
 			// return new PluginPick<MissileAIPlugin>(new MissileAIPlugin(), PickPriority.MOD_SPECIFIC);
 		else if (missile.getProjectileSpecId().equals("espc_finnegan_shot"))
 			return new PluginPick<MissileAIPlugin>(
@@ -268,7 +266,7 @@ public class espc_ModPlugin extends BaseModPlugin {
     	if (!MezzUtils.getSetting("CustomShipAI") && ship.getOwner() == 0 && !ship.isAlly())
     		return null;
         if (ship.getHullSpec().getHullId().contains("espc_chorale")) {
-            ShipAIConfig config = new ShipAIConfig();
+            ShipAIConfig config = new ShipAIConfig(ship);
             if (ship.getCaptain() == null || ship.getCaptain() != null && ship.getCaptain().isDefault()) {
             	config.personalityOverride = Personalities.AGGRESSIVE;
             }
@@ -276,7 +274,7 @@ public class espc_ModPlugin extends BaseModPlugin {
             config.alwaysStrafeOffensively = true;
             return new PluginPick<ShipAIPlugin>(Global.getSettings().createDefaultShipAI(ship, config), PickPriority.MOD_SET);
         } else if (ship.getHullSpec().getHullId().contains("wolf_espc")) {
-        	ShipAIConfig config = new ShipAIConfig();
+        	ShipAIConfig config = new ShipAIConfig(ship);
         	config.turnToFaceWithUndamagedArmor = false;
         } else if (ship.getHullSpec().getHullId().contains("espc_observer") &&
         	!ship.getHullSpec().getHullId().contains("espc_observer_tt") ||
@@ -286,7 +284,7 @@ public class espc_ModPlugin extends BaseModPlugin {
         	if (ship.getCaptain() != null && !ship.getCaptain().isDefault()) {
             	return null;
         	}
-            ShipAIConfig config = new ShipAIConfig();
+            ShipAIConfig config = new ShipAIConfig(ship);
             config.personalityOverride = Personalities.AGGRESSIVE;
 			config.turnToFaceWithUndamagedArmor = !ship.getHullSpec().getHullId().contains("espc_jackalope");
             return new PluginPick<ShipAIPlugin>(Global.getSettings().createDefaultShipAI(ship, config), PickPriority.MOD_SET);
@@ -299,7 +297,7 @@ public class espc_ModPlugin extends BaseModPlugin {
         	&& !ship.getHullSpec().getBaseHullId().equals("espc_rampart")
         	// && !ship.getHullSpec().getHullId().contains("radiant")
         	) {
-            ShipAIConfig config = new ShipAIConfig();
+            ShipAIConfig config = new ShipAIConfig(ship);
             config.personalityOverride = ship.hasLaunchBays() ? Personalities.STEADY : Personalities.AGGRESSIVE;
             if (ship.getHullSpec().getHullId().contains("lumen_espc") ||
                 ship.getHullSpec().getHullId().contains("radiant_espc"))
@@ -313,7 +311,7 @@ public class espc_ModPlugin extends BaseModPlugin {
            	&& !ship.getHullSpec().getBaseHullId().equals("espc_rampart")
         	// && !ship.getHullSpec().getHullId().contains("radiant")
            	) {
-            ShipAIConfig config = new ShipAIConfig();
+            ShipAIConfig config = new ShipAIConfig(ship);
             // config.personalityOverride = ship.getCaptain().getPersonalityAPI().getId();
             config.personalityOverride = Personalities.AGGRESSIVE;
             if (ship.getHullSpec().getHullId().contains("lumen_espc") ||
@@ -330,7 +328,7 @@ public class espc_ModPlugin extends BaseModPlugin {
 	    	&& !ship.getHullSpec().getBaseHullId().equals("espc_rampart")
 	    	// && !ship.getHullSpec().getHullId().contains("radiant") 
         	) {
-	        ShipAIConfig config = new ShipAIConfig();
+	        ShipAIConfig config = new ShipAIConfig(ship);
 	        config.personalityOverride = Personalities.AGGRESSIVE;
             if (ship.getHullSpec().getHullId().contains("lumen_espc") ||
                 ship.getHullSpec().getHullId().contains("radiant_espc"))
@@ -342,7 +340,7 @@ public class espc_ModPlugin extends BaseModPlugin {
         	&& !ship.hasLaunchBays()
     	    // && !ship.getHullSpec().getHullId().contains("radiant") 
         	) {
-	    	ShipAIConfig config = new ShipAIConfig();
+	    	ShipAIConfig config = new ShipAIConfig(ship);
 	        config.personalityOverride = Personalities.AGGRESSIVE;
 	        return new PluginPick<ShipAIPlugin>(Global.getSettings().createDefaultShipAI(ship, config), PickPriority.MOD_SET);
 	    }

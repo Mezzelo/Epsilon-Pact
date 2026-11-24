@@ -40,13 +40,10 @@ public class espc_RemMortarEffect implements OnFireEffectPlugin, OnHitEffectPlug
     	if (weapon.getShip() == null)
     		return;
     	
-		if (!weapon.getShip().getCustomData().containsKey("espc_RemMortarPlugin")) {
-			espc_RemMortarVFX plugin = new espc_RemMortarVFX(weapon.getShip());
-	        engine.addPlugin(plugin);
-	        weapon.getShip().setCustomData("espc_RemMortarPlugin", plugin);
-	        plugin.addProj(proj);
-		} else
-    		((espc_RemMortarVFX) weapon.getShip().getCustomData().get("espc_RemMortarPlugin")).addProj(proj);
+    	if (!engine.hasPluginOfClass(espc_RemMortarVFX.class))
+	        engine.addPlugin(new espc_RemMortarVFX());
+    	
+		((espc_RemMortarVFX) engine.getPluginOfClass(espc_RemMortarVFX.class)).addProj(proj);
     	
     	if (count == -1)
     		return;

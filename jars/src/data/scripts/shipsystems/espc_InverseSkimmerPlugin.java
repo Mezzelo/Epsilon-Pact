@@ -45,7 +45,7 @@ public class espc_InverseSkimmerPlugin extends BaseEveryFrameCombatPlugin {
 	private static final float START_DURATION = 1.5f;
 	private static final float START_DURATION_CAPITAL = 2.5f;
 	private static final float DURATION = 5f + START_DURATION;
-	private static final float DURATION_CAPITAL = 8f + START_DURATION_CAPITAL;
+	private static final float DURATION_CAPITAL = 12f + START_DURATION_CAPITAL;
 	private static final float AI_FORCEFIRE_DELAY = 0.55f;
 	private static final float INTERCEPT_RANGE = 150f;
 

@@ -30,7 +30,8 @@
       "autofire": true,
       "mode": "LINKED",
       "weapons": {
-        "WS 003": "kineticblaster"
+        "WS 003": "pulselaser"
+        # "WS 003": "kineticblaster"
       }
     },
     {

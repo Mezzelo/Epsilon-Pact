@@ -1,10 +1,25 @@
-Version 0.6.3 (TENTATIVE NOTES - some WIP additions in last changelog version removed for prerelease)
+Version 0.6.3a
+Updated for 0.98.5a-RC9
+new faces
+
+Tachyon Bolter
+- Stats adjusted to no longer be near-equivalent to the Tachyon Lance.
+- Bolts now have a chance to arc through shields, based on target hardflux.  Like the Tachyon Lance, arcs may occur up to 3 times per burst.
+
+Remote Burn
+- Shipsystem AI no longer configured to ignore safeguards when used on a reckless officer (which is to say, when the player is fielding it)
+
+- Multiple faction variants must now be unlocked in codex
+- The Pact Modifications hullmod is no longer considered codex-related to any shipsystems as to prevent spoilers
+	- Those shipsystems are also no longer considered codex-related to any other shipsystems.
+
+Version 0.6.3
 More robust graphicslib support: Lighting & distortions, specifically
 Overhaul of Pact fleet doctrine: Most existing variants reworked, ALL mobility systems have been removed from their finalized doctrine
 	- New Pact versions of vanilla hulls, featuring new shipsystems.
+Pact campaign progression: The Pact's doctrine will develop over the course of a campaign, fully maturing after 4 cycles.  Toggleable & adjustable with Lunalib.
 AI changes to Pact hull designs which should make them significantly more effective without needing player control/direction.  Toggleable with Lunalib.
-PORTRAITURE CONTINUES, FOREVER.  ENDLESS PEOPLE, ENDLESS CREATURES.
-
+PORTRAITURE CONTINUES, FOREVER.  ENDLESS PEOPLE, POSSIBLY FINITE CREATURES.
 
 New weapons:
 - Arc-Scatterer, small ballistic
@@ -47,7 +62,6 @@ Pilgrim (H)
 
 Observer
 - Flux Capacity 10000 > 12000
-- Dissipation 700 > 750
 
 Observer (TT)
 - Ordnance Points 155 > 150
@@ -76,6 +90,9 @@ AM Flamer
 Solo AM Flamer
 - ditto re: scripted behaviour
 - Now ignores flares
+
+Finnegan Bomb Launcher
+- Now no longer knocks back battle objectives lol
 
 - New firing sounds for the following weapons: Remise Rifle, Heavy Gatling, Scatter Rifle
 - Improved visual effects for the Confluence Emitter, Remise Mortar and Type XII-a Autocannon

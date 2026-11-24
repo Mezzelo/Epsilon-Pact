@@ -44,8 +44,8 @@ public class espc_CollapseStats extends BaseShipSystemScript {
 	
 	private static final float ABILITY_RANGE = 1750f;
 	// additional radius around the given ship's shield bounds (or collision bounds, whichever is more generous as to mod-proof) 
-	private static final float FREEZE_RADIUS = 150f;
-	private static final float FREEZE_RADIUS_MIN = 50f;
+	public static final float FREEZE_RADIUS = 150f;
+	public static final float FREEZE_RADIUS_MIN = 50f;
 	private static final float DAMAGE_BONUS = 20f;
 	
 	private ShipAPI target;
@@ -177,10 +177,9 @@ public class espc_CollapseStats extends BaseShipSystemScript {
 										((MissileAPI) thisProj).getSpec()))
 										continue;
 								}
-							} else 
-								if (!thisProj.getProjectileSpec().equals(
-									thisProj.getWeapon().getSpec().getProjectileSpec()))
-									continue;
+							} else if (thisProj.getProjectileSpec() == null || !thisProj.getProjectileSpec().equals(
+								thisProj.getWeapon().getSpec().getProjectileSpec()))
+								continue;
 							
 							freezeRenderer.FreezeProj(thisProj, isMissile);
 							float projDamage = thisProj.getDamageAmount();

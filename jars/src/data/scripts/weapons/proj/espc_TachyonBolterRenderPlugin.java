@@ -37,19 +37,16 @@ public class espc_TachyonBolterRenderPlugin extends BaseEveryFrameCombatPlugin {
 	private static final float PARTICLE_WIDTH_MIN = 1.5f;
 	private static final float PARTICLE_DIST_FORWARDS = 50f;
 	
-	private static final int SPARK_PARTICLE_COUNT = 32;
-	private static final float SPARK_DELAY = 0.05f;
+	/*
 	private static final float SPARK_BEARING_MAX = 20f;
-	private static final float SPARK_ANGLE_SPREAD = 35f;
-	private static final float SPARK_PARTICLE_DUR = 0.7f;
-	private static final float SPARK_PARTICLE_DUR_MIN = 0.4f;
 	private static final float SPARK_PARTICLE_DIST_MAX = 250f;
-	private static final float SPARK_PARTICLE_DIST_MAX_MAX = 350f;
-	private static final float SPARK_PARTICLE_DIST_MIN = 100f;
+	private static final float SPARK_PARTICLE_DIST_MAX_MAX = 350f; */
 	
 	private ArrayDeque<DamagingProjectileAPI> projs;
 	private ArrayDeque<WeaponAPI> weps;
 	private ArrayDeque<TachyonBolterImpact> impacts;
+	
+	/*
 	private ArrayDeque<TachyonBolterSpark> sparks;
 	
     private class TachyonBolterSpark {
@@ -73,6 +70,7 @@ public class espc_TachyonBolterRenderPlugin extends BaseEveryFrameCombatPlugin {
     		
     	}
     }
+    */
 	
     private class TachyonBolterImpact {
     	private final Vector2f startPos;
@@ -99,7 +97,7 @@ public class espc_TachyonBolterRenderPlugin extends BaseEveryFrameCombatPlugin {
 		projs = new ArrayDeque<DamagingProjectileAPI>();
 		weps = new ArrayDeque<WeaponAPI>();
 		impacts = new ArrayDeque<TachyonBolterImpact>();
-		sparks = new ArrayDeque<TachyonBolterSpark>();
+		// sparks = new ArrayDeque<TachyonBolterSpark>();
 	}
 	
 	public void addWeapon(WeaponAPI wep) {
@@ -123,11 +121,6 @@ public class espc_TachyonBolterRenderPlugin extends BaseEveryFrameCombatPlugin {
 		CombatEngineAPI engine = Global.getCombatEngine();
 		if (engine == null)
 			return;
-		if (projs.size() == 0 && weps.size() == 0 && impacts.size() == 0) {
-			engine.removePlugin(this);
-			return;
-		}
-		
 		
 		if (projs.size() > 0) {
 			Iterator<DamagingProjectileAPI> iter = projs.iterator();
@@ -181,7 +174,7 @@ public class espc_TachyonBolterRenderPlugin extends BaseEveryFrameCombatPlugin {
 			while (wepIter.hasNext()) {
 				WeaponAPI wep = wepIter.next();
 				if (wep.getChargeLevel() >= 1f) {
-					
+					// scrapped weapon vfx code, may make a return
 				}
 	
 			}

@@ -3,7 +3,6 @@ package data.scripts.weapons.proj;
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.combat.CombatEngineAPI;
 import com.fs.starfarer.api.combat.DamagingProjectileAPI;
-import com.fs.starfarer.api.combat.ShipAPI;
 import com.fs.starfarer.api.combat.ViewportAPI;
 import com.fs.starfarer.api.combat.BaseEveryFrameCombatPlugin;
 import com.fs.starfarer.api.graphics.SpriteAPI;
@@ -22,12 +21,9 @@ public class espc_RemMortarVFX extends BaseEveryFrameCombatPlugin {
 	private static final float BLINK_FREQUENCY = 1f;
 	private static final float BLINK_DURATION = 0.4f;
 	
-	private final ShipAPI ship;
-	
 	private ArrayDeque<DamagingProjectileAPI> projs;
 	
-    public espc_RemMortarVFX(ShipAPI ship) {
-    	this.ship = ship;
+    public espc_RemMortarVFX() {
 		projs = new ArrayDeque<DamagingProjectileAPI>();
     }
 	
@@ -37,19 +33,11 @@ public class espc_RemMortarVFX extends BaseEveryFrameCombatPlugin {
 	
     @Override
     public void advance(float amount, List<InputEventAPI> events) {
-    	if (amount <= 0f)
+    	if (amount <= 0f || projs.size() == 0)
     		return;
 		CombatEngineAPI engine = Global.getCombatEngine();
 		if (engine.isPaused())
 			return;
-		if (projs.size() == 0) {
-			if (ship == null || !engine.isInPlay(ship) || ship.isHulk() || !ship.isAlive()) {
-				if (ship != null)
-					ship.removeCustomData("espc_RemMortarPlugin");
-				engine.removePlugin(this);
-			}
-			return;
-		}
 		Iterator<DamagingProjectileAPI> projIter = projs.iterator();
 		while (projIter.hasNext()) {
 			DamagingProjectileAPI proj = projIter.next();
